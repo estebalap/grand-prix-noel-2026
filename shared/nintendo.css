@@ -1,0 +1,119 @@
+/* ============================================================================
+   HABILLAGE « CONSOLE DE SALON » (inspiré des codes graphiques Nintendo, sans aucun élément protégé)
+   Formes rondes et gonflées, contours épais façon autocollant, ombres dures (sans flou),
+   boutons « bonbon » à tranche 3D, typographie ronde (Fredoka / Nunito, licence OFL),
+   animations à rebond (dépassement puis retour). Activé par :root[data-skin="nintendo"] ;
+   l'habillage « néon » d'origine reste disponible (touche K sur la TV, ?skin=neon).
+   ========================================================================= */
+@font-face{font-family:"Fredoka GP";src:url(../fonts/fredoka-latin-500-normal.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Fredoka GP";src:url(../fonts/fredoka-latin-600-normal.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Fredoka GP";src:url(../fonts/fredoka-latin-700-normal.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Nunito GP";src:url(../fonts/nunito-latin-600-normal.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Nunito GP";src:url(../fonts/nunito-latin-700-normal.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Nunito GP";src:url(../fonts/nunito-latin-800-normal.woff2) format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:"Nunito GP";src:url(../fonts/nunito-latin-900-normal.woff2) format("woff2");font-weight:900;font-display:swap}
+
+:root[data-skin="nintendo"]{
+  --font-display:"Fredoka GP","Fredoka","Arial Rounded MT Bold","Segoe UI",system-ui,sans-serif;
+  --font-body:"Nunito GP","Nunito","Segoe UI",system-ui,sans-serif;
+  --font-serif:"Nunito GP","Nunito","Segoe UI",system-ui,sans-serif;
+  --radius:28px; --radius-s:18px;
+  --pop:cubic-bezier(.34,1.56,.64,1);            /* rebond (dépassement) */
+  --edge:rgba(255,255,255,.92);                    /* liseré blanc « autocollant » */
+  --sh-hard:0 6px 0 rgba(0,0,0,.42);
+  --n-red:#e60012; --n-yellow:#ffd400; --n-blue:#00a0e9; --n-green:#3bcb3b;
+  --card-1:rgba(30,38,92,.92); --card-2:rgba(16,22,60,.94);
+  --dots:radial-gradient(rgba(255,255,255,.07) 2.2px,transparent 2.6px);
+}
+:root[data-skin="nintendo"] body{font-weight:700;letter-spacing:.005em}
+
+/* --- titres : ronds, épais, contour blanc + ombre dure, légère inclinaison « course » */
+:root[data-skin="nintendo"] .display{font-weight:700;letter-spacing:.02em}
+:root[data-skin="nintendo"] .foil{
+  background:linear-gradient(180deg,var(--gold-1) 0%,var(--gold-2) 45%,var(--gold-3) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  -webkit-text-stroke:0;filter:drop-shadow(0 4px 0 rgba(0,0,0,.45)) drop-shadow(0 0 0 #fff)}
+:root[data-skin="nintendo"] h1.foil,:root[data-skin="nintendo"] h2.foil,:root[data-skin="nintendo"] .brand b.foil{
+  filter:drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(0 7px 0 rgba(0,0,0,.5))}
+:root[data-skin="nintendo"] .eyebrow{font-family:var(--font-display);font-weight:600;letter-spacing:.24em}
+:root[data-skin="nintendo"] .serif{font-style:normal;font-weight:700}
+
+/* --- cartes : bulles gonflées, liseré blanc, ombre dure, motif à pois discret */
+:root[data-skin="nintendo"] .deco{
+  background:var(--dots) 0 0/22px 22px,linear-gradient(180deg,var(--card-1),var(--card-2));
+  border:3px solid var(--edge);border-radius:var(--radius);backdrop-filter:none;-webkit-backdrop-filter:none;
+  box-shadow:0 0 0 3px rgba(0,0,0,.35),0 10px 0 rgba(0,0,0,.35),0 18px 40px rgba(0,0,0,.35),inset 0 3px 0 rgba(255,255,255,.18),inset 0 -6px 0 rgba(0,0,0,.18)}
+:root[data-skin="nintendo"] .deco::before{left:auto;right:16px;top:-12px;width:auto;height:auto;border:0;border-radius:99px;opacity:1;
+  content:"";width:44px;height:14px;background:var(--gold-2);box-shadow:0 3px 0 rgba(0,0,0,.35),inset 0 2px 0 rgba(255,255,255,.6)}
+:root[data-skin="nintendo"] .deco::after{display:none}
+:root[data-skin="nintendo"] .deco.plain::before{display:none}
+
+/* --- pastilles : pilules blanches à contour */
+:root[data-skin="nintendo"] .pill{background:rgba(255,255,255,.12);border:2.5px solid var(--edge);font-weight:600;letter-spacing:.06em;
+  box-shadow:0 3px 0 rgba(0,0,0,.35)}
+
+/* --- boutons « bonbon » : pilule, reflet, tranche 3D, rebond */
+:root[data-skin="nintendo"] .btn{border-radius:999px;border:3px solid var(--edge);letter-spacing:.06em;font-weight:700;
+  background:linear-gradient(180deg,rgba(255,255,255,.45) 0 18%,transparent 19%),linear-gradient(180deg,var(--btn-1,#ffe08a),var(--btn-2,#e9a92b) 60%,var(--btn-3,#b97812));
+  box-shadow:0 7px 0 var(--btn-sh,#7a4b08),0 7px 0 3px rgba(0,0,0,.25),0 16px 26px rgba(0,0,0,.35);
+  transition:transform .18s var(--pop),box-shadow .1s,filter .2s}
+:root[data-skin="nintendo"] .btn:hover:not(:disabled){transform:translateY(-2px) scale(1.035)}
+:root[data-skin="nintendo"] .btn:active:not(:disabled){transform:translateY(6px) scale(.98);box-shadow:0 1px 0 var(--btn-sh,#7a4b08),0 4px 10px rgba(0,0,0,.35);transition-duration:.05s}
+:root[data-skin="nintendo"] .btn.ghost{background:rgba(255,255,255,.1);color:var(--ink);box-shadow:0 5px 0 rgba(0,0,0,.4)}
+:root[data-skin="nintendo"] .btn.red{background:linear-gradient(180deg,rgba(255,255,255,.4) 0 18%,transparent 19%),linear-gradient(180deg,#ff5a6a,var(--n-red) 60%,#a3000d);box-shadow:0 7px 0 #6a0008,0 16px 26px rgba(0,0,0,.35)}
+:root[data-skin="nintendo"] .btn.green{background:linear-gradient(180deg,rgba(255,255,255,.4) 0 18%,transparent 19%),linear-gradient(180deg,#7dea6e,var(--n-green) 60%,#1f8d1f);box-shadow:0 7px 0 #135c13,0 16px 26px rgba(0,0,0,.35)}
+
+/* --- médailles : anneau blanc épais + anneau couleur */
+:root[data-skin="nintendo"] .medal{box-shadow:0 0 0 4px #fff,0 0 0 8px var(--gold-3),0 6px 0 8px rgba(0,0,0,.35)}
+
+/* --- barres : jauges arrondies avec reflet */
+:root[data-skin="nintendo"] .bar{height:12px;border:2px solid rgba(255,255,255,.7);background:rgba(0,0,0,.35)}
+:root[data-skin="nintendo"] .bar>i{background:linear-gradient(180deg,rgba(255,255,255,.5) 0 35%,transparent 36%),linear-gradient(90deg,var(--c1,#4cc9f0),var(--c2,#9b6bff))}
+
+/* --- animations d'entrée à rebond */
+@keyframes nPop{0%{transform:scale(.4) rotate(-4deg);opacity:0}55%{transform:scale(1.1) rotate(1deg);opacity:1}75%{transform:scale(.96)}100%{transform:scale(1) rotate(0)}}
+@keyframes nWiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-3deg)}75%{transform:rotate(3deg)}}
+@keyframes nBounceIn{0%{transform:translateY(40px) scale(.9);opacity:0}60%{transform:translateY(-8px) scale(1.02);opacity:1}100%{transform:none}}
+:root[data-skin="nintendo"] .scn{animation:nBounceIn .55s var(--pop) both}
+:root[data-skin="nintendo"] .toast{border:3px solid #fff;border-radius:999px;font-weight:800;box-shadow:0 5px 0 rgba(0,0,0,.4);animation:nPop .45s var(--pop) both}
+
+/* ================= TV ================= */
+:root[data-skin="nintendo"] #hud{background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,0))}
+:root[data-skin="nintendo"] .brand b{font-size:34px}
+:root[data-skin="nintendo"] #ticker{border-top:4px solid #fff;background:linear-gradient(0deg,rgba(10,14,40,.95),rgba(10,14,40,.75))}
+:root[data-skin="nintendo"] .tk-tag{background:var(--n-red);font-family:var(--font-display);letter-spacing:.12em;border-right:4px solid #fff}
+:root[data-skin="nintendo"] #tkTrack{font-weight:800}
+:root[data-skin="nintendo"] #tkTrack span::before{content:"★"}
+:root[data-skin="nintendo"] #modeRibbon{border-bottom:3px solid rgba(255,255,255,.6);letter-spacing:.1em}
+:root[data-skin="nintendo"] .countdown .digit{font-family:var(--font-display);font-weight:700;-webkit-text-stroke:10px #fff;paint-order:stroke fill;
+  filter:drop-shadow(0 12px 0 rgba(0,0,0,.45));animation:nPop .5s var(--pop) both}
+:root[data-skin="nintendo"] .countdown.go .digit{color:var(--n-yellow)!important;-webkit-text-fill-color:var(--n-yellow)!important;background:none!important}
+:root[data-skin="nintendo"] .lane{border-width:4px!important}
+:root[data-skin="nintendo"] .lane .ln{font-family:var(--font-display);border-radius:999px}
+:root[data-skin="nintendo"] .bubble{border:3px solid #fff;border-radius:999px;box-shadow:0 5px 0 rgba(0,0,0,.4);animation:nPop .4s var(--pop) both;font-weight:800}
+:root[data-skin="nintendo"] .mi-card{border:4px solid #fff;border-radius:36px;box-shadow:0 0 0 5px var(--gold-3),0 14px 0 rgba(0,0,0,.4);animation:nPop .55s var(--pop) both}
+:root[data-skin="nintendo"] .mi-card li{border:2.5px solid rgba(255,255,255,.55);border-radius:20px}
+:root[data-skin="nintendo"] #soundGate{animation:nWiggle 3.5s ease-in-out infinite}
+:root[data-skin="nintendo"] .row.top1 .sc,:root[data-skin="nintendo"] .sc{font-family:var(--font-display)}
+
+/* ================= POCKET PIT ================= */
+:root[data-skin="nintendo"] #top{border-bottom:3px solid rgba(255,255,255,.75);background:linear-gradient(180deg,rgba(14,20,58,.96),rgba(14,20,58,.8))}
+:root[data-skin="nintendo"] .purse{border:3px solid #fff;border-radius:999px;box-shadow:0 4px 0 rgba(0,0,0,.4)}
+:root[data-skin="nintendo"] #tabs{border-top:3px solid rgba(255,255,255,.75)}
+:root[data-skin="nintendo"] #tabs button.on{transform:translateY(-3px);transition:transform .25s var(--pop)}
+:root[data-skin="nintendo"] #tabs button.on .ico{animation:nPop .4s var(--pop) both}
+:root[data-skin="nintendo"] .card{border-radius:24px}
+:root[data-skin="nintendo"] .tauntgrid button{border:2.5px solid rgba(255,255,255,.75);border-radius:20px;box-shadow:0 4px 0 rgba(0,0,0,.4);transition:transform .18s var(--pop)}
+:root[data-skin="nintendo"] .tauntgrid button:active{transform:translateY(4px);box-shadow:0 0 0 rgba(0,0,0,.4)}
+:root[data-skin="nintendo"] .modechip{border:2.5px solid #fff;box-shadow:0 3px 0 rgba(0,0,0,.4)}
+:root[data-skin="nintendo"] .eco-tiles div{border:3px solid rgba(255,255,255,.8);border-radius:22px;box-shadow:0 5px 0 rgba(0,0,0,.35)}
+:root[data-skin="nintendo"] #sheet .in{border-top:4px solid #fff;border-radius:30px 30px 0 0}
+:root[data-skin="nintendo"] .slotc{border-radius:16px}
+
+/* ================= LANCEMENT ================= */
+:root[data-skin="nintendo"] .card.on{box-shadow:0 0 0 4px #fff,0 0 0 8px var(--gold-2),0 12px 0 8px rgba(0,0,0,.35)}
+:root[data-skin="nintendo"] #formats .card,:root[data-skin="nintendo"] #modes .card{border:3px solid rgba(255,255,255,.55);background:var(--dots) 0 0/22px 22px,linear-gradient(180deg,var(--card-1),var(--card-2));
+  box-shadow:0 8px 0 rgba(0,0,0,.35);transition:transform .25s var(--pop),box-shadow .2s}
+:root[data-skin="nintendo"] #formats .card:hover,:root[data-skin="nintendo"] #modes .card:hover{transform:translateY(-6px) rotate(-.6deg)}
+:root[data-skin="nintendo"] .card .ic{border-radius:50%;background:#fff;color:var(--btn-2,#e9a92b);box-shadow:0 4px 0 rgba(0,0,0,.35)}
+:root[data-skin="nintendo"] .step i{border:3px solid #fff;box-shadow:0 3px 0 rgba(0,0,0,.4)}
+:root[data-skin="nintendo"] .hero h1{letter-spacing:.03em}

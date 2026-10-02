@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#070b1e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Pocket Pit — Grand Prix de Noël</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="pit.css">
+<link rel="stylesheet" href="../shared/nintendo.css">
+<script>/* habillage : « nintendo » (défaut) ou « neon » ; ?skin=neon pour changer */try{var k=new URLSearchParams(location.search).get("skin");if(k)localStorage.setItem("gp.skin",k);document.documentElement.dataset.skin=localStorage.getItem("gp.skin")||"nintendo"}catch(e){document.documentElement.dataset.skin="nintendo"}</script>
+</head>
+<body>
+<canvas id="atmo"></canvas><div class="vignette"></div>
+<div id="app">
+  <div id="net" class="hide">Reconnexion au circuit…</div>
+  <header id="top"></header>
+  <main id="main"></main>
+  <nav id="tabs"></nav>
+</div>
+<div id="sheet" class="hide"></div>
+<div id="toasts"></div>
+<script type="module" src="pit.js"></script>
+</body>
+</html>

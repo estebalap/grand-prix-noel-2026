@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Showroom — Grand Prix de Noël</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="showroom.css">
+<link rel="stylesheet" href="../shared/nintendo.css">
+<script>/* habillage : « nintendo » (défaut) ou « neon » ; ?skin=neon pour changer */try{var k=new URLSearchParams(location.search).get("skin");if(k)localStorage.setItem("gp.skin",k);document.documentElement.dataset.skin=localStorage.getItem("gp.skin")||"nintendo"}catch(e){document.documentElement.dataset.skin="nintendo"}</script>
+</head>
+<body>
+<canvas id="atmo"></canvas><div class="vignette"></div>
+<div id="sr">
+  <header>
+    <div class="brand"><span class="eyebrow">Édition 2026</span><b class="display foil">Showroom</b></div>
+    <nav id="modes"><button data-m="teams" class="on">Écuries</button><button data-m="trophies">Trophées</button><button data-m="cars">Bolides</button></nav>
+  </header>
+  <section id="stage3d"><canvas id="c3"></canvas><div id="hint">Glisse pour tourner · l'écurie change toute seule</div></section>
+  <aside id="rail"></aside>
+  <section id="info"></section>
+</div>
+<script src="../lib/three.min.js"></script>
+<script type="module" src="showroom.js"></script>
+</body>
+</html>

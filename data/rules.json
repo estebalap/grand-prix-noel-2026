@@ -1,0 +1,649 @@
+{
+ "rules": {
+  "edition": "Noël 2026",
+  "startCoins": 100,
+  "heatPoints": [
+   5,
+   3,
+   2,
+   1
+  ],
+  "heatCoins": [
+   25,
+   15,
+   10,
+   5
+  ],
+  "betWindowSec": 45,
+  "countdownSec": 4,
+  "betMin": 5,
+  "betMaxPct": 50,
+  "trapMaxPerLane": 2,
+  "paddockSize": 6,
+  "bailoutCoins": 15,
+  "crashOdds": 4.0,
+  "oddsMin": 1.2,
+  "oddsMax": 8.0,
+  "placeMin": 1.1,
+  "placeMax": 4.0,
+  "oddsModel": {
+   "temperature": 10.0,
+   "luck": 0.4,
+   "margin": 0.05,
+   "eloK": 1.5,
+   "eloCap": 12.0
+  },
+  "boostCoinsPerTaps": 20,
+  "boostCoinsMax": 15,
+  "tauntCooldownSec": 5
+ },
+ "modes": [
+  {
+   "id": "gp_bets",
+   "name": "Grand Prix — Paris & Stratégie",
+   "icon": "coin",
+   "betting": true,
+   "traps": true,
+   "unlimited": false,
+   "elimination": false,
+   "prefer": null,
+   "blurb": "Paris, pièges et Météo : le grand classique.",
+   "badge": "PARIS & OBJETS TACTIQUES",
+   "type": "Championnat stratégique • Économie de Pièces",
+   "banner": "CIRCUIT ARC-EN-CIEL 4 VOIES • PARIS OUVERTS",
+   "rules": [
+    {
+     "icon": "🪙",
+     "text": "Misez vos pièces avant le départ sur la voie ou le pilote de votre choix."
+    },
+    {
+     "icon": "🍌",
+     "text": "Achat de pièges physiques 3D (bananes, thwomps) : max 2 par voie."
+    },
+    {
+     "icon": "💥",
+     "text": "Un piège touché immobilise ou ralentit le bolide : aucun remboursement !"
+    },
+    {
+     "icon": "👑",
+     "text": "Les gains des paris permettent d'acheter des cartes Bonus au tour suivant."
+    }
+   ],
+   "tip": "Placez vos bananes 3D juste après les virages aveugles pour surprendre les favoris !"
+  },
+  {
+   "id": "gp_pure",
+   "name": "Grand Prix — Pure Vitesse",
+   "icon": "flag",
+   "betting": false,
+   "traps": false,
+   "unlimited": false,
+   "elimination": false,
+   "prefer": null,
+   "blurb": "Zéro piège, zéro pari : seul le chrono parle.",
+   "badge": "CIRCUIT OFFICIEL MARIO KART 3D",
+   "type": "Championnat au temps • 4 Voies Rainbow Road",
+   "banner": "CIRCUIT ARC-EN-CIEL 4 VOIES • DÉPART IMMINENT",
+   "rules": [
+    {
+     "icon": "🚦",
+     "text": "Départ simultané par abaissement mécanique du portique à 4 voies."
+    },
+    {
+     "icon": "🚫",
+     "text": "Piste 100% propre : aucun piège ni obstacle."
+    },
+    {
+     "icon": "🥇",
+     "text": "Barème officiel : 1er = 5 pts (+25🪙), 2e = 3 pts (+15🪙), 3e = 2 pts (+10🪙), 4e = 1 pt (+5🪙)."
+    },
+    {
+     "icon": "🏁",
+     "text": "Le premier bolide qui franchit le capteur d'arrivée gagne la manche."
+    }
+   ],
+   "tip": "Privilégiez les bolides lourds en zamak pour maximiser l'inertie gravitationnelle dans la descente !"
+  },
+  {
+   "id": "survival",
+   "name": "Survie Ultime — Mort Subite",
+   "icon": "skull",
+   "betting": true,
+   "traps": true,
+   "unlimited": false,
+   "elimination": true,
+   "prefer": null,
+   "blurb": "Le dernier de chaque manche est éliminé. Il n'en restera qu'un.",
+   "badge": "ZONE DE GUERRE SANS PITIÉ • TOP 1 UNIQUE",
+   "type": "Battle Royale Automobile • Élimination Directe",
+   "banner": "WASTELAND DERBY — SURVIE PUNK SANS PITIÉ",
+   "rules": [
+    {
+     "icon": "☠️",
+     "text": "MORT SUBITE : le dernier bolide de chaque manche est ÉLIMINÉ sur le coup !"
+    },
+    {
+     "icon": "🛡️",
+     "text": "Dégâts de carrosserie et carambolages 100% autorisés : aucun commissaire de piste."
+    },
+    {
+     "icon": "🚫",
+     "text": "Aucune réparation ni changement de véhicule permis entre les manches."
+    },
+    {
+     "icon": "👑",
+     "text": "Seul l'ultime survivant remporte le Trophée Cascadeur Suprême."
+    }
+   ],
+   "tip": "Les bolides blindés et massifs encaissent mieux les chocs lors des compressions de piste."
+  },
+  {
+   "id": "boss_tomica",
+   "name": "Boss Fight — Le Shogun Tomica",
+   "icon": "bolt",
+   "betting": true,
+   "traps": false,
+   "unlimited": false,
+   "elimination": false,
+   "prefer": "09_",
+   "blurb": "Tokyo Drift : affrontez le Boss mécanique japonais.",
+   "badge": "SHINJUKU TOUGE BATTLE • 1 VS 1",
+   "type": "Défi Boss Asymétrique • Vitesse & Précision",
+   "banner": "東京ドリフト • HATSUNE MIKU BATTLE • 夜間暴走",
+   "rules": [
+    {
+     "icon": "⚡",
+     "text": "Affrontez le Boss mécanique légendaire Tomica (châssis lourd japonais)."
+    },
+    {
+     "icon": "⏱️",
+     "text": "Handicap Boss : le Boss s'élance avec 0,3 s d'avance sur le peloton."
+    },
+    {
+     "icon": "🌀",
+     "text": "Drift au virage serré : tout contact barrière inflige +2 s de pénalité."
+    },
+    {
+     "icon": "⛩️",
+     "text": "Terrasser le Shogun rapporte 50 pièces d'or et le titre de Shogun du Touge."
+    }
+   ],
+   "tip": "Les bolides à empattement court négocient mieux la chicane Tomica sans toucher les rails."
+  },
+  {
+   "id": "boss_majorette",
+   "name": "Défi Cocorico — Le Gang Majorette",
+   "icon": "star",
+   "betting": true,
+   "traps": true,
+   "unlimited": false,
+   "elimination": false,
+   "prefer": "08_",
+   "blurb": "Le Mans vintage : hommage aux icônes françaises.",
+   "badge": "ENDURANCE CLASSIQUE 24 HEURES",
+   "type": "Relais d'Endurance • Prestige Automobile",
+   "banner": "DÉFI COCORICO • LE GANG MAJORETTE • 24 HEURES DU MANS VINTAGE",
+   "rules": [
+    {
+     "icon": "🐓",
+     "text": "Hommage aux icônes françaises (Alpine, Renault 5, Twingo, 205 Turbo)."
+    },
+    {
+     "icon": "🇫🇷",
+     "text": "Bonus Cocorico : les écuries françaises démarrent avec +1 m d'avance sur la grille."
+    },
+    {
+     "icon": "🌙",
+     "text": "Manche nocturne : piste plongée dans la pénombre avec projecteurs jaunes."
+    },
+    {
+     "icon": "🏆",
+     "text": "Le bolide le plus endurant sur 5 relais cumulés remporte la Coupe de France."
+    }
+   ],
+   "tip": "La régularité au passage de relais compte davantage que la vitesse de pointe instantanée."
+  },
+  {
+   "id": "f1_apex",
+   "name": "Apex Challenge — 100 % Formule 1",
+   "icon": "car",
+   "betting": true,
+   "traps": false,
+   "unlimited": false,
+   "elimination": false,
+   "prefer": "07_",
+   "blurb": "Précision au millimètre, télémétrie pro, feux FIA.",
+   "badge": "RÈGLEMENT OFFICIEL FIA MONACO",
+   "type": "Précision Pure • Télémétrie Pro",
+   "banner": "APEX CHALLENGE • MONACO NIGHT • DRS OPEN",
+   "rules": [
+    {
+     "icon": "🚦",
+     "text": "Départ aux feux FIA : 5 feux rouges séquentiels puis extinction aléatoire."
+    },
+    {
+     "icon": "🛑",
+     "text": "Respect strict des Track Limits : tout franchissement de ligne blanche = pénalité 5 s."
+    },
+    {
+     "icon": "💨",
+     "text": "Activation DRS : autorisée uniquement sur la longue ligne droite des stands."
+    },
+    {
+     "icon": "⏱️",
+     "text": "Chronométrage au 1/1000e : bonus +10 pts pour le tour le plus rapide."
+    }
+   ],
+   "tip": "Les monoplaces aérodynamiques à profil bas génèrent moins de traînée sur les lignes droites."
+  },
+  {
+   "id": "chaos",
+   "name": "Chaos Total — Illimité",
+   "icon": "flame",
+   "betting": true,
+   "traps": true,
+   "unlimited": true,
+   "elimination": false,
+   "prefer": null,
+   "blurb": "Pièges et mises illimités. La piste devient un champ de bataille.",
+   "badge": "CARNAGE TOTAL • TOUS LES COUPS SONT PERMIS",
+   "type": "Foire d'Empoigne • Zéro Arbitrage",
+   "banner": "CHAOS TOTAL — ITEMS & PIÈGES ILLIMITÉS",
+   "rules": [
+    {
+     "icon": "🍌",
+     "text": "PIÈGES ILLIMITÉS : déposez autant de bananes et de thwomps que vous voulez."
+    },
+    {
+     "icon": "💣",
+     "text": "Carapaces bleues, bombes et éclairs utilisables sans restriction de quota."
+    },
+    {
+     "icon": "🔄",
+     "text": "Inversion des voies et bousculades physiques encouragées à chaque relance."
+    },
+    {
+     "icon": "🎉",
+     "text": "Le plus gros carambolage de la manche gagne le prix spécial du Jury !"
+    }
+   ],
+   "tip": "Surveillez vos arrières : même en tête, une carapace peut vous projeter hors de la piste !"
+  },
+  {
+   "id": "reliques",
+   "name": "Coupe des Reliques",
+   "icon": "key",
+   "betting": true,
+   "traps": true,
+   "unlimited": false,
+   "elimination": false,
+   "prefer": "relic",
+   "blurb": "Les bolides d'enfance entrent en piste. Cotes majorées.",
+   "badge": "NOSTALGIE RÉTRO 80s/90s • OUTRUN VIBES",
+   "type": "Véhicules Historiques Cabossés • Cotes majorées",
+   "banner": "COUPE DES RELIQUES — LES BOLIDES ANCIENS D'ENFANCE • COTES MAJORÉES",
+   "rules": [
+    {
+     "icon": "📼",
+     "text": "Réservé exclusivement aux bolides anciens de collection d'enfance."
+    },
+    {
+     "icon": "👴",
+     "text": "Règle « Départ Papy » : poussette fraternelle autorisée si le bolide cale au départ."
+    },
+    {
+     "icon": "🎲",
+     "text": "Cotes de paris explosives pour les voitures les plus fatiguées !"
+    },
+    {
+     "icon": "💖",
+     "text": "Bonus affectif du public : vote à l'applaudimètre pour attribuer la dernière Étoile."
+    }
+   ],
+   "tip": "Ne sous-estimez jamais une carrosserie écaillée : les essieux rodés par le temps réservent des surprises !"
+  }
+ ],
+ "weather": [
+  {
+   "id": "soleil",
+   "name": "Soleil de Rainbow Road",
+   "icon": "sun",
+   "oddsMul": 1.0,
+   "unlimitedBets": false,
+   "effect": "Piste dégagée, aucun aléa. Cotes standards."
+  },
+  {
+   "id": "bananes",
+   "name": "Pluie de Bananes",
+   "icon": "banana",
+   "oddsMul": 1.0,
+   "unlimitedBets": false,
+   "outsiderBonus": 1.2,
+   "freeTrapPerLane": 1,
+   "effect": "1 piège gratuit par voie : la limite de 2 saute pour cette manche. Cote des outsiders ×1,2."
+  },
+  {
+   "id": "orage",
+   "name": "Orage Thwomp",
+   "icon": "storm",
+   "oddsMul": 1.0,
+   "unlimitedBets": false,
+   "favoritePenalty": 0.9,
+   "effect": "Un portique Thwomp est posé d'office. Le favori perd 10 % de cote."
+  },
+  {
+   "id": "brouillard",
+   "name": "Brouillard de Draft",
+   "icon": "fog",
+   "oddsMul": 1.0,
+   "unlimitedBets": false,
+   "blindBonus": 1.5,
+   "effect": "Le lanceur ferme les yeux. Paris posés avant la révélation de la grille : cote ×1,5."
+  },
+  {
+   "id": "canicule",
+   "name": "Canicule Turbo",
+   "icon": "flame",
+   "oddsMul": 1.0,
+   "unlimitedBets": true,
+   "effect": "Lest de 2 pièces sur le favori. Paris « Tapis » autorisés."
+  },
+  {
+   "id": "gravite",
+   "name": "Gravité Zéro",
+   "icon": "orbit",
+   "oddsMul": 1.0,
+   "unlimitedBets": false,
+   "invertOdds": true,
+   "effect": "Départ en marche arrière. Cotes inversées pour la manche."
+  }
+ ],
+ "chaos": [
+  {
+   "title": "DÉPART EN MARCHE ARRIÈRE !",
+   "desc": "Tous les 4 bolides doivent être posés le coffre en avant sur la grille de départ."
+  },
+  {
+   "title": "CHICANAGE EXPRESS : DEUX BANANES !",
+   "desc": "Deux peaux de banane sont posées au hasard à mi-pente."
+  },
+  {
+   "title": "LE VOL DU LEADER (CARAPACE BLEUE)",
+   "desc": "Le bolide en tête de classement général part avec un malus de voie (Voie 4)."
+  },
+  {
+   "title": "DOUBLE OU RIEN SUR LES PARIS !",
+   "desc": "Tous les gains de paris sur cette manche sont multipliés par 2 !",
+   "payoutMul": 2
+  },
+  {
+   "title": "PILOTE AVEUGLE (LANCER AU SOUFFLE)",
+   "desc": "Le lanceur officiel doit lâcher le levier les yeux bandés au compte à rebours."
+  },
+  {
+   "title": "INVASION DE THWOMP !",
+   "desc": "Un portique Thwomp 3D est installé à la sortie du looping Rainbow Road."
+  },
+  {
+   "title": "COURSE DES SECONDES CHANCES",
+   "desc": "Seuls les bolides n'ayant encore marqué aucun point aujourd'hui sont autorisés."
+  },
+  {
+   "title": "DÉFI RELIQUE VINTAGE",
+   "desc": "Chaque joueur doit remplacer un de ses bolides par une des Reliques de l'enfance !"
+  },
+  {
+   "title": "LEST DE PLOMB MAXIMUM",
+   "desc": "La voiture favorite de la manche reçoit un lest de 2 pièces de monnaie sur le toit."
+  },
+  {
+   "title": "CIRCUIT EN SILENCE TOTAL",
+   "desc": "Interdiction de crier ou d'encourager sous peine d'un malus de 5 pièces."
+  },
+  {
+   "title": "DRAFT INVERSÉ D'UNE MANCHE",
+   "desc": "Échangez votre voiture de course avec celle de votre voisin de gauche pour ce départ !"
+  },
+  {
+   "title": "PARIS ILLIMITÉS !",
+   "desc": "Pas de plafond de mise : les pilotes peuvent faire tapis sur cette manche !",
+   "unlimitedBets": true
+  }
+ ],
+ "formats": [
+  {
+   "id": "flash",
+   "name": "Session Flash",
+   "icon": "bolt",
+   "duration": "20 – 30 min",
+   "players": "2 à 4 joueurs",
+   "suggestedMode": "gp_pure",
+   "blurb": "Un duel impromptu, une revanche avant d'aller se coucher. Pas de draft long : on choisit ses bolides et on file.",
+   "steps": [
+    "Choix des bolides et connexion des téléphones",
+    "4 à 6 manches express (rotation des 4 voies)",
+    "Décompte des points et médaille immédiate"
+   ]
+  },
+  {
+   "id": "chill",
+   "name": "Soirée Chill · Apéro-Course",
+   "icon": "gift",
+   "duration": "1 h – 1 h 15",
+   "players": "5 à 8 joueurs",
+   "suggestedMode": "gp_bets",
+   "blurb": "Le format roi d'un dimanche ou d'une soirée entre amis : mini-draft, poules, entracte et finale à 4.",
+   "steps": [
+    "Mini-draft à l'aveugle (3 bolides mystères chacun)",
+    "Phase de poules avec paris actifs",
+    "Entracte et marché aux pièges",
+    "Demi-finales et Grande Finale à 4",
+    "Étoiles bonus et podium"
+   ]
+  },
+  {
+   "id": "show",
+   "name": "Le Grand Show de Noël",
+   "icon": "tree",
+   "duration": "2 h 30 – 2 h 45",
+   "players": "9 à 16 joueurs",
+   "suggestedMode": "gp_bets",
+   "blurb": "L'événement phare : cérémonie d'ouverture, draft solennel, poules, Coupe des Reliques, finale et remise des 6 trophées.",
+   "steps": [
+    "Accueil, QR code et Grand Draft",
+    "Poules : chaque écurie court au moins 2 fois",
+    "Entracte « La Bourse & le Mercato »",
+    "Coupe des Reliques et demi-finales",
+    "Grande Finale en Chaos Total",
+    "Cérémonie des Étoiles et des Trophées"
+   ]
+  }
+ ],
+ "musicFolders": {
+  "gp_bets": "01_Grand_Prix_Rainbow_Road",
+  "gp_pure": "01_Grand_Prix_Rainbow_Road",
+  "survival": "02_Survie_Fury_Road",
+  "boss_tomica": "03_Japon_Tokyo_Drift_Miku",
+  "boss_majorette": "04_France_Nightcall_French_Touch",
+  "f1_apex": "05_F1_Formule_1",
+  "chaos": "06_Chaos_Techno_Jeux_Video",
+  "reliques": "07_Anciennes_Western"
+ },
+ "shop": [
+  {
+   "id": "banane",
+   "name": "Peau de Banane",
+   "price": 15,
+   "icon": "banana",
+   "needsLane": true,
+   "laneLimited": true,
+   "effect": "Pièce glissante posée sur la voie d'un adversaire, sur le premier tiers de la piste."
+  },
+  {
+   "id": "thwomp",
+   "name": "Thwomp",
+   "price": 30,
+   "icon": "thwomp",
+   "needsLane": true,
+   "laneLimited": true,
+   "effect": "Portique posé sur une voie (chicane / milieu de rampe). Les bolides hauts frottent !"
+  },
+  {
+   "id": "champi",
+   "name": "Champignon Turbo",
+   "price": 20,
+   "icon": "mushroom",
+   "needsLane": true,
+   "laneLimited": false,
+   "effect": "Vous choisissez votre voie en priorité sur cette manche."
+  },
+  {
+   "id": "carapace",
+   "name": "Carapace Protectrice",
+   "price": 15,
+   "icon": "shell",
+   "needsLane": true,
+   "laneLimited": false,
+   "shield": true,
+   "effect": "Nettoie votre voie : aucun piège ne peut y être posé pour cette manche."
+  },
+  {
+   "id": "eclair",
+   "name": "Éclair Miniature",
+   "price": 45,
+   "icon": "bolt",
+   "needsLane": false,
+   "laneLimited": false,
+   "effect": "Tous les autres concurrents partent avec un lest de 5 g sur le toit."
+  },
+  {
+   "id": "bleue",
+   "name": "Carapace Bleue",
+   "price": 60,
+   "icon": "blueshell",
+   "needsLane": false,
+   "laneLimited": false,
+   "lastOnly": true,
+   "effect": "Réservée au dernier du classement : le leader part sur la voie la plus lente."
+  }
+ ],
+ "taunts": [
+  {
+   "id": "signature",
+   "name": "Cri d'écurie",
+   "icon": "mic"
+  },
+  {
+   "id": "klaxon",
+   "name": "Klaxon",
+   "icon": "horn"
+  },
+  {
+   "id": "v8",
+   "name": "V8",
+   "icon": "engine"
+  },
+  {
+   "id": "turbo",
+   "name": "Turbo",
+   "icon": "turbo"
+  },
+  {
+   "id": "pneus",
+   "name": "Crissement",
+   "icon": "tire"
+  },
+  {
+   "id": "banane",
+   "name": "Glissade",
+   "icon": "banana"
+  },
+  {
+   "id": "rire",
+   "name": "Rire",
+   "icon": "laugh"
+  },
+  {
+   "id": "eclair",
+   "name": "Éclair",
+   "icon": "bolt"
+  },
+  {
+   "id": "sirene",
+   "name": "Sirène",
+   "icon": "siren"
+  },
+  {
+   "id": "fanfare",
+   "name": "Fanfare",
+   "icon": "trumpet"
+  },
+  {
+   "id": "crash",
+   "name": "Carambolage",
+   "icon": "crash"
+  }
+ ],
+ "stars": [
+  {
+   "id": "cresus",
+   "name": "Étoile Crésus",
+   "sub": "Le Loup de Wall Street",
+   "desc": "Le plus de pièces gagnées grâce aux paris."
+  },
+  {
+   "id": "chaos",
+   "name": "Étoile du Chaos",
+   "sub": "Le Roi de la Banane",
+   "desc": "Le plus de pièges posés sur la piste."
+  },
+  {
+   "id": "phenix",
+   "name": "Étoile du Phénix",
+   "sub": "La Remontada",
+   "desc": "La plus belle progression entre la 1re et la 2de moitié de la soirée."
+  },
+  {
+   "id": "chat",
+   "name": "Étoile Malchance",
+   "sub": "Le Chat Noir",
+   "desc": "Le plus de paris perdus d'un cheveu et de têtes-à-queue."
+  }
+ ],
+ "trophies": [
+  {
+   "id": "grandprix",
+   "name": "Trophée Suprême du Grand Prix",
+   "sub": "Vainqueur de la Grande Finale"
+  },
+  {
+   "id": "parieur",
+   "name": "Trophée du Grand Parieur",
+   "sub": "La plus grosse fortune de la soirée"
+  },
+  {
+   "id": "cascadeur",
+   "name": "Trophée Cascadeur",
+   "sub": "Crash de l'année — élu par les invités"
+  },
+  {
+   "id": "saboteur",
+   "name": "Trophée du Grand Saboteur",
+   "sub": "Maître des pièges"
+  },
+  {
+   "id": "reliques",
+   "name": "Trophée Légende Rétro",
+   "sub": "Vainqueur de la Coupe des Reliques"
+  },
+  {
+   "id": "cuillere",
+   "name": "Cuillère de Bois",
+   "sub": "Fair-play & persévérance — élu par les invités"
+  }
+ ],
+ "voteAwards": [
+  "cascadeur",
+  "cuillere"
+ ]
+}

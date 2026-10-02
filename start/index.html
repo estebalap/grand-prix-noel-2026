@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070b1e">
+<title>Lancement — Grand Prix de Noël</title>
+<link rel="icon" href="../pit/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="start.css">
+<link rel="stylesheet" href="../shared/nintendo.css">
+<script>/* habillage : « nintendo » (défaut) ou « neon » ; ?skin=neon pour changer */try{var k=new URLSearchParams(location.search).get("skin");if(k)localStorage.setItem("gp.skin",k);document.documentElement.dataset.skin=localStorage.getItem("gp.skin")||"nintendo"}catch(e){document.documentElement.dataset.skin="nintendo"}</script>
+</head>
+<body>
+<canvas id="atmo"></canvas><div class="vignette"></div>
+<div id="app">
+  <header class="hero">
+    <span class="eyebrow">Édition du 23 décembre 2026</span>
+    <h1 class="display foil">Grand Prix de Noël</h1>
+    <p class="tagline">Composez votre soirée, puis ouvrez le plateau.</p>
+  </header>
+  <div id="offline" class="deco hide">
+    <h2 class="display">Relais introuvable</h2>
+    <p>Le serveur de la soirée ne répond pas. Lancez <b>LANCER_REGIE_V2.bat</b> (ou <b>LANCER_REGIE_V2_WIFI_SEUL.bat</b>), puis rechargez cette page.</p>
+    <button class="btn" id="retry">Réessayer</button>
+  </div>
+  <main id="main" class="hide">
+    <section>
+      <h2 class="step"><i>1</i>Type de soirée</h2>
+      <div id="formats" class="cards"></div>
+    </section>
+    <section>
+      <h2 class="step"><i>2</i>Mode de jeu <small class="hint">— l'ambiance (décor, couleurs, musique) change avec le mode</small></h2>
+      <div id="modes" class="cards modes"></div>
+    </section>
+    <section id="preview" class="deco hide"></section>
+    <section class="launch deco">
+      <div class="sum" id="summary"></div>
+      <div class="join" id="join"></div>
+      <div class="go">
+        <label id="resetRow" class="chk hide"><input type="checkbox" id="resetBox"><span>Repartir de zéro<small id="resetInfo"></small></span></label>
+        <div id="pinRow" class="hide"><input id="pinIn" inputmode="numeric" maxlength="8" placeholder="Code régie (affiché dans la console)" autocomplete="off"></div>
+        <button class="btn big" id="go">Ouvrir le plateau</button>
+        <button class="btn ghost" id="skip">⏭ Accès libre (skip) — tout débloqué, sans draft</button>
+        <p class="skiphint">Accès libre : 5 bolides sont distribués automatiquement à chaque écurie, la soirée passe directement à la grille et n'importe quel téléphone peut prendre n'importe quelle écurie.</p>
+        <div class="links"><a href="../tv/" id="lTv">Écran TV (global)</a><a href="../pit/" id="lPit2">Téléphone (mon écurie)</a><a href="../regie/" id="lReg">Régie mobile</a><a href="../showroom/">Showroom 3D</a></div>
+        <div id="msg" class="msg"></div>
+      </div>
+    </section>
+  </main>
+</div>
+<script type="module" src="start.js"></script>
+</body>
+</html>

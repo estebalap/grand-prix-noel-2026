@@ -1,0 +1,71 @@
+/* Jeu d'icônes SVG maison (viewBox 24×24, remplissage currentColor + accents).
+   Aucune dépendance, aucune image : tout est vectoriel et net sur une TV 4K. */
+
+const P = {
+  sun: '<circle cx="12" cy="12" r="4.6" fill="currentColor"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2.2v3M12 18.8v3M2.2 12h3M18.8 12h3M5.1 5.1l2.1 2.1M16.8 16.8l2.1 2.1M18.9 5.1l-2.1 2.1M7.2 16.8l-2.1 2.1"/></g>',
+  banana: '<path d="M3.5 13.5C5 19.8 14.200 22.200 19.800 12.500 20.600 11.200 21 9.600 20.800 8.200L18.600 7.400C18.600 8.500 18.200 9.700 17.500 10.800 13.500 16.600 8 16.800 5.300 12.200Z" fill="currentColor"/><path d="M18.600 7.400 19.600 3.200 22 3.900 20.800 8.200Z" fill="#7a5412"/><path d="M3.500 13.500 5.300 12.200 4 10.600Z" fill="#3a2610"/>',
+  storm: '<path d="M6.500 15.500a4.300 4.300 0 0 1-.4-8.600 5.600 5.600 0 0 1 10.800.9 3.900 3.900 0 0 1-.4 7.700Z" fill="currentColor" opacity=".9"/><path d="m12.800 11-3 5h2.600l-1.200 5 4.200-6.200h-2.700Z" fill="#ffe66d"/>',
+  fog: '<g stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><path d="M4 8h12M7 12h13M4 16h10M10 20h9"/></g>',
+  flame: '<path d="M12.200 2.200c.5 3.300-1.500 4.600-3 6.400-1.600 1.900-2.900 3.600-2.200 6.200.6 2.400 2.700 4.200 5.200 4.200 3.100 0 5.300-2.400 5.300-5.400 0-2.600-1.500-3.800-2.300-5.600-.7 1.200-1.300 1.700-2 1.800.9-2.700.8-5.100-1-7.600Z" fill="currentColor"/><path d="M12.100 20c-1.500 0-2.600-1.200-2.600-2.600 0-1.700 1.400-2.200 2.100-3.500.9 1 3.100 1.700 3.100 3.800 0 1.300-1 2.300-2.600 2.300Z" fill="#fff3b0"/>',
+  orbit: '<circle cx="12" cy="12" r="3.300" fill="currentColor"/><ellipse cx="12" cy="12" rx="9.500" ry="3.800" fill="none" stroke="currentColor" stroke-width="1.500" transform="rotate(-24 12 12)"/><circle cx="19.300" cy="7.600" r="1.500" fill="currentColor"/>',
+  coin: '<circle cx="12" cy="12" r="9.300" fill="currentColor"/><circle cx="12" cy="12" r="7" fill="none" stroke="#7a4d00" stroke-opacity=".55" stroke-width="1.200"/><path d="m12 6.600 1.600 3.300 3.600.5-2.600 2.500.6 3.600-3.200-1.700-3.200 1.700.6-3.600-2.600-2.500 3.600-.5Z" fill="#7a4d00" fill-opacity=".75"/>',
+  star: '<path d="m12 2.200 2.900 6 6.600.9-4.800 4.600 1.200 6.500L12 17l-5.900 3.200 1.200-6.500L2.500 9.100l6.600-.9Z" fill="currentColor"/>',
+  trophy: '<path d="M7 3h10v5.500a5 5 0 0 1-10 0Z" fill="currentColor"/><path d="M7 4.800H3.800c0 3 1.400 4.900 3.500 5.200M17 4.800h3.200c0 3-1.400 4.900-3.500 5.200" fill="none" stroke="currentColor" stroke-width="1.700"/><path d="M10.800 13.200h2.400v3.300h-2.400zM7.500 20.500c0-2.200 1.600-3.900 4.500-3.900s4.500 1.700 4.500 3.900Z" fill="currentColor"/>',
+  bolt: '<path d="M13.500 2 5 13.300h5.400L9.200 22 19 9.800h-5.700Z" fill="currentColor"/>',
+  shell: '<path d="M12 3.200c-4.700 0-8 3.500-8 8.100 0 4 3.200 7.500 8 9.500 4.800-2 8-5.500 8-9.500 0-4.600-3.300-8.100-8-8.100Z" fill="currentColor"/><path d="M12 3.800v16.500M5 8.500h14M4.500 13.500h15" stroke="#ffffff" stroke-opacity=".5" stroke-width="1.100" fill="none"/>',
+  blueshell: '<path d="M12 3.200c-4.700 0-8 3.500-8 8.100 0 4 3.200 7.500 8 9.500 4.800-2 8-5.500 8-9.500 0-4.600-3.300-8.100-8-8.100Z" fill="#3a8dff"/><path d="M4.800 9.500 2 7.200l3.200-.8M19.200 9.500 22 7.200l-3.200-.8" stroke="#fff" stroke-width="1.400" fill="none" stroke-linecap="round"/><path d="M12 4v16M5.500 9h13M5 14h14" stroke="#fff" stroke-opacity=".6" stroke-width="1.100" fill="none"/>',
+  mushroom: '<path d="M2.800 11.500C2.800 6.400 6.900 3 12 3s9.200 3.400 9.200 8.500c0 .5-.4.800-.8.800H3.600c-.4 0-.8-.3-.8-.8Z" fill="currentColor"/><circle cx="8" cy="8" r="1.900" fill="#fff"/><circle cx="16.200" cy="8.200" r="1.700" fill="#fff"/><path d="M8.200 13h7.600v3.500c0 2.200-1.500 3.800-3.800 3.800s-3.800-1.600-3.800-3.800Z" fill="#f6e7c8"/>',
+  thwomp: '<rect x="3.500" y="3.500" width="17" height="17" rx="3" fill="currentColor"/><path d="M6.500 9.500l4 1.600M17.500 9.500l-4 1.600" stroke="#1b1b1f" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="12.200" r="1" fill="#1b1b1f"/><circle cx="15" cy="12.200" r="1" fill="#1b1b1f"/><path d="M7.200 16.800h9.600l-1.300-2-1.200 2-1.200-2-1.200 2-1.200-2-1.200 2Z" fill="#fff"/>',
+  horn: '<path d="M4 9.500h3.400L14.500 5v14L7.400 14.500H4Z" fill="currentColor"/><path d="M17 8.500a5 5 0 0 1 0 7M19.500 6a8.500 8.500 0 0 1 0 12" stroke="currentColor" stroke-width="1.700" fill="none" stroke-linecap="round"/>',
+  engine: '<path d="M5 8h2.500V6h5v2h2l1.500 2h2.500v3h1.500v5H17v1.500H8.500L6 16.500H4V11h1Z" fill="currentColor"/>',
+  turbo: '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.700"/><path d="M12 12 7 6.500M12 12l6.200-3M12 12l-1.800 7M12 12l5.600 4.500M12 12 5.500 14" stroke="currentColor" stroke-width="2.300" stroke-linecap="round"/><circle cx="12" cy="12" r="1.800" fill="currentColor"/>',
+  tire: '<circle cx="12" cy="12" r="9.200" fill="currentColor"/><circle cx="12" cy="12" r="4.300" fill="#10142c"/><path d="M12 2.800v2.700M12 18.500v2.700M2.800 12h2.700M18.500 12h2.700" stroke="#10142c" stroke-width="1.500"/>',
+  laugh: '<circle cx="12" cy="12" r="9.300" fill="currentColor"/><path d="M7.500 9.200l3 1.300M16.500 9.200l-3 1.300" stroke="#2a1d00" stroke-width="1.700" stroke-linecap="round"/><path d="M6.800 13.500h10.400c0 3-2.300 5-5.200 5s-5.200-2-5.200-5Z" fill="#2a1d00"/><path d="M8.800 13.500h6.400v1.300H8.800Z" fill="#fff"/>',
+  siren: '<path d="M7 18v-6a5 5 0 0 1 10 0v6Z" fill="currentColor"/><rect x="4.500" y="18" width="15" height="3" rx="1" fill="currentColor"/><path d="M12 2.500v2.200M4.200 5.500l1.700 1.600M19.800 5.500l-1.700 1.600M2.500 11.500h2.200M19.300 11.500h2.200" stroke="currentColor" stroke-width="1.700" stroke-linecap="round"/>',
+  trumpet: '<path d="M3 11h9l7-4.500v11L12 13H3Z" fill="currentColor"/><path d="M5 13l1.200 5.200h2.300L8 13Z" fill="currentColor"/>',
+  crash: '<path d="m12 1.800 2.400 5.100 5.500-1.400-2.100 5.300 4.600 3.200-5.600.9-.6 5.700-3.300-4.500-4.700 3.200 1.500-5.400L2.200 11l5.600-.9-.5-5.800 3.200 3.800Z" fill="currentColor"/>',
+  car: '<path d="M2.500 15.500v-2.200c0-1 .6-1.900 1.600-2.200l2.600-.8 2.300-3.400c.4-.5 1-.9 1.700-.9h4.200c.8 0 1.500.4 1.900 1l1.800 2.900 2.100.6c1 .3 1.700 1.200 1.700 2.200v2.800H20a2.700 2.700 0 0 0-5.400 0H9.400a2.700 2.700 0 0 0-5.400 0Z" fill="currentColor"/><circle cx="6.700" cy="16.200" r="2" fill="#10142c" stroke="currentColor" stroke-width="1"/><circle cx="17.300" cy="16.200" r="2" fill="#10142c" stroke="currentColor" stroke-width="1"/>',
+  flag: '<path d="M5 21V3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M5 4h14v9H5Z" fill="currentColor"/><path d="M5 4h3.500v3H5zM12 4h3.500v3H12zM8.500 7H12v3H8.500zM15.500 7H19v3h-3.500zM5 10h3.500v3H5zM12 10h3.500v3H12z" fill="#0b0f26"/>',
+  snow: '<g stroke="currentColor" stroke-width="1.700" stroke-linecap="round"><path d="M12 2.500v19M3.800 7.200l16.400 9.600M3.800 16.800l16.400-9.600"/><path d="m9.500 4 2.500 2 2.500-2M9.500 20l2.500-2 2.500 2"/></g>',
+  tree: '<path d="M12 2.500 7.200 9h2.500L5.500 14.500H9L4.500 20.500h15L15 14.500h3.500L14.300 9h2.500Z" fill="currentColor"/><rect x="10.500" y="20.500" width="3" height="2" fill="#6b4a12"/>',
+  gift: '<rect x="3.500" y="9" width="17" height="11.500" rx="1.500" fill="currentColor"/><rect x="2.500" y="6.500" width="19" height="4" rx="1" fill="currentColor"/><path d="M12 6.500v14M12 6.500c-1-3.500-5-4-5-1.700 0 1.500 3 1.700 5 1.700Zm0 0c1-3.500 5-4 5-1.700 0 1.500-3 1.700-5 1.700Z" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="1.400"/>',
+  crown: '<path d="m3 8 4.500 4 4.500-7 4.500 7L21 8l-1.800 11H4.800Z" fill="currentColor"/>',
+  spoon: '<ellipse cx="12" cy="6.500" rx="3.800" ry="4.800" fill="currentColor"/><path d="M12 11.300 12.300 22" stroke="currentColor" stroke-width="2.600" stroke-linecap="round"/>',
+  chat: '<path d="M12 21c-4.500 0-7.500-3-7.500-7 0-2 .7-3.500 1.500-4.800L5 4.800l3.500 1.600c1-.4 2.200-.6 3.500-.6s2.500.2 3.500.6L19 4.800 18 9.200c.8 1.300 1.500 2.800 1.500 4.800 0 4-3 7-7.500 7Z" fill="currentColor"/><circle cx="9.200" cy="13" r="1.200" fill="#ffe66d"/><circle cx="14.800" cy="13" r="1.200" fill="#ffe66d"/>',
+  phoenix: '<path d="M12 21.500c-3.500-1-5.500-3.500-5.500-6.300 0-2.300 1.300-3.600 2.300-5.300C9.700 8.300 10 6.200 9.300 3c2.700 1.200 4.200 3.400 4.200 6 1.600-.8 2.700-2.200 3-4.300 2.200 2.600 3.300 5.800 3.300 8.700 0 3.800-2.700 6.800-7.800 8.100Z" fill="currentColor"/>',
+  key: '<circle cx="8" cy="12" r="4.500" fill="none" stroke="currentColor" stroke-width="2.200"/><path d="M12.500 12H21v3.200M17.500 12v3.200" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" fill="none"/>',
+  people: '<circle cx="8.500" cy="8" r="3.200" fill="currentColor"/><circle cx="16.500" cy="9" r="2.600" fill="currentColor" opacity=".8"/><path d="M2.500 20c0-3.800 2.700-6 6-6s6 2.200 6 6ZM14.800 20c0-2.500-.5-3.700-1.600-4.700 3.800-1.200 7.800.5 7.800 4.700Z" fill="currentColor"/>',
+  mic: '<rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.500 11.500a6.500 6.500 0 0 0 13 0M12 18v3.500M8.500 21.500h7" stroke="currentColor" stroke-width="1.800" stroke-linecap="round" fill="none"/>',
+  tap: '<circle cx="12" cy="12" r="9.500" fill="none" stroke="currentColor" stroke-width="1.600"/><path d="M10 6.500v8.500L7.800 13.500c-.8-.6-1.900-.3-2.100.6l-.2 1 3.100 5.400h7l1.900-4.500c.4-1.200 0-2-1-2.200l-4-.8V6.500a1.500 1.500 0 0 0-3 0Z" fill="currentColor"/>',
+  eye: '<path d="M1.800 12S5.500 5 12 5s10.200 7 10.200 7-3.700 7-10.200 7S1.800 12 1.800 12Z" fill="none" stroke="currentColor" stroke-width="1.800"/><circle cx="12" cy="12" r="3.400" fill="currentColor"/>',
+  check: '<path d="m4.500 12.500 5 5 10-11" stroke="currentColor" stroke-width="2.800" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
+  skull: '<path d="M12 2.500c-4.700 0-8 3.200-8 7.600 0 2.600 1.200 4.400 2.800 5.500V19c0 .8.600 1.500 1.500 1.500h.7V18h1.500v2.500h3V18h1.500v2.500h.7c.9 0 1.500-.7 1.500-1.500v-3.400c1.600-1.100 2.800-2.900 2.800-5.500 0-4.400-3.300-7.600-8-7.600Z" fill="currentColor"/><circle cx="8.600" cy="10.800" r="2.100" fill="#10142c"/><circle cx="15.400" cy="10.800" r="2.100" fill="#10142c"/><path d="m12 13.200-1.100 2.300h2.200Z" fill="#10142c"/>',
+  wifi: '<path d="M2.500 9a14 14 0 0 1 19 0M5.500 12.500a9.500 9.500 0 0 1 13 0M8.600 16a5 5 0 0 1 6.800 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="12" cy="19.500" r="1.600" fill="currentColor"/>',
+};
+
+export function icon(name, size = 24, cls = '') {
+  const body = P[name] || P.star;
+  return `<svg class="ico ${cls}" width="${size}" height="${size}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${body}</svg>`;
+}
+export const ICON_NAMES = Object.keys(P);
+
+/* Silhouette de bolide (profil), teintée par les couleurs de l'écurie.
+   viewBox 320×110. `uid` évite les collisions d'identifiants SVG sur la même page. */
+export function carSvg(c1 = '#3b82f6', c2 = '#f59e0b', uid = 'c') {
+  return `<svg class="car-svg" viewBox="0 0 320 110" aria-hidden="true">
+  <defs>
+    <linearGradient id="${uid}b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c1}"/><stop offset=".55" stop-color="${c1}"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></linearGradient>
+    <linearGradient id="${uid}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#bfe4ff" stop-opacity=".95"/><stop offset="1" stop-color="#0e1630" stop-opacity=".95"/></linearGradient>
+    <linearGradient id="${uid}s" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  </defs>
+  <ellipse cx="160" cy="98" rx="140" ry="7" fill="#000" opacity=".45"/>
+  <path d="M14 78c0-9 3-14 12-16l30-6c10-1 18-9 30-20 8-7 17-11 30-11h42c14 0 24 6 33 17l16 18 38 6c18 3 30 9 30 25v9c0 3-2 5-5 5h-18a28 28 0 0 0-56 0H96a28 28 0 0 0-56 0H19c-3 0-5-2-5-5Z" fill="url(#${uid}b)"/>
+  <path d="M96 52c10-13 20-24 38-24h40c11 0 19 5 26 13l12 11Z" fill="url(#${uid}g)"/>
+  <path d="M148 28v24" stroke="#0b1230" stroke-width="3" opacity=".7"/>
+  <path d="M20 70h280" stroke="${c2}" stroke-width="4" opacity=".95"/>
+  <path d="M30 63c40-9 120-12 180-8" stroke="url(#${uid}s)" stroke-width="3" fill="none"/>
+  <rect x="283" y="62" width="22" height="7" rx="3" fill="#fff6c9"/><rect x="12" y="62" width="9" height="7" rx="3" fill="#ff3347"/>
+  <g class="wheel"><circle cx="68" cy="87" r="21" fill="#0a0c18"/><circle cx="68" cy="87" r="12" fill="#cfd6e6"/><circle cx="68" cy="87" r="4" fill="${c2}"/></g>
+  <g class="wheel"><circle cx="246" cy="87" r="21" fill="#0a0c18"/><circle cx="246" cy="87" r="12" fill="#cfd6e6"/><circle cx="246" cy="87" r="4" fill="${c2}"/></g>
+  </svg>`;
+}

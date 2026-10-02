@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080d28">
+<title>Grand Prix de Noël — Régie TV</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="tv.css">
+<link rel="stylesheet" href="../shared/nintendo.css">
+<script>/* habillage : « nintendo » (défaut) ou « neon » ; ?skin=neon pour changer */try{var k=new URLSearchParams(location.search).get("skin");if(k)localStorage.setItem("gp.skin",k);document.documentElement.dataset.skin=localStorage.getItem("gp.skin")||"nintendo"}catch(e){document.documentElement.dataset.skin="nintendo"}</script>
+</head>
+<body>
+<canvas id="atmo"></canvas><div class="vignette"></div>
+<div id="viewport"><div id="stage">
+  <header id="hud">
+    <div class="brand"><span class="eyebrow">Édition 2026</span><b class="display foil">Grand Prix de Noël</b></div>
+    <div id="hudMid"></div>
+    <div class="hud-r"><span id="wxBadge"></span><span class="pill" id="onlinePill"></span></div>
+  </header>
+  <div id="modeRibbon"></div>
+  <main id="scene"></main>
+  <footer id="ticker"><span class="tk-tag">EN DIRECT</span><div class="tk-run"><div id="tkTrack"></div></div></footer>
+  <div id="overlay"></div>
+  <div id="modeIntro"></div>
+  <div id="toasts"></div>
+</div></div>
+<aside id="drawer"><div class="dr-head"><b class="display">Régie</b><span class="dim">Espace = suivant · A = fermer · R = règles · N = musique · V = voix · K = habillage · P = morceau suivant</span><button id="drClose">×</button></div><div id="drBody"></div></aside>
+<div id="nowPlaying"></div>
+<div id="ytBox" class="hide"><div class="yt-lbl">♪ YouTube</div><div class="yt-slot"></div></div>
+<button id="soundGate" class="btn">Cliquer pour activer le son</button>
+<div id="offline" class="hide"><div><b class="display foil">Reconnexion au relais…</b><p>La régie continue de tourner, les écrans se resynchronisent tout seuls.</p></div></div>
+<script src="../lib/three.min.js"></script>
+<script type="module" src="tv.js"></script>
+</body>
+</html>
