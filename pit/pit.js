@@ -61,7 +61,14 @@ function renderNoRelay() {
 function renderPicker() {
   top.innerHTML = ''; tabs.innerHTML = '';
   connect('pit');                                         // flux anonyme : pour voir quelles écuries sont prises
-  onState((s) => { if (!player.token) drawPicker(s); });
+  // QR code d'écurie imprimé (…/pit/?ecurie=N) : la fiche de l'écurie s'ouvre directement, un tap pour confirmer
+  const pre = Number(qs.get('ecurie') || qs.get('team') || 0);
+  let preDone = !(pre >= 1 && DATA.teams.some((t) => t.id === pre));
+  onState((s) => {
+    if (player.token) return;
+    drawPicker(s);
+    if (!preDone) { preDone = true; confirmTeam(pre, s); }
+  });
   main.innerHTML = '<div class="hero"><b class="eyebrow">Bienvenue au</b><h1 class="display foil">Grand Prix<br>de Noël</h1><p class="dim">Choisis ton écurie</p></div><div id="pk"></div>';
 }
 function drawPicker(s) {

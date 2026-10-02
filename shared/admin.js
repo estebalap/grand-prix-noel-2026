@@ -126,7 +126,7 @@ export function mountAdmin(root, { onToast = () => {}, compact = false } = {}) {
       <div class="adm-row"><input id="drCode" placeholder="Code (B07)" value="${esc(ui.draftCode)}" autocapitalize="characters"><select id="drTeam">${teamOpts(ui.draftTeam)}</select></div>
       <div class="adm-row"><button class="btn sm" id="drAssign">Attribuer</button><button class="btn ghost sm" id="drRemove">Retirer ce code</button></div>
       <label>Nouvelle Relique d'enfance</label>
-      <div class="adm-row"><input id="rlCode" placeholder="Code (R01)"><input id="rlName" placeholder="Nom"></div>
+      <div class="adm-row"><input id="rlCode" placeholder="Code (R21…)"><input id="rlName" placeholder="Nom"></div>
       <div class="adm-row"><input id="rlSpd" type="number" placeholder="Vitesse 55" min="10" max="100"><button class="btn ghost sm" id="rlAdd">Ajouter la relique</button></div>`);
 
     const secFree = section('free', 'Accès libre (skip)', `<p class="adm-note">${s.skip ? 'ACTIF : toutes les écuries peuvent être prises depuis n\'importe quel téléphone, sans draft à saisir.' : 'Saute l\'installation : draft automatique de bolides pour chaque écurie, passage direct à la grille, écuries ouvertes à tous.'}</p>
