@@ -101,26 +101,46 @@ export function connect(role = 'pit', token = '') {
   close();
   const url = BASE + '/api/v2/stream?role=' + encodeURIComponent(role) + (token ? '&t=' + encodeURIComponent(token) : '');
   es = new EventSource(url);
-  es.onopen = () => { setOnline(true); stopPoll(); };
-  es.addEventListener('state', (e) => { lastMsg = Date.now(); setOnline(true); try { ingest(JSON.parse(e.data)); } catch (err) { console.error(err); } });
-  es.addEventListener('fx', (e) => { lastMsg = Date.now(); try { const p = JSON.parse(e.data); store.fxListeners.forEach((f) => f(p)); } catch { /* ignore */ } });
+  let gotSSE = false;
+  // Certains réseaux / proxys (tunnel, 4G, Wi-Fi d'entreprise) retiennent le flux temps réel sans erreur :
+  // si aucun état n'arrive par le flux en quelques secondes, on passe en relève périodique (et on y reste
+  // tant que le flux est muet). Dès que le flux parle, la relève s'arrête.
+  clearTimeout(sseProbe);
+  sseProbe = setTimeout(() => { if (!gotSSE) startPoll(); }, 3500);
+  es.onopen = () => { setOnline(true); };
+  es.addEventListener('state', (e) => { gotSSE = true; stopPoll(); lastMsg = Date.now(); setOnline(true); try { ingest(JSON.parse(e.data)); } catch (err) { console.error(err); } });
+  es.addEventListener('fx', (e) => { gotSSE = true; lastMsg = Date.now(); try { const p = JSON.parse(e.data); store.fxListeners.forEach((f) => f(p)); } catch { /* ignore */ } });
   es.addEventListener('boost', (e) => { lastMsg = Date.now(); try { const p = JSON.parse(e.data); store.boostListeners.forEach((f) => f(p)); } catch { /* ignore */ } });
   es.onerror = () => { setOnline(false); startPoll(); };       // EventSource se reconnecte seul ; on garde un filet de sécurité
   lastMsg = Date.now();
   clearInterval(watchdog);
   watchdog = setInterval(() => {                                 // tunnel zombie : plus rien depuis 20 s → on rouvre
+    if (pollTimer) return;                                       // en relève périodique, l'état arrive déjà
     if (Date.now() - lastMsg > 20000) { lastMsg = Date.now(); connect(role, token); }
   }, 5000);
-  document.addEventListener('visibilitychange', () => {          // téléphone réveillé : resync immédiate
-    if (!document.hidden && Date.now() - lastMsg > 4000) connect(role, token);
-  });
+  if (!visHooked) {
+    visHooked = true;
+    document.addEventListener('visibilitychange', () => {        // téléphone réveillé : resync immédiate
+      if (!document.hidden && Date.now() - lastMsg > 4000) { pollOnce(); connect(currentRole, currentToken); }
+    });
+  }
+  currentRole = role; currentToken = token;
 }
+let sseProbe = null, visHooked = false, currentRole = 'pit', currentToken = '';
 function close() { if (es) { es.close(); es = null; } }
+async function pollOnce() {
+  try {
+    const r = await fetch(BASE + '/api/v2/state', { cache: 'no-store' });
+    if (!r.ok) throw new Error(r.status);
+    const st = await r.json();
+    if (!store.state || (st.seq || 0) >= (store.seq || 0)) ingest(st);
+    setOnline(true);
+  } catch { setOnline(false); }
+}
 function startPoll() {
   if (pollTimer) return;
-  pollTimer = setInterval(async () => {
-    try { const r = await fetch(BASE + '/api/v2/state', { cache: 'no-store' }); ingest(await r.json()); setOnline(true); } catch { setOnline(false); }
-  }, 2000);
+  pollOnce();
+  pollTimer = setInterval(pollOnce, 2000);
 }
 function stopPoll() { clearInterval(pollTimer); pollTimer = null; }
 

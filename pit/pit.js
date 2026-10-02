@@ -52,8 +52,14 @@ async function boot() {
 }
 function renderNoRelay() {
   top.innerHTML = ''; tabs.innerHTML = '';
-  main.innerHTML = `<div class="hero"><b class="eyebrow">Pocket Pit</b><h1 class="display foil">Circuit introuvable</h1><p class="dim">Scanne le QR code affiché sur la télé, ou colle ici l'adresse du relais donnée par l'organisateur.</p></div>
-    <div class="card deco"><input class="fld" id="rl" style="font-size:17px;letter-spacing:.02em;text-transform:none" placeholder="https://… ou http://192.168…:8100"><p></p><button class="btn full" id="rlOk">Se connecter</button></div>`;
+  // pas de relais : soirée pas encore lancée (site GitHub ouvert sans ?relay=) ou PC de la régie éteint
+  const surSiteStatique = !/^(localhost|127\.|192\.168\.|10\.|172\.)/.test(location.hostname) && !/trycloudflare\.com$/.test(location.hostname);
+  main.innerHTML = `<div class="hero"><b class="eyebrow">Pocket Pit</b><h1 class="display foil">${surSiteStatique ? 'Le circuit est éteint' : 'Circuit introuvable'}</h1>
+    <p class="dim">${surSiteStatique
+      ? "Le Grand Prix se joue en direct depuis le PC de l'organisateur. Le soir J, scanne le QR code affiché sur la télé : ton téléphone se connecte tout seul."
+      : "Scanne le QR code affiché sur la télé, ou colle ici l'adresse du relais donnée par l'organisateur."}</p></div>
+    <div class="card deco"><b class="small">Tu as le lien du circuit ?</b><p></p><input class="fld" id="rl" style="font-size:17px;letter-spacing:.02em;text-transform:none" placeholder="https://….trycloudflare.com"><p></p><button class="btn full" id="rlOk">Se connecter</button></div>
+    ${surSiteStatique ? `<div class="card deco center"><b>En attendant le 23 décembre</b><p class="dim small">Découvre les 15 écuries, les bolides et les trophées.</p><a class="btn full" href="../showroom/">Visiter le Showroom 3D</a></div>` : ''}`;
   $('#rlOk').onclick = async () => { const i = await setRelay($('#rl').value); if (i) location.reload(); else toast('Aucun relais à cette adresse', 'err'); };
 }
 
@@ -64,12 +70,15 @@ function renderPicker() {
   // QR code d'écurie imprimé (…/pit/?ecurie=N) : la fiche de l'écurie s'ouvre directement, un tap pour confirmer
   const pre = Number(qs.get('ecurie') || qs.get('team') || 0);
   let preDone = !(pre >= 1 && DATA.teams.some((t) => t.id === pre));
-  onState((s) => {
+  const vide = { players: {}, online: [] };
+  const dessiner = (s) => {
     if (player.token) return;
-    drawPicker(s);
-    if (!preDone) { preDone = true; confirmTeam(pre, s); }
-  });
+    drawPicker(s || vide);
+    if (!preDone) { preDone = true; confirmTeam(pre, s || vide); }
+  };
+  onState(dessiner);
   main.innerHTML = '<div class="hero"><b class="eyebrow">Bienvenue au</b><h1 class="display foil">Grand Prix<br>de Noël</h1><p class="dim">Choisis ton écurie</p></div><div id="pk"></div>';
+  dessiner(store.state);                                  // la liste s'affiche tout de suite, même avant la 1re réponse du circuit
 }
 function drawPicker(s) {
   const el = $('#pk'); if (!el) return;
