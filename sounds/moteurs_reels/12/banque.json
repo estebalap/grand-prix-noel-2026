@@ -1,0 +1,14 @@
+{
+ "moteur": "V8 Ferrari (enregistrement réel)",
+ "licence": "CC0",
+ "credit": "« Ferrari_motor_idle » de jtvdb (CC0) · « Supercar rev » de richwise (CC0)",
+ "sources": [
+  "https://freesound.org/people/jtvdb/sounds/857147/",
+  "https://freesound.org/people/richwise/sounds/478756/"
+ ],
+ "ralenti": "ralenti.wav",
+ "coups_de_gaz": [
+  "gaz1.wav",
+  "gaz2.wav"
+ ]
+}
