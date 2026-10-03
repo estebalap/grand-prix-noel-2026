@@ -133,7 +133,7 @@ async function launch(free = false) {
     await admin.cmd('format.set', { format: sel.format });
     await admin.cmd('mode.set', { mode: sel.mode });
     if (free) await admin.cmd('skip.enable', {});
-    location.href = relayBase() + '/tv/';
+    location.href = relayBase() + '/tv/' + (!$('#introRow').classList.contains('hide') && $('#introBox').checked ? '?intro=1' : '');
   } catch (e) {
     btn.disabled = false; btn.textContent = label;
     msg.className = 'msg err';
@@ -145,4 +145,6 @@ async function launch(free = false) {
 $('#go').onclick = () => launch(false);
 $('#skip').onclick = () => launch(true);
 $('#retry').onclick = boot;
+// intro disponible ? (web/videos/intro_grand_prix.mp4) : propose de l'enchaîner à l'ouverture du plateau
+fetch(relayBase() + '/api/v2/videos', { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).then((v) => { if (v && v.intro) $('#introRow').classList.remove('hide'); }).catch(() => {});
 boot();

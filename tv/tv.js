@@ -13,6 +13,7 @@ import { createPlaylistPlayer } from '../shared/playlist.js';
 import { medal, ghostMedal, carArt, statBars, teamAccent, pad2 } from '../shared/ui.js';
 import { createStage } from '../shared/stage3d.js';
 import { mountAdmin, ADMIN_CSS } from '../shared/admin.js';
+import { createVideoLibrary, makeVideo, waitPlayable, playWithSound, fadeVolume, disposeVideo } from '../shared/videos.js';
 
 const stage = $('#stage'), sceneEl = $('#scene'), overlay = $('#overlay');
 const atmo = startAtmosphere({ road: true, snow: 1, theme: 'gp_bets' });
@@ -61,6 +62,8 @@ async function boot() {
   onStatus((on) => { clearTimeout(offTimer); if (on) $('#offline').classList.add('hide'); else offTimer = setTimeout(() => $('#offline').classList.remove('hide'), 6000); });
   connect('tv');
   setInterval(frameTick, 100);
+  vids.refresh(true);
+  setInterval(() => vids.refresh(true), 30000);          // vidéos déposées en cours de soirée : prises en compte seules
 }
 
 function askRelay() {
@@ -78,6 +81,54 @@ function askRelay() {
 let musicWanted = LS.get('gp.music', '1') !== '0';
 let ytSig = '';
 const music = createPlaylistPlayer({ relayBase, ytHost: document.getElementById('ytBox'), onNowPlaying: showNowPlaying });
+const vids = createVideoLibrary(relayBase);
+
+/* ================================================================== CINÉMATIQUE D'OUVERTURE */
+let intro = null;                    // { layer, v } pendant la lecture
+let introBusy = false;               // chargement / lecture / fondu en cours : les touches ne pilotent plus la régie
+async function playIntro() {
+  if (intro || introBusy) return;
+  introBusy = true;
+  try { await playIntroInner(); } finally { if (!intro) introBusy = false; }
+}
+async function playIntroInner() {
+  await vids.refresh(true);
+  const src = vids.intro();
+  if (!src) { toast("Intro : déposez web/videos/intro_grand_prix.mp4 (le décor animé reste affiché)"); return; }
+  const layer = h(`<div class="intro-layer"><button class="intro-skip">Passer l'intro ⏭<small>Échap · Espace</small></button><div class="intro-hint hide">🔇 Touchez l'écran pour le son</div></div>`);
+  const v = makeVideo(src, relayBase, { cls: 'intro-video' });
+  layer.prepend(v);
+  document.body.appendChild(layer);
+  intro = { layer, v };
+  snd.play('mode', { fallback: 'reveal' });
+  music.setEnabled(false);                                   // fondu de sortie de la musique (1,8 s)
+  const ok = await waitPlayable(v, 5000);
+  if (!ok || intro?.v !== v) { if (intro?.v === v) { intro = null; layer.remove(); disposeVideo(v); music.setEnabled(musicWanted); toast('Intro illisible : vérifiez le format (H.264 + AAC, MP4)'); } return; }
+  v.volume = 0;
+  const sound = await playWithSound(v);
+  if (!sound) { const hint = $('.intro-hint', layer); hint.classList.remove('hide'); layer.addEventListener('pointerdown', () => { v.muted = false; hint.classList.add('hide'); fadeVolume(v, 1, 600); }, { once: true }); }
+  requestAnimationFrame(() => layer.classList.add('on'));     // fondu d'entrée de l'image
+  fadeVolume(v, 1, 1400);                                    // fondu d'entrée du son
+  v.addEventListener('ended', () => endIntro(true), { once: true });
+  v.addEventListener('error', () => endIntro(false), { once: true });
+  $('.intro-skip', layer).onclick = (e) => { e.stopPropagation(); endIntro(false); };
+}
+async function endIntro(natural) {
+  if (!intro) return;
+  const { layer, v } = intro; intro = null;
+  fadeVolume(v, 0, 700);
+  layer.classList.remove('on'); layer.classList.add('off');
+  await sleep(900);
+  disposeVideo(v); layer.remove();
+  introBusy = false;
+  music.setEnabled(musicWanted);
+  if (S && (S.phase === 'LOBBY' || S.phase === 'DRAFT')) {
+    snd.play('start', { fallback: 'fanfare' });
+    announce(`<div class="deco" style="padding:46px 80px;text-align:center"><span class="eyebrow">${natural ? 'Bienvenue sur le plateau' : 'Retour au plateau'}</span>
+      <h2 class="display foil" style="font-size:96px;margin:12px 0">Place au Draft !</h2>
+      <p style="font-size:30px;color:var(--ink-dim)">Scannez le QR code, choisissez votre écurie, et préparez-vous à piocher vos 6 bolides.</p></div>`, 5200);
+  }
+}
 music.setEnabled(musicWanted);
 function showNowPlaying(np) {
   const el = $('#nowPlaying'); if (!el) return;
@@ -246,14 +297,18 @@ function sLobby(s) {
 
 /* ---------------------------------------------------------------- DRAFT */
 const revealQueue = []; let revealBusy = false;
+let turnLast = null;
 function sDraft() {
+  const size = DATA.rules.rules.paddockSize;
   const cards = DATA.teams.map((t) => `<div class="pdk deco plain" data-t="${t.id}" style="--tc:${teamAccent(t.id)}">
-      <div class="top">${medal(t.id, 64)}<div class="meta"><div class="nm">${esc(t.nickname)}</div><div class="pi">${esc(t.name)}</div></div></div>
-      <div class="slots">${Array.from({ length: DATA.rules.rules.paddockSize }, (_, i) => `<div class="slot" data-s="${i}">${i + 1}</div>`).join('')}</div></div>`).join('');
+      <div class="top">${medal(t.id, 64)}<div class="meta"><div class="nm">${esc(t.nickname)}</div><div class="pi">${esc(t.name)}</div></div><span class="ord"></span></div>
+      <div class="slots">${Array.from({ length: size }, (_, i) => `<div class="slot" data-s="${i}">${i + 1}</div>`).join('')}</div></div>`).join('');
   return {
     key: 'draft',
-    html: `<div class="draft"><div class="sec-title"><h2 class="display foil">Le Draft</h2><p>Gratte la gommette, entre le code sur ton téléphone : ton bolide rejoint ton paddock.</p></div><div class="paddocks">${cards}</div></div>`,
+    html: `<div class="draft"><div class="sec-title"><h2 class="display foil">Le Draft</h2><p>Pioche un paquet dans le panier, tape le code de la gommette sur ton téléphone : ton bolide rejoint ton paddock (${size} places).</p></div>
+      <div class="turnbar deco" id="turnBar"></div><div class="paddocks">${cards}</div></div>`,
     live(st, el) {
+      const d = st.draft || {}, now = d.now, order = d.order || [];
       $$('.pdk', el).forEach((n) => {
         const id = Number(n.dataset.t); const pk = st.players[id]?.paddock || [];
         $$('.slot', n).forEach((sl, i) => {
@@ -262,31 +317,94 @@ function sDraft() {
           if (sl.dataset.c !== (code || '')) { sl.dataset.c = code || ''; sl.textContent = txt; sl.classList.toggle('f', !!code); }
         });
         n.classList.toggle('none', !pk.length);
+        n.classList.toggle('turn', !st.skip && !!now && now.teamId === id);
+        n.classList.toggle('full', pk.length >= size);
+        const pos = order.indexOf(id); $('.ord', n).textContent = pos >= 0 && !st.skip ? '#' + (pos + 1) : '';
       });
+      const tb = $('#turnBar', el);
+      let html, sig;
+      if (st.skip) { html = `<span class="eyebrow">Accès libre</span><b class="tb-free">Chacun pioche à son rythme : tapez vos codes dès que vous avez votre paquet.</b>`; sig = 'free'; }
+      else if (!now) { html = `<span class="eyebrow">Ordre de passage</span><b class="tb-free">La régie tire l'ordre officiel…</b>`; sig = 'none'; }
+      else if (now.complete) { html = `<span class="eyebrow">Draft terminé</span><b class="tb-free">${now.total} bolides dans les paddocks. En piste !</b>`; sig = 'done'; }
+      else {
+        const t = team(now.teamId);
+        html = `<span class="eyebrow">Au tour de</span><div class="tb-cur">${medal(now.teamId, 92)}<div><b class="display foil">${esc(t ? t.nickname : '')}</b><span>${esc(t ? t.name : '')}</span></div></div>
+          <div class="tb-meta"><b>Manche ${now.round}/${size}</b><span>Pioche ${now.pick}/${now.total}</span><div class="bar"><i style="width:${Math.round(100 * now.done / Math.max(1, now.total))}%"></i></div></div>
+          <div class="tb-next"><span class="eyebrow">Ensuite</span><div>${now.next.map((id) => medal(id, 50)).join('')}</div></div>`;
+        sig = 'turn:' + now.teamId + ':' + now.pick;
+      }
+      if (tb.dataset.sig !== sig) {
+        tb.dataset.sig = sig; tb.innerHTML = html;
+        if (now && !now.complete && !st.skip && turnLast !== now.teamId) {
+          turnLast = now.teamId; tb.classList.remove('pop'); void tb.offsetWidth; tb.classList.add('pop');
+          if (!snd.teamSound(now.teamId, 'join')) snd.play('ui.decide');
+        }
+      }
     },
   };
+}
+function showDraftOrder(order) {
+  if (!order || !order.length) return;
+  snd.play('reveal');
+  announce(`<div class="deco draft-order"><span class="eyebrow">Ordre officiel de passage</span><h2 class="display foil">Le tirage a parlé !</h2>
+    <ol>${order.map((id, i) => { const t = team(id); return `<li style="animation-delay:${0.25 + i * 0.12}s">${medal(id, 58)}<b>${i + 1}</b><span>${esc(t ? t.nickname : '')}</span></li>`; }).join('')}</ol>
+    <p>Serpentin : l'ordre s'inverse à chaque manche (1 → ${order.length}, puis ${order.length} → 1).</p></div>`, 7000 + order.length * 120);
 }
 async function runReveals() {
   if (revealBusy) return; revealBusy = true;
   while (revealQueue.length) {
     if (!S || S.phase !== 'DRAFT') { revealQueue.length = 0; break; }
-    const { teamId, code } = revealQueue.shift();
+    const { teamId, code, slot, size } = revealQueue.shift();
     const c = car(code); if (!c) continue;
-    const t = team(teamId);
-    snd.sfx('reveal');
-    const el = h(`<div class="reveal"><div class="card deco">
-      <div>${carArt(code, teamId, 'rv')}</div>
-      <div><div class="own">${t ? medal(t.id, 62) : ''}<span>${esc(t ? t.name : '')}</span></div>
-        <span class="eyebrow">${esc(c.code)} · ${esc(c.ecurie)}</span>
-        <h3 class="display foil">${esc(c.alias)}</h3>
-        <div class="qt">« ${esc(c.citation)} »</div><div class="lore">${esc(c.lore)}</div>
-        ${statBars(c, 5)}</div></div></div>`);
-    overlay.appendChild(el);
-    confetti({ x: 0.5, y: 0.5, count: 70, power: 0.9 });
-    await sleep(revealQueue.length ? 2600 : 4800);
-    el.style.transition = 'opacity .4s'; el.style.opacity = 0; await sleep(400); el.remove();
+    const src = vids.car(code);
+    if (src && await revealVideo(c, teamId, src, slot, size)) continue;
+    await revealCard(c, teamId, slot, size);
   }
   revealBusy = false;
+}
+function revealInfo(c, teamId, slot, size) {
+  const t = team(teamId);
+  return `<div class="own">${t ? medal(t.id, 62) : ''}<span>${esc(t ? t.name : '')}</span>${slot ? `<em class="slotnum">Slot ${slot}/${size || DATA.rules.rules.paddockSize}</em>` : ''}</div>
+    <span class="eyebrow">${esc(c.code)} · ${esc(c.real_name || c.ecurie)}</span>
+    <h3 class="display foil">${esc(c.alias)}</h3>
+    <div class="qt">« ${esc(c.citation)} »</div><div class="lore">${esc(c.lore)}</div>
+    ${statBars(c, 5)}`;
+}
+/* Repli sans vidéo : fiche profil avec balayage de lumière dorée */
+async function revealCard(c, teamId, slot, size) {
+  snd.sfx('reveal');
+  const el = h(`<div class="reveal gold"><div class="card deco"><div class="art">${carArt(c.code, teamId, 'rv')}</div><div>${revealInfo(c, teamId, slot, size)}</div></div><div class="sweep"></div></div>`);
+  overlay.appendChild(el);
+  confetti({ x: 0.5, y: 0.5, count: 70, power: 0.9 });
+  snd.carVoice(c.code);
+  await sleep(revealQueue.length ? 2600 : 4800);
+  el.style.transition = 'opacity .4s'; el.style.opacity = 0; await sleep(400); el.remove();
+}
+/* Clip vidéo du bolide (web/videos/cars/CODE.mp4) avec fiche néon en surimpression */
+async function revealVideo(c, teamId, src, slot, size) {
+  const el = h(`<div class="reveal-video"><div class="rv-frame"></div><div class="rv-shade"></div><div class="rv-panel deco">${revealInfo(c, teamId, slot, size)}</div><div class="rv-flash"></div></div>`);
+  const v = makeVideo(src, relayBase, { cls: 'rv-video' });
+  $('.rv-frame', el).appendChild(v);
+  overlay.appendChild(el);
+  if (!(await waitPlayable(v, 1800))) { disposeVideo(v); el.remove(); return false; }
+  const vol = music.volume; music.setVolume(Math.min(vol, 0.08));      // la musique s'efface sous le clip
+  snd.sfx('reveal');
+  v.volume = 1;
+  await playWithSound(v);
+  el.classList.add('on');
+  setTimeout(() => el.classList.add('info'), 700);                    // la fiche s'incruste après l'impact
+  confetti({ x: 0.75, y: 0.4, count: 60, power: 0.8 });
+  const cap = revealQueue.length ? 7000 : 12000;                       // 5-8 s attendues ; plafond de sécurité
+  await new Promise((res) => {
+    const to = setTimeout(res, Math.min(cap, isFinite(v.duration) && v.duration > 0 ? v.duration * 1000 + 300 : cap));
+    v.addEventListener('ended', () => { clearTimeout(to); setTimeout(res, 600); }, { once: true });
+    v.addEventListener('error', () => { clearTimeout(to); res(); }, { once: true });
+  });
+  el.classList.add('out'); fadeVolume(v, 0, 400);
+  await sleep(450);
+  disposeVideo(v); el.remove();
+  music.setVolume(vol);
+  return true;
 }
 
 /* ---------------------------------------------------------------- RACE (grille / bourse / départ / course) */
@@ -516,7 +634,7 @@ function sInter() {
       st3 = createStage($('#c3', el), { camera: { r: 8.4, h: 2.2, look: 0.7 } });
       const show = () => {
         const t = DATA.teams[idx % DATA.teams.length]; idx++;
-        st3.showCar(t.colors);
+        st3.showConcept(t);
         $('#spot', el).innerHTML = `<div class="who">${medal(t.id, 110)}<div>${esc(t.name)}<small>Pilote : ${esc(t.pilot)} · alias « ${esc(t.nickname)} »</small></div></div>
           <div class="qt">« ${esc(t.quote)} »</div><div class="sp">${esc(t.specialty)}</div>`;
       };
@@ -598,7 +716,9 @@ function bubble(teamId, text, iconName) {
 function handleFx(f) {
   switch (f.type) {
     case 'join': if (!snd.teamSound(f.teamId, 'join')) snd.sfx('join'); { const t = team(f.teamId); if (t) toast(`${t.nickname} rejoint la grille !`); } break;
-    case 'reveal': if (S && S.phase === 'DRAFT') { revealQueue.push({ teamId: f.teamId, code: f.code }); while (revealQueue.length > 4) revealQueue.shift(); runReveals(); } break;
+    case 'reveal': if (S && S.phase === 'DRAFT') { revealQueue.push({ teamId: f.teamId, code: f.code, slot: f.slot, size: f.size }); while (revealQueue.length > 4) revealQueue.shift(); runReveals(); } break;
+    case 'intro': if (f.action === 'play') playIntro(); else endIntro(false); break;
+    case 'draft_order': showDraftOrder(f.order); break;
     case 'grid': snd.sfx('reveal'); gridVoices(); break;
     case 'weather': {
       const w = weatherOf(f.id); if (f.id === 'gravite') snd.play('gravity', { fallback: 'weather' }); else snd.sfx('weather');
@@ -640,12 +760,21 @@ function gridVoices() {
 
 /* ================================================================== CLAVIER & SON */
 const gate = $('#soundGate');
-function unlockSound() { if (snd.unlock()) { gate.classList.add('hide'); music.unlock(); if (music.source === 'synth') { snd.setMusicOn(musicWanted); if (musicWanted) snd.musicStart(themeOf(S?.mode || curMode).music); } } }
+let introOnOpen = qs.get('intro') === '1';                 // ouverture depuis /start/ avec « Lancer l'intro »
+if (introOnOpen) { gate.textContent = "🎬 Cliquer (ou une touche) pour lancer l'intro officielle"; gate.classList.add('intro-gate'); }
+function unlockSound() {
+  let started = false;
+  if (introOnOpen) { introOnOpen = false; started = true; gate.classList.remove('intro-gate'); playIntro(); history.replaceState(null, '', location.pathname); }
+  if (snd.unlock()) { gate.classList.add('hide'); music.unlock(); if (music.source === 'synth') { snd.setMusicOn(musicWanted); if (musicWanted) snd.musicStart(themeOf(S?.mode || curMode).music); } }
+  return started;
+}
 gate.onclick = unlockSound;
 addEventListener('pointerdown', unlockSound, { once: true });
 addEventListener('keydown', (e) => {
-  unlockSound();
+  if (unlockSound()) { e.preventDefault(); return; }       // cette touche vient de lancer l'intro
   const k = e.key.toLowerCase();
+  if (intro && (e.key === 'Escape' || e.key === ' ' || k === 'enter')) { e.preventDefault(); e.stopPropagation(); endIntro(false); return; }
+  if (introBusy) { e.preventDefault(); return; }
   if (e.target && /^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName)) return;
   if (k === 'a') { const o = $('#drawer').classList.toggle('open'); snd.play(o ? 'ui.open' : 'ui.close'); }
   else if (k === 'f') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen().catch(() => {}); }

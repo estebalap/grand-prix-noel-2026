@@ -41,8 +41,9 @@
         <label id="resetRow" class="chk hide"><input type="checkbox" id="resetBox"><span>Repartir de zéro<small id="resetInfo"></small></span></label>
         <div id="pinRow" class="hide"><input id="pinIn" inputmode="numeric" maxlength="8" placeholder="Code régie (affiché dans la console)" autocomplete="off"></div>
         <button class="btn big" id="go">Ouvrir le plateau</button>
-        <button class="btn ghost" id="skip">⏭ Accès libre (skip) — tout débloqué, sans draft</button>
-        <p class="skiphint">Accès libre : 5 bolides sont distribués automatiquement à chaque écurie, la soirée passe directement à la grille et n'importe quel téléphone peut prendre n'importe quelle écurie.</p>
+        <label id="introRow" class="chk hide"><input type="checkbox" id="introBox" checked><span>🎬 Lancer l'intro officielle à l'ouverture<small>web/videos/intro_grand_prix.mp4 détectée</small></span></label>
+        <button class="btn ghost" id="skip">⏭ Accès libre (skip) — écuries ouvertes, draft libre</button>
+        <p class="skiphint">Accès libre : n'importe quel téléphone peut prendre n'importe quelle écurie et chacun saisit ses codes sans attendre son tour. Aucun bolide n'est distribué automatiquement : les 6 bolides de chaque écurie viennent toujours des paquets piochés.</p>
         <div class="links"><a href="../tv/" id="lTv">Écran TV (global)</a><a href="../pit/" id="lPit2">Téléphone (mon écurie)</a><a href="../regie/" id="lReg">Régie mobile</a><a href="../showroom/">Showroom 3D</a></div>
         <div id="msg" class="msg"></div>
       </div>
