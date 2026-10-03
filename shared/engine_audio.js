@@ -1,27 +1,30 @@
 /* Sons du Showroom : moteur propre à chaque concept-car, ambiance de stand, effet de changement.
    1) Synthèse procédurale Web Audio (aucun fichier, aucune licence) : harmoniques d'allumage selon le nombre de
       cylindres, râpe d'échappement, turbo + soupape de décharge, pétarades, sifflement électrique, turbine, claquement diesel.
-   2) Fichiers « déposés » prioritaires : si web/sounds/moteurs/NN.mp3 (01 à 15), web/sounds/ambiance/garage.mp3 ou
-      web/sounds/effets/changement.mp3 existent, ils remplacent la synthèse (boucle + vitesse de lecture liée au régime).
+   2) BANQUES MULTI-RÉGIMES (prioritaires) : web/sounds/moteurs/NN/banque.json décrit des boucles enregistrées à régime
+      fixe (1000.wav, 2000.wav…). Les deux bandes qui encadrent le régime courant jouent ensemble (fondu à puissance
+      constante) avec correction de hauteur : la technique des jeux de course. Turbo en couche optionnelle.
+   3) Fichier simple déposé : web/sounds/moteurs/NN.mp3 (boucle + vitesse de lecture liée au régime).
+   Ambiance et effet : web/sounds/ambiance/garage.mp3, web/sounds/effets/changement.mp3, sinon synthèse.
    Le son ne démarre qu'après un geste de l'utilisateur (règle des navigateurs). */
 
 /* ------------------------------------------------------------------ profils moteur des 15 écuries */
 export const ENGINES = {
-  1: { label: 'Turbine à réaction', type: 'turbine', idle: 0.22, max: 1, gain: 0.9 },
-  2: { label: 'V16 de poche (si, si)', type: 'combustion', cyl: 16, idle: 900, max: 9500, grit: 0.35, rasp: 0.35, burble: 0.05, bright: 1.15, gain: 0.8 },
-  3: { label: 'V6 biturbo hybride (endurance)', type: 'combustion', cyl: 6, idle: 1150, max: 9000, grit: 0.45, rasp: 0.5, burble: 0.15, turbo: 0.6, hybrid: 0.35, gain: 0.85 },
-  4: { label: 'V12 atmosphérique de grand tourisme', type: 'combustion', cyl: 12, idle: 800, max: 8200, grit: 0.3, rasp: 0.4, burble: 0.05, bright: 1.05, gain: 0.85 },
-  5: { label: 'V8 vilebrequin croisé + compresseur', type: 'combustion', cyl: 8, idle: 720, max: 6500, grit: 0.75, rasp: 0.65, burble: 0.9, blower: 0.55, pops: 0.6, gain: 0.95 },
-  6: { label: 'Moteur électrique haute tension', type: 'electric', idle: 0, max: 16000, gain: 0.7 },
-  7: { label: '4 cylindres turbo rallye + anti-lag', type: 'combustion', cyl: 4, idle: 1000, max: 8000, grit: 0.6, rasp: 0.75, burble: 0.2, turbo: 0.7, pops: 1, gain: 0.9 },
-  8: { label: '6 cylindres diesel de dépanneuse', type: 'combustion', cyl: 6, idle: 650, max: 3400, grit: 0.55, rasp: 0.3, burble: 0.25, diesel: 0.9, turbo: 0.45, gain: 0.9 },
-  9: { label: '6 en ligne biturbo JDM', type: 'combustion', cyl: 6, idle: 1000, max: 8500, grit: 0.5, rasp: 0.6, burble: 0.1, turbo: 1, pops: 0.5, gain: 0.9 },
-  10: { label: 'V8 démoniaque de 9 litres', type: 'combustion', cyl: 8, idle: 600, max: 5400, grit: 1, rasp: 0.8, burble: 1, sub: 1, pops: 0.8, gain: 1 },
-  11: { label: 'Bicylindre câlin qui ronronne', type: 'combustion', cyl: 2, idle: 1100, max: 6800, grit: 0.25, rasp: 0.3, burble: 0.4, purr: 1, gain: 0.75 },
-  12: { label: 'V12 « coin » années 80', type: 'combustion', cyl: 12, idle: 900, max: 8000, grit: 0.55, rasp: 0.55, burble: 0.1, bright: 1.1, gain: 0.85 },
-  13: { label: 'Rotatif birotor', type: 'combustion', cyl: 4, idle: 1100, max: 9000, grit: 0.5, rasp: 0.85, burble: 0.05, bright: 1.25, pops: 0.4, gain: 0.85 },
-  14: { label: 'V6 nasal de drift + soupape', type: 'combustion', cyl: 6, idle: 850, max: 7600, grit: 0.6, rasp: 0.7, burble: 0.3, turbo: 0.8, pops: 0.7, gain: 0.9 },
-  15: { label: '8 en ligne des années 30', type: 'combustion', cyl: 8, idle: 600, max: 4600, grit: 0.2, rasp: 0.2, burble: 0, bright: 0.7, gain: 0.8 },
+  1: { label: 'turbine à réaction (synthèse)', type: 'turbine', idle: 0.22, max: 1, gain: 0.9 },
+  2: { label: '4 cylindres à plat qui monte à 8 000 tr/min', type: 'combustion', cyl: 16, idle: 900, max: 9500, grit: 0.35, rasp: 0.35, burble: 0.05, bright: 1.15, gain: 0.8 },
+  3: { label: 'moteur turbo aigu de prototype', type: 'combustion', cyl: 6, idle: 1150, max: 9000, grit: 0.45, rasp: 0.5, burble: 0.15, turbo: 0.6, hybrid: 0.35, gain: 0.85 },
+  4: { label: 'V12 de grand tourisme', type: 'combustion', cyl: 12, idle: 800, max: 8200, grit: 0.3, rasp: 0.4, burble: 0.05, bright: 1.05, gain: 0.85 },
+  5: { label: 'V8 de hot-rod', type: 'combustion', cyl: 8, idle: 720, max: 6500, grit: 0.75, rasp: 0.65, burble: 0.9, blower: 0.55, pops: 0.6, gain: 0.95 },
+  6: { label: 'moteur électrique', type: 'electric', idle: 0, max: 16000, gain: 0.7 },
+  7: { label: '4 cylindres à plat turbo de rallye', type: 'combustion', cyl: 4, idle: 1000, max: 8000, grit: 0.6, rasp: 0.75, burble: 0.2, turbo: 0.7, pops: 1, gain: 0.9 },
+  8: { label: 'gros moteur grave à bas régime', type: 'combustion', cyl: 6, idle: 650, max: 3400, grit: 0.55, rasp: 0.3, burble: 0.25, diesel: 0.9, turbo: 0.45, gain: 0.9 },
+  9: { label: '6 cylindres en ligne biturbo', type: 'combustion', cyl: 6, idle: 1000, max: 8500, grit: 0.5, rasp: 0.6, burble: 0.1, turbo: 1, pops: 0.5, gain: 0.9 },
+  10: { label: 'V8 lourd et rageur', type: 'combustion', cyl: 8, idle: 600, max: 5400, grit: 1, rasp: 0.8, burble: 1, sub: 1, pops: 0.8, gain: 1 },
+  11: { label: 'petit moteur doux et rond', type: 'combustion', cyl: 2, idle: 1100, max: 6800, grit: 0.25, rasp: 0.3, burble: 0.4, purr: 1, gain: 0.75 },
+  12: { label: 'V8 de supercar à vilebrequin plat', type: 'combustion', cyl: 12, idle: 900, max: 8000, grit: 0.55, rasp: 0.55, burble: 0.1, bright: 1.1, gain: 0.85 },
+  13: { label: '4 cylindres hurleur', type: 'combustion', cyl: 4, idle: 1100, max: 9000, grit: 0.5, rasp: 0.85, burble: 0.05, bright: 1.25, pops: 0.4, gain: 0.85 },
+  14: { label: 'V8 survolté de drift', type: 'combustion', cyl: 6, idle: 850, max: 7600, grit: 0.6, rasp: 0.7, burble: 0.3, turbo: 0.8, pops: 0.7, gain: 0.9 },
+  15: { label: 'vieux moteur à échappement libre', type: 'combustion', cyl: 8, idle: 600, max: 4600, grit: 0.2, rasp: 0.2, burble: 0, bright: 0.7, gain: 0.8 },
 };
 
 const pad2 = (n) => String(n).padStart(2, '0');
@@ -52,6 +55,26 @@ export function createEngineAudio({ base = '../sounds/', isMuted = () => false }
       const buf = await ctx().decodeAudioData(await r.arrayBuffer());
       files.set(url, buf); return buf;
     } catch (e) { return null; }
+  }
+  async function loadJSON(rel) {
+    if (base === null) return null;
+    try { const r = await fetch(base + rel, { cache: 'no-cache' }); if (!r.ok) return null; return await r.json(); } catch (e) { return null; }
+  }
+  const banks = new Map();
+  /** Banque multi-régimes d'une écurie : { meta, bands: [{ rpm, buf }], turbo } ou null. */
+  async function loadBank(teamId) {
+    const key = pad2(teamId);
+    if (banks.has(key)) return banks.get(key);
+    const meta = await loadJSON(`moteurs/${key}/banque.json`);
+    let bank = null;
+    if (meta && Array.isArray(meta.bandes) && meta.bandes.length) {
+      const bufs = await Promise.all(meta.bandes.map((b) => loadFile(`moteurs/${key}/${b.file}`)));
+      const bands = meta.bandes.map((b, i) => ({ rpm: b.rpm, buf: bufs[i] })).filter((b) => b.buf).sort((a, b) => a.rpm - b.rpm);
+      const turbo = meta.turbo ? await loadFile(`moteurs/${key}/${meta.turbo}`) : null;
+      if (bands.length) bank = { meta, bands, turbo };
+    }
+    banks.set(key, bank);
+    return bank;
   }
   const noise = (loop = true) => { const s = ac.createBufferSource(); s.buffer = noiseBuf; s.loop = loop; return s; };
   function shaper(k) { const ws = ac.createWaveShaper(), n = 1024, c = new Float32Array(n); for (let i = 0; i < n; i++) { const x = (i / (n - 1)) * 2 - 1; c[i] = Math.tanh(x * (1 + k * 6)) / Math.tanh(1 + k * 6); } ws.curve = c; return ws; }
@@ -139,6 +162,46 @@ export function createEngineAudio({ base = '../sounds/', isMuted = () => false }
       update: (rpm, thr, t) => { const r = p.type === 'turbine' ? rpm : (rpm - (p.type === 'electric' ? 0 : p.idle)) / span; s.playbackRate.setTargetAtTime(0.85 + 0.85 * Math.max(0, r), t, 0.05); } };
   }
 
+  /* ------------------------------------------------------------ voix moteur depuis une banque multi-régimes */
+  function bankVoice(bank, p) {
+    const g = ac.createGain(); g.gain.value = 0; g.connect(out);
+    const load = ac.createGain(); load.gain.value = 0.8; load.connect(g);
+    const voices = bank.bands.map((b) => {
+      const s = ac.createBufferSource(), vg = ac.createGain(); s.buffer = b.buf; s.loop = true; vg.gain.value = 0;
+      s.connect(vg); vg.connect(load); s.start(ac.currentTime, Math.random() * b.buf.duration * 0.9); // départs décalés : pas de phase commune
+      return { rpm: b.rpm, s, vg };
+    });
+    let tb = null, tbG = null;
+    if (bank.turbo) { tb = ac.createBufferSource(); tb.buffer = bank.turbo; tb.loop = true; tbG = ac.createGain(); tbG.gain.value = 0; tb.connect(tbG); tbG.connect(g); tb.start(); }
+    const single = voices.length === 1, lo = voices[0].rpm, hi = voices[voices.length - 1].rpm;
+    let lastRpm = 0, popT = 0;
+    return {
+      g, stopAll: () => { voices.forEach((v) => { try { v.s.stop(); } catch (e) { /* déjà arrêté */ } }); if (tb) try { tb.stop(); } catch (e) { /* déjà arrêté */ } },
+      update: (rpm, thr, t) => {
+        if (single) {           // une seule boucle (moteur électrique) : hauteur et volume suivent le régime
+          const r = Math.min(1, rpm / Math.max(1, sim.hi));
+          voices[0].s.playbackRate.setTargetAtTime(0.55 + 1.1 * r, t, 0.05);
+          voices[0].vg.gain.setTargetAtTime(0.35 + 0.65 * r, t, 0.05);
+        } else {
+          const x = Math.max(lo * 0.7, Math.min(hi * 1.15, rpm));
+          let i = 0; while (i < voices.length - 2 && x > voices[i + 1].rpm) i++;
+          const a = voices[i], b = voices[i + 1], f = Math.max(0, Math.min(1, (x - a.rpm) / (b.rpm - a.rpm)));
+          voices.forEach((v) => {
+            const w = v === a ? Math.cos(f * Math.PI / 2) : v === b ? Math.sin(f * Math.PI / 2) : 0;
+            v.vg.gain.setTargetAtTime(w, t, 0.03);
+            if (w > 0.001) v.s.playbackRate.setTargetAtTime(Math.max(0.6, Math.min(1.6, x / v.rpm)), t, 0.03);
+          });
+        }
+        const r = Math.max(0, Math.min(1, (rpm - sim.lo) / Math.max(1, sim.hi - sim.lo)));
+        load.gain.setTargetAtTime(0.7 + 0.45 * thr, t, 0.05);
+        if (tb) { tb.playbackRate.setTargetAtTime(0.75 + 0.6 * r, t, 0.1); tbG.gain.setTargetAtTime(0.9 * thr * r, t, 0.15); }
+        const dec = lastRpm - rpm; lastRpm = rpm;
+        if (tb && dec > 160 && r > 0.35 && t - popT > 0.8) { popT = t; whoosh(t, 0.35, 1800, 4200, 0.1, 'highpass'); }
+        if (p.pops && dec > 70 && r > 0.15 && Math.random() < 0.15 * p.pops) bang(t + Math.random() * 0.05, 0.2 * p.pops);
+      },
+    };
+  }
+
   /* ------------------------------------------------------------ petits effets */
   function whoosh(t, dur, f0, f1, vol, type = 'bandpass') {
     const n = noise(false), f = ac.createBiquadFilter(), g = ac.createGain();
@@ -178,12 +241,12 @@ export function createEngineAudio({ base = '../sounds/', isMuted = () => false }
   }
 
   /* ------------------------------------------------------------ régime moteur (inertie, ralenti vivant) */
-  const sim = { rpm: 0, thr: 0, target: 0, p: null, revUntil: 0 };
+  const sim = { rpm: 0, thr: 0, target: 0, p: null, revUntil: 0, lo: 0, hi: 1 };
   function tick() {
     if (!voice || !ac) return;
     const t = ac.currentTime, p = sim.p, now = performance.now();
     const thr = now < sim.revUntil ? 1 : 0; sim.thr += (thr - sim.thr) * 0.25;
-    const lo = p.type === 'turbine' ? p.idle : p.type === 'electric' ? 0 : p.idle, hi = p.max;
+    const lo = sim.lo, hi = sim.hi;
     const wobble = p.type === 'combustion' ? Math.sin(now / 170) * p.idle * 0.015 + (Math.random() - 0.5) * p.idle * 0.01 : 0;
     const target = lo + (hi - lo) * 0.85 * sim.thr;
     const k = target > sim.rpm ? 0.09 : 0.045;          // monte plus vite qu'elle ne redescend
@@ -192,20 +255,26 @@ export function createEngineAudio({ base = '../sounds/', isMuted = () => false }
   }
 
   async function start(teamId) {
-    if (!enabled || !ctx()) return;
+    if (!enabled || !ctx()) return null;
     const p = ENGINES[teamId] || ENGINES[9];
-    const file = await loadFile(`moteurs/${pad2(teamId)}.mp3`);
-    if (!enabled) return;
+    const bank = await loadBank(teamId);
+    const file = bank ? null : await loadFile(`moteurs/${pad2(teamId)}.mp3`);
+    if (!enabled) return null;
     stopVoice();
     const fx = await loadFile('effets/changement.mp3');
     const t = ac.currentTime;
     if (fx) { const s = ac.createBufferSource(), fg = ac.createGain(); s.buffer = fx; fg.gain.value = 0.6; s.connect(fg); fg.connect(out); s.start(t); }
     else whoosh(t, 0.8, 250, 3200, 0.18);
-    voice = file ? fileVoice(file, p) : synthVoice(p);
-    sim.p = p; sim.rpm = p.type === 'electric' ? 0 : p.idle; sim.thr = 0;
+    voice = bank ? bankVoice(bank, p) : file ? fileVoice(file, p) : synthVoice(p);
+    // plage de régime : celle de la source réelle quand une banque est chargée
+    if (bank && bank.bands.length > 1) { sim.lo = bank.bands[0].rpm * 0.9; sim.hi = Math.min(p.max, bank.bands[bank.bands.length - 1].rpm * 1.1); }
+    else if (p.type === 'electric') { sim.lo = 0; sim.hi = p.max; }
+    else { sim.lo = p.idle; sim.hi = p.max; }
+    sim.p = p; sim.rpm = sim.lo; sim.thr = 0;
     voice.g.gain.setTargetAtTime((p.gain || 0.85) * 0.55, t + 0.3, 0.3);
     clearInterval(rpmTimer); rpmTimer = setInterval(tick, 30);
     setTimeout(() => rev(0.7), 700);                   // coup de gaz d'accueil
+    return { source: bank ? 'banque' : file ? 'fichier' : 'synthese', moteur: bank ? bank.meta.moteur : p.label, credit: bank ? [bank.meta.credit, bank.meta.credit_turbo].filter(Boolean).join(' · ') : '' };
   }
   function rev(sec = 1.1) { if (enabled && voice) sim.revUntil = performance.now() + sec * 1000; }
   function stopVoice() {

@@ -46,12 +46,12 @@ function draw(soft) {
     $$('#rail button').forEach((b) => { b.classList.toggle('on', Number(b.dataset.i) === st.idx); b.onclick = () => { st.idx = Number(b.dataset.i); st.auto = false; draw(true); }; });
     const t = DATA.teams[st.idx];
     stage.showConcept(t);
-    engine.start(t.id);
+    engine.start(t.id).then((i) => { const c = $('#credit'); if (c && i) c.textContent = i.credit ? 'Son : ' + i.credit : ''; });
     const ci = conceptInfo(t.id);
     info.innerHTML = `<div class="panel deco"><div class="h2">Écurie n° ${pad2(t.id)}</div><div style="display:flex;gap:16px;align-items:center">${medal(t.id, 96)}<div><h2 class="display foil">${esc(t.name)}</h2><div class="dim" style="margin-top:6px">Pilote : ${esc(t.pilot)} · alias « ${esc(t.nickname)} »</div></div></div>
       <div class="qt">« ${esc(t.quote)} »</div><div class="dim">${esc(t.specialty)}</div>
       ${ci ? `<div class="concept"><span class="h2">Concept-car</span><b class="display">${esc(ci.nom)}</b><div class="dim">${esc(ci.inspi)}</div>
-        <div class="motor"><span class="dim">Moteur : ${esc(engine.label(t.id))}</span><button id="rev" type="button">Faire rugir</button></div></div>` : ''}
+        <div class="motor"><span class="dim">Moteur : ${esc(engine.label(t.id))}</span><button id="rev" type="button">Faire rugir</button></div><small id="credit" class="dim credit"></small></div>` : ''}
       <div class="sw">${t.colors.map((c) => `<i style="background:${c}" title="${esc(c)}"></i>`).join('')}</div></div>`;
     const rv = $('#rev'); if (rv) rv.onclick = () => { if (!engine.isEnabled()) $('#snd').click(); engine.rev(1.2); };
     const el = rail.querySelector('button.on'); if (el) el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
