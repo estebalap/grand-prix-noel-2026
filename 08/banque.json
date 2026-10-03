@@ -1,25 +1,13 @@
 {
- "moteur": "gros moteur grave à bas régime",
- "serie_source": "ds8",
- "licence": "CC BY 4.0",
- "credit": "CryHam (Stunt Rally 3), moteurs enregistrés dans engine-sim — CC BY 4.0",
- "source": "https://github.com/stuntrally/stuntrally3/tree/main/data/sounds/engines",
- "bandes": [
-  {
-   "rpm": 700,
-   "file": "700.wav"
-  },
-  {
-   "rpm": 1000,
-   "file": "1000.wav"
-  },
-  {
-   "rpm": 2000,
-   "file": "2000.wav"
-  },
-  {
-   "rpm": 3000,
-   "file": "3000.wav"
-  }
+ "moteur": "gros diesel de pick-up (enregistrement réel)",
+ "licence": "CC0",
+ "credit": "« Diesel idle 1.wav » de C-V (CC0) · « Truck-Diesel 07Dodge Rev.mp3 » de canucklovingbrit (CC0)",
+ "sources": [
+  "https://freesound.org/people/C-V/sounds/565598/",
+  "https://freesound.org/people/canucklovingbrit/sounds/478125/"
+ ],
+ "ralenti": "ralenti.wav",
+ "coups_de_gaz": [
+  "gaz1.wav"
  ]
 }
