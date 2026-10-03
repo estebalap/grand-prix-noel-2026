@@ -1,7 +1,22 @@
 /* Scène 3D procédurale (Three.js r128, fourni en local) : bolides à la couleur des écuries,
    six trophées, sol miroir, projecteurs, particules dorées. Fond transparent : l'atmosphère de la page reste visible. */
 
+import { buildConceptCar } from './concept_cars.js';
+
 const T = () => window.THREE;
+
+/** Palier de qualité : 'high' (PC / TV), 'medium' (tablette, petit écran), 'low' (téléphone modeste).
+    Forçable par l'URL : ?q=low|medium|high. Le rendu se dégrade ensuite tout seul si les FPS chutent. */
+export function detectQuality() {
+  try { const f = new URLSearchParams(location.search).get('q'); if (f === 'low' || f === 'medium' || f === 'high') return f; } catch (e) { /* hors navigateur */ }
+  const coarse = typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches;
+  const small = Math.min(screen.width || 1920, screen.height || 1080) < 820;
+  const cores = navigator.hardwareConcurrency || 4;
+  if (coarse && (cores <= 4 || (navigator.deviceMemory || 4) <= 3)) return 'low';
+  if (coarse || small) return 'medium';
+  return 'high';
+}
+const TIER = { high: { dpr: 2, shadow: 1024, dust: 220 }, medium: { dpr: 1.5, shadow: 512, dust: 120 }, low: { dpr: 1.25, shadow: 0, dust: 60 } };
 /* r128 : les couleurs hexadécimales sont en sRGB, le rendu attend du linéaire → conversion explicite. */
 const col = (hex) => new (T().Color)(hex).convertSRGBToLinear();
 
@@ -168,11 +183,13 @@ export const TROPHY_BUILDERS = {
 /* ---------------------------------------------------------------- scène */
 export function createStage(canvas, { camera: camOpts = {}, floor = true } = {}) {
   const THREE = T();
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  const quality = detectQuality(), tier = TIER[quality];
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: quality !== 'low', alpha: true, powerPreference: 'high-performance' });
+  let dpr = Math.min(window.devicePixelRatio || 1, tier.dpr);
+  renderer.setPixelRatio(dpr);
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
-  renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.enabled = tier.shadow > 0; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.setClearColor(0x000000, 0);
 
   const scene = new THREE.Scene();
@@ -188,7 +205,7 @@ export function createStage(canvas, { camera: camOpts = {}, floor = true } = {})
   scene.environment = pm.fromScene(envScene, 0.02).texture;
 
   scene.add(new THREE.HemisphereLight(0x8fb6ff, 0x1a1030, 0.35));
-  const key = new THREE.SpotLight(0xfff0d0, 2.2, 40, 0.5, 0.55, 1); key.position.set(5, 9, 6); key.castShadow = true; key.shadow.mapSize.set(1024, 1024); key.shadow.bias = -0.0004; scene.add(key);
+  const key = new THREE.SpotLight(0xfff0d0, 2.2, 40, 0.5, 0.55, 1); key.position.set(5, 9, 6); key.castShadow = tier.shadow > 0; key.shadow.mapSize.set(tier.shadow || 512, tier.shadow || 512); key.shadow.bias = -0.0004; scene.add(key);
   const rim = new THREE.SpotLight(0xff4d6d, 1.6, 40, 0.6, 0.6, 1); rim.position.set(-7, 5, -5); scene.add(rim);
   const rim2 = new THREE.SpotLight(0x6ab0ff, 1.4, 40, 0.6, 0.6, 1); rim2.position.set(7, 4, -6); scene.add(rim2);
 
@@ -208,7 +225,7 @@ export function createStage(canvas, { camera: camOpts = {}, floor = true } = {})
   }
 
   // poussière d'or
-  const N = 220, pos = new Float32Array(N * 3), spd = new Float32Array(N);
+  const N = tier.dust, pos = new Float32Array(N * 3), spd = new Float32Array(N);
   for (let i = 0; i < N; i++) { pos[i * 3] = (Math.random() - 0.5) * 12; pos[i * 3 + 1] = Math.random() * 6; pos[i * 3 + 2] = (Math.random() - 0.5) * 12; spd[i] = 0.1 + Math.random() * 0.25; }
   const pg = new THREE.BufferGeometry(); pg.setAttribute('position', new THREE.BufferAttribute(pos, 3));
   const dust = new THREE.Points(pg, new THREE.PointsMaterial({ color: col(0xffe3a0), size: 0.045, transparent: true, opacity: 0.8, depthWrite: false, blending: THREE.AdditiveBlending }));
@@ -216,6 +233,7 @@ export function createStage(canvas, { camera: camOpts = {}, floor = true } = {})
 
   const holder = new THREE.Group(); scene.add(holder);
   let current = null, spinSpeed = 0.5, t0 = performance.now(), running = true, raf = 0, autoOrbit = true, popT = 1;
+  const perf = { n: 0, acc: 0, fps: 60, downgrades: 0 };
 
   function size() {
     const w = canvas.clientWidth || canvas.parentElement.clientWidth, hgt = canvas.clientHeight || canvas.parentElement.clientHeight;
@@ -226,14 +244,27 @@ export function createStage(canvas, { camera: camOpts = {}, floor = true } = {})
   function frame(now) {
     raf = requestAnimationFrame(frame);
     if (!running || document.hidden) return;
-    const dt = Math.min(0.12, (now - t0) / 1000); t0 = now;
+    const rawDt = (now - t0) / 1000; const dt = Math.min(0.12, rawDt); t0 = now;
+    // garde-fou 60 FPS : moyenne glissante, on baisse la définition puis les ombres si ça rame
+    if (rawDt > 0 && rawDt < 0.5) { perf.acc += rawDt; perf.n++; }
+    if (perf.n >= 90) {
+      perf.fps = perf.n / perf.acc; perf.n = 0; perf.acc = 0;
+      if (perf.fps < 48 && dpr > 1) { dpr = Math.max(1, dpr - 0.25); renderer.setPixelRatio(dpr); size(); perf.downgrades++; }
+      else if (perf.fps < 40 && key.castShadow) { key.castShadow = false; perf.downgrades++; }
+    }
     if (autoOrbit) camState.a += dt * 0.12;
+    if (camState.fit) { // cadrage automatique : la sphère englobante du bolide tient toujours dans l'image
+      const vf = (camera.fov * Math.PI) / 360, hf = Math.atan(Math.tan(vf) * camera.aspect);
+      const d = camState.fit.R / Math.sin(Math.min(vf, hf)) * 0.94;
+      camState.r = Math.sqrt(Math.max(1, d * d - camState.h * camState.h)); camState.look = camState.fit.H * 0.42;
+    }
     camera.position.set(Math.cos(camState.a) * camState.r, camState.h, Math.sin(camState.a) * camState.r);
     camera.lookAt(0, camState.look, 0);
     if (current) {
       if (popT < 1) { popT = Math.min(1, popT + dt * 2.6); const e = 1 - Math.pow(1 - popT, 3); current.scale.setScalar((current.userData.baseScale || 1) * (0.6 + 0.4 * e)); current.position.y = (1 - e) * 1.5; }
       current.rotation.y += dt * spinSpeed * (current.userData.turn ?? 1);
       current.traverse((o) => { if (o.name === 'spin') o.rotation.y += dt * 1.2; if (o.name === 'spin2') o.rotation.y += dt * 0.8; });
+      if (current.userData.tick) current.userData.tick(now / 1000, dt);
       if (current.userData.floatPivot) current.userData.floatPivot.position.y = 1.7 + Math.sin(now * 0.002) * 0.1;
     }
     const p = pg.attributes.position;
@@ -251,8 +282,17 @@ export function createStage(canvas, { camera: camOpts = {}, floor = true } = {})
   }
   return {
     renderer, scene, camera,
-    showTrophy(id) { const b = TROPHY_BUILDERS[id] || TROPHY_BUILDERS.grandprix; camState.r = 8.2; camState.h = 2.6; camState.look = 1.5; show(b(THREE)); },
-    showCar(colors) { camState.r = 8.4; camState.h = 2.2; camState.look = 0.7; const c = buildCar(colors); show(c, { scale: 1.15 }); },
+    showTrophy(id) { const b = TROPHY_BUILDERS[id] || TROPHY_BUILDERS.grandprix; camState.fit = null; camState.r = 8.2; camState.h = 2.6; camState.look = 1.5; show(b(THREE)); },
+    /** Concept-car de l'écurie (objet équipe ou numéro). */
+    showConcept(team) {
+      const car = buildConceptCar(team, { quality });
+      const b = new THREE.Box3().setFromObject(car), sz = b.getSize(new THREE.Vector3());
+      camState.h = 2.4; camState.fit = { R: 0.5 * Math.hypot(Math.max(sz.x, sz.z), Math.min(sz.x, sz.z), sz.y * 0.8), H: sz.y };
+      show(car, { scale: 1 });
+    },
+    setView(v) { Object.assign(camState, v); },
+    get fps() { return Math.round(perf.fps); }, get quality() { return quality; }, get pixelRatio() { return dpr; },
+    showCar(colors) { camState.fit = null; camState.r = 8.4; camState.h = 2.2; camState.look = 0.7; const c = buildCar(colors); show(c, { scale: 1.15 }); },
     setSpin(v) { spinSpeed = v; }, setOrbit(v) { autoOrbit = v; },
     setRunning(v) { running = v; },
     flash() { key.intensity = 8; },

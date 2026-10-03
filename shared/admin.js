@@ -8,13 +8,20 @@ const KINDS = [['poule', 'Poule'], ['demi', 'Demi-finale'], ['finale', 'Grande F
 const PHASE_LABEL = { LOBBY: 'Accueil', DRAFT: 'Draft', GRID: 'Grille', BETTING: 'Bourse', COUNTDOWN: 'Départ', RACING: 'Course', RESULT: 'Résultat', INTERVIEW: 'Interview', STANDINGS: 'Classement', INTERMISSION: 'Entracte', CEREMONY: 'Cérémonie' };
 
 export function mountAdmin(root, { onToast = () => {}, compact = false } = {}) {
-  const ui = { kind: 'poule', weatherDone: {}, chaosDone: {}, open: new Set(['next']), resultOrder: [], dnf: new Set(), spun: new Set(), resultOpen: false, manual: ['', '', '', ''], draftCode: '', draftTeam: 1, busy: false };
+  const ui = { kind: 'poule', weatherDone: {}, chaosDone: {}, open: new Set(['next', 'show']), resultOrder: [], dnf: new Set(), spun: new Set(), resultOpen: false, manual: ['', '', '', ''], draftCode: '', draftTeam: 1, busy: false };
 
   let musicLib = null;
   async function loadMusicLib() {
     try { const r = await fetch(relayBase() + '/api/v2/music', { cache: 'no-store' }); if (r.ok) { musicLib = await r.json(); render(); } } catch { /* ignore */ }
   }
   loadMusicLib();
+
+  let videoLib = null;                                 // { intro, cars, unknown } : ce qui est déposé dans web/videos
+  async function loadVideoLib() {
+    try { const r = await fetch(relayBase() + '/api/v2/videos', { cache: 'no-store' }); if (r.ok) { videoLib = await r.json(); render(); } } catch { /* ignore */ }
+  }
+  loadVideoLib();
+  setInterval(loadVideoLib, 30000);
 
   async function run(type, payload = {}, ok) {
     if (ui.busy) return;
@@ -29,7 +36,17 @@ export function mountAdmin(root, { onToast = () => {}, compact = false } = {}) {
     const hh = s.heat, mode = modeOf(s.mode) || { betting: true };
     const n = hh.n;
     const has = (id) => !!document.getElementById(id);
-    if (s.phase === 'LOBBY') return { label: 'Ouvrir le Draft', sub: 'Les invités entrent les codes de leurs bolides', act: () => run('phase.set', { phase: 'DRAFT' }) };
+    if (s.phase === 'LOBBY') {
+      const intro = videoLib && videoLib.intro && !s.introPlayed;
+      return { label: 'Ouvrir le Draft', sub: 'Tirage de l\'ordre de passage, puis pioche des paquets (6 par écurie)', act: () => run('phase.set', { phase: 'DRAFT' }),
+        alt: intro ? { label: '🎬 Lancer l\'Intro', act: () => run('show.intro', { action: 'play' }, 'Intro lancée sur la TV') } : undefined };
+    }
+    const dn = s.draft && s.draft.now;
+    if (s.phase === 'DRAFT' && !s.skip && dn && !dn.complete && hh.status === 'idle' && hh.n === 0) {
+      const t = team(dn.teamId);
+      return { label: 'Au tour de ' + (t ? t.nickname : '?') + ' — pioche ' + dn.pick + '/' + dn.total, sub: 'Il pioche un paquet et tape le code sur son téléphone (manche ' + dn.round + '/' + DATA.rules.rules.paddockSize + ')',
+        disabled: true, act: () => {}, alt: { label: 'Passer ce tour', act: () => run('draft.skip', {}, 'Tour passé') } };
+    }
     if (s.phase === 'DRAFT' && (hh.status === 'idle' || hh.status === 'finished')) {
       return { label: 'Tirer la grille — manche ' + (n + 1), sub: 'Tirage au sort de 4 paddocks, un bolide par voie (' + KINDS.find((k) => k[0] === ui.kind)[1] + ')', act: () => run('heat.setup', { kind: ui.kind }) };
     }
@@ -121,16 +138,35 @@ export function mountAdmin(root, { onToast = () => {}, compact = false } = {}) {
         ${br ? `<button class="mini hot" data-bail="${t.id}">Crédit Papy</button>` : ''}${p.claimed ? `<button class="mini" data-rel="${t.id}">Libérer</button>` : ''}</div>`;
     }).join('')}</div>`);
 
-    const secDraft = section('draft', 'Draft & Reliques', `
-      <label>Attribuer un bolide à une écurie</label>
+    const dft = s.draft || {}, dnow = dft.now, size = DATA.rules.rules.paddockSize;
+    const drafted = Object.values(s.players).reduce((n, p) => n + p.paddock.length, 0);
+    const turnTxt = s.skip ? 'Accès libre : chacun saisit ses codes à son rythme.'
+      : !dnow ? 'Aucun ordre tiré : il le sera automatiquement à l\'ouverture du Draft.'
+      : dnow.complete ? `Draft terminé : ${drafted} bolides dans les paddocks.`
+      : `Au tour de <b>${esc((team(dnow.teamId) || {}).nickname || '')}</b> · manche ${dnow.round}/${size} · pioche ${dnow.pick}/${dnow.total}`;
+    const secDraft = section('draft', 'Draft physique (' + size + ' bolides / écurie)', `
+      <p class="adm-note">${turnTxt}</p>
+      ${(dft.order || []).length ? `<div class="adm-order">${dft.order.map((id, i) => `<span class="${dnow && dnow.teamId === id && !s.skip ? 'cur' : ''}">${i + 1}. ${esc((team(id) || {}).nickname || id)} <i>${s.players[id] ? s.players[id].paddock.length : 0}/${size}</i></span>`).join('')}</div>` : ''}
+      <div class="adm-row"><button class="btn sm" id="drShuffle">🎲 Tirer l'ordre au sort</button><button class="btn ghost sm" id="drById">Ordre par numéro</button></div>
+      <div class="adm-row"><button class="btn ghost sm" id="drSkip" ${dnow && !dnow.complete && !s.skip ? '' : 'disabled'}>Passer ce tour</button><button class="btn ghost sm" id="drUnskip" ${(dft.skips || []).length ? '' : 'disabled'}>Annuler le dernier passage</button>
+        <button class="btn ghost sm" id="drStrict">Tour imposé : ${dft.strict ? 'OUI' : 'NON'}</button></div>
+      <label>Correction manuelle (gommette mal saisie, paquet échangé)</label>
       <div class="adm-row"><input id="drCode" placeholder="Code (B07)" value="${esc(ui.draftCode)}" autocapitalize="characters"><select id="drTeam">${teamOpts(ui.draftTeam)}</select></div>
       <div class="adm-row"><button class="btn sm" id="drAssign">Attribuer</button><button class="btn ghost sm" id="drRemove">Retirer ce code</button></div>
+      <p class="adm-note">Aucun bolide n'est jamais distribué automatiquement : chaque code vient d'un paquet pioché dans le panier.</p>
       <label>Nouvelle Relique d'enfance</label>
       <div class="adm-row"><input id="rlCode" placeholder="Code (R21…)"><input id="rlName" placeholder="Nom"></div>
       <div class="adm-row"><input id="rlSpd" type="number" placeholder="Vitesse 55" min="10" max="100"><button class="btn ghost sm" id="rlAdd">Ajouter la relique</button></div>`);
 
-    const secFree = section('free', 'Accès libre (skip)', `<p class="adm-note">${s.skip ? 'ACTIF : toutes les écuries peuvent être prises depuis n\'importe quel téléphone, sans draft à saisir.' : 'Saute l\'installation : draft automatique de bolides pour chaque écurie, passage direct à la grille, écuries ouvertes à tous.'}</p>
-      <div class="adm-row"><button class="btn sm" id="skOn">${s.skip ? 'Relancer le draft auto' : 'Activer l\'accès libre'}</button><button class="btn ghost sm" id="skAuto">Draft auto (+5)</button>${s.skip ? '<button class="btn ghost sm" id="skOff">Désactiver</button>' : ''}</div>`);
+    const secFree = section('free', 'Accès libre (skip)', `<p class="adm-note">${s.skip ? 'ACTIF : écuries ouvertes à n\'importe quel téléphone, draft libre sans tour imposé.' : 'Saute l\'accueil : écuries ouvertes à tous et draft libre (chacun saisit ses codes sans attendre son tour). Aucun bolide n\'est attribué automatiquement.'}</p>
+      <div class="adm-row">${s.skip ? '<button class="btn ghost sm" id="skOff">Désactiver</button>' : '<button class="btn sm" id="skOn">Activer l\'accès libre</button>'}</div>`);
+
+    const vl = videoLib || { intro: null, cars: {}, unknown: [] };
+    const nCarVids = Object.keys(vl.cars || {}).length;
+    const secShow = section('show', 'Show & vidéos', `
+      <p class="adm-note">Intro : ${vl.intro ? '<b>prête</b> (' + Object.keys(vl.intro).join(' + ').toUpperCase() + ')' + (s.introPlayed ? ' · déjà diffusée' : '') : 'absente — déposez <span class="mono">web/videos/intro_grand_prix.mp4</span>'}<br>
+        Clips de révélation : <b>${nCarVids}</b> bolide${nCarVids > 1 ? 's' : ''} sur ${DATA.carList.length}${(vl.unknown || []).length ? ` · <span style="color:#ffb3bd">noms sans bolide : ${vl.unknown.map(esc).join(', ')}</span>` : ''}</p>
+      <div class="adm-row"><button class="btn sm" id="shIntro" ${vl.intro ? '' : 'disabled'}>🎬 Lancer l'Intro officielle</button><button class="btn ghost sm" id="shSkip">⏭ Passer l'intro</button><button class="btn ghost sm" id="shScan">Relire le dossier</button></div>`);
 
     const folder = (DATA.rules.musicFolders || {})[s.mode] || '';
     const nLocal = musicLib ? ((musicLib.folders || {})[folder] || []).length : null;
@@ -159,7 +195,7 @@ export function mountAdmin(root, { onToast = () => {}, compact = false } = {}) {
         <div class="adm-row"><button class="btn ghost sm" id="resReset">Recommencer</button><button class="btn sm" id="resCancel">Fermer</button><button class="btn green sm" id="resOk" ${ui.resultOrder.length === hh.lanes.filter(Boolean).length ? '' : 'disabled'}>Valider</button></div>
       </div></div>` : '';
 
-    root.innerHTML = head + secPhases + secHeat + secWeather + secBourse + secPlayers + secDraft + secFree + secMusic + secCeremony + secDanger + resultModal;
+    root.innerHTML = head + secShow + secPhases + secHeat + secWeather + secBourse + secPlayers + secDraft + secFree + secMusic + secCeremony + secDanger + resultModal;
     bind(s, step);
   }
 
@@ -177,7 +213,14 @@ export function mountAdmin(root, { onToast = () => {}, compact = false } = {}) {
     const ms2 = g('muYtSave'); if (ms2) ms2.onclick = () => { const v = g('muYt').value.trim(); if (v) { run('music.youtube', { mode: s.mode, url: v }, 'Playlist YouTube associée'); ui.ytUrl = ''; } };
     const md = g('muYtDel'); if (md) md.onclick = () => run('music.youtube', { mode: s.mode, url: '' }, 'Playlist retirée');
     const sk1 = g('skOn'); if (sk1) sk1.onclick = () => run('skip.enable', {}, 'Accès libre activé');
-    const sk2 = g('skAuto'); if (sk2) sk2.onclick = () => run('draft.auto', { count: 5 }, 'Draft auto effectué');
+    const dsh = g('drShuffle'); if (dsh) dsh.onclick = () => (!(s.draft && s.draft.order && s.draft.order.length) || confirm('Retirer l\'ordre de passage au sort ?')) && run('draft.order', { mode: 'shuffle' }, 'Ordre tiré au sort');
+    const dbi = g('drById'); if (dbi) dbi.onclick = () => run('draft.order', { mode: 'id' }, 'Ordre par numéro d\'écurie');
+    const dsk = g('drSkip'); if (dsk) dsk.onclick = () => run('draft.skip', {}, 'Tour passé');
+    const dus = g('drUnskip'); if (dus) dus.onclick = () => run('draft.unskip', {}, 'Passage annulé');
+    const dst = g('drStrict'); if (dst) dst.onclick = () => run('draft.strict', { on: !(s.draft && s.draft.strict) }, 'Réglage du tour modifié');
+    const shi = g('shIntro'); if (shi) shi.onclick = () => run('show.intro', { action: 'play' }, 'Intro lancée sur la TV');
+    const shs = g('shSkip'); if (shs) shs.onclick = () => run('show.intro', { action: 'stop' }, 'Intro passée');
+    const shc = g('shScan'); if (shc) shc.onclick = () => { loadVideoLib(); onToast('Dossier vidéos relu', 'ok'); };
     const sk3 = g('skOff'); if (sk3) sk3.onclick = () => run('skip.disable', {}, 'Accès libre désactivé');
     const sr = g('setupRand'); if (sr) sr.onclick = () => run('heat.setup', { kind: ui.kind }, 'Grille tirée');
     const cr = g('cancelRes'); if (cr) cr.onclick = () => confirm('Annuler le résultat de cette manche ?') && run('race.cancel', {}, 'Résultat annulé');
@@ -222,6 +265,7 @@ export const ADMIN_CSS = `
 .adm-head{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
 .adm-phase{font-family:var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:var(--gold-2);font-weight:700}
 .dim{color:var(--ink-dim)}.adm-note{color:var(--ink-dim);font-size:.85em;margin:.4em 0}
+.adm-order{display:flex;flex-wrap:wrap;gap:4px 6px;margin:.3em 0 .6em}.adm-order span{font-size:.78em;padding:2px 8px;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}.adm-order span.cur{background:rgba(255,211,106,.25);border-color:var(--gold-2,#ffd36a);color:#fff}.adm-order i{font-style:normal;opacity:.6}
 .adm-lanes{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .adm-lane{border-left:4px solid var(--lc);background:var(--glass);border-radius:8px;padding:6px 8px;display:flex;flex-direction:column;min-width:0;font-size:.78em}
 .adm-lane b{color:var(--lc)}.adm-lane span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.adm-lane small{color:var(--ink-dim)}
