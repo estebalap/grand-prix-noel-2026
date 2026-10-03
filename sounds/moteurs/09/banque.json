@@ -1,0 +1,43 @@
+{
+ "moteur": "6 cylindres en ligne biturbo",
+ "serie_source": "b-i6r",
+ "licence": "CC BY 4.0",
+ "credit": "CryHam (Stunt Rally 3), moteurs enregistrés dans engine-sim — CC BY 4.0",
+ "source": "https://github.com/stuntrally/stuntrally3/tree/main/data/sounds/engines",
+ "bandes": [
+  {
+   "rpm": 1000,
+   "file": "1000.wav"
+  },
+  {
+   "rpm": 2000,
+   "file": "2000.wav"
+  },
+  {
+   "rpm": 3000,
+   "file": "3000.wav"
+  },
+  {
+   "rpm": 4000,
+   "file": "4000.wav"
+  },
+  {
+   "rpm": 5000,
+   "file": "5000.wav"
+  },
+  {
+   "rpm": 6000,
+   "file": "6000.wav"
+  },
+  {
+   "rpm": 7000,
+   "file": "7000.wav"
+  },
+  {
+   "rpm": 8000,
+   "file": "8000.wav"
+  }
+ ],
+ "turbo": "turbo.wav",
+ "credit_turbo": "CryHam d'après « fuchslienshroud » de shimsewn (Freesound) — CC BY 4.0"
+}
