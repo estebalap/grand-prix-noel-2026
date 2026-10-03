@@ -5,12 +5,16 @@
       fixe (1000.wav, 2000.wav…). Les deux bandes qui encadrent le régime courant jouent ensemble (fondu à puissance
       constante) avec correction de hauteur : la technique des jeux de course. Turbo en couche optionnelle.
    3) Fichier simple déposé : web/sounds/moteurs/NN.mp3 (boucle + vitesse de lecture liée au régime).
-   Ambiance et effet : web/sounds/ambiance/garage.mp3, web/sounds/effets/changement.mp3, sinon synthèse.
+   3) ENREGISTREMENTS RÉELS (mode « réel », par défaut) : web/sounds/moteurs_reels/NN/banque.json. Soit un ralenti
+      bouclé + des « coups de gaz » enregistrés (vraies montées en régime jouées telles quelles sur « Faire rugir »),
+      soit des bandes multi-régimes comme ci-dessus. Mode « studio » : les banques moteurs/NN passent d'abord.
+      Ordre : banque du mode choisi > banque de l'autre mode > moteurs/NN.mp3 > synthèse.
+   Ambiance et effet : web/sounds/ambiance/garage.wav|mp3, web/sounds/effets/changement.wav|mp3, sinon synthèse.
    Le son ne démarre qu'après un geste de l'utilisateur (règle des navigateurs). */
 
 /* ------------------------------------------------------------------ profils moteur des 15 écuries */
 export const ENGINES = {
-  1: { label: 'turbine à réaction (synthèse)', type: 'turbine', idle: 0.22, max: 1, gain: 0.9 },
+  1: { label: 'turbine à réaction', type: 'turbine', idle: 0.22, max: 1, gain: 0.9 },
   2: { label: '4 cylindres à plat qui monte à 8 000 tr/min', type: 'combustion', cyl: 16, idle: 900, max: 9500, grit: 0.35, rasp: 0.35, burble: 0.05, bright: 1.15, gain: 0.8 },
   3: { label: 'moteur turbo aigu de prototype', type: 'combustion', cyl: 6, idle: 1150, max: 9000, grit: 0.45, rasp: 0.5, burble: 0.15, turbo: 0.6, hybrid: 0.35, gain: 0.85 },
   4: { label: 'V12 de grand tourisme', type: 'combustion', cyl: 12, idle: 800, max: 8200, grit: 0.3, rasp: 0.4, burble: 0.05, bright: 1.05, gain: 0.85 },
@@ -31,7 +35,7 @@ const pad2 = (n) => String(n).padStart(2, '0');
 
 export function createEngineAudio({ base = '../sounds/', isMuted = () => false } = {}) {
   let ac = null, out = null, comp = null, noiseBuf = null;
-  let enabled = false, voice = null, amb = null, rpmTimer = null;
+  let enabled = false, voice = null, amb = null, rpmTimer = null, mode = 'reel';
   const files = new Map();              // url → AudioBuffer | null (absent)
 
   function ctx() {
@@ -61,20 +65,32 @@ export function createEngineAudio({ base = '../sounds/', isMuted = () => false }
     try { const r = await fetch(base + rel, { cache: 'no-cache' }); if (!r.ok) return null; return await r.json(); } catch (e) { return null; }
   }
   const banks = new Map();
-  /** Banque multi-régimes d'une écurie : { meta, bands: [{ rpm, buf }], turbo } ou null. */
+  /** Banque d'une écurie dans un dossier : { kind: 'reel'|'bandes', dir, meta, ... } ou null. */
+  async function loadBankFrom(dir, key) {
+    const id = dir + '/' + key;
+    if (banks.has(id)) return banks.get(id);
+    const meta = await loadJSON(`${dir}/${key}/banque.json`);
+    let bank = null;
+    if (meta && meta.ralenti && Array.isArray(meta.coups_de_gaz) && meta.coups_de_gaz.length) {
+      const [idle, ...shots] = await Promise.all([meta.ralenti, ...meta.coups_de_gaz].map((f) => loadFile(`${dir}/${key}/${f}`)));
+      const ok = shots.filter(Boolean);
+      if (idle && ok.length) bank = { kind: 'reel', dir, meta, idle, shots: ok };
+    } else if (meta && Array.isArray(meta.bandes) && meta.bandes.length) {
+      const bufs = await Promise.all(meta.bandes.map((b) => loadFile(`${dir}/${key}/${b.file}`)));
+      const bands = meta.bandes.map((b, i) => ({ rpm: b.rpm, buf: bufs[i] })).filter((b) => b.buf).sort((a, b) => a.rpm - b.rpm);
+      const turbo = meta.turbo ? await loadFile(`${dir}/${key}/${meta.turbo}`) : null;
+      if (bands.length) bank = { kind: 'bandes', dir, meta, bands, turbo };
+    }
+    banks.set(id, bank);
+    return bank;
+  }
+  /** Banque selon le mode : réel → moteurs_reels puis moteurs ; studio → l'inverse. */
   async function loadBank(teamId) {
     const key = pad2(teamId);
-    if (banks.has(key)) return banks.get(key);
-    const meta = await loadJSON(`moteurs/${key}/banque.json`);
-    let bank = null;
-    if (meta && Array.isArray(meta.bandes) && meta.bandes.length) {
-      const bufs = await Promise.all(meta.bandes.map((b) => loadFile(`moteurs/${key}/${b.file}`)));
-      const bands = meta.bandes.map((b, i) => ({ rpm: b.rpm, buf: bufs[i] })).filter((b) => b.buf).sort((a, b) => a.rpm - b.rpm);
-      const turbo = meta.turbo ? await loadFile(`moteurs/${key}/${meta.turbo}`) : null;
-      if (bands.length) bank = { meta, bands, turbo };
+    for (const dir of mode === 'reel' ? ['moteurs_reels', 'moteurs'] : ['moteurs', 'moteurs_reels']) {
+      const b = await loadBankFrom(dir, key); if (b) return b;
     }
-    banks.set(key, bank);
-    return bank;
+    return null;
   }
   const noise = (loop = true) => { const s = ac.createBufferSource(); s.buffer = noiseBuf; s.loop = loop; return s; };
   function shaper(k) { const ws = ac.createWaveShaper(), n = 1024, c = new Float32Array(n); for (let i = 0; i < n; i++) { const x = (i / (n - 1)) * 2 - 1; c[i] = Math.tanh(x * (1 + k * 6)) / Math.tanh(1 + k * 6); } ws.curve = c; return ws; }
@@ -202,6 +218,35 @@ export function createEngineAudio({ base = '../sounds/', isMuted = () => false }
     };
   }
 
+  /* ------------------------------------------------------------ voix moteur enregistrée : ralenti + vrais coups de gaz */
+  function realVoice(bank) {
+    const g = ac.createGain(); g.gain.value = 0; g.connect(out);
+    const idle = ac.createBufferSource(), ig = ac.createGain();
+    idle.buffer = bank.idle; idle.loop = true; idle.connect(ig); ig.connect(g); idle.start(ac.currentTime, Math.random() * bank.idle.duration * 0.9);
+    const hold = (param, t) => { if (param.cancelAndHoldAtTime) param.cancelAndHoldAtTime(t); else { param.cancelScheduledValues(t); param.setValueAtTime(param.value, t); } };
+    let shot = null, order = [];
+    const next = () => { // tirage sans répétition immédiate
+      if (!order.length) order = bank.shots.map((_, i) => i).sort(() => Math.random() - 0.5);
+      return bank.shots[order.pop()];
+    };
+    return {
+      g,
+      stopAll: () => { try { idle.stop(); } catch (e) { /* déjà arrêté */ } if (shot) try { shot.s.stop(); } catch (e) { /* déjà arrêté */ } },
+      update: () => {},
+      rev: () => {
+        const t = ac.currentTime;
+        if (shot && t < shot.t0 + shot.d * 0.6) return;      // on laisse le coup de gaz en cours aller au bout
+        if (shot) { const o = shot; hold(o.sg.gain, t); o.sg.gain.setTargetAtTime(0, t, 0.06); setTimeout(() => { try { o.s.stop(); } catch (e) { /* déjà arrêté */ } }, 500); }
+        const buf = next(), s = ac.createBufferSource(), sg = ac.createGain();
+        s.buffer = buf; sg.gain.value = 1; s.connect(sg); sg.connect(g); s.start(t);
+        hold(ig.gain, t); ig.gain.setTargetAtTime(0.08, t + 0.04, 0.05);              // le ralenti s'efface sous l'enregistrement
+        ig.gain.setTargetAtTime(1, t + Math.max(0.2, buf.duration - 0.7), 0.18);      // et revient quand le moteur retombe
+        const me = { s, sg, t0: t, d: buf.duration }; shot = me;
+        s.onended = () => { if (shot === me) shot = null; };
+      },
+    };
+  }
+
   /* ------------------------------------------------------------ petits effets */
   function whoosh(t, dur, f0, f1, vol, type = 'bandpass') {
     const n = noise(false), f = ac.createBiquadFilter(), g = ac.createGain();
@@ -218,7 +263,7 @@ export function createEngineAudio({ base = '../sounds/', isMuted = () => false }
   /* ------------------------------------------------------------ ambiance de stand */
   async function startAmbience() {
     if (amb) return;
-    const file = await loadFile('ambiance/garage.mp3');
+    const file = (await loadFile('ambiance/garage.wav')) || (await loadFile('ambiance/garage.mp3'));
     if (!enabled || amb) return;
     const g = ac.createGain(); g.gain.value = 0; g.connect(out); g.gain.setTargetAtTime(file ? 0.35 : 0.5, ac.currentTime, 1.2);
     const nodes = []; let timer = null;
@@ -261,22 +306,24 @@ export function createEngineAudio({ base = '../sounds/', isMuted = () => false }
     const file = bank ? null : await loadFile(`moteurs/${pad2(teamId)}.mp3`);
     if (!enabled) return null;
     stopVoice();
-    const fx = await loadFile('effets/changement.mp3');
+    const fx = (await loadFile('effets/changement.wav')) || (await loadFile('effets/changement.mp3'));
     const t = ac.currentTime;
-    if (fx) { const s = ac.createBufferSource(), fg = ac.createGain(); s.buffer = fx; fg.gain.value = 0.6; s.connect(fg); fg.connect(out); s.start(t); }
+    if (fx) { const s = ac.createBufferSource(), fg = ac.createGain(); s.buffer = fx; fg.gain.value = 0.45; s.connect(fg); fg.connect(out); s.start(t); }
     else whoosh(t, 0.8, 250, 3200, 0.18);
-    voice = bank ? bankVoice(bank, p) : file ? fileVoice(file, p) : synthVoice(p);
+    voice = bank ? (bank.kind === 'reel' ? realVoice(bank) : bankVoice(bank, p)) : file ? fileVoice(file, p) : synthVoice(p);
     // plage de régime : celle de la source réelle quand une banque est chargée
-    if (bank && bank.bands.length > 1) { sim.lo = bank.bands[0].rpm * 0.9; sim.hi = Math.min(p.max, bank.bands[bank.bands.length - 1].rpm * 1.1); }
+    if (bank && bank.kind === 'bandes' && bank.bands.length > 1) { sim.lo = bank.bands[0].rpm * 0.9; sim.hi = Math.min(p.max, bank.bands[bank.bands.length - 1].rpm * 1.1); }
     else if (p.type === 'electric') { sim.lo = 0; sim.hi = p.max; }
     else { sim.lo = p.idle; sim.hi = p.max; }
     sim.p = p; sim.rpm = sim.lo; sim.thr = 0;
     voice.g.gain.setTargetAtTime((p.gain || 0.85) * 0.55, t + 0.3, 0.3);
     clearInterval(rpmTimer); rpmTimer = setInterval(tick, 30);
     setTimeout(() => rev(0.7), 700);                   // coup de gaz d'accueil
-    return { source: bank ? 'banque' : file ? 'fichier' : 'synthese', moteur: bank ? bank.meta.moteur : p.label, credit: bank ? [bank.meta.credit, bank.meta.credit_turbo].filter(Boolean).join(' · ') : '' };
+    return { source: bank ? (bank.dir === 'moteurs_reels' ? 'reel' : 'banque') : file ? 'fichier' : 'synthese', mode, moteur: bank ? bank.meta.moteur : p.label, credit: bank ? [bank.meta.credit, bank.meta.credit_turbo].filter(Boolean).join(' · ') : '' };
   }
-  function rev(sec = 1.1) { if (enabled && voice) sim.revUntil = performance.now() + sec * 1000; }
+  function rev(sec = 1.1) { if (!enabled || !voice) return; if (voice.rev) voice.rev(); else sim.revUntil = performance.now() + sec * 1000; }
+  /** 'reel' (enregistrements Freesound d'abord) ou 'studio' (banques Stunt Rally d'abord). */
+  function setMode(m) { mode = m === 'studio' ? 'studio' : 'reel'; return mode; }
   function stopVoice() {
     if (!voice) return; const v = voice; voice = null; clearInterval(rpmTimer);
     v.g.gain.setTargetAtTime(0, ac.currentTime, 0.15); setTimeout(v.stopAll, 900);
@@ -287,5 +334,5 @@ export function createEngineAudio({ base = '../sounds/', isMuted = () => false }
     else { stopVoice(); if (amb) { amb.stop(); amb = null; } }
     return enabled;
   }
-  return { start, rev, stop: stopVoice, setEnabled, isEnabled: () => enabled, label: (id) => (ENGINES[id] || {}).label || '' };
+  return { start, rev, stop: stopVoice, setEnabled, setMode, getMode: () => mode, isEnabled: () => enabled, label: (id) => (ENGINES[id] || {}).label || '' };
 }

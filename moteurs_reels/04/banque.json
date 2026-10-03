@@ -1,0 +1,15 @@
+{
+ "moteur": "V12 Lamborghini (enregistrement réel)",
+ "licence": "CC0",
+ "credit": "« Lambo idle and rev.mp3 » de cheesepuff (CC0) · « V12 Engine - Short Rev » de Janosch-JR (CC0)",
+ "sources": [
+  "https://freesound.org/people/cheesepuff/sounds/112075/",
+  "https://freesound.org/people/Janosch-JR/sounds/484191/"
+ ],
+ "ralenti": "ralenti.wav",
+ "coups_de_gaz": [
+  "gaz1.wav",
+  "gaz2.wav",
+  "gaz3.wav"
+ ]
+}

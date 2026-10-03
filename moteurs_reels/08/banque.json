@@ -1,0 +1,13 @@
+{
+ "moteur": "gros diesel de pick-up (enregistrement réel)",
+ "licence": "CC0",
+ "credit": "« Diesel idle 1.wav » de C-V (CC0) · « Truck-Diesel 07Dodge Rev.mp3 » de canucklovingbrit (CC0)",
+ "sources": [
+  "https://freesound.org/people/C-V/sounds/565598/",
+  "https://freesound.org/people/canucklovingbrit/sounds/478125/"
+ ],
+ "ralenti": "ralenti.wav",
+ "coups_de_gaz": [
+  "gaz1.wav"
+ ]
+}

@@ -1,0 +1,14 @@
+{
+ "moteur": "4 cylindres à plat Subaru WRX (enregistrement réel)",
+ "licence": "CC0",
+ "credit": "« WRX - Exhaust sounds » de ulose2piranha (CC0)",
+ "sources": [
+  "https://freesound.org/people/ulose2piranha/sounds/273334/"
+ ],
+ "ralenti": "ralenti.wav",
+ "coups_de_gaz": [
+  "gaz1.wav",
+  "gaz2.wav",
+  "gaz3.wav"
+ ]
+}
