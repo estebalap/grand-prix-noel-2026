@@ -3,6 +3,8 @@ html,body{overflow:hidden}
 header{grid-area:hd;display:flex;align-items:center;justify-content:space-between}
 .brand{display:flex;flex-direction:column;line-height:1}.brand b{font-size:40px;letter-spacing:.08em}.brand .eyebrow{font-size:12px;margin-bottom:5px}
 #modes{display:flex;gap:8px}#modes button{background:var(--glass);border:1px solid var(--hair);border-radius:99px;padding:.7em 1.4em;font:700 14px var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+#snd.on{background:linear-gradient(180deg,#7cf0a9,#2bb36b);color:#04210f;border-color:#2bb36b}
+.motor{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px}.motor button{background:var(--glass);border:1px solid var(--gold-2);color:var(--gold-1);border-radius:99px;padding:.5em 1.1em;font:700 12px var(--font-display);letter-spacing:.12em;text-transform:uppercase}
 #modes button.on{background:linear-gradient(180deg,#ffe08a,#e9a92b);color:#2a1700;border-color:var(--gold-2)}
 #stage3d{grid-area:st;position:relative;min-height:0}#stage3d canvas{position:absolute;inset:0;width:100%;height:100%;cursor:grab}
 #hint{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:12px;color:var(--ink-faint)}
@@ -15,7 +17,8 @@ header{grid-area:hd;display:flex;align-items:center;justify-content:space-betwee
 .panel{padding:22px 26px;margin-bottom:14px}
 .h2{font:700 13px var(--font-display);letter-spacing:.26em;text-transform:uppercase;color:var(--gold-2);margin:0 0 10px}
 .panel h2{margin:0;font-size:38px;line-height:1.02}.qt{font:italic 22px/1.3 var(--font-serif);color:var(--gold-1);margin:14px 0 8px}
-.dim{color:var(--ink-dim)}.sw{display:flex;gap:8px;margin-top:12px}.sw i{width:34px;height:34px;border-radius:50%;border:2px solid rgba(255,255,255,.7);display:block}
+.dim{color:var(--ink-dim)}
+.concept{margin-top:14px;padding-top:12px;border-top:1px solid var(--hair)}.concept .h2{display:block;margin-bottom:4px}.concept b{display:block;font-size:22px;line-height:1.1;margin-bottom:4px;color:var(--ink)}.sw{display:flex;gap:8px;margin-top:12px}.sw i{width:34px;height:34px;border-radius:50%;border:2px solid rgba(255,255,255,.7);display:block}
 .stat{display:grid;grid-template-columns:118px 1fr 34px;gap:10px;align-items:center;font-size:13.5px;margin:6px 0;color:var(--ink-dim)}.stat b{color:var(--ink);text-align:right}
 /* galerie bolides */
 #sr.cars{grid-template-columns:1fr 460px;grid-template-areas:"hd hd" "st inf"}

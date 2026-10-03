@@ -2,19 +2,25 @@
 import { $, $$, esc, DATA, findRelay, loadData, logoUrl } from '../shared/core.js';
 import { startAtmosphere } from '../shared/fx.js';
 import { createStage } from '../shared/stage3d.js';
+import { conceptInfo } from '../shared/concept_cars.js';
+import { createEngineAudio } from '../shared/engine_audio.js';
+import { isMuted } from '../shared/audio.js';
 import { medal, carArt, statBars, pad2 } from '../shared/ui.js';
 import { icon } from '../shared/icons.js';
 
 startAtmosphere({ road: false, snow: 0.8, aurora: 1 });
 const st = { mode: 'teams', idx: 0, cat: 'all', auto: true, timer: null };
 let stage = null;
+const engine = createEngineAudio({ base: '../sounds/', isMuted });
 const ICON = { grandprix: 'trophy', parieur: 'coin', cascadeur: 'crash', saboteur: 'banana', reliques: 'car', cuillere: 'spoon' };
 
 (async () => {
   await findRelay();                       // optionnel : sans relais, on lit web/data/
   await loadData();
   stage = createStage($('#c3'), { camera: { r: 8.4, h: 2.2, look: 0.7 } });
-  $$('#modes button').forEach((b) => b.onclick = () => setMode(b.dataset.m));
+  $$('#modes button[data-m]').forEach((b) => b.onclick = () => setMode(b.dataset.m));
+  const sb = $('#snd');
+  sb.onclick = () => { const on = engine.setEnabled(!engine.isEnabled()); sb.classList.toggle('on', on); sb.setAttribute('aria-pressed', String(on)); sb.textContent = on ? 'Son : actif' : 'Son : coupé'; if (on && st.mode === 'teams') engine.start(DATA.teams[st.idx].id); };
   const c = $('#c3');
   let drag = null;
   c.addEventListener('pointerdown', (e) => { drag = e.clientX; stage.setOrbit(false); st.auto = false; c.setPointerCapture(e.pointerId); });
@@ -25,7 +31,8 @@ const ICON = { grandprix: 'trophy', parieur: 'coin', cascadeur: 'crash', saboteu
 
 function setMode(m) {
   st.mode = m; st.idx = 0; st.auto = m !== 'cars';
-  $$('#modes button').forEach((b) => b.classList.toggle('on', b.dataset.m === m));
+  $$('#modes button[data-m]').forEach((b) => b.classList.toggle('on', b.dataset.m === m));
+  if (m !== 'teams') engine.stop();
   $('#sr').classList.toggle('cars', m === 'cars');
   clearInterval(st.timer);
   draw();
@@ -38,10 +45,15 @@ function draw(soft) {
     if (!soft) rail.innerHTML = DATA.teams.map((t, i) => `<button data-i="${i}" title="${esc(t.name)}">${medal(t.id, 84)}</button>`).join('');
     $$('#rail button').forEach((b) => { b.classList.toggle('on', Number(b.dataset.i) === st.idx); b.onclick = () => { st.idx = Number(b.dataset.i); st.auto = false; draw(true); }; });
     const t = DATA.teams[st.idx];
-    stage.showCar(t.colors);
+    stage.showConcept(t);
+    engine.start(t.id);
+    const ci = conceptInfo(t.id);
     info.innerHTML = `<div class="panel deco"><div class="h2">Écurie n° ${pad2(t.id)}</div><div style="display:flex;gap:16px;align-items:center">${medal(t.id, 96)}<div><h2 class="display foil">${esc(t.name)}</h2><div class="dim" style="margin-top:6px">Pilote : ${esc(t.pilot)} · alias « ${esc(t.nickname)} »</div></div></div>
       <div class="qt">« ${esc(t.quote)} »</div><div class="dim">${esc(t.specialty)}</div>
+      ${ci ? `<div class="concept"><span class="h2">Concept-car</span><b class="display">${esc(ci.nom)}</b><div class="dim">${esc(ci.inspi)}</div>
+        <div class="motor"><span class="dim">Moteur : ${esc(engine.label(t.id))}</span><button id="rev" type="button">Faire rugir</button></div></div>` : ''}
       <div class="sw">${t.colors.map((c) => `<i style="background:${c}" title="${esc(c)}"></i>`).join('')}</div></div>`;
+    const rv = $('#rev'); if (rv) rv.onclick = () => { if (!engine.isEnabled()) $('#snd').click(); engine.rev(1.2); };
     const el = rail.querySelector('button.on'); if (el) el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
   } else if (st.mode === 'trophies') {
     const list = DATA.rules.trophies;
