@@ -1,0 +1,25 @@
+{
+ "moteur": "gros moteur grave à bas régime",
+ "serie_source": "ds8",
+ "licence": "CC BY 4.0",
+ "credit": "CryHam (Stunt Rally 3), moteurs enregistrés dans engine-sim — CC BY 4.0",
+ "source": "https://github.com/stuntrally/stuntrally3/tree/main/data/sounds/engines",
+ "bandes": [
+  {
+   "rpm": 700,
+   "file": "700.wav"
+  },
+  {
+   "rpm": 1000,
+   "file": "1000.wav"
+  },
+  {
+   "rpm": 2000,
+   "file": "2000.wav"
+  },
+  {
+   "rpm": 3000,
+   "file": "3000.wav"
+  }
+ ]
+}
