@@ -1,7 +1,173 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Grand Prix de Noël</title><style>
-body{margin:0;min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at 50% 0,#1b2466,#02030a);color:#fff3c4;font:600 18px system-ui,sans-serif;text-align:center}
-a{display:block;margin:12px auto;padding:16px 28px;border-radius:14px;background:linear-gradient(#ffe08a,#e6a73a);color:#2b1a00;text-decoration:none;font-weight:800;max-width:320px}
-h1{font:800 34px Bahnschrift,system-ui;letter-spacing:.08em;text-transform:uppercase}</style></head>
-<body><main><h1>Grand Prix de Noël</h1><p>Édition 23 décembre</p>
-<a href="showroom/">Showroom 3D</a><a href="pit/">Pocket Pit (ajouter ?relay=lien-du-tunnel)</a></main></body></html>
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grand Prix de Noël</title>
+<!-- Page d'accueil du site GitHub Pages (copiée en index.html par preparer_pages.py). -->
+<style>
+@font-face { font-family: "Fredoka"; font-weight: 700; src: url(fonts/fredoka-latin-700-normal.woff2) format("woff2"); font-display: swap; }
+@font-face { font-family: "Nunito"; font-weight: 700; src: url(fonts/nunito-latin-700-normal.woff2) format("woff2"); font-display: swap; }
+@font-face { font-family: "Nunito"; font-weight: 800; src: url(fonts/nunito-latin-800-normal.woff2) format("woff2"); font-display: swap; }
+:root { --fond: #0b1030; --carte: #161c4a; --texte: #fff6dc; --or: #ffd166; --rouge: #ff4d6d; --vert: #3ddc97; --gris: #aab2e0; }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; color: var(--texte); font: 700 16px "Nunito", system-ui, sans-serif;
+  background: radial-gradient(120% 70% at 50% 0%, #26307a 0%, var(--fond) 60%, #03050f 100%); }
+main { max-width: 1040px; margin: 0 auto; padding: 28px 16px 60px; }
+h1, h2 { font-family: "Fredoka", system-ui, sans-serif; margin: 0; }
+h1 { font-size: clamp(34px, 7vw, 60px); line-height: 1; text-align: center;
+  background: linear-gradient(90deg, #ff4d6d, #ffd166, #3ddc97, #4cc9f0, #b98cff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.sous { text-align: center; color: var(--gris); margin: 8px 0 26px; }
+.boutons { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 28px; }
+.bouton { display: inline-block; padding: 14px 24px; border-radius: 999px; text-decoration: none; font: 700 17px "Fredoka", system-ui;
+  background: linear-gradient(#ffe08a, #e6a73a); color: #2b1a00; box-shadow: 0 4px 0 #8a5a12; }
+.bouton.bleu { background: linear-gradient(#8fe3ff, #3aa6e6); color: #04213a; box-shadow: 0 4px 0 #1b5b85; }
+.bouton:active { transform: translateY(3px); box-shadow: 0 1px 0 #8a5a12; }
+.grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+.carte { background: var(--carte); border: 2px solid rgba(255,255,255,.12); border-radius: 22px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+.carte h2 { font-size: 22px; margin-bottom: 6px; }
+.carte p { margin: 6px 0 12px; color: var(--gris); font-weight: 700; line-height: 1.45; }
+.qr { background: #fff; border-radius: 16px; padding: 10px; width: min(100%, 300px); aspect-ratio: 1; margin: 6px auto 8px; display: grid; place-items: center; }
+.qr svg { width: 100%; height: 100%; display: block; }
+.qr.vide { background: rgba(255,255,255,.06); border: 2px dashed rgba(255,255,255,.25); color: var(--gris); text-align: center; padding: 22px; font-size: 14px; }
+.lien { font: 700 12px ui-monospace, Consolas, monospace; word-break: break-all; text-align: center; color: var(--gris); }
+label { display: block; font-size: 13px; color: var(--gris); margin: 8px 0 4px; }
+input[type=text] { width: 100%; font: 700 15px ui-monospace, Consolas, monospace; padding: 10px 12px; border-radius: 12px; border: 2px solid rgba(255,255,255,.2);
+  background: #0d1236; color: #fff; }
+input[type=text]:focus { outline: 3px solid var(--or); outline-offset: 1px; }
+.etat { min-height: 20px; font-size: 13px; margin-top: 6px; }
+.etat.ok { color: var(--vert); } .etat.ko { color: #ffb3bd; }
+.petit-bouton { font: 700 14px "Fredoka", system-ui; border: 0; border-radius: 999px; padding: 8px 16px; cursor: pointer; background: #fff; color: #0b1030; margin-top: 8px; }
+.ecuries { display: none; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-top: 18px; }
+.ecuries.on { display: grid; }
+.ecurie { background: #fff; color: #0b1030; border-radius: 16px; padding: 10px; text-align: center; border-bottom: 6px solid var(--c, #ffd166); }
+.ecurie svg { width: 100%; height: auto; display: block; }
+.ecurie b { display: block; font: 700 16px "Fredoka", system-ui; margin-top: 4px; }
+.ecurie small { color: #5a6190; font-size: 11px; }
+.note { margin-top: 26px; font-size: 14px; color: var(--gris); line-height: 1.55; background: rgba(255,255,255,.05); border-radius: 16px; padding: 14px 18px; }
+.note b { color: var(--or); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Le Grand Prix de Noël</h1>
+  <div class="sous">Édition du 23 décembre · paris, pièges et trophées dorés</div>
+  <div class="boutons">
+    <a class="bouton" href="showroom/">Showroom 3D</a>
+    <a class="bouton bleu" id="lienPit" href="pit/">Pocket Pit</a>
+  </div>
+
+  <div class="grille">
+    <section class="carte">
+      <h2>🏎️ Le Showroom 3D</h2>
+      <p>Les 15 écuries, les bolides et les trophées. Fonctionne tout de suite, sans le PC de la régie.</p>
+      <div class="qr" id="qrShowroom"></div>
+      <div class="lien" id="txtShowroom"></div>
+    </section>
+
+    <section class="carte">
+      <h2>📱 Rejoindre la soirée</h2>
+      <p>Le jeu tourne sur le PC de la régie. Collez ici le <b>lien du tunnel</b> affiché dans sa console (https://….trycloudflare.com) : le QR code apparaît.</p>
+      <label for="relais">Lien du relais (tunnel ou adresse Wi-Fi)</label>
+      <input type="text" id="relais" placeholder="https://xxxx.trycloudflare.com" autocomplete="off" spellcheck="false">
+      <div class="etat" id="etat"></div>
+      <div class="qr vide" id="qrJoin">Le QR code « Rejoindre » s'affichera ici dès que le lien est collé.</div>
+      <div class="lien" id="txtJoin"></div>
+      <div style="text-align:center"><button class="petit-bouton" id="voirEcuries" type="button">Un QR par écurie</button></div>
+    </section>
+  </div>
+
+  <div class="ecuries" id="ecuries"></div>
+
+  <div class="note">
+    <b>Où est le QR code de la TV ?</b> La TV, la régie et l'écran de lancement ont besoin du relais : ils s'ouvrent sur le PC avec
+    <b>LANCER_REGIE_V2.bat</b> (http://localhost:8100), et c'est là que le QR code s'affiche tout seul. Cette page GitHub sert aux invités
+    avant la soirée (Showroom) et de secours si le QR de la TV n'est pas visible.<br>
+    Astuce : ouvrez cette page avec <b>?relay=lien-du-tunnel</b> à la fin de l'adresse pour pré-remplir le champ.
+  </div>
+</main>
+
+<script type="module">
+import { qrSvg } from './shared/qr.js';
+
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const SITE = new URL('./', location.href).href;                  // https://<compte>.github.io/<dépôt>/
+const QR = (txt) => qrSvg(txt, { dark: '#0b1030', light: '#ffffff', margin: 2, round: 0, ecl: 'M' });
+const store = {
+  get() { try { return localStorage.getItem('gpn-relay') || ''; } catch { return ''; } },
+  set(v) { try { v ? localStorage.setItem('gpn-relay', v) : localStorage.removeItem('gpn-relay'); } catch { /* stockage indisponible */ } },
+};
+
+// Showroom : toujours disponible
+const urlShowroom = SITE + 'showroom/';
+$('#qrShowroom').innerHTML = QR(urlShowroom);
+$('#txtShowroom').textContent = urlShowroom.replace(/^https?:\/\//, '');
+
+let equipes = [];
+fetch('data/teams.json', { cache: 'no-store' }).then((r) => r.ok ? r.json() : []).then((t) => { equipes = t; majEcuries(); }).catch(() => {});
+
+function normaliser(v) {
+  v = (v || '').trim();
+  if (!v) return '';
+  if (!/^https?:\/\//i.test(v)) v = (/trycloudflare\.com|\.\w{2,}$/i.test(v.split('/')[0]) && !/^\d/.test(v) ? 'https://' : 'http://') + v;
+  try { const u = new URL(v); return u.origin; } catch { return ''; }
+}
+const lienPit = (relais, ecurie) => `${SITE}pit/?relay=${encodeURIComponent(relais)}${ecurie ? '&ecurie=' + ecurie : ''}`;
+
+let minuterie = null;
+async function verifier(relais) {
+  const e = $('#etat');
+  if (location.protocol === 'https:' && relais.startsWith('http:')) {
+    e.className = 'etat ko';
+    e.textContent = "Adresse Wi-Fi (http) : depuis le site GitHub (https) le téléphone ne pourra pas s'y connecter. Utilisez le lien https du tunnel, ou faites scanner le QR de la TV.";
+    return;
+  }
+  e.className = 'etat'; e.textContent = 'Vérification du relais…';
+  try {
+    const ctl = new AbortController(); const to = setTimeout(() => ctl.abort(), 4000);
+    const r = await fetch(relais + '/api/v2/info', { cache: 'no-store', signal: ctl.signal });
+    clearTimeout(to);
+    if (!r.ok) throw new Error(r.status);
+    const info = await r.json();
+    e.className = 'etat ok'; e.textContent = `Relais en ligne ✔ · code salon ${info.code}`;
+  } catch {
+    e.className = 'etat ko'; e.textContent = "Relais injoignable pour l'instant (PC éteint ou lien expiré). Le QR reste utilisable dès qu'il sera relancé avec ce même lien.";
+  }
+}
+function majJoin() {
+  const relais = normaliser($('#relais').value);
+  store.set(relais);
+  if (!relais) {
+    $('#qrJoin').className = 'qr vide';
+    $('#qrJoin').textContent = "Le QR code « Rejoindre » s'affichera ici dès que le lien est collé.";
+    $('#txtJoin').textContent = ''; $('#etat').textContent = '';
+    $('#lienPit').href = 'pit/';
+    majEcuries(); return;
+  }
+  const url = lienPit(relais, 0);
+  $('#qrJoin').className = 'qr'; $('#qrJoin').innerHTML = QR(url);
+  $('#txtJoin').textContent = url.replace(/^https?:\/\//, '');
+  $('#lienPit').href = url;
+  majEcuries();
+  clearTimeout(minuterie); minuterie = setTimeout(() => verifier(relais), 400);
+}
+function majEcuries() {
+  const relais = normaliser($('#relais').value);
+  if (!relais || !equipes.length) { $('#ecuries').innerHTML = ''; return; }
+  $('#ecuries').innerHTML = equipes.map((t) => `<div class="ecurie" style="--c:${esc(t.colors && t.colors[0])}">
+    ${QR(lienPit(relais, t.id))}<b>${String(t.id).padStart(2, '0')} · ${esc(t.nickname)}</b><small>${esc(t.name)}</small></div>`).join('');
+}
+
+const depart = normaliser(new URLSearchParams(location.search).get('relay')) || store.get();
+$('#relais').value = depart;
+$('#relais').addEventListener('input', majJoin);
+$('#voirEcuries').addEventListener('click', () => {
+  if (!normaliser($('#relais').value)) { $('#relais').focus(); $('#etat').className = 'etat ko'; $('#etat').textContent = "Collez d'abord le lien du tunnel."; return; }
+  $('#ecuries').classList.toggle('on');
+  $('#voirEcuries').textContent = $('#ecuries').classList.contains('on') ? 'Masquer les QR par écurie' : 'Un QR par écurie';
+});
+majJoin();
+</script>
+</body>
+</html>
