@@ -20,7 +20,16 @@ const ICON = { grandprix: 'trophy', parieur: 'coin', cascadeur: 'crash', saboteu
   stage = createStage($('#c3'), { camera: { r: 8.4, h: 2.2, look: 0.7 } });
   $$('#modes button[data-m]').forEach((b) => b.onclick = () => setMode(b.dataset.m));
   const sb = $('#snd');
-  sb.onclick = () => { const on = engine.setEnabled(!engine.isEnabled()); sb.classList.toggle('on', on); sb.setAttribute('aria-pressed', String(on)); sb.textContent = on ? 'Son : actif' : 'Son : coupé'; if (on && st.mode === 'teams') engine.start(DATA.teams[st.idx].id); };
+  sb.onclick = () => { const on = engine.setEnabled(!engine.isEnabled()); sb.classList.toggle('on', on); sb.setAttribute('aria-pressed', String(on)); sb.textContent = on ? 'Son : actif' : 'Son : coupé'; if (on && st.mode === 'teams') startSound(DATA.teams[st.idx]); };
+  const sm = $('#sndmode');
+  const showMode = () => { const m = engine.getMode(); sm.textContent = m === 'reel' ? 'Son réel' : 'Son studio'; sm.classList.toggle('studio', m !== 'reel'); };
+  try { const saved = localStorage.getItem('gp_son_mode'); if (saved) engine.setMode(saved); } catch (e) { /* stockage indisponible */ }
+  showMode();
+  sm.onclick = () => {
+    const m = engine.setMode(engine.getMode() === 'reel' ? 'studio' : 'reel'); showMode();
+    try { localStorage.setItem('gp_son_mode', m); } catch (e) { /* stockage indisponible */ }
+    if (engine.isEnabled() && st.mode === 'teams') startSound(DATA.teams[st.idx]);
+  };
   const c = $('#c3');
   let drag = null;
   c.addEventListener('pointerdown', (e) => { drag = e.clientX; stage.setOrbit(false); st.auto = false; c.setPointerCapture(e.pointerId); });
@@ -28,6 +37,16 @@ const ICON = { grandprix: 'trophy', parieur: 'coin', cascadeur: 'crash', saboteu
   c.addEventListener('pointerup', () => { drag = null; stage.setSpin(0.5); });
   setMode('teams');
 })();
+
+/** Lance le moteur de l'écurie et affiche ce qu'on entend vraiment (enregistrement réel, banque studio ou synthèse). */
+function startSound(t) {
+  engine.start(t.id).then((i) => {
+    if (!i || DATA.teams[st.idx] !== t) return;
+    const c = $('#credit'), l = $('#motor-l');
+    if (c) c.textContent = i.credit ? 'Son : ' + i.credit : '';
+    if (l) l.textContent = 'Moteur : ' + i.moteur + (i.source === 'synthese' ? ' (synthèse)' : '');
+  });
+}
 
 function setMode(m) {
   st.mode = m; st.idx = 0; st.auto = m !== 'cars';
@@ -46,12 +65,12 @@ function draw(soft) {
     $$('#rail button').forEach((b) => { b.classList.toggle('on', Number(b.dataset.i) === st.idx); b.onclick = () => { st.idx = Number(b.dataset.i); st.auto = false; draw(true); }; });
     const t = DATA.teams[st.idx];
     stage.showConcept(t);
-    engine.start(t.id).then((i) => { const c = $('#credit'); if (c && i) c.textContent = i.credit ? 'Son : ' + i.credit : ''; });
+    startSound(t);
     const ci = conceptInfo(t.id);
     info.innerHTML = `<div class="panel deco"><div class="h2">Écurie n° ${pad2(t.id)}</div><div style="display:flex;gap:16px;align-items:center">${medal(t.id, 96)}<div><h2 class="display foil">${esc(t.name)}</h2><div class="dim" style="margin-top:6px">Pilote : ${esc(t.pilot)} · alias « ${esc(t.nickname)} »</div></div></div>
       <div class="qt">« ${esc(t.quote)} »</div><div class="dim">${esc(t.specialty)}</div>
       ${ci ? `<div class="concept"><span class="h2">Concept-car</span><b class="display">${esc(ci.nom)}</b><div class="dim">${esc(ci.inspi)}</div>
-        <div class="motor"><span class="dim">Moteur : ${esc(engine.label(t.id))}</span><button id="rev" type="button">Faire rugir</button></div><small id="credit" class="dim credit"></small></div>` : ''}
+        <div class="motor"><span class="dim" id="motor-l">Moteur : ${esc(engine.label(t.id))}</span><button id="rev" type="button">Faire rugir</button></div><small id="credit" class="dim credit"></small></div>` : ''}
       <div class="sw">${t.colors.map((c) => `<i style="background:${c}" title="${esc(c)}"></i>`).join('')}</div></div>`;
     const rv = $('#rev'); if (rv) rv.onclick = () => { if (!engine.isEnabled()) $('#snd').click(); engine.rev(1.2); };
     const el = rail.querySelector('button.on'); if (el) el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
