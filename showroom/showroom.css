@@ -37,3 +37,37 @@ header{grid-area:hd;display:flex;align-items:center;justify-content:space-betwee
   #sr.cars #rail .carchip{width:calc(50% - 6px);min-width:0}
 }
 #modes .lk{background:var(--glass);border:1px solid #ff9d2e;border-radius:99px;padding:.7em 1.4em;font:700 14px var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:#ffb347;text-decoration:none}
+
+/* ===== Adaptation à l'écurie affichée : --a / --b / --ag sont posées par showroom.js (couleurs du logo) ===== */
+#sr{--a:var(--gold-2);--b:var(--gold-3);--ag:rgba(255,211,106,.6)}
+#rail button.on .medal{box-shadow:0 0 0 3px var(--a),0 0 28px var(--ag)}
+:root[data-skin="nintendo"] #rail button.on .medal{box-shadow:0 0 0 4px #fff,0 0 0 8px var(--a),0 0 30px 6px var(--ag)}
+:root[data-skin="nintendo"] .panel.team{box-shadow:0 0 0 3px rgba(0,0,0,.35),0 10px 0 rgba(0,0,0,.35),0 18px 50px var(--ag),inset 0 10px 0 var(--a),inset 0 13px 0 rgba(255,255,255,.28),inset 0 -6px 0 rgba(0,0,0,.18);padding-top:30px;transition:box-shadow .5s}
+:root[data-skin="nintendo"] .panel.team::before{background:var(--b)}
+.panel.team h2.foil{background:linear-gradient(180deg,var(--a) 8%,var(--b) 100%);-webkit-background-clip:text;background-clip:text;overflow-wrap:anywhere}
+.panel.team .h2{color:var(--a)}
+.panel.team .motor button{border-color:var(--a);color:var(--a)}
+.panel.team .sw i{box-shadow:0 0 0 3px #fff,0 3px 0 3px rgba(0,0,0,.4)}
+#info .panel>div{min-width:0}
+
+/* ===== En-tête : plus de retour à la ligne dans les boutons ===== */
+header{gap:16px}
+#modes{flex-wrap:nowrap}
+#modes button,#modes .lk{white-space:nowrap;padding:.62em 1.05em;letter-spacing:.1em;font-size:13px}
+
+/* ===== Mobile : menu défilant, fiche qui ne déborde plus, médailles à la bonne taille ===== */
+@media (max-width:900px){
+  #sr{grid-template-columns:minmax(0,1fr);grid-template-rows:auto 78px 34vh minmax(0,1fr);grid-template-areas:"hd" "rl" "st" "inf"}
+  header{flex-direction:column;align-items:stretch;gap:8px;padding-top:8px;min-width:0}
+  #modes{overflow-x:auto;max-width:100%;scrollbar-width:none;padding:2px 2px 6px;gap:6px}
+  #modes::-webkit-scrollbar{display:none}
+  #rail{gap:8px;align-items:center}
+  #rail button .medal{width:60px!important;height:60px!important}
+  #rail .tr{width:60px;height:60px}
+  #info{padding-right:0}
+  .panel{padding:16px 16px 18px}
+  :root[data-skin="nintendo"] .panel.team{padding-top:30px}
+  .panel h2{font-size:26px}
+  .qt{font-size:18px}
+  #sr.cars{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) 40vh}
+}

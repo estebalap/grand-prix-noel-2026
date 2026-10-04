@@ -3,64 +3,158 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#070b1e">
 <title>Grand Prix de Noël</title>
+<link rel="icon" href="pit/icon.svg" type="image/svg+xml">
 <!-- Page d'accueil du site GitHub Pages (copiée en index.html par preparer_pages.py). -->
 <style>
+@font-face { font-family: "Fredoka"; font-weight: 600; src: url(fonts/fredoka-latin-600-normal.woff2) format("woff2"); font-display: swap; }
 @font-face { font-family: "Fredoka"; font-weight: 700; src: url(fonts/fredoka-latin-700-normal.woff2) format("woff2"); font-display: swap; }
 @font-face { font-family: "Nunito"; font-weight: 700; src: url(fonts/nunito-latin-700-normal.woff2) format("woff2"); font-display: swap; }
 @font-face { font-family: "Nunito"; font-weight: 800; src: url(fonts/nunito-latin-800-normal.woff2) format("woff2"); font-display: swap; }
-:root { --fond: #0b1030; --carte: #161c4a; --texte: #fff6dc; --or: #ffd166; --rouge: #ff4d6d; --vert: #3ddc97; --gris: #aab2e0; }
-* { box-sizing: border-box; }
-body { margin: 0; min-height: 100vh; color: var(--texte); font: 700 16px "Nunito", system-ui, sans-serif;
-  background: radial-gradient(120% 70% at 50% 0%, #26307a 0%, var(--fond) 60%, #03050f 100%); }
-main { max-width: 1040px; margin: 0 auto; padding: 28px 16px 60px; }
-h1, h2 { font-family: "Fredoka", system-ui, sans-serif; margin: 0; }
-h1 { font-size: clamp(34px, 7vw, 60px); line-height: 1; text-align: center;
-  background: linear-gradient(90deg, #ff4d6d, #ffd166, #3ddc97, #4cc9f0, #b98cff); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.sous { text-align: center; color: var(--gris); margin: 8px 0 26px; }
-.boutons { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 28px; }
-.bouton { display: inline-block; padding: 14px 24px; border-radius: 999px; text-decoration: none; font: 700 17px "Fredoka", system-ui;
-  background: linear-gradient(#ffe08a, #e6a73a); color: #2b1a00; box-shadow: 0 4px 0 #8a5a12; }
-.bouton.bleu { background: linear-gradient(#8fe3ff, #3aa6e6); color: #04213a; box-shadow: 0 4px 0 #1b5b85; }
-.bouton:active { transform: translateY(3px); box-shadow: 0 1px 0 #8a5a12; }
-.grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
-.carte { background: var(--carte); border: 2px solid rgba(255,255,255,.12); border-radius: 22px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
-.carte h2 { font-size: 22px; margin-bottom: 6px; }
-.carte p { margin: 6px 0 12px; color: var(--gris); font-weight: 700; line-height: 1.45; }
-.qr { background: #fff; border-radius: 16px; padding: 10px; width: min(100%, 300px); aspect-ratio: 1; margin: 6px auto 8px; display: grid; place-items: center; }
+:root { --nuit0: #03050f; --nuit1: #070b1e; --nuit2: #0c1331; --carte1: rgba(30,38,92,.92); --carte2: rgba(16,22,60,.94);
+  --texte: #fff6dc; --or1: #fff3c4; --or2: #ffd36a; --or3: #e9a92b; --gris: #aab2e0; --vert: #3ddc97; --pop: cubic-bezier(.34,1.56,.64,1);
+  --titre: "Fredoka", "Arial Rounded MT Bold", system-ui, sans-serif; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { background: var(--nuit0); scroll-behavior: smooth; }
+body { margin: 0; min-height: 100vh; color: var(--texte); font: 700 16px/1.45 "Nunito", system-ui, sans-serif; overflow-x: hidden;
+  background: radial-gradient(120% 60% at 50% -5%, #2b2f86 0%, #151a4f 38%, var(--nuit1) 70%, var(--nuit0) 100%) fixed; }
+
+/* ---- décor : ciel étoilé, planète à anneaux, ruban arc-en-ciel (la Rainbow Road du jeu) ---- */
+.ciel { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.etoiles { position: absolute; inset: -50%; width: 200%; height: 200%; animation: derive 240s linear infinite;
+  background:
+    radial-gradient(1.6px 1.6px at 12% 18%, #fff 50%, transparent 51%), radial-gradient(1.2px 1.2px at 27% 62%, #cfe4ff 50%, transparent 51%),
+    radial-gradient(1.8px 1.8px at 41% 33%, #fff 50%, transparent 51%), radial-gradient(1.2px 1.2px at 58% 78%, #ffe9a8 50%, transparent 51%),
+    radial-gradient(1.6px 1.6px at 73% 22%, #fff 50%, transparent 51%), radial-gradient(1.2px 1.2px at 86% 55%, #cfe4ff 50%, transparent 51%),
+    radial-gradient(1.4px 1.4px at 93% 88%, #fff 50%, transparent 51%), radial-gradient(1.2px 1.2px at 6% 91%, #ffe9a8 50%, transparent 51%);
+  background-size: 520px 520px; opacity: .85; }
+@keyframes derive { to { transform: translate3d(-260px, 260px, 0); } }
+.planete { position: absolute; right: -90px; top: 120px; width: 280px; height: 280px; border-radius: 50%; opacity: .9;
+  background: radial-gradient(circle at 32% 28%, #ffb27a 0%, #d9552d 38%, #7a1f3a 78%, #3a0d2c 100%); box-shadow: inset -26px -20px 50px rgba(0,0,0,.45), 0 0 80px rgba(255,120,80,.18); }
+.planete::after { content: ""; position: absolute; left: -48%; right: -48%; top: 38%; bottom: 38%; border: 9px solid rgba(255,230,190,.55); border-radius: 50%;
+  transform: rotate(-16deg); box-shadow: 0 0 0 3px rgba(255,255,255,.12); clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+.ruban { position: absolute; left: -5%; width: 110%; top: 70px; height: 220px; opacity: .55; }
+.neige i { position: absolute; top: -10px; width: 6px; height: 6px; border-radius: 50%; background: #fff; opacity: .8; animation: chute linear infinite; left: var(--x); animation-duration: var(--d); animation-delay: var(--w); }
+@keyframes chute { to { transform: translate3d(var(--dx), 105vh, 0); } }
+
+main { position: relative; z-index: 2; max-width: 1120px; margin: 0 auto; padding: 34px 16px 70px; }
+
+/* ---- héros ---- */
+.hero { text-align: center; padding: 8px 0 6px; }
+.eyebrow { font: 600 13px var(--titre); letter-spacing: .34em; text-transform: uppercase; color: var(--or2); }
+h1 { margin: 10px 0 0; font: 700 clamp(40px, 9vw, 84px)/.98 var(--titre); letter-spacing: .01em; text-transform: uppercase; transform: rotate(-1.5deg);
+  background: linear-gradient(180deg, var(--or1) 0%, var(--or2) 46%, var(--or3) 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff) drop-shadow(0 8px 0 rgba(0,0,0,.5)); }
+h1 span { display: block; font-size: .5em; letter-spacing: .12em; margin-top: 8px; }
+.sous { margin: 26px auto 22px; max-width: 640px; color: var(--gris); font-size: 17px; }
+.sous b { color: var(--or2); }
+.boutons { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-bottom: 12px; }
+.bouton { display: inline-flex; align-items: center; gap: .5em; padding: 15px 28px; border-radius: 999px; text-decoration: none; font: 700 18px var(--titre); letter-spacing: .04em;
+  background: linear-gradient(#ffe08a, #e6a73a); color: #2b1a00; border: 3px solid #fff; box-shadow: 0 6px 0 #8a5a12, 0 12px 24px rgba(0,0,0,.35); transition: transform .25s var(--pop), box-shadow .25s; }
+.bouton.bleu { background: linear-gradient(#8fe3ff, #3aa6e6); color: #04213a; box-shadow: 0 6px 0 #1b5b85, 0 12px 24px rgba(0,0,0,.35); }
+.bouton:hover { transform: translateY(-3px) scale(1.04); }
+.bouton:active { transform: translateY(4px); box-shadow: 0 2px 0 #8a5a12; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 4px solid #fff; outline-offset: 3px; }
+
+/* ---- titres de section ---- */
+.titre { display: flex; align-items: center; gap: 14px; margin: 46px 0 18px; font: 700 clamp(22px, 4vw, 30px) var(--titre); letter-spacing: .04em; text-transform: uppercase; color: #fff; text-shadow: 0 3px 0 rgba(0,0,0,.45); }
+.titre::before, .titre::after { content: ""; flex: 1; height: 8px; border-radius: 99px; background: linear-gradient(90deg, #ff3b57, #ff9f1c, #ffe14a, #3ddc97, #4cc9f0, #9b6bff); opacity: .9; box-shadow: 0 3px 0 rgba(0,0,0,.35); }
+.titre small { font: 700 13px "Nunito", sans-serif; letter-spacing: .1em; color: var(--gris); text-shadow: none; }
+
+/* ---- la grille de départ : une carte par écurie, aux couleurs de son logo ---- */
+.grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(176px, 1fr)); gap: 18px; }
+.ec { --a: #ffd36a; --b: #e9a92b; position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; text-decoration: none; color: var(--texte);
+  padding: 30px 12px 16px; border-radius: 26px; border: 3px solid #fff; overflow: hidden; isolation: isolate;
+  background: radial-gradient(rgba(255,255,255,.07) 2.2px, transparent 2.6px) 0 0/22px 22px, linear-gradient(180deg, var(--carte1), var(--carte2));
+  box-shadow: 0 0 0 3px rgba(0,0,0,.35), 0 8px 0 rgba(0,0,0,.38), 0 16px 34px rgba(0,0,0,.35), inset 0 12px 0 var(--a), inset 0 15px 0 rgba(255,255,255,.28), inset 0 -6px 0 rgba(0,0,0,.18);
+  transition: transform .3s var(--pop), box-shadow .3s; animation: entree .55s var(--pop) both; animation-delay: calc(var(--i) * 45ms); }
+.ec::before { content: ""; position: absolute; inset: auto -30% -45% -30%; height: 70%; z-index: -1; opacity: .35; background: radial-gradient(closest-side, var(--b), transparent); transition: opacity .3s; }
+.ec:hover, .ec:focus-visible { transform: translateY(-8px) rotate(-1.2deg) scale(1.03);
+  box-shadow: 0 0 0 3px rgba(0,0,0,.35), 0 14px 0 rgba(0,0,0,.38), 0 24px 44px color-mix(in srgb, var(--a) 55%, transparent), inset 0 12px 0 var(--a), inset 0 15px 0 rgba(255,255,255,.28), inset 0 -6px 0 rgba(0,0,0,.18); }
+.ec:hover::before { opacity: .6; }
+.ec:nth-child(even):hover { transform: translateY(-8px) rotate(1.2deg) scale(1.03); }
+@keyframes entree { from { opacity: 0; transform: translateY(26px) scale(.9); } }
+.num { position: absolute; left: 10px; top: 20px; font: 700 15px var(--titre); color: #1b1200; background: linear-gradient(var(--a), var(--b)); padding: 1px 9px 2px; border-radius: 99px; border: 2px solid #fff; box-shadow: 0 2px 0 rgba(0,0,0,.4); }
+.medal { width: 96px; height: 96px; border-radius: 50%; overflow: hidden; display: grid; place-items: center; background: #fff; flex: none;
+  box-shadow: 0 0 0 4px #fff, 0 0 0 8px var(--a), 0 6px 0 8px rgba(0,0,0,.35); transition: transform .4s var(--pop); }
+.ec:hover .medal { transform: scale(1.08) rotate(-4deg); }
+.medal img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.ec b { margin-top: 18px; font: 700 21px/1.1 var(--titre); letter-spacing: .02em; background: linear-gradient(180deg, var(--a), var(--b)); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 2px 0 rgba(0,0,0,.5)); }
+.ec small { margin-top: 5px; color: #e9ecff; font-size: 13px; line-height: 1.25; }
+.ec em { margin-top: 6px; font-style: normal; font-size: 12px; color: var(--gris); letter-spacing: .08em; text-transform: uppercase; }
+
+/* ---- cartes « autocollant » : Showroom + Rejoindre ---- */
+.cartes { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; align-items: start; }
+.carte { position: relative; padding: 26px 22px 22px; border-radius: 28px; border: 3px solid #fff;
+  background: radial-gradient(rgba(255,255,255,.07) 2.2px, transparent 2.6px) 0 0/22px 22px, linear-gradient(180deg, var(--carte1), var(--carte2));
+  box-shadow: 0 0 0 3px rgba(0,0,0,.35), 0 10px 0 rgba(0,0,0,.35), 0 18px 40px rgba(0,0,0,.35), inset 0 3px 0 rgba(255,255,255,.18), inset 0 -6px 0 rgba(0,0,0,.18); }
+.carte::before { content: ""; position: absolute; right: 18px; top: -13px; width: 46px; height: 14px; border-radius: 99px; background: var(--or2); box-shadow: 0 3px 0 rgba(0,0,0,.35), inset 0 2px 0 rgba(255,255,255,.6); }
+.carte h2 { margin: 0 0 6px; font: 700 24px var(--titre); letter-spacing: .02em; }
+.carte p { margin: 6px 0 14px; color: var(--gris); }
+.carte p b { color: var(--or2); }
+.qr { background: #fff; border-radius: 20px; padding: 12px; width: min(100%, 290px); aspect-ratio: 1; margin: 8px auto; display: grid; place-items: center; box-shadow: 0 0 0 4px #fff, 0 0 0 8px var(--or3), 0 6px 0 8px rgba(0,0,0,.35); }
 .qr svg { width: 100%; height: 100%; display: block; }
-.qr.vide { background: rgba(255,255,255,.06); border: 2px dashed rgba(255,255,255,.25); color: var(--gris); text-align: center; padding: 22px; font-size: 14px; }
-.lien { font: 700 12px ui-monospace, Consolas, monospace; word-break: break-all; text-align: center; color: var(--gris); }
-label { display: block; font-size: 13px; color: var(--gris); margin: 8px 0 4px; }
-input[type=text] { width: 100%; font: 700 15px ui-monospace, Consolas, monospace; padding: 10px 12px; border-radius: 12px; border: 2px solid rgba(255,255,255,.2);
-  background: #0d1236; color: #fff; }
-input[type=text]:focus { outline: 3px solid var(--or); outline-offset: 1px; }
-.etat { min-height: 20px; font-size: 13px; margin-top: 6px; }
+.qr.vide { background: rgba(255,255,255,.06); border: 3px dashed rgba(255,255,255,.3); box-shadow: none; color: var(--gris); text-align: center; padding: 22px; font-size: 14px; }
+.lien { margin-top: 14px; font: 700 12px ui-monospace, Consolas, monospace; word-break: break-all; text-align: center; color: var(--gris); }
+label { display: block; font-size: 13px; color: var(--gris); margin: 10px 0 5px; }
+input[type=text] { width: 100%; font: 700 15px ui-monospace, Consolas, monospace; padding: 12px 14px; border-radius: 16px; border: 3px solid rgba(255,255,255,.35); background: #0d1236; color: #fff; }
+input[type=text]:focus { border-color: var(--or2); }
+.etat { min-height: 20px; font-size: 13px; margin-top: 8px; }
 .etat.ok { color: var(--vert); } .etat.ko { color: #ffb3bd; }
-.petit-bouton { font: 700 14px "Fredoka", system-ui; border: 0; border-radius: 999px; padding: 8px 16px; cursor: pointer; background: #fff; color: #0b1030; margin-top: 8px; }
-.ecuries { display: none; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-top: 18px; }
+.petit-bouton { font: 700 15px var(--titre); border: 3px solid #fff; border-radius: 999px; padding: 8px 18px; cursor: pointer; background: linear-gradient(#fff, #dfe3ff); color: #0b1030; margin-top: 12px; box-shadow: 0 4px 0 rgba(0,0,0,.4); transition: transform .2s var(--pop); }
+.petit-bouton:hover { transform: scale(1.06); } .petit-bouton:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(0,0,0,.4); }
+.ecuries { display: none; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; margin-top: 22px; }
 .ecuries.on { display: grid; }
-.ecurie { background: #fff; color: #0b1030; border-radius: 16px; padding: 10px; text-align: center; border-bottom: 6px solid var(--c, #ffd166); }
+.ecurie { background: #fff; color: #0b1030; border-radius: 18px; padding: 10px; text-align: center; border-bottom: 8px solid var(--c, #ffd166); box-shadow: 0 6px 0 rgba(0,0,0,.35); }
 .ecurie svg { width: 100%; height: auto; display: block; }
-.ecurie b { display: block; font: 700 16px "Fredoka", system-ui; margin-top: 4px; }
+.ecurie b { display: block; font: 700 16px var(--titre); margin-top: 4px; }
 .ecurie small { color: #5a6190; font-size: 11px; }
-.note { margin-top: 26px; font-size: 14px; color: var(--gris); line-height: 1.55; background: rgba(255,255,255,.05); border-radius: 16px; padding: 14px 18px; }
-.note b { color: var(--or); }
+.note { margin-top: 34px; font-size: 14px; color: var(--gris); line-height: 1.6; background: rgba(8,12,38,.7); border: 2px solid rgba(255,255,255,.14); border-radius: 20px; padding: 16px 20px; }
+.note b { color: var(--or2); }
+footer { margin-top: 26px; text-align: center; font-size: 13px; color: var(--gris); }
+
+@media (max-width: 560px) {
+  main { padding-top: 22px; }
+  .grille { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .ec { padding: 28px 8px 14px; } .ec b { font-size: 18px; } .medal { width: 80px; height: 80px; }
+  .planete { width: 200px; height: 200px; right: -80px; top: 90px; }
+  .bouton { padding: 13px 22px; font-size: 16px; }
+  .titre::before, .titre::after { height: 6px; }
+  .titre small { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .etoiles, .neige i, .ec { animation: none !important; } .ec, .bouton, .medal { transition: none; } }
 </style>
 </head>
 <body>
+<div class="ciel" aria-hidden="true">
+  <div class="etoiles"></div>
+  <div class="planete"></div>
+  <svg class="ruban" viewBox="0 0 1200 220" preserveAspectRatio="none"><g fill="none" stroke-width="13" stroke-linecap="round">
+    <path d="M-20 170 C 280 20, 760 40, 1220 160" stroke="#ff3b57"/><path d="M-20 184 C 280 34, 760 54, 1220 174" stroke="#ff9f1c"/>
+    <path d="M-20 198 C 280 48, 760 68, 1220 188" stroke="#ffe14a"/><path d="M-20 212 C 280 62, 760 82, 1220 202" stroke="#3ddc97"/>
+    <path d="M-20 226 C 280 76, 760 96, 1220 216" stroke="#4cc9f0"/><path d="M-20 240 C 280 90, 760 110, 1220 230" stroke="#9b6bff"/></g></svg>
+  <div class="neige" id="neige"></div>
+</div>
 <main>
-  <h1>Le Grand Prix de Noël</h1>
-  <div class="sous">Édition du 23 décembre · paris, pièges et trophées dorés</div>
-  <div class="boutons">
-    <a class="bouton" href="showroom/">Showroom 3D</a>
-    <a class="bouton bleu" id="lienPit" href="pit/">Pocket Pit</a>
-  </div>
+  <header class="hero">
+    <div class="eyebrow">Édition du 23 décembre 2026</div>
+    <h1>Le Grand Prix<span>de Noël</span></h1>
+    <p class="sous"><b id="nbEcuries">15</b> écuries, paris, pièges et trophées dorés : la finale d'e-sport du salon.</p>
+    <div class="boutons">
+      <a class="bouton" href="showroom/">🏎️ Showroom 3D</a>
+      <a class="bouton bleu" id="lienPit" href="pit/">📱 Pocket Pit</a>
+    </div>
+  </header>
 
-  <div class="grille">
+  <h2 class="titre">La grille de départ <small>touche ton écurie</small></h2>
+  <div class="grille" id="grille"></div>
+
+  <h2 class="titre">Rejoindre la fête</h2>
+  <div class="cartes">
     <section class="carte">
       <h2>🏎️ Le Showroom 3D</h2>
-      <p>Les 15 écuries, les bolides et les trophées. Fonctionne tout de suite, sans le PC de la régie.</p>
+      <p>Les écuries, les bolides et les trophées. Fonctionne tout de suite, sans le PC de la régie.</p>
       <div class="qr" id="qrShowroom"></div>
       <div class="lien" id="txtShowroom"></div>
     </section>
@@ -70,7 +164,7 @@ input[type=text]:focus { outline: 3px solid var(--or); outline-offset: 1px; }
       <p>Le jeu tourne sur le PC de la régie. Collez ici le <b>lien du tunnel</b> affiché dans sa console (https://….trycloudflare.com) : le QR code apparaît.</p>
       <label for="relais">Lien du relais (tunnel ou adresse Wi-Fi)</label>
       <input type="text" id="relais" placeholder="https://xxxx.trycloudflare.com" autocomplete="off" spellcheck="false">
-      <div class="etat" id="etat"></div>
+      <div class="etat" id="etat" role="status"></div>
       <div class="qr vide" id="qrJoin">Le QR code « Rejoindre » s'affichera ici dès que le lien est collé.</div>
       <div class="lien" id="txtJoin"></div>
       <div style="text-align:center"><button class="petit-bouton" id="voirEcuries" type="button">Un QR par écurie</button></div>
@@ -85,6 +179,7 @@ input[type=text]:focus { outline: 3px solid var(--or); outline-offset: 1px; }
     avant la soirée (Showroom) et de secours si le QR de la TV n'est pas visible.<br>
     Astuce : ouvrez cette page avec <b>?relay=lien-du-tunnel</b> à la fin de l'adresse pour pré-remplir le champ.
   </div>
+  <footer>Grand Prix de Noël · édition 2026</footer>
 </main>
 
 <script type="module">
@@ -104,8 +199,32 @@ const urlShowroom = SITE + 'showroom/';
 $('#qrShowroom').innerHTML = QR(urlShowroom);
 $('#txtShowroom').textContent = urlShowroom.replace(/^https?:\/\//, '');
 
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  $('#neige').innerHTML = Array.from({ length: 26 }, () => `<i style="--x:${(Math.random() * 100).toFixed(1)}%;--d:${(9 + Math.random() * 11).toFixed(1)}s;--w:-${(Math.random() * 14).toFixed(1)}s;--dx:${(Math.random() * 80 - 40).toFixed(0)}px"></i>`).join('');
+}
+
 let equipes = [];
-fetch('data/teams.json', { cache: 'no-store' }).then((r) => r.ok ? r.json() : []).then((t) => { equipes = t; majEcuries(); }).catch(() => {});
+let logosMeta = {};
+const lum = (h) => { const n = parseInt(h.slice(1), 16); return (0.2126 * (n >> 16) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255)) / 255; };
+const mixW = (h, k) => { const n = parseInt(h.slice(1), 16); const f = (v) => Math.round(v + (255 - v) * k).toString(16).padStart(2, '0'); return '#' + f(n >> 16) + f((n >> 8) & 255) + f(n & 255); };
+const lift = (h) => { let c = /^#[0-9a-f]{6}$/i.test(h) ? h : '#ffd166', i = 0; while (lum(c) < 0.3 && i++ < 8) c = mixW(c, 0.16); return c; };   // noirs éclaircis : lisibles sur fond nuit
+const accents = (t) => { const [a, b] = (t.colors || []).map(lift).sort((x, y) => lum(y) - lum(x)); return [a || '#ffd166', b || a || '#ffd166']; };
+Promise.all([
+  fetch('data/teams.json', { cache: 'no-store' }).then((r) => r.ok ? r.json() : []).catch(() => []),
+  fetch('logos/meta.json').then((r) => r.ok ? r.json() : {}).catch(() => ({})),
+]).then(([t, m]) => { equipes = t; logosMeta = m; grille(); majEcuries(); });
+
+/* La grille de départ : une carte par écurie, aux couleurs de son logo, qui ouvre sa fiche dans le Showroom. */
+function grille() {
+  $('#nbEcuries').textContent = equipes.length || 15;
+  $('#grille').innerHTML = equipes.map((t, i) => {
+    const [a, b] = accents(t); const id = String(t.id).padStart(2, '0');
+    return `<a class="ec" href="showroom/?ecurie=${t.id}" style="--a:${a};--b:${b};--i:${i}" aria-label="Écurie ${id} : ${esc(t.name)}">
+      <span class="num">${id}</span>
+      <span class="medal" style="background:${esc((logosMeta[t.id] && logosMeta[t.id].bg) || '#fff')}"><img src="logos/${id}.jpg" alt="" loading="lazy" draggable="false"></span>
+      <b>${esc(t.nickname)}</b><small>${esc(t.name)}</small><em>${esc(t.pilot)}</em></a>`;
+  }).join('');
+}
 
 function normaliser(v) {
   v = (v || '').trim();
@@ -155,7 +274,7 @@ function majJoin() {
 function majEcuries() {
   const relais = normaliser($('#relais').value);
   if (!relais || !equipes.length) { $('#ecuries').innerHTML = ''; return; }
-  $('#ecuries').innerHTML = equipes.map((t) => `<div class="ecurie" style="--c:${esc(t.colors && t.colors[0])}">
+  $('#ecuries').innerHTML = equipes.map((t) => `<div class="ecurie" style="--c:${accents(t)[0]}">
     ${QR(lienPit(relais, t.id))}<b>${String(t.id).padStart(2, '0')} · ${esc(t.nickname)}</b><small>${esc(t.name)}</small></div>`).join('');
 }
 
