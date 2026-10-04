@@ -774,10 +774,19 @@ function buildBody(spec, id, quality) {
   const xs = wheels.map((w) => w.x); const xa = Math.min(...xs), xb = Math.max(...xs);
   let minW = Infinity; for (let x = xa; x <= xb; x += 0.1) minW = Math.min(minW, S.at(x).w);
   const tubW = Math.max(0.2, 2 * (minW - Math.max(...wheels.map((w) => w.tw)) - 0.03));
-  mesh(box(xb - xa + 0.6, 0.3, Math.min(tubW, 2 * minW - 0.05)), m.dark, car, { pos: [(xa + xb) / 2, 0.36, 0], shadow: false });
+  // le berceau reste toujours SOUS la peau (sinon il ressort en bande noire sur les nez bas et les capots plongeants)
+  const tubZ = Math.min(tubW, 2 * minW - 0.05), tx0 = xa - 0.3, tx1 = xb + 0.3;
+  let tubTop = 0.51, tubBot = 0.21;
+  for (let x = tx0; x <= tx1 + 1e-6; x += 0.05) { const p = S.at(x); tubTop = Math.min(tubTop, S.top(x, Math.min(1, (tubZ / 2) / p.w)) - 0.04); tubBot = Math.max(tubBot, p.yb + 0.01); }
+  if (tubTop > tubBot + 0.04) mesh(box(tx1 - tx0, tubTop - tubBot, tubZ), m.dark, car, { pos: [(tx0 + tx1) / 2, (tubTop + tubBot) / 2, 0], shadow: false });
   wheels.filter((w) => w.arch).forEach((w) => {
-    const R = w.r * 1.12 + 0.03, wd = 2 * S.at(w.x).w - 0.03;
-    mesh(new THREE.CylinderGeometry(R, R, wd, 28, 1, true, HALF, Math.PI), m.dark, car, { pos: [w.x, w.r, 0], rot: [HALF, 0, 0], shadow: false });
+    // une coquille de passage de roue PAR CÔTÉ (et non une seule sur toute la largeur, qui ressortait en arc noir
+    // au-dessus des capots bas entre les ailes)
+    const half = S.at(w.x).w - 0.015, zin = Math.max(0.05, w.z - w.tw / 2 - 0.08), L = Math.max(0.08, half - zin);
+    let R = w.r * 1.12 + 0.03;                                         // rayon plafonné : la coquille ne dépasse jamais du dessus de l'aile
+    for (let x = w.x - R; x <= w.x + R + 1e-6; x += R / 4) { const p = S.at(x); for (const z of [zin, (zin + half) / 2, half]) R = Math.min(R, S.top(x, Math.min(1, z / p.w)) - w.r - 0.02); }
+    R = Math.max(R, w.r * 1.03);
+    sym((sg) => mesh(new THREE.CylinderGeometry(R, R, L, 28, 1, true, HALF, Math.PI), m.dark, car, { pos: [w.x, w.r, sg * (zin + L / 2)], rot: [HALF, 0, 0], shadow: false }));
   });
 
   // pontons (monoplace)
