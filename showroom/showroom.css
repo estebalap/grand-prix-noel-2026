@@ -36,3 +36,4 @@ header{grid-area:hd;display:flex;align-items:center;justify-content:space-betwee
   #sr.cars{grid-template-columns:1fr;grid-template-rows:64px 1fr 40vh;grid-template-areas:"hd" "st" "inf"}
   #sr.cars #rail .carchip{width:calc(50% - 6px);min-width:0}
 }
+#modes .lk{background:var(--glass);border:1px solid #ff9d2e;border-radius:99px;padding:.7em 1.4em;font:700 14px var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:#ffb347;text-decoration:none}

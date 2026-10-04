@@ -164,7 +164,7 @@ function handleState(s) {
     if (d !== 0) { const el = $('.purse'); if (el) { el.classList.remove('bump', 'lost'); void el.offsetWidth; el.classList.add(d > 0 ? 'bump' : 'lost'); } if (d > 0 && d !== 100) { floatText('+' + d, '#ffd36a'); snd.sfx('coin'); } }
   }
   if (p) ui.lastCoins = p.coins;
-  if (ui.autoPhase !== s.phase) { ui.autoPhase = s.phase; if (ui.tab === 'ecurie' && ['GRID', 'BETTING', 'COUNTDOWN', 'RACING', 'RESULT'].includes(s.phase)) ui.tab = 'piste'; drawTabs(); }
+  if (ui.autoPhase !== s.phase) { ui.autoPhase = s.phase; if (ui.tab === 'ecurie' && ['DRAFT', 'GRID', 'BETTING', 'COUNTDOWN', 'RACING', 'RESULT'].includes(s.phase)) ui.tab = 'piste'; drawTabs(); }
   const key = viewKey(s) + '|' + (s.eliminated || []).join('.');
   if (key !== lastKey) { lastKey = key; const sc = main.scrollTop; render(s); main.scrollTop = ui.tab === prevTab ? sc : 0; prevTab = ui.tab; }
 }
@@ -179,9 +179,9 @@ function viewKey(s) {
   if (ui.tab === 'classement') return `${base}|${ranking(s).map((r) => r.id + ':' + r.points + ':' + r.coins).join(',')}`;
   switch (s.phase) {
     case 'LOBBY': return `${base}|${s.online.length}`;
-    case 'DRAFT': return `${base}|${p.paddock.length}`;
+    case 'DRAFT': { const dn = (s.draft && s.draft.now) || {}; return `${base}|${p.paddock.length}|${s.skip ? 1 : 0}|${s.draft && s.draft.strict ? 1 : 0}|${dn.teamId}|${dn.pick}|${(dn.next || []).join('.')}`; }
     case 'GRID': case 'BETTING': case 'COUNTDOWN': case 'RACING':
-      return `${base}|${hh.n}|${hh.status}|${hh.weather}|${hh.chaos}|${hh.gridRevealed}|${hh.lanes.map((l) => l ? l.code : '-').join(',')}|${JSON.stringify(hh.odds)}|${myBets}|${myTraps}|${p.coins}|${ui.betLane}|${ui.betKind}|${ui.shopItem}|${ui.tapLane}`;
+      return `${base}|${hh.n}|${hh.status}|${hh.weather}|${hh.chaos}|${hh.gridRevealed}|${hh.lanes.map((l) => l ? l.code : '-').join(',')}|${JSON.stringify(hh.odds)}|${myBets}|${myTraps}|${p.coins}|${ui.betLane}|${ui.betKind}|${ui.shopItem}|${ui.tapLane}|${ui.shopCat}|${hh.traps.map((t) => t.item + '@' + t.lane + '>' + (t.target != null ? t.target : '') + (t.fired ? '!' : '')).join(',')}|${JSON.stringify(s.shopPrices || {})}|${JSON.stringify(s.priceMods || {})}|${JSON.stringify(s.shopStock || {})}|${ranking(s).map((r) => r.id).join('.')}`;
     case 'RESULT': case 'INTERVIEW': return `${base}|${hh.n}|${hh.result ? 1 : 0}|${p.coins}|${JSON.stringify(s.votes)}`;
     case 'STANDINGS': return `${base}|${ranking(s).map((r) => r.id + ':' + r.points).join(',')}|${JSON.stringify(s.votes)}`;
     case 'CEREMONY': return `${base}|${s.ceremony ? s.ceremony.revealed : -1}|${JSON.stringify(s.votes)}`;
@@ -241,21 +241,42 @@ function renderLobby(s) {
 }
 
 /* ---------------------------------------------------------------- DRAFT */
+function draftTurn(s) {
+  // tour imposé uniquement en phase Draft, hors Accès libre, avec un ordre officiel tiré
+  const d = s.draft || {}, now = d.now;
+  if (s.skip || !d.strict || !now || now.complete) return { free: true, now };
+  if (!(d.order || []).includes(me)) return { free: false, mine: false, outside: true, now };
+  return { free: false, mine: now.teamId === me, now, inNext: (now.next || []).indexOf(me) };
+}
 function renderDraft(s) {
   const p = s.players[me], size = DATA.rules.rules.paddockSize;
-  main.innerHTML = `<div class="card deco"><div class="h2">Le Draft</div><p class="dim small" style="margin:0 0 10px">Gratte la gommette de ta voiture et tape son code (ex : B07, FR02, F03) pour la révéler à toute la salle.</p>
-    <input class="fld" id="code" maxlength="8" placeholder="CODE" autocomplete="off" autocapitalize="characters" value="${esc(ui.code)}"><p></p>
-    <button class="btn full lg" id="go" ${p.paddock.length >= size ? 'disabled' : ''}>Révéler mon bolide</button>
+  const tr = draftTurn(s), full = p.paddock.length >= size;
+  const can = !full && (tr.free || tr.mine);
+  let banner = '';
+  if (full) banner = `<div class="turn ok"><div><b>Paddock complet !</b><span>${size} bolides : tu es prêt pour la piste.</span></div></div>`;
+  else if (tr.free) banner = s.skip ? `<div class="turn free"><div><b>Accès libre</b><span>Pioche ton paquet et tape le code quand tu veux.</span></div></div>` : '';
+  else if (tr.outside) banner = `<div class="turn wait"><div><b>Pas dans l'ordre de passage</b><span>Demande à la régie de t'ajouter au tirage.</span></div></div>`;
+  else if (tr.mine) banner = `<div class="turn mine"><div><b>À toi !</b><span>Va piocher un paquet dans le panier, puis tape le code de la gommette (manche ${tr.now.round}/${size}).</span></div></div>`;
+  else {
+    const t = team(tr.now.teamId);
+    const when = tr.inNext === 0 ? 'Tu es le prochain : prépare-toi !' : tr.inNext > 0 ? `Encore ${tr.inNext + 1} écuries avant toi.` : 'Ton tour viendra : regarde la télé.';
+    banner = `<div class="turn wait">${medal(tr.now.teamId, 46)}<div><b>Au tour de ${esc(t ? t.nickname : '')}</b><span>${when}</span></div></div>`;
+  }
+  if (tr.mine && ui.myTurnPick !== tr.now.pick) { ui.myTurnPick = tr.now.pick; snd.buzz([120, 60, 120, 60, 240]); snd.play('ui.decide'); }
+  main.innerHTML = `${banner}<div class="card deco"><div class="h2">Le Draft</div><p class="dim small" style="margin:0 0 10px">Lis le code de la gommette collée sur ton paquet (ex : B07, FR02, F03, TK05) et tape-le ici : la télé révèle ton bolide.</p>
+    <input class="fld" id="code" maxlength="8" placeholder="CODE" autocomplete="off" autocapitalize="characters" enterkeyhint="go" value="${esc(ui.code)}" ${can ? '' : 'disabled'}><p></p>
+    <button class="btn full lg" id="go" ${can ? '' : 'disabled'}>${full ? 'Paddock complet' : can ? 'Révéler mon bolide' : 'Attends ton tour'}</button>
     <div class="dim small center" style="margin-top:8px">${p.paddock.length} / ${size} bolides dans ton paddock</div></div>
     <div class="slotgrid">${Array.from({ length: size }, (_, i) => `<div class="slotc ${p.paddock[i] ? 'f' : ''}">${esc(p.paddock[i] || (i + 1))}</div>`).join('')}</div>
     ${p.paddock.length ? '<div class="h2">Mes bolides</div>' + p.paddock.map((c) => carCard(c)).join('') : ''}`;
   const inp = $('#code'); inp.oninput = () => { ui.code = inp.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); inp.value = ui.code; };
   inp.onkeydown = (e) => { if (e.key === 'Enter') $('#go').click(); };
+  if (tr.mine && !full) setTimeout(() => { try { inp.focus({ preventScroll: true }); } catch { /* clavier fermé */ } }, 250);
   $('#go').onclick = async () => {
     const code = ui.code.trim();
     if (!code) { toast('Entre le code de ta gommette', 'err'); return; }
     const r = await act(() => player.intent('draft.claim', { code }));
-    if (r) { ui.code = ''; snd.sfx('reveal'); snd.buzz(40); confetti({ x: .5, y: .35, count: 70, power: .8 }); const c = car(code); if (c) toast('« ' + c.alias + ' » rejoint ton paddock !', 'win'); }
+    if (r) { ui.code = ''; snd.sfx('reveal'); snd.buzz(40); confetti({ x: .5, y: .35, count: 70, power: .8 }); const c = car(code); if (c) toast(`« ${c.alias} » rejoint ton paddock (slot ${r.slot || p.paddock.length + 1}/${size}) !`, 'win'); }
   };
 }
 function carCard(code) {
@@ -264,53 +285,103 @@ function carCard(code) {
 }
 
 /* ---------------------------------------------------------------- GRILLE + BOURSE + PIÈGES */
+const RARITY = { commun: 'Commun', rare: 'Rare', epique: 'Épique', legendaire: 'Légendaire' };
+const CATS = [['all', 'star', 'Tout'], ['statique', 'cube', 'Statiques'], ['asservi', 'target', 'Asservis'], ['mobile', 'bowling', 'Mobiles'], ['numerique', 'wifi', 'Numériques']];
+const ARCH = { statique: 'Statique', asservi: 'Asservi', mobile: 'Mobile', numerique: 'Numérique' };
+const ARCH_VERBE = { asservi: 'DÉCLENCHER', mobile: 'LANCER' };
+const SHOP = () => DATA.rules.shop || [];
+const shopItem = (id) => SHOP().find((x) => x.id === id);
+const isLaneTrap = (id) => { const it = shopItem(id); return !!(it && it.laneLimited); };
+/** Effets numériques subis par MON écurie sur la manche (verres = cotes masquées). */
+function fogged(hh) { return (hh.traps || []).some((t) => t.item === 'verres' && t.target === me); }
+/** Prix payé par MOI : prix de marché publié par le relais + remise signature si l'objet porte mes couleurs. */
+function myPrice(s, it, lane = null) {
+  // même formule que le relais (engine.trap_price) : marché × signature × rang × phase × cible
+  const market = (s.shopPrices && s.shopPrices[it.id] != null) ? s.shopPrices[it.id] : it.price;
+  const sig = it.team != null && Number(it.team) === Number(me);
+  const disc = (DATA.rules.economy && DATA.rules.economy.signatureDiscount) || 0.7;
+  const pm = s.priceMods || { rank: {}, lane: [], phase: 1 };
+  let raw = market * (sig ? disc : 1) * (pm.rank[String(me)] || 1) * (pm.phase || 1);
+  if (lane != null && it.laneLimited && pm.lane[lane] != null) raw *= pm.lane[lane];
+  const cap = (DATA.rules.economy && DATA.rules.economy.priceCap) || 95;
+  const price = Math.min(cap, Math.max(5, Math.round(raw / 5) * 5));
+  const ref = sig ? Math.max(5, Math.round(market * disc / 5) * 5) : market;
+  return { market, price, sig, ref, rank: pm.rank[String(me)] || 1, panic: (pm.phase || 1) > 1 };
+}
+function trapChips(hh, i) {
+  const list = (hh.traps || []).filter((t) => t.lane === i && t.item !== 'assurance');
+  if (!list.length) return '';
+  return `<span class="trs">${list.map((t) => { const it = shopItem(t.item); return it ? `<i class="tr r-${it.rarity}" title="${esc(it.name)}">${icon(it.icon, 16)}</i>` : ''; }).join('')}</span>`;
+}
 function laneBtn(i, l, selectable, sel) {
   const hh = heat();
   const lc = LANE_COLORS[i];
   if (!l) return '';
   const hidden = l.hidden || !l.code;
+  const fog = fogged(hh);
   const c = hidden ? null : car(l.code), t = l.teamId != null ? team(l.teamId) : null;
   const od = hh.odds ? hh.odds.win[i] : null;
-  return `<button class="lane ${sel ? 'sel' : ''} ${l.teamId === me ? 'mine' : ''}" data-lane="${i}" style="--lc:${lc}" ${selectable ? '' : 'disabled'}>
-    <span class="ln">${i + 1}</span><span><div class="al">${hidden ? 'Bolide masqué' : esc(c ? c.alias : l.code)}</div><div class="ow">${esc(t ? t.nickname : 'Fantôme')}${l.teamId === me ? ' · TOI' : ''}</div></span>
-    <span class="od"><small>VICTOIRE</small>${od ? fmtOdds(od) : '–'}${hh.odds && hh.odds.pWin && !hidden ? `<i class="pc">${Math.round(hh.odds.pWin[i] * 100)} %</i>` : ''}</span></button>`;
+  const relic = !!(hh.odds && hh.odds.relic && hh.odds.relic[i]);
+  const bel = hh.odds && hh.odds.belief ? hh.odds.belief[i] : null;
+  const conf = bel ? Math.round((bel.confidence || 0) * 100) : null;
+  const ins = (hh.traps || []).some((x) => x.item === 'assurance' && x.lane === i);
+  return `<button class="lane ${sel ? 'sel' : ''} ${l.teamId === me ? 'mine' : ''} ${relic ? 'relic' : ''}" data-lane="${i}" style="--lc:${lc}" ${selectable ? '' : 'disabled'}>
+    <span class="ln">${i + 1}</span><span class="lmid"><div class="al">${hidden ? 'Bolide masqué' : esc(c ? c.alias : l.code)}</div><div class="ow">${esc(t ? t.nickname : 'Fantôme')}${l.teamId === me ? ' · TOI' : ''}</div>
+      <div class="tags">${relic ? `<em class="qod">${icon('relic', 12)} QUITTE OU DOUBLE</em>` : ''}${ins ? `<em class="ins">${icon('tow', 12)} ASSURÉ</em>` : ''}${conf != null && !hidden && !fog ? `<em class="cf" title="Confiance du modèle bayésien (${bel.races} course(s) observée(s))"><b style="width:${Math.max(4, conf)}%"></b>${bel.races ? bel.races + ' course' + (bel.races > 1 ? 's' : '') : 'inconnu'}</em>` : ''}</div>${trapChips(hh, i)}</span>
+    <span class="od"><small>VICTOIRE</small>${fog ? '<b class="fogd">??</b>' : (od ? fmtOdds(od) : '–')}${hh.odds && hh.odds.pWin && !hidden && !fog ? `<i class="pc">${Math.round(hh.odds.pWin[i] * 100)} %</i>` : ''}</span></button>`;
 }
-function betLimits(s) {
+function betLimits(s, lane = ui.betLane, kind = ui.betKind) {
   const hh = s.heat, p = s.players[me], mode = modeOf(s.mode);
   const w = weatherOf(hh.weather), ch = hh.chaos != null ? DATA.rules.chaos[hh.chaos] : null;
   const unlimited = mode.unlimited || w.unlimitedBets || (ch && ch.unlimitedBets);
   const staked = hh.bets.filter((b) => b.teamId === me).reduce((a, b) => a + b.amount, 0);
-  const cap = unlimited ? p.coins : Math.min(p.coins, Math.floor((p.coins + staked) * DATA.rules.rules.betMaxPct / 100) - staked);
-  return { unlimited, staked, max: Math.max(0, cap) };
+  let cap = unlimited ? p.coins : Math.min(p.coins, Math.floor((p.coins + staked) * DATA.rules.rules.betMaxPct / 100) - staked);
+  const relic = !!(hh.odds && hh.odds.relic && hh.odds.relic[lane]) && (kind === 'win' || kind === 'podium');
+  const rel = DATA.rules.rules.relic;
+  let relicLeft = null;
+  if (relic && rel && !mode.unlimited) {
+    const on = hh.bets.filter((b) => b.teamId === me && b.lane === lane && (b.kind === 'win' || b.kind === 'podium')).reduce((a, b) => a + b.amount, 0);
+    relicLeft = Math.max(0, Math.floor((p.coins + staked) * rel.stakeCapPct / 100) - on);
+    cap = Math.min(cap, relicLeft);
+  }
+  return { unlimited, staked, max: Math.max(0, cap), relic, relicLeft };
 }
 function renderBetting(s) {
   const hh = s.heat, p = s.players[me], mode = modeOf(s.mode);
   if (hh.n === 0 || hh.status === 'idle') { main.innerHTML = `<div class="card deco center"><div class="h2">En attente de la grille</div><p class="dim">La régie tire les 4 bolides de la prochaine manche…</p></div>${tauntCard(s)}`; bindTaunts(); return; }
   const open = hh.betsOpen;
+  if (ui.betLane == null || !hh.lanes[ui.betLane]) ui.betLane = hh.lanes.findIndex((l) => l);
   const lim = betLimits(s);
   const myBets = hh.bets.filter((b) => b.teamId === me);
-  if (ui.betLane == null || !hh.lanes[ui.betLane]) ui.betLane = hh.lanes.findIndex((l) => l);
   if (ui.amount > lim.max) ui.amount = Math.max(DATA.rules.rules.betMin, Math.min(lim.max, ui.amount));
   const canBet = open && mode.betting && lim.max >= DATA.rules.rules.betMin;
   const kinds = [['win', 'Victoire'], ['podium', 'Placé (top 2)'], ['crash', 'Crash']];
+  const fog = fogged(hh);
   const odd = hh.odds ? hh.odds[ui.betKind][ui.betLane] : 1;
   const blind = hh.weather === 'brouillard' && !hh.gridRevealed;
-  const eff = odd ? (blind ? Math.round(odd * 15) / 10 : odd) : 1;
+  const allinArmed = ui.betKind === 'win' && hh.traps.some((t) => t.item === 'allin' && t.teamId === me) && !myBets.some((b) => b.allin);
+  let eff = odd ? (blind ? Math.round(odd * 15) / 10 : odd) : 1;
+  if (allinArmed) eff = Math.round(eff * 15) / 10;
+  const kf = hh.odds && hh.odds.kelly && hh.odds.kelly[ui.betKind] ? hh.odds.kelly[ui.betKind][ui.betLane] || 0 : 0;
+  const kellyAmt = Math.min(lim.max, Math.floor(kf * p.coins));
   const chips = [10, 25, 50].filter((v) => v <= lim.max);
+  const oddTxt = (k) => (fog ? '??' : hh.odds ? fmtOdds(hh.odds[k][ui.betLane] || 1) : '');
   main.innerHTML = `
     <div class="card deco"><div class="row sp"><div><div class="h2" style="margin:0">Manche ${hh.n}</div><b>${esc(hh.kind === 'finale' ? 'Grande Finale' : hh.kind === 'demi' ? 'Demi-finale' : hh.kind === 'reliques' ? 'Coupe des Reliques' : 'Poule')}</b></div>
       <div style="text-align:right"><div class="h2" style="margin:0">${open ? 'Bourse ouverte' : hh.status === 'setup' ? 'Grille prête' : 'Bourse fermée'}</div><div class="tnum ${''}" id="tn" style="font-size:34px">${open ? '' : '—'}</div></div></div>
       <div class="timer ${open ? '' : 'hide'}"><i id="tb" style="width:100%"></i></div></div>
+    ${fog ? `<div class="card fogcard">${icon('glasses', 34)}<div><b>Verres Teintés !</b><div class="small">Une écurie rivale t'a brouillé la vue : cotes masquées pour cette manche. Tu peux parier… à l'aveugle.</div></div></div>` : ''}
     ${weatherCard(s)}
     ${mode.betting ? `<div class="card deco"><div class="h2">Ta mise</div>
       <div id="lanes">${hh.lanes.map((l, i) => laneBtn(i, l, canBet, i === ui.betLane)).join('')}</div>
-      <div class="seg">${kinds.map(([k, l]) => `<button data-kind="${k}" class="${ui.betKind === k ? 'on' : ''}">${l}<br><small style="opacity:.8">${hh.odds ? fmtOdds(hh.odds[k][ui.betLane] || 1) : ''}</small></button>`).join('')}</div>
-      <div class="row sp small dim"><span>Cote ${fmtOdds(eff)}${blind ? ' (aveugle ×1,5)' : ''}</span><span>${lim.unlimited ? 'Plafond levé : TAPIS autorisé' : 'Max ' + lim.max + ' ' + COIN + ' (50 % du portefeuille)'}</span></div>
-      <div class="chips">${chips.map((v) => `<button data-amt="${v}" class="${ui.amount === v ? 'on' : ''}">${v}</button>`).join('')}<button data-amt="max" class="${ui.amount === lim.max && lim.max > 0 && !chips.includes(lim.max) ? 'on' : ''}">${lim.unlimited ? 'TAPIS' : 'MAX'}</button></div>
+      <div class="seg">${kinds.map(([k, l]) => `<button data-kind="${k}" class="${ui.betKind === k ? 'on' : ''}">${l}<br><small style="opacity:.8">${oddTxt(k)}</small></button>`).join('')}</div>
+      <div class="row sp small dim"><span>Cote ${fog ? '??' : fmtOdds(eff)}${blind ? ' (aveugle ×1,5)' : ''}${allinArmed ? ' <b class="allin">ALL-IN ×1,5</b>' : ''}</span><span>${lim.relic ? `<b class="qod">${icon('relic', 12)} Relique : ${lim.relicLeft} max</b>` : lim.unlimited ? 'Plafond levé : TAPIS autorisé' : 'Max ' + lim.max + ' ' + COIN + ' (' + DATA.rules.rules.betMaxPct + ' % du portefeuille)'}</span></div>
+      <div class="chips">${chips.map((v) => `<button data-amt="${v}" class="${ui.amount === v ? 'on' : ''}">${v}</button>`).join('')}${!fog && kellyAmt >= DATA.rules.rules.betMin ? `<button data-amt="${kellyAmt}" class="kelly ${ui.amount === kellyAmt ? 'on' : ''}" title="Mise conseillée par le critère de Kelly (demi-Kelly)">${icon('target', 14)} ${kellyAmt}</button>` : ''}<button data-amt="max" class="${ui.amount === lim.max && lim.max > 0 && !chips.includes(lim.max) ? 'on' : ''}">${lim.unlimited ? 'TAPIS' : 'MAX'}</button></div>
+      ${fog ? '' : `<div class="kline small">${icon('target', 14)} ${kf > 0 ? `Le modèle voit un avantage : demi-Kelly ≈ <b>${Math.round(kf * 100)} %</b> du portefeuille.` : 'Aucun avantage mathématique ici : c\'est un pari « plaisir ».'}</div>`}
       <input type="range" id="rng" min="${DATA.rules.rules.betMin}" max="${Math.max(DATA.rules.rules.betMin, lim.max)}" step="1" value="${clamp(ui.amount, DATA.rules.rules.betMin, Math.max(DATA.rules.rules.betMin, lim.max))}" ${canBet ? '' : 'disabled'}>
-      <div class="row sp"><b class="big" id="amt" style="font-size:30px">${ui.amount} ${COIN}</b><span class="dim small">Gain potentiel : <b class="coin">${Math.round(ui.amount * eff)}</b></span></div><p></p>
+      <div class="row sp"><b class="big" id="amt" style="font-size:30px">${ui.amount} ${COIN}</b><span class="dim small">Gain potentiel : <b class="coin" id="gain">${fog ? '??' : Math.round(ui.amount * eff)}</b></span></div><p></p>
       <button class="btn full lg" id="place" ${canBet ? '' : 'disabled'}>${open ? 'Placer la mise' : 'Bourse fermée'}</button>
-      ${myBets.length ? '<div class="h2" style="margin-top:16px">Mes paris sur cette manche</div>' + myBets.map((b) => `<div class="mybet"><span>Voie ${b.lane + 1} · ${{ win: 'Victoire', podium: 'Placé', crash: 'Crash' }[b.kind]} (${fmtOdds(b.odds)})</span><b class="coin">${b.amount} ${COIN}</b></div>`).join('') : ''}</div>`
+      ${myBets.length ? '<div class="h2" style="margin-top:16px">Mes paris sur cette manche</div>' + myBets.map((b) => `<div class="mybet"><span>Voie ${b.lane + 1} · ${{ win: 'Victoire', podium: 'Placé', crash: 'Crash' }[b.kind]} (${fmtOdds(b.odds)})${b.allin ? ' · ALL-IN' : ''}</span><b class="coin">${b.amount} ${COIN}</b></div>`).join('') : ''}</div>`
     : '<div class="card deco center"><div class="h2">Mode Pure Vitesse</div><p class="dim">Pas de paris ni de pièges : concentre-toi sur la piste !</p></div>'}
     ${mode.traps ? shopCard(s) : ''}
     ${tauntCard(s)}`;
@@ -318,7 +389,7 @@ function renderBetting(s) {
   $$('#lanes .lane', main).forEach((b) => b.onclick = () => { ui.betLane = Number(b.dataset.lane); lastKey = ''; handleState(S); });
   $$('[data-kind]', main).forEach((b) => b.onclick = () => { ui.betKind = b.dataset.kind; lastKey = ''; handleState(S); });
   $$('[data-amt]', main).forEach((b) => b.onclick = () => { ui.amount = b.dataset.amt === 'max' ? Math.max(DATA.rules.rules.betMin, lim.max) : Number(b.dataset.amt); lastKey = ''; handleState(S); });
-  const rng = $('#rng'); if (rng) rng.oninput = () => { ui.amount = Number(rng.value); $('#amt').innerHTML = ui.amount + ' ' + COIN; };
+  const rng = $('#rng'); if (rng) rng.oninput = () => { ui.amount = Number(rng.value); $('#amt').innerHTML = ui.amount + ' ' + COIN; const g = $('#gain'); if (g && !fog) g.textContent = Math.round(ui.amount * eff); };
   const pl = $('#place'); if (pl) pl.onclick = async () => {
     const r = await act(() => player.intent('bet', { kind: ui.betKind, lane: ui.betLane, amount: ui.amount }));
     if (r) { snd.play('bet', { fallback: 'coin' }); snd.buzz(30); toast(`Mise placée : ${ui.amount} pièces à ${fmtOdds(r.odds)}`, 'win'); }
@@ -326,31 +397,148 @@ function renderBetting(s) {
   bindShop(s); bindTaunts();
 }
 
-function shopCard(s) {
+/** État d'achat d'un objet pour MOI : raison de blocage éventuelle (affichée sur la carte). */
+function itemState(s, it) {
   const hh = s.heat, p = s.players[me];
+  const mode = modeOf(s.mode) || {};
+  const pr = myPrice(s, it);
+  const stock = s.shopStock && s.shopStock[it.id] != null ? s.shopStock[it.id] : 1;
+  const rk = ranking(s);
+  const last = rk.length && rk[rk.length - 1].id === me;
+  const open = hh.status === 'setup' || hh.status === 'betting';
+  let why = '';
+  if (!mode.unlimited && hh.n < (it.unlockHeat || 1)) why = 'locked';
+  else if (!open) why = 'closed';
+  else if (stock <= 0) why = 'sold';
+  else if (it.lastOnly && !last) why = 'last';
+  else if ((it.digital === 'insurance' || it.digital === 'allin') && hh.traps.some((t) => t.item === it.id && t.teamId === me)) why = 'owned';
+  else if (it.digital === 'insurance' && !hh.lanes.some((l) => l && l.teamId === me)) why = 'notracing';
+  else if (p.coins < pr.price) why = 'funds';
+  return { ...pr, stock, why, ok: !why };
+}
+const WHY = { locked: (it) => `Manche ${it.unlockHeat}`, closed: () => 'Fermé', sold: () => 'Épuisé', last: () => 'Dernier seulement', owned: () => 'Actif', notracing: () => 'Hors grille', funds: () => 'Trop cher' };
+
+function shopCard(s) {
+  const hh = s.heat;
+  const cat = ui.shopCat || 'all';
+  const items = SHOP().filter((it) => cat === 'all' || it.arch === cat)
+    .map((it) => ({ it, st: itemState(s, it) }))
+    .sort((a, b) => (a.st.why === 'locked') - (b.st.why === 'locked') || (b.it.team === me) - (a.it.team === me));
   const canSetup = hh.status === 'setup' || hh.status === 'betting';
-  const rk = ranking(s); const last = rk.length && rk[rk.length - 1].id === me;
-  return `<div class="card deco"><div class="h2">La Boutique des Pièges</div>
-    <div class="shop">${DATA.rules.shop.map((it) => {
-      const dis = !canSetup || p.coins < it.price || (it.lastOnly && !last);
-      return `<button class="item" data-item="${it.id}" ${dis ? 'disabled' : ''}>${icon(it.icon, 30)}<b>${esc(it.name)}</b><small>${esc(it.effect)}</small><span class="pr">${it.price} ${COIN}</span></button>`;
+  const placed = hh.traps.length;
+  const pm = s.priceMods || { rank: {}, phase: 1 };
+  const rk = pm.rank[String(me)] || 1;
+  const tag = rk < 0.99 ? `<span class="mod good">Rattrapage ×${rk.toFixed(2).replace('.', ',')}</span>` : rk > 1.01 ? `<span class="mod bad">Taxe du leader ×${rk.toFixed(2).replace('.', ',')}</span>` : '';
+  return `<div class="card deco arsenal"><div class="row sp"><div class="h2" style="margin:0">${icon('banana', 18)} L'Arsenal</div><span class="small dim">${placed} objet${placed > 1 ? 's' : ''} en jeu</span></div>
+    ${tag || pm.phase > 1 ? `<div class="mods">${tag}${pm.phase > 1 ? '<span class="mod bad panic">PRIX DE PANIQUE ×1,2</span>' : ''}</div>` : ''}
+    <div class="cats">${CATS.map(([id, ic, l]) => `<button data-cat="${id}" class="${cat === id ? 'on' : ''}">${icon(ic, 16)}${l}</button>`).join('')}</div>
+    <div class="shop">${items.map(({ it, st }) => {
+      const pct = it.factor && it.factor < 1 ? Math.round((1 - it.factor) * 100) : 0;
+      return `<button class="item r-${it.rarity} ${st.ok ? '' : 'off'} ${st.why === 'locked' ? 'lockd' : ''} ${st.sig ? 'sig' : ''}" data-item="${it.id}" aria-label="${esc(it.name)}">
+        ${st.sig ? '<span class="ribbon">SIGNATURE</span>' : ''}
+        <span class="stk" title="Stock restant pour la manche">${st.stock >= 99 ? '∞' : '×' + st.stock}</span>
+        <span class="aic">${icon(it.icon, 34)}</span>
+        <b>${esc(it.name)}</b>
+        <small class="rar">${RARITY[it.rarity] || ''}${pct ? ` · <span class="hit">−${pct} %</span>` : ''}</small>
+        <span class="archb a-${it.arch}">${icon({ statique: 'cube', asservi: 'target', mobile: 'bowling', numerique: 'wifi' }[it.arch] || 'star', 11)} ${ARCH[it.arch] || ''}</span>
+        <span class="pr">${st.price !== st.market ? `<s>${st.market}</s> ` : ''}${it.laneLimited ? '<i class="des">dès</i> ' : ''}${st.price} ${COIN}</span>
+        ${st.why === 'locked' ? `<span class="lock">${icon('lock', 26)}<b>Manche ${it.unlockHeat}</b></span>` : st.why ? `<span class="why">${WHY[st.why](it)}</span>` : ''}
+      </button>`;
     }).join('')}</div>
-    <div class="dim small" style="margin-top:10px">${canSetup ? 'Les pièges se posent avant le départ.' : 'La pose des pièges est fermée.'}</div></div>`;
+    <div class="dim small" style="margin-top:10px">${canSetup ? 'Touchez un objet pour voir sa fiche (modèle 3D imprimé, effet, cible). Prix de marché : ils suivent la richesse de la tablée.' : 'La pose des pièges est fermée.'}</div></div>`;
+}
+
+function itemSheet(s, it) {
+  const st = itemState(s, it);
+  const hh = s.heat;
+  const pct = it.factor && it.factor < 1 ? Math.round((1 - it.factor) * 100) : 0;
+  const t = it.team != null ? team(it.team) : null;
+  let pick = '';
+  if (st.ok) {
+    if (it.needsLane) {
+      const lanes = hh.lanes.map((l, i) => {
+        if (!l) return '';
+        const shield = it.laneLimited && hh.traps.some((x) => x.item === 'carapace' && x.lane === i);
+        const pr = myPrice(s, it, i).price;
+        return laneBtn(i, l, !shield && pr <= s.players[me].coins, false).replace('<button class="lane', `<button class="lane pickl${shield ? ' shielded' : ''}`)
+          .replace('<span class="od">', `<span class="lprice">${pr} ${COIN}</span><span class="od">`);
+      }).join('');
+      pick = `<div class="h2">${it.id === 'champi' || it.id === 'carapace' ? 'Sur quelle voie ?' : 'Sur la voie de qui ?'}</div>${lanes}`;
+    } else if (it.targetTeam) {
+      const ids = Object.keys(s.players).map(Number).filter((id) => id !== me && !hh.traps.some((x) => x.item === it.id && x.target === id));
+      pick = `<div class="h2">Quelle écurie viser ?</div><div class="tgrid">${ids.map((id) => { const tt = team(id); return `<button class="tgt" data-target="${id}">${medal(id, 40)}<b>${esc(tt ? tt.nickname : '#' + id)}</b></button>`; }).join('')}</div>`;
+    } else {
+      pick = `<button class="btn full lg" id="buyit">${icon(it.icon, 22)} Activer pour ${st.price} pièces</button>`;
+    }
+  } else {
+    pick = `<div class="card why2">${icon(st.why === 'locked' ? 'lock' : 'skull', 22)} ${st.why === 'locked' ? `Se débloque à la manche ${it.unlockHeat}.` : WHY[st.why](it)}</div>`;
+  }
+  openSheet(`<div class="isheet r-${it.rarity}">
+    <div class="ihead"><div class="thumb"><img src="../shared/arsenal/${it.id}.jpg" alt="Modèle 3D imprimable : ${esc(it.name)}" loading="lazy" onerror="this.remove()"><span class="aic">${icon(it.icon, 44)}</span></div>
+      <div><span class="rtag">${RARITY[it.rarity] || ''}</span><h3 class="big foil">${esc(it.name)}</h3>
+      <div class="small dim">${t ? `${medal(it.team, 18)} Objet signature : ${esc(t.name)}` : 'Objet universel'}</div>
+      <div class="ipr">${st.market !== st.price ? `<s>${st.market}</s> ` : ''}<b>${st.price}</b> ${COIN} <span class="small dim">· stock ${st.stock >= 99 ? '∞' : st.stock}</span></div>
+      <div class="archline a-${it.arch}">${ARCH[it.arch] || ''}${it.reussite ? ` · réussite estimée ${Math.round(it.reussite * 100)} %` : ''}</div></div></div>
+    ${it.declenchement ? `<div class="decl">${icon(it.arch === 'mobile' ? 'bowling' : 'target', 18)}<span><b>${it.arch === 'mobile' ? 'Lancer' : 'Déclencher'} :</b> ${esc(it.declenchement)}</span></div>` : ''}
+    <p class="ieff">${esc(it.effect)}</p>
+    ${pct ? `<div class="meter"><span>Impact sur les chances de la victime</span><i><b style="width:${pct}%"></b></i><em>−${pct} %</em></div>` : ''}
+    ${it.lore ? `<p class="lore">« ${esc(it.lore)} »</p>` : ''}
+    ${it.physique ? `<details><summary>${icon('engine', 14)} Sur la vraie piste</summary><p class="small">${esc(it.physique)}</p>${it.print ? `<p class="small dim">Impression : ${esc(it.print.mat || '')} · ${it.print.min || '?'} min · ${it.print.g || '?'} g</p>` : ''}${it.diy ? `<p class="small dim">Astuce : ${esc(it.diy)}</p>` : ''}</details>` : ''}
+    ${pick}
+    <button class="btn ghost full" id="no">Fermer</button></div>`);
+  $('#no').onclick = closeSheet;
+  $$('#sheet .lane').forEach((lb) => lb.onclick = () => { if (lb.disabled) return; closeSheet(); buy(it, Number(lb.dataset.lane)); });
+  $$('#sheet .tgt').forEach((tb) => tb.onclick = () => { closeSheet(); buy(it, null, Number(tb.dataset.target)); });
+  const bi = $('#buyit'); if (bi) bi.onclick = () => { closeSheet(); buy(it, null); };
 }
 function bindShop(s) {
-  $$('.item', main).forEach((b) => b.onclick = () => {
-    const it = DATA.rules.shop.find((x) => x.id === b.dataset.item);
-    if (!it.needsLane) return buy(it, null);
-    openSheet(`<div class="center"><div style="color:var(--gold-2)">${icon(it.icon, 54)}</div><h3 class="big foil">${esc(it.name)}</h3><p class="dim small">${esc(it.effect)}</p>
-      <div class="h2">${it.id === 'champi' || it.id === 'carapace' ? 'Sur quelle voie ?' : 'Sur la voie de qui ?'}</div>
-      ${s.heat.lanes.map((l, i) => l ? laneBtn(i, l, true, false) : '').join('')}<button class="btn ghost full" id="no">Annuler</button></div>`);
-    $$('#sheet .lane').forEach((lb) => lb.onclick = () => { closeSheet(); buy(it, Number(lb.dataset.lane)); });
-    $('#no').onclick = closeSheet;
-  });
+  $$('.arsenal .cats button', main).forEach((b) => b.onclick = () => { ui.shopCat = b.dataset.cat; lastKey = ''; handleState(S); });
+  $$('.item', main).forEach((b) => b.onclick = () => { const it = shopItem(b.dataset.item); if (it) itemSheet(S || s, it); });
 }
-async function buy(it, lane) {
-  const r = await act(() => player.intent('trap.buy', { item: it.id, lane }));
-  if (r) { snd.sfx('trap'); snd.buzz([20, 30, 20]); toast(`${it.name} posé${lane != null ? ' sur la voie ' + (lane + 1) : ''} !`, 'win'); }
+async function buy(it, lane, target) {
+  const body = { item: it.id, lane };
+  if (target != null) body.target = target;
+  const r = await act(() => player.intent('trap.buy', body));
+  if (r) {
+    snd.sfx('trap'); snd.buzz([20, 30, 20]);
+    const who = target != null && team(target) ? ' sur ' + team(target).nickname : '';
+    toast(`${it.name} ${it.needsLane ? 'posé' : 'activé'}${lane != null && it.needsLane ? ' sur la voie ' + (lane + 1) : ''}${who} ! (−${r.price})`, 'win');
+  }
+}
+/** Éclaboussure d'encre plein écran (Pieuvre de Calligraphie) : 8 secondes, essuyable du doigt. */
+function inkSplat(from) {
+  const old = $('#inkfx'); if (old) old.remove();
+  const d = document.createElement('div');
+  d.id = 'inkfx';
+  const blobs = Array.from({ length: 9 }, () => `<i style="left:${Math.random() * 90}%;top:${Math.random() * 90}%;--s:${0.6 + Math.random() * 1.4};--r:${Math.random() * 360}deg">${icon('ink', 160)}</i>`).join('');
+  d.innerHTML = `${blobs}<div class="msg">${icon('ink', 30)}<b>ENCRÉ !</b><small>${esc(from)} t'a aspergé · frotte l'écran</small></div>`;
+  document.body.appendChild(d);
+  let wiped = 0;
+  d.addEventListener('pointermove', () => { wiped++; d.style.opacity = String(Math.max(0.15, 1 - wiped / 120)); });
+  setTimeout(() => { d.classList.add('out'); setTimeout(() => d.remove(), 700); }, 8000);
+}
+
+/* ---------------------------------------------------------------- COURSE : DÉCLENCHEURS (asservis / mobiles) */
+function myFireable(s) {
+  return (s.heat.traps || []).filter((t) => t.teamId === me && (shopItem(t.item) || {}).arch && ['asservi', 'mobile'].includes(shopItem(t.item).arch));
+}
+function fireCard(s) {
+  const list = myFireable(s);
+  if (!list.length) return '';
+  return `<div class="card deco firecard"><div class="h2">${icon('target', 16)} Tes pièges à déclencher</div>${list.map((t) => {
+    const it = shopItem(t.item);
+    return `<button class="fire r-${it.rarity} ${t.fired ? 'done' : ''}" data-fire="${t.id}" ${t.fired ? 'disabled' : ''}>
+      <span class="aic">${icon(it.icon, 30)}</span><span class="ft"><b>${esc(it.name)}</b><small>${t.lane != null ? 'Voie ' + (t.lane + 1) + ' · ' : ''}${esc(it.declenchement || '')}</small></span>
+      <em>${t.fired ? 'FAIT ✓' : ARCH_VERBE[it.arch]}</em></button>`;
+  }).join('')}</div>`;
+}
+function bindFire() {
+  $$('[data-fire]', main).forEach((b) => b.onclick = async () => {
+    if (b.disabled) return;
+    b.disabled = true;
+    const r = await act(() => player.intent('trap.fire', { id: b.dataset.fire }));
+    if (r) { snd.sfx('trap'); snd.buzz([30, 20, 60]); } else b.disabled = false;
+  });
 }
 
 /* ---------------------------------------------------------------- COURSE : BOOST TAP */
@@ -366,8 +554,10 @@ function renderRace(s) {
     <div class="dim small">Choisis ton camp, puis tape comme un fou : 1 pièce toutes les ${DATA.rules.rules.boostCoinsPerTaps} frappes si ta voie gagne (max ${DATA.rules.rules.boostCoinsMax}).</div></div>
     <div class="laneswitch">${[0, 1, 2, 3].map((i) => hh.lanes[i] ? `<button style="--lc:${LANE_COLORS[i]}" data-ln="${i}" class="${ui.tapLane === i ? 'on' : ''}">${i + 1}</button>` : '<span></span>').join('')}</div>
     <div class="center dim small">Tu soutiens : <b style="color:${LANE_COLORS[ui.tapLane]}">${esc(c ? c.alias : 'voie ' + (ui.tapLane + 1))}</b></div>
+    ${fireCard(s)}
     <div class="tapzone"><button class="tapbtn" id="tap">TAPE !<small id="tapn">${ui.taps} frappes</small></button></div>
     <p></p>${tauntCard(s)}`;
+  bindFire();
   $$('[data-ln]', main).forEach((b) => b.onclick = () => { ui.tapLane = Number(b.dataset.ln); lastKey = ''; handleState(S); });
   const tb = $('#tap');
   const hit = (e) => { e.preventDefault(); if (S.heat.status !== 'racing' && S.heat.status !== 'countdown') return; ui.taps++; ui.pending++; tb.classList.add('press'); setTimeout(() => tb.classList.remove('press'), 60); $('#tapn').textContent = ui.taps + ' frappes'; snd.buzz(8); };
@@ -533,6 +723,18 @@ function handleFx(f) {
   else if (f.type === 'weather') { snd.sfx('weather'); }
   else if (f.type === 'chaos') { snd.sfx('chaos'); snd.buzz([50, 30, 50, 30, 50]); }
   else if (f.type === 'taunt' && f.teamId !== me) { if (f.id === 'signature') snd.teamSound(f.teamId, 'taunt'); else snd.taunt(f.id); }
+  else if (f.type === 'trap' && f.teamId !== me) {
+    const it = shopItem(f.item), by = team(f.teamId);
+    if (f.item === 'encre' && f.target === me) { snd.sfx('trap'); snd.buzz([120, 60, 120]); inkSplat(by ? by.nickname : 'Une écurie'); }
+    else if (f.item === 'verres' && f.target === me) { snd.sfx('trap'); snd.buzz([60, 40, 60]); toast('Verres Teintés : tes cotes sont masquées !', 'err'); }
+    else if (f.item === 'fantome') { snd.sfx('trap'); toast(`${by ? by.nickname : '?'} lâche le Fantôme Chapardeur !`); }
+    else if (it && f.lane != null && it.laneLimited) { const mine = S && S.heat.lanes[f.lane] && S.heat.lanes[f.lane].teamId === me; if (mine) { snd.sfx('trap'); snd.buzz([40, 30, 40]); toast(`${it.name} posé sur TA voie par ${by ? by.nickname : '?'} !`, 'err'); } }
+  }
+  else if (f.type === 'trap_fire' && f.teamId !== me) {
+    const it = shopItem(f.item), by = team(f.teamId);
+    const mine = S && f.lane != null && S.heat.lanes[f.lane] && S.heat.lanes[f.lane].teamId === me;
+    if (mine) { snd.sfx('trap'); snd.buzz([80, 40, 80, 40, 160]); toast(`${it ? it.name : 'Piège'} déclenché sur TA voie par ${by ? by.nickname : '?'} !`, 'err'); }
+  }
   else if (f.type === 'reveal' && f.teamId === me) { /* feedback déjà donné à l'envoi */ }
 }
 

@@ -20,6 +20,8 @@
   "betMaxPct": 50,
   "trapMaxPerLane": 2,
   "paddockSize": 6,
+  "draftStrictTurn": true,
+  "draftSnake": true,
   "bailoutCoins": 15,
   "crashOdds": 4.0,
   "oddsMin": 1.2,
@@ -33,6 +35,26 @@
    "eloK": 1.5,
    "eloCap": 12.0
   },
+  "rating": {
+   "mu0": 25.0,
+   "sigma0": 8.333333333333334,
+   "beta": 4.166666666666667,
+   "kappa": 0.0001,
+   "priorWeight": 0.0,
+   "luck": 0.4
+  },
+  "relic": {
+   "handicapMu": 4.0,
+   "winMul": 1.5,
+   "podiumMul": 1.25,
+   "stakeCapPct": 25
+  },
+  "monetary": {
+   "growthPerHeat": 0.008,
+   "minFactor": 0.3,
+   "gain": 4.0
+  },
+  "kellyHint": 0.5,
   "boostCoinsPerTaps": 20,
   "boostCoinsMax": 15,
   "tauntCooldownSec": 5
@@ -473,58 +495,1141 @@
   {
    "id": "banane",
    "name": "Peau de Banane",
+   "cat": "piege",
+   "rarity": "commun",
    "price": 15,
    "icon": "banana",
    "needsLane": true,
    "laneLimited": true,
-   "effect": "Pièce glissante posée sur la voie d'un adversaire, sur le premier tiers de la piste."
+   "factor": 0.72,
+   "digital": null,
+   "team": null,
+   "unlockHeat": 1,
+   "zone": [
+    "Z1",
+    "Z4"
+   ],
+   "effect": "Pièce glissante posée sur la voie d'un adversaire, sur le premier tiers de la piste.",
+   "lore": "L'arme fondatrice de tout Grand Prix qui se respecte. Simple, jaune, imparable.",
+   "physique": "Galette courbe de 2,4 mm d'épaisseur, bords en biseau : la roue avant monte, le bolide se déporte.",
+   "print": {
+    "mat": "PLA Basic Jaune tournesol 10402 + Matte Marron foncé 11801 (pointes)",
+    "min": 14,
+    "g": 3
+   },
+   "diy": "Une pastille de pâte adhésive (type Patafix) sous la semelle suffit : elle ne glisse pas, elle ne laisse aucune trace.",
+   "scad": "banane",
+   "nash": {
+    "a": 0.0733,
+    "c": 0.492
+   },
+   "arch": "statique"
   },
   {
    "id": "thwomp",
    "name": "Thwomp",
+   "cat": "piege",
+   "rarity": "rare",
    "price": 30,
    "icon": "thwomp",
    "needsLane": true,
    "laneLimited": true,
-   "effect": "Portique posé sur une voie (chicane / milieu de rampe). Les bolides hauts frottent !"
+   "factor": 0.58,
+   "digital": null,
+   "team": null,
+   "unlockHeat": 1,
+   "zone": [
+    "Z4"
+   ],
+   "effect": "Portique posé sur une voie (chicane / milieu de rampe). Les bolides hauts frottent !",
+   "lore": "Un bloc de pierre grognon qui guette sous son portique. Notre version est un bloc original, sans visage connu.",
+   "physique": "Portique de 42 mm de passage : un bloc lesté pend à 34 mm de la piste. Les SUV et camions frottent, les basses passent.",
+   "print": {
+    "mat": "PLA Matte Gris 10103 (portique) + Anthracite 11101 (bloc)",
+    "min": 55,
+    "g": 18
+   },
+   "diy": "Lester le bloc avec 2 écrous M6 (logements prévus) : il oscille au passage au lieu de basculer.",
+   "scad": "thwomp",
+   "nash": {
+    "a": 0.1143,
+    "c": 0.795
+   },
+   "arch": "statique"
   },
   {
    "id": "champi",
    "name": "Champignon Turbo",
+   "cat": "tactique",
+   "rarity": "commun",
    "price": 20,
    "icon": "mushroom",
    "needsLane": true,
    "laneLimited": false,
-   "effect": "Vous choisissez votre voie en priorité sur cette manche."
+   "factor": null,
+   "digital": "priority",
+   "team": null,
+   "unlockHeat": 1,
+   "zone": [],
+   "effect": "Vous choisissez votre voie en priorité sur cette manche.",
+   "lore": "Le droit de choisir sa voie avant tout le monde : sur une piste en pente, la voie compte.",
+   "physique": "Aucun objet sur la piste : un jeton champignon est posé devant la voie choisie.",
+   "print": {
+    "mat": "PLA Matte Rouge écarlate 11200 + Blanc ivoire 11100",
+    "min": 20,
+    "g": 5
+   },
+   "diy": "Jeton aimanté (aimant 6×2 mm) : il tient sur le portique de départ métallique s'il y en a un.",
+   "scad": "jeton_champi",
+   "arch": "numerique"
   },
   {
    "id": "carapace",
    "name": "Carapace Protectrice",
+   "cat": "defense",
+   "rarity": "commun",
    "price": 15,
    "icon": "shell",
    "needsLane": true,
    "laneLimited": false,
-   "shield": true,
-   "effect": "Nettoie votre voie : aucun piège ne peut y être posé pour cette manche."
+   "factor": null,
+   "digital": "shield",
+   "team": null,
+   "unlockHeat": 1,
+   "zone": [],
+   "effect": "Nettoie votre voie : aucun piège ne peut y être posé pour cette manche.",
+   "lore": "La carapace qui tourne autour du kart et fait rebondir tout ce qui approche.",
+   "physique": "Bouclier dressé en tête de voie : la régie retire les pièges déjà posés sur cette voie.",
+   "print": {
+    "mat": "PLA Silk+ Vert bonbon 13506 + Blanc ivoire 11100",
+    "min": 25,
+    "g": 6
+   },
+   "diy": "Se pose sur la grille de départ, devant le bolide protégé.",
+   "scad": "carapace",
+   "arch": "numerique"
   },
   {
    "id": "eclair",
    "name": "Éclair Miniature",
+   "cat": "chaos",
+   "rarity": "epique",
    "price": 45,
    "icon": "bolt",
    "needsLane": false,
    "laneLimited": false,
-   "effect": "Tous les autres concurrents partent avec un lest de 5 g sur le toit."
+   "factor": 0.88,
+   "digital": null,
+   "team": null,
+   "unlockHeat": 3,
+   "zone": [],
+   "effect": "Tous les autres concurrents partent avec un lest de 5 g sur le toit.",
+   "lore": "La foudre qui rapetisse tout le monde sauf vous.",
+   "physique": "3 pastilles de lest de 5 g (rondelles M8 dans un boîtier éclair) à poser sur le toit des adversaires.",
+   "print": {
+    "mat": "PLA Basic Jaune tournesol 10402",
+    "min": 30,
+    "g": 9
+   },
+   "diy": "Insérer une rondelle M8 (≈ 4,8 g) dans chaque boîtier ; une pointe de Patafix le tient sur le toit.",
+   "scad": "eclair_lest",
+   "target": "others",
+   "arch": "statique"
   },
   {
    "id": "bleue",
    "name": "Carapace Bleue",
+   "cat": "chaos",
+   "rarity": "legendaire",
    "price": 60,
    "icon": "blueshell",
    "needsLane": false,
    "laneLimited": false,
+   "factor": null,
+   "digital": null,
+   "team": null,
+   "unlockHeat": 1,
+   "zone": [],
+   "effect": "Réservée au dernier du classement : le leader part sur la voie la plus lente.",
+   "lore": "Le grand égalisateur : une seule cible, toujours la même, celle qui mène.",
+   "physique": "Aucun obstacle : le bolide du leader est déplacé sur la voie la plus lente (voie 1 par défaut, mesurée à la répétition).",
+   "print": {
+    "mat": "PLA Silk+ Bleu 13604 + Blanc ivoire 11100",
+    "min": 35,
+    "g": 10
+   },
+   "diy": "Le trophée-jeton se pose sur la tablette du leader pendant toute la manche.",
+   "scad": "carapace_bleue",
    "lastOnly": true,
-   "effect": "Réservée au dernier du classement : le leader part sur la voie la plus lente."
+   "arch": "numerique"
+  },
+  {
+   "id": "dos_ane",
+   "name": "Dos-d'Âne du Sanglier",
+   "cat": "piege",
+   "rarity": "commun",
+   "price": 10,
+   "icon": "bump",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.85,
+   "digital": null,
+   "team": 1,
+   "unlockHeat": 1,
+   "zone": [
+    "Z1",
+    "Z4"
+   ],
+   "effect": "Petite bosse en travers de la voie visée : le bolide décolle d'un cheveu et perd de l'élan.",
+   "lore": "Petite Mimine Racing connaît chaque ornière de la battue. Celle-ci a été posée exprès.",
+   "physique": "Bosse en arc de 2,5 mm de haut sur 40 mm de long, toute la largeur de voie.",
+   "print": {
+    "mat": "PLA Matte Marron foncé 11801",
+    "min": 9,
+    "g": 3
+   },
+   "diy": "Patafix aux 2 extrémités. Version « champion » : imprimer en TPU 95A pour un effet amorti.",
+   "scad": "dos_ane",
+   "nash": {
+    "a": 0.0376,
+    "c": 0.24
+   },
+   "arch": "statique"
+  },
+  {
+   "id": "guimauve",
+   "name": "Guimauve Gélifiée",
+   "cat": "piege",
+   "rarity": "commun",
+   "price": 15,
+   "icon": "candy",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.76,
+   "digital": null,
+   "team": 2,
+   "unlockHeat": 1,
+   "zone": [
+    "Z1",
+    "Z4"
+   ],
+   "effect": "Coussin moelleux sur la voie : il boit la vitesse du bolide qui l'écrase.",
+   "lore": "Twingo Oasis V16 enchaîne les combos sucrés : trois bonbons alignés et votre bolide colle.",
+   "physique": "Coussin de 30 × 36 mm, 3 mm de haut, alvéolé : il s'écrase sous la roue et absorbe l'énergie.",
+   "print": {
+    "mat": "TPU 95A rose CONSEILLÉ (achat) ; à défaut PLA Silk+ Rouge bonbon 13205 avec alvéoles",
+    "min": 18,
+    "g": 4
+   },
+   "diy": "Le TPU s'imprime lentement (30 mm/s) et sans rétraction ; la version PLA reste efficace grâce aux nervures.",
+   "scad": "guimauve",
+   "nash": {
+    "a": 0.0617,
+    "c": 0.41
+   },
+   "arch": "statique"
+  },
+  {
+   "id": "balle_service",
+   "name": "Balle de Service Gagnant",
+   "cat": "piege",
+   "rarity": "rare",
+   "price": 20,
+   "icon": "ball",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.72,
+   "digital": null,
+   "team": 3,
+   "unlockHeat": 1,
+   "zone": [
+    "Z1",
+    "Z4"
+   ],
+   "effect": "Une balle repose dans un berceau au milieu de la voie : le bolide doit la pousser jusqu'en bas.",
+   "lore": "Optic-Breuillet Racing a un service imparable et une vue parfaite sur la trajectoire.",
+   "physique": "Sphère creuse Ø 20 mm (paroi 0,8 mm, 2 g) posée dans un anneau-berceau de 3 mm.",
+   "print": {
+    "mat": "PLA Basic Jaune tournesol 10402 (balle) + Matte Blanc ivoire 11100 (berceau)",
+    "min": 22,
+    "g": 4
+   },
+   "diy": "Imprimer la balle en 2 demi-coques collées (colle cyanoacrylate) pour une sphère parfaite.",
+   "scad": "balle_service",
+   "nash": {
+    "a": 0.073,
+    "c": 0.487
+   },
+   "arch": "statique"
+  },
+  {
+   "id": "vinyle",
+   "name": "33 Tours Infernal",
+   "cat": "piege",
+   "rarity": "rare",
+   "price": 25,
+   "icon": "vinyl",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.66,
+   "digital": null,
+   "team": 4,
+   "unlockHeat": 1,
+   "zone": [
+    "Z4"
+   ],
+   "effect": "Un disque tourne sur son axe en bord de voie et déporte le bolide qui le frôle.",
+   "lore": "Tata Freddy Motorsport : un vinyle d'époque, un jeu de cartes et beaucoup de mauvaise foi.",
+   "physique": "Disque Ø 60 mm sur pivot vertical (cure-dent Ø 2 mm) en bord de voie : il recouvre 40 % de la voie.",
+   "print": {
+    "mat": "PLA Matte Anthracite 11101 (disque) + Rouge écarlate 11200 (étiquette)",
+    "min": 30,
+    "g": 9
+   },
+   "diy": "Axe : un cure-dent coupé, collé dans le socle ; le disque tourne librement (jeu de 0,3 mm).",
+   "scad": "vinyle",
+   "nash": {
+    "a": 0.0891,
+    "c": 0.606
+   },
+   "arch": "statique"
+  },
+  {
+   "id": "mediator",
+   "name": "Médiator de Stratocaster",
+   "cat": "piege",
+   "rarity": "commun",
+   "price": 15,
+   "icon": "pick",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.8,
+   "digital": null,
+   "team": 5,
+   "unlockHeat": 1,
+   "zone": [
+    "Z1",
+    "Z4"
+   ],
+   "effect": "Déflecteur triangulaire planté sur un côté de la voie : chicane immédiate.",
+   "lore": "Super Mario Pression attaque la piste comme un riff : sec, en biais, et ça sonne.",
+   "physique": "Médiator géant de 28 mm dressé en biais (25°), il rétrécit la voie d'un tiers.",
+   "print": {
+    "mat": "PLA Silk+ Rouge bonbon 13205 ou Doré 13405",
+    "min": 12,
+    "g": 3
+   },
+   "diy": "Se clipse sur la paroi de séparation des voies grâce à son crochet en U (paramètre `paroi_ep`).",
+   "scad": "mediator",
+   "nash": {
+    "a": 0.0513,
+    "c": 0.333
+   },
+   "arch": "statique"
+  },
+  {
+   "id": "cle_sol",
+   "name": "Slalom Clé de Sol",
+   "cat": "piege",
+   "rarity": "rare",
+   "price": 25,
+   "icon": "clef",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.68,
+   "digital": null,
+   "team": 6,
+   "unlockHeat": 1,
+   "zone": [
+    "Z4"
+   ],
+   "effect": "Double chicane en S : la voie se rétrécit à la largeur du bolide + 4 mm.",
+   "lore": "Scuderia Symphonie E-Tech : la partition est écrite, le bolide n'a plus qu'à la suivre.",
+   "physique": "Deux ailettes décalées de 50 mm, alternées gauche / droite, profil de clé de sol.",
+   "print": {
+    "mat": "PLA Matte Bleu foncé 11602 + Silk+ Argenté 13109",
+    "min": 28,
+    "g": 7
+   },
+   "diy": "Une goutte de Patafix sous chaque ailette ; la largeur de passage se règle avec `passage`.",
+   "scad": "cle_sol",
+   "nash": {
+    "a": 0.0846,
+    "c": 0.569
+   },
+   "arch": "statique"
+  },
+  {
+   "id": "cupcake",
+   "name": "Tremplin Cupcake",
+   "cat": "piege",
+   "rarity": "rare",
+   "price": 25,
+   "icon": "cupcake",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.7,
+   "digital": null,
+   "team": 7,
+   "unlockHeat": 1,
+   "zone": [
+    "Z4"
+   ],
+   "effect": "Petit tremplin de 8 mm : le bolide décolle, atterrit de travers… ou pas du tout.",
+   "lore": "Yaris 2 Invincible : increvable, mais pas insubmersible sous une montagne de crème.",
+   "physique": "Rampe de 60 mm de long montant à 8 mm, bord de fuite droit, décor de cupcake sur les flancs.",
+   "print": {
+    "mat": "PLA Matte Mandarine 11300 + Blanc ivoire 11100 (crème)",
+    "min": 26,
+    "g": 8
+   },
+   "diy": "À poser après une ligne droite : plus le bolide arrive vite, plus il vole loin.",
+   "scad": "cupcake",
+   "nash": {
+    "a": 0.0792,
+    "c": 0.526
+   },
+   "arch": "statique"
+  },
+  {
+   "id": "huile",
+   "name": "Flaque d'Huile A4",
+   "cat": "piege",
+   "rarity": "commun",
+   "price": 15,
+   "icon": "oil",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.78,
+   "digital": null,
+   "team": 8,
+   "unlockHeat": 1,
+   "zone": [
+    "Z1",
+    "Z4"
+   ],
+   "effect": "Plaque en dévers de 3° : le bolide glisse vers la paroi et la frotte jusqu'en bas.",
+   "lore": "A4 Oil Leaking ne répare jamais rien : elle laisse des preuves sur chaque circuit.",
+   "physique": "Plaque noire brillante de 70 × voie, 1,6 mm côté haut et 0,4 mm côté bas (dévers transversal).",
+   "print": {
+    "mat": "PETG HF Noir 33102 (brillant, glissant)",
+    "min": 15,
+    "g": 5
+   },
+   "diy": "Imprimer face brillante vers le haut (plateau lisse) ; bords amincis pour une montée sans choc.",
+   "scad": "huile",
+   "nash": {
+    "a": 0.0565,
+    "c": 0.379
+   },
+   "arch": "statique"
+  },
+  {
+   "id": "oeuf_wyverne",
+   "name": "Œuf de Wyverne",
+   "cat": "piege",
+   "rarity": "epique",
+   "price": 35,
+   "icon": "egg",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.55,
+   "digital": null,
+   "team": 9,
+   "unlockHeat": 4,
+   "zone": [
+    "Z0"
+   ],
+   "effect": "Au GO, un œuf lesté dévale la voie visée devant le bolide : collision quasi garantie.",
+   "lore": "Titou Wyvern SRT a volé l'œuf au nid. La mère n'est pas loin.",
+   "physique": "Œuf creux 22 × 28 mm contenant une bille d'acier Ø 10 mm : il roule de façon imprévisible.",
+   "print": {
+    "mat": "PLA Matte Prune 11204 + Silk+ Doré 13405 (écailles)",
+    "min": 35,
+    "g": 6
+   },
+   "diy": "Bille d'acier Ø 10 mm (4 g) insérée à la pause d'impression (couche indiquée dans le .scad).",
+   "scad": "oeuf_wyverne",
+   "nash": {
+    "a": 0.1243,
+    "c": 0.87
+   },
+   "arch": "mobile",
+   "declenchement": "Lâché à la main derrière le portique au GO.",
+   "reussite": 0.75
+  },
+  {
+   "id": "bloc_terre",
+   "name": "Bloc de Terre Moddé",
+   "cat": "piege",
+   "rarity": "commun",
+   "price": 20,
+   "icon": "cube",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.7,
+   "digital": null,
+   "team": 10,
+   "unlockHeat": 1,
+   "zone": [
+    "Z4"
+   ],
+   "effect": "Un bloc cubique bouche la moitié de la voie : il faut passer à côté, vite.",
+   "lore": "Doom Slayer Issue GP a installé un mod. Le mod pose des blocs. Partout.",
+   "physique": "Cube de 16 mm à texture de pixels, plaqué contre une paroi : il occupe 45 % de la voie.",
+   "print": {
+    "mat": "PLA Matte Marron foncé 11801 + Silk+ Vert bonbon 13506 (herbe)",
+    "min": 25,
+    "g": 6
+   },
+   "diy": "Cube creux à 2 parois : poser un écrou M8 dedans pour qu'il encaisse les chocs sans voler.",
+   "scad": "bloc_terre",
+   "nash": {
+    "a": 0.0785,
+    "c": 0.53
+   },
+   "arch": "statique"
+  },
+  {
+   "id": "balancier",
+   "name": "Lame du Massacreur",
+   "cat": "piege",
+   "rarity": "epique",
+   "price": 40,
+   "icon": "blade",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.55,
+   "digital": null,
+   "team": 10,
+   "unlockHeat": 4,
+   "zone": [
+    "Z4"
+   ],
+   "effect": "Un balancier traverse la voie en oscillant : le timing décide de tout.",
+   "lore": "Doom Slayer Issue GP, deuxième mod : une lame bien trop grande pour être raisonnable.",
+   "physique": "Portique de 70 mm ; lame-pendule de 48 mm lestée d'un écrou M6, axe cure-dent, période ≈ 0,45 s.",
+   "print": {
+    "mat": "PLA Silk+ Gris titane 13108 (lame) + Matte Anthracite 11101 (portique)",
+    "min": 60,
+    "g": 20
+   },
+   "diy": "Lâcher la lame à 45° au moment du GO. Écrou M6 dans la tête de lame (logement hexagonal).",
+   "scad": "balancier",
+   "nash": {
+    "a": 0.1231,
+    "c": 0.851
+   },
+   "arch": "asservi",
+   "declenchement": "Lame tenue à 45°, lâchée par le propriétaire au bon moment.",
+   "reussite": 0.55
+  },
+  {
+   "id": "pelote",
+   "name": "Pelote de Milo",
+   "cat": "piege",
+   "rarity": "commun",
+   "price": 15,
+   "icon": "yarn",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.8,
+   "digital": null,
+   "team": 11,
+   "unlockHeat": 1,
+   "zone": [
+    "Z1",
+    "Z4"
+   ],
+   "effect": "Une pelote libre roule dans la voie : le bolide la percute ou la pousse.",
+   "lore": "Le chat blanc de Milo's Princess a encore joué avec la piste.",
+   "physique": "Sphère ajourée Ø 22 mm (structure en fils), 1,5 g : légère, elle rebondit de façon imprévisible.",
+   "print": {
+    "mat": "PLA Basic Violet 10700 ou TPU rose",
+    "min": 20,
+    "g": 2
+   },
+   "diy": "La poser à l'arrêt en milieu de voie ; elle ne roule qu'au premier contact.",
+   "scad": "pelote",
+   "nash": {
+    "a": 0.0511,
+    "c": 0.327
+   },
+   "arch": "mobile",
+   "declenchement": "Posée ou lancée dans la voie pendant la course.",
+   "reussite": 0.6
+  },
+  {
+   "id": "tourniquet",
+   "name": "Tourniquet Menaçant",
+   "cat": "piege",
+   "rarity": "rare",
+   "price": 30,
+   "icon": "turnstile",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.62,
+   "digital": null,
+   "team": 12,
+   "unlockHeat": 1,
+   "zone": [
+    "Z4"
+   ],
+   "effect": "Tourniquet à 3 bras en travers de la voie : le bolide doit le faire tourner pour passer. ゴゴゴ",
+   "lore": "Bob's Bizarre Racing prend la pose. Le tourniquet aussi.",
+   "physique": "Moyeu sur axe vertical (cure-dent) en bord de voie, 3 bras de 30 mm : un bras barre toujours la voie.",
+   "print": {
+    "mat": "PLA Basic Violet indigo 10701 + Silk+ Doré 13405",
+    "min": 32,
+    "g": 8
+   },
+   "diy": "Ajuster le frottement de l'axe avec `jeu_axe` : plus serré = plus punitif.",
+   "scad": "tourniquet",
+   "nash": {
+    "a": 0.1007,
+    "c": 0.687
+   },
+   "arch": "statique"
+  },
+  {
+   "id": "baguettes",
+   "name": "Baguettes Croisées",
+   "cat": "piege",
+   "rarity": "rare",
+   "price": 25,
+   "icon": "drumsticks",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.68,
+   "digital": null,
+   "team": 13,
+   "unlockHeat": 1,
+   "zone": [
+    "Z4"
+   ],
+   "effect": "Deux baguettes en X forment une porte : les bolides larges ou hauts accrochent.",
+   "lore": "Jojo la Sirène Veloce frappe en double pédale : la porte se referme en rythme.",
+   "physique": "Porte en X : passage de 34 mm de large à la base, se refermant vers le haut (≈ 30 mm à 30 mm de haut).",
+   "print": {
+    "mat": "PLA Wood Chêne blanc 13106 (baguettes) + Matte Anthracite 11101 (socle)",
+    "min": 34,
+    "g": 9
+   },
+   "diy": "Les pieds se clipsent sur les 2 parois de la voie : `paroi_ep` et `voie_l` à régler.",
+   "scad": "baguettes",
+   "nash": {
+    "a": 0.0842,
+    "c": 0.572
+   },
+   "arch": "statique"
+  },
+  {
+   "id": "shuriken",
+   "name": "Shuriken Rotatif",
+   "cat": "piege",
+   "rarity": "epique",
+   "price": 35,
+   "icon": "shuriken",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.6,
+   "digital": null,
+   "team": 14,
+   "unlockHeat": 4,
+   "zone": [
+    "Z4"
+   ],
+   "effect": "Une étoile à 4 branches tourne au centre de la voie : le bolide est dévié d'un côté ou de l'autre.",
+   "lore": "Ninja-Nissan Street Racing : on ne le voit pas arriver, on le voit seulement tourner.",
+   "physique": "Étoile Ø 34 mm sur axe vertical central, à 1,5 mm de la piste : elle dévie selon l'angle d'attaque.",
+   "print": {
+    "mat": "PLA Silk+ Argenté 13109 + Matte Anthracite 11101 (moyeu)",
+    "min": 30,
+    "g": 6
+   },
+   "diy": "Axe cure-dent planté dans une semelle Patafix ; lancer l'étoile d'une pichenette au GO.",
+   "scad": "shuriken",
+   "nash": {
+    "a": 0.1076,
+    "c": 0.735
+   },
+   "arch": "statique"
+  },
+  {
+   "id": "pirouette",
+   "name": "Plateau Pirouette Étoile",
+   "cat": "piege",
+   "rarity": "epique",
+   "price": 40,
+   "icon": "spin",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.56,
+   "digital": null,
+   "team": 15,
+   "unlockHeat": 4,
+   "zone": [
+    "Z4"
+   ],
+   "effect": "Plateau tournant au ras de la voie : le bolide qui roule dessus part en pirouette.",
+   "lore": "Princess Blooming Speed : une danseuse étoile ne s'arrête jamais de tourner. Votre bolide non plus.",
+   "physique": "Disque Ø 40 mm, 1,2 mm d'épaisseur, sur pivot à bille : il tourne sous la roue et fait pivoter le bolide.",
+   "print": {
+    "mat": "PLA Silk+ Doré rose 13206 + Basic Jaune tournesol 10402",
+    "min": 30,
+    "g": 6
+   },
+   "diy": "Pivot : bille d'acier Ø 4 mm (roulement de vélo) entre le plateau et le socle.",
+   "scad": "pirouette",
+   "nash": {
+    "a": 0.121,
+    "c": 0.844
+   },
+   "arch": "statique"
+  },
+  {
+   "id": "assurance",
+   "name": "Dépanneuse d'Assurance",
+   "cat": "defense",
+   "rarity": "rare",
+   "price": 20,
+   "icon": "tow",
+   "needsLane": false,
+   "laneLimited": false,
+   "factor": null,
+   "digital": "insurance",
+   "team": 8,
+   "unlockHeat": 1,
+   "zone": [],
+   "effect": "Si VOTRE bolide est déclaré D.N.F., il est dépanné : il est classé à sa place d'arrivée au lieu d'être éliminé.",
+   "lore": "A4 Oil Leaking a la dépanneuse la plus rapide de la soirée. Elle vend même des contrats.",
+   "physique": "Aucun objet sur la piste : la mini-dépanneuse-jeton reste sur la tablette de l'écurie.",
+   "print": {
+    "mat": "PLA Matte Mandarine 11300 + Anthracite 11101",
+    "min": 30,
+    "g": 8
+   },
+   "diy": "Jeton décoratif ; l'effet est appliqué automatiquement par le relais au résultat.",
+   "scad": "jeton_depanneuse",
+   "arch": "numerique"
+  },
+  {
+   "id": "allin",
+   "name": "Jeton All-In",
+   "cat": "tactique",
+   "rarity": "epique",
+   "price": 25,
+   "icon": "chip",
+   "needsLane": false,
+   "laneLimited": false,
+   "factor": null,
+   "digital": "allin",
+   "team": 4,
+   "unlockHeat": 2,
+   "zone": [],
+   "effect": "Votre prochain pari « victoire » de la manche voit sa cote ×1,5. Quitte ou double.",
+   "lore": "Tata Freddy Motorsport ne se couche jamais. Jamais.",
+   "physique": "Jeton de casino imprimé, posé sur le bolide choisi pendant la manche.",
+   "print": {
+    "mat": "PLA Matte Rouge écarlate 11200 + Blanc ivoire 11100",
+    "min": 18,
+    "g": 5
+   },
+   "diy": "Jeton décoratif ; le relais applique la cote majorée au pari suivant.",
+   "scad": "jeton_allin",
+   "arch": "numerique"
+  },
+  {
+   "id": "verres",
+   "name": "Verres Teintés",
+   "cat": "chaos",
+   "rarity": "rare",
+   "price": 20,
+   "icon": "glasses",
+   "needsLane": false,
+   "laneLimited": false,
+   "factor": null,
+   "digital": "fog",
+   "team": 3,
+   "unlockHeat": 1,
+   "zone": [],
+   "effect": "L'écurie visée ne voit plus les cotes sur son téléphone pendant cette manche.",
+   "lore": "Optic-Breuillet Racing a teinté les verres de la concurrence. Bonne chance pour lire les cotes.",
+   "physique": "Aucun objet : des lunettes noires en carton imprimé sont remises au pilote visé (gage !).",
+   "print": {
+    "mat": "PLA Matte Anthracite 11101 (monture plate de 1,2 mm)",
+    "min": 15,
+    "g": 4
+   },
+   "diy": "Monture plate à porter pour le gage photo ; l'effet numérique est automatique.",
+   "scad": "lunettes_gage",
+   "targetTeam": true,
+   "arch": "numerique"
+  },
+  {
+   "id": "fantome",
+   "name": "Fantôme Chapardeur",
+   "cat": "chaos",
+   "rarity": "legendaire",
+   "price": 35,
+   "icon": "ghost",
+   "needsLane": false,
+   "laneLimited": false,
+   "factor": null,
+   "digital": "steal",
+   "team": null,
+   "unlockHeat": 6,
+   "zone": [],
+   "effect": "Vole 10 % des pièces de l'écurie la plus riche (20 pièces maximum).",
+   "lore": "Un fantôme timide qui ne se montre que pour vider les poches des riches.",
+   "physique": "Aucun objet : une figurine de fantôme est posée devant l'écurie volée.",
+   "print": {
+    "mat": "PLA Matte Blanc ivoire 11100 (ou PLA phosphorescent CONSEILLÉ)",
+    "min": 25,
+    "g": 6
+   },
+   "diy": "En PLA « Glow » (achat conseillé), il brille dans le noir pendant la cérémonie. Filament abrasif : imprimer avec une buse en acier trempé.",
+   "scad": "fantome",
+   "arch": "numerique"
+  },
+  {
+   "id": "encre",
+   "name": "Splash d'Encre",
+   "cat": "chaos",
+   "rarity": "commun",
+   "price": 10,
+   "icon": "ink",
+   "needsLane": false,
+   "laneLimited": false,
+   "factor": null,
+   "digital": "ink",
+   "team": 14,
+   "unlockHeat": 1,
+   "zone": [],
+   "effect": "Le téléphone de l'écurie visée est éclaboussé d'encre pendant 8 secondes.",
+   "lore": "Ninja-Nissan Street Racing tague tout ce qui bouge, écrans compris.",
+   "physique": "Aucun objet sur la piste : un pochoir-tampon « splash » pour marquer la feuille de match.",
+   "print": {
+    "mat": "PLA Silk+ Vert bonbon 13506",
+    "min": 10,
+    "g": 3
+   },
+   "diy": "Tampon décoratif ; l'effet d'encre est joué sur le téléphone visé.",
+   "scad": "tampon_encre",
+   "targetTeam": true,
+   "arch": "numerique"
+  },
+  {
+   "id": "herse",
+   "name": "Herse du Donjon",
+   "cat": "piege",
+   "rarity": "rare",
+   "price": 30,
+   "icon": "portcullis",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.6,
+   "digital": null,
+   "team": 1,
+   "unlockHeat": 2,
+   "zone": [
+    "Z4"
+   ],
+   "effect": "Une herse tombe d'un coup sur la voie visée quand son propriétaire tire la ficelle.",
+   "lore": "Le château a des règles : on ne passe pas quand la herse tombe. Le seigneur du soir, c'est celui qui tient la ficelle.",
+   "physique": "Portique à 2 montants rainurés (glissière continue, jeu 0,30 mm) ; grille lestée de 4 écrous M3, dents posées sur une goupille traversante (passage libre 35 mm). Goupille retirée = chute en ≈ 0,1 s.",
+   "print": {
+    "mat": "PLA Matte Anthracite 11101 (portique) + Silk+ Gris titane 13108 (grille)",
+    "min": 50,
+    "g": 16
+   },
+   "diy": "Goupille = cure-dent ou tige de 2 mm nouée à 1 m de fil de pêche ; faire passer le fil par-dessus la paroi extérieure.",
+   "scad": "herse",
+   "arch": "asservi",
+   "reussite": 0.6,
+   "declenchement": "Tirer la ficelle quand le bolide visé est à ≈ 13 cm du portique (la grille tombe en 50 ms).",
+   "nash": {
+    "a": 0.108,
+    "c": 0.74
+   }
+  },
+  {
+   "id": "bascule",
+   "name": "Bascule Hazzard",
+   "cat": "piege",
+   "rarity": "rare",
+   "price": 25,
+   "icon": "drawbridge",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.65,
+   "digital": null,
+   "team": 9,
+   "unlockHeat": 1,
+   "zone": [
+    "Z1",
+    "Z4"
+   ],
+   "effect": "Un tablier à charnière se relève en tremplin sous les roues quand on tire le fil.",
+   "lore": "Hommage aux sauts de cousins de campagne : le tablier se lève, le bolide s'envole… ou se retourne.",
+   "physique": "Semelle à charnière (axe cure-dent) et tablier de 38 mm ; un fil passant par une potence relève le tablier de 0 à 25°.",
+   "print": {
+    "mat": "PLA Wood Chêne blanc 13106 (tablier) + Matte Anthracite 11101 (base)",
+    "min": 40,
+    "g": 12
+   },
+   "diy": "Axe : cure-dent Ø 2 mm ; fil dentaire noué dans l'œillet du tablier. Rien ne dépasse dans la voie au repos.",
+   "scad": "bascule",
+   "arch": "asservi",
+   "reussite": 0.65,
+   "declenchement": "Tirer d'un coup sec quand le bolide est à ≈ 8 cm du tablier.",
+   "nash": {
+    "a": 0.0945,
+    "c": 0.647
+   }
+  },
+  {
+   "id": "peage",
+   "name": "Barrière de Péage",
+   "cat": "piege",
+   "rarity": "commun",
+   "price": 15,
+   "icon": "barrier",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.7,
+   "digital": null,
+   "team": 6,
+   "unlockHeat": 1,
+   "zone": [
+    "Z1",
+    "Z4"
+   ],
+   "effect": "Une barrière de péage s'abat en travers de la voie quand on retire la goupille.",
+   "lore": "Bison Futé l'avait dit : départ en vacances déconseillé. La lisse tombe pile au moment où vous passez.",
+   "physique": "Potence clipsée sur la cloison, lisse de 43 mm lestée de 2 écrous M3 tenue inclinée à 30° par une goupille : elle tombe par gravité en ≈ 0,09 s et barre la voie de 0 à 14 mm de haut.",
+   "print": {
+    "mat": "PLA Matte Rouge écarlate 11200 (lisse) + Anthracite 11101 (potence)",
+    "min": 25,
+    "g": 6
+   },
+   "diy": "Feutre peinture blanc dans les creux de la lisse pour les bandes ; goupille = cure-dent noué à 1 m de fil.",
+   "scad": "peage",
+   "arch": "asservi",
+   "reussite": 0.6,
+   "declenchement": "Retirer la goupille quand le bolide est à ≈ 22 cm (la lisse, tenue inclinée à 30°, tombe en 90 ms).",
+   "nash": {
+    "a": 0.081,
+    "c": 0.555
+   }
+  },
+  {
+   "id": "boulet",
+   "name": "Boulet de Démolition",
+   "cat": "piege",
+   "rarity": "epique",
+   "price": 40,
+   "icon": "wrecking",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.55,
+   "digital": null,
+   "team": 8,
+   "unlockHeat": 3,
+   "zone": [
+    "Z4"
+   ],
+   "effect": "Un boulet pendule balaie la voie visée quand son propriétaire le lâche.",
+   "lore": "Il est arrivé comme un boulet de démolition. Il repart avec le podium.",
+   "physique": "Potence clipsée sur la cloison ; boulet Ø 22 mm en 2 coques avec bille d'acier Ø 12 mm (7 g) ; fil de 48 mm : période ≈ 0,44 s.",
+   "print": {
+    "mat": "PLA Matte Anthracite 11101 (boulet) + Basic Jaune (potence de chantier)",
+    "min": 45,
+    "g": 14
+   },
+   "diy": "Bille d'acier Ø 12 mm (ou 3 écrous M5) dans le boulet ; le joueur le tient écarté à 60° et le lâche.",
+   "scad": "boulet",
+   "arch": "asservi",
+   "reussite": 0.5,
+   "declenchement": "Lâcher le boulet quand le bolide est à ≈ 28 cm (un quart de période : 0,11 s).",
+   "nash": {
+    "a": 0.1215,
+    "c": 0.832
+   }
+  },
+  {
+   "id": "belier",
+   "name": "Bélier Poussoir 2000",
+   "cat": "piege",
+   "rarity": "rare",
+   "price": 25,
+   "icon": "ram",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.62,
+   "digital": null,
+   "team": 2,
+   "unlockHeat": 1,
+   "zone": [
+    "Z4"
+   ],
+   "effect": "Un piston latéral pousse le bolide contre la paroi quand on appuie sur le bouton.",
+   "lore": "Technologie de l'an 2000 : un piston, un élastique, beaucoup de mauvaise foi.",
+   "physique": "Fourreau clipsé sur la cloison ; piston 6 × 6 mm (jeu 0,30) avec tête de 14 mm ; course 22 mm ; retour par élastique.",
+   "print": {
+    "mat": "PLA Silk+ Argenté 13109 (piston) + Matte Anthracite 11101 (fourreau)",
+    "min": 35,
+    "g": 10
+   },
+   "diy": "Élastique de bureau entre les 2 crochets ; pousser le bouton d'un doigt, depuis l'extérieur de la piste.",
+   "scad": "belier",
+   "arch": "asservi",
+   "reussite": 0.65,
+   "declenchement": "Appuyer quand le bolide est à ≈ 8 cm de la tête du piston.",
+   "nash": {
+    "a": 0.1026,
+    "c": 0.703
+   }
+  },
+  {
+   "id": "obus",
+   "name": "Obus à Billes",
+   "cat": "piege",
+   "rarity": "commun",
+   "price": 15,
+   "icon": "rollshell",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.7,
+   "digital": null,
+   "team": 11,
+   "unlockHeat": 1,
+   "zone": [
+    "Z0",
+    "Z1"
+   ],
+   "effect": "Un dôme monté sur 3 billes est lancé dans la voie visée : il dévale et percute.",
+   "lore": "Une carapace de compétition, montée sur roulements : 0 % de frottement, 100 % de mauvaises intentions.",
+   "physique": "Dôme Ø 30 mm + fond clipsé qui emprisonne 3 billes Ø 6 mm (billes d'airsoft ou d'acier) : roulement omnidirectionnel.",
+   "print": {
+    "mat": "PLA Silk+ Rouge bonbon 13205 (dôme) + Blanc ivoire 11100 (fond)",
+    "min": 25,
+    "g": 7
+   },
+   "diy": "Billes Ø 6 mm d'airsoft (0,2 g) ou d'acier (0,9 g) : l'acier double l'énergie de choc.",
+   "scad": "obus",
+   "arch": "mobile",
+   "reussite": 0.6,
+   "declenchement": "Lancé à la main depuis le haut de la voie, juste après le GO.",
+   "nash": {
+    "a": 0.081,
+    "c": 0.555
+   }
+  },
+  {
+   "id": "bowling",
+   "name": "Boule du Duc",
+   "cat": "piege",
+   "rarity": "rare",
+   "price": 25,
+   "icon": "bowling",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.6,
+   "digital": null,
+   "team": 5,
+   "unlockHeat": 1,
+   "zone": [
+    "Z0",
+    "Z1"
+   ],
+   "effect": "Une boule de bowling lestée roule dans la voie visée.",
+   "lore": "Le Duc ne fait pas de manches : il fait des strikes. Le tapis de la voie, ça compte.",
+   "physique": "Sphère Ø 22 mm en 2 coques à tétons de centrage ; bille d'acier Ø 12 mm au centre : 9 g, trajectoire stable.",
+   "print": {
+    "mat": "PLA Silk+ Bleu 13604 ou Violet 10700",
+    "min": 30,
+    "g": 9
+   },
+   "diy": "Coller les 2 coques (cyanoacrylate) après avoir mis la bille ; poncer l'équateur au grain 400.",
+   "scad": "bowling",
+   "arch": "mobile",
+   "reussite": 0.65,
+   "declenchement": "Lâchée en haut de la voie au moment du GO (ou 1 s avant, si on ose).",
+   "nash": {
+    "a": 0.108,
+    "c": 0.74
+   }
+  },
+  {
+   "id": "chausse_trapes",
+   "name": "Chausse-Trapes du Ninja",
+   "cat": "piege",
+   "rarity": "commun",
+   "price": 10,
+   "icon": "caltrop",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.78,
+   "digital": null,
+   "team": 14,
+   "unlockHeat": 1,
+   "zone": [
+    "Z1",
+    "Z4"
+   ],
+   "effect": "Une poignée de chausse-trapes arrondies est jetée sur la voie : les roues sautillent.",
+   "lore": "Les ninjas en semaient derrière eux. Les nôtres ont des pointes arrondies : on est en famille.",
+   "physique": "6 tétraèdres de 12 mm à pointes arrondies (rayon 1,5 mm) : toujours une pointe vers le haut, aucun danger.",
+   "print": {
+    "mat": "PLA Silk+ Gris titane 13108",
+    "min": 15,
+    "g": 4
+   },
+   "diy": "Les jeter en pluie à mi-pente, pas plus de 6 : le but est de faire sautiller, pas de bloquer.",
+   "scad": "chausse_trapes",
+   "arch": "mobile",
+   "reussite": 0.75,
+   "declenchement": "Jetées sur la voie visée pendant la course.",
+   "nash": {
+    "a": 0.0594,
+    "c": 0.407
+   }
+  },
+  {
+   "id": "curling",
+   "name": "Pierre de Curling",
+   "cat": "piege",
+   "rarity": "commun",
+   "price": 15,
+   "icon": "curling",
+   "needsLane": true,
+   "laneLimited": true,
+   "factor": 0.75,
+   "digital": null,
+   "team": 13,
+   "unlockHeat": 1,
+   "zone": [
+    "Z0",
+    "Z1"
+   ],
+   "effect": "Un palet sur patins glisse dans la voie visée : il faut le pousser pour passer.",
+   "lore": "Balayez ! BALAYEZ ! (On n'a pas de balai. Personne ne balaie.)",
+   "physique": "Palet Ø 28 × 10 mm à poignée, 3 patins PTFE adhésifs Ø 10 mm (patins de chaise) : glisse sans rouler.",
+   "print": {
+    "mat": "PLA Matte Gris / Silk+ Argenté 13109 + poignée Rouge écarlate 11200",
+    "min": 25,
+    "g": 9
+   },
+   "diy": "Patins PTFE de chaise découpés à l'emporte-pièce Ø 10 ; un écrou M8 dans le palet pour la masse.",
+   "scad": "curling",
+   "arch": "mobile",
+   "reussite": 0.7,
+   "declenchement": "Glissé à la main en haut de la voie juste avant le passage du bolide.",
+   "nash": {
+    "a": 0.0675,
+    "c": 0.463
+   }
   }
  ],
  "taunts": [
@@ -645,5 +1750,16 @@
  "voteAwards": [
   "cascadeur",
   "cuillere"
- ]
+ ],
+ "economy": {
+  "signatureDiscount": 0.7,
+  "stockByRarity": {
+   "commun": 4,
+   "rare": 2,
+   "epique": 1,
+   "legendaire": 1
+  },
+  "priceFloorRatio": 0.7,
+  "priceCap": 95
+ }
 }

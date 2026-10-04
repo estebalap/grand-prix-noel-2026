@@ -1,0 +1,29 @@
+/* ==========================================================================
+   ARSENAL — iconographie des pièges (édition 23 décembre)
+   Raretés façon e-sport / arcade : cadre, halo et balayage holographique.
+   Partagé par /pit/ (smartphone) et /tv/ (régie TV 4K).
+   ========================================================================== */
+:root{
+  --r-commun:#9fb3d1; --r-commun-2:#5d7397;
+  --r-rare:#38c6ff;   --r-rare-2:#1569ff;
+  --r-epique:#c069ff; --r-epique-2:#6a1dff;
+  --r-legendaire:#ffc83d; --r-legendaire-2:#ff6a00;
+}
+.r-commun{--rc:var(--r-commun);--rc2:var(--r-commun-2)}
+.r-rare{--rc:var(--r-rare);--rc2:var(--r-rare-2)}
+.r-epique{--rc:var(--r-epique);--rc2:var(--r-epique-2)}
+.r-legendaire{--rc:var(--r-legendaire);--rc2:var(--r-legendaire-2)}
+
+@keyframes arsSweep{0%{transform:translateX(-120%) skewX(-18deg)}60%,100%{transform:translateX(220%) skewX(-18deg)}}
+@keyframes arsPulse{0%,100%{box-shadow:0 0 0 1px var(--rc),0 0 14px -2px var(--rc)}50%{box-shadow:0 0 0 1px var(--rc),0 0 26px 2px var(--rc)}}
+@keyframes arsLegend{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
+@keyframes arsDrop{0%{transform:translateY(-40px) scale(.4) rotate(-30deg);opacity:0}60%{transform:translateY(4px) scale(1.15) rotate(6deg);opacity:1}100%{transform:none}}
+@keyframes arsInk{0%{transform:scale(.1) rotate(var(--r));opacity:0}40%{opacity:.96}100%{transform:scale(var(--s)) rotate(var(--r));opacity:.94}}
+@media (prefers-reduced-motion:reduce){.item::after,.item.r-epique,.item.r-legendaire,.trs .tr,#inkfx i{animation:none!important}}
+
+/* ---- puces de pièges posés sur une voie */
+.trs{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.trs .tr{display:grid;place-items:center;width:24px;height:24px;border-radius:7px;color:#fff;
+  background:radial-gradient(circle at 30% 25%,var(--rc),var(--rc2));box-shadow:0 0 10px -1px var(--rc),inset 0 1px 0 rgba(255,255,255,.5);
+  animation:arsDrop .55s cubic-bezier(.34,1.56,.64,1) both}
+.trs .tr .ico{width:16px;height:16px}

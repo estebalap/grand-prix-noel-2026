@@ -472,7 +472,19 @@ function raceLive(s, el) {
   if (hh.odds) $$('[data-odds]', el).forEach((n) => { const [k, i] = n.dataset.odds.split(':'); const v = hh.odds[k] && hh.odds[k][Number(i)]; n.textContent = v == null ? '–' : fmtOdds(v); });
   if (hh.odds && hh.odds.pWin) $$('[data-chance]', el).forEach((n) => { const i = Number(n.dataset.chance), l = hh.lanes[i]; n.textContent = l && !l.hidden ? Math.round(hh.odds.pWin[i] * 100) + ' % de chances' : ''; });
   hh.lanes.forEach((l, i) => {
-    const tr = $(`[data-traps="${i}"]`, el); if (tr) { const k = hh.traps.filter((t) => t.lane === i).map((t) => t.item).join(','); if (tr.dataset.k !== k) { tr.dataset.k = k; tr.innerHTML = hh.traps.filter((t) => t.lane === i).map((t) => icon((DATA.rules.shop.find((x) => x.id === t.item) || {}).icon || 'star', 34)).join(''); } }
+    const tr = $(`[data-traps="${i}"]`, el);
+    if (tr) {
+      const here = hh.traps.filter((t) => t.lane === i);
+      const relic = !!(hh.odds && hh.odds.relic && hh.odds.relic[i]);
+      const k = here.map((t) => t.item + (t.fired ? '!' : '')).join(',') + '|' + relic;
+      if (tr.dataset.k !== k) {
+        tr.dataset.k = k;
+        tr.innerHTML = (relic ? `<span class="qodtv">${icon('relic', 26)}QUITTE OU DOUBLE</span>` : '') + here.map((t) => {
+          const it = DATA.rules.shop.find((x) => x.id === t.item) || { icon: 'star', rarity: 'commun', name: t.item };
+          return `<i class="tr r-${it.rarity}${it.id === 'assurance' ? ' ins' : ''}${t.fired ? ' fired' : ''}${['asservi', 'mobile'].includes(it.arch) && !t.fired ? ' armed' : ''}" title="${esc(it.name)}">${icon(it.icon, 30)}</i>`;
+        }).join('');
+      }
+    }
     const pl = $(`[data-pool="${i}"]`, el); if (pl) { const sum = hh.bets.filter((b) => b.lane === i).reduce((a, b) => a + b.amount, 0); pl.innerHTML = sum ? `${icon('coin', 22, 'coin')} ${sum}` : ''; }
   });
   // vainqueur mis en lumière à l'arrivée
@@ -713,6 +725,52 @@ function bubble(teamId, text, iconName) {
   const b = h(`<div class="bubble" style="left:${120 + Math.random() * 1200}px;top:${620 + Math.random() * 260}px">${t ? medal(teamId, 40) : ''}<span>${esc(t ? t.nickname : '')}</span>${icon(iconName || 'horn', 30)}<span>${esc(text)}</span></div>`);
   overlay.appendChild(b); setTimeout(() => b.remove(), 2500);
 }
+/** Déclenchement en direct d'un piège asservi / lancement d'un mobile : flash plein écran, voie qui tremble. */
+function trapFire(f) {
+  const it = DATA.rules.shop.find((x) => x.id === f.item); if (!it) return;
+  const by = team(f.teamId);
+  snd.sfx('trap'); setTimeout(() => snd.sfx('crash'), 180);
+  const ln = f.lane != null && cur && cur.name === 'race' ? $(`[data-lane="${f.lane}"]`, cur.el) : null;
+  if (ln) { ln.classList.remove('hit'); void ln.offsetWidth; ln.classList.add('hit'); }
+  const el = h(`<div class="firefx r-${it.rarity}"><div class="burst"></div><div class="fcore"><span class="ficon">${icon(it.icon, 150)}</span>
+    <b class="display">${f.arch === 'mobile' ? 'LANCÉ !' : 'DÉCLENCHÉ !'}</b><span class="fname">${esc(it.name)}</span>
+    <small>${by ? medal(by.id, 40) : ''} ${esc(by ? by.nickname : '')}${f.lane != null ? ' → voie ' + (f.lane + 1) : ''}</small></div></div>`);
+  overlay.appendChild(el);
+  setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 500); }, 1900);
+}
+
+/** Annonce d'un objet de l'Arsenal : bandeau « kill-feed » façon finale e-sport, plein écran pour les légendaires. */
+const trapQueue = [];
+let trapBusy = false;
+function trapFx(f) {
+  const it = DATA.rules.shop.find((x) => x.id === f.item);
+  if (!it) return;
+  const by = team(f.teamId);
+  let victim = '';
+  if (f.target != null && team(f.target)) victim = team(f.target).nickname;
+  else if (f.lane != null && S && S.heat.lanes[f.lane]) { const l = S.heat.lanes[f.lane]; const vt = l.teamId != null ? team(l.teamId) : null; victim = it.needsLane && it.laneLimited ? `voie ${f.lane + 1}${vt ? ' · ' + vt.nickname : ''}` : `voie ${f.lane + 1}`; }
+  const ln = f.lane != null && cur && cur.name === 'race' ? $(`[data-lane="${f.lane}"]`, cur.el) : null;
+  if (ln && it.laneLimited) { ln.classList.remove('hit'); void ln.offsetWidth; ln.classList.add('hit'); }
+  if (it.rarity === 'legendaire') {
+    announce(`<div class="arsfull r-${it.rarity}"><span class="eyebrow">Objet légendaire</span><div class="arsimg"><img src="../shared/arsenal/${it.id}.jpg" alt="" onerror="this.remove()"><span>${icon(it.icon, 170)}</span></div>
+      <h2 class="display foil">${esc(it.name)}</h2><p>${by ? medal(by.id, 54) : ''}<b>${esc(by ? by.nickname : '')}</b> ${f.digital === 'steal' ? 'lâche le Fantôme sur la plus grosse fortune !' : 'déclenche l\'arme ultime'}${victim ? ' → ' + esc(victim) : ''}</p><small>${esc(it.effect)}</small></div>`, 4800);
+    return;
+  }
+  trapQueue.push({ it, by, victim });
+  pumpTraps();
+}
+function pumpTraps() {
+  if (trapBusy || !trapQueue.length) return;
+  trapBusy = true;
+  const { it, by, victim } = trapQueue.shift();
+  const verb = it.digital ? 'active' : it.cat === 'defense' || it.cat === 'tactique' ? 'joue' : 'pose';
+  const b = h(`<div class="arsbanner r-${it.rarity}"><div class="arsthumb"><img src="../shared/arsenal/${it.id}.jpg" alt="" onerror="this.remove()"><span>${icon(it.icon, 64)}</span></div>
+    <div class="arstxt"><span class="eyebrow">${({ commun: 'Piège', rare: 'Piège rare', epique: 'Piège épique' })[it.rarity] || 'Objet'} · ${esc(({ piege: 'Arsenal', tactique: 'Tactique', defense: 'Défense', chaos: 'Chaos' })[it.cat] || '')}</span>
+    <div class="arsline">${by ? medal(by.id, 46) : ''}<b>${esc(by ? by.nickname : '?')}</b><em>${verb}</em><strong>${esc(it.name)}</strong>${victim ? `<em>→</em><b class="vic">${esc(victim)}</b>` : ''}</div>
+    <small>${esc(it.effect)}</small></div></div>`);
+  overlay.appendChild(b);
+  setTimeout(() => { b.classList.add('out'); setTimeout(() => { b.remove(); trapBusy = false; pumpTraps(); }, 450); }, trapQueue.length ? 2200 : 3400);
+}
 function handleFx(f) {
   switch (f.type) {
     case 'join': if (!snd.teamSound(f.teamId, 'join')) snd.sfx('join'); { const t = team(f.teamId); if (t) toast(`${t.nickname} rejoint la grille !`); } break;
@@ -739,7 +797,8 @@ function handleFx(f) {
       if (ln) { const fl = h(`<div class="betflash" style="left:${30 + Math.random() * 200}px;top:${180 + Math.random() * 60}px">${esc((team(f.teamId) || {}).nickname || '')} +${f.amount}</div>`); ln.appendChild(fl); setTimeout(() => fl.remove(), 1800); }
       break;
     }
-    case 'trap': snd.sfx('trap'); break;
+    case 'trap': snd.sfx('trap'); trapFx(f); break;
+    case 'trap_fire': trapFire(f); break;
     case 'taunt': { if (f.id === 'signature') { if (!snd.teamSound(f.teamId, 'taunt')) snd.taunt('fanfare'); } else snd.taunt(f.id); const tz = DATA.rules.taunts.find((x) => x.id === f.id); bubble(f.teamId, f.name, tz && tz.icon); break; }
     case 'bailout': toast(`${(team(f.teamId) || {}).nickname || ''} est ruiné : Crédit Papy demandé`); snd.play('bailout', { fallback: 'error' }); break;
     case 'result': break;

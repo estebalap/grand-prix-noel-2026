@@ -1,0 +1,241 @@
+{
+ "modele": {
+  "nom": "Hot Wheels Mario Kart Rainbow Road Raceway",
+  "reference": "GXX41",
+  "fabricant": "Mattel",
+  "statut": "publie"
+ },
+ "longueur_m": {
+  "valeur": 2.44,
+  "statut": "publie",
+  "note": "8 ft annoncés"
+ },
+ "voies": {
+  "nombre_physique": 5,
+  "nombre_grand_prix": 4,
+  "statut": "publie",
+  "note": "5 voies translucides arc-en-ciel ; le Grand Prix utilise 4 voies (comme l'app) ; la 5e sert de voie « neutre » de réglage ou de voie Boss."
+ },
+ "section_voie": {
+  "largeur_utile_mm": {
+   "valeur": 46,
+   "statut": "estime",
+   "plage_calibre": [
+    40,
+    52
+   ]
+  },
+  "cloison_epaisseur_mm": {
+   "valeur": 2.4,
+   "statut": "estime"
+  },
+  "cloison_hauteur_mm": {
+   "valeur": 6.0,
+   "statut": "estime"
+  }
+ },
+ "trace": {
+  "_doc": "Tracé de la configuration « courbe », découpé en segments mesurés en abscisse curviligne s (m) depuis le portique. Statut « estime » : longueurs déduites des 2,44 m publiés et des photos ; à remesurer au mètre ruban (5 min) puis corriger ici.",
+  "statut": "estime",
+  "segments": [
+   {
+    "id": "T0",
+    "type": "droite",
+    "nom": "Grille de départ",
+    "s_debut": 0.0,
+    "s_fin": 0.25,
+    "pente_deg": 30,
+    "devers_deg": 0,
+    "rayon_m": null
+   },
+   {
+    "id": "T1",
+    "type": "droite",
+    "nom": "Toboggan de lancement",
+    "s_debut": 0.25,
+    "s_fin": 0.8,
+    "pente_deg": 22,
+    "devers_deg": 0,
+    "rayon_m": null
+   },
+   {
+    "id": "T2",
+    "type": "courbe",
+    "nom": "Grande courbe relevée",
+    "s_debut": 0.8,
+    "s_fin": 1.6,
+    "pente_deg": 8,
+    "devers_deg": 20,
+    "rayon_m": 0.35,
+    "sens": "gauche"
+   },
+   {
+    "id": "T3",
+    "type": "droite",
+    "nom": "Ligne droite finale",
+    "s_debut": 1.6,
+    "s_fin": 2.2,
+    "pente_deg": 4,
+    "devers_deg": 0,
+    "rayon_m": null
+   },
+   {
+    "id": "T4",
+    "type": "droite",
+    "nom": "Arche d'arrivée",
+    "s_debut": 2.2,
+    "s_fin": 2.44,
+    "pente_deg": 2,
+    "devers_deg": 0,
+    "rayon_m": null
+   }
+  ]
+ },
+ "secteurs": {
+  "_doc": "Secteurs de chronométrage (comme en F1 : 3 secteurs). Le portique donne le top départ et l'arche le top arrivée ; les temps intermédiaires se relèvent sur la vidéo ralentie 240 i/s du téléphone de régie, grâce à 2 bornes de secteur imprimées clipsées sur la cloison extérieure (repère vertical rouge / vert visible à l'image).",
+  "liste": [
+   {
+    "id": "S1",
+    "nom": "Lancement",
+    "s_debut": 0.0,
+    "s_fin": 0.8,
+    "segments": [
+     "T0",
+     "T1"
+    ],
+    "temps_type_s": [
+     0.35,
+     0.6
+    ]
+   },
+   {
+    "id": "S2",
+    "nom": "Courbe relevée",
+    "s_debut": 0.8,
+    "s_fin": 1.6,
+    "segments": [
+     "T2"
+    ],
+    "temps_type_s": [
+     0.35,
+     0.8
+    ]
+   },
+   {
+    "id": "S3",
+    "nom": "Finale",
+    "s_debut": 1.6,
+    "s_fin": 2.44,
+    "segments": [
+     "T3",
+     "T4"
+    ],
+    "temps_type_s": [
+     0.3,
+     0.6
+    ]
+   }
+  ],
+  "bornes_imprimables": "6_Arsenal_Pieges/scad/arsenal_pieges.scad -> module borne_secteur (à clipser à s = 0,8 m et s = 1,6 m)"
+ },
+ "zones": [
+  {
+   "id": "Z0",
+   "nom": "Grille et portique de départ",
+   "debut_m": 0.0,
+   "fin_m": 0.25,
+   "pieges": "INTERDIT (sauf l'Œuf de Wyverne, lâché AU GO devant le bolide)",
+   "raison": "ne jamais bloquer le mécanisme de lâcher simultané",
+   "secteur": "S1"
+  },
+  {
+   "id": "Z1",
+   "nom": "Lancement (forte pente)",
+   "debut_m": 0.25,
+   "fin_m": 0.8,
+   "pieges": "pièges BAS uniquement (≤ 3 mm) : banane, dos-d'âne, guimauve, huile, balle, médiator, pelote",
+   "raison": "le bolide accélère : un obstacle haut le ferait sauter hors piste",
+   "secteur": "S1"
+  },
+  {
+   "id": "ZX",
+   "nom": "Blocs-objets d'origine",
+   "debut_m": "±10 cm autour de chaque bloc",
+   "fin_m": null,
+   "pieges": "INTERDIT",
+   "raison": "ne pas coincer les volets rotatifs"
+  },
+  {
+   "id": "Z2",
+   "nom": "Grande courbe relevée (config. courbe)",
+   "debut_m": 0.8,
+   "fin_m": 1.6,
+   "pieges": "INTERDIT à l'apex ; bords de voie seulement en sortie de courbe",
+   "raison": "la force centrifuge plaque le bolide contre la cloison extérieure : un obstacle à l'apex l'éjecte de la piste",
+   "secteur": "S2"
+  },
+  {
+   "id": "Z4",
+   "nom": "Ligne droite finale",
+   "debut_m": 1.6,
+   "fin_m": 2.2,
+   "pieges": "TOUS les pièges (portiques, tourniquets, slaloms, tremplins, plateaux)",
+   "raison": "vitesse stable, trajectoire rectiligne : effet prévisible et sans danger",
+   "secteur": "S3"
+  },
+  {
+   "id": "Z5",
+   "nom": "Arche d'arrivée",
+   "debut_m": 2.2,
+   "fin_m": 2.44,
+   "pieges": "INTERDIT",
+   "raison": "ne pas fausser le capteur de l'arche",
+   "secteur": "S3"
+  }
+ ],
+ "archetypes_par_zone": {
+  "Z0": [
+   "mobile (lâcher au GO uniquement)"
+  ],
+  "Z1": [
+   "statique bas (≤ 3 mm)",
+   "mobile",
+   "asservi bas : Bascule, Barrière de Péage"
+  ],
+  "Z2": [
+   "aucun à l'apex"
+  ],
+  "Z4": [
+   "statique",
+   "asservi (tous)",
+   "mobile"
+  ],
+  "ZX": [],
+  "Z5": []
+ },
+ "physique": {
+  "vitesse_theorique_sans_frottement_m_s": {
+   "valeur": 3.65,
+   "formule": "v = sqrt(2 g h), h = 0,68 m"
+  },
+  "vitesse_reelle_estimee_m_s": {
+   "plage": [
+    2.0,
+    2.8
+   ],
+   "note": "pertes de roulement et de frottement aux cloisons ≈ 40-70 % de l'énergie"
+  },
+  "energie_impact_J": {
+   "valeur": 0.14,
+   "formule": "½ m v², m = 45 g, v = 2,5 m/s",
+   "consequence": "un piège de 3 à 20 g non fixé est projeté : semelle à pâte adhésive ou lest obligatoire"
+  },
+  "temps_de_course_s": {
+   "plage": [
+    1.2,
+    2.5
+   ]
+  }
+ },
+ "_source": "généré depuis 6_Arsenal_Pieges/circuit_rainbow_road.json"
+}
