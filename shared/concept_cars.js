@@ -110,6 +110,33 @@ const splatTex = () => tex('splat', (c, w, h) => {
     for (let k = 0; k < 7; k++) { const a = rnd() * TAU, d = r * (1.2 + rnd() * 0.9); c.beginPath(); c.arc(x + Math.cos(a) * d, y + Math.sin(a) * d, r * (0.08 + rnd() * 0.14), 0, TAU); c.fill(); } };
   blob(w * 0.3, h * 0.5, h * 0.3, '#dc2626'); blob(w * 0.66, h * 0.42, h * 0.22, '#f5f5f5'); blob(w * 0.85, h * 0.62, h * 0.12, '#dc2626');
 }, { w: 512, h: 256 });
+/* Optique Breuillet (écurie 03) : pictogramme lunettes du logo — carré sarcelle, monture blanche, verres cyan et citron */
+const OPT = { teal: '#037f7f', cyan: '#7fffff', lime: '#81fe00', white: '#ffffff' };
+const optiqueTex = () => tex('optique', (c, w) => {
+  const u = w / 100;
+  c.fillStyle = OPT.white; c.beginPath(); roundRect(c, 11 * u, 1 * u, 88 * u, 88 * u, 6 * u); c.fill();   // liseré blanc : le logo ressort sur la robe sarcelle
+  c.fillStyle = OPT.teal; c.beginPath(); roundRect(c, 14 * u, 4 * u, 82 * u, 82 * u, 4 * u); c.fill();
+  c.lineJoin = 'round'; c.lineCap = 'round';
+  // grande monture blanche verticale qui déborde à gauche
+  c.strokeStyle = OPT.white; c.lineWidth = 3.4 * u;
+  c.beginPath(); roundRect(c, 5 * u, 6 * u, 17 * u, 30 * u, 8 * u); c.stroke();
+  c.beginPath(); roundRect(c, 5 * u, 44 * u, 17 * u, 30 * u, 8 * u); c.stroke();
+  c.beginPath(); c.moveTo(13.5 * u, 36 * u); c.quadraticCurveTo(19 * u, 40 * u, 13.5 * u, 44 * u); c.stroke();
+  // lunettes de soleil cyan (verres carrés inclinés)
+  const sq = (x, y, s, a) => { c.save(); c.translate(x, y); c.rotate(a); c.fillStyle = OPT.cyan; c.fillRect(-s / 2, -s / 2, s, s); c.strokeStyle = OPT.white; c.lineWidth = 1.2 * u; c.strokeRect(-s / 2, -s / 2, s, s); c.restore(); };
+  sq(44 * u, 30 * u, 19 * u, -0.22); sq(72 * u, 22 * u, 19 * u, -0.22);
+  c.strokeStyle = OPT.white; c.lineWidth = 1.6 * u; c.beginPath(); c.moveTo(53 * u, 25 * u); c.quadraticCurveTo(58 * u, 19 * u, 63 * u, 22 * u); c.stroke();
+  // lunettes rondes citron
+  [[40, 68], [68, 68]].forEach(([x, y]) => { c.fillStyle = OPT.lime; c.beginPath(); c.arc(x * u, y * u, 12.5 * u, 0, TAU); c.fill(); c.strokeStyle = OPT.white; c.lineWidth = 2.6 * u; c.stroke(); });
+  c.beginPath(); c.moveTo(52 * u, 66 * u); c.quadraticCurveTo(54 * u, 62 * u, 56 * u, 66 * u); c.stroke();
+  c.beginPath(); c.moveTo(27.5 * u, 66 * u); c.lineTo(20 * u, 62 * u); c.stroke();
+}, { size: 512 });
+const optiqueTxtTex = () => tex('optiqueTxt', (c, w, h) => {
+  c.fillStyle = OPT.white; c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.font = `800 ${h * 0.34}px Bahnschrift, "DIN Alternate", "Arial Narrow", Arial, sans-serif`;
+  if ('letterSpacing' in c) c.letterSpacing = `${h * 0.03}px`;
+  c.fillText('OPTIQUE', w / 2, h * 0.3); c.fillText('BREUILLET', w / 2, h * 0.74);
+}, { w: 512, h: 256 });
 const scalesTex = () => tex('scales', (c, w, h) => {
   c.fillStyle = '#d7f7fb'; c.fillRect(0, 0, w, h);
   const s = w / 8;
@@ -523,6 +550,20 @@ const KIT = {
 
 /* =================================================================== les 15 concepts */
 /* stations : [x, demi-largeur, bas, épaule, haut, exposant] ; x > 0 vers l'avant. Roues : {x, r, tw, z, arch} */
+/* Berline tractée par l'écurie 08 : grande berline allemande noire façon 2013 (calandre trapèze, feux à LED en bandeau).
+   Silhouette générique : aucun logo de constructeur. */
+const SEDAN_A4 = {
+  nom: 'A4 en panne', paint: '#08090c', accent: '#c7ccd3', glow: '#9aa4b5', finish: 'gloss', glass: '#2b3b52',
+  body: [[2.35, 0.62, 0.3, 0.5, 0.62, 5], [2.22, 0.88, 0.24, 0.58, 0.72, 6], [1.6, 0.92, 0.22, 0.7, 0.82, 6], [0.95, 0.93, 0.22, 0.74, 0.88, 6], [0.0, 0.93, 0.22, 0.76, 0.9, 6],
+    [-1.0, 0.93, 0.22, 0.77, 0.92, 6], [-1.6, 0.92, 0.22, 0.78, 0.95, 6], [-2.12, 0.88, 0.26, 0.76, 0.96, 6], [-2.35, 0.76, 0.32, 0.72, 0.92, 5]],
+  cabin: [[1.12, 0.52, 0.86, 0.88, 0.9, 3], [0.6, 0.8, 0.88, 1.06, 1.3, 4.5], [0.0, 0.82, 0.9, 1.12, 1.42, 5], [-0.75, 0.8, 0.9, 1.1, 1.38, 5], [-1.35, 0.72, 0.92, 1.04, 1.2, 4.5], [-1.75, 0.5, 0.94, 0.98, 1.0, 3.5]],
+  roof: { x0: -0.95, x1: 0.42, w: 0.86, mat: 'paint' },
+  wheels: [{ x: 1.45, r: 0.34, tw: 0.26, z: 0.8, arch: true }, { x: -1.4, r: 0.34, tw: 0.26, z: 0.8, arch: true }],
+  rim: { kind: 'spokes', n: 5, sw: 0.3 }, rimColor: '#a3a9b2', caliper: '#2a2f38',
+  lights: [{ x0: 2.02, x1: 2.3, th0: 0.18, th1: 0.46, color: '#eef6ff', shape: 'slash', glowSize: 0.5 }, { x0: -2.35, x1: -2.18, th0: 0.22, th1: 0.52, color: '#ff1f2d', shape: 'full', glowSize: 0.5 }],
+  stripes: [{ x0: 2.22, x1: 2.36, th0: -0.55, th1: 0.1, mat: 'dark' }, { x0: -1.75, x1: 1.05, th0: 0.6, th1: 0.64, mat: 'chrome' }],
+};
+
 export const CONCEPTS = {
   1: {
     nom: 'Intercepteur furtif MK-Mimine', inspi: 'Blindé de traque façon Vision GT, facettes furtives, réacteur arrière.',
@@ -550,16 +591,18 @@ export const CONCEPTS = {
     kit: [['wing', { x: -1.45, y: 1.6, span: 1.45, chord: 0.38, mat: 'accent', plateMat: 'carbon', px: -1.25, swan: false, pz: 0.4 }], ['splitter', { back: 0.35 }], ['roofScoop', { x: -0.1, mat: 'accent' }], ['exhausts', { n: 1, r: 0.05, y: 0.28, z: 0.32, mirror: true, flame: true }], ['mirrors', { x: 0.62 }]],
   },
   3: {
-    nom: 'Hyper-Optic 24 H', inspi: 'Hypercar d’endurance (Le Mans) : aileron de requin, longue queue, phares en lunettes.',
-    paint: '#eab308', accent: '#18181b', glow: '#ffd23f', finish: 'gloss', len: 5.0,
+    nom: 'Hyper-Optic 24 H', inspi: 'Hypercar d’endurance (Le Mans) aux couleurs d’Optique Breuillet : robe sarcelle, touches rose fluo de l’écurie, phares en lunettes citron, logo sur les portes et le capot.',
+    paint: '#037f7f', accent: '#ff008f', glow: '#ff3fae', finish: 'gloss', len: 5.0,
     body: [[2.5, 0.36, 0.12, 0.2, 0.27, 3], [2.25, 0.82, 0.1, 0.26, 0.4, 3.5], [1.95, 0.9, 0.12, 0.38, 0.52, 4], [1.65, 0.9, 0.12, 0.42, 0.56, 4], [1.2, 0.86, 0.12, 0.46, 0.62, 3.5], [0.6, 0.82, 0.12, 0.46, 0.62, 3], [0.0, 0.86, 0.12, 0.5, 0.68, 3], [-0.8, 0.98, 0.12, 0.68, 0.84, 3.5], [-1.45, 1.02, 0.12, 0.84, 0.94, 3.5], [-2.0, 1.0, 0.18, 0.74, 0.9, 4], [-2.5, 0.96, 0.3, 0.68, 0.86, 6]],
     pods: [[2.2, 0.05, 0.2, 0.42, 0.46, 3, 0.7], [1.98, 0.27, 0.15, 0.6, 0.8, 3, 0.7], [1.65, 0.3, 0.14, 0.66, 0.92, 3, 0.7], [1.3, 0.27, 0.15, 0.6, 0.8, 3, 0.7], [0.95, 0.04, 0.3, 0.52, 0.56, 3, 0.7]],
     cabin: [[1.3, 0.22, 0.6, 0.62, 0.66, 2], [0.9, 0.42, 0.55, 0.76, 1.06, 2.5], [0.2, 0.48, 0.55, 0.8, 1.12, 2.5], [-0.6, 0.42, 0.6, 0.8, 1.05, 2.5], [-1.5, 0.15, 0.75, 0.8, 0.9, 2]],
     roof: { x0: -0.7, x1: 0.45, w: 0.55, mat: 'accent' },
     wheels: [{ x: 1.65, r: 0.37, tw: 0.34, z: 0.8, arch: true }, { x: -1.45, r: 0.37, tw: 0.36, z: 0.82, arch: true }],
-    rim: { kind: 'turbine', n: 10, sw: 0.18, twist: 0.25 }, rimColor: '#18181b', caliper: '#eab308',
-    lights: [{ x0: 2.02, x1: 2.24, th0: 0.2, th1: 1.0, color: '#ffffff', shape: 'rings', glowSize: 0.7 }, { x0: -2.5, x1: -2.42, th0: 0.05, th1: Math.PI - 0.05, color: '#ff1f3d', shape: 'thin', mirror: false, glowSize: 0.9 }],
-    decals: [{ tex: 'num', x0: -0.2, x1: 0.5, th0: -0.25, th1: 0.4, bg: '#18181b', fg: '#eab308' }],
+    rim: { kind: 'turbine', n: 10, sw: 0.18, twist: 0.25 }, rimColor: '#f4fbfb', caliper: '#ff008f',
+    lights: [{ x0: 2.02, x1: 2.24, th0: 0.2, th1: 1.0, color: '#b9ff4a', shape: 'rings', glowSize: 0.8 }, { x0: -2.5, x1: -2.42, th0: 0.05, th1: Math.PI - 0.05, color: '#ff1f3d', shape: 'thin', mirror: false, glowSize: 0.9 }],
+    decals: [{ tex: 'optique', x0: 0.5, x1: 1.16, th0: -0.42, th1: 0.86 }, { tex: 'num', x0: -0.95, x1: -0.5, th0: -0.3, th1: 0.62, bg: '#ff008f', fg: '#ffffff' },
+      { tex: 'optiqueTxt', x0: -0.4, x1: 0.42, th0: -0.36, th1: 0.12 }, { tex: 'optique', x0: 1.72, x1: 2.2, th0: HALF - 0.42, th1: HALF + 0.42, mirror: false }],
+    stripes: [{ x0: -2.45, x1: 1.6, th0: HALF - 0.05, th1: HALF + 0.05, mat: 'white', mirror: false }, { x0: -2.0, x1: 1.0, th0: -0.5, th1: -0.44, mat: 'accent' }],
     kit: [['sharkfin', { x0: -0.55, x1: -2.25, h: 0.36, mat: 'accent' }], ['wing', { x: -2.32, y: 1.12, span: 1.85, chord: 0.36, mat: 'carbon', plate: 0.42, plateMat: 'accent', pz: 0.35 }], ['splitter', { back: 0.5 }], ['diffuser', {}], ['canards', {}], ['skirts', { x0: -1.0, x1: 1.2 }]],
   },
   4: {
@@ -612,7 +655,7 @@ export const CONCEPTS = {
     kit: [['lightbar', { x: 0.45, span: 1.05, n: 4, color: '#fff6d8' }], ['roofScoop', { x: -0.35 }], ['wing', { x: -1.95, y: 1.48, span: 1.5, chord: 0.34, mat: 'carbon', plate: 0.24, px: -1.8, pz: 0.45 }], ['mudflaps', { xs: [0.82, -1.72] }], ['splitter', { back: 0.3 }], ['mirrors', { x: 0.55 }]],
   },
   8: {
-    nom: 'Oil-Leak Recovery Mk.II', inspi: 'Dépanneuse blindée en armure de chasseuse de primes : visière verte, grue, gyrophares… et sa flaque d’huile.',
+    nom: 'Oil-Leak Recovery Mk.II', inspi: 'Dépanneuse blindée en armure de chasseuse de primes (visière verte, grue, gyrophares) qui remorque une A4 noire de 2013… qui fuit.',
     paint: '#64748b', accent: '#ea580c', glow: '#ff8a3d', finish: 'satin', len: 5.0, glass: '#0c2a12', glassGlow: '#1f8f3a',
     body: [[2.5, 0.5, 0.5, 0.7, 0.85, 4], [2.3, 0.95, 0.42, 0.78, 1.0, 5], [1.6, 1.03, 0.42, 1.02, 1.1, 5], [0.9, 0.98, 0.42, 0.82, 1.15, 5], [0.0, 0.98, 0.42, 0.82, 0.96, 6], [-1.0, 1.0, 0.42, 0.82, 0.96, 6], [-1.6, 1.04, 0.42, 1.02, 1.08, 6], [-2.3, 1.0, 0.46, 0.86, 1.0, 6], [-2.5, 0.9, 0.5, 0.8, 0.98, 6]],
     cabin: [[1.7, 0.5, 1.02, 1.05, 1.1, 4], [1.25, 0.86, 1.0, 1.3, 1.66, 5], [0.45, 0.9, 1.0, 1.35, 1.8, 5.5], [0.0, 0.88, 1.0, 1.3, 1.74, 5.5], [-0.15, 0.74, 1.0, 1.2, 1.5, 5]],
@@ -622,7 +665,8 @@ export const CONCEPTS = {
     lights: [{ x0: 2.3, x1: 2.45, th0: 0.05, th1: 0.55, color: '#e8fff0', shape: 'slash' }, { x0: -2.5, x1: -2.4, th0: 0.15, th1: 0.85, color: '#ff4a1a', shape: 'dash3' }],
     stripes: [{ x0: -2.45, x1: 2.4, th0: 0.02, th1: 0.12, mat: 'accent' }],
     decals: [{ tex: 'num', x0: 0.85, x1: 1.35, th0: -0.15, th1: 0.4 }],
-    kit: [['crane', { x: -0.55, bedLen: 1.9 }], ['beacons', { x: 0.55, span: 1.2, color: '#ff9a1a' }], ['puddle', { x: -1.2, r: 0.42, z: 0.15 }], ['ram', { h: 0.26, mat: 'accent' }], ['mirrors', { x: 1.15 }]],
+    tow: { spec: SEDAN_A4, lift: 0.32, gap: 0.3, oil: true },
+    kit: [['crane', { x: -0.55, bedLen: 1.9 }], ['beacons', { x: 0.55, span: 1.2, color: '#ff9a1a' }], ['ram', { h: 0.26, mat: 'accent' }], ['mirrors', { x: 1.15 }]],
   },
   9: {
     nom: 'Wyvern GT-R', inspi: 'JDM musclé à carrosserie large : capot carbone, aileron col de cygne, griffes de wyverne.',
@@ -714,10 +758,9 @@ export const CONCEPTS = {
 
 /* =================================================================== assemblage */
 /** Construit le concept-car d'une écurie. quality : 'high' | 'medium' | 'low'. */
-export function buildConceptCar(team, { quality = 'high' } = {}) {
+/** Caisse complète d'un véhicule (coque, vitrage, décors, roues, feux, kit), sans néon ni centrage. */
+function buildBody(spec, id, quality) {
   const THREE = T();
-  const id = typeof team === 'object' ? team.id : team;
-  const spec = CONCEPTS[id] || CONCEPTS[1];
   const m = makeMaterials(spec, quality);
   const car = new THREE.Group(); const glows = [], ticks = [];
   const wheels = spec.wheels.map((w) => ({ ...w }));
@@ -751,7 +794,8 @@ export function buildConceptCar(team, { quality = 'high' } = {}) {
   if (spec.darkCockpit) { const d = spec.darkCockpit; addPatch(car, S, m.dark, { x0: d.x0, x1: d.x1, th0: HALF - d.w * HALF, th1: HALF + d.w * HALF, mirror: false, lift: 0.004 }, { snap }); }
   (spec.stripes || []).forEach((st) => addPatch(car, S, m[st.mat], { ...st, lift: 0.005 }, { snap }));
   (spec.decals || []).forEach((d) => {
-    const map = d.tex === 'num' ? roundelTex(id, d.bg || spec.accent, d.fg || '#ffffff') : d.tex === 'suits' ? suitsTex() : d.tex === 'claw' ? clawTex() : splatTex();
+    const map = d.tex === 'num' ? roundelTex(id, d.bg || spec.accent, d.fg || '#ffffff') : d.tex === 'suits' ? suitsTex() : d.tex === 'claw' ? clawTex()
+      : d.tex === 'optique' ? optiqueTex() : d.tex === 'optiqueTxt' ? optiqueTxtTex() : splatTex();
     addPatch(car, S, decalMat(map), { ...d, lift: 0.007, nx: 16, nt: 12 }, { snap });
   });
 
@@ -769,6 +813,16 @@ export function buildConceptCar(team, { quality = 'high' } = {}) {
   // kit spécifique à l'écurie
   const SK = withCabin(S, spec.cabin ? sampler(spec.cabin) : null);
   (spec.kit || []).forEach(([name, o]) => KIT[name](car, SK, m, o, glows, ticks));
+  return { car, S, m, glows, ticks, wheels };
+}
+
+export function buildConceptCar(team, { quality = 'high' } = {}) {
+  const THREE = T();
+  const id = typeof team === 'object' ? team.id : team;
+  const spec = CONCEPTS[id] || CONCEPTS[1];
+  const { car, S, m, glows, ticks } = buildBody(spec, id, quality);
+  let xMin = S.x0;
+  if (spec.tow) xMin = attachTowed(car, S, m, spec.tow, quality, glows, ticks);
 
   // néon sous caisse + ombre de contact (ancre visuelle même sans shadow map)
   const L = S.x1 - S.x0, W = Math.max(...spec.body.map((s) => s[1])) * 2;
@@ -778,9 +832,55 @@ export function buildConceptCar(team, { quality = 'high' } = {}) {
   shadow.rotation.x = -HALF; shadow.position.set((S.x0 + S.x1) / 2, 0.008, 0); car.add(shadow);
   ticks.push((t) => { under.material.opacity = 0.75 + 0.25 * Math.sin(t * 2.2); glows.forEach((g, i) => { if (!g.userData.own) g.material.opacity = 0.62 + 0.18 * Math.sin(t * 3 + i * 1.7); }); });
   // centrage longitudinal ; l'échelle K est portée par un groupe interne (la scène anime librement l'échelle du parent)
-  const root = new THREE.Group(), inner = new THREE.Group(); car.position.x = -(S.x0 + S.x1) / 2; inner.add(car); inner.scale.setScalar(K); root.add(inner);
+  const root = new THREE.Group(), inner = new THREE.Group(); car.position.x = -(xMin + S.x1) / 2; inner.add(car); inner.scale.setScalar(K); root.add(inner);
   root.userData = { height: 1.3, concept: spec, under, tick: (t, dt) => ticks.forEach((f) => f(t, dt)) };
   return root;
+}
+
+/** Accroche une voiture remorquée derrière la dépanneuse : roues avant posées sur le bras de levage, arrière au sol.
+    Renvoie l'abscisse la plus en arrière de l'ensemble (pour le centrage). */
+function attachTowed(car, S, m, tow, quality, glows, ticks) {
+  const THREE = T();
+  const ts = tow.spec, B = buildBody(ts, 0, quality);
+  const fw = Math.max(...B.wheels.map((w) => w.x)), rw = Math.min(...B.wheels.map((w) => w.x));
+  const r = B.wheels.find((w) => w.x === rw).r, rf = B.wheels.find((w) => w.x === fw).r, base = fw - rw;
+  const lift = tow.lift ?? 0.32, a = Math.asin(lift / base);
+  const gap = tow.gap ?? 0.35;                                      // jour entre le pare-chocs de la dépanneuse et le nez tracté
+  const xFW = S.x0 - gap - (B.S.x1 - fw) * Math.cos(a), xRW = xFW - base * Math.cos(a);   // positions monde des essieux tractés
+  const pivot = new THREE.Group(); pivot.position.set(xRW, r, 0); pivot.rotation.z = a;
+  B.car.position.set(-rw, -r, 0); pivot.add(B.car); car.add(pivot);
+  ticks.push(...B.ticks); glows.push(...B.glows);
+  // bras de levage : poutre télescopique + traverse + berceaux en L sous les roues avant
+  const yArm = rf + lift - rf - 0.02, yHit = 0.42;                  // la poutre part du bas de la dépanneuse et descend vers les roues
+  const x0 = S.x0 + 0.1, len = x0 - xFW;
+  const arm = mesh(box(len, 0.09, 0.16), m.accent, car, { pos: [(x0 + xFW) / 2, (yHit + yArm + 0.05) / 2, 0], rot: [0, 0, Math.atan2(yHit - (yArm + 0.05), len)] });
+  arm.castShadow = true;
+  mesh(box(0.12, 0.08, 1.7), m.dark, car, { pos: [xFW, yArm + 0.04, 0] });
+  const zW = B.wheels.find((w) => w.x === fw).z;
+  sym((sg) => {
+    mesh(box(rf * 1.5, 0.05, 0.36), m.dark, car, { pos: [xFW, yArm + 0.02, sg * zW] });                          // berceau
+    mesh(box(0.05, rf * 0.9, 0.36), m.accent, car, { pos: [xFW + rf * 0.78, yArm + rf * 0.45, sg * zW] });        // butée avant
+    mesh(box(0.05, rf * 0.7, 0.36), m.accent, car, { pos: [xFW - rf * 0.78, yArm + rf * 0.35, sg * zW] });        // butée arrière
+    // sangle jaune autour du pneu
+    mesh(new THREE.TorusGeometry(rf * 1.02, 0.012, 6, 28, Math.PI * 1.1), new THREE.MeshStandardMaterial({ color: lin('#facc15'), roughness: 0.6 }), car, { pos: [xFW, yArm + rf + 0.03, sg * (zW + 0.02)], rot: [0, 0, -0.1] });
+    // chaîne de sécurité (maillons) jusqu'au châssis tracté
+    const p0 = new THREE.Vector3(S.x0 + 0.05, yHit - 0.05, sg * 0.35), p1 = new THREE.Vector3(xFW - 0.35, yArm + 0.25, sg * 0.45);
+    const n = 9; for (let i = 0; i <= n; i++) { const q = p0.clone().lerp(p1, i / n); q.y -= Math.sin((i / n) * Math.PI) * 0.06; mesh(new THREE.TorusGeometry(0.022, 0.006, 5, 10), m.chrome, car, { pos: [q.x, q.y, q.z], rot: [0, i % 2 ? HALF : 0, 0], shadow: false }); }
+  });
+  // ombre de contact sous la voiture tractée
+  const L = B.S.x1 - B.S.x0, W = Math.max(...ts.body.map((st) => st[1])) * 2;
+  const sh = new THREE.Mesh(new THREE.PlaneGeometry(L * 1.05, W * 1.2), new THREE.MeshBasicMaterial({ map: shadowTex(), transparent: true, depthWrite: false, opacity: 0.8 }));
+  sh.rotation.x = -HALF; sh.position.set(xRW + (B.S.x0 + B.S.x1) / 2 - rw + 0.1, 0.008, 0); car.add(sh);
+  // fuite d'huile : flaque sous le moteur + gouttes qui tombent
+  if (tow.oil) {
+    const xo = xFW - 0.55;
+    KIT.puddle(car, S, m, { x: xo, r: 0.36, z: 0.1 });
+    const dm = new THREE.MeshPhysicalMaterial({ color: lin('#120c04'), metalness: 0.3, roughness: 0.05, clearcoat: 1 });
+    const yTop = yArm + 0.18;
+    const drops = [0, 1, 2].map((i) => mesh(new THREE.SphereGeometry(0.025, 10, 8), dm, car, { pos: [xo + 0.06 * i, yTop, 0.08 * (i - 1)], scale: [1, 1.5, 1], shadow: false }));
+    ticks.push((t) => drops.forEach((d, i) => { const ph = ((t * 0.7 + i / 3) % 1); d.position.y = yTop - ph * ph * yTop; d.visible = ph < 0.97; }));
+  }
+  return Math.min(S.x0, xRW + B.S.x0 - rw);
 }
 
 export function conceptInfo(id) { const s = CONCEPTS[id]; return s ? { nom: s.nom, inspi: s.inspi } : null; }
