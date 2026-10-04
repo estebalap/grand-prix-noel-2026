@@ -8,11 +8,14 @@ import { startAtmosphere, confetti } from '../shared/fx.js';
 import * as snd from '../shared/audio.js';
 import { applyTheme, themeOf } from '../shared/themes.js';
 import { medal, carArt, statBars, teamAccent } from '../shared/ui.js';
+import * as LBX from '../shared/lootbox.js';
+import { vignette } from '../shared/caisses3d.js';
 
 const main = $('#main'), top = $('#top'), tabs = $('#tabs'), sheet = $('#sheet');
 const atmo = startAtmosphere({ road: false, snow: 0.7, aurora: 0.9, theme: 'gp_bets' });
 let curMode = null, musicOn = LS.get('gp.pitmusic', '0') === '1';
-const ui = { dead: null, tab: 'ecurie', code: '', betKind: 'win', betLane: null, amount: 10, shopItem: null, tapLane: null, taps: 0, pending: 0, busy: false, lastCoins: null, drafted: 0 };
+const ui = { dead: null, tab: 'ecurie', code: '', betKind: 'win', betLane: null, amount: 10, shopItem: null, tapLane: null, taps: 0, pending: 0, busy: false, lastCoins: null, drafted: 0,
+  atab: 'comptoir', contract: false, csel: [], vign: {}, verif: null };
 let S = null, lastKey = '', me = null;
 
 /* ---------------------------------------------------------------- utilitaires UI */
@@ -181,7 +184,7 @@ function viewKey(s) {
     case 'LOBBY': return `${base}|${s.online.length}`;
     case 'DRAFT': { const dn = (s.draft && s.draft.now) || {}; return `${base}|${p.paddock.length}|${s.skip ? 1 : 0}|${s.draft && s.draft.strict ? 1 : 0}|${dn.teamId}|${dn.pick}|${(dn.next || []).join('.')}`; }
     case 'GRID': case 'BETTING': case 'COUNTDOWN': case 'RACING':
-      return `${base}|${hh.n}|${hh.status}|${hh.weather}|${hh.chaos}|${hh.gridRevealed}|${hh.lanes.map((l) => l ? l.code : '-').join(',')}|${JSON.stringify(hh.odds)}|${myBets}|${myTraps}|${p.coins}|${ui.betLane}|${ui.betKind}|${ui.shopItem}|${ui.tapLane}|${ui.shopCat}|${hh.traps.map((t) => t.item + '@' + t.lane + '>' + (t.target != null ? t.target : '') + (t.fired ? '!' : '')).join(',')}|${JSON.stringify(s.shopPrices || {})}|${JSON.stringify(s.priceMods || {})}|${JSON.stringify(s.shopStock || {})}|${ranking(s).map((r) => r.id).join('.')}`;
+      return `${base}|${hh.n}|${hh.status}|${hh.weather}|${hh.chaos}|${hh.gridRevealed}|${hh.lanes.map((l) => l ? l.code : '-').join(',')}|${JSON.stringify(hh.odds)}|${myBets}|${myTraps}|${p.coins}|${ui.betLane}|${ui.betKind}|${ui.shopItem}|${ui.tapLane}|${ui.shopCat}|${hh.traps.map((t) => t.item + '@' + t.lane + '>' + (t.target != null ? t.target : '') + (t.fired ? '!' : '')).join(',')}|${JSON.stringify(s.shopPrices || {})}|${JSON.stringify(s.priceMods || {})}|${JSON.stringify(s.shopStock || {})}|${ranking(s).map((r) => r.id).join('.')}|${lootKey(s, p)}`;
     case 'RESULT': case 'INTERVIEW': return `${base}|${hh.n}|${hh.result ? 1 : 0}|${p.coins}|${JSON.stringify(s.votes)}`;
     case 'STANDINGS': return `${base}|${ranking(s).map((r) => r.id + ':' + r.points).join(',')}|${JSON.stringify(s.votes)}`;
     case 'CEREMONY': return `${base}|${s.ceremony ? s.ceremony.revealed : -1}|${JSON.stringify(s.votes)}`;
@@ -189,6 +192,10 @@ function viewKey(s) {
   }
 }
 
+function lootKey(s, p) {
+  const lo = s.loot || {};
+  return `${ui.atab}|${(p.inventory || []).map((x) => x.uid).join('.')}|${JSON.stringify((s.casePrices || {})[me] || {})}|${(s.heat.cases || {})[me] || 0}|${ui.contract ? 1 : 0}|${ui.csel.join('.')}|${lo.commit || ''}|${(lo.revealed || []).length}|${ui.verif ? ui.verif.ok : '-'}|${p.loot ? p.loot.sincePity : 0}`;
+}
 function drawTop(s) {
   const t = team(me), p = s.players[me];
   const html = `${medal(me, 46)}<div class="who"><b>${esc(t.nickname)}</b><small>${esc(t.name)}</small></div><button class="modechip" id="modeChip" aria-label="Règles du mode">${icon((modeOf(s.mode) || {}).icon || 'flag', 20)}<span>${esc((modeOf(s.mode) || {}).name || '')}</span></button><div class="purse">${icon('coin', 22, 'coin')}<span>${p ? p.coins : 0}</span></div>`;
@@ -362,6 +369,9 @@ function renderBetting(s) {
   const allinArmed = ui.betKind === 'win' && hh.traps.some((t) => t.item === 'allin' && t.teamId === me) && !myBets.some((b) => b.allin);
   let eff = odd ? (blind ? Math.round(odd * 15) / 10 : odd) : 1;
   if (allinArmed) eff = Math.round(eff * 15) / 10;
+  const laneOwner = hh.lanes[ui.betLane] && hh.lanes[ui.betLane].teamId;
+  const primeArmed = ui.betKind === 'win' && laneOwner === me && hh.traps.some((t) => t.item === 'prime' && t.teamId === me) && !myBets.some((b) => b.prime);
+  if (primeArmed) eff = Math.round(eff * 12.5) / 10;
   const kf = hh.odds && hh.odds.kelly && hh.odds.kelly[ui.betKind] ? hh.odds.kelly[ui.betKind][ui.betLane] || 0 : 0;
   const kellyAmt = Math.min(lim.max, Math.floor(kf * p.coins));
   const chips = [10, 25, 50].filter((v) => v <= lim.max);
@@ -375,13 +385,13 @@ function renderBetting(s) {
     ${mode.betting ? `<div class="card deco"><div class="h2">Ta mise</div>
       <div id="lanes">${hh.lanes.map((l, i) => laneBtn(i, l, canBet, i === ui.betLane)).join('')}</div>
       <div class="seg">${kinds.map(([k, l]) => `<button data-kind="${k}" class="${ui.betKind === k ? 'on' : ''}">${l}<br><small style="opacity:.8">${oddTxt(k)}</small></button>`).join('')}</div>
-      <div class="row sp small dim"><span>Cote ${fog ? '??' : fmtOdds(eff)}${blind ? ' (aveugle ×1,5)' : ''}${allinArmed ? ' <b class="allin">ALL-IN ×1,5</b>' : ''}</span><span>${lim.relic ? `<b class="qod">${icon('relic', 12)} Relique : ${lim.relicLeft} max</b>` : lim.unlimited ? 'Plafond levé : TAPIS autorisé' : 'Max ' + lim.max + ' ' + COIN + ' (' + DATA.rules.rules.betMaxPct + ' % du portefeuille)'}</span></div>
+      <div class="row sp small dim"><span>Cote ${fog ? '??' : fmtOdds(eff)}${blind ? ' (aveugle ×1,5)' : ''}${allinArmed ? ' <b class="allin">ALL-IN ×1,5</b>' : ''}${primeArmed ? ' <b class="allin">PRIME ×1,25</b>' : ''}</span><span>${lim.relic ? `<b class="qod">${icon('relic', 12)} Relique : ${lim.relicLeft} max</b>` : lim.unlimited ? 'Plafond levé : TAPIS autorisé' : 'Max ' + lim.max + ' ' + COIN + ' (' + DATA.rules.rules.betMaxPct + ' % du portefeuille)'}</span></div>
       <div class="chips">${chips.map((v) => `<button data-amt="${v}" class="${ui.amount === v ? 'on' : ''}">${v}</button>`).join('')}${!fog && kellyAmt >= DATA.rules.rules.betMin ? `<button data-amt="${kellyAmt}" class="kelly ${ui.amount === kellyAmt ? 'on' : ''}" title="Mise conseillée par le critère de Kelly (demi-Kelly)">${icon('target', 14)} ${kellyAmt}</button>` : ''}<button data-amt="max" class="${ui.amount === lim.max && lim.max > 0 && !chips.includes(lim.max) ? 'on' : ''}">${lim.unlimited ? 'TAPIS' : 'MAX'}</button></div>
       ${fog ? '' : `<div class="kline small">${icon('target', 14)} ${kf > 0 ? `Le modèle voit un avantage : demi-Kelly ≈ <b>${Math.round(kf * 100)} %</b> du portefeuille.` : 'Aucun avantage mathématique ici : c\'est un pari « plaisir ».'}</div>`}
       <input type="range" id="rng" min="${DATA.rules.rules.betMin}" max="${Math.max(DATA.rules.rules.betMin, lim.max)}" step="1" value="${clamp(ui.amount, DATA.rules.rules.betMin, Math.max(DATA.rules.rules.betMin, lim.max))}" ${canBet ? '' : 'disabled'}>
       <div class="row sp"><b class="big" id="amt" style="font-size:30px">${ui.amount} ${COIN}</b><span class="dim small">Gain potentiel : <b class="coin" id="gain">${fog ? '??' : Math.round(ui.amount * eff)}</b></span></div><p></p>
       <button class="btn full lg" id="place" ${canBet ? '' : 'disabled'}>${open ? 'Placer la mise' : 'Bourse fermée'}</button>
-      ${myBets.length ? '<div class="h2" style="margin-top:16px">Mes paris sur cette manche</div>' + myBets.map((b) => `<div class="mybet"><span>Voie ${b.lane + 1} · ${{ win: 'Victoire', podium: 'Placé', crash: 'Crash' }[b.kind]} (${fmtOdds(b.odds)})${b.allin ? ' · ALL-IN' : ''}</span><b class="coin">${b.amount} ${COIN}</b></div>`).join('') : ''}</div>`
+      ${myBets.length ? '<div class="h2" style="margin-top:16px">Mes paris sur cette manche</div>' + myBets.map((b) => `<div class="mybet"><span>Voie ${b.lane + 1} · ${{ win: 'Victoire', podium: 'Placé', crash: 'Crash' }[b.kind]} (${fmtOdds(b.odds)})${b.allin ? ' · ALL-IN' : ''}${b.prime ? ' · PRIME' : ''}</span><b class="coin">${b.amount} ${COIN}</b></div>`).join('') : ''}</div>`
     : '<div class="card deco center"><div class="h2">Mode Pure Vitesse</div><p class="dim">Pas de paris ni de pièges : concentre-toi sur la piste !</p></div>'}
     ${mode.traps ? shopCard(s) : ''}
     ${tauntCard(s)}`;
@@ -397,8 +407,10 @@ function renderBetting(s) {
   bindShop(s); bindTaunts();
 }
 
-/** État d'achat d'un objet pour MOI : raison de blocage éventuelle (affichée sur la carte). */
-function itemState(s, it) {
+/** Bonus actifs une seule fois par manche et par écurie (miroir du relais : engine.ONCE_PER_HEAT). */
+const ONCE = ['insurance', 'allin', 'mirror', 'magnet', 'prime', 'turbo', 'graphite', 'lest', 'sweep', 'relaunch', 'joker', 'second', 'star'];
+/** État d'achat (ou d'utilisation depuis l'inventaire si inv) d'un objet pour MOI : raison de blocage éventuelle. */
+function itemState(s, it, inv = false) {
   const hh = s.heat, p = s.players[me];
   const mode = modeOf(s.mode) || {};
   const pr = myPrice(s, it);
@@ -406,30 +418,158 @@ function itemState(s, it) {
   const rk = ranking(s);
   const last = rk.length && rk[rk.length - 1].id === me;
   const open = hh.status === 'setup' || hh.status === 'betting';
+  const racing = hh.lanes.some((l) => l && l.teamId === me);
   let why = '';
-  if (!mode.unlimited && hh.n < (it.unlockHeat || 1)) why = 'locked';
+  if (!inv && it.caisseSeule && !mode.unlimited) why = 'box';
+  else if (!inv && !mode.unlimited && hh.n < (it.unlockHeat || 1)) why = 'locked';
   else if (!open) why = 'closed';
-  else if (stock <= 0) why = 'sold';
+  else if (!inv && stock <= 0) why = 'sold';
   else if (it.lastOnly && !last) why = 'last';
-  else if ((it.digital === 'insurance' || it.digital === 'allin') && hh.traps.some((t) => t.item === it.id && t.teamId === me)) why = 'owned';
-  else if (it.digital === 'insurance' && !hh.lanes.some((l) => l && l.teamId === me)) why = 'notracing';
-  else if (p.coins < pr.price) why = 'funds';
-  return { ...pr, stock, why, ok: !why };
+  else if (ONCE.includes(it.digital) && hh.traps.some((t) => t.item === it.id && t.teamId === me)) why = 'owned';
+  else if ((it.digital === 'insurance' || it.selfLane || it.racingOnly) && !racing) why = 'notracing';
+  else if (it.digital === 'joker' && hh.status !== 'setup') why = 'joker';
+  else if (!inv && p.coins < pr.price) why = 'funds';
+  return { ...pr, price: inv ? 0 : pr.price, stock, why, ok: !why };
 }
-const WHY = { locked: (it) => `Manche ${it.unlockHeat}`, closed: () => 'Fermé', sold: () => 'Épuisé', last: () => 'Dernier seulement', owned: () => 'Actif', notracing: () => 'Hors grille', funds: () => 'Trop cher' };
+const WHY = { locked: (it) => `Manche ${it.unlockHeat}`, closed: () => 'Fermé', sold: () => 'Épuisé', last: () => 'Dernier seulement', owned: () => 'Actif', notracing: () => 'Hors grille', funds: () => 'Trop cher',
+  box: () => 'En caisse', joker: () => 'Avant la Bourse' };
+
+/* ---------------------------------------------------------------- CAISSES (lootbox) et INVENTAIRE */
+const CAI = () => DATA.rules.caisses;
+const itemLite = (id) => { const it = shopItem(id) || { name: id, icon: 'star', rarity: 'commun' }; return { name: it.name, icon: it.icon, rarity: it.rarity, effect: it.effect }; };
+function cratesView(s) {
+  const C = CAI(); if (!C) return '<div class="dim small">Caisses indisponibles.</div>';
+  const pr = (s.casePrices || {})[me] || {}, p = myPlayer();
+  const k = (s.heat.cases || {})[me] || 0, max = C.maxParManche, unl = (modeOf(s.mode) || {}).unlimited;
+  const open = !['countdown', 'racing'].includes(s.heat.status);
+  const lo = p.loot || { sincePity: 0, opened: 0 };
+  const fam = Object.entries(C.familles).map(([fid, f]) => `<div class="cfam"><div class="fh">${icon(f.icone, 30)}<div><b>${esc(f.nom)}</b><small>${esc(f.desc)}</small></div></div>
+    <div class="ctiers">${C.gammes.map((g) => {
+      const price = (pr[fid] || {})[g.id];
+      const ok = open && price != null && p.coins >= price && (unl || k < max);
+      const key = g.id + '|' + fid;
+      return `<button class="ctile t-${g.id}" data-case="${fid}:${g.id}" ${ok ? '' : 'disabled'}>${ui.vign[key] ? `<img src="${ui.vign[key]}" alt="Caisse ${esc(g.nom)}">` : `<span class="ph" data-vign="${key}">${icon(g.id === 'standard' ? 'crate' : g.id === 'elite' ? 'vault' : 'skullcrate', 54)}</span>`}
+        <b>${esc(g.nom)}</b><span class="cp">${price != null ? price : '—'} ${COIN}</span>${LBX.tableHtml(g, fid, true)}</button>`;
+    }).join('')}</div><div style="margin-top:8px">${LBX.legendeHtml()}</div></div>`).join('');
+  const commit = (s.loot || {}).commit || '';
+  return `<div class="crates">${fam}</div>
+    <div class="cmeta"><span>Caisses cette manche : <b>${k}${unl ? '' : ' / ' + max}</b></span><span>Pitié : <b>${lo.sincePity} / ${C.pitie - 1}</b> sans épique</span></div>
+    <div class="dim small" style="margin-top:6px">Prix : ×${(1 + C.escalade).toFixed(2).replace('.', ',')} à chaque caisse de la manche, ajusté à ta richesse. Les épiques et légendaires ne sortent que des caisses.</div>
+    ${fairBlock(s)}`;
+}
+function fairBlock(s) {
+  const lo = s.loot || {}, rev = lo.revealed || [];
+  return `<div class="fair">${icon('lock', 12)} Tirage vérifiable · empreinte de la graine : <b>${esc((lo.commit || '').slice(0, 16))}…</b>
+    ${rev.length ? `<br>Graines révélées : ${rev.length}. <button class="btn ghost" id="verif" style="padding:6px 10px;font-size:12px">Vérifier tous les tirages</button>${ui.verif ? ` <b style="color:${ui.verif.ok ? 'var(--pine)' : '#ff8b9a'}">${ui.verif.ok ? '✓ ' + ui.verif.n + ' tirages conformes' : '✗ ' + ui.verif.ecarts.length + ' écart(s)'}</b>` : ''}` : '<br>La graine sera révélée à la cérémonie : chacun pourra alors recalculer ses tirages ici.'}</div>`;
+}
+function invView(s) {
+  const p = myPlayer(), inv = p.inventory || [];
+  const C = CAI();
+  if (!inv.length) return `<div class="card center dim">Inventaire vide. Les objets gagnés en caisse arrivent ici ; on les utilise quand on veut (gratuitement), ou on les revend.</div>${fairBlock(s)}`;
+  const n = C ? C.contrat.n : 5;
+  const rows = inv.map((x) => { const it = shopItem(x.item) || {}; const sel = ui.csel.includes(x.uid);
+    return `<button class="ivi r-${it.rarity} ${sel ? 'sel' : ''}" data-uid="${x.uid}"><span class="aic">${icon(it.icon || 'star', 26)}</span><span><b>${esc(it.name || x.item)}</b><small>${RARITY[it.rarity] || ''} · ${esc(x.src || '')}</small></span></button>`; }).join('');
+  return `<div class="inv">${rows}</div>
+    <div class="contract">${icon('contract', 16)} <b>Contrat d'échange</b> : ${n} objets communs d'une même famille contre 1 rare.
+      ${ui.contract ? `<div class="row sp" style="margin-top:8px"><span>${ui.csel.length} / ${n} sélectionnés</span><span><button class="btn ghost" id="cAnn" style="padding:8px 12px">Annuler</button> <button class="btn" id="cSig" style="padding:8px 12px" ${ui.csel.length === n ? '' : 'disabled'}>Signer</button></span></div>`
+        : `<button class="btn ghost full" id="cGo" style="margin-top:8px">Préparer un contrat</button>`}</div>${fairBlock(s)}`;
+}
+function bindLoot(s) {
+  $$('[data-case]', main).forEach((b) => b.onclick = () => { const [f, g] = b.dataset.case.split(':'); openCase(f, g); });
+  $$('[data-vign]', main).forEach((el) => {
+    const key = el.dataset.vign, [g, f] = key.split('|');
+    vignette(g, f, 220).then((url) => { ui.vign[key] = url; const img = document.createElement('img'); img.src = url; img.alt = 'Caisse ' + g; el.replaceWith(img); }).catch(() => {});
+  });
+  $$('[data-uid]', main).forEach((b) => b.onclick = () => {
+    const uid = b.dataset.uid, x = (myPlayer().inventory || []).find((y) => y.uid === uid); if (!x) return;
+    const it = shopItem(x.item); if (!it) return;
+    if (ui.contract) {
+      const C = CAI();
+      if (ui.csel.includes(uid)) ui.csel = ui.csel.filter((u) => u !== uid);
+      else if (it.rarity !== C.contrat.de) { toast('Contrat : objets communs uniquement', 'err'); return; }
+      else if (ui.csel.length && (shopItem((myPlayer().inventory.find((y) => y.uid === ui.csel[0]) || {}).item) || {}).famille !== it.famille) { toast('Contrat : une seule famille à la fois', 'err'); return; }
+      else if (ui.csel.length < C.contrat.n) ui.csel.push(uid);
+      lastKey = ''; handleState(S); return;
+    }
+    invSheet(S, it, uid);
+  });
+  const go = $('#cGo'); if (go) go.onclick = () => { ui.contract = true; ui.csel = []; lastKey = ''; handleState(S); };
+  const an = $('#cAnn'); if (an) an.onclick = () => { ui.contract = false; ui.csel = []; lastKey = ''; handleState(S); };
+  const sg = $('#cSig'); if (sg) sg.onclick = async () => {
+    const r = await act(() => player.intent('case.tradeup', { uids: ui.csel }));
+    ui.contract = false; ui.csel = []; lastKey = '';
+    if (r) { const it = itemLite(r.item); snd.sfx('reveal'); toast(`Contrat signé : « ${it.name} » (${RARITY[it.rarity]})`, 'win'); }
+    handleState(S);
+  };
+  const vf = $('#verif'); if (vf) vf.onclick = () => {
+    const lo = S.loot || {}, all = { ok: true, n: 0, ecarts: [] };
+    for (const r of lo.revealed || []) {
+      const j = (lo.log || []).filter((o) => o.msg.split(':')[0] === String(r.epoch));
+      const v = LBX.verifier(CAI(), r.seed, r.commit, j);
+      all.ok = all.ok && v.ok; all.n += v.n || 0; all.ecarts.push(...(v.ecarts || []));
+    }
+    ui.verif = all; lastKey = ''; handleState(S);
+    toast(all.ok ? `${all.n} tirage(s) recalculé(s) : tout est conforme` : 'Écart détecté : préviens la régie !', all.ok ? 'win' : 'err');
+  };
+}
+async function openCase(fam, gam) {
+  const C = CAI(), g = C.gammes.find((x) => x.id === gam);
+  const r = await act(() => player.intent('case.open', { family: fam, tier: gam }));
+  if (!r) return;
+  snd.buzz(20);
+  const it = shopItem(r.item);
+  const st = itemState(S, it, true);
+  const valeur = Math.max(1, Math.round((it.price || 10) * (C.primeRarete[it.rarity] || 1) * C.revente));
+  const actions = [];
+  if (st.ok) actions.push({ id: 'use', label: 'Utiliser', primary: true });
+  actions.push({ id: 'keep', label: 'Garder', primary: !st.ok });
+  actions.push({ id: 'sell', label: `Revendre ≈ ${valeur}` });
+  const choix = await LBX.ouvrirCaisse({
+    bande: r.strip, gagnant: r.win, objet: itemLite, iconSvg: (n, sz) => icon(n, sz),
+    titre: `${C.familles[fam].nom} · ${g.nom}`, sousTitre: r.pity ? 'Pitié : épique garanti' : `Tirage ${r.msg}`,
+    actions, detail: `Vérifiable : HMAC-SHA256(graine, « ${r.msg} »)`,
+  });
+  lastKey = ''; handleState(S);
+  if (choix === 'use') invSheet(S, it, r.uid, true);
+  else if (choix === 'sell') sellItem(r.uid);
+}
+async function sellItem(uid) {
+  const r = await act(() => player.intent('inventory.sell', { uid }));
+  if (r) { snd.sfx('coin'); toast(`Revendu : +${r.value} pièces`, 'win'); }
+}
+function invSheet(s, it, uid, direct = false) {
+  const st = itemState(s, it, true);
+  if (direct && st.ok) { itemSheet(s, it, uid); return; }
+  openSheet(`<div class="isheet r-${it.rarity}"><div class="ihead"><div class="thumb"><img src="../shared/arsenal/${it.id}.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="aic">${icon(it.icon, 44)}</span></div>
+    <div><span class="rtag">${RARITY[it.rarity] || ''}</span><h3 class="big foil">${esc(it.name)}</h3><div class="small dim">Dans ton inventaire · utilisation gratuite</div></div></div>
+    <p class="ieff">${esc(it.effect)}</p>
+    ${st.ok ? '<button class="btn full lg" id="iUse">Utiliser maintenant</button>' : `<div class="card why2">${icon('lock', 20)} ${WHY[st.why] ? WHY[st.why](it) : ''} : à utiliser pendant la préparation d'une manche.</div>`}
+    <button class="btn ghost full" id="iSell">Revendre</button><button class="btn ghost full" id="no">Fermer</button></div>`);
+  $('#no').onclick = closeSheet;
+  $('#iSell').onclick = () => { closeSheet(); sellItem(uid); };
+  const u = $('#iUse'); if (u) u.onclick = () => itemSheet(S, it, uid);
+}
 
 function shopCard(s) {
   const hh = s.heat;
   const cat = ui.shopCat || 'all';
   const items = SHOP().filter((it) => cat === 'all' || it.arch === cat)
     .map((it) => ({ it, st: itemState(s, it) }))
-    .sort((a, b) => (a.st.why === 'locked') - (b.st.why === 'locked') || (b.it.team === me) - (a.it.team === me));
+    .sort((a, b) => (a.st.why === 'box') - (b.st.why === 'box') || (a.st.why === 'locked') - (b.st.why === 'locked') || (b.it.team === me) - (a.it.team === me));
   const canSetup = hh.status === 'setup' || hh.status === 'betting';
   const placed = hh.traps.length;
   const pm = s.priceMods || { rank: {}, phase: 1 };
   const rk = pm.rank[String(me)] || 1;
   const tag = rk < 0.99 ? `<span class="mod good">Rattrapage ×${rk.toFixed(2).replace('.', ',')}</span>` : rk > 1.01 ? `<span class="mod bad">Taxe du leader ×${rk.toFixed(2).replace('.', ',')}</span>` : '';
+  const invN = (myPlayer().inventory || []).length;
+  const atabs = `<div class="atabs">${[['comptoir', 'coin', 'Comptoir'], ['caisses', 'crate', 'Caisses'], ['inventaire', 'gift', 'Inventaire']].map(([id, ic, l]) =>
+    `<button data-atab="${id}" class="${ui.atab === id ? 'on' : ''}">${icon(ic, 16)}${l}${id === 'inventaire' && invN ? `<span class="nb">${invN}</span>` : ''}</button>`).join('')}</div>`;
+  if (ui.atab !== 'comptoir') {
+    return `<div class="card deco arsenal"><div class="row sp"><div class="h2" style="margin:0">${icon('banana', 18)} L'Arsenal</div><span class="small dim">${placed} objet${placed > 1 ? 's' : ''} en jeu</span></div>
+      ${atabs}${ui.atab === 'caisses' ? cratesView(s) : invView(s)}</div>`;
+  }
   return `<div class="card deco arsenal"><div class="row sp"><div class="h2" style="margin:0">${icon('banana', 18)} L'Arsenal</div><span class="small dim">${placed} objet${placed > 1 ? 's' : ''} en jeu</span></div>
+    ${atabs}
     ${tag || pm.phase > 1 ? `<div class="mods">${tag}${pm.phase > 1 ? '<span class="mod bad panic">PRIX DE PANIQUE ×1,2</span>' : ''}</div>` : ''}
     <div class="cats">${CATS.map(([id, ic, l]) => `<button data-cat="${id}" class="${cat === id ? 'on' : ''}">${icon(ic, 16)}${l}</button>`).join('')}</div>
     <div class="shop">${items.map(({ it, st }) => {
@@ -442,23 +582,27 @@ function shopCard(s) {
         <small class="rar">${RARITY[it.rarity] || ''}${pct ? ` · <span class="hit">−${pct} %</span>` : ''}</small>
         <span class="archb a-${it.arch}">${icon({ statique: 'cube', asservi: 'target', mobile: 'bowling', numerique: 'wifi' }[it.arch] || 'star', 11)} ${ARCH[it.arch] || ''}</span>
         <span class="pr">${st.price !== st.market ? `<s>${st.market}</s> ` : ''}${it.laneLimited ? '<i class="des">dès</i> ' : ''}${st.price} ${COIN}</span>
-        ${st.why === 'locked' ? `<span class="lock">${icon('lock', 26)}<b>Manche ${it.unlockHeat}</b></span>` : st.why ? `<span class="why">${WHY[st.why](it)}</span>` : ''}
+        ${st.why === 'locked' ? `<span class="lock">${icon('lock', 26)}<b>Manche ${it.unlockHeat}</b></span>` : st.why === 'box' ? '<span class="boxonly">Caisse</span>' : st.why ? `<span class="why">${WHY[st.why](it)}</span>` : ''}
       </button>`;
     }).join('')}</div>
     <div class="dim small" style="margin-top:10px">${canSetup ? 'Touchez un objet pour voir sa fiche (modèle 3D imprimé, effet, cible). Prix de marché : ils suivent la richesse de la tablée.' : 'La pose des pièges est fermée.'}</div></div>`;
 }
 
-function itemSheet(s, it) {
-  const st = itemState(s, it);
+function itemSheet(s, it, uid = null) {
+  const st = itemState(s, it, !!uid);
   const hh = s.heat;
   const pct = it.factor && it.factor < 1 ? Math.round((1 - it.factor) * 100) : 0;
   const t = it.team != null ? team(it.team) : null;
   let pick = '';
   if (st.ok) {
-    if (it.needsLane) {
+    if (it.digital === 'joker') {
+      const grid = new Set(hh.lanes.filter((l) => l).map((l) => l.code));
+      const codes = (s.players[me].paddock || []).filter((c) => !grid.has(c));
+      pick = `<div class="h2">Quel bolide envoyer sur la grille ?</div><div class="tgrid">${codes.map((c) => `<button class="tgt" data-code="${esc(c)}"><b>${esc(c)}</b><small class="dim">${esc((car(c) || {}).alias || '')}</small></button>`).join('') || '<div class="dim small">Aucun autre bolide dans ton paddock.</div>'}</div>`;
+    } else if (it.needsLane) {
       const lanes = hh.lanes.map((l, i) => {
         if (!l) return '';
-        const shield = it.laneLimited && hh.traps.some((x) => x.item === 'carapace' && x.lane === i);
+        const shield = it.laneLimited && hh.traps.some((x) => (x.item === 'carapace' || x.item === 'etoile') && x.lane === i);
         const pr = myPrice(s, it, i).price;
         return laneBtn(i, l, !shield && pr <= s.players[me].coins, false).replace('<button class="lane', `<button class="lane pickl${shield ? ' shielded' : ''}`)
           .replace('<span class="od">', `<span class="lprice">${pr} ${COIN}</span><span class="od">`);
@@ -468,41 +612,46 @@ function itemSheet(s, it) {
       const ids = Object.keys(s.players).map(Number).filter((id) => id !== me && !hh.traps.some((x) => x.item === it.id && x.target === id));
       pick = `<div class="h2">Quelle écurie viser ?</div><div class="tgrid">${ids.map((id) => { const tt = team(id); return `<button class="tgt" data-target="${id}">${medal(id, 40)}<b>${esc(tt ? tt.nickname : '#' + id)}</b></button>`; }).join('')}</div>`;
     } else {
-      pick = `<button class="btn full lg" id="buyit">${icon(it.icon, 22)} Activer pour ${st.price} pièces</button>`;
+      pick = `<button class="btn full lg" id="buyit">${icon(it.icon, 22)} ${uid ? 'Activer (gratuit, inventaire)' : `Activer pour ${st.price} pièces`}</button>`;
     }
   } else {
-    pick = `<div class="card why2">${icon(st.why === 'locked' ? 'lock' : 'skull', 22)} ${st.why === 'locked' ? `Se débloque à la manche ${it.unlockHeat}.` : WHY[st.why](it)}</div>`;
+    pick = `<div class="card why2">${icon(st.why === 'locked' || st.why === 'box' ? 'lock' : 'skull', 22)} ${st.why === 'locked' ? `Se débloque à la manche ${it.unlockHeat}.` : st.why === 'box' ? 'Objet épique ou légendaire : il ne sort que des caisses (onglet Caisses).' : WHY[st.why](it)}</div>`;
   }
   openSheet(`<div class="isheet r-${it.rarity}">
     <div class="ihead"><div class="thumb"><img src="../shared/arsenal/${it.id}.jpg" alt="Modèle 3D imprimable : ${esc(it.name)}" loading="lazy" onerror="this.remove()"><span class="aic">${icon(it.icon, 44)}</span></div>
       <div><span class="rtag">${RARITY[it.rarity] || ''}</span><h3 class="big foil">${esc(it.name)}</h3>
       <div class="small dim">${t ? `${medal(it.team, 18)} Objet signature : ${esc(t.name)}` : 'Objet universel'}</div>
-      <div class="ipr">${st.market !== st.price ? `<s>${st.market}</s> ` : ''}<b>${st.price}</b> ${COIN} <span class="small dim">· stock ${st.stock >= 99 ? '∞' : st.stock}</span></div>
+      <div class="ipr">${uid ? '<b>Gratuit</b> <span class="small dim">· objet de ton inventaire</span>' : `${st.market !== st.price ? `<s>${st.market}</s> ` : ''}<b>${st.price}</b> ${COIN} <span class="small dim">· stock ${st.stock >= 99 ? '∞' : st.stock}</span>`}</div>
       <div class="archline a-${it.arch}">${ARCH[it.arch] || ''}${it.reussite ? ` · réussite estimée ${Math.round(it.reussite * 100)} %` : ''}</div></div></div>
     ${it.declenchement ? `<div class="decl">${icon(it.arch === 'mobile' ? 'bowling' : 'target', 18)}<span><b>${it.arch === 'mobile' ? 'Lancer' : 'Déclencher'} :</b> ${esc(it.declenchement)}</span></div>` : ''}
     <p class="ieff">${esc(it.effect)}</p>
     ${pct ? `<div class="meter"><span>Impact sur les chances de la victime</span><i><b style="width:${pct}%"></b></i><em>−${pct} %</em></div>` : ''}
+    ${it.temps ? `<div class="small dim">${it.temps.perte[1] > 0 ? `Chrono : −${String(it.temps.perte[0]).replace('.', ',')} à −${String(it.temps.perte[1]).replace('.', ',')} s quand il touche (${Math.round(it.temps.effet * 100)} % des cas)${it.temps.sortie ? ` · sortie de piste ${Math.round(it.temps.sortie * 100)} % (le commissaire relance)` : ''}` : `Chrono : +${String(-it.temps.perte[1]).replace('.', ',')} à +${String(-it.temps.perte[0]).replace('.', ',')} s gagnées`}</div>` : ''}
     ${it.lore ? `<p class="lore">« ${esc(it.lore)} »</p>` : ''}
     ${it.physique ? `<details><summary>${icon('engine', 14)} Sur la vraie piste</summary><p class="small">${esc(it.physique)}</p>${it.print ? `<p class="small dim">Impression : ${esc(it.print.mat || '')} · ${it.print.min || '?'} min · ${it.print.g || '?'} g</p>` : ''}${it.diy ? `<p class="small dim">Astuce : ${esc(it.diy)}</p>` : ''}</details>` : ''}
     ${pick}
     <button class="btn ghost full" id="no">Fermer</button></div>`);
   $('#no').onclick = closeSheet;
-  $$('#sheet .lane').forEach((lb) => lb.onclick = () => { if (lb.disabled) return; closeSheet(); buy(it, Number(lb.dataset.lane)); });
-  $$('#sheet .tgt').forEach((tb) => tb.onclick = () => { closeSheet(); buy(it, null, Number(tb.dataset.target)); });
-  const bi = $('#buyit'); if (bi) bi.onclick = () => { closeSheet(); buy(it, null); };
+  $$('#sheet .lane').forEach((lb) => lb.onclick = () => { if (lb.disabled) return; closeSheet(); buy(it, Number(lb.dataset.lane), undefined, uid); });
+  $$('#sheet .tgt[data-target]').forEach((tb) => tb.onclick = () => { closeSheet(); buy(it, null, Number(tb.dataset.target), uid); });
+  $$('#sheet .tgt[data-code]').forEach((tb) => tb.onclick = () => { closeSheet(); buy(it, null, undefined, uid, tb.dataset.code); });
+  const bi = $('#buyit'); if (bi) bi.onclick = () => { closeSheet(); buy(it, null, undefined, uid); };
 }
 function bindShop(s) {
+  $$('.arsenal [data-atab]', main).forEach((b) => b.onclick = () => { ui.atab = b.dataset.atab; ui.contract = false; ui.csel = []; lastKey = ''; handleState(S); });
+  bindLoot(s);
   $$('.arsenal .cats button', main).forEach((b) => b.onclick = () => { ui.shopCat = b.dataset.cat; lastKey = ''; handleState(S); });
   $$('.item', main).forEach((b) => b.onclick = () => { const it = shopItem(b.dataset.item); if (it) itemSheet(S || s, it); });
 }
-async function buy(it, lane, target) {
-  const body = { item: it.id, lane };
+async function buy(it, lane, target, uid = null, code = null) {
+  const body = uid ? { uid, lane } : { item: it.id, lane };
   if (target != null) body.target = target;
-  const r = await act(() => player.intent('trap.buy', body));
+  if (code) body.code = code;
+  const r = await act(() => player.intent(uid ? 'trap.use' : 'trap.buy', body));
   if (r) {
     snd.sfx('trap'); snd.buzz([20, 30, 20]);
     const who = target != null && team(target) ? ' sur ' + team(target).nickname : '';
-    toast(`${it.name} ${it.needsLane ? 'posé' : 'activé'}${lane != null && it.needsLane ? ' sur la voie ' + (lane + 1) : ''}${who} ! (−${r.price})`, 'win');
+    toast(`${it.name} ${it.needsLane ? 'posé' : 'activé'}${lane != null && it.needsLane ? ' sur la voie ' + (lane + 1) : ''}${who} !${r.price ? ` (−${r.price})` : ' (inventaire)'}`, 'win');
   }
 }
 /** Éclaboussure d'encre plein écran (Pieuvre de Calligraphie) : 8 secondes, essuyable du doigt. */
@@ -728,6 +877,10 @@ function handleFx(f) {
     if (f.item === 'encre' && f.target === me) { snd.sfx('trap'); snd.buzz([120, 60, 120]); inkSplat(by ? by.nickname : 'Une écurie'); }
     else if (f.item === 'verres' && f.target === me) { snd.sfx('trap'); snd.buzz([60, 40, 60]); toast('Verres Teintés : tes cotes sont masquées !', 'err'); }
     else if (f.item === 'fantome') { snd.sfx('trap'); toast(`${by ? by.nickname : '?'} lâche le Fantôme Chapardeur !`); }
+    else if (it && f.reflect) {
+      const mine = S && S.heat.lanes[f.reflect.from] && S.heat.lanes[f.reflect.from].teamId === me;
+      if (mine) { snd.sfx('reveal'); toast(`Rétro-Miroir ! ${it.name} renvoyé ${f.reflect.to != null ? 'à l\'envoyeur' : 'dans le vide'} !`, 'win'); }
+    }
     else if (it && f.lane != null && it.laneLimited) { const mine = S && S.heat.lanes[f.lane] && S.heat.lanes[f.lane].teamId === me; if (mine) { snd.sfx('trap'); snd.buzz([40, 30, 40]); toast(`${it.name} posé sur TA voie par ${by ? by.nickname : '?'} !`, 'err'); } }
   }
   else if (f.type === 'trap_fire' && f.teamId !== me) {
@@ -735,6 +888,11 @@ function handleFx(f) {
     const mine = S && f.lane != null && S.heat.lanes[f.lane] && S.heat.lanes[f.lane].teamId === me;
     if (mine) { snd.sfx('trap'); snd.buzz([80, 40, 80, 40, 160]); toast(`${it ? it.name : 'Piège'} déclenché sur TA voie par ${by ? by.nickname : '?'} !`, 'err'); }
   }
+  else if (f.type === 'case_open' && f.teamId !== me && (f.rarity === 'epique' || f.rarity === 'legendaire')) {
+    const by = team(f.teamId), it = itemLite(f.item);
+    snd.sfx(f.rarity === 'legendaire' ? 'award' : 'reveal'); toast(`${by ? by.nickname : '?'} tire « ${it.name} » (${RARITY[f.rarity]}) !`, f.rarity === 'legendaire' ? 'win' : '');
+  }
+  else if (f.type === 'loot_reveal') { toast('Graine des caisses révélée : vérifie tes tirages (Arsenal › Inventaire)', 'win'); }
   else if (f.type === 'reveal' && f.teamId === me) { /* feedback déjà donné à l'envoi */ }
 }
 

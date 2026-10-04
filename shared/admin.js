@@ -178,8 +178,15 @@ export function mountAdmin(root, { onToast = () => {}, compact = false } = {}) {
       <div class="adm-row"><input id="muYt" placeholder="https://www.youtube.com/playlist?list=…" value="${esc(ui.ytUrl || '')}"><button class="btn ghost sm" id="muYtSave">Associer</button>${yt ? '<button class="btn ghost sm" id="muYtDel">Retirer</button>' : ''}</div>
       <p class="adm-note">Les fichiers déposés dans le dossier du mode passent avant YouTube. Touche P sur la TV = morceau suivant, N = couper/remettre la musique.</p>`);
 
+    const lo = s.loot || {};
     const secCeremony = section('ceremony', 'Cérémonie', `<div class="adm-row"><button class="btn sm" id="cerStart">Lancer la cérémonie</button><button class="btn ghost sm" id="cerNext">Prix suivant</button></div>
-      <p class="adm-note">Votes reçus — Cascadeur : ${Object.keys(s.votes.cascadeur || {}).length} · Cuillère : ${Object.keys(s.votes.cuillere || {}).length}</p>`);
+      <p class="adm-note">Votes reçus — Cascadeur : ${Object.keys(s.votes.cascadeur || {}).length} · Cuillère : ${Object.keys(s.votes.cuillere || {}).length}</p>
+      <div class="adm-row"><button class="btn ghost sm" id="lootReveal">Révéler la graine des caisses</button></div>
+      <p class="adm-note">Caisses ouvertes : ${(lo.log || []).length} · empreinte publiée : ${esc(String(lo.commit || '').slice(0, 16))}… · graines déjà révélées : ${(lo.revealed || []).length}. La révélation permet à chacun de vérifier ses tirages ; une nouvelle graine est engagée aussitôt.</p>
+      <div class="adm-row"><select id="grTeam">${DATA.teams.map((t) => `<option value="${t.id}" ${ui.grTeam === t.id ? 'selected' : ''}>${String(t.id).padStart(2, '0')} · ${esc(t.nickname)}</option>`).join('')}</select>
+        <select id="grItem">${(DATA.rules.shop || []).map((it) => `<option value="${it.id}" ${ui.grItem === it.id ? 'selected' : ''}>${esc(it.name)} (${it.rarity})</option>`).join('')}</select>
+        <button class="btn ghost sm" id="grGo">Offrir l'objet</button></div>
+      <p class="adm-note">Lot de tombola, gage ou rattrapage : l'objet arrive dans l'inventaire de l'écurie (utilisable gratuitement).</p>`);
 
     const secDanger = section('danger', 'Zone rouge', `<button class="btn red sm" id="resetAll">Nouvelle soirée (tout remettre à zéro)</button><p class="adm-note">Le journal de la soirée précédente reste archivé dans le dossier d'état du relais.</p>`);
 
@@ -241,6 +248,10 @@ export function mountAdmin(root, { onToast = () => {}, compact = false } = {}) {
     const ra = g('rlAdd'); if (ra) ra.onclick = () => run('relic.add', { code: g('rlCode').value, alias: g('rlName').value, vitesse: Number(g('rlSpd').value || 55) }, 'Relique ajoutée');
     const cs = g('cerStart'); if (cs) cs.onclick = () => run('ceremony.start');
     const cn = g('cerNext'); if (cn) cn.onclick = () => run('ceremony.next');
+    const lr = g('lootReveal'); if (lr) lr.onclick = () => { if (confirm('Révéler la graine des caisses ? Tous les tirages deviennent vérifiables.')) run('loot.reveal', {}, 'Graine révélée'); };
+    const gt = g('grTeam'); if (gt) gt.onchange = () => { ui.grTeam = Number(gt.value); };
+    const gi = g('grItem'); if (gi) gi.onchange = () => { ui.grItem = gi.value; };
+    const gg = g('grGo'); if (gg) gg.onclick = () => run('inventory.grant', { teamId: Number(g('grTeam').value), item: g('grItem').value }, 'Objet offert');
     const rs = g('resetAll'); if (rs) rs.onclick = () => { if (confirm('Tout remettre à zéro ?') && confirm('Vraiment ? Les points et pièces seront effacés.')) run('state.reset', { confirm: 'RESET' }, 'Nouvelle soirée'); };
     // saisie du résultat
     $$('[data-rank]', root).forEach((b) => b.onclick = () => { const i = Number(b.dataset.rank); const k = ui.resultOrder.indexOf(i); if (k >= 0) ui.resultOrder.splice(k, 1); else ui.resultOrder.push(i); render(); });

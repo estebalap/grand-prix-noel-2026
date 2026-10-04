@@ -14,6 +14,8 @@ import { medal, ghostMedal, carArt, statBars, teamAccent, pad2 } from '../shared
 import { createStage } from '../shared/stage3d.js';
 import { mountAdmin, ADMIN_CSS } from '../shared/admin.js';
 import { createVideoLibrary, makeVideo, waitPlayable, playWithSound, fadeVolume, disposeVideo } from '../shared/videos.js';
+import * as LBX from '../shared/lootbox.js';
+import { buildCaisse, ensureThree } from '../shared/caisses3d.js';
 
 const stage = $('#stage'), sceneEl = $('#scene'), overlay = $('#overlay');
 const atmo = startAtmosphere({ road: true, snow: 1, theme: 'gp_bets' });
@@ -428,7 +430,7 @@ function laneHtml(i, l, st) {
     <div class="real">${esc(c ? c.real_name : '')} · ${esc(l.code)}</div>
     <div class="owner">${tm ? medal(tm.id, 52) : ghostMedal(52)}<div>${esc(tm ? tm.nickname : 'Bolide fantôme')}<small>${esc(tm ? tm.name : 'sans écurie')}</small></div></div>
     <div class="stats">${c ? statBars(c, 4) : ''}</div>
-    <div class="boost"><i data-boost="${i}"></i></div><div class="boostlbl"><span data-bl="${i}">Soutien</span><span data-bn="${i}"></span></div>
+    <span class="tflame" aria-hidden="true"></span><div class="boost"><i data-boost="${i}"></i></div><div class="boostlbl"><span data-bl="${i}">Soutien</span><span data-bn="${i}"></span></div>
     <div class="oddsrow"><div class="odds-big"><small>Victoire</small>${odds('win')}<span class="chance" data-chance="${i}"></span></div><div class="odds-sm">Placé <b>${odds('podium')}</b><br>Crash <b>${odds('crash')}</b></div></div></div>`;
 }
 
@@ -474,16 +476,23 @@ function raceLive(s, el) {
   hh.lanes.forEach((l, i) => {
     const tr = $(`[data-traps="${i}"]`, el);
     if (tr) {
-      const here = hh.traps.filter((t) => t.lane === i);
+      const here = hh.traps.filter((t) => t.lane === i && !t.absorbed);
       const relic = !!(hh.odds && hh.odds.relic && hh.odds.relic[i]);
-      const k = here.map((t) => t.item + (t.fired ? '!' : '')).join(',') + '|' + relic;
+      const k = here.map((t) => t.item + (t.fired ? '!' : '') + (t.reflectedFrom != null ? 'R' : '')).join(',') + '|' + relic;
       if (tr.dataset.k !== k) {
         tr.dataset.k = k;
         tr.innerHTML = (relic ? `<span class="qodtv">${icon('relic', 26)}QUITTE OU DOUBLE</span>` : '') + here.map((t) => {
           const it = DATA.rules.shop.find((x) => x.id === t.item) || { icon: 'star', rarity: 'commun', name: t.item };
-          return `<i class="tr r-${it.rarity}${it.id === 'assurance' ? ' ins' : ''}${t.fired ? ' fired' : ''}${['asservi', 'mobile'].includes(it.arch) && !t.fired ? ' armed' : ''}" title="${esc(it.name)}">${icon(it.icon, 30)}</i>`;
+          return `<i class="tr r-${it.rarity}${it.id === 'assurance' ? ' ins' : ''}${t.fired ? ' fired' : ''}${['asservi', 'mobile'].includes(it.arch) && !t.fired ? ' armed' : ''}${t.reflectedFrom != null ? ' refl' : ''}" title="${esc(it.name)}${t.reflectedFrom != null ? ' (renvoyé par un Rétro-Miroir)' : ''}">${icon(it.icon, 30)}</i>`;
         }).join('');
       }
+    }
+    // bonus visibles sur la voie : flammes du Turbo Néon (pendant la course), aura de l'Étoile d'Invincibilité
+    const ln = $(`.lane[data-lane="${i}"]`, el);
+    if (ln && l) {
+      const has = (id) => hh.traps.some((t) => t.item === id && t.teamId === l.teamId);
+      ln.classList.toggle('turbo', has('turbo') && (hh.status === 'racing' || hh.status === 'countdown'));
+      ln.classList.toggle('invincible', has('etoile'));
     }
     const pl = $(`[data-pool="${i}"]`, el); if (pl) { const sum = hh.bets.filter((b) => b.lane === i).reduce((a, b) => a + b.amount, 0); pl.innerHTML = sum ? `${icon('coin', 22, 'coin')} ${sum}` : ''; }
   });
@@ -756,14 +765,72 @@ function trapFx(f) {
       <h2 class="display foil">${esc(it.name)}</h2><p>${by ? medal(by.id, 54) : ''}<b>${esc(by ? by.nickname : '')}</b> ${f.digital === 'steal' ? 'lâche le Fantôme sur la plus grosse fortune !' : 'déclenche l\'arme ultime'}${victim ? ' → ' + esc(victim) : ''}</p><small>${esc(it.effect)}</small></div>`, 4800);
     return;
   }
-  trapQueue.push({ it, by, victim });
+  if (f.reflect) victim = f.reflect.to != null ? `RENVOYÉ par un Rétro-Miroir → voie ${f.reflect.to + 1}` : 'ABSORBÉ par un Rétro-Miroir';
+  trapQueue.push({ it, by, victim, fromCase: f.fromCase });
   pumpTraps();
+}
+function trapQueueVerb(it) { return it.digital ? 'active' : it.cat === 'defense' || it.cat === 'tactique' ? 'joue' : 'pose'; }
+
+/* ---------------------------------------------------------------- CAISSES : rediffusion géante de chaque ouverture */
+const caseQueue = [];
+let caseBusy = false;
+/** Intro 3D : la caisse tombe du ciel, tremble, puis le couvercle saute (≈ 1,9 s). Repli silencieux sans WebGL. */
+async function crateIntro(fam, gam) {
+  let THREE;
+  try { THREE = await ensureThree(); } catch { return; }
+  const box = h('<div class="crate3d"><canvas></canvas></div>');
+  overlay.appendChild(box);
+  const cv = box.querySelector('canvas');
+  let r;
+  try { r = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: true }); } catch { box.remove(); return; }
+  const W = 1920, H = 1080; r.setPixelRatio(1); r.setSize(W, H, false);
+  if ('outputColorSpace' in r && THREE.SRGBColorSpace) r.outputColorSpace = THREE.SRGBColorSpace;
+  const sc = new THREE.Scene();
+  sc.add(new THREE.HemisphereLight(0xdfe7ff, 0x231a3a, 0.9));
+  const sun = new THREE.DirectionalLight(0xffffff, 1.2); sun.position.set(4, 7, 5); sc.add(sun);
+  const rim = new THREE.DirectionalLight(gam === 'marche_noir' ? 0xffc040 : gam === 'elite' ? 0x9b7bff : 0xffe0b0, 1.4); rim.position.set(-5, 3, -4); sc.add(rim);
+  const c = buildCaisse(THREE, gam, fam); sc.add(c.group);
+  const cam = new THREE.PerspectiveCamera(28, W / H, 0.1, 60); cam.position.set(0, 3.2, 9.5); cam.lookAt(0, 0.75, 0);
+  const t0 = performance.now(); let last = t0;
+  await new Promise((res) => {
+    function f(now) {
+      const t = (now - t0) / 1000, dt = (now - last) / 1000; last = now;
+      const fall = Math.min(1, t / 0.55);
+      c.group.position.y = 4.5 * (1 - fall) * (1 - fall) + (t > 0.55 && t < 0.8 ? Math.sin((t - 0.55) * 25) * 0.08 * (0.8 - t) * 4 : 0);
+      c.group.rotation.y = 0.5 + t * 0.35;
+      if (t > 1.15 && !f.o) { f.o = true; c.ouvrir(); snd.sfx('reveal'); }
+      c.update(t, dt);
+      r.render(sc, cam);
+      if (t < 1.95) requestAnimationFrame(f); else res();
+    }
+    requestAnimationFrame(f);
+  });
+  box.classList.add('out');
+  setTimeout(() => { box.remove(); r.dispose(); }, 400);
+}
+async function pumpCases() {
+  if (caseBusy || !caseQueue.length) return;
+  caseBusy = true;
+  const f = caseQueue.shift();
+  const C = DATA.rules.caisses, by = team(f.teamId), g = C.gammes.find((x) => x.id === f.tier) || { nom: '' };
+  const objet = (id) => { const it = DATA.rules.shop.find((x) => x.id === id) || { name: id, icon: 'star', rarity: 'commun' }; return { name: it.name, icon: it.icon, rarity: it.rarity, effect: it.effect }; };
+  try {
+    await crateIntro(f.family, f.tier);
+    await LBX.ouvrirCaisse({
+      tv: true, bande: f.strip, gagnant: f.win, objet, iconSvg: (n, sz) => icon(n, sz),
+      titre: `${by ? by.nickname : '?'} ouvre une ${C.familles[f.family].nom} ${g.nom}`, sousTitre: `${by ? by.name : ''} · tirage vérifiable`,
+      duree: caseQueue.length > 1 ? 4200 : 6800, autoFermer: f.rarity === 'legendaire' ? 5200 : 3400,
+      detail: by ? `Dans l'inventaire de ${by.nickname}` : '',
+    });
+  } catch (e) { console.warn('caisse', e); }
+  caseBusy = false;
+  setTimeout(pumpCases, 250);
 }
 function pumpTraps() {
   if (trapBusy || !trapQueue.length) return;
   trapBusy = true;
-  const { it, by, victim } = trapQueue.shift();
-  const verb = it.digital ? 'active' : it.cat === 'defense' || it.cat === 'tactique' ? 'joue' : 'pose';
+  const { it, by, victim, fromCase } = trapQueue.shift();
+  const verb = fromCase ? 'sort de sa caisse' : trapQueueVerb(it);
   const b = h(`<div class="arsbanner r-${it.rarity}"><div class="arsthumb"><img src="../shared/arsenal/${it.id}.jpg" alt="" onerror="this.remove()"><span>${icon(it.icon, 64)}</span></div>
     <div class="arstxt"><span class="eyebrow">${({ commun: 'Piège', rare: 'Piège rare', epique: 'Piège épique' })[it.rarity] || 'Objet'} · ${esc(({ piege: 'Arsenal', tactique: 'Tactique', defense: 'Défense', chaos: 'Chaos' })[it.cat] || '')}</span>
     <div class="arsline">${by ? medal(by.id, 46) : ''}<b>${esc(by ? by.nickname : '?')}</b><em>${verb}</em><strong>${esc(it.name)}</strong>${victim ? `<em>→</em><b class="vic">${esc(victim)}</b>` : ''}</div>
@@ -799,6 +866,13 @@ function handleFx(f) {
     }
     case 'trap': snd.sfx('trap'); trapFx(f); break;
     case 'trap_fire': trapFire(f); break;
+    case 'case_open': caseQueue.push(f); while (caseQueue.length > 4) caseQueue.splice(caseQueue.findIndex((x) => x.rarity === 'commun') >= 0 ? caseQueue.findIndex((x) => x.rarity === 'commun') : 0, 1); pumpCases(); break;
+    case 'case_trade': { const it = DATA.rules.shop.find((x) => x.id === f.item); const by = team(f.teamId); snd.sfx('reveal'); toast(`${by ? by.nickname : '?'} signe un contrat : 5 communs → « ${it ? it.name : f.item} »`); break; }
+    case 'loot_reveal': snd.sfx('award');
+      announce(`<div class="deco" style="padding:44px 70px;text-align:center;max-width:1300px"><span class="eyebrow">Caisses · tirage vérifiable</span><h2 class="display foil" style="font-size:72px;margin:14px 0">La graine est révélée</h2>
+        <p style="font-size:26px;color:var(--ink-dim)">Empreinte publiée avant la soirée : <b style="font-family:monospace;color:var(--ink)">${esc(f.commit.slice(0, 24))}…</b><br>Chacun peut recalculer ses tirages sur son téléphone (Arsenal › Inventaire).</p>
+        <p style="font-family:monospace;font-size:22px;word-break:break-all;color:var(--gold-1)">${esc(f.seed)}</p></div>`, 9000);
+      break;
     case 'taunt': { if (f.id === 'signature') { if (!snd.teamSound(f.teamId, 'taunt')) snd.taunt('fanfare'); } else snd.taunt(f.id); const tz = DATA.rules.taunts.find((x) => x.id === f.id); bubble(f.teamId, f.name, tz && tz.icon); break; }
     case 'bailout': toast(`${(team(f.teamId) || {}).nickname || ''} est ruiné : Crédit Papy demandé`); snd.play('bailout', { fallback: 'error' }); break;
     case 'result': break;

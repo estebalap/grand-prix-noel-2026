@@ -501,7 +501,7 @@
    "icon": "banana",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.72,
+   "factor": 0.639,
    "digital": null,
    "team": null,
    "unlockHeat": 1,
@@ -520,21 +520,34 @@
    "diy": "Une pastille de pâte adhésive (type Patafix) sous la semelle suffit : elle ne glisse pas, elle ne laisse aucune trace.",
    "scad": "banane",
    "nash": {
-    "a": 0.0733,
-    "c": 0.492
+    "a": 0.0975,
+    "c": 0.668
    },
-   "arch": "statique"
+   "arch": "statique",
+   "famille": "piege",
+   "temps": {
+    "effet": 0.8,
+    "perte": [
+     0.02,
+     0.06
+    ],
+    "sortie": 0.02,
+    "cibles": 1,
+    "perteMoy": 0.032
+   },
+   "violence": 0.1,
+   "caisseSeule": false
   },
   {
    "id": "thwomp",
    "name": "Thwomp",
    "cat": "piege",
-   "rarity": "rare",
-   "price": 30,
+   "rarity": "commun",
+   "price": 20,
    "icon": "thwomp",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.58,
+   "factor": 0.5,
    "digital": null,
    "team": null,
    "unlockHeat": 1,
@@ -552,10 +565,23 @@
    "diy": "Lester le bloc avec 2 écrous M6 (logements prévus) : il oscille au passage au lieu de basculer.",
    "scad": "thwomp",
    "nash": {
-    "a": 0.1143,
-    "c": 0.795
+    "a": 0.1349,
+    "c": 0.924
    },
-   "arch": "statique"
+   "arch": "statique",
+   "famille": "piege",
+   "temps": {
+    "effet": 0.55,
+    "perte": [
+     0.06,
+     0.18
+    ],
+    "sortie": 0.04,
+    "cibles": 1,
+    "perteMoy": 0.066
+   },
+   "violence": 0.24,
+   "caisseSeule": false
   },
   {
    "id": "champi",
@@ -581,7 +607,9 @@
    },
    "diy": "Jeton aimanté (aimant 6×2 mm) : il tient sur le portique de départ métallique s'il y en a un.",
    "scad": "jeton_champi",
-   "arch": "numerique"
+   "arch": "numerique",
+   "famille": "bonus",
+   "caisseSeule": false
   },
   {
    "id": "carapace",
@@ -607,18 +635,20 @@
    },
    "diy": "Se pose sur la grille de départ, devant le bolide protégé.",
    "scad": "carapace",
-   "arch": "numerique"
+   "arch": "numerique",
+   "famille": "bonus",
+   "caisseSeule": false
   },
   {
    "id": "eclair",
    "name": "Éclair Miniature",
    "cat": "chaos",
-   "rarity": "epique",
-   "price": 45,
+   "rarity": "rare",
+   "price": 25,
    "icon": "bolt",
    "needsLane": false,
    "laneLimited": false,
-   "factor": 0.88,
+   "factor": 0.774,
    "digital": null,
    "team": null,
    "unlockHeat": 3,
@@ -634,7 +664,20 @@
    "diy": "Insérer une rondelle M8 (≈ 4,8 g) dans chaque boîtier ; une pointe de Patafix le tient sur le toit.",
    "scad": "eclair_lest",
    "target": "others",
-   "arch": "statique"
+   "arch": "statique",
+   "famille": "piege",
+   "temps": {
+    "effet": 1.0,
+    "perte": [
+     0.0,
+     0.03
+    ],
+    "sortie": 0.04,
+    "cibles": 3,
+    "perteMoy": 0.015
+   },
+   "violence": 0.405,
+   "caisseSeule": false
   },
   {
    "id": "bleue",
@@ -661,7 +704,9 @@
    "diy": "Le trophée-jeton se pose sur la tablette du leader pendant toute la manche.",
    "scad": "carapace_bleue",
    "lastOnly": true,
-   "arch": "numerique"
+   "arch": "numerique",
+   "famille": "piege",
+   "caisseSeule": false
   },
   {
    "id": "dos_ane",
@@ -672,7 +717,7 @@
    "icon": "bump",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.85,
+   "factor": 0.842,
    "digital": null,
    "team": 1,
    "unlockHeat": 1,
@@ -691,21 +736,34 @@
    "diy": "Patafix aux 2 extrémités. Version « champion » : imprimer en TPU 95A pour un effet amorti.",
    "scad": "dos_ane",
    "nash": {
-    "a": 0.0376,
-    "c": 0.24
+    "a": 0.0427,
+    "c": 0.293
    },
-   "arch": "statique"
+   "arch": "statique",
+   "famille": "piege",
+   "temps": {
+    "effet": 1.0,
+    "perte": [
+     0.005,
+     0.02
+    ],
+    "sortie": 0.0,
+    "cibles": 1,
+    "perteMoy": 0.0125
+   },
+   "violence": 0.013,
+   "caisseSeule": false
   },
   {
    "id": "guimauve",
    "name": "Guimauve Gélifiée",
    "cat": "piege",
    "rarity": "commun",
-   "price": 15,
+   "price": 10,
    "icon": "candy",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.76,
+   "factor": 0.758,
    "digital": null,
    "team": 2,
    "unlockHeat": 1,
@@ -724,21 +782,34 @@
    "diy": "Le TPU s'imprime lentement (30 mm/s) et sans rétraction ; la version PLA reste efficace grâce aux nervures.",
    "scad": "guimauve",
    "nash": {
-    "a": 0.0617,
-    "c": 0.41
+    "a": 0.0653,
+    "c": 0.448
    },
-   "arch": "statique"
+   "arch": "statique",
+   "famille": "piege",
+   "temps": {
+    "effet": 1.0,
+    "perte": [
+     0.01,
+     0.03
+    ],
+    "sortie": 0.0,
+    "cibles": 1,
+    "perteMoy": 0.02
+   },
+   "violence": 0.02,
+   "caisseSeule": false
   },
   {
    "id": "balle_service",
    "name": "Balle de Service Gagnant",
    "cat": "piege",
-   "rarity": "rare",
-   "price": 20,
+   "rarity": "commun",
+   "price": 15,
    "icon": "ball",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.72,
+   "factor": 0.635,
    "digital": null,
    "team": 3,
    "unlockHeat": 1,
@@ -757,21 +828,34 @@
    "diy": "Imprimer la balle en 2 demi-coques collées (colle cyanoacrylate) pour une sphère parfaite.",
    "scad": "balle_service",
    "nash": {
-    "a": 0.073,
-    "c": 0.487
+    "a": 0.0986,
+    "c": 0.676
    },
-   "arch": "statique"
+   "arch": "statique",
+   "famille": "piege",
+   "temps": {
+    "effet": 0.9,
+    "perte": [
+     0.02,
+     0.05
+    ],
+    "sortie": 0.02,
+    "cibles": 1,
+    "perteMoy": 0.0315
+   },
+   "violence": 0.095,
+   "caisseSeule": false
   },
   {
    "id": "vinyle",
    "name": "33 Tours Infernal",
    "cat": "piege",
-   "rarity": "rare",
-   "price": 25,
+   "rarity": "commun",
+   "price": 15,
    "icon": "vinyl",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.66,
+   "factor": 0.64,
    "digital": null,
    "team": 4,
    "unlockHeat": 1,
@@ -789,21 +873,34 @@
    "diy": "Axe : un cure-dent coupé, collé dans le socle ; le disque tourne librement (jeu de 0,3 mm).",
    "scad": "vinyle",
    "nash": {
-    "a": 0.0891,
-    "c": 0.606
+    "a": 0.0971,
+    "c": 0.665
    },
-   "arch": "statique"
+   "arch": "statique",
+   "famille": "piege",
+   "temps": {
+    "effet": 0.6,
+    "perte": [
+     0.03,
+     0.08
+    ],
+    "sortie": 0.05,
+    "cibles": 1,
+    "perteMoy": 0.033
+   },
+   "violence": 0.205,
+   "caisseSeule": false
   },
   {
    "id": "mediator",
    "name": "Médiator de Stratocaster",
    "cat": "piege",
    "rarity": "commun",
-   "price": 15,
+   "price": 10,
    "icon": "pick",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.8,
+   "factor": 0.778,
    "digital": null,
    "team": 5,
    "unlockHeat": 1,
@@ -822,21 +919,34 @@
    "diy": "Se clipse sur la paroi de séparation des voies grâce à son crochet en U (paramètre `paroi_ep`).",
    "scad": "mediator",
    "nash": {
-    "a": 0.0513,
-    "c": 0.333
+    "a": 0.0599,
+    "c": 0.41
    },
-   "arch": "statique"
+   "arch": "statique",
+   "famille": "piege",
+   "temps": {
+    "effet": 0.7,
+    "perte": [
+     0.01,
+     0.04
+    ],
+    "sortie": 0.02,
+    "cibles": 1,
+    "perteMoy": 0.0175
+   },
+   "violence": 0.085,
+   "caisseSeule": false
   },
   {
    "id": "cle_sol",
    "name": "Slalom Clé de Sol",
    "cat": "piege",
-   "rarity": "rare",
-   "price": 25,
+   "rarity": "commun",
+   "price": 15,
    "icon": "clef",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.68,
+   "factor": 0.647,
    "digital": null,
    "team": 6,
    "unlockHeat": 1,
@@ -854,21 +964,34 @@
    "diy": "Une goutte de Patafix sous chaque ailette ; la largeur de passage se règle avec `passage`.",
    "scad": "cle_sol",
    "nash": {
-    "a": 0.0846,
-    "c": 0.569
+    "a": 0.0953,
+    "c": 0.653
    },
-   "arch": "statique"
+   "arch": "statique",
+   "famille": "piege",
+   "temps": {
+    "effet": 0.85,
+    "perte": [
+     0.02,
+     0.05
+    ],
+    "sortie": 0.03,
+    "cibles": 1,
+    "perteMoy": 0.0298
+   },
+   "violence": 0.125,
+   "caisseSeule": false
   },
   {
    "id": "cupcake",
    "name": "Tremplin Cupcake",
    "cat": "piege",
    "rarity": "rare",
-   "price": 25,
+   "price": 15,
    "icon": "cupcake",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.7,
+   "factor": 0.606,
    "digital": null,
    "team": 7,
    "unlockHeat": 1,
@@ -886,21 +1009,34 @@
    "diy": "À poser après une ligne droite : plus le bolide arrive vite, plus il vole loin.",
    "scad": "cupcake",
    "nash": {
-    "a": 0.0792,
-    "c": 0.526
+    "a": 0.1063,
+    "c": 0.729
    },
-   "arch": "statique"
+   "arch": "statique",
+   "famille": "piege",
+   "temps": {
+    "effet": 0.9,
+    "perte": [
+     0.01,
+     0.05
+    ],
+    "sortie": 0.12,
+    "cibles": 1,
+    "perteMoy": 0.027
+   },
+   "violence": 0.39,
+   "caisseSeule": false
   },
   {
    "id": "huile",
    "name": "Flaque d'Huile A4",
    "cat": "piege",
    "rarity": "commun",
-   "price": 15,
+   "price": 10,
    "icon": "oil",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.78,
+   "factor": 0.755,
    "digital": null,
    "team": 8,
    "unlockHeat": 1,
@@ -919,21 +1055,34 @@
    "diy": "Imprimer face brillante vers le haut (plateau lisse) ; bords amincis pour une montée sans choc.",
    "scad": "huile",
    "nash": {
-    "a": 0.0565,
-    "c": 0.379
+    "a": 0.0661,
+    "c": 0.453
    },
-   "arch": "statique"
+   "arch": "statique",
+   "famille": "piege",
+   "temps": {
+    "effet": 0.9,
+    "perte": [
+     0.01,
+     0.03
+    ],
+    "sortie": 0.03,
+    "cibles": 1,
+    "perteMoy": 0.018
+   },
+   "violence": 0.11,
+   "caisseSeule": false
   },
   {
    "id": "oeuf_wyverne",
    "name": "Œuf de Wyverne",
    "cat": "piege",
-   "rarity": "epique",
-   "price": 35,
+   "rarity": "rare",
+   "price": 25,
    "icon": "egg",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.55,
+   "factor": 0.406,
    "digital": null,
    "team": 9,
    "unlockHeat": 4,
@@ -951,23 +1100,36 @@
    "diy": "Bille d'acier Ø 10 mm (4 g) insérée à la pause d'impression (couche indiquée dans le .scad).",
    "scad": "oeuf_wyverne",
    "nash": {
-    "a": 0.1243,
-    "c": 0.87
+    "a": 0.1603,
+    "c": 1.099
    },
    "arch": "mobile",
    "declenchement": "Lâché à la main derrière le portique au GO.",
-   "reussite": 0.75
+   "reussite": 0.75,
+   "famille": "piege",
+   "temps": {
+    "effet": 0.75,
+    "perte": [
+     0.04,
+     0.15
+    ],
+    "sortie": 0.08,
+    "cibles": 1,
+    "perteMoy": 0.0713
+   },
+   "violence": 0.335,
+   "caisseSeule": false
   },
   {
    "id": "bloc_terre",
    "name": "Bloc de Terre Moddé",
    "cat": "piege",
    "rarity": "commun",
-   "price": 20,
+   "price": 15,
    "icon": "cube",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.7,
+   "factor": 0.662,
    "digital": null,
    "team": 10,
    "unlockHeat": 1,
@@ -985,21 +1147,34 @@
    "diy": "Cube creux à 2 parois : poser un écrou M8 dedans pour qu'il encaisse les chocs sans voler.",
    "scad": "bloc_terre",
    "nash": {
-    "a": 0.0785,
-    "c": 0.53
+    "a": 0.0914,
+    "c": 0.626
    },
-   "arch": "statique"
+   "arch": "statique",
+   "famille": "piege",
+   "temps": {
+    "effet": 0.5,
+    "perte": [
+     0.03,
+     0.1
+    ],
+    "sortie": 0.06,
+    "cibles": 1,
+    "perteMoy": 0.0325
+   },
+   "violence": 0.245,
+   "caisseSeule": false
   },
   {
    "id": "balancier",
    "name": "Lame du Massacreur",
    "cat": "piege",
    "rarity": "epique",
-   "price": 40,
+   "price": 25,
    "icon": "blade",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.55,
+   "factor": 0.408,
    "digital": null,
    "team": 10,
    "unlockHeat": 4,
@@ -1017,23 +1192,36 @@
    "diy": "Lâcher la lame à 45° au moment du GO. Écrou M6 dans la tête de lame (logement hexagonal).",
    "scad": "balancier",
    "nash": {
-    "a": 0.1231,
-    "c": 0.851
+    "a": 0.1598,
+    "c": 1.095
    },
    "arch": "asservi",
    "declenchement": "Lame tenue à 45°, lâchée par le propriétaire au bon moment.",
-   "reussite": 0.55
+   "reussite": 0.55,
+   "famille": "piege",
+   "temps": {
+    "effet": 0.55,
+    "perte": [
+     0.1,
+     0.4
+    ],
+    "sortie": 0.12,
+    "cibles": 1,
+    "perteMoy": 0.1375
+   },
+   "violence": 0.61,
+   "caisseSeule": true
   },
   {
    "id": "pelote",
    "name": "Pelote de Milo",
    "cat": "piege",
    "rarity": "commun",
-   "price": 15,
+   "price": 10,
    "icon": "yarn",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.8,
+   "factor": 0.808,
    "digital": null,
    "team": 11,
    "unlockHeat": 1,
@@ -1052,23 +1240,36 @@
    "diy": "La poser à l'arrêt en milieu de voie ; elle ne roule qu'au premier contact.",
    "scad": "pelote",
    "nash": {
-    "a": 0.0511,
-    "c": 0.327
+    "a": 0.0517,
+    "c": 0.355
    },
    "arch": "mobile",
    "declenchement": "Posée ou lancée dans la voie pendant la course.",
-   "reussite": 0.6
+   "reussite": 0.6,
+   "famille": "piege",
+   "temps": {
+    "effet": 0.6,
+    "perte": [
+     0.01,
+     0.04
+    ],
+    "sortie": 0.02,
+    "cibles": 1,
+    "perteMoy": 0.015
+   },
+   "violence": 0.085,
+   "caisseSeule": false
   },
   {
    "id": "tourniquet",
    "name": "Tourniquet Menaçant",
    "cat": "piege",
-   "rarity": "rare",
-   "price": 30,
+   "rarity": "commun",
+   "price": 20,
    "icon": "turnstile",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.62,
+   "factor": 0.539,
    "digital": null,
    "team": 12,
    "unlockHeat": 1,
@@ -1086,21 +1287,34 @@
    "diy": "Ajuster le frottement de l'axe avec `jeu_axe` : plus serré = plus punitif.",
    "scad": "tourniquet",
    "nash": {
-    "a": 0.1007,
-    "c": 0.687
+    "a": 0.1245,
+    "c": 0.853
    },
-   "arch": "statique"
+   "arch": "statique",
+   "famille": "piege",
+   "temps": {
+    "effet": 0.8,
+    "perte": [
+     0.03,
+     0.08
+    ],
+    "sortie": 0.04,
+    "cibles": 1,
+    "perteMoy": 0.044
+   },
+   "violence": 0.175,
+   "caisseSeule": false
   },
   {
    "id": "baguettes",
    "name": "Baguettes Croisées",
    "cat": "piege",
-   "rarity": "rare",
-   "price": 25,
+   "rarity": "commun",
+   "price": 15,
    "icon": "drumsticks",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.68,
+   "factor": 0.61,
    "digital": null,
    "team": 13,
    "unlockHeat": 1,
@@ -1118,21 +1332,34 @@
    "diy": "Les pieds se clipsent sur les 2 parois de la voie : `paroi_ep` et `voie_l` à régler.",
    "scad": "baguettes",
    "nash": {
-    "a": 0.0842,
-    "c": 0.572
+    "a": 0.1054,
+    "c": 0.722
    },
-   "arch": "statique"
+   "arch": "statique",
+   "famille": "piege",
+   "temps": {
+    "effet": 0.6,
+    "perte": [
+     0.03,
+     0.1
+    ],
+    "sortie": 0.03,
+    "cibles": 1,
+    "perteMoy": 0.039
+   },
+   "violence": 0.155,
+   "caisseSeule": false
   },
   {
    "id": "shuriken",
    "name": "Shuriken Rotatif",
    "cat": "piege",
-   "rarity": "epique",
-   "price": 35,
+   "rarity": "rare",
+   "price": 25,
    "icon": "shuriken",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.6,
+   "factor": 0.416,
    "digital": null,
    "team": 14,
    "unlockHeat": 4,
@@ -1150,21 +1377,34 @@
    "diy": "Axe cure-dent planté dans une semelle Patafix ; lancer l'étoile d'une pichenette au GO.",
    "scad": "shuriken",
    "nash": {
-    "a": 0.1076,
-    "c": 0.735
+    "a": 0.1578,
+    "c": 1.081
    },
-   "arch": "statique"
+   "arch": "statique",
+   "famille": "piege",
+   "temps": {
+    "effet": 0.8,
+    "perte": [
+     0.04,
+     0.12
+    ],
+    "sortie": 0.08,
+    "cibles": 1,
+    "perteMoy": 0.064
+   },
+   "violence": 0.32,
+   "caisseSeule": false
   },
   {
    "id": "pirouette",
    "name": "Plateau Pirouette Étoile",
    "cat": "piege",
-   "rarity": "epique",
-   "price": 40,
+   "rarity": "rare",
+   "price": 30,
    "icon": "spin",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.56,
+   "factor": 0.258,
    "digital": null,
    "team": 15,
    "unlockHeat": 4,
@@ -1182,10 +1422,23 @@
    "diy": "Pivot : bille d'acier Ø 4 mm (roulement de vélo) entre le plateau et le socle.",
    "scad": "pirouette",
    "nash": {
-    "a": 0.121,
-    "c": 0.844
+    "a": 0.2003,
+    "c": 1.372
    },
-   "arch": "statique"
+   "arch": "statique",
+   "famille": "piege",
+   "temps": {
+    "effet": 0.85,
+    "perte": [
+     0.05,
+     0.2
+    ],
+    "sortie": 0.15,
+    "cibles": 1,
+    "perteMoy": 0.1062
+   },
+   "violence": 0.575,
+   "caisseSeule": false
   },
   {
    "id": "assurance",
@@ -1211,7 +1464,9 @@
    },
    "diy": "Jeton décoratif ; l'effet est appliqué automatiquement par le relais au résultat.",
    "scad": "jeton_depanneuse",
-   "arch": "numerique"
+   "arch": "numerique",
+   "famille": "bonus",
+   "caisseSeule": false
   },
   {
    "id": "allin",
@@ -1237,7 +1492,9 @@
    },
    "diy": "Jeton décoratif ; le relais applique la cote majorée au pari suivant.",
    "scad": "jeton_allin",
-   "arch": "numerique"
+   "arch": "numerique",
+   "famille": "bonus",
+   "caisseSeule": true
   },
   {
    "id": "verres",
@@ -1264,7 +1521,9 @@
    "diy": "Monture plate à porter pour le gage photo ; l'effet numérique est automatique.",
    "scad": "lunettes_gage",
    "targetTeam": true,
-   "arch": "numerique"
+   "arch": "numerique",
+   "famille": "piege",
+   "caisseSeule": false
   },
   {
    "id": "fantome",
@@ -1290,7 +1549,9 @@
    },
    "diy": "En PLA « Glow » (achat conseillé), il brille dans le noir pendant la cérémonie. Filament abrasif : imprimer avec une buse en acier trempé.",
    "scad": "fantome",
-   "arch": "numerique"
+   "arch": "numerique",
+   "famille": "piege",
+   "caisseSeule": true
   },
   {
    "id": "encre",
@@ -1317,21 +1578,23 @@
    "diy": "Tampon décoratif ; l'effet d'encre est joué sur le téléphone visé.",
    "scad": "tampon_encre",
    "targetTeam": true,
-   "arch": "numerique"
+   "arch": "numerique",
+   "famille": "piege",
+   "caisseSeule": false
   },
   {
    "id": "herse",
    "name": "Herse du Donjon",
    "cat": "piege",
-   "rarity": "rare",
+   "rarity": "legendaire",
    "price": 30,
    "icon": "portcullis",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.6,
+   "factor": 0.333,
    "digital": null,
    "team": 1,
-   "unlockHeat": 2,
+   "unlockHeat": 3,
    "zone": [
     "Z4"
    ],
@@ -1349,20 +1612,33 @@
    "reussite": 0.6,
    "declenchement": "Tirer la ficelle quand le bolide visé est à ≈ 13 cm du portique (la grille tombe en 50 ms).",
    "nash": {
-    "a": 0.108,
-    "c": 0.74
-   }
+    "a": 0.18,
+    "c": 1.233
+   },
+   "famille": "piege",
+   "temps": {
+    "effet": 0.6,
+    "perte": [
+     0.4,
+     1.2
+    ],
+    "sortie": 0.1,
+    "cibles": 1,
+    "perteMoy": 0.48
+   },
+   "violence": 1.1,
+   "caisseSeule": true
   },
   {
    "id": "bascule",
    "name": "Bascule Hazzard",
    "cat": "piege",
-   "rarity": "rare",
-   "price": 25,
+   "rarity": "epique",
+   "price": 30,
    "icon": "drawbridge",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.65,
+   "factor": 0.326,
    "digital": null,
    "team": 9,
    "unlockHeat": 1,
@@ -1384,20 +1660,33 @@
    "reussite": 0.65,
    "declenchement": "Tirer d'un coup sec quand le bolide est à ≈ 8 cm du tablier.",
    "nash": {
-    "a": 0.0945,
-    "c": 0.647
-   }
+    "a": 0.182,
+    "c": 1.247
+   },
+   "famille": "piege",
+   "temps": {
+    "effet": 0.65,
+    "perte": [
+     0.1,
+     0.3
+    ],
+    "sortie": 0.2,
+    "cibles": 1,
+    "perteMoy": 0.13
+   },
+   "violence": 0.8,
+   "caisseSeule": true
   },
   {
    "id": "peage",
    "name": "Barrière de Péage",
    "cat": "piege",
-   "rarity": "commun",
-   "price": 15,
+   "rarity": "rare",
+   "price": 30,
    "icon": "barrier",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.7,
+   "factor": 0.347,
    "digital": null,
    "team": 6,
    "unlockHeat": 1,
@@ -1419,20 +1708,33 @@
    "reussite": 0.6,
    "declenchement": "Retirer la goupille quand le bolide est à ≈ 22 cm (la lisse, tenue inclinée à 30°, tombe en 90 ms).",
    "nash": {
-    "a": 0.081,
-    "c": 0.555
-   }
+    "a": 0.1763,
+    "c": 1.208
+   },
+   "famille": "piege",
+   "temps": {
+    "effet": 0.6,
+    "perte": [
+     0.15,
+     0.4
+    ],
+    "sortie": 0.05,
+    "cibles": 1,
+    "perteMoy": 0.165
+   },
+   "violence": 0.425,
+   "caisseSeule": false
   },
   {
    "id": "boulet",
    "name": "Boulet de Démolition",
    "cat": "piege",
-   "rarity": "epique",
-   "price": 40,
+   "rarity": "legendaire",
+   "price": 25,
    "icon": "wrecking",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.55,
+   "factor": 0.431,
    "digital": null,
    "team": 8,
    "unlockHeat": 3,
@@ -1453,9 +1755,22 @@
    "reussite": 0.5,
    "declenchement": "Lâcher le boulet quand le bolide est à ≈ 28 cm (un quart de période : 0,11 s).",
    "nash": {
-    "a": 0.1215,
-    "c": 0.832
-   }
+    "a": 0.1536,
+    "c": 1.053
+   },
+   "famille": "piege",
+   "temps": {
+    "effet": 0.5,
+    "perte": [
+     0.2,
+     0.6
+    ],
+    "sortie": 0.25,
+    "cibles": 1,
+    "perteMoy": 0.2
+   },
+   "violence": 1.15,
+   "caisseSeule": true
   },
   {
    "id": "belier",
@@ -1466,7 +1781,7 @@
    "icon": "ram",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.62,
+   "factor": 0.458,
    "digital": null,
    "team": 2,
    "unlockHeat": 1,
@@ -1487,20 +1802,33 @@
    "reussite": 0.65,
    "declenchement": "Appuyer quand le bolide est à ≈ 8 cm de la tête du piston.",
    "nash": {
-    "a": 0.1026,
-    "c": 0.703
-   }
+    "a": 0.1464,
+    "c": 1.003
+   },
+   "famille": "piege",
+   "temps": {
+    "effet": 0.65,
+    "perte": [
+     0.05,
+     0.15
+    ],
+    "sortie": 0.08,
+    "cibles": 1,
+    "perteMoy": 0.065
+   },
+   "violence": 0.34,
+   "caisseSeule": false
   },
   {
    "id": "obus",
    "name": "Obus à Billes",
    "cat": "piege",
    "rarity": "commun",
-   "price": 15,
+   "price": 10,
    "icon": "rollshell",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.7,
+   "factor": 0.719,
    "digital": null,
    "team": 11,
    "unlockHeat": 1,
@@ -1522,20 +1850,33 @@
    "reussite": 0.6,
    "declenchement": "Lancé à la main depuis le haut de la voie, juste après le GO.",
    "nash": {
-    "a": 0.081,
-    "c": 0.555
-   }
+    "a": 0.076,
+    "c": 0.521
+   },
+   "famille": "piege",
+   "temps": {
+    "effet": 0.6,
+    "perte": [
+     0.02,
+     0.06
+    ],
+    "sortie": 0.03,
+    "cibles": 1,
+    "perteMoy": 0.024
+   },
+   "violence": 0.13,
+   "caisseSeule": false
   },
   {
    "id": "bowling",
    "name": "Boule du Duc",
    "cat": "piege",
-   "rarity": "rare",
-   "price": 25,
+   "rarity": "commun",
+   "price": 20,
    "icon": "bowling",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.6,
+   "factor": 0.52,
    "digital": null,
    "team": 5,
    "unlockHeat": 1,
@@ -1557,9 +1898,22 @@
    "reussite": 0.65,
    "declenchement": "Lâchée en haut de la voie au moment du GO (ou 1 s avant, si on ose).",
    "nash": {
-    "a": 0.108,
-    "c": 0.74
-   }
+    "a": 0.1297,
+    "c": 0.889
+   },
+   "famille": "piege",
+   "temps": {
+    "effet": 0.65,
+    "perte": [
+     0.04,
+     0.12
+    ],
+    "sortie": 0.05,
+    "cibles": 1,
+    "perteMoy": 0.052
+   },
+   "violence": 0.23,
+   "caisseSeule": false
   },
   {
    "id": "chausse_trapes",
@@ -1570,7 +1924,7 @@
    "icon": "caltrop",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.78,
+   "factor": 0.801,
    "digital": null,
    "team": 14,
    "unlockHeat": 1,
@@ -1592,20 +1946,33 @@
    "reussite": 0.75,
    "declenchement": "Jetées sur la voie visée pendant la course.",
    "nash": {
-    "a": 0.0594,
-    "c": 0.407
-   }
+    "a": 0.0537,
+    "c": 0.368
+   },
+   "famille": "piege",
+   "temps": {
+    "effet": 0.75,
+    "perte": [
+     0.01,
+     0.03
+    ],
+    "sortie": 0.02,
+    "cibles": 1,
+    "perteMoy": 0.015
+   },
+   "violence": 0.08,
+   "caisseSeule": false
   },
   {
    "id": "curling",
    "name": "Pierre de Curling",
    "cat": "piege",
    "rarity": "commun",
-   "price": 15,
+   "price": 10,
    "icon": "curling",
    "needsLane": true,
    "laneLimited": true,
-   "factor": 0.75,
+   "factor": 0.715,
    "digital": null,
    "team": 13,
    "unlockHeat": 1,
@@ -1627,9 +1994,360 @@
    "reussite": 0.7,
    "declenchement": "Glissé à la main en haut de la voie juste avant le passage du bolide.",
    "nash": {
-    "a": 0.0675,
-    "c": 0.463
-   }
+    "a": 0.0768,
+    "c": 0.526
+   },
+   "famille": "piege",
+   "temps": {
+    "effet": 0.7,
+    "perte": [
+     0.02,
+     0.05
+    ],
+    "sortie": 0.01,
+    "cibles": 1,
+    "perteMoy": 0.0245
+   },
+   "violence": 0.065,
+   "caisseSeule": false
+  },
+  {
+   "id": "retro",
+   "name": "Rétro-Miroir",
+   "cat": "defense",
+   "rarity": "rare",
+   "price": 25,
+   "icon": "mirror",
+   "needsLane": false,
+   "laneLimited": false,
+   "factor": null,
+   "digital": "mirror",
+   "team": 3,
+   "unlockHeat": 1,
+   "zone": [],
+   "effect": "Le prochain piège de voie visant VOTRE bolide est renvoyé sur la voie de celui qui l'a posé (absorbé s'il ne court pas).",
+   "lore": "Dans le rétro, les objets sont plus proches qu'ils n'y paraissent. Surtout ceux qu'on vous lance.",
+   "physique": "Aucun objet sur la piste : le commissaire déplace le piège sur la voie de l'agresseur, au même repère.",
+   "print": {
+    "mat": "PLA Silk+ Argenté 13109 (miroir) + Matte Anthracite 11101 (coque)",
+    "min": 22,
+    "g": 6
+   },
+   "diy": "Coller un carré de miroir acrylique 20 × 14 mm (ou d'adhésif chromé) dans la coque : il reflète vraiment.",
+   "scad": "jeton_miroir",
+   "selfLane": true,
+   "famille": "bonus",
+   "arch": "numerique",
+   "caisseSeule": false
+  },
+  {
+   "id": "aimant",
+   "name": "Aimant à Pièces",
+   "cat": "tactique",
+   "rarity": "commun",
+   "price": 15,
+   "icon": "magnet",
+   "needsLane": false,
+   "laneLimited": false,
+   "factor": null,
+   "digital": "magnet",
+   "team": null,
+   "unlockHeat": 1,
+   "zone": [],
+   "effect": "Vos pièces de course de la manche sont multipliées par 1,5.",
+   "lore": "Un aimant en fer à cheval de la quincaillerie de Papy. Il attire tout, surtout l'argent.",
+   "physique": "Aucun objet sur la piste : l'aimant-jeton se pose sur la tablette de l'écurie.",
+   "print": {
+    "mat": "PLA Matte Rouge écarlate 11200 + Silk+ Argenté 13109 (pôles)",
+    "min": 16,
+    "g": 5
+   },
+   "diy": "Glisser 2 aimants néodyme 6 × 2 mm dans les pôles : il tient sur le frigo après la soirée.",
+   "scad": "jeton_aimant",
+   "racingOnly": true,
+   "famille": "bonus",
+   "arch": "numerique",
+   "caisseSeule": false
+  },
+  {
+   "id": "prime",
+   "name": "Prime de Cote",
+   "cat": "tactique",
+   "rarity": "rare",
+   "price": 20,
+   "icon": "percent",
+   "needsLane": false,
+   "laneLimited": false,
+   "factor": null,
+   "digital": "prime",
+   "team": null,
+   "unlockHeat": 1,
+   "zone": [],
+   "effect": "Votre prochain pari « victoire » sur VOTRE propre bolide voit sa cote ×1,25.",
+   "lore": "Le bookmaker a un faible pour ceux qui croient en leur propre machine.",
+   "physique": "Aucun objet : le jeton « % » se pose devant le bolide de l'écurie.",
+   "print": {
+    "mat": "PLA Basic Jaune tournesol 10402 + Matte Anthracite 11101",
+    "min": 14,
+    "g": 4
+   },
+   "diy": "Jeton décoratif ; le relais majore la cote au pari suivant.",
+   "scad": "jeton_prime",
+   "racingOnly": true,
+   "famille": "bonus",
+   "arch": "numerique",
+   "caisseSeule": false
+  },
+  {
+   "id": "turbo",
+   "name": "Turbo Néon",
+   "cat": "tactique",
+   "rarity": "commun",
+   "price": 10,
+   "icon": "turbo",
+   "needsLane": false,
+   "laneLimited": false,
+   "factor": null,
+   "digital": "turbo",
+   "team": null,
+   "unlockHeat": 1,
+   "zone": [],
+   "effect": "Vos tapotements Boost comptent double pendant la course ; des flammes néon jaillissent de votre voie sur la TV.",
+   "lore": "Le kit néon le plus bruyant du parking du supermarché. Zéro cheval en plus, cent pour cent de style.",
+   "physique": "Aucun objet sur la piste : effet d'affichage (flammes sur la TV, compteur ×2 sur le téléphone).",
+   "print": {
+    "mat": "PLA Silk+ Bleu 13604 (flammes) + Matte Mandarine 11300",
+    "min": 18,
+    "g": 5
+   },
+   "diy": "Jeton-échappement décoratif à poser derrière le bolide sur la grille.",
+   "scad": "jeton_turbo",
+   "famille": "bonus",
+   "arch": "numerique",
+   "caisseSeule": false
+  },
+  {
+   "id": "graphite",
+   "name": "Graphite Express",
+   "cat": "tactique",
+   "rarity": "rare",
+   "price": 25,
+   "icon": "pencil",
+   "needsLane": false,
+   "laneLimited": false,
+   "factor": 1.312,
+   "digital": "graphite",
+   "team": 10,
+   "unlockHeat": 1,
+   "zone": [],
+   "effect": "Une pincée de graphite sur les essieux de VOTRE bolide : il gagne quelques centièmes (cote recalculée).",
+   "lore": "Le secret des courses de caisses à savon : la poudre noire qui rend les roues muettes.",
+   "physique": "Le pilote saupoudre 2 mg de graphite (poudre de crayon 6B) sur chaque essieu avant le départ : moins de frottement, ≈ 0,01 à 0,03 s gagnées.",
+   "print": {
+    "mat": "PLA Matte Anthracite 11101 (poudrier) + Silk+ Argenté 13109 (bouchon)",
+    "min": 20,
+    "g": 5
+   },
+   "diy": "Poudrier imprimé à remplir de mine de crayon 6B râpée ; essuyer les roues après la soirée.",
+   "scad": "poudrier_graphite",
+   "selfLane": true,
+   "famille": "bonus",
+   "arch": "numerique",
+   "temps": {
+    "effet": 1.0,
+    "perte": [
+     -0.03,
+     -0.01
+    ],
+    "sortie": 0.0,
+    "cibles": 1,
+    "perteMoy": -0.02
+   },
+   "caisseSeule": false
+  },
+  {
+   "id": "lest",
+   "name": "Lest de Champion",
+   "cat": "tactique",
+   "rarity": "commun",
+   "price": 15,
+   "icon": "weight",
+   "needsLane": false,
+   "laneLimited": false,
+   "factor": 1.147,
+   "digital": "lest",
+   "team": 7,
+   "unlockHeat": 1,
+   "zone": [],
+   "effect": "Un lest de 3 g clipsé à l'arrière de VOTRE bolide : un soupçon d'inertie en plus (cote recalculée).",
+   "lore": "Plus lourd, plus vite : la plus vieille règle des courses par gravité.",
+   "physique": "Pince-lest en U (jeu 0,30) qui coiffe le pare-chocs arrière et loge une rondelle M5 (≈ 1 g) ou M6 (≈ 3 g) : ≈ 0 à 0,02 s gagnées.",
+   "print": {
+    "mat": "PLA Matte Anthracite 11101",
+    "min": 8,
+    "g": 2
+   },
+   "diy": "La pince se clipse sans outil et se retire après la manche ; ne jamais dépasser 3 g (la voiture doit rester dans la voie).",
+   "scad": "pince_lest",
+   "selfLane": true,
+   "famille": "bonus",
+   "arch": "numerique",
+   "temps": {
+    "effet": 1.0,
+    "perte": [
+     -0.02,
+     0.0
+    ],
+    "sortie": 0.0,
+    "cibles": 1,
+    "perteMoy": -0.01
+   },
+   "caisseSeule": false
+  },
+  {
+   "id": "balayeuse",
+   "name": "Balayeuse Municipale",
+   "cat": "defense",
+   "rarity": "commun",
+   "price": 10,
+   "icon": "broom",
+   "needsLane": false,
+   "laneLimited": false,
+   "factor": null,
+   "digital": "sweep",
+   "team": null,
+   "unlockHeat": 1,
+   "zone": [],
+   "effect": "Les pièges déjà posés sur VOTRE voie sont retirés (de nouveaux pièges restent possibles).",
+   "lore": "Le service de voirie passe toujours au pire moment pour les saboteurs.",
+   "physique": "Aucun objet : la régie retire les pièges de la voie avant le départ.",
+   "print": {
+    "mat": "PLA Silk+ Vert bonbon 13506 + Wood Chêne blanc 13106 (manche)",
+    "min": 14,
+    "g": 4
+   },
+   "diy": "Mini-balai-jeton : à poser devant la voie nettoyée.",
+   "scad": "jeton_balai",
+   "selfLane": true,
+   "famille": "bonus",
+   "arch": "numerique",
+   "caisseSeule": false
+  },
+  {
+   "id": "relance",
+   "name": "Relance du Commissaire",
+   "cat": "defense",
+   "rarity": "rare",
+   "price": 20,
+   "icon": "hand",
+   "needsLane": false,
+   "laneLimited": false,
+   "factor": null,
+   "digital": "relaunch",
+   "team": null,
+   "unlockHeat": 1,
+   "zone": [],
+   "effect": "Si un piège arrête VOTRE bolide, le commissaire le relance aussitôt juste après l'obstacle (sans attendre 1 s) : l'effet des pièges sur votre voie est divisé par 2.",
+   "lore": "Le commissaire de piste a des réflexes de gardien de but. Et un faible pour vous.",
+   "physique": "Règle de piste : le commissaire se tient au repère du piège et relance la voiture immédiatement (perte plafonnée à ≈ 0,3 s).",
+   "print": {
+    "mat": "PLA Matte Blanc ivoire 11100 + Rouge écarlate 11200 (gant)",
+    "min": 18,
+    "g": 5
+   },
+   "diy": "Gant-jeton remis au commissaire de piste pour la manche : il sait quelle voie relancer en priorité.",
+   "scad": "jeton_relance",
+   "selfLane": true,
+   "famille": "bonus",
+   "arch": "numerique",
+   "caisseSeule": false
+  },
+  {
+   "id": "joker",
+   "name": "Joker de Grille",
+   "cat": "tactique",
+   "rarity": "epique",
+   "price": 35,
+   "icon": "cards",
+   "needsLane": false,
+   "laneLimited": false,
+   "factor": null,
+   "digital": "joker",
+   "team": null,
+   "unlockHeat": 1,
+   "zone": [],
+   "effect": "Avant l'ouverture de la Bourse, remplacez VOTRE bolide de la manche par un autre de votre paddock.",
+   "lore": "Le règlement ne l'interdit pas. Le règlement ne l'a pas prévu.",
+   "physique": "Le pilote retire sa voiture de la grille et pose celle de son choix (paddock de l'écurie) : les cotes sont recalculées.",
+   "print": {
+    "mat": "PLA Matte Blanc ivoire 11100 + Rouge écarlate 11200 + Anthracite 11101",
+    "min": 16,
+    "g": 4
+   },
+   "diy": "Carte-joker rigide de 1,2 mm à brandir devant la grille au moment du remplacement.",
+   "scad": "carte_joker",
+   "racingOnly": true,
+   "famille": "bonus",
+   "arch": "numerique",
+   "caisseSeule": true
+  },
+  {
+   "id": "souffle",
+   "name": "Second Souffle",
+   "cat": "defense",
+   "rarity": "epique",
+   "price": 30,
+   "icon": "wind",
+   "needsLane": false,
+   "laneLimited": false,
+   "factor": null,
+   "digital": "second",
+   "team": null,
+   "unlockHeat": 1,
+   "zone": [],
+   "effect": "Si VOTRE bolide finit dernier (hors D.N.F.), il marque les points et les pièces de l'avant-dernière place, sans pénaliser personne.",
+   "lore": "La dernière bouffée d'air d'un moteur qui refuse d'abandonner.",
+   "physique": "Aucun objet : le relais réévalue le barème de votre bolide au résultat.",
+   "print": {
+    "mat": "PLA Silk+ Vert bonbon 13506 + Blanc ivoire 11100",
+    "min": 18,
+    "g": 5
+   },
+   "diy": "Jeton décoratif « nuage » ; l'effet est automatique.",
+   "scad": "jeton_souffle",
+   "selfLane": true,
+   "famille": "bonus",
+   "arch": "numerique",
+   "caisseSeule": true
+  },
+  {
+   "id": "etoile",
+   "name": "Étoile d'Invincibilité",
+   "cat": "defense",
+   "rarity": "legendaire",
+   "price": 60,
+   "icon": "star",
+   "needsLane": false,
+   "laneLimited": false,
+   "factor": null,
+   "digital": "star",
+   "team": null,
+   "unlockHeat": 2,
+   "zone": [],
+   "effect": "Immunité totale pour la manche : voie nettoyée et protégée, et aucun effet adverse (lest, verres, encre, fantôme, miroir) ne vous atteint.",
+   "lore": "Quelques secondes de musique accélérée et plus rien ne peut vous arriver.",
+   "physique": "Aucun objet sur la piste : l'étoile-trophée se pose sur le toit du bolide pour la photo de départ, puis sur la tablette.",
+   "print": {
+    "mat": "PLA Silk+ Doré 13405 (ou Basic Jaune tournesol 10402)",
+    "min": 24,
+    "g": 7
+   },
+   "diy": "Étoile pleine de 34 mm à base aimantée (aimant 6 × 2 mm) : elle tient sur le portique de départ.",
+   "scad": "jeton_etoile",
+   "selfLane": true,
+   "famille": "bonus",
+   "arch": "numerique",
+   "caisseSeule": true
   }
  ],
  "taunts": [
@@ -1761,5 +2479,257 @@
   },
   "priceFloorRatio": 0.7,
   "priceCap": 95
- }
+ },
+ "archetypes": {
+  "statique": {
+   "nom": "Statique",
+   "icone": "cube",
+   "desc": "Posé avant le départ, il attend son heure."
+  },
+  "asservi": {
+   "nom": "Asservi",
+   "icone": "target",
+   "desc": "Monté sur la piste, déclenché en direct par son propriétaire."
+  },
+  "mobile": {
+   "nom": "Mobile",
+   "icone": "bowling",
+   "desc": "Lancé, roulé ou glissé dans la voie pendant la course."
+  },
+  "numerique": {
+   "nom": "Numérique",
+   "icone": "wifi",
+   "desc": "L'application fait la loi : aucun objet actif sur la piste."
+  }
+ },
+ "temps": {
+  "sigma": 0.1,
+  "commissaireS": 0.5,
+  "dureeCourse": [
+   1.2,
+   2.5
+  ],
+  "vitesse_m_s": 2.5,
+  "seuils": [
+   [
+    "commun",
+    0.3
+   ],
+   [
+    "rare",
+    0.6
+   ],
+   [
+    "epique",
+    1.0
+   ],
+   [
+    "legendaire",
+    99.0
+   ]
+  ]
+ },
+ "caisses": {
+  "familles": {
+   "piege": {
+    "nom": "Caisse PIÈGES",
+    "icone": "crate",
+    "desc": "Herses, boulets, chicanes : de quoi faire pleurer le favori."
+   },
+   "bonus": {
+    "nom": "Caisse BONUS",
+    "icone": "gift",
+    "desc": "Boucliers, turbos, jokers : de quoi s'en sortir et rafler la mise."
+   }
+  },
+  "gammes": [
+   {
+    "id": "standard",
+    "nom": "Standard",
+    "rtp": 0.92,
+    "tirage": {
+     "commun": 0.75,
+     "rare": 0.2,
+     "epique": 0.045,
+     "legendaire": 0.005
+    },
+    "materiau": "Caisse de fret en bois, sangles anthracite",
+    "prix": {
+     "piege": 18,
+     "bonus": 19
+    },
+    "tirageEffectif": {
+     "piege": {
+      "commun": 0.75,
+      "rare": 0.2,
+      "epique": 0.045,
+      "legendaire": 0.005
+     },
+     "bonus": {
+      "commun": 0.75,
+      "rare": 0.2,
+      "epique": 0.045,
+      "legendaire": 0.005
+     }
+    }
+   },
+   {
+    "id": "elite",
+    "nom": "Élite",
+    "rtp": 0.85,
+    "tirage": {
+     "commun": 0.45,
+     "rare": 0.38,
+     "epique": 0.14,
+     "legendaire": 0.03
+    },
+    "materiau": "Coffre blindé violet, arêtes néon",
+    "prix": {
+     "piege": 25,
+     "bonus": 27
+    },
+    "tirageEffectif": {
+     "piege": {
+      "commun": 0.45,
+      "rare": 0.38,
+      "epique": 0.14,
+      "legendaire": 0.03
+     },
+     "bonus": {
+      "commun": 0.45,
+      "rare": 0.38,
+      "epique": 0.14,
+      "legendaire": 0.03
+     }
+    }
+   },
+   {
+    "id": "marche_noir",
+    "nom": "Marché Noir",
+    "rtp": 0.78,
+    "tirage": {
+     "commun": 0.0,
+     "rare": 0.5,
+     "epique": 0.38,
+     "legendaire": 0.12
+    },
+    "materiau": "Écrin noir et or, sceau incandescent",
+    "prix": {
+     "piege": 40,
+     "bonus": 47
+    },
+    "tirageEffectif": {
+     "piege": {
+      "commun": 0.0,
+      "rare": 0.5,
+      "epique": 0.38,
+      "legendaire": 0.12
+     },
+     "bonus": {
+      "commun": 0.0,
+      "rare": 0.5,
+      "epique": 0.38,
+      "legendaire": 0.12
+     }
+    }
+   }
+  ],
+  "primeRarete": {
+   "commun": 1.0,
+   "rare": 1.0,
+   "epique": 1.25,
+   "legendaire": 1.6
+  },
+  "escalade": 0.35,
+  "taxeMin": 0.8,
+  "taxeMax": 1.6,
+  "maxParManche": 3,
+  "pitie": 8,
+  "contrat": {
+   "n": 5,
+   "de": "commun",
+   "vers": "rare"
+  },
+  "revente": 0.4,
+  "bande": {
+   "longueur": 48,
+   "gagnant": 40
+  },
+  "contenu": {
+   "piege": {
+    "commun": [
+     "banane",
+     "thwomp",
+     "dos_ane",
+     "guimauve",
+     "balle_service",
+     "vinyle",
+     "mediator",
+     "cle_sol",
+     "huile",
+     "bloc_terre",
+     "pelote",
+     "tourniquet",
+     "baguettes",
+     "encre",
+     "obus",
+     "bowling",
+     "chausse_trapes",
+     "curling"
+    ],
+    "rare": [
+     "eclair",
+     "cupcake",
+     "oeuf_wyverne",
+     "shuriken",
+     "pirouette",
+     "verres",
+     "peage",
+     "belier"
+    ],
+    "epique": [
+     "balancier",
+     "bascule"
+    ],
+    "legendaire": [
+     "fantome",
+     "herse",
+     "boulet"
+    ]
+   },
+   "bonus": {
+    "commun": [
+     "champi",
+     "carapace",
+     "aimant",
+     "turbo",
+     "lest",
+     "balayeuse"
+    ],
+    "rare": [
+     "assurance",
+     "retro",
+     "prime",
+     "graphite",
+     "relance"
+    ],
+    "epique": [
+     "allin",
+     "joker",
+     "souffle"
+    ],
+    "legendaire": [
+     "etoile"
+    ]
+   }
+  }
+ },
+ "legendaire": {
+  "parManche": 1,
+  "protegeDernier": true,
+  "unlockMin": 3
+ },
+ "comptoir": [
+  "bleue"
+ ]
 }

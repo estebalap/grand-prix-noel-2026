@@ -309,3 +309,17 @@ body.rotated #ytBox,body.rotated #nowPlaying{display:none}
 @keyframes fireIn{0%{opacity:0;transform:scale(1.4)}100%{opacity:1;transform:none}}
 @keyframes fireOut{to{opacity:0;transform:scale(.9)}}
 @keyframes spinBurst{to{transform:rotate(360deg)}}
+
+/* ---- brief 3 : caisses, bonus visibles sur les voies */
+.crate3d{position:absolute;inset:0;z-index:90;background:radial-gradient(circle at 50% 55%,rgba(40,30,90,.65),rgba(3,4,12,.94));animation:scnIn .3s both}
+.crate3d canvas{width:100%;height:100%;display:block}
+.crate3d.out{transition:opacity .4s;opacity:0}
+.tflame{display:none}
+.lane.turbo .tflame{display:block;position:absolute;left:-58px;top:100px;width:120px;height:40px;pointer-events:none;z-index:6;border-radius:50%;
+  background:radial-gradient(ellipse at 100% 50%,#ffffff 0,#8ff3ff 18%,rgba(56,225,255,.9) 34%,rgba(36,121,208,.6) 55%,rgba(255,106,0,0) 75%);
+  filter:blur(1.5px) drop-shadow(0 0 14px #38e1ff);transform-origin:100% 50%;animation:tvFlame .09s steps(2) infinite alternate}
+@keyframes tvFlame{from{transform:scaleX(.78) scaleY(.85);opacity:.8}to{transform:scaleX(1.12) scaleY(1.08);opacity:1}}
+.lane.invincible{box-shadow:0 0 0 3px #ffd34d,0 0 40px 6px rgba(255,211,77,.55);animation:tvStar 1.4s linear infinite}
+@keyframes tvStar{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
+.lane .tr.refl{outline:3px dashed #cfe9ff;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.lane.turbo .tflame,.lane.invincible{animation:none}}

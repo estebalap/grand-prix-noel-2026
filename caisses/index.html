@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Salle des Caisses — Grand Prix de Noël</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../shared/arsenal.css">
+<link rel="stylesheet" href="../shared/lootbox.css">
+<link rel="stylesheet" href="caisses.css">
+<link rel="stylesheet" href="../shared/nintendo.css">
+<script>try{var k=new URLSearchParams(location.search).get("skin");if(k)localStorage.setItem("gp.skin",k);document.documentElement.dataset.skin=localStorage.getItem("gp.skin")||"nintendo"}catch(e){document.documentElement.dataset.skin="nintendo"}</script>
+</head>
+<body>
+<canvas id="atmo"></canvas><div class="vignette"></div>
+<div id="sc">
+  <header>
+    <div class="brand"><span class="eyebrow">Arsenal · caisses</span><b class="display foil">Salle des Caisses</b></div>
+    <nav id="fams"></nav>
+    <nav class="liens"><a href="../labo/" class="lk">Labo des pièges</a><a href="../showroom/" class="lk">Showroom</a></nav>
+  </header>
+  <section id="stage" aria-label="Les 3 gammes de caisses en 3D"><canvas id="c3"></canvas>
+    <div id="hud"><span id="statut"></span><button id="demoL" type="button" title="Démo : montre les effets d'une révélation légendaire">Effet légendaire (démo)</button></div>
+  </section>
+  <section id="info"></section>
+</div>
+<script src="../lib/three.min.js"></script>
+<script type="module" src="caisses.js"></script>
+</body>
+</html>

@@ -4,10 +4,11 @@
    Partagé par /pit/ (smartphone) et /tv/ (régie TV 4K).
    ========================================================================== */
 :root{
-  --r-commun:#9fb3d1; --r-commun-2:#5d7397;
-  --r-rare:#38c6ff;   --r-rare-2:#1569ff;
-  --r-epique:#c069ff; --r-epique-2:#6a1dff;
-  --r-legendaire:#ffc83d; --r-legendaire-2:#ff6a00;
+  /* brief 3 (caisses façon CS) : Commun gris-bleu · Rare violet · Épique rose · Légendaire or / rouge */
+  --r-commun:#9fb3d1; --r-commun-2:#4c6a9a;
+  --r-rare:#b07cff;   --r-rare-2:#5b2bd6;
+  --r-epique:#ff5cc8; --r-epique-2:#b0127a;
+  --r-legendaire:#ffd34d; --r-legendaire-2:#e2321e;
 }
 .r-commun{--rc:var(--r-commun);--rc2:var(--r-commun-2)}
 .r-rare{--rc:var(--r-rare);--rc2:var(--r-rare-2)}

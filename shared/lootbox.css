@@ -1,0 +1,75 @@
+/* ==========================================================================
+   CAISSES — roulette plein écran, cartes de révélation, tuiles de caisses, inventaire.
+   Partagé par /pit/ (smartphone), /tv/ (4K) et /caisses/ (Salle des Caisses).
+   ========================================================================== */
+.lbx{position:fixed;inset:0;z-index:200;background:#03040c;display:block;overflow:hidden;animation:lbxIn .25s ease-out both}
+.lbx.out{animation:lbxOut .3s ease-in both}
+@keyframes lbxIn{from{opacity:0}to{opacity:1}}@keyframes lbxOut{to{opacity:0;transform:scale(1.03)}}
+.lbx canvas{position:absolute;inset:0;display:block}
+.lbx-head{position:absolute;left:0;right:0;top:max(18px,env(safe-area-inset-top));text-align:center;pointer-events:none;
+  font-family:var(--font-display,system-ui);text-transform:uppercase;letter-spacing:.12em}
+.lbx-head b{display:block;font-weight:800;font-size:clamp(20px,5vw,54px);color:#ffe6a0;text-shadow:0 0 22px rgba(255,200,90,.6)}
+.lbx-head small{display:block;font-size:clamp(11px,2.6vw,22px);color:#c6cbe8;letter-spacing:.24em;margin-top:4px}
+.lbx-skip{position:absolute;right:14px;bottom:max(16px,env(safe-area-inset-bottom));width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.06);color:#fff;font-size:18px}
+.lbx.tv .lbx-skip{display:none}
+.lbx-flash{position:absolute;inset:0;pointer-events:none;opacity:0;mix-blend-mode:screen}
+.lbx-reveal{position:absolute;inset:0;display:grid;place-items:end center;padding:0 14px max(18px,env(safe-area-inset-bottom));pointer-events:none}
+.lbx-reveal[hidden]{display:none}
+.lbx-card{pointer-events:auto;width:min(520px,100%);text-align:center;padding:18px 18px 16px;border-radius:22px;position:relative;
+  background:linear-gradient(180deg,rgba(18,22,48,.92),rgba(6,8,20,.96));border:1px solid var(--rc,#9fb3d1);
+  box-shadow:0 0 0 1px rgba(255,255,255,.05),0 0 60px -10px var(--rc,#9fb3d1),0 30px 80px rgba(0,0,0,.6);animation:lbxCard .5s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes lbxCard{from{transform:translateY(40px) scale(.9);opacity:0}to{transform:none;opacity:1}}
+.lbx-card .lbx-rar{display:inline-block;font:800 13px var(--font-display,system-ui);letter-spacing:.3em;text-transform:uppercase;padding:4px 12px;border-radius:99px;
+  color:#0b0d1a;background:linear-gradient(90deg,var(--rc2),var(--rc),var(--rc2))}
+.lbx-card .lbx-ic{color:#fff;margin:6px auto 0;filter:drop-shadow(0 0 18px var(--rc))}
+.lbx-card h3{margin:4px 0 6px;font:800 clamp(22px,6vw,40px)/1 var(--font-display,system-ui);text-transform:uppercase;letter-spacing:.03em;color:#fff}
+.lbx-card p{margin:0 0 8px;color:#d6dbf5;font-size:14px;line-height:1.35}
+.lbx-card small{display:block;color:#9aa3c7;font-size:12px;margin-bottom:6px;word-break:break-all}
+.lbx-card.r-legendaire{background:linear-gradient(180deg,rgba(60,38,6,.94),rgba(20,10,4,.97));animation:lbxCard .7s cubic-bezier(.34,1.56,.64,1) both,lbxGold 2.4s linear infinite}
+@keyframes lbxGold{0%,100%{box-shadow:0 0 60px -6px #ffd34d,0 30px 80px rgba(0,0,0,.6)}50%{box-shadow:0 0 110px 4px #ff8a3d,0 30px 80px rgba(0,0,0,.6)}}
+.lbx-acts{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+.lbx-acts button{flex:1;min-width:120px;padding:13px 10px;border-radius:14px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;
+  font:800 15px var(--font-display,system-ui);letter-spacing:.06em;text-transform:uppercase}
+.lbx-acts button.pri{background:linear-gradient(180deg,var(--rc),var(--rc2));color:#0b0d1a;border-color:transparent}
+.lbx.tv .lbx-card{width:min(900px,70vw);padding:34px}.lbx.tv .lbx-card p{font-size:22px}.lbx.tv .lbx-card h3{font-size:64px}.lbx.tv .lbx-acts{display:none}
+@media (prefers-reduced-motion:reduce){.lbx-card,.lbx-card.r-legendaire{animation:none}}
+
+/* ---- probabilités affichées */
+.lbx-odds{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:11.5px;color:var(--ink-dim,#aab)}
+.lbx-odds span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.lbx-odds.cpt{display:grid;grid-template-columns:1fr;gap:1px;justify-items:start;width:100%;padding:0 4px}
+.lbx-odds.cpt span{width:100%;justify-content:space-between}.lbx-odds i{width:9px;height:9px;border-radius:3px;background:var(--rc)}
+.lbx-odds b{color:var(--ink,#fff);font-weight:700}
+
+/* ---- Pocket Pit : onglets de l'Arsenal, tuiles de caisses, inventaire */
+.atabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:10px 0 12px}
+.atabs button{padding:10px 4px;border-radius:12px;border:1px solid var(--hair,#333);background:var(--glass,#111);font:800 12.5px var(--font-display,system-ui);letter-spacing:.08em;text-transform:uppercase;display:flex;gap:6px;align-items:center;justify-content:center;position:relative}
+.atabs button.on{background:linear-gradient(180deg,#ffe08a,#e9a92b);color:#2a1700;border-color:transparent}
+.atabs button .nb{position:absolute;top:-6px;right:-4px;min-width:20px;height:20px;border-radius:10px;background:#ff3b57;color:#fff;font-size:11px;display:grid;place-items:center;padding:0 5px}
+.crates{display:grid;gap:12px}
+.cfam{border-radius:18px;padding:12px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08)}
+.cfam .fh{display:flex;gap:10px;align-items:center;margin-bottom:8px}.cfam .fh b{font:800 16px var(--font-display,system-ui);letter-spacing:.06em;text-transform:uppercase}
+.cfam .fh small{display:block;color:var(--ink-dim,#aab);font-size:12px}
+.ctiers{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ctile{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 6px 10px;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:var(--glass,#111);position:relative;overflow:hidden;text-align:center}
+.ctile img,.ctile .ph{width:100%;aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(0,0,0,.5))}
+.ctile .ph{display:grid;place-items:center;color:#fff}
+.ctile b{font:800 13px var(--font-display,system-ui);letter-spacing:.08em;text-transform:uppercase}
+.ctile .cp{font:800 18px var(--font-display,system-ui);color:var(--gold-1,#ffd36a)}
+.ctile.t-standard{--tc:#d6c29a}.ctile.t-elite{--tc:#9b7bff}.ctile.t-marche_noir{--tc:#ffd34d}
+.ctile{box-shadow:inset 0 -3px 0 var(--tc)}
+.ctile.t-marche_noir{background:radial-gradient(circle at 50% 10%,rgba(255,200,60,.18),rgba(0,0,0,.4))}
+.ctile:disabled{opacity:.45}
+.ctile .lbx-odds{justify-content:center;font-size:10.5px;gap:2px 6px}
+.cmeta{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--ink-dim,#aab);margin:10px 2px 0}
+.cmeta b{color:var(--ink,#fff)}
+.inv{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ivi{display:flex;gap:10px;align-items:center;padding:10px;border-radius:14px;background:var(--glass,#111);border:1px solid var(--rc,#555);text-align:left;position:relative}
+.ivi .aic{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:#fff;background:radial-gradient(circle at 30% 25%,var(--rc),var(--rc2))}
+.ivi b{display:block;font:800 13px var(--font-display,system-ui);text-transform:uppercase;letter-spacing:.03em;line-height:1.1}
+.ivi small{color:var(--ink-dim,#aab);font-size:11px}
+.ivi.sel{outline:3px solid #ffd36a;outline-offset:1px}
+.contract{margin-top:12px;padding:12px;border-radius:14px;border:1px dashed rgba(255,255,255,.2);font-size:13px}
+.fair{margin-top:12px;font-size:11.5px;color:var(--ink-dim,#aab);word-break:break-all}.fair b{color:var(--ink,#fff)}
+.item .boxonly{position:absolute;inset:auto 6px 6px auto;font:800 9.5px var(--font-display,system-ui);letter-spacing:.1em;padding:3px 7px;border-radius:99px;background:linear-gradient(90deg,#ffd34d,#e2321e);color:#1a0a00;text-transform:uppercase}
