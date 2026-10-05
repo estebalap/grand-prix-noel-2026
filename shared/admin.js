@@ -8,7 +8,7 @@ const KINDS = [['poule', 'Poule'], ['demi', 'Demi-finale'], ['finale', 'Grande F
 const PHASE_LABEL = { LOBBY: 'Accueil', DRAFT: 'Draft', GRID: 'Grille', BETTING: 'Bourse', COUNTDOWN: 'Départ', RACING: 'Course', RESULT: 'Résultat', INTERVIEW: 'Interview', STANDINGS: 'Classement', INTERMISSION: 'Entracte', CEREMONY: 'Cérémonie' };
 
 export function mountAdmin(root, { onToast = () => {}, compact = false } = {}) {
-  const ui = { kind: 'poule', weatherDone: {}, chaosDone: {}, open: new Set(['next', 'show']), resultOrder: [], dnf: new Set(), spun: new Set(), resultOpen: false, manual: ['', '', '', ''], draftCode: '', draftTeam: 1, busy: false };
+  const ui = { kind: 'poule', weatherDone: {}, chaosDone: {}, open: new Set(['next', 'show']), resultOrder: [], dnf: new Set(), spun: new Set(), resultOpen: false, manual: ['', '', '', ''], draftCode: '', draftTeam: 1, busy: false, cerExtras: true };
 
   let musicLib = null;
   async function loadMusicLib() {
@@ -52,7 +52,7 @@ export function mountAdmin(root, { onToast = () => {}, compact = false } = {}) {
     }
     if (s.phase === 'CEREMONY') {
       const c = s.ceremony;
-      if (!c) return { label: 'Lancer la Cérémonie', sub: 'Calcul des étoiles et des trophées', act: () => run('ceremony.start') };
+      if (!c) return { label: 'Lancer la Cérémonie', sub: 'Calcul des étoiles et des trophées' + (ui.cerExtras ? ' + 16 trophées loufoques' : ''), act: () => run('ceremony.start', { extras: !!ui.cerExtras }) };
       if (c.revealed < c.awards.length) return { label: 'Révéler le prix ' + (c.revealed + 1) + ' / ' + c.awards.length, sub: 'Roulement de tambour…', act: () => run('ceremony.next') };
       return { label: 'Cérémonie terminée', sub: 'Bravo à tous !', disabled: true, act: () => {} };
     }
@@ -180,6 +180,7 @@ export function mountAdmin(root, { onToast = () => {}, compact = false } = {}) {
 
     const lo = s.loot || {};
     const secCeremony = section('ceremony', 'Cérémonie', `<div class="adm-row"><button class="btn sm" id="cerStart">Lancer la cérémonie</button><button class="btn ghost sm" id="cerNext">Prix suivant</button></div>
+      <div class="adm-row"><label class="adm-note" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="cerExtras" ${ui.cerExtras ? 'checked' : ''}> Ajouter les 16 trophées loufoques du Panthéon (Demi-Coupe, Pigeon d'Or, Tortue Philosophe…), révélés avant le Grand Prix</label></div>
       <p class="adm-note">Votes reçus — Cascadeur : ${Object.keys(s.votes.cascadeur || {}).length} · Cuillère : ${Object.keys(s.votes.cuillere || {}).length}</p>
       <div class="adm-row"><button class="btn ghost sm" id="lootReveal">Révéler la graine des caisses</button></div>
       <p class="adm-note">Caisses ouvertes : ${(lo.log || []).length} · empreinte publiée : ${esc(String(lo.commit || '').slice(0, 16))}… · graines déjà révélées : ${(lo.revealed || []).length}. La révélation permet à chacun de vérifier ses tirages ; une nouvelle graine est engagée aussitôt.</p>
@@ -246,7 +247,8 @@ export function mountAdmin(root, { onToast = () => {}, compact = false } = {}) {
     const da = g('drAssign'); if (da) da.onclick = () => run('draft.assign', { code: ui.draftCode, teamId: ui.draftTeam }, 'Bolide attribué');
     const dr = g('drRemove'); if (dr) dr.onclick = () => run('draft.remove', { code: ui.draftCode }, 'Bolide retiré');
     const ra = g('rlAdd'); if (ra) ra.onclick = () => run('relic.add', { code: g('rlCode').value, alias: g('rlName').value, vitesse: Number(g('rlSpd').value || 55) }, 'Relique ajoutée');
-    const cs = g('cerStart'); if (cs) cs.onclick = () => run('ceremony.start');
+    const cs = g('cerStart'); if (cs) cs.onclick = () => run('ceremony.start', { extras: !!ui.cerExtras });
+    const cx = g('cerExtras'); if (cx) cx.onchange = () => { ui.cerExtras = cx.checked; render(); };
     const cn = g('cerNext'); if (cn) cn.onclick = () => run('ceremony.next');
     const lr = g('lootReveal'); if (lr) lr.onclick = () => { if (confirm('Révéler la graine des caisses ? Tous les tirages deviennent vérifiables.')) run('loot.reveal', {}, 'Graine révélée'); };
     const gt = g('grTeam'); if (gt) gt.onchange = () => { ui.grTeam = Number(gt.value); };

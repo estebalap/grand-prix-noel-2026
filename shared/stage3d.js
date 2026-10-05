@@ -233,6 +233,7 @@ export function createStage(canvas, { camera: camOpts = {}, floor = true } = {})
 
   const holder = new THREE.Group(); scene.add(holder);
   let current = null, spinSpeed = 0.5, t0 = performance.now(), running = true, raf = 0, autoOrbit = true, popT = 1;
+  let jetonPantheon = 0;                     // annule un chargement de trophée réel devenu obsolète
   const perf = { n: 0, acc: 0, fps: 60, downgrades: 0 };
 
   function size() {
@@ -282,7 +283,32 @@ export function createStage(canvas, { camera: camOpts = {}, floor = true } = {})
   }
   return {
     renderer, scene, camera,
-    showTrophy(id) { const b = TROPHY_BUILDERS[id] || TROPHY_BUILDERS.grandprix; camState.fit = null; camState.r = 8.2; camState.h = 2.6; camState.look = 1.5; show(b(THREE)); },
+    showTrophy(id) { jetonPantheon++; const b = TROPHY_BUILDERS[id] || TROPHY_BUILDERS.grandprix; camState.fit = null; camState.r = 8.2; camState.h = 2.6; camState.look = 1.5; show(b(THREE)); },
+    /** Trophée RÉEL du Panthéon (STL de montage imprimées sur la P1S) ; repli sur le modèle procédural si indisponible. */
+    async showPantheon(modele, repli = 'grandprix') {
+      const jeton = ++jetonPantheon;
+      try {
+        const { chargerManifeste, construireTrophee } = await import('./pantheon3d.js');
+        const man = await chargerManifeste();
+        const t = man.trophees.find((x) => x.id === modele);
+        if (!t) throw new Error('trophée inconnu : ' + modele);
+        const tr = await construireTrophee(THREE, t);
+        if (jeton !== jetonPantheon) { tr.dispose(); return false; }
+        // cette scène sort en sRGB : les teintes de filament (sRGB) passent en linéaire pour garder leur vraie couleur
+        if (renderer.outputEncoding === THREE.sRGBEncoding) for (const m of tr.pieces) m.material.color.convertSRGBToLinear();
+        const g = new THREE.Group();
+        const c = tr.boite.getCenter(new THREE.Vector3()), sz = tr.boite.getSize(new THREE.Vector3());
+        tr.group.position.set(-c.x, -tr.boite.min.y, -c.z);
+        g.add(tr.group);
+        const k = 3.3 / Math.max(sz.y, Math.max(sz.x, sz.z) * 0.8);      // ~ la taille des trophées procéduraux
+        camState.fit = null; camState.r = 8.2; camState.h = 2.6; camState.look = sz.y * k * 0.5;
+        show(g, { scale: k });
+        return true;
+      } catch (e) {
+        if (jeton === jetonPantheon) { const b = TROPHY_BUILDERS[repli] || TROPHY_BUILDERS.grandprix; show(b(THREE)); }
+        return false;
+      }
+    },
     /** Concept-car de l'écurie (objet équipe ou numéro). */
     showConcept(team) {
       const car = buildConceptCar(team, { quality });

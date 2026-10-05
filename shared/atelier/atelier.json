@@ -1,0 +1,2509 @@
+{
+ "version": 2,
+ "imprimante": "Bambu Lab P1S (buse 0,4 mm inox, AMS 4 bobines)",
+ "jeux": {
+  "glissement": 0.3,
+  "tenon": 0.25,
+  "axe_cure_dent": 0.25,
+  "serrage_leger": 0.1,
+  "flottant": 0.5,
+  "imprime_en_place": 0.35
+ },
+ "fiches": [
+  {
+   "id": "herse",
+   "statutV1": "REFONDU",
+   "valide": true,
+   "notes": {
+    "impression": 5.0,
+    "mise_en_place": 3.8,
+    "rearmement": 4,
+    "fiabilite": 4
+   },
+   "difficulte": 2,
+   "defautsV1": [
+    "2 montants de 7 mm posés DANS la voie : passage de 31 mm, plus étroit que les bolides larges (34 mm).",
+    "Passage de 35 mm sous la goupille : les dépanneuses et 4x4 (jusqu'à 40 mm) tapent la goupille au repos.",
+    "Goupille longue (45 mm) sous la grille : en la tirant, un côté lâche avant l'autre, la grille pivote et se coince (arc-boutement).",
+    "Règle des voies (notice GXX41, 5 voies côte à côte) : l'ancien portique se clipsait sur les 2 cloisons, ses jambages extérieurs entraient de 1,75 mm dans les voies voisines."
+   ],
+   "solution": "La grille pend au CENTRE d'un chariot verrouillé sur le Pont des Pièges : elle tombe droit dans 2 rails qui longent les cloisons de SA voie (passage 40,5 × 46 mm). Goupille courte (16 mm), tirage de 10 mm. Aucune pièce ne touche une autre voie.",
+   "declenchement": "Tirer le fil d'un coup (10 mm suffisent). Chute de 47 mm en 108 ms : lâcher quand le bolide est encore à plus de 27 cm. Plus tôt, la grille est déjà fermée : effet identique.",
+   "rearmer": "Relever la grille par l'anneau, renfoncer la goupille (8 s).",
+   "poseS": 25,
+   "rearmerS": 8,
+   "fiabilite": "Grille suspendue au centre, rainures continues à jeu de chant : pas d'arc-boutement. Fenêtre de tir très large.",
+   "physique": {
+    "chute_ms": 108,
+    "passage_mm": [
+     40.5,
+     46
+    ],
+    "jeu_rainure_mm": 0.3,
+    "jeu_chant_mm": 0.5
+   },
+   "mobile": false,
+   "pont": true,
+   "masseG": 2.6,
+   "tempsMin": 8,
+   "pieces": [
+    {
+     "id": "pont_a",
+     "nom": "Pont des Pièges · moitié A (voies 1-3)",
+     "qte": 1,
+     "imprime": true,
+     "stl": "pont_a.stl",
+     "contexte": true,
+     "fichier": "00_pont_a.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "Couché sur la tranche (profil vers le haut), 14 mm de haut",
+     "eclate": [
+      0,
+      -30,
+      25
+     ],
+     "partage": true,
+     "analyse": {
+      "dimensions_mm": [
+       60.0,
+       171.7,
+       14.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 10.2,
+      "masse_g": 12.3,
+      "temps_min": 22,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "pont_b",
+     "nom": "Pont des Pièges · moitié B (voies 4-5)",
+     "qte": 1,
+     "imprime": true,
+     "stl": "pont_b.stl",
+     "contexte": true,
+     "fichier": "00_pont_b.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "Couché sur la tranche, 14 mm de haut",
+     "eclate": [
+      0,
+      30,
+      25
+     ],
+     "partage": true,
+     "analyse": {
+      "dimensions_mm": [
+       60.0,
+       123.4,
+       14.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 4.1,
+      "masse_g": 9.5,
+      "temps_min": 19,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "pion",
+     "nom": "Pion d'index",
+     "qte": 4,
+     "imprime": true,
+     "stl": "pion.stl",
+     "contexte": false,
+     "fichier": "00_pion.stl",
+     "filament": "PLA Basic Jaune tournesol (10402)",
+     "hex": "#f7c600",
+     "silk": false,
+     "bois": false,
+     "profil": "0,12 mm Fine @BBL (petites sphères, tétons)",
+     "orientation": "Tête sur le plateau",
+     "eclate": [
+      0,
+      0,
+      30
+     ],
+     "partage": true,
+     "analyse": {
+      "dimensions_mm": [
+       8.9,
+       8.9,
+       16.8
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 0.3,
+      "temps_min": 7,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "chariot",
+     "nom": "Chariot porte-module",
+     "qte": 1,
+     "imprime": true,
+     "stl": "chariot.stl",
+     "contexte": false,
+     "fichier": "00_chariot.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "GP Noël · Emboîtements précis (0,16 mm, 3 parois)",
+     "orientation": "Couché sur sa face aval (34 mm de haut)",
+     "eclate": [
+      0,
+      0,
+      18
+     ],
+     "partage": true,
+     "analyse": {
+      "dimensions_mm": [
+       52.4,
+       45.3,
+       34.3
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 43.1,
+      "masse_g": 9.9,
+      "temps_min": 23,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "grille",
+     "nom": "Grille",
+     "qte": 1,
+     "imprime": true,
+     "stl": "herse/grille.stl",
+     "contexte": false,
+     "fichier": "01_herse_grille.stl",
+     "filament": "PLA Silk+ Gris titane (13108)",
+     "hex": "#6c7075",
+     "silk": true,
+     "bois": false,
+     "profil": "GP Noël · Emboîtements précis (0,16 mm, 3 parois)",
+     "orientation": "À plat, dents vers l'avant du plateau",
+     "eclate": [
+      0,
+      0,
+      45
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       42.1,
+       52.4,
+       2.4
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 2.6,
+      "temps_min": 8,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "quincaillerie",
+     "nom": "Quincaillerie",
+     "qte": 1,
+     "imprime": false,
+     "stl": "herse/quincaillerie.stl",
+     "hex": "#c9ced6",
+     "metal": true,
+     "eclate": [
+      0,
+      0,
+      0
+     ]
+    }
+   ],
+   "quincaillerie": [
+    {
+     "nom": "Écrous M3",
+     "qte": 4,
+     "note": "lest de la grille, enfoncés à la main"
+    },
+    {
+     "nom": "Cure-dent rond Ø 2 × 65 mm",
+     "qte": 1,
+     "note": "goupille"
+    },
+    {
+     "nom": "Fil de pêche 0,30 mm ou fil dentaire, 1 m",
+     "qte": 1,
+     "note": "mercerie / pharmacie"
+    },
+    {
+     "nom": "Vis M3 × 12 + écrous M3 (éclisse du pont, une fois pour toutes)",
+     "qte": 2,
+     "note": "quincaillerie"
+    }
+   ],
+   "etapes": [
+    {
+     "texte": "Enfoncez les 4 écrous M3 dans la barre basse de la grille (pression du pouce ; une goutte de colle s'ils tournent).",
+     "ajoute": [
+      "grille"
+     ],
+     "vue": "grille"
+    },
+    {
+     "texte": "Posez le Pont des Pièges : moitié A sur la paroi extérieure gauche, moitié B sur la droite, talons sur le dessus des parois ; éclissez les 2 moitiés (2 vis M3 × 12) et serrez jusqu'à ce que les 2 pieds touchent les parois par l'EXTÉRIEUR. Rien ne touche une voie.",
+     "ajoute": [
+      "pont_a",
+      "pont_b"
+     ]
+    },
+    {
+     "texte": "Accrochez le chariot sur la poutre par l'aval (le toit repose dessus), faites-le glisser au-dessus de la voie visée et enfoncez le pion d'index dans le trou numéroté. Ses 2 rails descendent le long des cloisons, DANS la voie.",
+     "ajoute": [
+      "chariot",
+      "pion"
+     ]
+    },
+    {
+     "texte": "Enfilez la grille par le dessus dans la fente : elle descend jusqu'au fond de voie en glissant dans les rainures des rails.",
+     "ajoute": []
+    },
+    {
+     "texte": "Armer : relevez la grille par son anneau jusqu'à voir la goupille passer sous la barre d'appui, enfoncez le cure-dent par l'aval. Nouez le fil, passez-le dans l'œillet du rail.",
+     "ajoute": []
+    }
+   ]
+  },
+  {
+   "id": "balancier",
+   "statutV1": "REFONDU",
+   "valide": true,
+   "notes": {
+    "impression": 4.0,
+    "mise_en_place": 3.9,
+    "rearmement": 5,
+    "fiabilite": 4
+   },
+   "difficulte": 2,
+   "defautsV1": [
+    "Portique de 70 mm dont les 2 montants de 6 mm sont DANS la voie (passage 33 mm) et tenu par de la pâte seulement.",
+    "Aucun dispositif pour tenir la lame armée : il fallait la tenir à la main au-dessus de la piste.",
+    "Lame suspendue sans entretoises : elle glisse sur l'axe et frotte un montant."
+   ],
+   "solution": "Lame sur l'axe du chariot (Pont des Pièges), centrée par 2 entretoises. On la tient relevée côté aval PAR LE FIL : ouvrir la main = déclencher, tirer le fil = réarmer. Elle balaie SA voie dans l'axe de la course.",
+   "declenchement": "Ouvrir la main quand le bolide est à ≈ 23 cm : la lame descend en 90 ms et frappe le nez du bolide à 0,5 m/s.",
+   "rearmer": "Tirer le fil : la lame remonte (4 s).",
+   "poseS": 30,
+   "rearmerS": 4,
+   "fiabilite": "Lâcher = ouvrir la main : réaction humaine la plus rapide. Seul réglage : l'avance, à travailler dans le Défi du timing.",
+   "physique": {
+    "quart_periode_ms": 90,
+    "vitesse_impact_m_s": 0.52,
+    "lame_bas_mm": 6.5
+   },
+   "mobile": false,
+   "pont": true,
+   "masseG": 2.4,
+   "tempsMin": 15,
+   "pieces": [
+    {
+     "id": "pont_a",
+     "nom": "Pont des Pièges · moitié A (voies 1-3)",
+     "qte": 1,
+     "imprime": true,
+     "stl": "pont_a.stl",
+     "contexte": true,
+     "fichier": "00_pont_a.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "Couché sur la tranche (profil vers le haut), 14 mm de haut",
+     "eclate": [
+      0,
+      -30,
+      25
+     ],
+     "partage": true,
+     "analyse": {
+      "dimensions_mm": [
+       60.0,
+       171.7,
+       14.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 10.2,
+      "masse_g": 12.3,
+      "temps_min": 22,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "pont_b",
+     "nom": "Pont des Pièges · moitié B (voies 4-5)",
+     "qte": 1,
+     "imprime": true,
+     "stl": "pont_b.stl",
+     "contexte": true,
+     "fichier": "00_pont_b.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "Couché sur la tranche, 14 mm de haut",
+     "eclate": [
+      0,
+      30,
+      25
+     ],
+     "partage": true,
+     "analyse": {
+      "dimensions_mm": [
+       60.0,
+       123.4,
+       14.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 4.1,
+      "masse_g": 9.5,
+      "temps_min": 19,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "pion",
+     "nom": "Pion d'index",
+     "qte": 4,
+     "imprime": true,
+     "stl": "pion.stl",
+     "contexte": false,
+     "fichier": "00_pion.stl",
+     "filament": "PLA Basic Jaune tournesol (10402)",
+     "hex": "#f7c600",
+     "silk": false,
+     "bois": false,
+     "profil": "0,12 mm Fine @BBL (petites sphères, tétons)",
+     "orientation": "Tête sur le plateau",
+     "eclate": [
+      0,
+      0,
+      30
+     ],
+     "partage": true,
+     "analyse": {
+      "dimensions_mm": [
+       8.9,
+       8.9,
+       16.8
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 0.3,
+      "temps_min": 7,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "chariot",
+     "nom": "Chariot porte-module",
+     "qte": 1,
+     "imprime": true,
+     "stl": "chariot.stl",
+     "contexte": false,
+     "fichier": "00_chariot.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "GP Noël · Emboîtements précis (0,16 mm, 3 parois)",
+     "orientation": "Couché sur sa face aval (34 mm de haut)",
+     "eclate": [
+      0,
+      0,
+      18
+     ],
+     "partage": true,
+     "analyse": {
+      "dimensions_mm": [
+       52.4,
+       45.3,
+       34.3
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 43.1,
+      "masse_g": 9.9,
+      "temps_min": 23,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "lame",
+     "nom": "Lame (moyeu + croissant)",
+     "qte": 1,
+     "imprime": true,
+     "stl": "balancier/lame.stl",
+     "contexte": false,
+     "fichier": "02_balancier_lame.stl",
+     "filament": "PLA Silk+ Gris titane (13108)",
+     "hex": "#6c7075",
+     "silk": true,
+     "bois": false,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "À plat, moyeu vers le haut",
+     "eclate": [
+      0,
+      0,
+      -30
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       33.0,
+       44.5,
+       8.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 1.8,
+      "temps_min": 8,
+      "alertes": [
+       "~ 19 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
+      ],
+      "verdict_impression": "A_SURVEILLER"
+     }
+    },
+    {
+     "id": "entretoise",
+     "nom": "Entretoises",
+     "qte": 2,
+     "imprime": true,
+     "stl": "balancier/entretoise.stl",
+     "contexte": false,
+     "fichier": "02_balancier_entretoise.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "0,12 mm Fine @BBL (petites sphères, tétons)",
+     "orientation": "Debout (tube vertical)",
+     "eclate": [
+      0,
+      0,
+      -12
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       5.2,
+       5.2,
+       16.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 0.3,
+      "temps_min": 7,
+      "alertes": [
+       "~ Faible contact au plateau (16 mm²) : bordure (brim) de 3 mm conseillée"
+      ],
+      "verdict_impression": "A_SURVEILLER"
+     }
+    },
+    {
+     "id": "quincaillerie",
+     "nom": "Quincaillerie",
+     "qte": 1,
+     "imprime": false,
+     "stl": "balancier/quincaillerie.stl",
+     "hex": "#c9ced6",
+     "metal": true,
+     "eclate": [
+      0,
+      0,
+      0
+     ]
+    }
+   ],
+   "quincaillerie": [
+    {
+     "nom": "Écrou M6",
+     "qte": 1,
+     "note": "lest de la tête de lame"
+    },
+    {
+     "nom": "Cure-dent rond Ø 2 × 65 mm",
+     "qte": 1,
+     "note": "axe"
+    },
+    {
+     "nom": "Fil de pêche 0,30 mm ou fil dentaire, 1 m",
+     "qte": 1,
+     "note": "mercerie / pharmacie"
+    },
+    {
+     "nom": "Vis M3 × 12 + écrous M3 (éclisse du pont, une fois pour toutes)",
+     "qte": 2,
+     "note": "quincaillerie"
+    }
+   ],
+   "etapes": [
+    {
+     "texte": "Enfoncez l'écrou M6 dans la tête hexagonale de la lame. Nouez le fil dans l'œillet sous le croissant.",
+     "ajoute": [
+      "lame"
+     ],
+     "vue": "lame"
+    },
+    {
+     "texte": "Posez le Pont des Pièges : moitié A sur la paroi extérieure gauche, moitié B sur la droite, talons sur le dessus des parois ; éclissez les 2 moitiés (2 vis M3 × 12) et serrez jusqu'à ce que les 2 pieds touchent les parois par l'EXTÉRIEUR. Rien ne touche une voie.",
+     "ajoute": [
+      "pont_a",
+      "pont_b"
+     ]
+    },
+    {
+     "texte": "Accrochez le chariot sur la poutre par l'aval (le toit repose dessus), faites-le glisser au-dessus de la voie visée et enfoncez le pion d'index dans le trou numéroté. Ses 2 rails descendent le long des cloisons, DANS la voie.",
+     "ajoute": [
+      "chariot",
+      "pion"
+     ]
+    },
+    {
+     "texte": "Glissez le cure-dent dans le rail gauche, enfilez une entretoise, la lame, la 2e entretoise, puis sortez par le rail droit.",
+     "ajoute": [
+      "entretoise"
+     ]
+    },
+    {
+     "texte": "Armer : tirez le fil vers l'aval et le haut : la lame se relève à 60° côté aval. Gardez le fil tendu, ou enroulez-le sur l'œillet.",
+     "ajoute": []
+    }
+   ]
+  },
+  {
+   "id": "boulet",
+   "statutV1": "REFONDU",
+   "valide": true,
+   "notes": {
+    "impression": 4.5,
+    "mise_en_place": 3.0,
+    "rearmement": 5,
+    "fiabilite": 4
+   },
+   "difficulte": 2,
+   "defautsV1": [
+    "Aucun mécanisme de lâcher : le joueur devait tenir le boulet écarté à 60° à la main, au-dessus de la voie voisine.",
+    "Potence de 64 mm en porte-à-faux sur une seule cloison, avec un bras au-dessus de la voie voisine."
+   ],
+   "solution": "Même principe que la Lame, sur le même chariot : boulet sur un moyeu imprimé, tenu par le fil côté aval et lâché. Il balaie SA voie.",
+   "declenchement": "Ouvrir la main quand le bolide est à ≈ 23 cm : le boulet descend en 90 ms et arrive de face à 0,5 m/s.",
+   "rearmer": "Tirer le fil de tenue (4 s).",
+   "poseS": 30,
+   "rearmerS": 4,
+   "fiabilite": "Identique à la Lame ; la bille d'acier de 7 g donne un choc franc.",
+   "physique": {
+    "quart_periode_ms": 90,
+    "vitesse_impact_m_s": 0.52,
+    "masse_g": 11
+   },
+   "mobile": false,
+   "pont": true,
+   "masseG": 4.1,
+   "tempsMin": 21,
+   "pieces": [
+    {
+     "id": "pont_a",
+     "nom": "Pont des Pièges · moitié A (voies 1-3)",
+     "qte": 1,
+     "imprime": true,
+     "stl": "pont_a.stl",
+     "contexte": true,
+     "fichier": "00_pont_a.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "Couché sur la tranche (profil vers le haut), 14 mm de haut",
+     "eclate": [
+      0,
+      -30,
+      25
+     ],
+     "partage": true,
+     "analyse": {
+      "dimensions_mm": [
+       60.0,
+       171.7,
+       14.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 10.2,
+      "masse_g": 12.3,
+      "temps_min": 22,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "pont_b",
+     "nom": "Pont des Pièges · moitié B (voies 4-5)",
+     "qte": 1,
+     "imprime": true,
+     "stl": "pont_b.stl",
+     "contexte": true,
+     "fichier": "00_pont_b.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "Couché sur la tranche, 14 mm de haut",
+     "eclate": [
+      0,
+      30,
+      25
+     ],
+     "partage": true,
+     "analyse": {
+      "dimensions_mm": [
+       60.0,
+       123.4,
+       14.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 4.1,
+      "masse_g": 9.5,
+      "temps_min": 19,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "pion",
+     "nom": "Pion d'index",
+     "qte": 4,
+     "imprime": true,
+     "stl": "pion.stl",
+     "contexte": false,
+     "fichier": "00_pion.stl",
+     "filament": "PLA Basic Jaune tournesol (10402)",
+     "hex": "#f7c600",
+     "silk": false,
+     "bois": false,
+     "profil": "0,12 mm Fine @BBL (petites sphères, tétons)",
+     "orientation": "Tête sur le plateau",
+     "eclate": [
+      0,
+      0,
+      30
+     ],
+     "partage": true,
+     "analyse": {
+      "dimensions_mm": [
+       8.9,
+       8.9,
+       16.8
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 0.3,
+      "temps_min": 7,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "chariot",
+     "nom": "Chariot porte-module",
+     "qte": 1,
+     "imprime": true,
+     "stl": "chariot.stl",
+     "contexte": false,
+     "fichier": "00_chariot.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "GP Noël · Emboîtements précis (0,16 mm, 3 parois)",
+     "orientation": "Couché sur sa face aval (34 mm de haut)",
+     "eclate": [
+      0,
+      0,
+      18
+     ],
+     "partage": true,
+     "analyse": {
+      "dimensions_mm": [
+       52.4,
+       45.3,
+       34.3
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 43.1,
+      "masse_g": 9.9,
+      "temps_min": 23,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "moyeu",
+     "nom": "Moyeu à fil",
+     "qte": 1,
+     "imprime": true,
+     "stl": "boulet/moyeu.stl",
+     "contexte": false,
+     "fichier": "03_boulet_moyeu.stl",
+     "filament": "PLA Basic Jaune tournesol (10402)",
+     "hex": "#f7c600",
+     "silk": false,
+     "bois": false,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "Debout",
+     "eclate": [
+      0,
+      0,
+      12
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       8.0,
+       11.0,
+       8.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 0.5,
+      "temps_min": 6,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "entretoise",
+     "nom": "Entretoises",
+     "qte": 2,
+     "imprime": true,
+     "stl": "boulet/entretoise.stl",
+     "contexte": false,
+     "fichier": "03_boulet_entretoise.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "0,12 mm Fine @BBL (petites sphères, tétons)",
+     "orientation": "Debout",
+     "eclate": [
+      0,
+      0,
+      -12
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       5.2,
+       5.2,
+       16.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 0.3,
+      "temps_min": 7,
+      "alertes": [
+       "~ Faible contact au plateau (16 mm²) : bordure (brim) de 3 mm conseillée"
+      ],
+      "verdict_impression": "A_SURVEILLER"
+     }
+    },
+    {
+     "id": "demi_boulet",
+     "nom": "Demi-boulets",
+     "qte": 2,
+     "imprime": true,
+     "stl": "boulet/demi_boulet.stl",
+     "contexte": false,
+     "fichier": "03_boulet_demi_boulet.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "À plat, face coupée sur le plateau",
+     "eclate": [
+      0,
+      0,
+      -25
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       22.0,
+       22.0,
+       11.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 1.5,
+      "temps_min": 8,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "quincaillerie",
+     "nom": "Quincaillerie",
+     "qte": 1,
+     "imprime": false,
+     "stl": "boulet/quincaillerie.stl",
+     "hex": "#c9ced6",
+     "metal": true,
+     "eclate": [
+      0,
+      0,
+      0
+     ]
+    }
+   ],
+   "quincaillerie": [
+    {
+     "nom": "Bille d'acier Ø 12 mm",
+     "qte": 1,
+     "note": "magasin de bricolage / roulement"
+    },
+    {
+     "nom": "Colle cyanoacrylate",
+     "qte": 1,
+     "note": "2 gouttes"
+    },
+    {
+     "nom": "Cure-dent rond Ø 2 × 65 mm",
+     "qte": 1,
+     "note": "axe"
+    },
+    {
+     "nom": "Fil de pêche 0,30 mm ou fil dentaire, 1 m",
+     "qte": 2,
+     "note": "suspension (5 cm) + tenue (1 m)"
+    },
+    {
+     "nom": "Vis M3 × 12 + écrous M3 (éclisse du pont, une fois pour toutes)",
+     "qte": 2,
+     "note": "quincaillerie"
+    }
+   ],
+   "etapes": [
+    {
+     "texte": "Passez 5 cm de fil par le pôle d'un demi-boulet, faites un gros nœud à l'intérieur, posez la bille, collez l'autre moitié (tétons tête-bêche).",
+     "ajoute": [
+      "demi_boulet"
+     ],
+     "vue": "demi_boulet"
+    },
+    {
+     "texte": "Nouez l'autre bout dans la languette du moyeu : 28 mm entre l'axe et le centre du boulet.",
+     "ajoute": [
+      "moyeu"
+     ]
+    },
+    {
+     "texte": "Posez le Pont des Pièges : moitié A sur la paroi extérieure gauche, moitié B sur la droite, talons sur le dessus des parois ; éclissez les 2 moitiés (2 vis M3 × 12) et serrez jusqu'à ce que les 2 pieds touchent les parois par l'EXTÉRIEUR. Rien ne touche une voie.",
+     "ajoute": [
+      "pont_a",
+      "pont_b"
+     ]
+    },
+    {
+     "texte": "Accrochez le chariot sur la poutre par l'aval (le toit repose dessus), faites-le glisser au-dessus de la voie visée et enfoncez le pion d'index dans le trou numéroté. Ses 2 rails descendent le long des cloisons, DANS la voie.",
+     "ajoute": [
+      "chariot",
+      "pion"
+     ]
+    },
+    {
+     "texte": "Glissez le cure-dent : rail, entretoise, moyeu, entretoise, rail. Armer : fil de tenue noué au-dessus du boulet, tiré vers l'aval à 60°.",
+     "ajoute": [
+      "entretoise"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bascule",
+   "statutV1": "REFONDU",
+   "valide": true,
+   "notes": {
+    "impression": 4.0,
+    "mise_en_place": 3.5,
+    "rearmement": 5,
+    "fiabilite": 4
+   },
+   "difficulte": 3,
+   "defautsV1": [
+    "Le tablier devait se relever PENDANT que le bolide roulait dessus : 38 mm parcourus en 15 ms à 2,5 m/s. Impossible à viser à la main (fenêtre ±7 ms).",
+    "Fil tiré par une potence basse (33 mm) posée sur la cloison : les bolides hauts la touchent, la voisine aussi."
+   ],
+   "solution": "Le Tremplin se relève AVANT le passage et reste tenu : le fil monte à la verticale le long d'un rail du chariot et passe dans un guide ; un nœud d'arrêt bloque le tablier à 12°. On tire n'importe quand dans la seconde qui précède : la difficulté disparaît, l'effet reste.",
+   "declenchement": "Tirer le fil jusqu'au nœud n'importe quand dans la seconde qui précède, et tenir. Saut ≈ 14 mm de haut, ≈ 26 cm de vol à 2,5 m/s.",
+   "rearmer": "Relâcher le fil : le tablier retombe à plat (2 s).",
+   "poseS": 40,
+   "rearmerS": 2,
+   "fiabilite": "Plus de timing serré ; angle fixé par le nœud. Réserve : bolides de plus de 36 mm de haut proches de la traverse au décollage.",
+   "physique": {
+    "angle_deg": 12,
+    "hauteur_vol_mm": 14,
+    "longueur_vol_cm": 26,
+    "bolide_max_mm": 36
+   },
+   "mobile": false,
+   "pont": true,
+   "masseG": 6.8,
+   "tempsMin": 20,
+   "pieces": [
+    {
+     "id": "pont_a",
+     "nom": "Pont des Pièges · moitié A (voies 1-3)",
+     "qte": 1,
+     "imprime": true,
+     "stl": "pont_a.stl",
+     "contexte": true,
+     "fichier": "00_pont_a.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "Couché sur la tranche (profil vers le haut), 14 mm de haut",
+     "eclate": [
+      0,
+      -30,
+      25
+     ],
+     "partage": true,
+     "analyse": {
+      "dimensions_mm": [
+       60.0,
+       171.7,
+       14.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 10.2,
+      "masse_g": 12.3,
+      "temps_min": 22,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "pont_b",
+     "nom": "Pont des Pièges · moitié B (voies 4-5)",
+     "qte": 1,
+     "imprime": true,
+     "stl": "pont_b.stl",
+     "contexte": true,
+     "fichier": "00_pont_b.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "Couché sur la tranche, 14 mm de haut",
+     "eclate": [
+      0,
+      30,
+      25
+     ],
+     "partage": true,
+     "analyse": {
+      "dimensions_mm": [
+       60.0,
+       123.4,
+       14.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 4.1,
+      "masse_g": 9.5,
+      "temps_min": 19,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "pion",
+     "nom": "Pion d'index",
+     "qte": 4,
+     "imprime": true,
+     "stl": "pion.stl",
+     "contexte": false,
+     "fichier": "00_pion.stl",
+     "filament": "PLA Basic Jaune tournesol (10402)",
+     "hex": "#f7c600",
+     "silk": false,
+     "bois": false,
+     "profil": "0,12 mm Fine @BBL (petites sphères, tétons)",
+     "orientation": "Tête sur le plateau",
+     "eclate": [
+      0,
+      0,
+      30
+     ],
+     "partage": true,
+     "analyse": {
+      "dimensions_mm": [
+       8.9,
+       8.9,
+       16.8
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 0.3,
+      "temps_min": 7,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "chariot",
+     "nom": "Chariot porte-module",
+     "qte": 1,
+     "imprime": true,
+     "stl": "chariot.stl",
+     "contexte": false,
+     "fichier": "00_chariot.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "GP Noël · Emboîtements précis (0,16 mm, 3 parois)",
+     "orientation": "Couché sur sa face aval (34 mm de haut)",
+     "eclate": [
+      0,
+      0,
+      18
+     ],
+     "partage": true,
+     "analyse": {
+      "dimensions_mm": [
+       52.4,
+       45.3,
+       34.3
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 43.1,
+      "masse_g": 9.9,
+      "temps_min": 23,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "base",
+     "nom": "Semelle à chapes",
+     "qte": 1,
+     "imprime": true,
+     "stl": "bascule/base.stl",
+     "contexte": false,
+     "fichier": "04_bascule_base.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "À plat",
+     "eclate": [
+      0,
+      0,
+      -8
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       51.0,
+       45.3,
+       5.2
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 8.0,
+      "masse_g": 3.3,
+      "temps_min": 10,
+      "alertes": [
+       "~ 15 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
+      ],
+      "verdict_impression": "A_SURVEILLER"
+     }
+    },
+    {
+     "id": "tablier",
+     "nom": "Tablier",
+     "qte": 1,
+     "imprime": true,
+     "stl": "bascule/tablier.stl",
+     "contexte": false,
+     "fichier": "04_bascule_tablier.stl",
+     "filament": "PLA Wood Chêne blanc (13106)",
+     "hex": "#d6c29a",
+     "silk": false,
+     "bois": true,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "À plat, stries vers le haut",
+     "eclate": [
+      0,
+      0,
+      18
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       45.8,
+       37.4,
+       4.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 3.5,
+      "temps_min": 10,
+      "alertes": [
+       "~ 10 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
+      ],
+      "verdict_impression": "A_SURVEILLER"
+     }
+    },
+    {
+     "id": "quincaillerie",
+     "nom": "Quincaillerie",
+     "qte": 1,
+     "imprime": false,
+     "stl": "bascule/quincaillerie.stl",
+     "hex": "#c9ced6",
+     "metal": true,
+     "eclate": [
+      0,
+      0,
+      0
+     ]
+    }
+   ],
+   "quincaillerie": [
+    {
+     "nom": "Cure-dent rond Ø 2 × 65 mm",
+     "qte": 1,
+     "note": "charnière"
+    },
+    {
+     "nom": "Fil de pêche 0,30 mm ou fil dentaire, 1 m",
+     "qte": 1,
+     "note": "mercerie / pharmacie"
+    },
+    {
+     "nom": "Pâte adhésive repositionnable (2 boulettes de 3 mm)",
+     "qte": 2,
+     "note": "sous la semelle"
+    },
+    {
+     "nom": "Vis M3 × 12 + écrous M3 (éclisse du pont, une fois pour toutes)",
+     "qte": 2,
+     "note": "quincaillerie"
+    }
+   ],
+   "etapes": [
+    {
+     "texte": "Posez le tablier entre les chapes, enfilez le cure-dent (coupez ce qui dépasse à 1 mm).",
+     "ajoute": [
+      "base",
+      "tablier"
+     ],
+     "vue": "tablier"
+    },
+    {
+     "texte": "Collez la semelle dans la voie avec 2 boulettes de pâte, oreille du tablier sous le guide du chariot.",
+     "ajoute": [
+      "quincaillerie"
+     ]
+    },
+    {
+     "texte": "Posez le Pont des Pièges : moitié A sur la paroi extérieure gauche, moitié B sur la droite, talons sur le dessus des parois ; éclissez les 2 moitiés (2 vis M3 × 12) et serrez jusqu'à ce que les 2 pieds touchent les parois par l'EXTÉRIEUR. Rien ne touche une voie.",
+     "ajoute": [
+      "pont_a",
+      "pont_b"
+     ]
+    },
+    {
+     "texte": "Accrochez le chariot sur la poutre par l'aval (le toit repose dessus), faites-le glisser au-dessus de la voie visée et enfoncez le pion d'index dans le trou numéroté. Ses 2 rails descendent le long des cloisons, DANS la voie.",
+     "ajoute": [
+      "chariot",
+      "pion"
+     ]
+    },
+    {
+     "texte": "Nouez le fil dans l'oreille, passez-le de bas en haut dans le guide ; réglez le nœud d'arrêt : tablier à 12° (bec à 8 mm du fond).",
+     "ajoute": []
+    }
+   ]
+  },
+  {
+   "id": "peage",
+   "statutV1": "CORRIGÉ",
+   "valide": true,
+   "notes": {
+    "impression": 4.5,
+    "mise_en_place": 4.2,
+    "rearmement": 4,
+    "fiabilite": 4
+   },
+   "difficulte": 1,
+   "defautsV1": [
+    "Règle des voies : le crochet en U et le mât débordaient de 2,4 mm au-dessus de la voie voisine (jambage extérieur)."
+   ],
+   "solution": "Potence en CAVALIER : chapeau sur la cloison + jambage côté voie seulement ; le mât démarre au nu extérieur de la cloison. La lisse (raccourcie de 2 mm) tombe par gravité en travers de SA voie. Aucun réglage, réarmement en 6 s.",
+   "declenchement": "Retirer la goupille quand le bolide est à ≈ 22 cm (chute en 90 ms).",
+   "rearmer": "Relever la lisse, renfoncer la goupille (6 s).",
+   "poseS": 20,
+   "rearmerS": 6,
+   "fiabilite": "Gravité seule, pièce courte, goupille au-dessus de la cloison.",
+   "physique": {
+    "chute_ms": 90
+   },
+   "mobile": false,
+   "pont": false,
+   "masseG": 1.6,
+   "tempsMin": 12,
+   "pieces": [
+    {
+     "id": "potence",
+     "nom": "Potence (cavalier)",
+     "qte": 1,
+     "imprime": true,
+     "stl": "peage/potence.stl",
+     "contexte": false,
+     "fichier": "05_peage_potence.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "GP Noël · Emboîtements précis (0,16 mm, 3 parois)",
+     "orientation": "À plat (profil extrudé)",
+     "eclate": [
+      0,
+      -15,
+      0
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       6.3,
+       18.0,
+       6.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 0.5,
+      "temps_min": 6,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "lisse",
+     "nom": "Lisse",
+     "qte": 1,
+     "imprime": true,
+     "stl": "peage/lisse.stl",
+     "contexte": false,
+     "fichier": "05_peage_lisse.stl",
+     "filament": "PLA Matte Rouge écarlate (11200)",
+     "hex": "#c8352e",
+     "silk": false,
+     "bois": false,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "À plat",
+     "eclate": [
+      18,
+      0,
+      10
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       51.6,
+       8.0,
+       3.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 5.6,
+      "masse_g": 1.1,
+      "temps_min": 6,
+      "alertes": [
+       "~ 10 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
+      ],
+      "verdict_impression": "A_SURVEILLER"
+     }
+    },
+    {
+     "id": "quincaillerie",
+     "nom": "Quincaillerie",
+     "qte": 1,
+     "imprime": false,
+     "stl": "peage/quincaillerie.stl",
+     "hex": "#c9ced6",
+     "metal": true,
+     "eclate": [
+      0,
+      0,
+      0
+     ]
+    }
+   ],
+   "quincaillerie": [
+    {
+     "nom": "Écrous M3",
+     "qte": 2,
+     "note": "lest au bout de la lisse"
+    },
+    {
+     "nom": "Cure-dent rond Ø 2 × 65 mm",
+     "qte": 2,
+     "note": "axe + goupille"
+    },
+    {
+     "nom": "Fil de pêche 0,30 mm ou fil dentaire, 1 m",
+     "qte": 1,
+     "note": "mercerie / pharmacie"
+    },
+    {
+     "nom": "Pâte adhésive repositionnable (2 boulettes de 3 mm)",
+     "qte": 1,
+     "note": "dans le chapeau du cavalier"
+    }
+   ],
+   "etapes": [
+    {
+     "texte": "Enfoncez les 2 écrous M3 au bout de la lisse ; repassez les creux au feutre blanc.",
+     "ajoute": [
+      "lisse"
+     ],
+     "vue": "lisse"
+    },
+    {
+     "texte": "Coiffez la cloison de gauche de la voie visée avec la potence (pâte dans le chapeau) : le jambage descend côté voie, rien côté voisine.",
+     "ajoute": [
+      "potence"
+     ]
+    },
+    {
+     "texte": "Axe : cure-dent à travers la potence et le trou central de la lisse.",
+     "ajoute": [
+      "quincaillerie"
+     ]
+    },
+    {
+     "texte": "Armer : lisse inclinée à 30°, goupille (2e cure-dent) dans le trou de queue. Nouez le fil à la goupille.",
+     "ajoute": []
+    }
+   ]
+  },
+  {
+   "id": "belier",
+   "statutV1": "REFONDU",
+   "valide": true,
+   "notes": {
+    "impression": 5.0,
+    "mise_en_place": 4.5,
+    "rearmement": 5,
+    "fiabilite": 5
+   },
+   "difficulte": 1,
+   "defautsV1": [
+    "Règle des voies : le fourreau de 30 mm sortait de la voie à 7-17 mm de haut, en plein dans la voie voisine.",
+    "Crochet d'élastique en porte-à-faux de 4 mm (12 mm² imprimés dans le vide)."
+   ],
+   "solution": "Le fourreau, en cavalier, garde son tube DEHORS là où il y a de la place : côté extérieur de la piste pour la voie 1 (version gauche), au-dessus de la voie technique 5 pour la voie 4 (version droite, en miroir). Le Pocket Pit ne propose le Bélier que sur ces 2 voies.",
+   "declenchement": "Appuyer d'un doigt quand le bolide est à ≈ 8 cm de la tête.",
+   "rearmer": "Aucun : l'élastique ramène le piston.",
+   "poseS": 15,
+   "rearmerS": 0,
+   "fiabilite": "Action directe du doigt, retour élastique ; rien à armer.",
+   "physique": {
+    "course_mm": 22,
+    "jeu_mm": 0.3,
+    "voies": [
+     1,
+     4
+    ]
+   },
+   "mobile": false,
+   "pont": false,
+   "masseG": 8.4,
+   "tempsMin": 34,
+   "pieces": [
+    {
+     "id": "fourreau",
+     "nom": "Fourreau gauche (voie 1)",
+     "qte": 1,
+     "imprime": true,
+     "stl": "belier/fourreau.stl",
+     "contexte": false,
+     "fichier": "06_belier_fourreau.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "GP Noël · Emboîtements précis (0,16 mm, 3 parois)",
+     "orientation": "Tel quel (cavalier en bas)",
+     "eclate": [
+      0,
+      0,
+      -10
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       14.0,
+       34.0,
+       17.2
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 19.9,
+      "masse_g": 2.7,
+      "temps_min": 10,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "fourreau_droit",
+     "nom": "Fourreau droit (voie 4)",
+     "qte": 1,
+     "imprime": true,
+     "stl": null,
+     "contexte": false,
+     "fichier": "06_belier_fourreau_droit.stl",
+     "filament": "PLA Matte Anthracite (11101)",
+     "hex": "#3d3f43",
+     "silk": false,
+     "bois": false,
+     "profil": "GP Noël · Emboîtements précis (0,16 mm, 3 parois)",
+     "orientation": "Tel quel (cavalier en bas)",
+     "eclate": [
+      0,
+      0,
+      0
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       14.0,
+       34.0,
+       17.2
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 19.9,
+      "masse_g": 2.7,
+      "temps_min": 10,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "piston",
+     "nom": "Piston",
+     "qte": 1,
+     "imprime": true,
+     "stl": "belier/piston.stl",
+     "contexte": false,
+     "fichier": "06_belier_piston.stl",
+     "filament": "PLA Silk+ Argenté (13109)",
+     "hex": "#c4c8cd",
+     "silk": true,
+     "bois": false,
+     "profil": "GP Noël · Emboîtements précis (0,16 mm, 3 parois)",
+     "orientation": "À plat",
+     "eclate": [
+      0,
+      -30,
+      0
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       14.0,
+       70.0,
+       6.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 2.1,
+      "temps_min": 8,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "bouton",
+     "nom": "Bouton",
+     "qte": 1,
+     "imprime": true,
+     "stl": "belier/bouton.stl",
+     "contexte": false,
+     "fichier": "06_belier_bouton.stl",
+     "filament": "PLA Matte Rouge écarlate (11200)",
+     "hex": "#c8352e",
+     "silk": false,
+     "bois": false,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "Logement carré vers le haut",
+     "eclate": [
+      0,
+      -45,
+      0
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       16.0,
+       16.0,
+       6.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 0.9,
+      "temps_min": 6,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ],
+   "quincaillerie": [
+    {
+     "nom": "Élastique de bureau",
+     "qte": 1,
+     "note": "retour du piston"
+    },
+    {
+     "nom": "Pâte adhésive repositionnable (2 boulettes de 3 mm)",
+     "qte": 1,
+     "note": "dans le chapeau du cavalier"
+    }
+   ],
+   "etapes": [
+    {
+     "texte": "Glissez le piston dans le fourreau (tête côté voie). Il doit coulisser seul sous son poids : sinon, poncez la tige au grain 400.",
+     "ajoute": [
+      "fourreau",
+      "piston"
+     ],
+     "vue": "piston"
+    },
+    {
+     "texte": "Emmanchez le bouton sur l'extrémité extérieure (serrage, sans colle).",
+     "ajoute": [
+      "bouton"
+     ]
+    },
+    {
+     "texte": "Tendez l'élastique entre les 2 crochets. Coiffez la paroi extérieure gauche (voie 1) ou la cloison 4|5 avec le fourreau droit (voie 4) : le tube reste hors des voies de course.",
+     "ajoute": []
+    }
+   ]
+  },
+  {
+   "id": "oeuf_wyverne",
+   "statutV1": "VALIDÉ",
+   "valide": true,
+   "notes": {
+    "impression": 5.0,
+    "mise_en_place": 5.0,
+    "rearmement": 4,
+    "fiabilite": 4
+   },
+   "difficulte": 1,
+   "defautsV1": [],
+   "solution": "Validé : 2 coques identiques collées autour d'une bille Ø 10 mm. La voûte intérieure (Ø 14 mm) se referme sans support.",
+   "declenchement": "Lâché derrière le portique de départ au GO (ou dans la Trémie de largage).",
+   "rearmer": "Ramasser l'œuf en bas de piste (6 s).",
+   "poseS": 0,
+   "rearmerS": 6,
+   "fiabilite": "Trajectoire volontairement imprévisible.",
+   "physique": {
+    "masse_g": 6
+   },
+   "mobile": true,
+   "pont": false,
+   "masseG": 2.8,
+   "tempsMin": 8,
+   "pieces": [
+    {
+     "id": "coque_haut",
+     "nom": "Coque (×2)",
+     "qte": 2,
+     "imprime": true,
+     "stl": "oeuf_wyverne/coque_haut.stl",
+     "contexte": false,
+     "fichier": "07_oeuf_wyverne_coque_haut.stl",
+     "filament": "PLA Matte Prune (11204)",
+     "hex": "#6e2a4f",
+     "silk": false,
+     "bois": false,
+     "profil": "0,12 mm Fine @BBL (petites sphères, tétons)",
+     "orientation": "Ouverture sur le plateau",
+     "eclate": [
+      0,
+      0,
+      18
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       22.0,
+       22.0,
+       14.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 1.4,
+      "temps_min": 8,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "coque_bas",
+     "nom": "",
+     "qte": 1,
+     "imprime": false,
+     "stl": "oeuf_wyverne/coque_bas.stl",
+     "contexte": false,
+     "fichier": null,
+     "filament": "PLA Matte Prune (11204)",
+     "hex": "#6e2a4f",
+     "silk": false,
+     "bois": false,
+     "profil": null,
+     "orientation": null,
+     "eclate": [
+      0,
+      0,
+      -12
+     ],
+     "partage": false,
+     "analyse": null
+    },
+    {
+     "id": "quincaillerie",
+     "nom": "Quincaillerie",
+     "qte": 1,
+     "imprime": false,
+     "stl": "oeuf_wyverne/quincaillerie.stl",
+     "hex": "#c9ced6",
+     "metal": true,
+     "eclate": [
+      0,
+      0,
+      0
+     ]
+    }
+   ],
+   "quincaillerie": [
+    {
+     "nom": "Bille d'acier Ø 10 mm",
+     "qte": 1,
+     "note": "roulement"
+    },
+    {
+     "nom": "Colle cyanoacrylate",
+     "qte": 1,
+     "note": "un filet sur la tranche"
+    }
+   ],
+   "etapes": [
+    {
+     "texte": "Posez la bille dans une coque, encollez la tranche, fermez avec la 2e coque, écailles décalées.",
+     "ajoute": [
+      "coque_bas",
+      "quincaillerie",
+      "coque_haut"
+     ],
+     "vue": "coque_haut"
+    }
+   ]
+  },
+  {
+   "id": "pelote",
+   "statutV1": "CORRIGÉ",
+   "valide": true,
+   "notes": {
+    "impression": 4.5,
+    "mise_en_place": 5.0,
+    "rearmement": 5,
+    "fiabilite": 5
+   },
+   "difficulte": 1,
+   "defautsV1": [
+    "Méplat de 1 mm : le bas de la sphère surplombait dans le vide (≈ 80 mm² à plus de 45°) — décollement probable."
+   ],
+   "solution": "Méplat de 2,5 mm : le premier contact au plateau passe de 20 à 60 mm² et le ventre de la sphère reste sous 45°.",
+   "declenchement": "Posée ou lancée dans la voie pendant la course.",
+   "rearmer": "Ramasser (5 s).",
+   "poseS": 0,
+   "rearmerS": 5,
+   "fiabilite": "Aucune pièce mobile.",
+   "physique": {
+    "masse_g": 2
+   },
+   "mobile": true,
+   "pont": false,
+   "masseG": 1.6,
+   "tempsMin": 9,
+   "pieces": [
+    {
+     "id": "pelote",
+     "nom": "Pelote",
+     "qte": 1,
+     "imprime": true,
+     "stl": "pelote/pelote.stl",
+     "contexte": false,
+     "fichier": "08_pelote_pelote.stl",
+     "filament": "PLA Basic Violet (10700)",
+     "hex": "#6b44b6",
+     "silk": false,
+     "bois": false,
+     "profil": "0,12 mm Fine @BBL (petites sphères, tétons)",
+     "orientation": "Méplat sur le plateau",
+     "eclate": [
+      0,
+      0,
+      0
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       22.0,
+       21.8,
+       19.4
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 1.6,
+      "temps_min": 9,
+      "alertes": [
+       "~ 10 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
+      ],
+      "verdict_impression": "A_SURVEILLER"
+     }
+    }
+   ],
+   "quincaillerie": [],
+   "etapes": [
+    {
+     "texte": "Rien à monter : ébavurez les fils au cutter.",
+     "ajoute": [
+      "pelote"
+     ],
+     "vue": "pelote"
+    }
+   ]
+  },
+  {
+   "id": "obus",
+   "statutV1": "VALIDÉ",
+   "valide": true,
+   "notes": {
+    "impression": 5.0,
+    "mise_en_place": 4.6,
+    "rearmement": 4,
+    "fiabilite": 4
+   },
+   "difficulte": 1,
+   "defautsV1": [],
+   "solution": "Validé : fond à 3 cages + dôme à tétons, 3 billes Ø 6 mm prisonnières.",
+   "declenchement": "Lancé à la main depuis le haut de la voie, juste après le GO.",
+   "rearmer": "Ramasser (6 s).",
+   "poseS": 0,
+   "rearmerS": 6,
+   "fiabilite": "Les billes doivent tourner librement : jeu de 0,25 mm prévu.",
+   "physique": {
+    "masse_g": 7
+   },
+   "mobile": true,
+   "pont": false,
+   "masseG": 4.1,
+   "tempsMin": 16,
+   "pieces": [
+    {
+     "id": "fond",
+     "nom": "Fond à cages",
+     "qte": 1,
+     "imprime": true,
+     "stl": "obus/fond.stl",
+     "contexte": false,
+     "fichier": "09_obus_fond.stl",
+     "filament": "PLA Matte Blanc ivoire (11100)",
+     "hex": "#f1ecdf",
+     "silk": false,
+     "bois": false,
+     "profil": "GP Noël · Emboîtements précis (0,16 mm, 3 parois)",
+     "orientation": "Plaque sur le plateau",
+     "eclate": [
+      0,
+      0,
+      -8
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       28.0,
+       28.0,
+       7.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 1.8,
+      "temps_min": 8,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "dome",
+     "nom": "Dôme",
+     "qte": 1,
+     "imprime": true,
+     "stl": "obus/dome.stl",
+     "contexte": false,
+     "fichier": "09_obus_dome.stl",
+     "filament": "PLA Silk+ Rouge bonbon (13205)",
+     "hex": "#d3203c",
+     "silk": true,
+     "bois": false,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "Face plane sur le plateau",
+     "eclate": [
+      0,
+      0,
+      14
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       30.0,
+       30.0,
+       8.2
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 2.3,
+      "temps_min": 8,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "quincaillerie",
+     "nom": "Quincaillerie",
+     "qte": 1,
+     "imprime": false,
+     "stl": "obus/quincaillerie.stl",
+     "hex": "#c9ced6",
+     "metal": true,
+     "eclate": [
+      0,
+      0,
+      0
+     ]
+    }
+   ],
+   "quincaillerie": [
+    {
+     "nom": "Billes Ø 6 mm (airsoft ou acier)",
+     "qte": 3,
+     "note": "billes d'airsoft : rayon jouets"
+    },
+    {
+     "nom": "Colle cyanoacrylate",
+     "qte": 1,
+     "note": "2 gouttes sur les tétons"
+    }
+   ],
+   "etapes": [
+    {
+     "texte": "Posez les 3 billes dans les cages du fond, emboîtez le dôme (tétons), collez.",
+     "ajoute": [
+      "fond",
+      "quincaillerie",
+      "dome"
+     ],
+     "vue": "dome"
+    }
+   ]
+  },
+  {
+   "id": "bowling",
+   "statutV1": "VALIDÉ",
+   "valide": true,
+   "notes": {
+    "impression": 5.0,
+    "mise_en_place": 5.0,
+    "rearmement": 4,
+    "fiabilite": 5
+   },
+   "difficulte": 1,
+   "defautsV1": [],
+   "solution": "Validée : 2 demi-sphères identiques, bille Ø 12 au centre, tétons de centrage.",
+   "declenchement": "Lâchée en haut de la voie au GO.",
+   "rearmer": "Ramasser (6 s).",
+   "poseS": 0,
+   "rearmerS": 6,
+   "fiabilite": "Lourde, trajectoire stable.",
+   "physique": {
+    "masse_g": 9
+   },
+   "mobile": true,
+   "pont": false,
+   "masseG": 3.0,
+   "tempsMin": 8,
+   "pieces": [
+    {
+     "id": "demi_haut",
+     "nom": "Demi-boule (×2)",
+     "qte": 2,
+     "imprime": true,
+     "stl": "bowling/demi_haut.stl",
+     "contexte": false,
+     "fichier": "10_bowling_demi_haut.stl",
+     "filament": "PLA Silk+ Bleu (13604)",
+     "hex": "#2479d0",
+     "silk": true,
+     "bois": false,
+     "profil": "0,12 mm Fine @BBL (petites sphères, tétons)",
+     "orientation": "Face coupée sur le plateau",
+     "eclate": [
+      0,
+      0,
+      18
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       22.0,
+       22.0,
+       11.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 1.5,
+      "temps_min": 8,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "demi_bas",
+     "nom": "",
+     "qte": 1,
+     "imprime": false,
+     "stl": "bowling/demi_bas.stl",
+     "contexte": false,
+     "fichier": null,
+     "filament": "PLA Silk+ Bleu (13604)",
+     "hex": "#2479d0",
+     "silk": true,
+     "bois": false,
+     "profil": null,
+     "orientation": null,
+     "eclate": [
+      0,
+      0,
+      -12
+     ],
+     "partage": false,
+     "analyse": null
+    },
+    {
+     "id": "quincaillerie",
+     "nom": "Quincaillerie",
+     "qte": 1,
+     "imprime": false,
+     "stl": "bowling/quincaillerie.stl",
+     "hex": "#c9ced6",
+     "metal": true,
+     "eclate": [
+      0,
+      0,
+      0
+     ]
+    }
+   ],
+   "quincaillerie": [
+    {
+     "nom": "Bille d'acier Ø 12 mm",
+     "qte": 1,
+     "note": "roulement"
+    },
+    {
+     "nom": "Colle cyanoacrylate",
+     "qte": 1,
+     "note": "un filet"
+    }
+   ],
+   "etapes": [
+    {
+     "texte": "Bille au centre, collez les 2 demi-boules (tétons tête-bêche), poncez l'équateur au grain 400.",
+     "ajoute": [
+      "demi_bas",
+      "quincaillerie",
+      "demi_haut"
+     ],
+     "vue": "demi_haut"
+    }
+   ]
+  },
+  {
+   "id": "chausse_trapes",
+   "statutV1": "VALIDÉ",
+   "valide": true,
+   "notes": {
+    "impression": 5.0,
+    "mise_en_place": 5.0,
+    "rearmement": 3,
+    "fiabilite": 4
+   },
+   "difficulte": 1,
+   "defautsV1": [
+    "Ramassage de 6 pièces entre deux manches : 15 s. Limité à 4 pièces par lancer."
+   ],
+   "solution": "Validées : V identiques imprimés à plat, assemblés à mi-bois (aucun surplomb). Lancer 4 chausse-trapes au maximum.",
+   "declenchement": "Jetées en pluie à mi-pente pendant la course.",
+   "rearmer": "Ramasser les 4 pièces (15 s).",
+   "poseS": 0,
+   "rearmerS": 15,
+   "fiabilite": "Pointes arrondies : aucun danger pour la piste.",
+   "physique": {
+    "pointe_rayon_mm": 1.5
+   },
+   "mobile": true,
+   "pont": false,
+   "masseG": 3.0,
+   "tempsMin": 9,
+   "pieces": [
+    {
+     "id": "branche_a",
+     "nom": "Lot de 12 V (6 chausse-trapes)",
+     "qte": 1,
+     "imprime": true,
+     "stl": "chausse_trapes/branche_a.stl",
+     "contexte": false,
+     "fichier": "11_chausse_trapes_branche_a.stl",
+     "filament": "PLA Silk+ Gris titane (13108)",
+     "hex": "#6c7075",
+     "silk": true,
+     "bois": false,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "À plat",
+     "eclate": [
+      0,
+      -10,
+      0
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       82.9,
+       45.5,
+       2.4
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 3.0,
+      "temps_min": 9,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "branche_b",
+     "nom": "",
+     "qte": 1,
+     "imprime": false,
+     "stl": "chausse_trapes/branche_b.stl",
+     "contexte": false,
+     "fichier": null,
+     "filament": "PLA Silk+ Gris titane (13108)",
+     "hex": "#6c7075",
+     "silk": true,
+     "bois": false,
+     "profil": null,
+     "orientation": null,
+     "eclate": [
+      0,
+      10,
+      0
+     ],
+     "partage": false,
+     "analyse": null
+    }
+   ],
+   "quincaillerie": [
+    {
+     "nom": "Colle cyanoacrylate",
+     "qte": 1,
+     "note": "facultatif : 1 goutte par croix"
+    }
+   ],
+   "etapes": [
+    {
+     "texte": "Emboîtez 2 V à mi-bois, en croix : 4 pointes en tétraèdre, toujours une vers le haut.",
+     "ajoute": [
+      "branche_a",
+      "branche_b"
+     ],
+     "vue": "branche_a"
+    }
+   ]
+  },
+  {
+   "id": "curling",
+   "statutV1": "VALIDÉ",
+   "valide": true,
+   "notes": {
+    "impression": 4.5,
+    "mise_en_place": 4.4,
+    "rearmement": 4,
+    "fiabilite": 4
+   },
+   "difficulte": 1,
+   "defautsV1": [],
+   "solution": "Validée : palet lesté d'un écrou M8, 3 patins PTFE ; poignée collée qui masque l'écrou.",
+   "declenchement": "Glissé à la main en haut de la voie juste avant le passage du bolide.",
+   "rearmer": "Ramasser (6 s).",
+   "poseS": 0,
+   "rearmerS": 6,
+   "fiabilite": "Patins PTFE : à acheter.",
+   "physique": {
+    "masse_g": 9
+   },
+   "mobile": true,
+   "pont": false,
+   "masseG": 3.6,
+   "tempsMin": 15,
+   "pieces": [
+    {
+     "id": "palet",
+     "nom": "Palet",
+     "qte": 1,
+     "imprime": true,
+     "stl": "curling/palet.stl",
+     "contexte": false,
+     "fichier": "12_curling_palet.stl",
+     "filament": "PLA Silk+ Argenté (13109)",
+     "hex": "#c4c8cd",
+     "silk": true,
+     "bois": false,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "Logements de patins sur le plateau",
+     "eclate": [
+      0,
+      0,
+      -6
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       28.0,
+       28.0,
+       9.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 10.4,
+      "masse_g": 2.8,
+      "temps_min": 9,
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "poignee",
+     "nom": "Poignée",
+     "qte": 1,
+     "imprime": true,
+     "stl": "curling/poignee.stl",
+     "contexte": false,
+     "fichier": "12_curling_poignee.stl",
+     "filament": "PLA Matte Rouge écarlate (11200)",
+     "hex": "#c8352e",
+     "silk": false,
+     "bois": false,
+     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
+     "orientation": "À plat",
+     "eclate": [
+      0,
+      0,
+      16
+     ],
+     "partage": false,
+     "analyse": {
+      "dimensions_mm": [
+       23.0,
+       12.5,
+       5.0
+      ],
+      "supports": "aucun",
+      "pont_max_mm": 0,
+      "masse_g": 0.8,
+      "temps_min": 6,
+      "alertes": [
+       "~ 19 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
+      ],
+      "verdict_impression": "A_SURVEILLER"
+     }
+    },
+    {
+     "id": "quincaillerie",
+     "nom": "Quincaillerie",
+     "qte": 1,
+     "imprime": false,
+     "stl": "curling/quincaillerie.stl",
+     "hex": "#c9ced6",
+     "metal": true,
+     "eclate": [
+      0,
+      0,
+      0
+     ]
+    }
+   ],
+   "quincaillerie": [
+    {
+     "nom": "Écrou M8",
+     "qte": 1,
+     "note": "lest"
+    },
+    {
+     "nom": "Patins PTFE adhésifs Ø 10 mm",
+     "qte": 3,
+     "note": "patins de chaise découpés"
+    },
+    {
+     "nom": "Colle cyanoacrylate",
+     "qte": 1,
+     "note": "poignée"
+    }
+   ],
+   "etapes": [
+    {
+     "texte": "Écrou M8 dans le palet, 3 patins PTFE dessous, poignée collée par-dessus l'écrou.",
+     "ajoute": [
+      "palet",
+      "quincaillerie",
+      "poignee"
+     ],
+     "vue": "poignee"
+    }
+   ]
+  }
+ ],
+ "tremie": {
+  "id": "tremie",
+  "nom": "Trémie de largage (module du chariot)",
+  "chuteMs": 98,
+  "pieces": [
+   {
+    "id": "pont_a",
+    "nom": "Pont des Pièges · moitié A (voies 1-3)",
+    "qte": 1,
+    "imprime": true,
+    "fichier": "00_pont_a.stl",
+    "stl": "pont_a.stl",
+    "contexte": true,
+    "filament": "PLA Matte Anthracite (11101)",
+    "hex": "#3d3f43",
+    "silk": false,
+    "eclate": [
+     0,
+     -30,
+     25
+    ],
+    "partage": true,
+    "analyse": {
+     "dimensions_mm": [
+      60.0,
+      171.7,
+      14.0
+     ],
+     "supports": "aucun",
+     "masse_g": 12.3,
+     "temps_min": 22,
+     "alertes": [],
+     "verdict_impression": "OK"
+    }
+   },
+   {
+    "id": "pont_b",
+    "nom": "Pont des Pièges · moitié B (voies 4-5)",
+    "qte": 1,
+    "imprime": true,
+    "fichier": "00_pont_b.stl",
+    "stl": "pont_b.stl",
+    "contexte": true,
+    "filament": "PLA Matte Anthracite (11101)",
+    "hex": "#3d3f43",
+    "silk": false,
+    "eclate": [
+     0,
+     30,
+     25
+    ],
+    "partage": true,
+    "analyse": {
+     "dimensions_mm": [
+      60.0,
+      123.4,
+      14.0
+     ],
+     "supports": "aucun",
+     "masse_g": 9.5,
+     "temps_min": 19,
+     "alertes": [],
+     "verdict_impression": "OK"
+    }
+   },
+   {
+    "id": "pion",
+    "nom": "Pion d'index",
+    "qte": 4,
+    "imprime": true,
+    "fichier": "00_pion.stl",
+    "stl": "pion.stl",
+    "contexte": false,
+    "filament": "PLA Basic Jaune tournesol (10402)",
+    "hex": "#f7c600",
+    "silk": false,
+    "eclate": [
+     0,
+     0,
+     30
+    ],
+    "partage": true,
+    "analyse": {
+     "dimensions_mm": [
+      8.9,
+      8.9,
+      16.8
+     ],
+     "supports": "aucun",
+     "masse_g": 0.3,
+     "temps_min": 7,
+     "alertes": [],
+     "verdict_impression": "OK"
+    }
+   },
+   {
+    "id": "chariot",
+    "nom": "Chariot porte-module",
+    "qte": 1,
+    "imprime": true,
+    "fichier": "00_chariot.stl",
+    "stl": "chariot.stl",
+    "contexte": false,
+    "filament": "PLA Matte Anthracite (11101)",
+    "hex": "#3d3f43",
+    "silk": false,
+    "eclate": [
+     0,
+     0,
+     18
+    ],
+    "partage": true,
+    "analyse": {
+     "dimensions_mm": [
+      52.4,
+      45.3,
+      34.3
+     ],
+     "supports": "aucun",
+     "masse_g": 9.9,
+     "temps_min": 23,
+     "alertes": [],
+     "verdict_impression": "OK"
+    }
+   },
+   {
+    "id": "tremie",
+    "nom": "Trémie",
+    "qte": 1,
+    "imprime": true,
+    "fichier": "13_tremie_tremie.stl",
+    "stl": "tremie/tremie.stl",
+    "contexte": false,
+    "filament": "PLA Matte Blanc ivoire (11100)",
+    "hex": "#f1ecdf",
+    "silk": false,
+    "eclate": [
+     0,
+     0,
+     30
+    ],
+    "partage": false,
+    "analyse": {
+     "dimensions_mm": [
+      55.1,
+      53.6,
+      34.0
+     ],
+     "supports": "aucun",
+     "masse_g": 10.4,
+     "temps_min": 24,
+     "alertes": [],
+     "verdict_impression": "OK"
+    }
+   },
+   {
+    "id": "fourche",
+    "nom": "Fourche",
+    "qte": 1,
+    "imprime": true,
+    "fichier": "13_tremie_fourche.stl",
+    "stl": "tremie/fourche.stl",
+    "contexte": false,
+    "filament": "PLA Matte Rouge écarlate (11200)",
+    "hex": "#c8352e",
+    "silk": false,
+    "eclate": [
+     40,
+     0,
+     0
+    ],
+    "partage": false,
+    "analyse": {
+     "dimensions_mm": [
+      58.1,
+      18.4,
+      2.4
+     ],
+     "supports": "aucun",
+     "masse_g": 1.2,
+     "temps_min": 6,
+     "alertes": [],
+     "verdict_impression": "OK"
+    }
+   }
+  ]
+ },
+ "regle": "Une pièce n'entre au Labo que si ses 4 notes (impression, mise en place, réarmement, fiabilité) sont ≥ 3 et qu'aucune de ses STL n'exige de support."
+}

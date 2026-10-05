@@ -1,0 +1,429 @@
+{
+ "piste": {
+  "voie_l": 46.0,
+  "paroi_ep": 2.4,
+  "paroi_h": 6.0,
+  "jeu": 0.35,
+  "nb_voies": 5.0,
+  "voies_gp": 4.0,
+  "paroi_ext_ep": 2.4,
+  "hauteur_libre": 46.0,
+  "pas": 48.4,
+  "largeur": 239.6
+ },
+ "arsenal": {
+  "banane": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  },
+  "thwomp": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  },
+  "dos_ane": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  },
+  "guimauve": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  },
+  "balle_service": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  },
+  "vinyle": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": false,
+    "intrusion_mm": 20.05
+   }
+  },
+  "mediator": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": false,
+    "intrusion_mm": 5.47
+   }
+  },
+  "cle_sol": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  },
+  "cupcake": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  },
+  "huile": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  },
+  "bloc_terre": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  },
+  "tourniquet": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": false,
+    "intrusion_mm": 15.83
+   }
+  },
+  "baguettes": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": false,
+    "intrusion_mm": 2.75
+   }
+  },
+  "shuriken": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  },
+  "pirouette": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  },
+  "peage": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": false,
+    "intrusion_mm": 2.75
+   }
+  },
+  "belier": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  },
+  "borne_secteur": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  },
+  "oeuf_wyverne": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  },
+  "pelote": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  },
+  "obus": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  },
+  "bowling": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  },
+  "chausse_trapes": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  },
+  "curling": {
+   "conforme": true,
+   "intrusion_mm": 0.0,
+   "voies": [],
+   "avant": {
+    "conforme": true,
+    "intrusion_mm": 0.0
+   }
+  }
+ },
+ "labo": [
+  {
+   "fiche": "herse",
+   "piece": "pont_a",
+   "conforme": true
+  },
+  {
+   "fiche": "herse",
+   "piece": "pont_b",
+   "conforme": true
+  },
+  {
+   "fiche": "herse",
+   "piece": "pion",
+   "conforme": true
+  },
+  {
+   "fiche": "herse",
+   "piece": "chariot",
+   "conforme": true
+  },
+  {
+   "fiche": "herse",
+   "piece": "grille",
+   "conforme": true
+  },
+  {
+   "fiche": "herse",
+   "piece": "quincaillerie",
+   "conforme": true
+  },
+  {
+   "fiche": "balancier",
+   "piece": "lame",
+   "conforme": true
+  },
+  {
+   "fiche": "balancier",
+   "piece": "entretoise",
+   "conforme": true
+  },
+  {
+   "fiche": "balancier",
+   "piece": "quincaillerie",
+   "conforme": true
+  },
+  {
+   "fiche": "boulet",
+   "piece": "moyeu",
+   "conforme": true
+  },
+  {
+   "fiche": "boulet",
+   "piece": "entretoise",
+   "conforme": true
+  },
+  {
+   "fiche": "boulet",
+   "piece": "demi_boulet",
+   "conforme": true
+  },
+  {
+   "fiche": "boulet",
+   "piece": "quincaillerie",
+   "conforme": true
+  },
+  {
+   "fiche": "bascule",
+   "piece": "base",
+   "conforme": true
+  },
+  {
+   "fiche": "bascule",
+   "piece": "tablier",
+   "conforme": true
+  },
+  {
+   "fiche": "bascule",
+   "piece": "quincaillerie",
+   "conforme": true
+  },
+  {
+   "fiche": "peage",
+   "piece": "potence",
+   "conforme": true
+  },
+  {
+   "fiche": "peage",
+   "piece": "lisse",
+   "conforme": true
+  },
+  {
+   "fiche": "peage",
+   "piece": "quincaillerie",
+   "conforme": true
+  },
+  {
+   "fiche": "belier",
+   "piece": "fourreau",
+   "conforme": true
+  },
+  {
+   "fiche": "belier",
+   "piece": "piston",
+   "conforme": true
+  },
+  {
+   "fiche": "belier",
+   "piece": "bouton",
+   "conforme": true
+  },
+  {
+   "fiche": "oeuf_wyverne",
+   "piece": "coque_haut",
+   "conforme": true
+  },
+  {
+   "fiche": "oeuf_wyverne",
+   "piece": "coque_bas",
+   "conforme": true
+  },
+  {
+   "fiche": "oeuf_wyverne",
+   "piece": "quincaillerie",
+   "conforme": true
+  },
+  {
+   "fiche": "pelote",
+   "piece": "pelote",
+   "conforme": true
+  },
+  {
+   "fiche": "obus",
+   "piece": "fond",
+   "conforme": true
+  },
+  {
+   "fiche": "obus",
+   "piece": "dome",
+   "conforme": true
+  },
+  {
+   "fiche": "obus",
+   "piece": "quincaillerie",
+   "conforme": true
+  },
+  {
+   "fiche": "bowling",
+   "piece": "demi_haut",
+   "conforme": true
+  },
+  {
+   "fiche": "bowling",
+   "piece": "demi_bas",
+   "conforme": true
+  },
+  {
+   "fiche": "bowling",
+   "piece": "quincaillerie",
+   "conforme": true
+  },
+  {
+   "fiche": "chausse_trapes",
+   "piece": "branche_a",
+   "conforme": true
+  },
+  {
+   "fiche": "chausse_trapes",
+   "piece": "branche_b",
+   "conforme": true
+  },
+  {
+   "fiche": "curling",
+   "piece": "palet",
+   "conforme": true
+  },
+  {
+   "fiche": "curling",
+   "piece": "poignee",
+   "conforme": true
+  },
+  {
+   "fiche": "curling",
+   "piece": "quincaillerie",
+   "conforme": true
+  },
+  {
+   "fiche": "tremie",
+   "piece": "tremie",
+   "conforme": true
+  },
+  {
+   "fiche": "tremie",
+   "piece": "fourche",
+   "conforme": true
+  }
+ ]
+}

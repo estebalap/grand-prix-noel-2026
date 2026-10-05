@@ -1,0 +1,7404 @@
+{
+ "_doc": "Généré par 10_Pantheon_Trophees/generer_pantheon.py — ne pas modifier à la main.",
+ "annee": "2026",
+ "filaments": {
+  "11101": {
+   "gamme": "PLA Matte",
+   "nom": "Anthracite",
+   "hex": "#3d3f43"
+  },
+  "11100": {
+   "gamme": "PLA Matte",
+   "nom": "Blanc ivoire",
+   "hex": "#f1ecdf"
+  },
+  "11600": {
+   "gamme": "PLA Matte",
+   "nom": "Bleu marine",
+   "hex": "#1f4e8f"
+  },
+  "11200": {
+   "gamme": "PLA Matte",
+   "nom": "Rouge écarlate",
+   "hex": "#c8352e"
+  },
+  "11300": {
+   "gamme": "PLA Matte",
+   "nom": "Mandarine",
+   "hex": "#f0862a"
+  },
+  "11204": {
+   "gamme": "PLA Matte",
+   "nom": "Prune",
+   "hex": "#6e2a4f"
+  },
+  "11801": {
+   "gamme": "PLA Matte",
+   "nom": "Marron foncé",
+   "hex": "#4e3426"
+  },
+  "13405": {
+   "gamme": "PLA Silk+",
+   "nom": "Doré",
+   "hex": "#d8a63a"
+  },
+  "13109": {
+   "gamme": "PLA Silk+",
+   "nom": "Argenté",
+   "hex": "#c4c8cd"
+  },
+  "13108": {
+   "gamme": "PLA Silk+",
+   "nom": "Gris titane",
+   "hex": "#6c7075"
+  },
+  "13205": {
+   "gamme": "PLA Silk+",
+   "nom": "Rouge bonbon",
+   "hex": "#d3203c"
+  },
+  "13506": {
+   "gamme": "PLA Silk+",
+   "nom": "Vert bonbon",
+   "hex": "#3dbb54"
+  },
+  "13604": {
+   "gamme": "PLA Silk+",
+   "nom": "Bleu",
+   "hex": "#2479d0"
+  },
+  "13206": {
+   "gamme": "PLA Silk+",
+   "nom": "Doré rose",
+   "hex": "#d9a094"
+  },
+  "10402": {
+   "gamme": "PLA Basic",
+   "nom": "Jaune tournesol",
+   "hex": "#f7c600"
+  },
+  "10700": {
+   "gamme": "PLA Basic",
+   "nom": "Violet",
+   "hex": "#6b44b6"
+  },
+  "10701": {
+   "gamme": "PLA Basic",
+   "nom": "Violet indigo",
+   "hex": "#3a2a6a"
+  },
+  "10103": {
+   "gamme": "PLA Basic",
+   "nom": "Gris",
+   "hex": "#8d9094"
+  },
+  "13106": {
+   "gamme": "PLA Wood",
+   "nom": "Chêne blanc",
+   "hex": "#d6c29a"
+  },
+  "32101": {
+   "gamme": "PETG",
+   "nom": "Translucide",
+   "hex": "#dfeef3"
+  }
+ },
+ "trophees": [
+  {
+   "id": "coupe_arc_en_ciel",
+   "nom": "Coupe Arc-en-Ciel",
+   "categorie": "officiel",
+   "attribution": "Vainqueur de la Grande Finale (Trophée Suprême du Grand Prix).",
+   "prix": "grandprix",
+   "valide": true,
+   "hauteur_mm": 211.3,
+   "largeur_mm": 140.5,
+   "masse_g": 212.4,
+   "temps_min": 356,
+   "couleurs": [
+    "10402",
+    "10700",
+    "11101",
+    "11200",
+    "11300",
+    "13405",
+    "13506",
+    "13604"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "coupe_arc_en_ciel/socle.stl",
+     "fichier": "coupe_arc_en_ciel/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       99.8,
+       99.8,
+       32.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 8247.7,
+      "elancement": 0.35,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 19.4,
+        "portee_mm": 32.3,
+        "longueur_mm": 32.3,
+        "z_mm": 26.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 32.3,
+      "epaisseur_p1_mm": 6.33,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 231.05,
+      "masse_g": 64.9,
+      "temps_min": 71,
+      "couches": 160,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "cheville",
+     "nom": "Cheville carrée 10 mm",
+     "role": "cheville",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "coupe_arc_en_ciel/cheville.stl",
+     "fichier": "coupe_arc_en_ciel/02_cheville__anthracite.stl",
+     "analyse": {
+      "nom": "02_cheville__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       10.0,
+       10.0,
+       16.5
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 100.0,
+      "elancement": 1.65,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 10.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 1.65,
+      "masse_g": 1.1,
+      "temps_min": 8,
+      "couches": 82,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "cheville_haut",
+     "nom": "Cheville carrée (pied/coupe)",
+     "role": "cheville",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "coupe_arc_en_ciel/cheville_haut.stl",
+     "fichier": "coupe_arc_en_ciel/03_cheville_haut__anthracite.stl",
+     "analyse": {
+      "nom": "03_cheville_haut__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       10.0,
+       10.0,
+       16.5
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 100.0,
+      "elancement": 1.65,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 10.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 1.65,
+      "masse_g": 1.1,
+      "temps_min": 8,
+      "couches": 82,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "coupe_arc_en_ciel/plaque.stl",
+     "fichier": "coupe_arc_en_ciel/04_plaque__dore.stl",
+     "analyse": {
+      "nom": "04_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       31.7,
+       14.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 454.8,
+      "elancement": 0.11,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.78,
+      "part_paroi_fine": 0.0083,
+      "volume_cm3": 0.81,
+      "masse_g": 1.0,
+      "temps_min": 6,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "pied",
+     "nom": "Pied torsadé",
+     "role": "pied",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "coupe_arc_en_ciel/pied.stl",
+     "fichier": "coupe_arc_en_ciel/05_pied__dore.stl",
+     "analyse": {
+      "nom": "05_pied__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       26.0,
+       26.0,
+       52.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 264.2,
+      "elancement": 3.2,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.57,
+      "part_paroi_fine": 0.015,
+      "volume_cm3": 17.64,
+      "masse_g": 8.4,
+      "temps_min": 21,
+      "couches": 260,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "anneau_1",
+     "nom": "Anneau 1 (rouge)",
+     "role": "anneau",
+     "qte": 1,
+     "fil": {
+      "ref": "11200",
+      "gamme": "PLA Matte",
+      "nom": "Rouge écarlate",
+      "hex": "#c8352e"
+     },
+     "matiere": "PLA",
+     "stl": "coupe_arc_en_ciel/anneau_1.stl",
+     "fichier": "coupe_arc_en_ciel/06_anneau_1__rouge_ecarlate.stl",
+     "analyse": {
+      "nom": "06_anneau_1__rouge_ecarlate.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       70.0,
+       70.0,
+       29.6
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 1209.1,
+      "elancement": 0.85,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.11,
+      "part_paroi_fine": 0.0458,
+      "volume_cm3": 29.63,
+      "masse_g": 16.4,
+      "temps_min": 29,
+      "couches": 148,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "anneau_2",
+     "nom": "Anneau 2 (orange)",
+     "role": "anneau",
+     "qte": 1,
+     "fil": {
+      "ref": "11300",
+      "gamme": "PLA Matte",
+      "nom": "Mandarine",
+      "hex": "#f0862a"
+     },
+     "matiere": "PLA",
+     "stl": "coupe_arc_en_ciel/anneau_2.stl",
+     "fichier": "coupe_arc_en_ciel/07_anneau_2__mandarine.stl",
+     "analyse": {
+      "nom": "07_anneau_2__mandarine.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       91.5,
+       91.5,
+       19.6
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 536.7,
+      "elancement": 0.85,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.04,
+      "part_paroi_fine": 0.0783,
+      "volume_cm3": 19.42,
+      "masse_g": 15.4,
+      "temps_min": 28,
+      "couches": 98,
+      "supports": "aucun",
+      "alertes": [
+       "~ 8 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
+      ],
+      "verdict_impression": "A_SURVEILLER"
+     }
+    },
+    {
+     "id": "anneau_3",
+     "nom": "Anneau 3 (jaune)",
+     "role": "anneau",
+     "qte": 1,
+     "fil": {
+      "ref": "10402",
+      "gamme": "PLA Basic",
+      "nom": "Jaune tournesol",
+      "hex": "#f7c600"
+     },
+     "matiere": "PLA",
+     "stl": "coupe_arc_en_ciel/anneau_3.stl",
+     "fichier": "coupe_arc_en_ciel/08_anneau_3__jaune_tournesol.stl",
+     "analyse": {
+      "nom": "08_anneau_3__jaune_tournesol.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       107.5,
+       107.5,
+       19.6
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 712.8,
+      "elancement": 0.73,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.09,
+      "part_paroi_fine": 0.0667,
+      "volume_cm3": 24.06,
+      "masse_g": 18.5,
+      "temps_min": 32,
+      "couches": 98,
+      "supports": "aucun",
+      "alertes": [
+       "~ 7 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
+      ],
+      "verdict_impression": "A_SURVEILLER"
+     }
+    },
+    {
+     "id": "anneau_4",
+     "nom": "Anneau 4 (vert)",
+     "role": "anneau",
+     "qte": 1,
+     "fil": {
+      "ref": "13506",
+      "gamme": "PLA Silk+",
+      "nom": "Vert bonbon",
+      "hex": "#3dbb54"
+     },
+     "matiere": "PLA",
+     "stl": "coupe_arc_en_ciel/anneau_4.stl",
+     "fichier": "coupe_arc_en_ciel/09_anneau_4__vert_bonbon.stl",
+     "analyse": {
+      "nom": "09_anneau_4__vert_bonbon.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       119.3,
+       119.3,
+       19.6
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 843.3,
+      "elancement": 0.67,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.1,
+      "part_paroi_fine": 0.0675,
+      "volume_cm3": 27.5,
+      "masse_g": 20.7,
+      "temps_min": 35,
+      "couches": 98,
+      "supports": "aucun",
+      "alertes": [
+       "~ 7 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
+      ],
+      "verdict_impression": "A_SURVEILLER"
+     }
+    },
+    {
+     "id": "anneau_5",
+     "nom": "Anneau 5 (bleu)",
+     "role": "anneau",
+     "qte": 1,
+     "fil": {
+      "ref": "13604",
+      "gamme": "PLA Silk+",
+      "nom": "Bleu",
+      "hex": "#2479d0"
+     },
+     "matiere": "PLA",
+     "stl": "coupe_arc_en_ciel/anneau_5.stl",
+     "fichier": "coupe_arc_en_ciel/10_anneau_5__bleu.stl",
+     "analyse": {
+      "nom": "10_anneau_5__bleu.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       128.0,
+       128.0,
+       19.6
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 939.9,
+      "elancement": 0.64,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.18,
+      "part_paroi_fine": 0.0475,
+      "volume_cm3": 30.05,
+      "masse_g": 22.4,
+      "temps_min": 38,
+      "couches": 98,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "anneau_6",
+     "nom": "Anneau 6 (violet)",
+     "role": "anneau",
+     "qte": 1,
+     "fil": {
+      "ref": "10700",
+      "gamme": "PLA Basic",
+      "nom": "Violet",
+      "hex": "#6b44b6"
+     },
+     "matiere": "PLA",
+     "stl": "coupe_arc_en_ciel/anneau_6.stl",
+     "fichier": "coupe_arc_en_ciel/11_anneau_6__violet.stl",
+     "analyse": {
+      "nom": "11_anneau_6__violet.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       134.5,
+       134.5,
+       18.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 1011.5,
+      "elancement": 0.57,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.39,
+      "part_paroi_fine": 0.0242,
+      "volume_cm3": 31.48,
+      "masse_g": 22.8,
+      "temps_min": 38,
+      "couches": 90,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "levre",
+     "nom": "Lèvre dorée",
+     "role": "levre",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "coupe_arc_en_ciel/levre.stl",
+     "fichier": "coupe_arc_en_ciel/12_levre__dore.stl",
+     "analyse": {
+      "nom": "12_levre__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       140.3,
+       140.5,
+       8.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 1054.8,
+      "elancement": 0.25,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.43,
+      "part_paroi_fine": 0.0008,
+      "volume_cm3": 21.05,
+      "masse_g": 14.9,
+      "temps_min": 26,
+      "couches": 40,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "anse_droite",
+     "nom": "Anse droite",
+     "role": "anse",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "coupe_arc_en_ciel/anse_droite.stl",
+     "fichier": "coupe_arc_en_ciel/13_anse_droite__dore.stl",
+     "analyse": {
+      "nom": "13_anse_droite__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       53.1,
+       90.6,
+       4.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 561.5,
+      "elancement": 0.17,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 3.2,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 2.25,
+      "masse_g": 2.4,
+      "temps_min": 8,
+      "couches": 20,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "anse_gauche",
+     "nom": "Anse gauche",
+     "role": "anse",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "coupe_arc_en_ciel/anse_gauche.stl",
+     "fichier": "coupe_arc_en_ciel/14_anse_gauche__dore.stl",
+     "analyse": {
+      "nom": "14_anse_gauche__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       53.1,
+       90.6,
+       4.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 561.5,
+      "elancement": 0.17,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 3.2,
+      "part_paroi_fine": 0.0008,
+      "volume_cm3": 2.25,
+      "masse_g": 2.4,
+      "temps_min": 8,
+      "couches": 20,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "grand_parieur",
+   "nom": "La Pièce qui Tourne",
+   "categorie": "officiel",
+   "attribution": "Grand Parieur : la plus grosse fortune de la soirée.",
+   "prix": "parieur",
+   "valide": true,
+   "hauteur_mm": 112.0,
+   "largeur_mm": 85.0,
+   "masse_g": 59.4,
+   "temps_min": 82,
+   "couleurs": [
+    "11101",
+    "13405"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "grand_parieur/socle.stl",
+     "fichier": "grand_parieur/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       30.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5985.0,
+      "elancement": 0.39,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 24.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 26.1,
+      "epaisseur_p1_mm": 5.72,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 153.94,
+      "masse_g": 45.1,
+      "temps_min": 53,
+      "couches": 150,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "grand_parieur/plaque.stl",
+     "fichier": "grand_parieur/02_plaque__dore.stl",
+     "analyse": {
+      "nom": "02_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       12.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 315.5,
+      "elancement": 0.14,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.78,
+      "part_paroi_fine": 0.0033,
+      "volume_cm3": 0.58,
+      "masse_g": 0.7,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "medaillon",
+     "nom": "Médaillon tournant (imprimé en place)",
+     "role": "medaillon",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "grand_parieur/medaillon.stl",
+     "fichier": "grand_parieur/03_medaillon__dore.stl",
+     "analyse": {
+      "nom": "03_medaillon__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       77.3,
+       89.0,
+       5.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 2,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 3847.3,
+      "elancement": 0.08,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 150.7,
+        "portee_mm": 26.0,
+        "longueur_mm": 26.0,
+        "z_mm": 0.6
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 251.1,
+        "portee_mm": 42.0,
+        "longueur_mm": 42.0,
+        "z_mm": 0.6
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 42.0,
+      "epaisseur_p1_mm": 1.38,
+      "part_paroi_fine": 0.005,
+      "volume_cm3": 17.16,
+      "masse_g": 13.6,
+      "temps_min": 24,
+      "couches": 25,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "cascadeur",
+   "nom": "Le Tonneau du Cascadeur",
+   "categorie": "officiel",
+   "attribution": "Crash de l'année, élu par les invités.",
+   "prix": "cascadeur",
+   "valide": true,
+   "hauteur_mm": 93.2,
+   "largeur_mm": 92.4,
+   "masse_g": 100.1,
+   "temps_min": 152,
+   "couleurs": [
+    "11101",
+    "11300",
+    "13106",
+    "13405"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "cascadeur/socle.stl",
+     "fichier": "cascadeur/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       92.4,
+       92.4,
+       28.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 7071.1,
+      "elancement": 0.33,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 17.5,
+        "portee_mm": 29.2,
+        "longueur_mm": 29.2,
+        "z_mm": 22.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 29.2,
+      "epaisseur_p1_mm": 6.1,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 172.0,
+      "masse_g": 50.3,
+      "temps_min": 58,
+      "couches": 140,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "cheville",
+     "nom": "Cheville carrée 10 mm",
+     "role": "cheville",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "cascadeur/cheville.stl",
+     "fichier": "cascadeur/02_cheville__anthracite.stl",
+     "analyse": {
+      "nom": "02_cheville__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       10.0,
+       10.0,
+       16.5
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 100.0,
+      "elancement": 1.65,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 10.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 1.65,
+      "masse_g": 1.1,
+      "temps_min": 8,
+      "couches": 82,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "cascadeur/plaque.stl",
+     "fichier": "cascadeur/03_plaque__dore.stl",
+     "analyse": {
+      "nom": "03_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       28.6,
+       10.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 296.3,
+      "elancement": 0.14,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.88,
+      "part_paroi_fine": 0.0008,
+      "volume_cm3": 0.56,
+      "masse_g": 0.7,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "tremplin",
+     "nom": "Tremplin en flammes",
+     "role": "support",
+     "qte": 1,
+     "fil": {
+      "ref": "11300",
+      "gamme": "PLA Matte",
+      "nom": "Mandarine",
+      "hex": "#f0862a"
+     },
+     "matiere": "PLA",
+     "stl": "cascadeur/tremplin.stl",
+     "fichier": "cascadeur/04_tremplin__mandarine.stl",
+     "analyse": {
+      "nom": "04_tremplin__mandarine.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       84.0,
+       22.0,
+       23.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 1737.8,
+      "elancement": 0.56,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.39,
+      "part_paroi_fine": 0.0217,
+      "volume_cm3": 20.45,
+      "masse_g": 9.8,
+      "temps_min": 19,
+      "couches": 117,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "tonneau",
+     "nom": "Tonneau (PLA bois)",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13106",
+      "gamme": "PLA Wood",
+      "nom": "Chêne blanc",
+      "hex": "#d6c29a"
+     },
+     "matiere": "PLA",
+     "stl": "cascadeur/tonneau.stl",
+     "fichier": "cascadeur/05_tonneau__chene_blanc.stl",
+     "analyse": {
+      "nom": "05_tonneau__chene_blanc.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       52.0,
+       52.0,
+       64.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 1519.4,
+      "elancement": 1.64,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 2.6,
+      "part_paroi_fine": 0.0042,
+      "volume_cm3": 120.88,
+      "masse_g": 34.4,
+      "temps_min": 46,
+      "couches": 320,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "cerclage_1",
+     "nom": "Cerclage 1",
+     "role": "cerclage",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "cascadeur/cerclage_1.stl",
+     "fichier": "cascadeur/06_cerclage_1__anthracite.stl",
+     "analyse": {
+      "nom": "06_cerclage_1__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       50.6,
+       50.6,
+       6.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 253.7,
+      "elancement": 0.38,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.65,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 1.52,
+      "masse_g": 1.9,
+      "temps_min": 8,
+      "couches": 30,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "cerclage_2",
+     "nom": "Cerclage 2",
+     "role": "cerclage",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "cascadeur/cerclage_2.stl",
+     "fichier": "cascadeur/07_cerclage_2__anthracite.stl",
+     "analyse": {
+      "nom": "07_cerclage_2__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       50.6,
+       50.6,
+       6.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 253.7,
+      "elancement": 0.38,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.65,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 1.52,
+      "masse_g": 1.9,
+      "temps_min": 8,
+      "couches": 30,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "saboteur",
+   "nom": "La Couronne d'Épines",
+   "categorie": "officiel",
+   "attribution": "Grand Saboteur : le plus de pièges efficaces.",
+   "prix": "saboteur",
+   "valide": true,
+   "hauteur_mm": 67.4,
+   "largeur_mm": 92.4,
+   "masse_g": 73.6,
+   "temps_min": 135,
+   "couleurs": [
+    "11101",
+    "11200",
+    "11204",
+    "13405"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "saboteur/socle.stl",
+     "fichier": "saboteur/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       92.4,
+       92.4,
+       26.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 7071.1,
+      "elancement": 0.31,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 17.5,
+        "portee_mm": 29.2,
+        "longueur_mm": 29.2,
+        "z_mm": 20.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 29.2,
+      "epaisseur_p1_mm": 6.09,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 160.07,
+      "masse_g": 47.6,
+      "temps_min": 55,
+      "couches": 130,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "cheville_c",
+     "nom": "Cheville carrée (socle/coussin)",
+     "role": "cheville",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "saboteur/cheville_c.stl",
+     "fichier": "saboteur/02_cheville_c__anthracite.stl",
+     "analyse": {
+      "nom": "02_cheville_c__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       10.0,
+       10.0,
+       16.5
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 100.0,
+      "elancement": 1.65,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 10.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 1.65,
+      "masse_g": 1.1,
+      "temps_min": 8,
+      "couches": 82,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "saboteur/plaque.stl",
+     "fichier": "saboteur/03_plaque__dore.stl",
+     "analyse": {
+      "nom": "03_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       28.6,
+       8.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 239.0,
+      "elancement": 0.16,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.89,
+      "part_paroi_fine": 0.0008,
+      "volume_cm3": 0.48,
+      "masse_g": 0.6,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "coussin",
+     "nom": "Coussin capitonné",
+     "role": "support",
+     "qte": 1,
+     "fil": {
+      "ref": "11200",
+      "gamme": "PLA Matte",
+      "nom": "Rouge écarlate",
+      "hex": "#c8352e"
+     },
+     "matiere": "PLA",
+     "stl": "saboteur/coussin.stl",
+     "fichier": "saboteur/04_coussin__rouge_ecarlate.stl",
+     "analyse": {
+      "nom": "04_coussin__rouge_ecarlate.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       64.0,
+       64.0,
+       14.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 3930.2,
+      "elancement": 0.22,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 2.73,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 38.31,
+      "masse_g": 15.4,
+      "temps_min": 24,
+      "couches": 70,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "couronne",
+     "nom": "Couronne d'épines",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "11204",
+      "gamme": "PLA Matte",
+      "nom": "Prune",
+      "hex": "#6e2a4f"
+     },
+     "matiere": "PLA",
+     "stl": "saboteur/couronne.stl",
+     "fichier": "saboteur/05_couronne__prune.stl",
+     "analyse": {
+      "nom": "05_couronne__prune.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       60.0,
+       59.6,
+       30.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 442.6,
+      "elancement": 1.43,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 1.3,
+        "portee_mm": 6.9,
+        "longueur_mm": 6.9,
+        "z_mm": 13.5
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 1.3,
+        "portee_mm": 0.3,
+        "longueur_mm": 6.9,
+        "z_mm": 13.5
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 1.3,
+        "portee_mm": 0.3,
+        "longueur_mm": 6.9,
+        "z_mm": 13.5
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 1.3,
+        "portee_mm": 6.9,
+        "longueur_mm": 6.9,
+        "z_mm": 13.5
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 1.3,
+        "portee_mm": 0.3,
+        "longueur_mm": 6.9,
+        "z_mm": 13.5
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 1.3,
+        "portee_mm": 0.3,
+        "longueur_mm": 6.9,
+        "z_mm": 13.5
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 1.3,
+        "portee_mm": 6.9,
+        "longueur_mm": 6.9,
+        "z_mm": 13.5
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 1.3,
+        "portee_mm": 0.3,
+        "longueur_mm": 6.9,
+        "z_mm": 13.5
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 1.3,
+        "portee_mm": 0.3,
+        "longueur_mm": 6.9,
+        "z_mm": 13.5
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 6.9,
+      "epaisseur_p1_mm": 0.21,
+      "part_paroi_fine": 0.0317,
+      "volume_cm3": 8.03,
+      "masse_g": 7.3,
+      "temps_min": 19,
+      "couches": 150,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "gland_1",
+     "nom": "Gland doré",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "saboteur/gland_1.stl",
+     "fichier": "saboteur/06_gland_1__dore.stl",
+     "analyse": {
+      "nom": "06_gland_1__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       9.0,
+       9.0,
+       12.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 38.5,
+      "elancement": 1.94,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 2.75,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 0.46,
+      "masse_g": 0.4,
+      "temps_min": 6,
+      "couches": 60,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "gland_2",
+     "nom": "Gland doré",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "saboteur/gland_2.stl",
+     "fichier": "saboteur/07_gland_2__dore.stl",
+     "analyse": {
+      "nom": "07_gland_2__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       9.0,
+       9.0,
+       12.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 38.5,
+      "elancement": 1.94,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 2.75,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 0.46,
+      "masse_g": 0.4,
+      "temps_min": 6,
+      "couches": 60,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "gland_3",
+     "nom": "Gland doré",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "saboteur/gland_3.stl",
+     "fichier": "saboteur/08_gland_3__dore.stl",
+     "analyse": {
+      "nom": "08_gland_3__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       9.0,
+       9.0,
+       12.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 38.5,
+      "elancement": 1.94,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 2.75,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 0.46,
+      "masse_g": 0.4,
+      "temps_min": 6,
+      "couches": 60,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "gland_4",
+     "nom": "Gland doré",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "saboteur/gland_4.stl",
+     "fichier": "saboteur/09_gland_4__dore.stl",
+     "analyse": {
+      "nom": "09_gland_4__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       9.0,
+       9.0,
+       12.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 38.5,
+      "elancement": 1.94,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 2.75,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 0.46,
+      "masse_g": 0.4,
+      "temps_min": 6,
+      "couches": 60,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "legende_retro",
+   "nom": "La Calandre Ailée",
+   "categorie": "officiel",
+   "attribution": "Légende Rétro : vainqueur de la Coupe des Reliques.",
+   "prix": "reliques",
+   "valide": true,
+   "hauteur_mm": 78.0,
+   "largeur_mm": 184.0,
+   "masse_g": 69.4,
+   "temps_min": 93,
+   "couleurs": [
+    "11101",
+    "13109",
+    "13405"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "legende_retro/socle.stl",
+     "fichier": "legende_retro/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       92.4,
+       92.4,
+       28.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 7071.1,
+      "elancement": 0.33,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 17.5,
+        "portee_mm": 29.2,
+        "longueur_mm": 29.2,
+        "z_mm": 22.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 29.2,
+      "epaisseur_p1_mm": 6.09,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 171.12,
+      "masse_g": 50.4,
+      "temps_min": 58,
+      "couches": 140,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "legende_retro/plaque.stl",
+     "fichier": "legende_retro/02_plaque__dore.stl",
+     "analyse": {
+      "nom": "02_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       28.6,
+       10.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 296.3,
+      "elancement": 0.14,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.79,
+      "part_paroi_fine": 0.0058,
+      "volume_cm3": 0.56,
+      "masse_g": 0.7,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "calandre",
+     "nom": "Calandre ailée",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13109",
+      "gamme": "PLA Silk+",
+      "nom": "Argenté",
+      "hex": "#c4c8cd"
+     },
+     "matiere": "PLA",
+     "stl": "legende_retro/calandre.stl",
+     "fichier": "legende_retro/03_calandre__argente.stl",
+     "analyse": {
+      "nom": "03_calandre__argente.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       184.0,
+       59.0,
+       8.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 6321.7,
+      "elancement": 0.1,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.64,
+      "part_paroi_fine": 0.0125,
+      "volume_cm3": 26.13,
+      "masse_g": 18.3,
+      "temps_min": 30,
+      "couches": 40,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "cuillere_bois",
+   "nom": "La Cuillère de Bois",
+   "categorie": "officiel",
+   "attribution": "Fair-play et persévérance, élue par les invités (à défaut : dernier du général).",
+   "prix": "cuillere",
+   "valide": true,
+   "hauteur_mm": 72.3,
+   "largeur_mm": 153.2,
+   "masse_g": 45.2,
+   "temps_min": 71,
+   "couleurs": [
+    "11101",
+    "11801",
+    "13106"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle à 2 montants",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "cuillere_bois/socle.stl",
+     "fichier": "cuillere_bois/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       81.3,
+       81.3,
+       57.8
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5475.8,
+      "elancement": 0.78,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 14.8,
+        "portee_mm": 24.6,
+        "longueur_mm": 24.6,
+        "z_mm": 18.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 24.6,
+      "epaisseur_p1_mm": 5.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 116.5,
+      "masse_g": 36.9,
+      "temps_min": 50,
+      "couches": 289,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "11801",
+      "gamme": "PLA Matte",
+      "nom": "Marron foncé",
+      "hex": "#4e3426"
+     },
+     "matiere": "PLA",
+     "stl": "cuillere_bois/plaque.stl",
+     "fichier": "cuillere_bois/02_plaque__marron_fonce.stl",
+     "analyse": {
+      "nom": "02_plaque__marron_fonce.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       24.0,
+       6.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 152.4,
+      "elancement": 0.19,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.62,
+      "part_paroi_fine": 0.0825,
+      "volume_cm3": 0.3,
+      "masse_g": 0.4,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [
+       "~ 8 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
+      ],
+      "verdict_impression": "A_SURVEILLER"
+     }
+    },
+    {
+     "id": "cuillere",
+     "nom": "Cuillère de bois",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13106",
+      "gamme": "PLA Wood",
+      "nom": "Chêne blanc",
+      "hex": "#d6c29a"
+     },
+     "matiere": "PLA",
+     "stl": "cuillere_bois/cuillere.stl",
+     "fichier": "cuillere_bois/03_cuillere__chene_blanc.stl",
+     "analyse": {
+      "nom": "03_cuillere__chene_blanc.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       156.0,
+       36.0,
+       6.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 2461.3,
+      "elancement": 0.12,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.81,
+      "part_paroi_fine": 0.0067,
+      "volume_cm3": 10.54,
+      "masse_g": 7.9,
+      "temps_min": 16,
+      "couches": 30,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "loup_wall_street",
+   "nom": "Le Loup de Wall Street",
+   "categorie": "officiel",
+   "attribution": "Étoile Crésus : le plus de pièces gagnées grâce aux paris.",
+   "prix": "cresus",
+   "valide": true,
+   "hauteur_mm": 117.6,
+   "largeur_mm": 85.0,
+   "masse_g": 69.8,
+   "temps_min": 130,
+   "couleurs": [
+    "11101",
+    "11200",
+    "13108",
+    "13405",
+    "13506"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "loup_wall_street/socle.stl",
+     "fichier": "loup_wall_street/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       28.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5985.0,
+      "elancement": 0.36,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 22.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 26.1,
+      "epaisseur_p1_mm": 5.86,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 143.69,
+      "masse_g": 42.7,
+      "temps_min": 50,
+      "couches": 140,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "cheville",
+     "nom": "Cheville carrée (socle/pile)",
+     "role": "cheville",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "loup_wall_street/cheville.stl",
+     "fichier": "loup_wall_street/02_cheville__anthracite.stl",
+     "analyse": {
+      "nom": "02_cheville__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       10.0,
+       10.0,
+       16.5
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 100.0,
+      "elancement": 1.65,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 10.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 1.65,
+      "masse_g": 1.1,
+      "temps_min": 8,
+      "couches": 82,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "cheville_haut",
+     "nom": "Cheville carrée (pile/loup)",
+     "role": "cheville",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "loup_wall_street/cheville_haut.stl",
+     "fichier": "loup_wall_street/03_cheville_haut__anthracite.stl",
+     "analyse": {
+      "nom": "03_cheville_haut__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       10.0,
+       10.0,
+       16.5
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 100.0,
+      "elancement": 1.65,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 10.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 1.65,
+      "masse_g": 1.1,
+      "temps_min": 8,
+      "couches": 82,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "loup_wall_street/plaque.stl",
+     "fichier": "loup_wall_street/04_plaque__dore.stl",
+     "analyse": {
+      "nom": "04_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       10.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 264.4,
+      "elancement": 0.15,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.61,
+      "part_paroi_fine": 0.0633,
+      "volume_cm3": 0.47,
+      "masse_g": 0.6,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [
+       "~ 6 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
+      ],
+      "verdict_impression": "A_SURVEILLER"
+     }
+    },
+    {
+     "id": "pile",
+     "nom": "Pile de pièces d'or",
+     "role": "support",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "loup_wall_street/pile.stl",
+     "fichier": "loup_wall_street/05_pile__dore.stl",
+     "analyse": {
+      "nom": "05_pile__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       44.0,
+       44.0,
+       16.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 1299.9,
+      "elancement": 0.44,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 42.0,
+        "portee_mm": 11.0,
+        "longueur_mm": 11.0,
+        "z_mm": 8.5
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 11.0,
+      "epaisseur_p1_mm": 0.74,
+      "part_paroi_fine": 0.0108,
+      "volume_cm3": 16.9,
+      "masse_g": 8.3,
+      "temps_min": 17,
+      "couches": 80,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "moitie_d",
+     "nom": "Loup — moitié droite",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13108",
+      "gamme": "PLA Silk+",
+      "nom": "Gris titane",
+      "hex": "#6c7075"
+     },
+     "matiere": "PLA",
+     "stl": "loup_wall_street/moitie_d.stl",
+     "fichier": "loup_wall_street/06_moitie_d__gris_titane.stl",
+     "analyse": {
+      "nom": "06_moitie_d__gris_titane.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       57.8,
+       74.0,
+       14.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 1649.7,
+      "elancement": 0.34,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.79,
+      "part_paroi_fine": 0.01,
+      "volume_cm3": 13.03,
+      "masse_g": 7.0,
+      "temps_min": 15,
+      "couches": 70,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "moitie_g",
+     "nom": "Loup — moitié gauche",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13108",
+      "gamme": "PLA Silk+",
+      "nom": "Gris titane",
+      "hex": "#6c7075"
+     },
+     "matiere": "PLA",
+     "stl": "loup_wall_street/moitie_g.stl",
+     "fichier": "loup_wall_street/07_moitie_g__gris_titane.stl",
+     "analyse": {
+      "nom": "07_moitie_g__gris_titane.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       57.8,
+       74.0,
+       14.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 1649.8,
+      "elancement": 0.34,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.81,
+      "part_paroi_fine": 0.0075,
+      "volume_cm3": 13.03,
+      "masse_g": 7.0,
+      "temps_min": 15,
+      "couches": 70,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "cravate",
+     "nom": "Cravate",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "11200",
+      "gamme": "PLA Matte",
+      "nom": "Rouge écarlate",
+      "hex": "#c8352e"
+     },
+     "matiere": "PLA",
+     "stl": "loup_wall_street/cravate.stl",
+     "fichier": "loup_wall_street/08_cravate__rouge_ecarlate.stl",
+     "analyse": {
+      "nom": "08_cravate__rouge_ecarlate.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       8.4,
+       24.0,
+       2.6
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 127.6,
+      "elancement": 0.23,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.53,
+      "part_paroi_fine": 0.0008,
+      "volume_cm3": 0.25,
+      "masse_g": 0.3,
+      "temps_min": 5,
+      "couches": 13,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "fleche",
+     "nom": "Flèche de bourse",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "13506",
+      "gamme": "PLA Silk+",
+      "nom": "Vert bonbon",
+      "hex": "#3dbb54"
+     },
+     "matiere": "PLA",
+     "stl": "loup_wall_street/fleche.stl",
+     "fichier": "loup_wall_street/09_fleche__vert_bonbon.stl",
+     "analyse": {
+      "nom": "09_fleche__vert_bonbon.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       37.4,
+       46.0,
+       3.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 512.0,
+      "elancement": 0.13,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 2.04,
+      "part_paroi_fine": 0.0058,
+      "volume_cm3": 1.54,
+      "masse_g": 1.7,
+      "temps_min": 7,
+      "couches": 15,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "etoile_chaos",
+   "nom": "Étoile du Chaos",
+   "categorie": "officiel",
+   "attribution": "Le plus de pièges posés sur la piste.",
+   "prix": "chaos",
+   "valide": true,
+   "hauteur_mm": 93.4,
+   "largeur_mm": 85.0,
+   "masse_g": 62.5,
+   "temps_min": 94,
+   "couleurs": [
+    "11101",
+    "11300",
+    "32101"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle lanterne (bougie LED dessous)",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "etoile_chaos/socle.stl",
+     "fichier": "etoile_chaos/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       34.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 4780.0,
+      "elancement": 0.49,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 28.0
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 1137.8,
+        "portee_mm": 39.2,
+        "longueur_mm": 39.2,
+        "z_mm": 17.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 39.2,
+      "epaisseur_p1_mm": 5.82,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 152.86,
+      "masse_g": 47.8,
+      "temps_min": 58,
+      "couches": 170,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque « CHAOS »",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "11300",
+      "gamme": "PLA Matte",
+      "nom": "Mandarine",
+      "hex": "#f0862a"
+     },
+     "matiere": "PLA",
+     "stl": "etoile_chaos/plaque.stl",
+     "fichier": "etoile_chaos/02_plaque__mandarine.stl",
+     "analyse": {
+      "nom": "02_plaque__mandarine.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       16.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 417.7,
+      "elancement": 0.12,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.88,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 0.73,
+      "masse_g": 0.9,
+      "temps_min": 6,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "demi_etoile",
+     "nom": "Demi-étoile facettée (PETG)",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "32101",
+      "gamme": "PETG",
+      "nom": "Translucide",
+      "hex": "#dfeef3"
+     },
+     "matiere": "PETG",
+     "stl": "etoile_chaos/demi_etoile.stl",
+     "fichier": "etoile_chaos/03_demi_etoile__translucide.stl",
+     "analyse": {
+      "nom": "03_demi_etoile__translucide.stl",
+      "matiere": "PETG",
+      "dimensions_mm": [
+       83.7,
+       79.6,
+       10.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 2514.7,
+      "elancement": 0.2,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.02,
+      "part_paroi_fine": 0.0058,
+      "volume_cm3": 9.52,
+      "masse_g": 6.9,
+      "temps_min": 15,
+      "couches": 50,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "demi_etoile_dos",
+     "nom": "Demi-étoile facettée, dos (PETG)",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "32101",
+      "gamme": "PETG",
+      "nom": "Translucide",
+      "hex": "#dfeef3"
+     },
+     "matiere": "PETG",
+     "stl": "etoile_chaos/demi_etoile_dos.stl",
+     "fichier": "etoile_chaos/04_demi_etoile_dos__translucide.stl",
+     "analyse": {
+      "nom": "04_demi_etoile_dos__translucide.stl",
+      "matiere": "PETG",
+      "dimensions_mm": [
+       83.7,
+       79.6,
+       10.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 2514.7,
+      "elancement": 0.2,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.15,
+      "part_paroi_fine": 0.0025,
+      "volume_cm3": 9.52,
+      "masse_g": 6.9,
+      "temps_min": 15,
+      "couches": 50,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "etoile_phenix",
+   "nom": "Étoile du Phénix",
+   "categorie": "officiel",
+   "attribution": "La plus belle remontée entre les deux moitiés de la soirée.",
+   "prix": "phenix",
+   "valide": true,
+   "hauteur_mm": 93.4,
+   "largeur_mm": 85.0,
+   "masse_g": 62.5,
+   "temps_min": 94,
+   "couleurs": [
+    "11101",
+    "11200",
+    "32101"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle lanterne (bougie LED dessous)",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "etoile_phenix/socle.stl",
+     "fichier": "etoile_phenix/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       34.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 4780.0,
+      "elancement": 0.49,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 28.0
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 1137.8,
+        "portee_mm": 39.2,
+        "longueur_mm": 39.2,
+        "z_mm": 17.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 39.2,
+      "epaisseur_p1_mm": 5.82,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 152.86,
+      "masse_g": 47.8,
+      "temps_min": 58,
+      "couches": 170,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque « PHÉNIX »",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "11200",
+      "gamme": "PLA Matte",
+      "nom": "Rouge écarlate",
+      "hex": "#c8352e"
+     },
+     "matiere": "PLA",
+     "stl": "etoile_phenix/plaque.stl",
+     "fichier": "etoile_phenix/02_plaque__rouge_ecarlate.stl",
+     "analyse": {
+      "nom": "02_plaque__rouge_ecarlate.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       16.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 417.7,
+      "elancement": 0.12,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.87,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 0.74,
+      "masse_g": 0.9,
+      "temps_min": 6,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "demi_etoile",
+     "nom": "Demi-étoile facettée (PETG)",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "32101",
+      "gamme": "PETG",
+      "nom": "Translucide",
+      "hex": "#dfeef3"
+     },
+     "matiere": "PETG",
+     "stl": "etoile_phenix/demi_etoile.stl",
+     "fichier": "etoile_phenix/03_demi_etoile__translucide.stl",
+     "analyse": {
+      "nom": "03_demi_etoile__translucide.stl",
+      "matiere": "PETG",
+      "dimensions_mm": [
+       83.7,
+       79.6,
+       10.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 2514.7,
+      "elancement": 0.2,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.02,
+      "part_paroi_fine": 0.0058,
+      "volume_cm3": 9.52,
+      "masse_g": 6.9,
+      "temps_min": 15,
+      "couches": 50,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "demi_etoile_dos",
+     "nom": "Demi-étoile facettée, dos (PETG)",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "32101",
+      "gamme": "PETG",
+      "nom": "Translucide",
+      "hex": "#dfeef3"
+     },
+     "matiere": "PETG",
+     "stl": "etoile_phenix/demi_etoile_dos.stl",
+     "fichier": "etoile_phenix/04_demi_etoile_dos__translucide.stl",
+     "analyse": {
+      "nom": "04_demi_etoile_dos__translucide.stl",
+      "matiere": "PETG",
+      "dimensions_mm": [
+       83.7,
+       79.6,
+       10.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 2514.7,
+      "elancement": 0.2,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.15,
+      "part_paroi_fine": 0.0025,
+      "volume_cm3": 9.52,
+      "masse_g": 6.9,
+      "temps_min": 15,
+      "couches": 50,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "etoile_chat",
+   "nom": "Étoile Malchance",
+   "categorie": "officiel",
+   "attribution": "Le plus de paris perdus d'un cheveu et de têtes-à-queue.",
+   "prix": "chat",
+   "valide": true,
+   "hauteur_mm": 93.4,
+   "largeur_mm": 85.0,
+   "masse_g": 62.5,
+   "temps_min": 94,
+   "couleurs": [
+    "10701",
+    "11101",
+    "32101"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle lanterne (bougie LED dessous)",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "etoile_chat/socle.stl",
+     "fichier": "etoile_chat/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       34.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 4780.0,
+      "elancement": 0.49,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 28.0
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 1137.8,
+        "portee_mm": 39.2,
+        "longueur_mm": 39.2,
+        "z_mm": 17.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 39.2,
+      "epaisseur_p1_mm": 5.82,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 152.86,
+      "masse_g": 47.8,
+      "temps_min": 58,
+      "couches": 170,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque « CHAT NOIR »",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "10701",
+      "gamme": "PLA Basic",
+      "nom": "Violet indigo",
+      "hex": "#3a2a6a"
+     },
+     "matiere": "PLA",
+     "stl": "etoile_chat/plaque.stl",
+     "fichier": "etoile_chat/02_plaque__violet_indigo.stl",
+     "analyse": {
+      "nom": "02_plaque__violet_indigo.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       16.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 417.7,
+      "elancement": 0.12,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.89,
+      "part_paroi_fine": 0.0008,
+      "volume_cm3": 0.75,
+      "masse_g": 0.9,
+      "temps_min": 6,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "demi_etoile",
+     "nom": "Demi-étoile facettée (PETG)",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "32101",
+      "gamme": "PETG",
+      "nom": "Translucide",
+      "hex": "#dfeef3"
+     },
+     "matiere": "PETG",
+     "stl": "etoile_chat/demi_etoile.stl",
+     "fichier": "etoile_chat/03_demi_etoile__translucide.stl",
+     "analyse": {
+      "nom": "03_demi_etoile__translucide.stl",
+      "matiere": "PETG",
+      "dimensions_mm": [
+       83.7,
+       79.6,
+       10.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 2514.7,
+      "elancement": 0.2,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.02,
+      "part_paroi_fine": 0.0058,
+      "volume_cm3": 9.52,
+      "masse_g": 6.9,
+      "temps_min": 15,
+      "couches": 50,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "demi_etoile_dos",
+     "nom": "Demi-étoile facettée, dos (PETG)",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "32101",
+      "gamme": "PETG",
+      "nom": "Translucide",
+      "hex": "#dfeef3"
+     },
+     "matiere": "PETG",
+     "stl": "etoile_chat/demi_etoile_dos.stl",
+     "fichier": "etoile_chat/04_demi_etoile_dos__translucide.stl",
+     "analyse": {
+      "nom": "04_demi_etoile_dos__translucide.stl",
+      "matiere": "PETG",
+      "dimensions_mm": [
+       83.7,
+       79.6,
+       10.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 2514.7,
+      "elancement": 0.2,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.15,
+      "part_paroi_fine": 0.0025,
+      "volume_cm3": 9.52,
+      "masse_g": 6.9,
+      "temps_min": 15,
+      "couches": 50,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "demi_coupe",
+   "nom": "La Demi-Coupe",
+   "categorie": "loufoque",
+   "attribution": "Le plus de deuxièmes places.",
+   "prix": "demi_coupe",
+   "valide": true,
+   "hauteur_mm": 120.0,
+   "largeur_mm": 85.0,
+   "masse_g": 62.1,
+   "temps_min": 108,
+   "couleurs": [
+    "11101",
+    "13109",
+    "13405"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "demi_coupe/socle.stl",
+     "fichier": "demi_coupe/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       28.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5985.0,
+      "elancement": 0.36,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 22.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 26.1,
+      "epaisseur_p1_mm": 5.86,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 143.69,
+      "masse_g": 42.7,
+      "temps_min": 50,
+      "couches": 140,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "cheville",
+     "nom": "Cheville carrée 10 mm",
+     "role": "cheville",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "demi_coupe/cheville.stl",
+     "fichier": "demi_coupe/02_cheville__anthracite.stl",
+     "analyse": {
+      "nom": "02_cheville__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       10.0,
+       10.0,
+       16.5
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 100.0,
+      "elancement": 1.65,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 10.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 1.65,
+      "masse_g": 1.1,
+      "temps_min": 8,
+      "couches": 82,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13109",
+      "gamme": "PLA Silk+",
+      "nom": "Argenté",
+      "hex": "#c4c8cd"
+     },
+     "matiere": "PLA",
+     "stl": "demi_coupe/plaque.stl",
+     "fichier": "demi_coupe/03_plaque__argente.stl",
+     "analyse": {
+      "nom": "03_plaque__argente.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       10.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 264.4,
+      "elancement": 0.15,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.73,
+      "part_paroi_fine": 0.0308,
+      "volume_cm3": 0.49,
+      "masse_g": 0.6,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "demi_coupe",
+     "nom": "Demi-coupe argentée",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13109",
+      "gamme": "PLA Silk+",
+      "nom": "Argenté",
+      "hex": "#c4c8cd"
+     },
+     "matiere": "PLA",
+     "stl": "demi_coupe/demi_coupe.stl",
+     "fichier": "demi_coupe/04_demi_coupe__argente.stl",
+     "analyse": {
+      "nom": "04_demi_coupe__argente.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       74.0,
+       54.0,
+       92.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 797.0,
+      "elancement": 3.26,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.22,
+      "part_paroi_fine": 0.005,
+      "volume_cm3": 24.63,
+      "masse_g": 16.7,
+      "temps_min": 39,
+      "couches": 460,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "lame_scie",
+     "nom": "Trait de scie doré",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "demi_coupe/lame_scie.stl",
+     "fichier": "demi_coupe/05_lame_scie__dore.stl",
+     "analyse": {
+      "nom": "05_lame_scie__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       74.0,
+       8.2,
+       1.6
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 488.4,
+      "elancement": 0.07,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.46,
+      "part_paroi_fine": 0.0142,
+      "volume_cm3": 0.78,
+      "masse_g": 1.0,
+      "temps_min": 6,
+      "couches": 8,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "pigeon_or",
+   "nom": "Le Pigeon d'Or",
+   "categorie": "loufoque",
+   "attribution": "Le plus de pièces perdues en paris.",
+   "prix": "pigeon_or",
+   "valide": true,
+   "hauteur_mm": 96.5,
+   "largeur_mm": 85.0,
+   "masse_g": 67.6,
+   "temps_min": 105,
+   "couleurs": [
+    "11101",
+    "13405"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "pigeon_or/socle.stl",
+     "fichier": "pigeon_or/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       28.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5985.0,
+      "elancement": 0.36,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 22.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 26.1,
+      "epaisseur_p1_mm": 5.86,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 143.69,
+      "masse_g": 42.7,
+      "temps_min": 50,
+      "couches": 140,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "cheville",
+     "nom": "Cheville carrée 10 mm",
+     "role": "cheville",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "pigeon_or/cheville.stl",
+     "fichier": "pigeon_or/02_cheville__anthracite.stl",
+     "analyse": {
+      "nom": "02_cheville__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       10.0,
+       10.0,
+       16.5
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 100.0,
+      "elancement": 1.65,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 10.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 1.65,
+      "masse_g": 1.1,
+      "temps_min": 8,
+      "couches": 82,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "pigeon_or/plaque.stl",
+     "fichier": "pigeon_or/03_plaque__dore.stl",
+     "analyse": {
+      "nom": "03_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       10.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 264.4,
+      "elancement": 0.15,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.86,
+      "part_paroi_fine": 0.0025,
+      "volume_cm3": 0.5,
+      "masse_g": 0.6,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "moitie_d",
+     "nom": "Pigeon — moitié droite",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "pigeon_or/moitie_d.stl",
+     "fichier": "pigeon_or/04_moitie_d__dore.stl",
+     "analyse": {
+      "nom": "04_moitie_d__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       81.9,
+       68.5,
+       18.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 2205.2,
+      "elancement": 0.38,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.6,
+      "part_paroi_fine": 0.0042,
+      "volume_cm3": 24.35,
+      "masse_g": 11.6,
+      "temps_min": 21,
+      "couches": 90,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "moitie_g",
+     "nom": "Pigeon — moitié gauche",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "pigeon_or/moitie_g.stl",
+     "fichier": "pigeon_or/05_moitie_g__dore.stl",
+     "analyse": {
+      "nom": "05_moitie_g__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       81.9,
+       68.5,
+       18.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 2205.2,
+      "elancement": 0.38,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.85,
+      "part_paroi_fine": 0.0083,
+      "volume_cm3": 24.35,
+      "masse_g": 11.6,
+      "temps_min": 21,
+      "couches": 90,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "hamster",
+   "nom": "Le Hamster Thésauriseur",
+   "categorie": "loufoque",
+   "attribution": "Le plus d'objets jamais utilisés en fin de soirée.",
+   "prix": "hamster",
+   "valide": true,
+   "hauteur_mm": 103.0,
+   "largeur_mm": 85.0,
+   "masse_g": 64.8,
+   "temps_min": 101,
+   "couleurs": [
+    "11101",
+    "13206",
+    "13405"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "hamster/socle.stl",
+     "fichier": "hamster/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       28.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5985.0,
+      "elancement": 0.36,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 22.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 26.1,
+      "epaisseur_p1_mm": 5.86,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 143.69,
+      "masse_g": 42.7,
+      "temps_min": 50,
+      "couches": 140,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "cheville",
+     "nom": "Cheville carrée 10 mm",
+     "role": "cheville",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "hamster/cheville.stl",
+     "fichier": "hamster/02_cheville__anthracite.stl",
+     "analyse": {
+      "nom": "02_cheville__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       10.0,
+       10.0,
+       16.5
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 100.0,
+      "elancement": 1.65,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 10.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 1.65,
+      "masse_g": 1.1,
+      "temps_min": 8,
+      "couches": 82,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "hamster/plaque.stl",
+     "fichier": "hamster/03_plaque__dore.stl",
+     "analyse": {
+      "nom": "03_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       10.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 264.4,
+      "elancement": 0.15,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.59,
+      "part_paroi_fine": 0.04,
+      "volume_cm3": 0.48,
+      "masse_g": 0.6,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "moitie_d",
+     "nom": "Hamster — moitié droite",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13206",
+      "gamme": "PLA Silk+",
+      "nom": "Doré rose",
+      "hex": "#d9a094"
+     },
+     "matiere": "PLA",
+     "stl": "hamster/moitie_d.stl",
+     "fichier": "hamster/04_moitie_d__dore_rose.stl",
+     "analyse": {
+      "nom": "04_moitie_d__dore_rose.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       42.5,
+       75.0,
+       19.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 2013.9,
+      "elancement": 0.42,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.56,
+      "part_paroi_fine": 0.0067,
+      "volume_cm3": 23.54,
+      "masse_g": 10.2,
+      "temps_min": 19,
+      "couches": 95,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "moitie_g",
+     "nom": "Hamster — moitié gauche",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13206",
+      "gamme": "PLA Silk+",
+      "nom": "Doré rose",
+      "hex": "#d9a094"
+     },
+     "matiere": "PLA",
+     "stl": "hamster/moitie_g.stl",
+     "fichier": "hamster/05_moitie_g__dore_rose.stl",
+     "analyse": {
+      "nom": "05_moitie_g__dore_rose.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       42.5,
+       75.0,
+       19.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 2013.8,
+      "elancement": 0.42,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 2.25,
+      "part_paroi_fine": 0.0058,
+      "volume_cm3": 23.54,
+      "masse_g": 10.2,
+      "temps_min": 19,
+      "couches": 95,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "boomerang",
+   "nom": "Le Boomerang",
+   "categorie": "loufoque",
+   "attribution": "Le plus de pièges renvoyés au Rétro-Miroir.",
+   "prix": "boomerang",
+   "valide": true,
+   "hauteur_mm": 117.1,
+   "largeur_mm": 142.0,
+   "masse_g": 54.6,
+   "temps_min": 91,
+   "couleurs": [
+    "11101",
+    "11300",
+    "13108",
+    "13405"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "boomerang/socle.stl",
+     "fichier": "boomerang/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       26.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5985.0,
+      "elancement": 0.34,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 20.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 26.1,
+      "epaisseur_p1_mm": 5.87,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 133.74,
+      "masse_g": 40.4,
+      "temps_min": 48,
+      "couches": 130,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "boomerang/plaque.stl",
+     "fichier": "boomerang/02_plaque__dore.stl",
+     "analyse": {
+      "nom": "02_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       8.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 213.3,
+      "elancement": 0.16,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.61,
+      "part_paroi_fine": 0.0517,
+      "volume_cm3": 0.41,
+      "masse_g": 0.5,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "tige",
+     "nom": "Tige (cheville intégrée)",
+     "role": "support",
+     "qte": 1,
+     "fil": {
+      "ref": "13108",
+      "gamme": "PLA Silk+",
+      "nom": "Gris titane",
+      "hex": "#6c7075"
+     },
+     "matiere": "PLA",
+     "stl": "boomerang/tige.stl",
+     "fichier": "boomerang/03_tige__gris_titane.stl",
+     "analyse": {
+      "nom": "03_tige__gris_titane.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       10.0,
+       10.0,
+       78.2
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 100.0,
+      "elancement": 7.83,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 8.5,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 5.28,
+      "masse_g": 3.2,
+      "temps_min": 19,
+      "couches": 391,
+      "supports": "aucun",
+      "alertes": [
+       "~ Pièce élancée (h / √surface = 7.8) : bordure de 3 mm conseillée"
+      ],
+      "verdict_impression": "A_SURVEILLER"
+     }
+    },
+    {
+     "id": "boomerang",
+     "nom": "Boomerang",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "11300",
+      "gamme": "PLA Matte",
+      "nom": "Mandarine",
+      "hex": "#f0862a"
+     },
+     "matiere": "PLA",
+     "stl": "boomerang/boomerang.stl",
+     "fichier": "boomerang/04_boomerang__mandarine.stl",
+     "analyse": {
+      "nom": "04_boomerang__mandarine.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       142.0,
+       66.0,
+       6.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 3704.4,
+      "elancement": 0.1,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 2.09,
+      "part_paroi_fine": 0.0008,
+      "volume_cm3": 15.31,
+      "masse_g": 10.5,
+      "temps_min": 19,
+      "couches": 30,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "paratonnerre",
+   "nom": "Le Paratonnerre",
+   "categorie": "loufoque",
+   "attribution": "Le plus de pièges encaissés.",
+   "prix": "paratonnerre",
+   "valide": true,
+   "hauteur_mm": 149.0,
+   "largeur_mm": 85.0,
+   "masse_g": 58.6,
+   "temps_min": 111,
+   "couleurs": [
+    "10402",
+    "11101",
+    "13108",
+    "13109",
+    "13405"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "paratonnerre/socle.stl",
+     "fichier": "paratonnerre/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       28.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5985.0,
+      "elancement": 0.36,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 22.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 26.1,
+      "epaisseur_p1_mm": 5.86,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 143.69,
+      "masse_g": 42.7,
+      "temps_min": 50,
+      "couches": 140,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "cheville",
+     "nom": "Cheville carrée 10 mm",
+     "role": "cheville",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "paratonnerre/cheville.stl",
+     "fichier": "paratonnerre/02_cheville__anthracite.stl",
+     "analyse": {
+      "nom": "02_cheville__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       10.0,
+       10.0,
+       16.5
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 100.0,
+      "elancement": 1.65,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 10.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 1.65,
+      "masse_g": 1.1,
+      "temps_min": 8,
+      "couches": 82,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "paratonnerre/plaque.stl",
+     "fichier": "paratonnerre/03_plaque__dore.stl",
+     "analyse": {
+      "nom": "03_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       10.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 264.4,
+      "elancement": 0.15,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.72,
+      "part_paroi_fine": 0.025,
+      "volume_cm3": 0.49,
+      "masse_g": 0.6,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "mat",
+     "nom": "Mât torsadé",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13109",
+      "gamme": "PLA Silk+",
+      "nom": "Argenté",
+      "hex": "#c4c8cd"
+     },
+     "matiere": "PLA",
+     "stl": "paratonnerre/mat.stl",
+     "fichier": "paratonnerre/04_mat__argente.stl",
+     "analyse": {
+      "nom": "04_mat__argente.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       20.0,
+       20.0,
+       121.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 203.7,
+      "elancement": 8.48,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 3.01,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 14.24,
+      "masse_g": 7.8,
+      "temps_min": 30,
+      "couches": 605,
+      "supports": "aucun",
+      "alertes": [
+       "~ Pièce élancée (h / √surface = 8.5) : bordure de 3 mm conseillée"
+      ],
+      "verdict_impression": "A_SURVEILLER"
+     }
+    },
+    {
+     "id": "eclair",
+     "nom": "Éclair",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "10402",
+      "gamme": "PLA Basic",
+      "nom": "Jaune tournesol",
+      "hex": "#f7c600"
+     },
+     "matiere": "PLA",
+     "stl": "paratonnerre/eclair.stl",
+     "fichier": "paratonnerre/05_eclair__jaune_tournesol.stl",
+     "analyse": {
+      "nom": "05_eclair__jaune_tournesol.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       30.0,
+       63.0,
+       4.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 810.0,
+      "elancement": 0.14,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.93,
+      "part_paroi_fine": 0.0092,
+      "volume_cm3": 3.24,
+      "masse_g": 2.6,
+      "temps_min": 8,
+      "couches": 20,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "nuage",
+     "nom": "Nuage grognon",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "13108",
+      "gamme": "PLA Silk+",
+      "nom": "Gris titane",
+      "hex": "#6c7075"
+     },
+     "matiere": "PLA",
+     "stl": "paratonnerre/nuage.stl",
+     "fichier": "paratonnerre/06_nuage__gris_titane.stl",
+     "analyse": {
+      "nom": "06_nuage__gris_titane.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       51.0,
+       31.0,
+       7.8
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 973.1,
+      "elancement": 0.25,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 2.3,
+      "part_paroi_fine": 0.0067,
+      "volume_cm3": 6.22,
+      "masse_g": 3.8,
+      "temps_min": 10,
+      "couches": 39,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "kamikaze",
+   "nom": "La Tirelire Kamikaze",
+   "categorie": "loufoque",
+   "attribution": "Le plus gros « tout ou rien » perdu.",
+   "prix": "kamikaze",
+   "valide": true,
+   "hauteur_mm": 86.0,
+   "largeur_mm": 85.0,
+   "masse_g": 71.0,
+   "temps_min": 119,
+   "couleurs": [
+    "11100",
+    "11101",
+    "13206",
+    "13405"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "kamikaze/socle.stl",
+     "fichier": "kamikaze/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       28.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5985.0,
+      "elancement": 0.36,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 22.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 26.1,
+      "epaisseur_p1_mm": 5.86,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 143.69,
+      "masse_g": 42.7,
+      "temps_min": 50,
+      "couches": 140,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "cheville",
+     "nom": "Cheville carrée 10 mm",
+     "role": "cheville",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "kamikaze/cheville.stl",
+     "fichier": "kamikaze/02_cheville__anthracite.stl",
+     "analyse": {
+      "nom": "02_cheville__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       10.0,
+       10.0,
+       16.5
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 100.0,
+      "elancement": 1.65,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 10.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 1.65,
+      "masse_g": 1.1,
+      "temps_min": 8,
+      "couches": 82,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "kamikaze/plaque.stl",
+     "fichier": "kamikaze/03_plaque__dore.stl",
+     "analyse": {
+      "nom": "03_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       10.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 264.4,
+      "elancement": 0.15,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.65,
+      "part_paroi_fine": 0.0575,
+      "volume_cm3": 0.48,
+      "masse_g": 0.6,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "moitie_d",
+     "nom": "Tirelire — moitié droite",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13206",
+      "gamme": "PLA Silk+",
+      "nom": "Doré rose",
+      "hex": "#d9a094"
+     },
+     "matiere": "PLA",
+     "stl": "kamikaze/moitie_d.stl",
+     "fichier": "kamikaze/04_moitie_d__dore_rose.stl",
+     "analyse": {
+      "nom": "04_moitie_d__dore_rose.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       67.6,
+       58.0,
+       19.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 2046.1,
+      "elancement": 0.42,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 91.7,
+        "portee_mm": 22.1,
+        "longueur_mm": 22.1,
+        "z_mm": 1.3
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 22.1,
+      "epaisseur_p1_mm": 1.47,
+      "part_paroi_fine": 0.0058,
+      "volume_cm3": 25.68,
+      "masse_g": 11.1,
+      "temps_min": 20,
+      "couches": 95,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "moitie_g",
+     "nom": "Tirelire — moitié gauche",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13206",
+      "gamme": "PLA Silk+",
+      "nom": "Doré rose",
+      "hex": "#d9a094"
+     },
+     "matiere": "PLA",
+     "stl": "kamikaze/moitie_g.stl",
+     "fichier": "kamikaze/05_moitie_g__dore_rose.stl",
+     "analyse": {
+      "nom": "05_moitie_g__dore_rose.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       67.6,
+       58.0,
+       19.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 2046.1,
+      "elancement": 0.42,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 91.7,
+        "portee_mm": 22.3,
+        "longueur_mm": 22.3,
+        "z_mm": 1.3
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 22.3,
+      "epaisseur_p1_mm": 0.82,
+      "part_paroi_fine": 0.0092,
+      "volume_cm3": 25.68,
+      "masse_g": 11.1,
+      "temps_min": 20,
+      "couches": 95,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "aile_droite",
+     "nom": "Aile droite",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "11100",
+      "gamme": "PLA Matte",
+      "nom": "Blanc ivoire",
+      "hex": "#f1ecdf"
+     },
+     "matiere": "PLA",
+     "stl": "kamikaze/aile_droite.stl",
+     "fichier": "kamikaze/06_aile_droite__blanc_ivoire.stl",
+     "analyse": {
+      "nom": "06_aile_droite__blanc_ivoire.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       32.4,
+       40.0,
+       3.1
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 875.7,
+      "elancement": 0.1,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.12,
+      "part_paroi_fine": 0.0042,
+      "volume_cm3": 2.2,
+      "masse_g": 2.2,
+      "temps_min": 8,
+      "couches": 15,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "aile_gauche",
+     "nom": "Aile gauche",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "11100",
+      "gamme": "PLA Matte",
+      "nom": "Blanc ivoire",
+      "hex": "#f1ecdf"
+     },
+     "matiere": "PLA",
+     "stl": "kamikaze/aile_gauche.stl",
+     "fichier": "kamikaze/07_aile_gauche__blanc_ivoire.stl",
+     "analyse": {
+      "nom": "07_aile_gauche__blanc_ivoire.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       32.4,
+       40.0,
+       3.1
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 875.7,
+      "elancement": 0.1,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.2,
+      "part_paroi_fine": 0.0075,
+      "volume_cm3": 2.2,
+      "masse_g": 2.2,
+      "temps_min": 8,
+      "couches": 15,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "tortue",
+   "nom": "La Tortue Philosophe",
+   "categorie": "loufoque",
+   "attribution": "Le plus de dernières places en manche.",
+   "prix": "tortue",
+   "valide": true,
+   "hauteur_mm": 62.0,
+   "largeur_mm": 85.0,
+   "masse_g": 64.9,
+   "temps_min": 105,
+   "couleurs": [
+    "11101",
+    "13405",
+    "13506"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "tortue/socle.stl",
+     "fichier": "tortue/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       28.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5985.0,
+      "elancement": 0.36,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 22.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 26.1,
+      "epaisseur_p1_mm": 5.86,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 143.69,
+      "masse_g": 42.7,
+      "temps_min": 50,
+      "couches": 140,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "cheville",
+     "nom": "Cheville carrée 10 mm",
+     "role": "cheville",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "tortue/cheville.stl",
+     "fichier": "tortue/02_cheville__anthracite.stl",
+     "analyse": {
+      "nom": "02_cheville__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       10.0,
+       10.0,
+       16.5
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 100.0,
+      "elancement": 1.65,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 10.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 1.65,
+      "masse_g": 1.1,
+      "temps_min": 8,
+      "couches": 82,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "tortue/plaque.stl",
+     "fichier": "tortue/03_plaque__dore.stl",
+     "analyse": {
+      "nom": "03_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       10.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 264.4,
+      "elancement": 0.15,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.65,
+      "part_paroi_fine": 0.0617,
+      "volume_cm3": 0.48,
+      "masse_g": 0.6,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [
+       "~ 6 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
+      ],
+      "verdict_impression": "A_SURVEILLER"
+     }
+    },
+    {
+     "id": "moitie_d",
+     "nom": "Tortue — moitié droite",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13506",
+      "gamme": "PLA Silk+",
+      "nom": "Vert bonbon",
+      "hex": "#3dbb54"
+     },
+     "matiere": "PLA",
+     "stl": "tortue/moitie_d.stl",
+     "fichier": "tortue/04_moitie_d__vert_bonbon.stl",
+     "analyse": {
+      "nom": "04_moitie_d__vert_bonbon.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       71.8,
+       34.0,
+       23.8
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 1638.4,
+      "elancement": 0.59,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.51,
+      "part_paroi_fine": 0.0042,
+      "volume_cm3": 24.07,
+      "masse_g": 10.2,
+      "temps_min": 19,
+      "couches": 119,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "moitie_g",
+     "nom": "Tortue — moitié gauche",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13506",
+      "gamme": "PLA Silk+",
+      "nom": "Vert bonbon",
+      "hex": "#3dbb54"
+     },
+     "matiere": "PLA",
+     "stl": "tortue/moitie_g.stl",
+     "fichier": "tortue/05_moitie_g__vert_bonbon.stl",
+     "analyse": {
+      "nom": "05_moitie_g__vert_bonbon.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       71.8,
+       34.0,
+       23.8
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 1638.4,
+      "elancement": 0.59,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 2.3,
+      "part_paroi_fine": 0.0025,
+      "volume_cm3": 24.07,
+      "masse_g": 10.2,
+      "temps_min": 19,
+      "couches": 119,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "lunettes",
+     "nom": "Lunettes",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "tortue/lunettes.stl",
+     "fichier": "tortue/06_lunettes__anthracite.stl",
+     "analyse": {
+      "nom": "06_lunettes__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       9.2,
+       19.6,
+       1.2
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 61.6,
+      "elancement": 0.15,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 0.07,
+      "masse_g": 0.1,
+      "temps_min": 4,
+      "couches": 6,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "collectionneur",
+   "nom": "Le Collectionneur Compulsif",
+   "categorie": "loufoque",
+   "attribution": "Le plus de caisses ouvertes.",
+   "prix": "collectionneur",
+   "valide": true,
+   "hauteur_mm": 118.1,
+   "largeur_mm": 85.0,
+   "masse_g": 77.8,
+   "temps_min": 114,
+   "couleurs": [
+    "10700",
+    "11101",
+    "13405"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "collectionneur/socle.stl",
+     "fichier": "collectionneur/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       28.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5985.0,
+      "elancement": 0.36,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 22.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 26.1,
+      "epaisseur_p1_mm": 5.86,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 143.69,
+      "masse_g": 42.7,
+      "temps_min": 50,
+      "couches": 140,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "cheville",
+     "nom": "Cheville carrée 10 mm",
+     "role": "cheville",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "collectionneur/cheville.stl",
+     "fichier": "collectionneur/02_cheville__anthracite.stl",
+     "analyse": {
+      "nom": "02_cheville__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       10.0,
+       10.0,
+       16.5
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 100.0,
+      "elancement": 1.65,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 10.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 1.65,
+      "masse_g": 1.1,
+      "temps_min": 8,
+      "couches": 82,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "collectionneur/plaque.stl",
+     "fichier": "collectionneur/03_plaque__dore.stl",
+     "analyse": {
+      "nom": "03_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       10.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 264.4,
+      "elancement": 0.15,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.72,
+      "part_paroi_fine": 0.0483,
+      "volume_cm3": 0.48,
+      "masse_g": 0.6,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "tour",
+     "nom": "Pyramide de caisses",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "10700",
+      "gamme": "PLA Basic",
+      "nom": "Violet",
+      "hex": "#6b44b6"
+     },
+     "matiere": "PLA",
+     "stl": "collectionneur/tour.stl",
+     "fichier": "collectionneur/04_tour__violet.stl",
+     "analyse": {
+      "nom": "04_tour__violet.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       45.2,
+       45.2,
+       90.1
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 1825.8,
+      "elancement": 2.11,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 3.27,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 103.26,
+      "masse_g": 33.4,
+      "temps_min": 51,
+      "couches": 451,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "trefle",
+   "nom": "Le Trèfle d'Or",
+   "categorie": "loufoque",
+   "attribution": "Le plus beau tirage de caisse (rareté la plus haute).",
+   "prix": "trefle",
+   "valide": true,
+   "hauteur_mm": 81.4,
+   "largeur_mm": 85.0,
+   "masse_g": 45.7,
+   "temps_min": 64,
+   "couleurs": [
+    "11101",
+    "13405",
+    "13506"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "trefle/socle.stl",
+     "fichier": "trefle/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       26.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5985.0,
+      "elancement": 0.34,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 20.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 26.1,
+      "epaisseur_p1_mm": 6.01,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 134.47,
+      "masse_g": 40.4,
+      "temps_min": 48,
+      "couches": 130,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "trefle/plaque.stl",
+     "fichier": "trefle/02_plaque__dore.stl",
+     "analyse": {
+      "nom": "02_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       8.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 213.3,
+      "elancement": 0.16,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.72,
+      "part_paroi_fine": 0.0375,
+      "volume_cm3": 0.41,
+      "masse_g": 0.5,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "trefle",
+     "nom": "Trèfle à quatre feuilles",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13506",
+      "gamme": "PLA Silk+",
+      "nom": "Vert bonbon",
+      "hex": "#3dbb54"
+     },
+     "matiere": "PLA",
+     "stl": "trefle/trefle.stl",
+     "fichier": "trefle/03_trefle__vert_bonbon.stl",
+     "analyse": {
+      "nom": "03_trefle__vert_bonbon.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       46.9,
+       65.4,
+       5.3
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 1795.7,
+      "elancement": 0.13,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 2.8,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 6.66,
+      "masse_g": 4.8,
+      "temps_min": 11,
+      "couches": 27,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "mendiant",
+   "nom": "Le Mendiant Magnifique",
+   "categorie": "loufoque",
+   "attribution": "Le plus de Crédits Papy accordés par la Banque.",
+   "prix": "mendiant",
+   "valide": true,
+   "hauteur_mm": 84.0,
+   "largeur_mm": 85.0,
+   "masse_g": 78.3,
+   "temps_min": 140,
+   "couleurs": [
+    "11101",
+    "11200",
+    "13405"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "mendiant/socle.stl",
+     "fichier": "mendiant/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       26.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5985.0,
+      "elancement": 0.34,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 20.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 26.1,
+      "epaisseur_p1_mm": 5.87,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 133.74,
+      "masse_g": 40.4,
+      "temps_min": 48,
+      "couches": 130,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "cheville",
+     "nom": "Cheville carrée 10 mm",
+     "role": "cheville",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "mendiant/cheville.stl",
+     "fichier": "mendiant/02_cheville__anthracite.stl",
+     "analyse": {
+      "nom": "02_cheville__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       10.0,
+       10.0,
+       16.5
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 100.0,
+      "elancement": 1.65,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 10.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 1.65,
+      "masse_g": 1.1,
+      "temps_min": 8,
+      "couches": 82,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "mendiant/plaque.stl",
+     "fichier": "mendiant/03_plaque__dore.stl",
+     "analyse": {
+      "nom": "03_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       8.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 213.3,
+      "elancement": 0.16,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.61,
+      "part_paroi_fine": 0.0558,
+      "volume_cm3": 0.4,
+      "masse_g": 0.5,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "chapeau",
+     "nom": "Haut-de-forme",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "mendiant/chapeau.stl",
+     "fichier": "mendiant/04_chapeau__anthracite.stl",
+     "analyse": {
+      "nom": "04_chapeau__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       80.0,
+       80.0,
+       58.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 3362.2,
+      "elancement": 1.0,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 1660.7,
+        "portee_mm": 46.0,
+        "longueur_mm": 46.0,
+        "z_mm": 46.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 46.0,
+      "epaisseur_p1_mm": 0.97,
+      "part_paroi_fine": 0.0095,
+      "volume_cm3": 49.8,
+      "masse_g": 32.1,
+      "temps_min": 55,
+      "couches": 290,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "piece_1",
+     "nom": "Pièce d'« un »",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "mendiant/piece_1.stl",
+     "fichier": "mendiant/05_piece_1__dore.stl",
+     "analyse": {
+      "nom": "05_piece_1__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       16.0,
+       16.0,
+       3.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 200.9,
+      "elancement": 0.21,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.56,
+      "part_paroi_fine": 0.0067,
+      "volume_cm3": 0.45,
+      "masse_g": 0.5,
+      "temps_min": 5,
+      "couches": 15,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "piece_2",
+     "nom": "Pièce d'« un »",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "mendiant/piece_2.stl",
+     "fichier": "mendiant/06_piece_2__dore.stl",
+     "analyse": {
+      "nom": "06_piece_2__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       16.0,
+       16.0,
+       3.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 200.9,
+      "elancement": 0.21,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.56,
+      "part_paroi_fine": 0.0067,
+      "volume_cm3": 0.45,
+      "masse_g": 0.5,
+      "temps_min": 5,
+      "couches": 15,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "piece_3",
+     "nom": "Pièce d'« un »",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "mendiant/piece_3.stl",
+     "fichier": "mendiant/07_piece_3__dore.stl",
+     "analyse": {
+      "nom": "07_piece_3__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       16.0,
+       16.0,
+       3.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 200.9,
+      "elancement": 0.21,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.56,
+      "part_paroi_fine": 0.0067,
+      "volume_cm3": 0.45,
+      "masse_g": 0.5,
+      "temps_min": 5,
+      "couches": 15,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "ruban",
+     "nom": "Ruban",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "11200",
+      "gamme": "PLA Matte",
+      "nom": "Rouge écarlate",
+      "hex": "#c8352e"
+     },
+     "matiere": "PLA",
+     "stl": "mendiant/ruban.stl",
+     "fichier": "mendiant/08_ruban__rouge_ecarlate.stl",
+     "analyse": {
+      "nom": "08_ruban__rouge_ecarlate.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       53.2,
+       53.2,
+       8.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 274.9,
+      "elancement": 0.48,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.7,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 2.2,
+      "masse_g": 2.7,
+      "temps_min": 9,
+      "couches": 40,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "doigt_de_feu",
+   "nom": "Le Doigt de Feu",
+   "categorie": "loufoque",
+   "attribution": "Le plus de tapotements Turbo.",
+   "prix": "doigt_de_feu",
+   "valide": true,
+   "hauteur_mm": 94.4,
+   "largeur_mm": 93.1,
+   "masse_g": 65.0,
+   "temps_min": 107,
+   "couleurs": [
+    "10402",
+    "11101",
+    "11200",
+    "11300",
+    "13205",
+    "13405"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "doigt_de_feu/socle.stl",
+     "fichier": "doigt_de_feu/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       26.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5985.0,
+      "elancement": 0.34,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 20.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 26.1,
+      "epaisseur_p1_mm": 0.9,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 132.58,
+      "masse_g": 41.0,
+      "temps_min": 50,
+      "couches": 130,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "doigt_de_feu/plaque.stl",
+     "fichier": "doigt_de_feu/02_plaque__dore.stl",
+     "analyse": {
+      "nom": "02_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       8.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 213.3,
+      "elancement": 0.16,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.74,
+      "part_paroi_fine": 0.0267,
+      "volume_cm3": 0.41,
+      "masse_g": 0.5,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "bouton",
+     "nom": "Bouton d'arcade",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13205",
+      "gamme": "PLA Silk+",
+      "nom": "Rouge bonbon",
+      "hex": "#d3203c"
+     },
+     "matiere": "PLA",
+     "stl": "doigt_de_feu/bouton.stl",
+     "fichier": "doigt_de_feu/03_bouton__rouge_bonbon.stl",
+     "analyse": {
+      "nom": "03_bouton__rouge_bonbon.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       32.0,
+       32.0,
+       16.5
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 803.7,
+      "elancement": 0.58,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 6.39,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 9.95,
+      "masse_g": 4.2,
+      "temps_min": 11,
+      "couches": 82,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "flammes_jaunes",
+     "nom": "Flammes jaunes",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "10402",
+      "gamme": "PLA Basic",
+      "nom": "Jaune tournesol",
+      "hex": "#f7c600"
+     },
+     "matiere": "PLA",
+     "stl": "doigt_de_feu/flammes_jaunes.stl",
+     "fichier": "doigt_de_feu/04_flammes_jaunes__jaune_tournesol.stl",
+     "analyse": {
+      "nom": "04_flammes_jaunes__jaune_tournesol.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       51.0,
+       46.9,
+       3.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 1100.2,
+      "elancement": 0.09,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.17,
+      "part_paroi_fine": 0.0192,
+      "volume_cm3": 3.3,
+      "masse_g": 3.1,
+      "temps_min": 9,
+      "couches": 15,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "flammes_orange",
+     "nom": "Flammes orange",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "11300",
+      "gamme": "PLA Matte",
+      "nom": "Mandarine",
+      "hex": "#f0862a"
+     },
+     "matiere": "PLA",
+     "stl": "doigt_de_feu/flammes_orange.stl",
+     "fichier": "doigt_de_feu/05_flammes_orange__mandarine.stl",
+     "analyse": {
+      "nom": "05_flammes_orange__mandarine.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       71.0,
+       57.9,
+       3.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 2231.0,
+      "elancement": 0.06,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.99,
+      "part_paroi_fine": 0.0083,
+      "volume_cm3": 6.69,
+      "masse_g": 6.0,
+      "temps_min": 13,
+      "couches": 15,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "flammes_rouges",
+     "nom": "Flammes rouges",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "11200",
+      "gamme": "PLA Matte",
+      "nom": "Rouge écarlate",
+      "hex": "#c8352e"
+     },
+     "matiere": "PLA",
+     "stl": "doigt_de_feu/flammes_rouges.stl",
+     "fichier": "doigt_de_feu/06_flammes_rouges__rouge_ecarlate.stl",
+     "analyse": {
+      "nom": "06_flammes_rouges__rouge_ecarlate.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       93.1,
+       75.4,
+       3.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 3954.9,
+      "elancement": 0.05,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.98,
+      "part_paroi_fine": 0.0092,
+      "volume_cm3": 11.86,
+      "masse_g": 10.2,
+      "temps_min": 19,
+      "couches": 15,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "oeil_de_lynx",
+   "nom": "L'Œil de Lynx",
+   "categorie": "loufoque",
+   "attribution": "Le pari gagné à la plus grosse cote.",
+   "prix": "oeil_de_lynx",
+   "valide": true,
+   "hauteur_mm": 106.0,
+   "largeur_mm": 85.0,
+   "masse_g": 57.8,
+   "temps_min": 104,
+   "couleurs": [
+    "11100",
+    "11101",
+    "11200",
+    "13405",
+    "13604"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "oeil_de_lynx/socle.stl",
+     "fichier": "oeil_de_lynx/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       26.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5985.0,
+      "elancement": 0.34,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 20.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 26.1,
+      "epaisseur_p1_mm": 6.03,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 134.3,
+      "masse_g": 40.5,
+      "temps_min": 48,
+      "couches": 130,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "oeil_de_lynx/plaque.stl",
+     "fichier": "oeil_de_lynx/02_plaque__dore.stl",
+     "analyse": {
+      "nom": "02_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       8.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 213.3,
+      "elancement": 0.16,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.73,
+      "part_paroi_fine": 0.0225,
+      "volume_cm3": 0.41,
+      "masse_g": 0.5,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "anneau_1",
+     "nom": "Anneau de cible 1",
+     "role": "calque",
+     "qte": 1,
+     "fil": {
+      "ref": "11100",
+      "gamme": "PLA Matte",
+      "nom": "Blanc ivoire",
+      "hex": "#f1ecdf"
+     },
+     "matiere": "PLA",
+     "stl": "oeil_de_lynx/anneau_1.stl",
+     "fichier": "oeil_de_lynx/03_anneau_1__blanc_ivoire.stl",
+     "analyse": {
+      "nom": "03_anneau_1__blanc_ivoire.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       72.0,
+       88.0,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 4329.6,
+      "elancement": 0.04,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 2.4,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 10.39,
+      "masse_g": 9.8,
+      "temps_min": 18,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "anneau_2",
+     "nom": "Anneau de cible 2",
+     "role": "calque",
+     "qte": 1,
+     "fil": {
+      "ref": "11200",
+      "gamme": "PLA Matte",
+      "nom": "Rouge écarlate",
+      "hex": "#c8352e"
+     },
+     "matiere": "PLA",
+     "stl": "oeil_de_lynx/anneau_2.stl",
+     "fichier": "oeil_de_lynx/04_anneau_2__rouge_ecarlate.stl",
+     "analyse": {
+      "nom": "04_anneau_2__rouge_ecarlate.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       54.0,
+       54.0,
+       1.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 2288.6,
+      "elancement": 0.03,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.4,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 3.2,
+      "masse_g": 4.0,
+      "temps_min": 10,
+      "couches": 7,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "anneau_3",
+     "nom": "Anneau de cible 3",
+     "role": "calque",
+     "qte": 1,
+     "fil": {
+      "ref": "11100",
+      "gamme": "PLA Matte",
+      "nom": "Blanc ivoire",
+      "hex": "#f1ecdf"
+     },
+     "matiere": "PLA",
+     "stl": "oeil_de_lynx/anneau_3.stl",
+     "fichier": "oeil_de_lynx/05_anneau_3__blanc_ivoire.stl",
+     "analyse": {
+      "nom": "05_anneau_3__blanc_ivoire.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       36.0,
+       36.0,
+       1.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 1017.1,
+      "elancement": 0.04,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.4,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 1.42,
+      "masse_g": 1.8,
+      "temps_min": 7,
+      "couches": 7,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "anneau_4",
+     "nom": "Anneau de cible 4",
+     "role": "calque",
+     "qte": 1,
+     "fil": {
+      "ref": "11200",
+      "gamme": "PLA Matte",
+      "nom": "Rouge écarlate",
+      "hex": "#c8352e"
+     },
+     "matiere": "PLA",
+     "stl": "oeil_de_lynx/anneau_4.stl",
+     "fichier": "oeil_de_lynx/06_anneau_4__rouge_ecarlate.stl",
+     "analyse": {
+      "nom": "06_anneau_4__rouge_ecarlate.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       18.0,
+       18.0,
+       1.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 254.3,
+      "elancement": 0.09,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.4,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 0.36,
+      "masse_g": 0.4,
+      "temps_min": 5,
+      "couches": 7,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "flechette",
+     "nom": "Fléchette",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13604",
+      "gamme": "PLA Silk+",
+      "nom": "Bleu",
+      "hex": "#2479d0"
+     },
+     "matiere": "PLA",
+     "stl": "oeil_de_lynx/flechette.stl",
+     "fichier": "oeil_de_lynx/07_flechette__bleu.stl",
+     "analyse": {
+      "nom": "07_flechette__bleu.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       14.0,
+       16.2,
+       46.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 34.8,
+      "elancement": 7.8,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.09,
+      "part_paroi_fine": 0.0033,
+      "volume_cm3": 0.66,
+      "masse_g": 0.8,
+      "temps_min": 11,
+      "couches": 230,
+      "supports": "aucun",
+      "alertes": [
+       "~ Pièce élancée (h / √surface = 7.8) : bordure de 3 mm conseillée"
+      ],
+      "verdict_impression": "A_SURVEILLER"
+     }
+    }
+   ]
+  },
+  {
+   "id": "boss_de_fin",
+   "nom": "Le Boss de Fin",
+   "categorie": "loufoque",
+   "attribution": "Le plus de manches gagnées (trophée 8 bits).",
+   "prix": "boss_de_fin",
+   "valide": true,
+   "hauteur_mm": 102.7,
+   "largeur_mm": 85.0,
+   "masse_g": 58.0,
+   "temps_min": 86,
+   "couleurs": [
+    "11101",
+    "13405"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "boss_de_fin/socle.stl",
+     "fichier": "boss_de_fin/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       26.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5985.0,
+      "elancement": 0.34,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 20.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 26.1,
+      "epaisseur_p1_mm": 5.87,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 134.14,
+      "masse_g": 40.5,
+      "temps_min": 48,
+      "couches": 130,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "boss_de_fin/plaque.stl",
+     "fichier": "boss_de_fin/02_plaque__dore.stl",
+     "analyse": {
+      "nom": "02_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       8.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 213.3,
+      "elancement": 0.16,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.68,
+      "part_paroi_fine": 0.0258,
+      "volume_cm3": 0.41,
+      "masse_g": 0.5,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "contour",
+     "nom": "Contour pixel",
+     "role": "support",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "boss_de_fin/contour.stl",
+     "fichier": "boss_de_fin/03_contour__anthracite.stl",
+     "analyse": {
+      "nom": "03_contour__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       68.4,
+       84.7,
+       3.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 3730.1,
+      "elancement": 0.05,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 3.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 11.19,
+      "masse_g": 9.3,
+      "temps_min": 18,
+      "couches": 15,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "sprite",
+     "nom": "Sprite doré 8 bits",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "boss_de_fin/sprite.stl",
+     "fichier": "boss_de_fin/04_sprite__dore.stl",
+     "analyse": {
+      "nom": "04_sprite__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       63.0,
+       72.0,
+       4.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 2555.6,
+      "elancement": 0.08,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 3.01,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 10.17,
+      "masse_g": 7.7,
+      "temps_min": 15,
+      "couches": 20,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "game_over",
+   "nom": "Game Over",
+   "categorie": "loufoque",
+   "attribution": "Le plus de sorties de piste.",
+   "prix": "game_over",
+   "valide": true,
+   "hauteur_mm": 108.0,
+   "largeur_mm": 85.0,
+   "masse_g": 72.3,
+   "temps_min": 117,
+   "couleurs": [
+    "10402",
+    "10700",
+    "11101",
+    "11300",
+    "13205",
+    "13405"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "game_over/socle.stl",
+     "fichier": "game_over/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       26.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5985.0,
+      "elancement": 0.34,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 20.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 26.1,
+      "epaisseur_p1_mm": 5.87,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 133.74,
+      "masse_g": 40.4,
+      "temps_min": 48,
+      "couches": 130,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "cheville",
+     "nom": "Cheville carrée 10 mm",
+     "role": "cheville",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "game_over/cheville.stl",
+     "fichier": "game_over/02_cheville__anthracite.stl",
+     "analyse": {
+      "nom": "02_cheville__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       10.0,
+       10.0,
+       16.5
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 100.0,
+      "elancement": 1.65,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 10.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 1.65,
+      "masse_g": 1.1,
+      "temps_min": 8,
+      "couches": 82,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "game_over/plaque.stl",
+     "fichier": "game_over/03_plaque__dore.stl",
+     "analyse": {
+      "nom": "03_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       8.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 213.3,
+      "elancement": 0.16,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.72,
+      "part_paroi_fine": 0.0425,
+      "volume_cm3": 0.41,
+      "masse_g": 0.5,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "borne",
+     "nom": "Borne d'arcade",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "10700",
+      "gamme": "PLA Basic",
+      "nom": "Violet",
+      "hex": "#6b44b6"
+     },
+     "matiere": "PLA",
+     "stl": "game_over/borne.stl",
+     "fichier": "game_over/04_borne__violet.stl",
+     "analyse": {
+      "nom": "04_borne__violet.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       38.0,
+       82.0,
+       34.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 2556.0,
+      "elancement": 0.67,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 6.99,
+      "part_paroi_fine": 0.0017,
+      "volume_cm3": 85.91,
+      "masse_g": 27.9,
+      "temps_min": 38,
+      "couches": 170,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "ecran",
+     "nom": "Écran « GAME OVER »",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "10402",
+      "gamme": "PLA Basic",
+      "nom": "Jaune tournesol",
+      "hex": "#f7c600"
+     },
+     "matiere": "PLA",
+     "stl": "game_over/ecran.stl",
+     "fichier": "game_over/05_ecran__jaune_tournesol.stl",
+     "analyse": {
+      "nom": "05_ecran__jaune_tournesol.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       28.0,
+       23.0,
+       2.2
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 642.0,
+      "elancement": 0.09,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.6,
+      "part_paroi_fine": 0.0167,
+      "volume_cm3": 1.29,
+      "masse_g": 1.6,
+      "temps_min": 7,
+      "couches": 11,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "fronton",
+     "nom": "Fronton « INSERT COIN »",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "11300",
+      "gamme": "PLA Matte",
+      "nom": "Mandarine",
+      "hex": "#f0862a"
+     },
+     "matiere": "PLA",
+     "stl": "game_over/fronton.stl",
+     "fichier": "game_over/06_fronton__mandarine.stl",
+     "analyse": {
+      "nom": "06_fronton__mandarine.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       30.0,
+       7.4,
+       2.2
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 220.6,
+      "elancement": 0.15,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.13,
+      "part_paroi_fine": 0.0525,
+      "volume_cm3": 0.43,
+      "masse_g": 0.5,
+      "temps_min": 5,
+      "couches": 11,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "manette",
+     "nom": "Manette",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "13205",
+      "gamme": "PLA Silk+",
+      "nom": "Rouge bonbon",
+      "hex": "#d3203c"
+     },
+     "matiere": "PLA",
+     "stl": "game_over/manette.stl",
+     "fichier": "game_over/07_manette__rouge_bonbon.stl",
+     "analyse": {
+      "nom": "07_manette__rouge_bonbon.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       8.0,
+       8.0,
+       12.6
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 50.2,
+      "elancement": 1.78,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.02,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 0.22,
+      "masse_g": 0.3,
+      "temps_min": 6,
+      "couches": 63,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "combo",
+   "nom": "Combo ×10",
+   "categorie": "loufoque",
+   "attribution": "La plus longue série de manches sans un pari perdu.",
+   "prix": "combo",
+   "valide": true,
+   "hauteur_mm": 60.9,
+   "largeur_mm": 85.0,
+   "masse_g": 50.4,
+   "temps_min": 76,
+   "couleurs": [
+    "10402",
+    "11101",
+    "13205",
+    "13405"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "combo/socle.stl",
+     "fichier": "combo/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       26.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5985.0,
+      "elancement": 0.34,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 20.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 26.1,
+      "epaisseur_p1_mm": 5.63,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 134.09,
+      "masse_g": 40.5,
+      "temps_min": 48,
+      "couches": 130,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "combo/plaque.stl",
+     "fichier": "combo/02_plaque__dore.stl",
+     "analyse": {
+      "nom": "02_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       8.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 213.3,
+      "elancement": 0.16,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.77,
+      "part_paroi_fine": 0.01,
+      "volume_cm3": 0.42,
+      "masse_g": 0.5,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "contour",
+     "nom": "Contour rouge",
+     "role": "support",
+     "qte": 1,
+     "fil": {
+      "ref": "13205",
+      "gamme": "PLA Silk+",
+      "nom": "Rouge bonbon",
+      "hex": "#d3203c"
+     },
+     "matiere": "PLA",
+     "stl": "combo/contour.stl",
+     "fichier": "combo/03_contour__rouge_bonbon.stl",
+     "analyse": {
+      "nom": "03_contour__rouge_bonbon.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       66.4,
+       42.9,
+       3.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 2016.5,
+      "elancement": 0.07,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 3.0,
+      "part_paroi_fine": 0.0,
+      "volume_cm3": 6.05,
+      "masse_g": 5.3,
+      "temps_min": 12,
+      "couches": 15,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "chiffres",
+     "nom": "Chiffres « x10 »",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "10402",
+      "gamme": "PLA Basic",
+      "nom": "Jaune tournesol",
+      "hex": "#f7c600"
+     },
+     "matiere": "PLA",
+     "stl": "combo/chiffres.stl",
+     "fichier": "combo/04_chiffres__jaune_tournesol.stl",
+     "analyse": {
+      "nom": "04_chiffres__jaune_tournesol.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       60.4,
+       29.9,
+       5.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 3,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 931.4,
+      "elancement": 0.16,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.76,
+      "part_paroi_fine": 0.01,
+      "volume_cm3": 4.16,
+      "masse_g": 4.1,
+      "temps_min": 11,
+      "couches": 25,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  },
+  {
+   "id": "rage_quit",
+   "nom": "Rage Quit",
+   "categorie": "loufoque",
+   "attribution": "La plus longue série de manches sans un pari gagné.",
+   "prix": "rage_quit",
+   "valide": true,
+   "hauteur_mm": 65.0,
+   "largeur_mm": 85.0,
+   "masse_g": 49.2,
+   "temps_min": 79,
+   "couleurs": [
+    "10103",
+    "10402",
+    "11101",
+    "13405"
+   ],
+   "pieces": [
+    {
+     "id": "socle",
+     "nom": "Socle octogonal",
+     "role": "socle",
+     "qte": 1,
+     "fil": {
+      "ref": "11101",
+      "gamme": "PLA Matte",
+      "nom": "Anthracite",
+      "hex": "#3d3f43"
+     },
+     "matiere": "PLA",
+     "stl": "rage_quit/socle.stl",
+     "fichier": "rage_quit/01_socle__anthracite.stl",
+     "analyse": {
+      "nom": "01_socle__anthracite.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       85.0,
+       85.0,
+       26.0
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 5985.0,
+      "elancement": 0.34,
+      "zones_surplomb": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 15.7,
+        "portee_mm": 26.1,
+        "longueur_mm": 26.1,
+        "z_mm": 20.0
+       }
+      ],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 26.1,
+      "epaisseur_p1_mm": 5.0,
+      "part_paroi_fine": 0.0025,
+      "volume_cm3": 132.31,
+      "masse_g": 40.5,
+      "temps_min": 49,
+      "couches": 130,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "plaque",
+     "nom": "Plaque gravée",
+     "role": "plaque",
+     "qte": 1,
+     "fil": {
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
+     },
+     "matiere": "PLA",
+     "stl": "rage_quit/plaque.stl",
+     "fichier": "rage_quit/02_plaque__dore.stl",
+     "analyse": {
+      "nom": "02_plaque__dore.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       25.5,
+       8.4,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 213.3,
+      "elancement": 0.16,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.88,
+      "part_paroi_fine": 0.0042,
+      "volume_cm3": 0.42,
+      "masse_g": 0.5,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "moitie_droite",
+     "nom": "Manette, moitié droite",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "10103",
+      "gamme": "PLA Basic",
+      "nom": "Gris",
+      "hex": "#8d9094"
+     },
+     "matiere": "PLA",
+     "stl": "rage_quit/moitie_droite.stl",
+     "fichier": "rage_quit/03_moitie_droite__gris.stl",
+     "analyse": {
+      "nom": "03_moitie_droite__gris.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       40.7,
+       47.0,
+       8.3
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 1245.8,
+      "elancement": 0.24,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.77,
+      "part_paroi_fine": 0.01,
+      "volume_cm3": 6.21,
+      "masse_g": 3.9,
+      "temps_min": 10,
+      "couches": 41,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "moitie_gauche",
+     "nom": "Manette, moitié gauche",
+     "role": "figure",
+     "qte": 1,
+     "fil": {
+      "ref": "10103",
+      "gamme": "PLA Basic",
+      "nom": "Gris",
+      "hex": "#8d9094"
+     },
+     "matiere": "PLA",
+     "stl": "rage_quit/moitie_gauche.stl",
+     "fichier": "rage_quit/04_moitie_gauche__gris.stl",
+     "analyse": {
+      "nom": "04_moitie_gauche__gris.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       40.7,
+       47.0,
+       8.1
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 1240.7,
+      "elancement": 0.23,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 1.21,
+      "part_paroi_fine": 0.0083,
+      "volume_cm3": 6.22,
+      "masse_g": 3.9,
+      "temps_min": 10,
+      "couches": 40,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    },
+    {
+     "id": "etincelle",
+     "nom": "Étincelle",
+     "role": "ornement",
+     "qte": 1,
+     "fil": {
+      "ref": "10402",
+      "gamme": "PLA Basic",
+      "nom": "Jaune tournesol",
+      "hex": "#f7c600"
+     },
+     "matiere": "PLA",
+     "stl": "rage_quit/etincelle.stl",
+     "fichier": "rage_quit/05_etincelle__jaune_tournesol.stl",
+     "analyse": {
+      "nom": "05_etincelle__jaune_tournesol.stl",
+      "matiere": "PLA",
+      "dimensions_mm": [
+       10.5,
+       28.0,
+       2.4
+      ],
+      "tient_sur_plateau": true,
+      "etanche": true,
+      "corps": 1,
+      "corps_en_lair": 0,
+      "contact_plateau_mm2": 126.3,
+      "elancement": 0.21,
+      "zones_surplomb": [],
+      "zones_pont": [],
+      "zones_voute": [],
+      "aire_surplomb_mm2": 0,
+      "pont_max_mm": 0,
+      "epaisseur_p1_mm": 0.72,
+      "part_paroi_fine": 0.0108,
+      "volume_cm3": 0.3,
+      "masse_g": 0.4,
+      "temps_min": 5,
+      "couches": 12,
+      "supports": "aucun",
+      "alertes": [],
+      "verdict_impression": "OK"
+     }
+    }
+   ]
+  }
+ ]
+}

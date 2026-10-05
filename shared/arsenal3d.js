@@ -3,7 +3,7 @@
    Chaque gréement expose pose(tau) où tau = temps (s) depuis le déclenchement (négatif = armé) : animation déterministe,
    rejouable image par image (utile pour l'aperçu TV et pour les tests). Les dimensions suivent arsenal_pieges.scad. */
 
-const V = 4.53;          // largeur utile d'une voie (45,3 mm)
+const V = 4.6;           // largeur utile d'une voie (46 mm, piste_rainbow_road.scad)
 // Ralenti ×40 : le bolide roule à 2,5 m/s réels en ligne droite finale (CIRCUIT_RAINBOW_ROAD : 2,0 à 2,8 m/s),
 // soit 250 unités/s réelles -> 6,25 unités/s affichées. Toute la physique est exprimée dans ce temps ralenti :
 // g = 981 unités/s² réels -> 981 / 40² ≈ 0,61 unité/s² affichée ; les durées réelles sont multipliées par 40.
@@ -11,7 +11,7 @@ const V = 4.53;          // largeur utile d'une voie (45,3 mm)
 export const RALENTI = 40;
 const G = 981 / (RALENTI * RALENTI);
 export const VCAR = 250 / RALENTI;
-export const X0 = -28;                 // départ du bolide (28 cm en amont du piège)
+export const X0 = -36;                 // départ du bolide (36 cm en amont du piège : la Herse s'arme à 27 cm)
 const DEMI_BOLIDE = 3.7;
 const PAROI = 0.6;       // hauteur de cloison (6 mm)
 
@@ -39,42 +39,107 @@ function anglePeage(tau) {
 }
 function chutePeage(cible) { let t = 0; while (anglePeage(t) < cible && t < 5) t += 0.01; return t; }
 
-/* Chaque fiche : arch, armeA (instant de déclenchement, en x du bolide), reaction du bolide, build(THREE, M) -> {group, pose(tau)} */
+/* Piste GXX41 (notice) : 5 voies translucides rose, bleu, vert, jaune, orange ; le Grand Prix court sur 1 à 4, la 5e est la
+   voie technique. Cotes de piste_rainbow_road.scad (voie 46, cloison 2,4, entraxe 48,4 mm). La voie VISÉE du labo est la 3
+   (verte), centrée sur z = 0. */
+export const PISTE = { voie: 4.6, cloison: 0.24, pas: 4.84, nb: 5, paroiExt: 0.24, hLibre: 4.6 };
+PISTE.largeur = PISTE.nb * PISTE.voie + (PISTE.nb - 1) * PISTE.cloison;
+export const COULEURS_VOIES = [
+  { nom: 'rose', hex: 0xff4fa3 }, { nom: 'bleu', hex: 0x3c8dff }, { nom: 'vert', hex: 0x2fd58a },
+  { nom: 'jaune', hex: 0xffd23f }, { nom: 'orange', hex: 0xff8a2a }];
+export const VOIE_LABO = 3;
+export const zVoie = (i) => (i - VOIE_LABO) * PISTE.pas;          // axe de la voie i (1..5) dans le repère du labo
+
+/* Pont des Pièges (9_Validation_Atelier/scad/labo_valide.scad) : poutre de 5 voies posée sur les 2 PAROIS EXTÉRIEURES
+   (pieds + talons, rien dans les voies), x de −2,6 à −1,2, dessous à 5,2 ; un chariot pend dans SA voie : rails à
+   |z| = 2,025..2,265 depuis y = 1,0, traverse et toit sur la poutre ; axe de pendule à x = 0,5, y = 4,7 ; passage 40,5 × 46 mm. */
+const PG = { x0: -2.6, x1: -1.2, z0: 5.2, z1: 6.0, rIn: 2.025, rOut: 2.265, rZ0: 1.0, D: 1.6, xAxe: 0.5, yAxe: 4.7, toit: 6.03 };
+PG.Hp = PG.z0;
+PG.zOut = PG.rOut;
+function pontDesPieges(THREE, M) {
+  const g = new THREE.Group();
+  const yInt = PISTE.largeur / 2, yPost = yInt + PISTE.paroiExt + 0.035, ep = 0.5, L = PG.x1 - PG.x0, xm = (PG.x0 + PG.x1) / 2;
+  const zc = zVoie(3) - zVoie(VOIE_LABO);  // la piste est centrée sur la voie 3 : axe de la piste = z 0
+  const poutre = box(THREE, L, PG.z1 - PG.z0, 2 * (yPost + ep), M.anth); poutre.position.set(xm, (PG.z0 + PG.z1) / 2, zc); g.add(poutre);
+  for (const s of [-1, 1]) {
+    const pied = box(THREE, L, PG.z1 - 0.15, ep, M.anth); pied.position.set(xm, 0.15 + (PG.z1 - 0.15) / 2, zc + s * (yPost + ep / 2)); g.add(pied);
+    const talon = box(THREE, L, 0.2, PISTE.paroiExt + 0.035 + ep, M.anth); talon.position.set(xm, PISTE.voie * 0 + 0.7, zc + s * (yInt + (PISTE.paroiExt + 0.035 + ep) / 2)); g.add(talon);
+    const gousset = box(THREE, L, PG.z0 - PISTE.hLibre, 0.9, M.anth); gousset.position.set(xm, PISTE.hLibre + (PG.z0 - PISTE.hLibre) / 2, zc + s * (yInt - 0.45 + 0.24)); g.add(gousset);
+  }
+  // pions d'index jaunes et numéros de voie (couleur de la voie) sur le dessus de la poutre
+  for (let i = 1; i <= PISTE.nb; i++) {
+    const pion = cyl(THREE, 0.15, 0.15, 0.5, M.jaune, 12); pion.position.set(xm - 0.35, PG.z1 + 0.1, zVoie(i)); g.add(pion);
+    const pastille = box(THREE, 0.5, 0.04, 0.9, new THREE.MeshStandardMaterial({ color: COULEURS_VOIES[i - 1].hex, emissive: COULEURS_VOIES[i - 1].hex, emissiveIntensity: 0.6 }));
+    pastille.position.set(xm + 0.3, PG.z1 + 0.02, zVoie(i)); g.add(pastille);
+  }
+  return g;
+}
+function chariot(THREE, M, voie = VOIE_LABO) {
+  const g = new THREE.Group();
+  const hRail = PG.toit - PG.rZ0;
+  for (const s of [-1, 1]) {
+    const r = box(THREE, PG.D, hRail, PG.rOut - PG.rIn, M.anth); r.position.set(0, PG.rZ0 + hRail / 2, s * (PG.rIn + PG.rOut) / 2); g.add(r);
+  }
+  const trav = box(THREE, 0.8 + 1.17, PG.toit - PG.z0, 2 * PG.rOut, M.anth); trav.position.set((-1.17 + 0.8) / 2, (PG.z0 + PG.toit) / 2, 0); g.add(trav);
+  const toit = box(THREE, 0.8 - PG.x0 + 0.1, 0.3, 2 * PG.rOut, M.anth); toit.position.set((0.8 + PG.x0 - 0.1) / 2, PG.toit + 0.15 + 0.03, 0); g.add(toit);
+  const c = COULEURS_VOIES[voie - 1].hex;
+  const badge = box(THREE, 0.06, 0.7, 1.6, new THREE.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: 0.8 }));
+  badge.position.set(0.83, 5.6, 0); g.add(badge);
+  g.position.z = zVoie(voie);
+  return g;
+}
+function portique(THREE, M) {          // nom historique : renvoie désormais Pont + chariot de la voie visée
+  const g = new THREE.Group();
+  g.add(pontDesPieges(THREE, M));
+  g.add(chariot(THREE, M));
+  return g;
+}
+/* Pendule pesant lâché à A rad (période réelle T s) : angle selon le temps ralenti, légèrement amorti. */
+const penduleAngle = (tau, A, T) => (tau < 0 ? A : A * Math.cos(2 * Math.PI * tau / (T * RALENTI)) * Math.exp(-tau * 0.9 / RALENTI));
+const T_PENDULE = 2 * Math.PI * Math.sqrt(0.028 / 9.81) * 1.073;     // L = 28 mm, amplitude 60° (correction elliptique)
+
+/* Chaque fiche : arch, impactX (x du centre du bolide au contact), tEffet (temps ralenti entre déclenchement et effet établi),
+   reaction du bolide, tolerance {avant, apres} en secondes RÉELLES pour le Défi du timing (défaut ±25 ms),
+   build(THREE, M) -> {group, pose(tau)}. Les asservis montés sur le Pont des Pièges suivent les versions validées à l'atelier. */
 export const RIGS = {
   herse: {
-    arch: 'asservi', reaction: 'crash', impactX: -DEMI_BOLIDE - 0.3, tEffet: Math.sqrt(2 * 1.25 / G),   // grille sous le toit (25 mm)
+    arch: 'asservi', reaction: 'crash', impactX: -DEMI_BOLIDE - 0.3, tEffet: 1.1 * Math.sqrt(2 * 4.7 / G),   // grille levée à 47 mm
+    tolerance: { avant: 1.0, apres: 0.025 },            // lâchée trop tôt, la grille est déjà fermée : même effet
     build(THREE, M) {
       const g = new THREE.Group();
-      for (const z of [-V / 2 + 0.35, V / 2 - 0.35]) { const p = box(THREE, 1.2, 4.8, 0.7, M.anth); p.position.set(0, 2.4, z); g.add(p); }
-      const base = box(THREE, 2.8, 0.08, V, M.anth); base.position.y = 0.04; g.add(base);
+      g.add(portique(THREE, M));
       const grille = new THREE.Group();
-      for (let i = 0; i < 6; i++) { const b = box(THREE, 0.24, 3.2, 0.24, M.gris); b.position.set(0, 1.6, -1.6 + i * 0.64); grille.add(b); }
-      for (const y of [0.4, 1.6, 2.9]) { const b = box(THREE, 0.24, 0.24, 3.4, M.gris); b.position.y = y; grille.add(b); }
-      for (let i = 0; i < 6; i++) { const c = new THREE.Mesh(new THREE.ConeGeometry(0.13, 0.3, 8), M.gris); c.rotation.x = Math.PI; c.position.set(0, -0.15, -1.6 + i * 0.64); grille.add(c); }
+      const W = 4.15;            // g_w : engagée de 0,8 mm dans les rainures des rails
+      for (let i = 0; i < 6; i++) { const b = box(THREE, 0.24, 4.0, 0.24, M.gris); b.position.set(0, 2.0, -W / 2 + 0.42 + i * (W - 0.84) / 5); grille.add(b); }
+      for (const [y, h] of [[0.35, 0.7], [1.25, 0.3], [3.7, 0.3]]) { const b = box(THREE, 0.24, h, W, M.gris); b.position.y = y; grille.add(b); }
+      for (let i = 0; i < 6; i++) { const c = new THREE.Mesh(new THREE.ConeGeometry(0.12, 0.26, 8), M.gris); c.rotation.x = Math.PI; c.position.set(0, -0.13, -W / 2 + 0.42 + i * (W - 0.84) / 5); grille.add(c); }
+      const anneau = new THREE.Mesh(new THREE.TorusGeometry(0.42, 0.12, 8, 24), M.gris); anneau.rotation.y = Math.PI / 2; anneau.position.y = 4.35; grille.add(anneau);
       g.add(grille);
-      const pin = cyl(THREE, 0.1, 0.1, V + 1.4, M.bois); pin.rotation.x = Math.PI / 2; pin.position.y = 3.7; g.add(pin);
+      const pin = cyl(THREE, 0.1, 0.1, 2.6, M.bois); pin.rotation.z = Math.PI / 2; pin.position.set(0, 5.6, 0); g.add(pin);
       return { group: g, pose(tau) {
-        const fall = tau < 0 ? 0 : clamp(0.5 * G * tau * tau, 0, 3.55);           // chute libre
-        grille.position.y = 3.85 - fall;
-        pin.position.z = tau < 0 ? 0 : -Math.min(6, tau * 12);
+        const fall = tau < 0 ? 0 : clamp(0.5 * G * (tau / 1.1) * (tau / 1.1), 0, 4.7);       // chute libre, frottement de 10 %
+        grille.position.y = 4.7 - fall;
+        pin.position.x = tau < 0 ? 0 : Math.min(1.6, tau * 6);
       } };
     },
   },
   bascule: {
-    arch: 'asservi', reaction: 'launch', impactX: -2.0 - 2.4, tEffet: 0.03 * RALENTI,
+    // Tremplin : le tablier se relève à 12° tiré par le fil (≈ 0,12 s) puis reste TENU : le tirer tôt ne coûte rien.
+    arch: 'asservi', reaction: 'launch', launchAngle: 0.21, impactX: -0.8, tEffet: 0.12 * RALENTI + (-0.8 - (-4.6 - DEMI_BOLIDE)) / VCAR,
+    tolerance: { avant: 1.0, apres: 0.03 },
     build(THREE, M) {
       const g = new THREE.Group();
-      const base = box(THREE, 5.2, 0.12, V, M.anth); base.position.y = 0.06; g.add(base);
-      const piv = new THREE.Group(); piv.position.set(-2.0, 0.3, 0); g.add(piv);
-      const tab = box(THREE, 3.8, 0.2, V - 1.1, M.bois); tab.position.x = 1.9; piv.add(tab);
-      const mat = box(THREE, 0.42, 3.3, 0.42, M.jaune); mat.position.set(2.3, 1.65, V / 2 - 0.3); g.add(mat);
-      const bras = box(THREE, 0.42, 0.4, 2.6, M.jaune); bras.position.set(2.3, 3.1, 1.0); g.add(bras);
-      const fil = box(THREE, 0.03, 1, 0.03, M.blanc); g.add(fil);
+      g.add(portique(THREE, M));
+      const base = box(THREE, 5.2, 0.12, V, M.anth); base.position.set(-6.0 + 2.6, 0.06, 0); g.add(base);
+      for (const s of [-1, 1]) { const ch = box(THREE, 0.8, 0.52, 0.55, M.anth); ch.position.set(-4.6, 0.26, s * (V / 2 - 0.28)); g.add(ch); }
+      const piv = new THREE.Group(); piv.position.set(-4.6, 0.32, 0); g.add(piv);
+      const tab = box(THREE, 3.8, 0.22, V - 1.2, M.bois); tab.position.set(1.9, -0.09, 0); piv.add(tab);
+      const fil = box(THREE, 0.025, 1, 0.025, M.blanc); g.add(fil);
       return { group: g, pose(tau) {
-        const a = tau < 0 ? 0 : ease(tau / (0.05 * RALENTI)) * 0.44;  // 0 -> 25° en 50 ms réels
+        const a = tau < 0 ? 0 : ease(tau / (0.12 * RALENTI)) * 0.21;
         piv.rotation.z = a;
-        const tipx = -2.0 + 3.6 * Math.cos(a), tipy = 0.3 + 3.6 * Math.sin(a);
-        fil.position.set((tipx + 2.3) / 2, (tipy + 3.1) / 2, 0); fil.scale.y = Math.hypot(2.3 - tipx, 3.1 - tipy); fil.rotation.z = Math.atan2(2.3 - tipx, 3.1 - tipy) * -1;
+        const tipx = -4.6 + 4.1 * Math.cos(a), tipy = 0.32 + 4.1 * Math.sin(a);
+        fil.position.set(tipx, (tipy + PG.Hp) / 2, 1.8); fil.scale.y = PG.Hp - tipy;
       } };
     },
   },
@@ -93,18 +158,18 @@ export const RIGS = {
     },
   },
   boulet: {
-    arch: 'asservi', reaction: 'spin', impactX: 0, tEffet: 0.44 * RALENTI / 4,
+    arch: 'asservi', reaction: 'crash', impactX: PG.xAxe - 1.1 - DEMI_BOLIDE, tEffet: T_PENDULE * RALENTI / 4,
+    tolerance: { avant: 0.025, apres: 0.025 },
     build(THREE, M) {
       const g = new THREE.Group();
-      const mat = box(THREE, 0.8, 6.4, 0.3, M.jaune); mat.position.set(0, 3.2, -V / 2 - 0.5); g.add(mat);
-      const bras = box(THREE, 0.8, 0.4, V / 2 + 0.8, M.jaune); bras.position.set(0, 6.2, -V / 4); g.add(bras);
-      const piv = new THREE.Group(); piv.position.set(0, 6.0, 0); g.add(piv);
-      const fil = box(THREE, 0.03, 4.8, 0.03, M.blanc); fil.position.y = -2.4; piv.add(fil);
-      const b = sph(THREE, 1.1, M.anth); b.position.y = -4.8; piv.add(b);
-      return { group: g, pose(tau) {
-        const T = 0.44 * RALENTI, A = 1.05;                               // période réelle 0,44 s, lâché à 60°
-        piv.rotation.x = tau < 0 ? A : A * Math.cos(2 * Math.PI * tau / T) * Math.exp(-tau * 3.5 / RALENTI);
-      } };
+      g.add(portique(THREE, M));
+      const axe = cyl(THREE, 0.1, 0.1, 2 * PG.zOut + 0.4, M.bois); axe.rotation.x = Math.PI / 2; axe.position.set(PG.xAxe, PG.yAxe, 0); g.add(axe);
+      for (const z of [-1, 1]) { const e = cyl(THREE, 0.26, 0.26, 1.85, M.anth); e.rotation.x = Math.PI / 2; e.position.set(PG.xAxe, PG.yAxe, z * 1.1); g.add(e); }
+      const piv = new THREE.Group(); piv.position.set(PG.xAxe, PG.yAxe, 0); g.add(piv);
+      const moyeu = box(THREE, 0.6, 0.8, 0.8, M.jaune); moyeu.position.y = -0.3; piv.add(moyeu);
+      const fil = box(THREE, 0.025, 2.0, 0.025, M.blanc); fil.position.y = -1.6; piv.add(fil);
+      const b = sph(THREE, 1.1, M.anth); b.position.y = -2.8; piv.add(b);
+      return { group: g, pose(tau) { piv.rotation.z = penduleAngle(tau, 1.047, T_PENDULE); } };   // tenu à 60° côté aval
     },
   },
   belier: {
@@ -123,16 +188,19 @@ export const RIGS = {
     },
   },
   balancier: {
-    arch: 'asservi', reaction: 'spin', impactX: 0, tEffet: 0.45 * RALENTI / 4,
+    arch: 'asservi', reaction: 'spin', impactX: PG.xAxe - 0.8 - DEMI_BOLIDE, tEffet: T_PENDULE * RALENTI / 4,
+    tolerance: { avant: 0.025, apres: 0.025 },
     build(THREE, M) {
       const g = new THREE.Group();
-      for (const z of [-V / 2 - 0.3, V / 2 + 0.3]) { const p = box(THREE, 0.6, 7, 0.4, M.anth); p.position.set(0, 3.5, z); g.add(p); }
-      const top = box(THREE, 0.6, 0.4, V + 1, M.anth); top.position.y = 7; g.add(top);
-      const piv = new THREE.Group(); piv.position.y = 6.9; g.add(piv);
-      const lame = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 0.15, 32, 1, false, 0, Math.PI), M.argent);
-      lame.rotation.z = Math.PI / 2; lame.rotation.y = Math.PI / 2; lame.position.y = -4.8; piv.add(lame);
-      const tige = box(THREE, 0.15, 4.8, 0.15, M.gris); tige.position.y = -2.4; piv.add(tige);
-      return { group: g, pose(tau) { piv.rotation.x = tau < 0 ? 0.78 : 0.78 * Math.cos(2 * Math.PI * tau / (0.45 * RALENTI)) * Math.exp(-tau * 0.8 / RALENTI); } };
+      g.add(portique(THREE, M));
+      const axe = cyl(THREE, 0.1, 0.1, 2 * PG.zOut + 0.4, M.bois); axe.rotation.x = Math.PI / 2; axe.position.set(PG.xAxe, PG.yAxe, 0); g.add(axe);
+      for (const z of [-1, 1]) { const e = cyl(THREE, 0.26, 0.26, 1.85, M.anth); e.rotation.x = Math.PI / 2; e.position.set(PG.xAxe, PG.yAxe, z * 1.1); g.add(e); }
+      const piv = new THREE.Group(); piv.position.set(PG.xAxe, PG.yAxe, 0); g.add(piv);
+      const bras = box(THREE, 0.4, 2.9, 0.3, M.gris); bras.position.y = -1.45; piv.add(bras);
+      const tete = cyl(THREE, 0.66, 0.66, 0.6, M.gris, 6); tete.rotation.x = Math.PI / 2; tete.position.y = -2.8; piv.add(tete);
+      const lame = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 0.3, 32, 1, false, Math.PI / 2, Math.PI), M.argent);
+      lame.rotation.x = Math.PI / 2; lame.position.y = -3.0; piv.add(lame);
+      return { group: g, pose(tau) { piv.rotation.z = penduleAngle(tau, 1.047, T_PENDULE); } };
     },
   },
   oeuf_wyverne: {
@@ -230,7 +298,7 @@ export function carPose(rig, t, tTrig) {
     const d = (t - hitT) * 10 / RALENTI, dl = t - hitT;   // réactions de choc à l'échelle du ralenti
     switch (rig.reaction) {
       case 'crash': x = rig.impactX - 0.6 * (1 - Math.exp(-d * 6)); rz = -Math.min(0.35, d * 2.5) * Math.exp(-d * 0.8); y = Math.min(0.5, d * 2) * Math.exp(-d * 2); break;
-      case 'launch': { const vy = v * Math.sin(0.44); y = Math.max(0, vy * dl - 0.5 * G * dl * dl); rz = y > 0 ? 0.44 * (1 - dl * G / vy) : 0; x = rig.impactX + v * dl * 0.92; break; }
+      case 'launch': { const la = rig.launchAngle || 0.44, vy = v * Math.sin(la); y = Math.max(0, vy * dl - 0.5 * G * dl * dl); rz = y > 0 ? la * (1 - dl * G / vy) : 0; x = rig.impactX + v * dl * 0.92; break; }
       case 'spin': ry = d * 9 * Math.exp(-d * 1.2); x = rig.impactX + v * dl * 0.45; z = Math.min(1.1, d * 2.5); break;
       case 'push': z = Math.min(0.75, d * 6); ry = Math.min(0.25, d * 2); x = rig.impactX + v * dl * 0.7; break;
       case 'jitter': y = Math.abs(Math.sin(d * 40)) * 0.25 * Math.exp(-d * 2); rx = Math.sin(d * 33) * 0.08; x = rig.impactX + v * dl * 0.75; break;
@@ -242,17 +310,25 @@ export function carPose(rig, t, tTrig) {
 
 /* Tronçon de voie Rainbow Road (translucide, cloisons) */
 export function buildLane(THREE, longueur = 32) {
+  // piste complète de la notice : 5 voies aux couleurs GXX41, cloisons et parois extérieures translucides
   const g = new THREE.Group();
-  const cols = [0xff4d6d, 0xffa24d, 0xffd166, 0x3ddc97, 0x4cc9f0, 0x9b5de5];
-  for (let i = 0; i < 6; i++) {
-    const s = box(THREE, longueur, 0.06, V / 6, new THREE.MeshStandardMaterial({ color: cols[i], transparent: true, opacity: 0.55, emissive: cols[i], emissiveIntensity: 0.35 }));
-    s.position.set(0, -0.03, -V / 2 + V / 12 + i * V / 6); g.add(s);
+  for (let i = 1; i <= PISTE.nb; i++) {
+    const c = COULEURS_VOIES[i - 1].hex, gp = i <= 4;
+    const fond = box(THREE, longueur, 0.06, PISTE.voie, new THREE.MeshStandardMaterial({ color: c, transparent: true, opacity: gp ? 0.6 : 0.3,
+      emissive: c, emissiveIntensity: i === VOIE_LABO ? 0.55 : 0.22, roughness: 0.25, metalness: 0.05 }));
+    fond.position.set(0, -0.03, zVoie(i)); fond.receiveShadow = true; g.add(fond);
+    // liseré lumineux au milieu de chaque voie (effet « arc-en-ciel » translucide)
+    const lis = box(THREE, longueur, 0.02, 0.12, new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: gp ? 0.9 : 0.4 }));
+    lis.position.set(0, 0.01, zVoie(i)); g.add(lis);
   }
-  for (const z of [-V / 2 - 0.12, V / 2 + 0.12]) {
-    const w = box(THREE, longueur, PAROI, 0.24, new THREE.MeshStandardMaterial({ color: 0xbfe4ff, transparent: true, opacity: 0.35, emissive: 0x4cc9f0, emissiveIntensity: 0.3 }));
-    w.position.set(0, PAROI / 2, z); g.add(w);
+  const verre = new THREE.MeshStandardMaterial({ color: 0xe8f4ff, transparent: true, opacity: 0.32, emissive: 0x9fd8ff, emissiveIntensity: 0.25, roughness: 0.1 });
+  for (let k = 1; k < PISTE.nb; k++) {
+    const w = box(THREE, longueur, PAROI, PISTE.cloison, verre); w.position.set(0, PAROI / 2, (zVoie(k) + zVoie(k + 1)) / 2); g.add(w);
+  }
+  for (const s of [-1, 1]) {
+    const w = box(THREE, longueur, PAROI, PISTE.paroiExt, verre); w.position.set(0, PAROI / 2, (zVoie(1) + zVoie(5)) / 2 + s * (PISTE.largeur / 2 + PISTE.paroiExt / 2)); g.add(w);
   }
   return g;
 }
 
-export { mats, V };
+export { mats, V, pontDesPieges, chariot };
