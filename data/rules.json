@@ -109,7 +109,7 @@
    "rules": [
     {
      "icon": "🚦",
-     "text": "Départ simultané par abaissement mécanique du portique à 4 voies."
+     "text": "Départ simultané : la tour à compte à rebours libère les portillons des 4 voies."
     },
     {
      "icon": "🚫",
@@ -556,7 +556,7 @@
    ],
    "effect": "Portique posé sur une voie (chicane / milieu de rampe). Les bolides hauts frottent !",
    "lore": "Un bloc de pierre grognon qui guette sous son portique. Notre version est un bloc original, sans visage connu.",
-   "physique": "Portique de 42 mm de passage : un bloc lesté pend à 34 mm de la piste. Les SUV et camions frottent, les basses passent.",
+   "physique": "Portique autoporté dans SA voie (montants de 4 mm, 37 mm de passage) : un bloc lesté pend à 34 mm de la piste. Les SUV et camions frottent, les basses passent.",
    "print": {
     "mat": "PLA Matte Gris 10103 (portique) + Anthracite 11101 (bloc)",
     "min": 55,
@@ -1183,20 +1183,20 @@
    ],
    "effect": "Un balancier traverse la voie en oscillant : le timing décide de tout.",
    "lore": "Doom Slayer Issue GP, deuxième mod : une lame bien trop grande pour être raisonnable.",
-   "physique": "Portique de 70 mm ; lame-pendule de 48 mm lestée d'un écrou M6, axe cure-dent, période ≈ 0,45 s.",
+   "physique": "Chariot du Pont des Pièges (pont posé sur les 2 parois extérieures, chariot dans SA voie, passage 40,5 × 46 mm) ; lame-pendule de 32 mm lestée d'un écrou M6 sur l'axe du chariot, centrée par 2 entretoises ; tenue à 60° par le fil, quart de période ≈ 0,09 s.",
    "print": {
-    "mat": "PLA Silk+ Gris titane 13108 (lame) + Matte Anthracite 11101 (portique)",
-    "min": 60,
-    "g": 20
+    "mat": "PLA Silk+ Gris titane 13108 (lame) + Matte Anthracite 11101 (pont, chariot, entretoises)",
+    "min": 48,
+    "g": 12
    },
-   "diy": "Lâcher la lame à 45° au moment du GO. Écrou M6 dans la tête de lame (logement hexagonal).",
+   "diy": "Écrou M6 dans la tête de lame ; axe = cure-dent Ø 2 × 65 mm ; le fil noué sous la lame sert à la tenir ET à la réarmer (9_Validation_Atelier/TUTOS/balancier.md).",
    "scad": "balancier",
    "nash": {
     "a": 0.1598,
     "c": 1.095
    },
    "arch": "asservi",
-   "declenchement": "Lame tenue à 45°, lâchée par le propriétaire au bon moment.",
+   "declenchement": "Lame tenue à 60° côté aval par le fil : ouvrir la main quand le bolide est à ≈ 23 cm.",
    "reussite": 0.55,
    "famille": "piege",
    "temps": {
@@ -1600,17 +1600,17 @@
    ],
    "effect": "Une herse tombe d'un coup sur la voie visée quand son propriétaire tire la ficelle.",
    "lore": "Le château a des règles : on ne passe pas quand la herse tombe. Le seigneur du soir, c'est celui qui tient la ficelle.",
-   "physique": "Portique à 2 montants rainurés (glissière continue, jeu 0,30 mm) ; grille lestée de 4 écrous M3, dents posées sur une goupille traversante (passage libre 35 mm). Goupille retirée = chute en ≈ 0,1 s.",
+   "physique": "Chariot du Pont des Pièges (passage 40,5 × 46 mm, aucune matière chez les voisines), rainures continues (jeu 0,30 mm) ; grille lestée de 4 écrous M3 suspendue AU CENTRE sur une goupille courte : chute de 47 mm en ≈ 0,11 s, sans pivoter.",
    "print": {
-    "mat": "PLA Matte Anthracite 11101 (portique) + Silk+ Gris titane 13108 (grille)",
-    "min": 50,
-    "g": 16
+    "mat": "PLA Matte Anthracite 11101 (pont, chariot) + Silk+ Gris titane 13108 (grille)",
+    "min": 34,
+    "g": 13
    },
-   "diy": "Goupille = cure-dent ou tige de 2 mm nouée à 1 m de fil de pêche ; faire passer le fil par-dessus la paroi extérieure.",
+   "diy": "Goupille = cure-dent Ø 2 mm noué à 1 m de fil de pêche, passé dans l'œillet du pilier (9_Validation_Atelier/TUTOS/herse.md).",
    "scad": "herse",
    "arch": "asservi",
    "reussite": 0.6,
-   "declenchement": "Tirer la ficelle quand le bolide visé est à ≈ 13 cm du portique (la grille tombe en 50 ms).",
+   "declenchement": "Tirer la ficelle avant que le bolide soit à 27 cm du Pont (chute en 0,11 s) ; trop tôt, la grille est déjà fermée.",
    "nash": {
     "a": 0.18,
     "c": 1.233
@@ -1648,17 +1648,17 @@
    ],
    "effect": "Un tablier à charnière se relève en tremplin sous les roues quand on tire le fil.",
    "lore": "Hommage aux sauts de cousins de campagne : le tablier se lève, le bolide s'envole… ou se retourne.",
-   "physique": "Semelle à charnière (axe cure-dent) et tablier de 38 mm ; un fil passant par une potence relève le tablier de 0 à 25°.",
+   "physique": "Semelle à charnière (axe cure-dent) et tablier de 38 mm sous un chariot du Pont des Pièges ; le fil monte à la verticale dans la traverse du chariot et un nœud d'arrêt tient le tablier à 12° (saut ≈ 14 mm, ≈ 26 cm de vol).",
    "print": {
-    "mat": "PLA Wood Chêne blanc 13106 (tablier) + Matte Anthracite 11101 (base)",
-    "min": 40,
-    "g": 12
+    "mat": "PLA Wood Chêne blanc 13106 (tablier) + Matte Anthracite 11101 (base, pont, chariot)",
+    "min": 46,
+    "g": 17
    },
-   "diy": "Axe : cure-dent Ø 2 mm ; fil dentaire noué dans l'œillet du tablier. Rien ne dépasse dans la voie au repos.",
+   "diy": "Axe : cure-dent Ø 2 mm ; fil dentaire noué dans l'oreille du tablier, nœud d'arrêt réglé à 12° (9_Validation_Atelier/TUTOS/bascule.md).",
    "scad": "bascule",
    "arch": "asservi",
    "reussite": 0.65,
-   "declenchement": "Tirer d'un coup sec quand le bolide est à ≈ 8 cm du tablier.",
+   "declenchement": "Tirer le fil jusqu'au nœud dans la seconde qui précède le passage, et tenir.",
    "nash": {
     "a": 0.182,
     "c": 1.247
@@ -1743,17 +1743,17 @@
    ],
    "effect": "Un boulet pendule balaie la voie visée quand son propriétaire le lâche.",
    "lore": "Il est arrivé comme un boulet de démolition. Il repart avec le podium.",
-   "physique": "Potence clipsée sur la cloison ; boulet Ø 22 mm en 2 coques avec bille d'acier Ø 12 mm (7 g) ; fil de 48 mm : période ≈ 0,44 s.",
+   "physique": "Chariot du Pont des Pièges ; boulet Ø 22 mm en 2 coques avec bille d'acier Ø 12 mm (7 g), pendu à 28 mm de l'axe sur un moyeu imprimé : quart de période ≈ 0,09 s, arrivée de face à 0,5 m/s.",
    "print": {
-    "mat": "PLA Matte Anthracite 11101 (boulet) + Basic Jaune (potence de chantier)",
-    "min": 45,
+    "mat": "PLA Matte Anthracite 11101 (boulet, pont, chariot) + Basic Jaune tournesol 10402 (moyeu)",
+    "min": 62,
     "g": 14
    },
-   "diy": "Bille d'acier Ø 12 mm (ou 3 écrous M5) dans le boulet ; le joueur le tient écarté à 60° et le lâche.",
+   "diy": "Bille d'acier Ø 12 mm dans le boulet ; tenu à 60° côté aval par le fil de tenue, lâché d'un geste (9_Validation_Atelier/TUTOS/boulet.md).",
    "scad": "boulet",
    "arch": "asservi",
    "reussite": 0.5,
-   "declenchement": "Lâcher le boulet quand le bolide est à ≈ 28 cm (un quart de période : 0,11 s).",
+   "declenchement": "Ouvrir la main quand le bolide est à ≈ 23 cm (un quart de période : 0,09 s).",
    "nash": {
     "a": 0.1536,
     "c": 1.053
@@ -1790,16 +1790,20 @@
    ],
    "effect": "Un piston latéral pousse le bolide contre la paroi quand on appuie sur le bouton.",
    "lore": "Technologie de l'an 2000 : un piston, un élastique, beaucoup de mauvaise foi.",
-   "physique": "Fourreau clipsé sur la cloison ; piston 6 × 6 mm (jeu 0,30) avec tête de 14 mm ; course 22 mm ; retour par élastique.",
+   "physique": "Fourreau en cavalier sur la paroi, tube DEHORS : côté extérieur de la piste (voie 1) ou au-dessus de la voie technique 5 (voie 4). Piston 6 × 6 mm (jeu 0,30), tête de 14 mm, course 22 mm, retour par élastique.",
    "print": {
     "mat": "PLA Silk+ Argenté 13109 (piston) + Matte Anthracite 11101 (fourreau)",
     "min": 35,
     "g": 10
    },
-   "diy": "Élastique de bureau entre les 2 crochets ; pousser le bouton d'un doigt, depuis l'extérieur de la piste.",
+   "diy": "Élastique de bureau entre les 2 crochets ; pousser le bouton d'un doigt. Version gauche (voie 1) et droite (voie 4) : 9_Validation_Atelier/TUTOS/belier.md.",
    "scad": "belier",
    "arch": "asservi",
    "reussite": 0.65,
+   "voies": [
+    0,
+    3
+   ],
    "declenchement": "Appuyer quand le bolide est à ≈ 8 cm de la tête du piston.",
    "nash": {
     "a": 0.1464,
@@ -2412,57 +2416,197 @@
    "id": "cresus",
    "name": "Étoile Crésus",
    "sub": "Le Loup de Wall Street",
-   "desc": "Le plus de pièces gagnées grâce aux paris."
+   "desc": "Le plus de pièces gagnées grâce aux paris.",
+   "modele": "loup_wall_street"
   },
   {
    "id": "chaos",
    "name": "Étoile du Chaos",
    "sub": "Le Roi de la Banane",
-   "desc": "Le plus de pièges posés sur la piste."
+   "desc": "Le plus de pièges posés sur la piste.",
+   "modele": "etoile_chaos"
   },
   {
    "id": "phenix",
    "name": "Étoile du Phénix",
    "sub": "La Remontada",
-   "desc": "La plus belle progression entre la 1re et la 2de moitié de la soirée."
+   "desc": "La plus belle progression entre la 1re et la 2de moitié de la soirée.",
+   "modele": "etoile_phenix"
   },
   {
    "id": "chat",
    "name": "Étoile Malchance",
    "sub": "Le Chat Noir",
-   "desc": "Le plus de paris perdus d'un cheveu et de têtes-à-queue."
+   "desc": "Le plus de paris perdus d'un cheveu et de têtes-à-queue.",
+   "modele": "etoile_chat"
   }
  ],
  "trophies": [
   {
    "id": "grandprix",
    "name": "Trophée Suprême du Grand Prix",
-   "sub": "Vainqueur de la Grande Finale"
+   "sub": "Vainqueur de la Grande Finale",
+   "modele": "coupe_arc_en_ciel"
   },
   {
    "id": "parieur",
    "name": "Trophée du Grand Parieur",
-   "sub": "La plus grosse fortune de la soirée"
+   "sub": "La plus grosse fortune de la soirée",
+   "modele": "grand_parieur"
   },
   {
    "id": "cascadeur",
    "name": "Trophée Cascadeur",
-   "sub": "Crash de l'année — élu par les invités"
+   "sub": "Crash de l'année — élu par les invités",
+   "modele": "cascadeur"
   },
   {
    "id": "saboteur",
    "name": "Trophée du Grand Saboteur",
-   "sub": "Maître des pièges"
+   "sub": "Maître des pièges",
+   "modele": "saboteur"
   },
   {
    "id": "reliques",
    "name": "Trophée Légende Rétro",
-   "sub": "Vainqueur de la Coupe des Reliques"
+   "sub": "Vainqueur de la Coupe des Reliques",
+   "modele": "legende_retro"
   },
   {
    "id": "cuillere",
    "name": "Cuillère de Bois",
-   "sub": "Fair-play & persévérance — élu par les invités"
+   "sub": "Fair-play & persévérance — élu par les invités",
+   "modele": "cuillere_bois"
+  }
+ ],
+ "loufoques": [
+  {
+   "id": "demi_coupe",
+   "name": "La Demi-Coupe",
+   "sub": "Éternel second",
+   "stat": "seconds",
+   "detail": "%d deuxièmes places",
+   "modele": "demi_coupe"
+  },
+  {
+   "id": "pigeon_or",
+   "name": "Le Pigeon d'Or",
+   "sub": "Le parieur le plus généreux",
+   "stat": "betsLostCoins",
+   "detail": "%d pièces laissées aux bookmakers",
+   "modele": "pigeon_or"
+  },
+  {
+   "id": "hamster",
+   "name": "Le Hamster Thésauriseur",
+   "sub": "Inventaire jamais ouvert",
+   "stat": "inventoryUnused",
+   "detail": "%d objets gardés au chaud",
+   "modele": "hamster"
+  },
+  {
+   "id": "boomerang",
+   "name": "Le Boomerang",
+   "sub": "Retour à l'envoyeur",
+   "stat": "trapsReflected",
+   "detail": "%d pièges renvoyés",
+   "modele": "boomerang"
+  },
+  {
+   "id": "paratonnerre",
+   "name": "Le Paratonnerre",
+   "sub": "Il attire tout",
+   "stat": "trapsReceived",
+   "detail": "%d pièges encaissés",
+   "modele": "paratonnerre"
+  },
+  {
+   "id": "kamikaze",
+   "name": "La Tirelire Kamikaze",
+   "sub": "Tout ou rien… rien",
+   "stat": "allinLost",
+   "detail": "%d pièces envolées en un tapis",
+   "modele": "kamikaze"
+  },
+  {
+   "id": "tortue",
+   "name": "La Tortue Philosophe",
+   "sub": "Lentement mais sûrement",
+   "stat": "lasts",
+   "detail": "%d dernières places, avec sagesse",
+   "modele": "tortue"
+  },
+  {
+   "id": "collectionneur",
+   "name": "Le Collectionneur Compulsif",
+   "sub": "Encore une caisse !",
+   "stat": "cratesOpened",
+   "detail": "%d caisses ouvertes",
+   "modele": "collectionneur"
+  },
+  {
+   "id": "trefle",
+   "name": "Le Trèfle d'Or",
+   "sub": "La main la plus chanceuse",
+   "stat": "bestDrop",
+   "detail": "tirage %s",
+   "modele": "trefle"
+  },
+  {
+   "id": "mendiant",
+   "name": "Le Mendiant Magnifique",
+   "sub": "Merci la Banque",
+   "stat": "bailouts",
+   "detail": "%d Crédits Papy",
+   "modele": "mendiant"
+  },
+  {
+   "id": "doigt_de_feu",
+   "name": "Le Doigt de Feu",
+   "sub": "Turbo infernal",
+   "stat": "boostTaps",
+   "detail": "%d tapotements Turbo",
+   "modele": "doigt_de_feu"
+  },
+  {
+   "id": "oeil_de_lynx",
+   "name": "L'Œil de Lynx",
+   "sub": "Il l'avait vu venir",
+   "stat": "bestOddsWon",
+   "detail": "pari gagné à la cote ×%.1f",
+   "modele": "oeil_de_lynx"
+  },
+  {
+   "id": "boss_de_fin",
+   "name": "Le Boss de Fin",
+   "sub": "Il faut le battre pour finir le jeu",
+   "stat": "wins",
+   "detail": "%d manches gagnées",
+   "modele": "boss_de_fin"
+  },
+  {
+   "id": "game_over",
+   "name": "Game Over",
+   "sub": "Insert coin to continue",
+   "stat": "dnf",
+   "detail": "%d sorties de piste",
+   "modele": "game_over"
+  },
+  {
+   "id": "combo",
+   "name": "Combo ×10",
+   "sub": "Tous les paris passent",
+   "stat": "winStreak",
+   "detail": "%d manches d'affilée sans un pari perdu",
+   "modele": "combo"
+  },
+  {
+   "id": "rage_quit",
+   "name": "Rage Quit",
+   "sub": "La manette n'a pas survécu",
+   "stat": "loseStreak",
+   "detail": "%d manches d'affilée sans un pari gagné",
+   "modele": "rage_quit"
   }
  ],
  "voteAwards": [
@@ -2553,7 +2697,7 @@
      "epique": 0.045,
      "legendaire": 0.005
     },
-    "materiau": "Caisse de fret en bois, sangles anthracite",
+    "materiau": "Caisse de Chantier (pièges) · Coffret Cadeau Pit-Lane (bonus)",
     "prix": {
      "piege": 18,
      "bonus": 19
@@ -2583,7 +2727,7 @@
      "epique": 0.14,
      "legendaire": 0.03
     },
-    "materiau": "Coffre blindé violet, arêtes néon",
+    "materiau": "Coffre Tactique Carbone (pièges) · Écrin Holographique (bonus)",
     "prix": {
      "piege": 25,
      "bonus": 27
@@ -2613,7 +2757,7 @@
      "epique": 0.38,
      "legendaire": 0.12
     },
-    "materiau": "Écrin noir et or, sceau incandescent",
+    "materiau": "Reliquaire d'Obsidienne (pièges) · Cœur d'Étoile (bonus)",
     "prix": {
      "piege": 40,
      "bonus": 47

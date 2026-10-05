@@ -120,6 +120,8 @@ b.qod{padding:2px 7px;border-radius:6px;font-size:11px;display:inline-flex;gap:3
 .lane .fogd{filter:blur(3px);opacity:.7}
 .lane.pickl.shielded{opacity:.35}
 .lane.pickl.shielded::after{content:"CARAPACE";position:absolute;right:12px;top:6px;font:800 9px var(--font-display);letter-spacing:.2em;color:#9dffd4}
+.lane.pickl.horsvoie{opacity:.35}
+.lane.pickl.horsvoie::after{content:"PAS DE PLACE";position:absolute;right:12px;top:6px;font:800 9px var(--font-display);letter-spacing:.2em;color:#ffb3a8}
 .lane{position:relative}
 .allin{color:#ff9d2e;letter-spacing:.06em}
 .chips button.kelly{border-color:#4cc9f0;color:#bfefff;display:flex;align-items:center;justify-content:center;gap:4px}

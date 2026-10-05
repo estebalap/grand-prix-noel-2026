@@ -10,18 +10,8 @@ import { icon } from '../shared/icons.js';
 
 startAtmosphere({ road: false, snow: 0.8, aurora: 1 });
 const st = { mode: 'teams', idx: 0, cat: 'all', auto: true, timer: null };
-let startTeam = Number(new URLSearchParams(location.search).get('ecurie')) || 0;   // ?ecurie=7 : ouvre directement la fiche de l'écurie 7
 let stage = null;
 const engine = createEngineAudio({ base: '../sounds/', isMuted });
-/* Couleurs d'écurie utilisables sur fond sombre : éclaircit les noirs, trie du plus clair au plus foncé. */
-const lum = (h) => { const n = parseInt(h.slice(1), 16); return (0.2126 * (n >> 16) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255)) / 255; };
-const mixW = (h, k) => { const n = parseInt(h.slice(1), 16); const f = (v) => Math.round(v + (255 - v) * k).toString(16).padStart(2, '0'); return '#' + f(n >> 16) + f((n >> 8) & 255) + f(n & 255); };
-const lift = (h) => { let c = h, i = 0; while (lum(c) < 0.3 && i++ < 8) c = mixW(c, 0.16); return c; };
-function teamAccent(t) {
-  const [a, b] = (t.colors || []).map(lift).sort((x, y) => lum(y) - lum(x));
-  const root = $('#sr').style;
-  root.setProperty('--a', a || '#ffd36a'); root.setProperty('--b', b || a || '#e9a92b'); root.setProperty('--ag', (a || '#ffd36a') + '99');
-}
 const ICON = { grandprix: 'trophy', parieur: 'coin', cascadeur: 'crash', saboteur: 'banana', reliques: 'car', cuillere: 'spoon' };
 
 (async () => {
@@ -59,9 +49,7 @@ function startSound(t) {
 }
 
 function setMode(m) {
-  if (m !== 'teams') { const r = $('#sr').style; r.removeProperty('--a'); r.removeProperty('--b'); r.removeProperty('--ag'); }
   st.mode = m; st.idx = 0; st.auto = m !== 'cars';
-  if (m === 'teams' && startTeam) { const i = DATA.teams.findIndex((t) => t.id === startTeam); if (i >= 0) { st.idx = i; st.auto = false; } startTeam = 0; }
   $$('#modes button[data-m]').forEach((b) => b.classList.toggle('on', b.dataset.m === m));
   if (m !== 'teams') engine.stop();
   $('#sr').classList.toggle('cars', m === 'cars');
@@ -76,11 +64,10 @@ function draw(soft) {
     if (!soft) rail.innerHTML = DATA.teams.map((t, i) => `<button data-i="${i}" title="${esc(t.name)}">${medal(t.id, 84)}</button>`).join('');
     $$('#rail button').forEach((b) => { b.classList.toggle('on', Number(b.dataset.i) === st.idx); b.onclick = () => { st.idx = Number(b.dataset.i); st.auto = false; draw(true); }; });
     const t = DATA.teams[st.idx];
-    teamAccent(t);
     stage.showConcept(t);
     startSound(t);
     const ci = conceptInfo(t.id);
-    info.innerHTML = `<div class="panel deco team"><div class="h2">Écurie n° ${pad2(t.id)}</div><div style="display:flex;gap:16px;align-items:center">${medal(t.id, 96)}<div><h2 class="display foil">${esc(t.name)}</h2><div class="dim" style="margin-top:6px">Pilote : ${esc(t.pilot)} · alias « ${esc(t.nickname)} »</div></div></div>
+    info.innerHTML = `<div class="panel deco"><div class="h2">Écurie n° ${pad2(t.id)}</div><div style="display:flex;gap:16px;align-items:center">${medal(t.id, 96)}<div><h2 class="display foil">${esc(t.name)}</h2><div class="dim" style="margin-top:6px">Pilote : ${esc(t.pilot)} · alias « ${esc(t.nickname)} »</div></div></div>
       <div class="qt">« ${esc(t.quote)} »</div><div class="dim">${esc(t.specialty)}</div>
       ${ci ? `<div class="concept"><span class="h2">Concept-car</span><b class="display">${esc(ci.nom)}</b><div class="dim">${esc(ci.inspi)}</div>
         <div class="motor"><span class="dim" id="motor-l">Moteur : ${esc(engine.label(t.id))}</span><button id="rev" type="button">Faire rugir</button></div><small id="credit" class="dim credit"></small></div>` : ''}
@@ -93,8 +80,9 @@ function draw(soft) {
     $$('#rail button').forEach((b) => { b.classList.toggle('on', Number(b.dataset.i) === st.idx); b.onclick = () => { st.idx = Number(b.dataset.i); st.auto = false; draw(true); }; });
     const t = list[st.idx];
     stage.showTrophy(t.id);
+    if (t.modele && stage.showPantheon) stage.showPantheon(t.modele, t.id);      // vrai trophée imprimable (Panthéon)
     info.innerHTML = `<div class="panel deco"><div class="h2">Trophée ${st.idx + 1} / ${list.length}</div><h2 class="display foil">${esc(t.name)}</h2><div class="qt">${esc(t.sub)}</div>
-      <div class="dim" style="margin-top:12px">Pièce de collection à imprimer en 3D (Bambu Lab) : fichiers STL/3MF générés par le dossier « 3D Trophées » de l'édition.</div></div>
+      <div class="dim" style="margin-top:12px">Pièce de collection imprimée sur la Bambu Lab P1S, sans support : STL orientées, fiche et montage dans « 10_Pantheon_Trophees ». <a href="../pantheon/?id=${esc(t.modele || '')}&mode=vitrine" style="color:var(--gold-2)">Ouvrir au Panthéon →</a></div></div>
       <div class="panel deco"><div class="h2">Les 4 étoiles bonus</div>${DATA.rules.stars.map((s) => `<div style="margin:8px 0"><b class="display">${esc(s.name)}</b> <span class="dim">— ${esc(s.sub)}</span><div class="dim" style="font-size:13px">${esc(s.desc)}</div></div>`).join('')}</div>`;
   } else {
     const cats = [...new Set(DATA.carList.map((c) => c.category_folder))];

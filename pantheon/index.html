@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Panthéon des trophées — Grand Prix de Noël</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../shared/arsenal.css">
+<link rel="stylesheet" href="pantheon.css">
+<link rel="stylesheet" href="../shared/nintendo.css">
+<script>try{var k=new URLSearchParams(location.search).get("skin");if(k)localStorage.setItem("gp.skin",k);document.documentElement.dataset.skin=localStorage.getItem("gp.skin")||"nintendo"}catch(e){document.documentElement.dataset.skin="nintendo"}</script>
+</head>
+<body>
+<canvas id="atmo"></canvas><div class="vignette"></div>
+<div id="pt">
+  <header>
+    <div class="brand"><span class="eyebrow">Trophées imprimés · Bambu Lab P1S · sans support</span><b class="display foil">Panthéon</b></div>
+    <nav id="modes"><button id="salle" class="on" type="button">La salle</button><button id="vitrine" type="button">Vitrine</button><button id="ecl" type="button">Vue éclatée</button><a href="../labo/" class="lk">Labo</a><a href="../showroom/" class="lk">Showroom</a></nav>
+  </header>
+  <aside id="rail" aria-label="Trophées"></aside>
+  <section id="stage"><canvas id="c3"></canvas><div id="cartel" aria-live="polite"></div></section>
+  <section id="info"></section>
+</div>
+<script src="../lib/three.min.js"></script>
+<script type="module" src="pantheon.js"></script>
+</body>
+</html>

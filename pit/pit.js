@@ -603,11 +603,12 @@ function itemSheet(s, it, uid = null) {
       const lanes = hh.lanes.map((l, i) => {
         if (!l) return '';
         const shield = it.laneLimited && hh.traps.some((x) => (x.item === 'carapace' || x.item === 'etoile') && x.lane === i);
+        const horsVoie = Array.isArray(it.voies) && !it.voies.includes(i);       // règle des voies (ex. Bélier : voies 1 et 4)
         const pr = myPrice(s, it, i).price;
-        return laneBtn(i, l, !shield && pr <= s.players[me].coins, false).replace('<button class="lane', `<button class="lane pickl${shield ? ' shielded' : ''}`)
+        return laneBtn(i, l, !shield && !horsVoie && pr <= s.players[me].coins, false).replace('<button class="lane', `<button class="lane pickl${shield ? ' shielded' : ''}${horsVoie ? ' horsvoie' : ''}`)
           .replace('<span class="od">', `<span class="lprice">${pr} ${COIN}</span><span class="od">`);
       }).join('');
-      pick = `<div class="h2">${it.id === 'champi' || it.id === 'carapace' ? 'Sur quelle voie ?' : 'Sur la voie de qui ?'}</div>${lanes}`;
+      pick = `<div class="h2">${it.id === 'champi' || it.id === 'carapace' ? 'Sur quelle voie ?' : 'Sur la voie de qui ?'}</div>${lanes}${Array.isArray(it.voies) ? `<div class="dim small">Se monte seulement sur les voies ${it.voies.map((v) => v + 1).join(' et ')} : ailleurs, il gênerait la voie voisine.</div>` : ''}`;
     } else if (it.targetTeam) {
       const ids = Object.keys(s.players).map(Number).filter((id) => id !== me && !hh.traps.some((x) => x.item === it.id && x.target === id));
       pick = `<div class="h2">Quelle écurie viser ?</div><div class="tgrid">${ids.map((id) => { const tt = team(id); return `<button class="tgt" data-target="${id}">${medal(id, 40)}<b>${esc(tt ? tt.nickname : '#' + id)}</b></button>`; }).join('')}</div>`;

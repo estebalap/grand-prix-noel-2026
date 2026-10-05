@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Labo des pièges — Grand Prix de Noël</title>
+<title>Labo des pièces — Grand Prix de Noël</title>
 <link rel="stylesheet" href="../shared/tokens.css">
 <link rel="stylesheet" href="../shared/arsenal.css">
 <link rel="stylesheet" href="labo.css">
@@ -14,12 +14,12 @@
 <canvas id="atmo"></canvas><div class="vignette"></div>
 <div id="lb">
   <header>
-    <div class="brand"><span class="eyebrow">Arsenal · simulateur</span><b class="display foil">Labo des pièges</b></div>
-    <nav id="modes"><button id="auto" class="on" type="button">Démo auto</button><button id="defi" type="button">Défi du timing</button><a href="../caisses/" class="lk">Caisses</a><a href="../showroom/" class="lk">Showroom</a></nav>
+    <div class="brand"><span class="eyebrow">Arsenal · simulateur · atelier P1S</span><b class="display foil">Labo des pièces</b></div>
+    <nav id="modes"><button id="auto" class="on" type="button">Démo auto</button><button id="defi" type="button">Défi du timing</button><button id="atel" type="button">Atelier</button><a href="../caisses/" class="lk">Caisses</a><a href="../showroom/" class="lk">Showroom</a><a href="../pantheon/" class="lk">Panthéon</a></nav>
   </header>
-  <aside id="rail" aria-label="Pièges asservis et mobiles"></aside>
+  <aside id="rail" aria-label="Pièges asservis et mobiles validés à l'atelier"></aside>
   <section id="stage"><canvas id="c3"></canvas>
-    <div id="hud"><span id="ral">Ralenti ×40</span><span id="etat">Armé</span><button id="go" type="button">DÉCLENCHER</button><span id="score"></span></div>
+    <div id="hud"><span id="ral">Ralenti ×40</span><span id="etat">Armé</span><button id="go" type="button">DÉCLENCHER</button><span id="score"></span><span id="pas"><button id="prev" type="button" aria-label="Étape précédente">◀</button><b id="etapeTxt"></b><button id="next" type="button" aria-label="Étape suivante">▶</button><button id="ecl" type="button">Vue éclatée</button></span></div>
   </section>
   <section id="info"></section>
 </div>

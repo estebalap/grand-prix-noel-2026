@@ -5,12 +5,12 @@ import { $, $$, esc, DATA, findRelay, relayBase, loadData } from '../shared/core
 import { startAtmosphere } from '../shared/fx.js';
 import { icon } from '../shared/icons.js';
 import * as LBX from '../shared/lootbox.js';
-import { buildCaisse, vignette, NOMS_FIL } from '../shared/caisses3d.js';
+import { buildCaisse, vignette, DESIGNS, preparerScene, creerBloom } from '../shared/caisses3d.js';
 
 startAtmosphere({ road: false, snow: 0.35, aurora: 0.9 });
 const THREE = window.THREE;
 const st = { fam: new URLSearchParams(location.search).get('famille') === 'bonus' ? 'bonus' : 'piege', tier: 'elite', seed: null, nonce: 0, ouvre: false, relais: false, vign: {} };
-let renderer, scene, camera, caisses = [], ray, mouse;
+let renderer, scene, camera, caisses = [], ray, mouse, bloom;
 
 (async () => {
   st.relais = !!(await findRelay());
@@ -39,6 +39,8 @@ function initScene() {
   if ('outputColorSpace' in renderer && THREE.SRGBColorSpace) renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.shadowMap.enabled = true;
   scene = new THREE.Scene();
+  preparerScene(THREE, renderer, scene, { teinte: 0x9b7bff });
+  bloom = creerBloom(THREE, renderer, { force: 0.85 });
   camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
   scene.add(new THREE.HemisphereLight(0xdfe7ff, 0x231a3a, 0.85));
   const sun = new THREE.DirectionalLight(0xffffff, 1.15); sun.position.set(5, 9, 6); sun.castShadow = true; sun.shadow.mapSize.set(1024, 1024); scene.add(sun);
@@ -60,7 +62,7 @@ function initScene() {
     const k = caisses.find((x) => { let o = hit.object; while (o) { if (o === x.c.group) return true; o = o.parent; } return false; });
     if (k) { if (st.tier === k.tier) ouvrirDemo(); else { st.tier = k.tier; drawInfo(); } }
   });
-  const resize = () => { const r = c.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / Math.max(1, r.height); camera.updateProjectionMatrix(); };
+  const resize = () => { const r = c.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); bloom.taille(r.width, r.height); camera.aspect = r.width / Math.max(1, r.height); camera.updateProjectionMatrix(); };
   window.addEventListener('resize', resize); resize();
 }
 
@@ -79,7 +81,7 @@ function drawInfo() {
   $('#info').innerHTML = `
     <div class="panel deco"><div class="h2">${icon(fam.icone, 16)} ${esc(fam.nom)}</div><p class="dim small" style="margin-top:0">${esc(fam.desc)}</p>
       <div class="tiers">${cc.gammes.map((x) => `<button class="tier ${x.id === st.tier ? 'on' : ''}" data-t="${x.id}">${st.vign[x.id + st.fam] ? `<img src="${st.vign[x.id + st.fam]}" alt="">` : `<span data-v="${x.id}">${icon('crate', 60)}</span>`}
-        <span><b>${esc(x.nom)}</b><small>${esc(x.materiau)}</small>${LBX.tableHtml(x, st.fam)}</span><span class="pz">${x.prix[st.fam]} ${icon('coin', 18, 'coin')}</span></button>`).join('')}</div>
+        <span><b>${esc(x.nom)}</b><small>${esc(DESIGNS[st.fam][x.id].nom)}</small>${LBX.tableHtml(x, st.fam)}</span><span class="pz">${x.prix[st.fam]} ${icon('coin', 18, 'coin')}</span></button>`).join('')}</div>
       <p class="dim small">Prix de base (richesse neutre). En soirée : ×${(1 + cc.escalade).toFixed(2).replace('.', ',')} à chaque caisse de la manche, taxe des riches de ×${String(cc.taxeMin).replace('.', ',')} à ×${String(cc.taxeMax).replace('.', ',')}, ${cc.maxParManche} caisses au plus.</p></div>
     <div class="panel deco"><div class="h2">Les chiffres de la gamme ${esc(g.nom)}</div><div class="kv">
       <span>Valeur moyenne du contenu</span><b>${valeur.toFixed(1).replace('.', ',')} pièces</b>
@@ -87,7 +89,7 @@ function drawInfo() {
       <span>Épique ou mieux</span><b>${(100 * pE).toLocaleString('fr-FR', { maximumFractionDigits: 1 })} % (${(100 / pity).toLocaleString('fr-FR', { maximumFractionDigits: 1 })} % avec la pitié)</b>
       <span>Légendaire</span><b>${(100 * pL).toLocaleString('fr-FR', { maximumFractionDigits: 2 })} % · 1 caisse sur ${pL ? Math.round(1 / pL) : '∞'}</b>
       <span>Au moins 1 légendaire en 3 caisses</span><b>${(100 * (1 - Math.pow(1 - pL, 3))).toLocaleString('fr-FR', { maximumFractionDigits: 1 })} %</b>
-      <span>Filaments (impression)</span><b style="font-weight:600;font-size:12px">${esc(NOMS_FIL[g.id])}</b></div></div>
+      <span>La caisse</span><b style="font-weight:600;font-size:12px">${esc(DESIGNS[st.fam][g.id].nom)} · ${esc(DESIGNS[st.fam][g.id].finition)}</b></div></div>
     <div class="panel deco"><div class="h2">Contenu possible</div>${LBX.ORDRE.map((r) => cc.contenu[st.fam][r].length ? `<div class="small dim" style="margin:8px 0 4px">${LBX.RARETES[r].nom}</div><div class="contenu">${cc.contenu[st.fam][r].map((id) => { const o = objet(id); return `<i class="r-${r}">${icon(o.icon, 14)}${esc(o.name)}</i>`; }).join('')}</div>` : '').join('')}</div>
     <div class="panel deco"><div class="h2">${icon('lock', 14)} Vérifier le tirage de la soirée</div>
       <p class="dim small" style="margin-top:0">Le relais publie l'empreinte SHA-256 de sa graine secrète avant la première caisse. À la cérémonie, la régie révèle la graine : collez-la ici, chaque tirage journalisé est recalculé (HMAC-SHA256) dans votre navigateur.</p>
@@ -129,7 +131,7 @@ async function ouvrirDemo(force = null) {
   const k = caisses.find((x) => x.tier === st.tier);
   k.c.ouvrir();
   LBX.SONS.aspiration();
-  await new Promise((r) => setTimeout(r, 900));
+  await new Promise((r) => setTimeout(r, 1700));   // laisser jouer l'ouverture Prestige (tension, éclat, gloire)
   let r = LBX.tirer(C(), st.seed, 0, st.nonce++, 0, st.fam, st.tier);
   if (force) {   // démo : on remplace la carte gagnante par un légendaire de la famille (clairement signalé)
     const leg = C().contenu[st.fam].legendaire[0];
@@ -157,6 +159,6 @@ function boucle(now) {
   const a = t / 10;
   const k = Math.max(1, 1.55 / Math.max(0.6, camera.aspect));        // recule sur écran étroit : les 3 caisses restent visibles
   camera.position.set(Math.sin(a) * 1.4, 4.6 * k, (11.8 + Math.cos(a) * 0.6) * k); camera.lookAt(0, 0.8, 0);
-  renderer.render(scene, camera);
+  bloom.rendre(scene, camera);
   requestAnimationFrame(boucle);
 }

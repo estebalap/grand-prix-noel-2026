@@ -15,7 +15,7 @@ import { createStage } from '../shared/stage3d.js';
 import { mountAdmin, ADMIN_CSS } from '../shared/admin.js';
 import { createVideoLibrary, makeVideo, waitPlayable, playWithSound, fadeVolume, disposeVideo } from '../shared/videos.js';
 import * as LBX from '../shared/lootbox.js';
-import { buildCaisse, ensureThree } from '../shared/caisses3d.js';
+import { buildCaisse, ensureThree, preparerScene, creerBloom } from '../shared/caisses3d.js';
 
 const stage = $('#stage'), sceneEl = $('#scene'), overlay = $('#overlay');
 const atmo = startAtmosphere({ road: true, snow: 1, theme: 'gp_bets' });
@@ -668,9 +668,10 @@ function sInter() {
 
 /* ---------------------------------------------------------------- CÉRÉMONIE */
 function awardMeta(a) {
-  const list = a.kind === 'star' ? DATA.rules.stars : DATA.rules.trophies;
+  const list = a.kind === 'star' ? DATA.rules.stars : a.kind === 'loufoque' ? (DATA.rules.loufoques || []) : DATA.rules.trophies;
   return list.find((x) => x.id === a.id) || { name: a.id, sub: '' };
 }
+const PRIX_LABEL = { star: 'Étoile bonus', trophy: 'Trophée', loufoque: 'Trophée loufoque' };
 function sCer(s) {
   const c = s.ceremony;
   let st3 = null, shown = -1, token = 0;
@@ -678,11 +679,12 @@ function sCer(s) {
   const list = c ? c.awards.map((a, i) => { const m = awardMeta(a); return `<div class="awi" data-a="${i}">${icon(ICON_BY_AWARD[a.id] || 'star', 26)}<b>${esc(m.name)}</b><span></span></div>`; }).join('') : '';
   return {
     key: 'cer:' + (c ? 'on' : 'off'),
-    html: `<div class="cer"><div class="awlist" id="awl">${list || `<div class="panel deco"><h4>Au programme</h4><div class="dim" style="font-size:22px;line-height:1.5">Quatre étoiles bonus, six trophées en or, et la Grande Finale…<br>Qui repartira avec la coupe ?</div></div>`}</div>
+    html: `<div class="cer"><div class="awlist${c && c.awards.length > 12 ? ' dense' : ''}" id="awl">${list || `<div class="panel deco"><h4>Au programme</h4><div class="dim" style="font-size:22px;line-height:1.5">Quatre étoiles bonus, six trophées imprimés en 3D, peut-être quelques loufoques… et la Grande Finale.<br>Qui repartira avec la coupe ?</div></div>`}</div>
       <div class="cv"><canvas id="c3"></canvas></div><div class="cerc" id="cerc"><span class="eyebrow kind">Cérémonie de clôture</span><h2 class="display foil">Remise des trophées</h2></div></div>`,
     mount(el) {
       st3 = createStage($('#c3', el), { camera: { r: 8.2, h: 2.6, look: 1.5 } });
       st3.showTrophy('grandprix');
+      st3.showPantheon('coupe_arc_en_ciel', 'grandprix');
       snd.carol();
     },
     live(st, el) {
@@ -700,14 +702,15 @@ function sCer(s) {
       const a = cc.awards[k - 1];
       const m = awardMeta(a);
       const tm = a.teamId != null ? team(a.teamId) : null;
-      box.innerHTML = `<span class="eyebrow kind">${a.kind === 'star' ? 'Étoile bonus' : 'Trophée'}</span><h2 class="display foil">${esc(m.name)}</h2><div class="sub">${esc(m.sub || '')}</div><div class="dim" style="font-size:44px;margin-top:50px" class="pulse">…</div>`;
-      st3.showTrophy(a.kind === 'star' ? 'star' : a.id);
+      box.innerHTML = `<span class="eyebrow kind">${PRIX_LABEL[a.kind] || 'Trophée'}</span><h2 class="display foil">${esc(m.name)}</h2><div class="sub">${esc(m.sub || '')}</div><div class="dim" style="font-size:44px;margin-top:50px" class="pulse">…</div>`;
+      st3.showTrophy(a.kind === 'star' ? 'star' : a.kind === 'loufoque' ? 'grandprix' : a.id);
+      if (m.modele) st3.showPantheon(m.modele, a.kind === 'star' ? 'star' : a.kind === 'trophy' ? a.id : 'grandprix');   // vrai trophée imprimé
       snd.sfx('drumroll');
       setTimeout(() => {
         if (my !== token) return;
         snd.sfx('award'); st3.flash(); confettiCannons();
         if (tm) setTimeout(() => snd.teamSound(tm.id, 'win'), 1600);
-        box.innerHTML = `<span class="eyebrow kind">${a.kind === 'star' ? 'Étoile bonus' : 'Trophée'}</span><h2 class="display foil">${esc(m.name)}</h2><div class="sub">${esc(m.sub || '')}</div>
+        box.innerHTML = `<span class="eyebrow kind">${PRIX_LABEL[a.kind] || 'Trophée'}</span><h2 class="display foil">${esc(m.name)}</h2><div class="sub">${esc(m.sub || '')}</div>
           <div class="winner">${tm ? medal(tm.id, 200) : ''}<div class="wn foil">${esc(tm ? tm.name : 'Personne cette fois')}</div><div class="wd">${esc(tm ? tm.pilot + (a.detail ? ' · ' + a.detail : '') : a.detail || '')}</div>${tm ? `<div class="tz">« ${esc(tm.quote)} »</div>` : ''}</div>`;
         if (k === cc.awards.length) setTimeout(() => { if (my === token) finalPodium(box, finalRank); }, 9000);
       }, 2200);
@@ -786,6 +789,8 @@ async function crateIntro(fam, gam) {
   const W = 1920, H = 1080; r.setPixelRatio(1); r.setSize(W, H, false);
   if ('outputColorSpace' in r && THREE.SRGBColorSpace) r.outputColorSpace = THREE.SRGBColorSpace;
   const sc = new THREE.Scene();
+  preparerScene(THREE, r, sc, { teinte: fam === 'bonus' ? 0x38e1ff : 0xff3d6e });
+  const bloom = creerBloom(THREE, r, { force: 0.9 }); bloom.taille(W, H);
   sc.add(new THREE.HemisphereLight(0xdfe7ff, 0x231a3a, 0.9));
   const sun = new THREE.DirectionalLight(0xffffff, 1.2); sun.position.set(4, 7, 5); sc.add(sun);
   const rim = new THREE.DirectionalLight(gam === 'marche_noir' ? 0xffc040 : gam === 'elite' ? 0x9b7bff : 0xffe0b0, 1.4); rim.position.set(-5, 3, -4); sc.add(rim);
@@ -798,15 +803,16 @@ async function crateIntro(fam, gam) {
       const fall = Math.min(1, t / 0.55);
       c.group.position.y = 4.5 * (1 - fall) * (1 - fall) + (t > 0.55 && t < 0.8 ? Math.sin((t - 0.55) * 25) * 0.08 * (0.8 - t) * 4 : 0);
       c.group.rotation.y = 0.5 + t * 0.35;
-      if (t > 1.15 && !f.o) { f.o = true; c.ouvrir(); snd.sfx('reveal'); }
+      if (t > 1.0 && !f.o) { f.o = true; c.ouvrir(); snd.sfx('reveal'); }
       c.update(t, dt);
-      r.render(sc, cam);
-      if (t < 1.95) requestAnimationFrame(f); else res();
+      cam.position.set(Math.sin(t * 0.25) * 1.2, 3.2 - Math.min(0.6, Math.max(0, t - 1.3) * 0.5), 9.5 - Math.min(1.6, Math.max(0, t - 1.0) * 1.2)); cam.lookAt(0, 0.95, 0);
+      bloom.rendre(sc, cam);
+      if (t < 2.9) requestAnimationFrame(f); else res();
     }
     requestAnimationFrame(f);
   });
   box.classList.add('out');
-  setTimeout(() => { box.remove(); r.dispose(); }, 400);
+  setTimeout(() => { box.remove(); bloom.dispose(); if (sc.environment) sc.environment.dispose(); r.dispose(); }, 400);
 }
 async function pumpCases() {
   if (caseBusy || !caseQueue.length) return;

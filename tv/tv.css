@@ -323,3 +323,7 @@ body.rotated #ytBox,body.rotated #nowPlaying{display:none}
 @keyframes tvStar{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
 .lane .tr.refl{outline:3px dashed #cfe9ff;outline-offset:2px}
 @media (prefers-reduced-motion:reduce){.lane.turbo .tflame,.lane.invincible{animation:none}}
+/* cérémonie avec les trophées loufoques du Panthéon : liste sur 2 colonnes compactes */
+.cer .awlist.dense{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-content:start}
+.cer .awlist.dense .awi{padding:5px 9px;gap:7px;font-size:14px}.cer .awlist.dense .awi b{font-size:12.5px;letter-spacing:.02em}.cer .awlist.dense .awi span{font-size:12px}
+.cer .awlist.dense .awi .ico svg{width:18px;height:18px}
