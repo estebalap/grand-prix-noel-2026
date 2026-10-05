@@ -603,7 +603,7 @@ function itemSheet(s, it, uid = null) {
       const lanes = hh.lanes.map((l, i) => {
         if (!l) return '';
         const shield = it.laneLimited && hh.traps.some((x) => (x.item === 'carapace' || x.item === 'etoile') && x.lane === i);
-        const horsVoie = Array.isArray(it.voies) && !it.voies.includes(i);       // règle des voies (ex. Bélier : voies 1 et 4)
+        const horsVoie = Array.isArray(it.voies) && !it.voies.includes(i);       // règle des voies (objet limité à certaines voies)
         const pr = myPrice(s, it, i).price;
         return laneBtn(i, l, !shield && !horsVoie && pr <= s.players[me].coins, false).replace('<button class="lane', `<button class="lane pickl${shield ? ' shielded' : ''}${horsVoie ? ' horsvoie' : ''}`)
           .replace('<span class="od">', `<span class="lprice">${pr} ${COIN}</span><span class="od">`);

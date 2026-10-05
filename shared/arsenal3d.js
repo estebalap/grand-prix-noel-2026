@@ -172,21 +172,6 @@ export const RIGS = {
       return { group: g, pose(tau) { piv.rotation.z = penduleAngle(tau, 1.047, T_PENDULE); } };   // tenu à 60° côté aval
     },
   },
-  belier: {
-    arch: 'asservi', reaction: 'push', impactX: 0, tEffet: 0.03 * RALENTI,
-    build(THREE, M) {
-      const g = new THREE.Group();
-      const fourreau = box(THREE, 1.0, 1.0, 3.0, M.anth); fourreau.position.set(0, 1.2, -V / 2 - 1.2); g.add(fourreau);
-      const pis = new THREE.Group(); pis.position.set(0, 1.2, -V / 2 - 2.2); g.add(pis);
-      const tige = box(THREE, 0.6, 0.6, 5.2, M.argent); tige.position.z = 1.0; pis.add(tige);
-      const tete = box(THREE, 1.4, 0.9, 0.5, M.argent); tete.position.z = 3.6; pis.add(tete);
-      const bouton = cyl(THREE, 0.8, 0.8, 0.6, M.rouge); bouton.rotation.x = Math.PI / 2; bouton.position.z = -1.6; pis.add(bouton);
-      return { group: g, pose(tau) {
-        const k = 0.04 * RALENTI; const out = tau < 0 ? 0 : tau < k ? ease(tau / k) : tau < 4 * k ? 1 : 1 - ease((tau - 4 * k) / (2 * k));
-        pis.position.z = -V / 2 - 2.2 + 2.2 * out;
-      } };
-    },
-  },
   balancier: {
     arch: 'asservi', reaction: 'spin', impactX: PG.xAxe - 0.8 - DEMI_BOLIDE, tEffet: T_PENDULE * RALENTI / 4,
     tolerance: { avant: 0.025, apres: 0.025 },

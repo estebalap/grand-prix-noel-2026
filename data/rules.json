@@ -1773,57 +1773,6 @@
    "caisseSeule": true
   },
   {
-   "id": "belier",
-   "name": "Bélier Poussoir 2000",
-   "cat": "piege",
-   "rarity": "rare",
-   "price": 25,
-   "icon": "ram",
-   "needsLane": true,
-   "laneLimited": true,
-   "factor": 0.458,
-   "digital": null,
-   "team": 2,
-   "unlockHeat": 1,
-   "zone": [
-    "Z4"
-   ],
-   "effect": "Un piston latéral pousse le bolide contre la paroi quand on appuie sur le bouton.",
-   "lore": "Technologie de l'an 2000 : un piston, un élastique, beaucoup de mauvaise foi.",
-   "physique": "Fourreau en cavalier sur la paroi, tube DEHORS : côté extérieur de la piste (voie 1) ou au-dessus de la voie technique 5 (voie 4). Piston 6 × 6 mm (jeu 0,30), tête de 14 mm, course 22 mm, retour par élastique.",
-   "print": {
-    "mat": "PLA Silk+ Argenté 13109 (piston) + Matte Anthracite 11101 (fourreau)",
-    "min": 35,
-    "g": 10
-   },
-   "diy": "Élastique de bureau entre les 2 crochets ; pousser le bouton d'un doigt. Version gauche (voie 1) et droite (voie 4) : 9_Validation_Atelier/TUTOS/belier.md.",
-   "scad": "belier",
-   "arch": "asservi",
-   "reussite": 0.65,
-   "voies": [
-    0,
-    3
-   ],
-   "declenchement": "Appuyer quand le bolide est à ≈ 8 cm de la tête du piston.",
-   "nash": {
-    "a": 0.1464,
-    "c": 1.003
-   },
-   "famille": "piege",
-   "temps": {
-    "effet": 0.65,
-    "perte": [
-     0.05,
-     0.15
-    ],
-    "sortie": 0.08,
-    "cibles": 1,
-    "perteMoy": 0.065
-   },
-   "violence": 0.34,
-   "caisseSeule": false
-  },
-  {
    "id": "obus",
    "name": "Obus à Billes",
    "cat": "piege",
@@ -2828,8 +2777,7 @@
      "shuriken",
      "pirouette",
      "verres",
-     "peage",
-     "belier"
+     "peage"
     ],
     "epique": [
      "balancier",

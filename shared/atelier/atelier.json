@@ -485,7 +485,7 @@
       "masse_g": 1.8,
       "temps_min": 8,
       "alertes": [
-       "~ 19 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
+       "~ 18 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
       ],
       "verdict_impression": "A_SURVEILLER"
      }
@@ -1145,7 +1145,7 @@
       "masse_g": 3.3,
       "temps_min": 10,
       "alertes": [
-       "~ 15 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
+       "~ 16 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
       ],
       "verdict_impression": "A_SURVEILLER"
      }
@@ -1181,7 +1181,7 @@
       "masse_g": 3.5,
       "temps_min": 10,
       "alertes": [
-       "~ 10 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
+       "~ 13 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
       ],
       "verdict_impression": "A_SURVEILLER"
      }
@@ -1351,7 +1351,7 @@
       "masse_g": 1.1,
       "temps_min": 6,
       "alertes": [
-       "~ 10 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
+       "~ 11 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
       ],
       "verdict_impression": "A_SURVEILLER"
      }
@@ -1415,210 +1415,6 @@
     },
     {
      "texte": "Armer : lisse inclinée à 30°, goupille (2e cure-dent) dans le trou de queue. Nouez le fil à la goupille.",
-     "ajoute": []
-    }
-   ]
-  },
-  {
-   "id": "belier",
-   "statutV1": "REFONDU",
-   "valide": true,
-   "notes": {
-    "impression": 5.0,
-    "mise_en_place": 4.5,
-    "rearmement": 5,
-    "fiabilite": 5
-   },
-   "difficulte": 1,
-   "defautsV1": [
-    "Règle des voies : le fourreau de 30 mm sortait de la voie à 7-17 mm de haut, en plein dans la voie voisine.",
-    "Crochet d'élastique en porte-à-faux de 4 mm (12 mm² imprimés dans le vide)."
-   ],
-   "solution": "Le fourreau, en cavalier, garde son tube DEHORS là où il y a de la place : côté extérieur de la piste pour la voie 1 (version gauche), au-dessus de la voie technique 5 pour la voie 4 (version droite, en miroir). Le Pocket Pit ne propose le Bélier que sur ces 2 voies.",
-   "declenchement": "Appuyer d'un doigt quand le bolide est à ≈ 8 cm de la tête.",
-   "rearmer": "Aucun : l'élastique ramène le piston.",
-   "poseS": 15,
-   "rearmerS": 0,
-   "fiabilite": "Action directe du doigt, retour élastique ; rien à armer.",
-   "physique": {
-    "course_mm": 22,
-    "jeu_mm": 0.3,
-    "voies": [
-     1,
-     4
-    ]
-   },
-   "mobile": false,
-   "pont": false,
-   "masseG": 8.4,
-   "tempsMin": 34,
-   "pieces": [
-    {
-     "id": "fourreau",
-     "nom": "Fourreau gauche (voie 1)",
-     "qte": 1,
-     "imprime": true,
-     "stl": "belier/fourreau.stl",
-     "contexte": false,
-     "fichier": "06_belier_fourreau.stl",
-     "filament": "PLA Matte Anthracite (11101)",
-     "hex": "#3d3f43",
-     "silk": false,
-     "bois": false,
-     "profil": "GP Noël · Emboîtements précis (0,16 mm, 3 parois)",
-     "orientation": "Tel quel (cavalier en bas)",
-     "eclate": [
-      0,
-      0,
-      -10
-     ],
-     "partage": false,
-     "analyse": {
-      "dimensions_mm": [
-       14.0,
-       34.0,
-       17.2
-      ],
-      "supports": "aucun",
-      "pont_max_mm": 19.9,
-      "masse_g": 2.7,
-      "temps_min": 10,
-      "alertes": [],
-      "verdict_impression": "OK"
-     }
-    },
-    {
-     "id": "fourreau_droit",
-     "nom": "Fourreau droit (voie 4)",
-     "qte": 1,
-     "imprime": true,
-     "stl": null,
-     "contexte": false,
-     "fichier": "06_belier_fourreau_droit.stl",
-     "filament": "PLA Matte Anthracite (11101)",
-     "hex": "#3d3f43",
-     "silk": false,
-     "bois": false,
-     "profil": "GP Noël · Emboîtements précis (0,16 mm, 3 parois)",
-     "orientation": "Tel quel (cavalier en bas)",
-     "eclate": [
-      0,
-      0,
-      0
-     ],
-     "partage": false,
-     "analyse": {
-      "dimensions_mm": [
-       14.0,
-       34.0,
-       17.2
-      ],
-      "supports": "aucun",
-      "pont_max_mm": 19.9,
-      "masse_g": 2.7,
-      "temps_min": 10,
-      "alertes": [],
-      "verdict_impression": "OK"
-     }
-    },
-    {
-     "id": "piston",
-     "nom": "Piston",
-     "qte": 1,
-     "imprime": true,
-     "stl": "belier/piston.stl",
-     "contexte": false,
-     "fichier": "06_belier_piston.stl",
-     "filament": "PLA Silk+ Argenté (13109)",
-     "hex": "#c4c8cd",
-     "silk": true,
-     "bois": false,
-     "profil": "GP Noël · Emboîtements précis (0,16 mm, 3 parois)",
-     "orientation": "À plat",
-     "eclate": [
-      0,
-      -30,
-      0
-     ],
-     "partage": false,
-     "analyse": {
-      "dimensions_mm": [
-       14.0,
-       70.0,
-       6.0
-      ],
-      "supports": "aucun",
-      "pont_max_mm": 0,
-      "masse_g": 2.1,
-      "temps_min": 8,
-      "alertes": [],
-      "verdict_impression": "OK"
-     }
-    },
-    {
-     "id": "bouton",
-     "nom": "Bouton",
-     "qte": 1,
-     "imprime": true,
-     "stl": "belier/bouton.stl",
-     "contexte": false,
-     "fichier": "06_belier_bouton.stl",
-     "filament": "PLA Matte Rouge écarlate (11200)",
-     "hex": "#c8352e",
-     "silk": false,
-     "bois": false,
-     "profil": "0,20 mm Standard @BBL (2 parois, gyroïde 15 %)",
-     "orientation": "Logement carré vers le haut",
-     "eclate": [
-      0,
-      -45,
-      0
-     ],
-     "partage": false,
-     "analyse": {
-      "dimensions_mm": [
-       16.0,
-       16.0,
-       6.0
-      ],
-      "supports": "aucun",
-      "pont_max_mm": 0,
-      "masse_g": 0.9,
-      "temps_min": 6,
-      "alertes": [],
-      "verdict_impression": "OK"
-     }
-    }
-   ],
-   "quincaillerie": [
-    {
-     "nom": "Élastique de bureau",
-     "qte": 1,
-     "note": "retour du piston"
-    },
-    {
-     "nom": "Pâte adhésive repositionnable (2 boulettes de 3 mm)",
-     "qte": 1,
-     "note": "dans le chapeau du cavalier"
-    }
-   ],
-   "etapes": [
-    {
-     "texte": "Glissez le piston dans le fourreau (tête côté voie). Il doit coulisser seul sous son poids : sinon, poncez la tige au grain 400.",
-     "ajoute": [
-      "fourreau",
-      "piston"
-     ],
-     "vue": "piston"
-    },
-    {
-     "texte": "Emmanchez le bouton sur l'extrémité extérieure (serrage, sans colle).",
-     "ajoute": [
-      "bouton"
-     ]
-    },
-    {
-     "texte": "Tendez l'élastique entre les 2 crochets. Coiffez la paroi extérieure gauche (voie 1) ou la cloison 4|5 avec le fourreau droit (voie 4) : le tube reste hors des voies de course.",
      "ajoute": []
     }
    ]
@@ -2268,7 +2064,7 @@
       "masse_g": 0.8,
       "temps_min": 6,
       "alertes": [
-       "~ 19 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
+       "~ 17 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
       ],
       "verdict_impression": "A_SURVEILLER"
      }

@@ -156,15 +156,6 @@
     "intrusion_mm": 2.75
    }
   },
-  "belier": {
-   "conforme": true,
-   "intrusion_mm": 0.0,
-   "voies": [],
-   "avant": {
-    "conforme": true,
-    "intrusion_mm": 0.0
-   }
-  },
   "borne_secteur": {
    "conforme": true,
    "intrusion_mm": 0.0,
@@ -323,21 +314,6 @@
   {
    "fiche": "peage",
    "piece": "quincaillerie",
-   "conforme": true
-  },
-  {
-   "fiche": "belier",
-   "piece": "fourreau",
-   "conforme": true
-  },
-  {
-   "fiche": "belier",
-   "piece": "piston",
-   "conforme": true
-  },
-  {
-   "fiche": "belier",
-   "piece": "bouton",
    "conforme": true
   },
   {
