@@ -40,3 +40,16 @@ html.capture #pt{display:block;padding:0}html.capture header,html.capture #rail,
 html.capture #stage{position:fixed;inset:0;border-radius:0}
 @media (max-width:900px){#pt{grid-template-columns:1fr;grid-template-rows:70px 110px 1fr auto;grid-template-areas:"hd" "rl" "st" "inf";padding:0 12px 12px}
   #rail{flex-direction:row;flex-wrap:nowrap;overflow-x:auto}#rail button{flex:none}#rail .sep{display:none}#info{max-height:36vh}.brand b{font-size:26px}#modes .lk{display:none}}
+
+@media (max-width:900px){
+  #pt{grid-template-columns:minmax(0,1fr);grid-template-rows:auto 110px minmax(0,1fr) auto}
+  /* téléphone : en-tête sur deux lignes (titre, puis onglets en bande défilante) — rien ne dépasse de l'écran */
+  header{flex-direction:column;align-items:stretch;gap:8px;min-width:0;padding-top:max(6px,env(safe-area-inset-top))}
+  .brand{flex-direction:row;align-items:baseline;gap:10px;flex-wrap:wrap}.brand .eyebrow{margin:0;font-size:10px}
+  #modes{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;min-width:0;padding:2px 2px 4px;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
+  #modes::-webkit-scrollbar{display:none}
+  #modes button,#modes .lk{flex:none;white-space:nowrap;padding:.62em 1.05em;font-size:11px;letter-spacing:.1em;line-height:1.2}
+  #modes .lk{display:inline-block}
+  #rail{min-width:0}
+}
+

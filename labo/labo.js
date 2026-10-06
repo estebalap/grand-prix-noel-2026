@@ -12,6 +12,7 @@ import { icon } from '../shared/icons.js';
 import { RIGS, buildToyCar, buildLane, carPose, mats, RALENTI, VCAR, X0 } from '../shared/arsenal3d.js';
 import { construireMontage } from '../shared/atelier3d.js';
 import { environnementStudio } from '../shared/stl.js';
+import { budget, boucle as boucleUnique, dprPour, onNiveau, tailleOmbre } from '../shared/perf.js';
 
 const Q = new URLSearchParams(location.search);
 const CAPTURE = Q.get('capture') === '1';
@@ -55,27 +56,34 @@ const etoiles = (n) => '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round
   st.mode = ['defi', 'atelier'].includes(Q.get('mode')) ? Q.get('mode') : 'auto';
   await choisir(q && admis.some((x) => x.id === q) ? q : admis[0].id);
   setMode(st.mode);
-  requestAnimationFrame(boucle);
+  st.last = performance.now();
+  boucleUnique('labo', boucle, { fps: 60, premierPlan: true });
 })();
 
 function initScene() {
   const c = $('#c3');
   renderer = new THREE.WebGLRenderer({ canvas: c, antialias: true, alpha: true, preserveDrawingBuffer: CAPTURE });
-  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
-  renderer.shadowMap.enabled = true;
+  const b0 = budget();
+  renderer.shadowMap.enabled = CAPTURE || b0.ombres > 0;
+  renderer.shadowMap.type = b0.ombreDouce ? THREE.PCFSoftShadowMap : THREE.PCFShadowMap;
   scene = new THREE.Scene();
   scene.environment = environnementStudio(THREE, renderer);
   camera = new THREE.PerspectiveCamera(38, 1, 0.1, 400);
   scene.add(new THREE.HemisphereLight(0xcfe0ff, 0x221a3a, 0.9));
-  const sun = new THREE.DirectionalLight(0xffffff, 1.1); sun.position.set(-8, 18, 10); sun.castShadow = true; sun.shadow.mapSize.set(1024, 1024);
+  const sun = new THREE.DirectionalLight(0xffffff, 1.1); sun.position.set(-8, 18, 10); sun.castShadow = renderer.shadowMap.enabled; sun.shadow.mapSize.set(CAPTURE ? 1024 : tailleOmbre(1024) || 512, CAPTURE ? 1024 : tailleOmbre(1024) || 512);
   Object.assign(sun.shadow.camera, { left: -14, right: 14, top: 14, bottom: -14 }); scene.add(sun);
   const rim = new THREE.PointLight(0xff4fb0, 0.9, 60); rim.position.set(10, 6, -10); scene.add(rim);
   const fill = new THREE.DirectionalLight(0x9fc6ff, 0.5); fill.position.set(10, 8, 14); scene.add(fill);
   piste = buildLane(THREE, 56); piste.position.x = -14; scene.add(piste);
   root = new THREE.Group(); scene.add(root);
   rootAtelier = new THREE.Group(); scene.add(rootAtelier);
-  const resize = () => { const r = c.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / Math.max(1, r.height); camera.updateProjectionMatrix(); };
+  const resize = () => { const r = c.getBoundingClientRect(); renderer.setPixelRatio(CAPTURE ? Math.min(2, window.devicePixelRatio || 1) : dprPour(r.width, r.height, '3d')); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / Math.max(1, r.height); camera.updateProjectionMatrix(); };
   window.addEventListener('resize', resize); resize();
+  if (!CAPTURE) onNiveau((n, b) => {
+    if (!n) return;
+    resize();
+    if (b.ombres === 0 && sun.castShadow) { sun.castShadow = false; renderer.shadowMap.enabled = false; scene.traverse((o) => { if (o.material) o.material.needsUpdate = true; }); }
+  });
 }
 
 async function choisir(id) {
@@ -217,5 +225,4 @@ function boucle(now) {
     if (CAPTURE && st.tEtape >= 1) window.__pret = true;
   }
   renderer.render(scene, camera);
-  requestAnimationFrame(boucle);
 }

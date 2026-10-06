@@ -1,0 +1,146 @@
+{
+ "_doc": "Genres musicaux des jingles (shared/reveal.js) et du trailer. « ecuries » : couleur musicale de chaque pilote (trailer). Le reveal d'un bolide suit son propre thème : data/themes_bolides.json.",
+ "genres": {
+  "country": {
+   "nom": "Country / bluegrass",
+   "bpm": 132,
+   "mesure": 4,
+   "instrument": "banjo",
+   "humeur": "veste à franges, banjo qui pince, coup de feu de départ"
+  },
+  "bubblegum": {
+   "nom": "Pop acidulée",
+   "bpm": 124,
+   "mesure": 4,
+   "instrument": "pluck",
+   "humeur": "bonbons qui éclatent, clap, synthé sucré"
+  },
+  "disco": {
+   "nom": "Disco-funk 80s",
+   "bpm": 118,
+   "mesure": 4,
+   "instrument": "slap",
+   "humeur": "boule à facettes, basse slappée, cordes qui montent"
+  },
+  "swing": {
+   "nom": "Jazz lounge de casino",
+   "bpm": 150,
+   "mesure": 4,
+   "instrument": "piano",
+   "humeur": "jetons qui claquent, contrebasse, cuivres feutrés"
+  },
+  "rock": {
+   "nom": "Hard rock / solo de guitare",
+   "bpm": 140,
+   "mesure": 4,
+   "instrument": "guitare",
+   "humeur": "riff saturé, solo, tournée générale"
+  },
+  "symphonie": {
+   "nom": "Symphonique électrique",
+   "bpm": 100,
+   "mesure": 4,
+   "instrument": "cordes",
+   "humeur": "orchestre, timbales, souffle d'un moteur électrique"
+  },
+  "chiptune": {
+   "nom": "Chiptune 8 bits",
+   "bpm": 150,
+   "mesure": 4,
+   "instrument": "carre",
+   "humeur": "jeu d'aventure 8 bits, fanfare de trésor"
+  },
+  "synthwave": {
+   "nom": "Synthwave sombre",
+   "bpm": 104,
+   "mesure": 4,
+   "instrument": "synthe",
+   "humeur": "néon violet, basse arpégée, nuit sur l'autoroute"
+  },
+  "epique": {
+   "nom": "Metal épique / bande-annonce",
+   "bpm": 120,
+   "mesure": 4,
+   "instrument": "guitare",
+   "humeur": "chœurs, cors, double grosse caisse, rugissement de V8"
+  },
+  "doom": {
+   "nom": "Metal industriel",
+   "bpm": 96,
+   "mesure": 4,
+   "instrument": "guitare",
+   "humeur": "riff accordé très bas, marteau-pilon, braises"
+  },
+  "kawaii": {
+   "nom": "J-pop kawaii",
+   "bpm": 136,
+   "mesure": 4,
+   "instrument": "pluck",
+   "humeur": "clochettes, paillettes, miaulement de chat"
+  },
+  "acidjazz": {
+   "nom": "Acid jazz / funk d'anime",
+   "bpm": 112,
+   "mesure": 4,
+   "instrument": "piano",
+   "humeur": "basse qui marche, cuivres, pose dramatique"
+  },
+  "punk": {
+   "nom": "Punk-rock / batterie déchaînée",
+   "bpm": 176,
+   "mesure": 4,
+   "instrument": "guitare",
+   "humeur": "roulement de batterie, double pédale, cris de foule"
+  },
+  "hiphop": {
+   "nom": "Hip-hop boom-bap",
+   "bpm": 92,
+   "mesure": 4,
+   "instrument": "synthe",
+   "humeur": "scratch, bombe de peinture, basse 808"
+  },
+  "valse": {
+   "nom": "Électro-swing en valse",
+   "bpm": 168,
+   "mesure": 3,
+   "instrument": "pluck",
+   "humeur": "valse à trois temps, marguerites, pointes de danseuse"
+  },
+  "eurobeat": {
+   "nom": "Eurobeat de drift",
+   "bpm": 156,
+   "mesure": 4,
+   "instrument": "synthe",
+   "humeur": "col de montagne la nuit, synthé qui file, freinage en dérive"
+  }
+ },
+ "ecuries": {
+  "1": "country",
+  "2": "bubblegum",
+  "3": "disco",
+  "4": "swing",
+  "5": "rock",
+  "6": "symphonie",
+  "7": "chiptune",
+  "8": "synthwave",
+  "9": "epique",
+  "10": "doom",
+  "11": "kawaii",
+  "12": "acidjazz",
+  "13": "punk",
+  "14": "hiphop",
+  "15": "valse"
+ },
+ "categories": {
+  "B": "doom",
+  "J": "synthwave",
+  "U": "rock",
+  "E": "symphonie",
+  "F": "epique",
+  "FR": "disco",
+  "H": "punk",
+  "P": "bubblegum",
+  "TK": "kawaii",
+  "R": "swing"
+ }
+}

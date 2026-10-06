@@ -6,6 +6,7 @@
 const cache = new Map();
 
 /** Décode un ArrayBuffer STL en { positions: Float32Array, normals: Float32Array } (normales par face). */
+import { budget } from './perf.js';
 export function parseSTL(buf) {
   const dv = new DataView(buf);
   const binaire = (() => {
@@ -109,7 +110,10 @@ function lisserNormales(THREE, g, angleDeg) {
 export function materiauFilament(THREE, p) {
   const c = new THREE.Color(p.hex || '#888888');
   if (p.metal) return new THREE.MeshStandardMaterial({ color: c, metalness: 0.95, roughness: 0.22 });
-  if (p.translucide) return new THREE.MeshPhysicalMaterial({ color: c, metalness: 0, roughness: 0.18, transmission: 0.6, transparent: true, opacity: 0.78, clearcoat: 0.6 });
+  // la transmission ajoute une passe de rendu complète par image : réservée au palier « high » (perf.js)
+  if (p.translucide) return budget().transmission
+    ? new THREE.MeshPhysicalMaterial({ color: c, metalness: 0, roughness: 0.18, transmission: 0.6, transparent: true, opacity: 0.78, clearcoat: 0.6 })
+    : new THREE.MeshPhysicalMaterial({ color: c, metalness: 0, roughness: 0.2, transparent: true, opacity: 0.72, clearcoat: 0.6, depthWrite: false });
   if (p.silk) return new THREE.MeshPhysicalMaterial({ color: c, metalness: 0.55, roughness: 0.28, clearcoat: 0.5, clearcoatRoughness: 0.25 });
   if (p.bois) return new THREE.MeshStandardMaterial({ color: c, metalness: 0, roughness: 0.88 });
   return new THREE.MeshStandardMaterial({ color: c, metalness: 0.05, roughness: 0.62 });

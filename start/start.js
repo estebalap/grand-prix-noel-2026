@@ -107,7 +107,7 @@ function renderSummary() {
     <h3 class="foil">${esc(f.name)}</h3>
     <p>${esc(f.duration)} · ${esc(f.players)}</p>
     <p>Mode de départ : <b>${esc(m.name)}</b></p>
-    <div class="pills"><span class="pill">${r.startCoins} pièces au départ</span><span class="pill">Bourse ${r.betWindowSec} s</span><span class="pill">Points ${r.heatPoints.join(' · ')}</span></div>`;
+    <div class="pills"><span class="pill">${r.startCoins} pièces au départ</span><span class="pill">Bourse ${r.betWindowSec} s</span><span class="pill">Points ${((store.state && store.state.voies) === 4 ? r.heatPoints : (r.heatPoints5 || r.heatPoints)).join(' · ')}</span></div>`;
 }
 
 function renderJoin(s) {

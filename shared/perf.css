@@ -1,0 +1,56 @@
+/* Performances CSS — chargé EN DERNIER par chaque page. Pilote : <html data-perf="high|medium|low"> (shared/perf.js).
+
+   Constats de l'audit (AUDIT_PERFORMANCES_WEB.md) :
+   1. Les cartes « verre dépoli » (.deco : backdrop-filter blur 14 px + saturate) sont posées sur l'atmosphère, un canvas
+      redessiné à chaque image : le navigateur doit RECALCULER le flou de chaque carte à chaque image.
+   2. Les halos « qui respirent » animaient box-shadow / filter en boucle infinie : style, peinture et composition
+      sur le fil principal à chaque image, pour chaque objet rare / épique / légendaire de la boutique.
+   Règle appliquée : sur tous les paliers, les halos deviennent STATIQUES (même éclat, à son maximum) et l'animation
+   passe sur transform / opacity (gérés par le compositeur, hors fil principal). Sur « medium » / « low », les verres
+   dépolis deviennent des aplats opaques de la même teinte. */
+
+/* ---------------------------------------------------------------- halos : éclat fixe + pulsation au compositeur */
+@keyframes perfRespire { 0%, 100% { transform: scale(1) } 50% { transform: scale(1.018) } }
+@keyframes perfLueur { 0%, 100% { opacity: .55 } 50% { opacity: 1 } }
+
+/* Objets de la boutique : mesuré sur le Pit (téléphone, CPU ÷ 4) — 10 objets épiques / légendaires qui « respirent »
+   coûtaient 180 ms de recalcul de style par seconde, même animés en transform (31 i/s) ; halo fixe : 52 i/s, 4 ms/s.
+   L'éclat reste au maximum ; le reflet qui balaie la carte (::after, transform) suffit à la faire vivre. */
+.item.r-epique, .item.r-legendaire, .arsenal .mod.panic {
+  animation: none;
+  box-shadow: 0 0 0 1px var(--rc), 0 0 22px 0 var(--rc);
+}
+.arsenal .mod.panic { box-shadow: 0 0 0 2px var(--rc), 0 0 28px 2px var(--rc) }
+.turn.mine { animation: perfRespire 1.3s ease-in-out infinite; box-shadow: 0 0 0 6px rgba(255, 211, 106, .18), 0 0 26px rgba(255, 211, 106, .45) }
+.pill-skip { animation: perfRespire 4s ease-in-out infinite; box-shadow: 0 0 12px var(--gold-3) }
+.pdk.turn { animation: perfRespire 2s ease-in-out infinite; box-shadow: 0 0 0 10px rgba(255, 211, 106, .14), 0 0 60px rgba(255, 211, 106, .5) }
+
+/* éléments qui bougent en permanence : une couche de composition dédiée (rien d'autre : will-change coûte de la mémoire) */
+#tkTrack, .firefx .burst, .reveal .car-svg, .racing .lane .car-svg { will-change: transform }
+
+/* barre de la Bourse : animée par transform (perf.js / pit.js) plutôt que par width (mise en page à chaque tick) */
+.perf-barre { transform-origin: 0 50%; will-change: transform; transition: transform .2s linear }
+
+/* ---------------------------------------------------------------- paliers modestes */
+:root[data-perf="medium"]:not([data-skin="nintendo"]) .deco,
+:root[data-perf="low"]:not([data-skin="nintendo"]) .deco {
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+  background: linear-gradient(160deg, rgba(34, 40, 82, .93), rgba(14, 18, 46, .95));
+}
+:root[data-perf="medium"] #sheet, :root[data-perf="low"] #sheet,
+:root[data-perf="medium"] #drawer, :root[data-perf="low"] #drawer,
+:root[data-perf="medium"] .fogcard, :root[data-perf="low"] .fogcard,
+:root[data-perf="medium"] .item.lockd .lock, :root[data-perf="low"] .item.lockd .lock,
+:root[data-perf="medium"] .card, :root[data-perf="low"] .card {
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+}
+:root[data-perf="medium"] #sheet, :root[data-perf="low"] #sheet { background: rgba(2, 4, 14, .94) }
+
+/* filtres animés plein élément (arc-en-ciel d'invincibilité, légendaires) : statiques en dessous de « high » */
+:root[data-perf="medium"] .lane.invincible, :root[data-perf="low"] .lane.invincible,
+:root[data-perf="medium"] .item.r-legendaire::before, :root[data-perf="low"] .item.r-legendaire::before { animation: none }
+:root[data-perf="low"] .item.r-rare::after, :root[data-perf="low"] .item.r-epique::after, :root[data-perf="low"] .item.r-legendaire::after,
+:root[data-perf="low"] .rainbow-line { animation: none }
+
+/* « low » : ombres portées géantes des cartes ramenées à une ombre courte (peinture moins chère au défilement) */
+:root[data-perf="low"] .deco { box-shadow: 0 8px 20px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .1) }

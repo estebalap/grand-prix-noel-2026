@@ -90,6 +90,8 @@ function ingest(st) {
   // intègre les reliques créées en cours de soirée
   (st.customCars || []).forEach(addCar);
   store.state = st;
+  // nombre de voies de la manche (4 ou 5) : les grilles CSS des voies lisent --nv
+  if (typeof document !== 'undefined') document.documentElement.style.setProperty('--nv', String((st.heat && st.heat.lanes && st.heat.lanes.length) || st.voies || 4));
   store.seq = st.seq;
   store.listeners.forEach((f) => { try { f(st); } catch (e) { console.error(e); } });
 }
@@ -191,7 +193,7 @@ export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&a
 export const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 export const fmtOdds = (o) => '×' + (Math.round(o * 10) / 10).toFixed(1).replace('.', ',');
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-export const LANE_COLORS = ['#ff4d6d', '#4cc9f0', '#3ddc97', '#ffd166'];
+export const LANE_COLORS = ['#ff4d6d', '#4cc9f0', '#3ddc97', '#ffd166', '#ff9f43'];   // rose, bleu, vert, jaune, orange (piste GXX41)
 
 export function teamColors(id) {
   const t = team(id);

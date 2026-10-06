@@ -1283,7 +1283,7 @@
    },
    "mobile": false,
    "pont": false,
-   "masseG": 1.6,
+   "masseG": 1.5,
    "tempsMin": 12,
    "pieces": [
     {
@@ -1308,7 +1308,7 @@
      "partage": false,
      "analyse": {
       "dimensions_mm": [
-       6.3,
+       6.0,
        18.0,
        6.0
       ],
@@ -1342,13 +1342,13 @@
      "partage": false,
      "analyse": {
       "dimensions_mm": [
-       51.6,
+       51.4,
        8.0,
        3.0
       ],
       "supports": "aucun",
       "pont_max_mm": 5.6,
-      "masse_g": 1.1,
+      "masse_g": 1.0,
       "temps_min": 6,
       "alertes": [
        "~ 11 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
@@ -1599,7 +1599,7 @@
       "masse_g": 1.6,
       "temps_min": 9,
       "alertes": [
-       "~ 10 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
+       "~ 9 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
       ],
       "verdict_impression": "A_SURVEILLER"
      }

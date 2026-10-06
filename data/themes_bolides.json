@@ -1,0 +1,389 @@
+{
+ "_doc": "Thème de reveal de chaque bolide (shared/reveal.js) : style visuel adapté au véhicule (réel, manga, jeu vidéo, comics, film noir, rétro 80s, cartoon), genre musical du jingle (data/musique_ecuries.json → genres) et accroche. À modifier librement.",
+ "styles": {
+  "reel": "Réel / retransmission TV",
+  "manga": "Manga / anime",
+  "jeu_video": "Jeu vidéo arcade / 8 bits",
+  "comics": "Comics",
+  "film_noir": "Film noir",
+  "retro80": "Rétro 80s / synthwave",
+  "cartoon": "Cartoon"
+ },
+ "bolides": {
+  "B01": {
+   "style": "comics",
+   "musique": "acidjazz",
+   "accroche": "Série TV 1966 : pop art et cuivres"
+  },
+  "B02": {
+   "style": "comics",
+   "musique": "epique",
+   "accroche": "Bande dessinée classique"
+  },
+  "B03": {
+   "style": "film_noir",
+   "musique": "symphonie",
+   "accroche": "Série animée des années 90, Gotham la nuit"
+  },
+  "B04": {
+   "style": "film_noir",
+   "musique": "doom",
+   "accroche": "Polar sombre sous la pluie"
+  },
+  "B05": {
+   "style": "comics",
+   "musique": "epique",
+   "accroche": "Planche de comics"
+  },
+  "B06": {
+   "style": "film_noir",
+   "musique": "epique",
+   "accroche": "Superproduction sombre"
+  },
+  "B07": {
+   "style": "film_noir",
+   "musique": "synthwave",
+   "accroche": "Patrouille aérienne de nuit"
+  },
+  "B08": {
+   "style": "film_noir",
+   "musique": "doom",
+   "accroche": "Lueur verte radioactive"
+  },
+  "B09": {
+   "style": "film_noir",
+   "musique": "epique",
+   "accroche": "Blindage urbain"
+  },
+  "B10": {
+   "style": "film_noir",
+   "musique": "symphonie",
+   "accroche": "Duel au clair de lune"
+  },
+  "B11": {
+   "style": "film_noir",
+   "musique": "synthwave",
+   "accroche": "Gyrophares sous la pluie"
+  },
+  "B12": {
+   "style": "comics",
+   "musique": "punk",
+   "accroche": "Farces et feux d'artifice"
+  },
+  "B13": {
+   "style": "retro80",
+   "musique": "synthwave",
+   "accroche": "Néons gothiques des années 90"
+  },
+  "B14": {
+   "style": "retro80",
+   "musique": "bubblegum",
+   "accroche": "Givre et paillettes 1997"
+  },
+  "B15": {
+   "style": "film_noir",
+   "musique": "doom",
+   "accroche": "Char d'assaut urbain"
+  },
+  "B16": {
+   "style": "jeu_video",
+   "musique": "synthwave",
+   "accroche": "Prototype secret : niveau bonus"
+  },
+  "J01": {
+   "style": "manga",
+   "musique": "eurobeat",
+   "accroche": "Club de minuit à Tokyo"
+  },
+  "J02": {
+   "style": "manga",
+   "musique": "eurobeat",
+   "accroche": "Livraison de tofu au sommet du col"
+  },
+  "J03": {
+   "style": "cartoon",
+   "musique": "bubblegum",
+   "accroche": "Écolo et furieuse"
+  },
+  "J04": {
+   "style": "manga",
+   "musique": "punk",
+   "accroche": "Minivan de Shibuya"
+  },
+  "J05": {
+   "style": "manga",
+   "musique": "eurobeat",
+   "accroche": "VTEC à Osaka"
+  },
+  "J06": {
+   "style": "reel",
+   "musique": "rock",
+   "accroche": "Spéciale de rallye sur gravier"
+  },
+  "J07": {
+   "style": "cartoon",
+   "musique": "kawaii",
+   "accroche": "Le sourire aux phares levés"
+  },
+  "J08": {
+   "style": "manga",
+   "musique": "eurobeat",
+   "accroche": "Turbo de poche"
+  },
+  "J09": {
+   "style": "reel",
+   "musique": "bubblegum",
+   "accroche": "Séoul électrique"
+  },
+  "J10": {
+   "style": "manga",
+   "musique": "rock",
+   "accroche": "Légende des années 70"
+  },
+  "U01": {
+   "style": "reel",
+   "musique": "rock",
+   "accroche": "Démonstration de 1 400 ch"
+  },
+  "U02": {
+   "style": "retro80",
+   "musique": "synthwave",
+   "accroche": "Turbo 1983"
+  },
+  "U03": {
+   "style": "retro80",
+   "musique": "country",
+   "accroche": "Course-poursuite sur la Route 66"
+  },
+  "U04": {
+   "style": "reel",
+   "musique": "country",
+   "accroche": "Pick-up du Texas"
+  },
+  "U05": {
+   "style": "retro80",
+   "musique": "rock",
+   "accroche": "V8 Hemi des années 70"
+  },
+  "E01": {
+   "style": "reel",
+   "musique": "symphonie",
+   "accroche": "Endurance GT3"
+  },
+  "E02": {
+   "style": "reel",
+   "musique": "disco",
+   "accroche": "Supercar italienne"
+  },
+  "E03": {
+   "style": "reel",
+   "musique": "swing",
+   "accroche": "Gentleman driver britannique"
+  },
+  "E04": {
+   "style": "reel",
+   "musique": "swing",
+   "accroche": "Grand Prix 1967 en pellicule"
+  },
+  "E05": {
+   "style": "reel",
+   "musique": "rock",
+   "accroche": "Saloon de course des sixties"
+  },
+  "E06": {
+   "style": "jeu_video",
+   "musique": "synthwave",
+   "accroche": "Course électrique du futur"
+  },
+  "E07": {
+   "style": "manga",
+   "musique": "punk",
+   "accroche": "Break suédois en dérive"
+  },
+  "E08": {
+   "style": "reel",
+   "musique": "rock",
+   "accroche": "Rallye des faubourgs"
+  },
+  "P01": {
+   "style": "retro80",
+   "musique": "synthwave",
+   "accroche": "Série TV des années 80"
+  },
+  "P02": {
+   "style": "cartoon",
+   "musique": "kawaii",
+   "accroche": "Carrosse rose de dessin animé"
+  },
+  "P03": {
+   "style": "cartoon",
+   "musique": "doom",
+   "accroche": "Carrosse gothique pailleté"
+  },
+  "H01": {
+   "style": "jeu_video",
+   "musique": "punk",
+   "accroche": "Figure extrême : nouveau record"
+  },
+  "H02": {
+   "style": "jeu_video",
+   "musique": "epique",
+   "accroche": "Dragon de niveau final"
+  },
+  "H03": {
+   "style": "jeu_video",
+   "musique": "chiptune",
+   "accroche": "Dragon en flammes 8 bits"
+  },
+  "H04": {
+   "style": "jeu_video",
+   "musique": "doom",
+   "accroche": "Prédateur de l'arène"
+  },
+  "H05": {
+   "style": "manga",
+   "musique": "eurobeat",
+   "accroche": "Kei car survitaminée"
+  },
+  "H06": {
+   "style": "cartoon",
+   "musique": "bubblegum",
+   "accroche": "Facteur sans freins"
+  },
+  "H07": {
+   "style": "comics",
+   "musique": "rock",
+   "accroche": "Poids lourd héroïque"
+  },
+  "H08": {
+   "style": "comics",
+   "musique": "punk",
+   "accroche": "Taxi londonien déchaîné"
+  },
+  "H09": {
+   "style": "manga",
+   "musique": "chiptune",
+   "accroche": "Mini-truck ninja"
+  },
+  "H10": {
+   "style": "reel",
+   "musique": "rock",
+   "accroche": "Spéciale de rallye"
+  },
+  "H11": {
+   "style": "jeu_video",
+   "musique": "chiptune",
+   "accroche": "Cube de puzzle atomique"
+  },
+  "H12": {
+   "style": "comics",
+   "musique": "epique",
+   "accroche": "Ambulance héroïque"
+  },
+  "F01": {
+   "style": "reel",
+   "musique": "symphonie",
+   "accroche": "Grand Prix en direct"
+  },
+  "F02": {
+   "style": "reel",
+   "musique": "rock",
+   "accroche": "Grand Prix en direct"
+  },
+  "F03": {
+   "style": "reel",
+   "musique": "symphonie",
+   "accroche": "Grand Prix en direct : l'opéra rouge"
+  },
+  "F04": {
+   "style": "reel",
+   "musique": "disco",
+   "accroche": "Grand Prix en direct"
+  },
+  "F05": {
+   "style": "reel",
+   "musique": "epique",
+   "accroche": "Grand Prix en direct"
+  },
+  "F06": {
+   "style": "reel",
+   "musique": "bubblegum",
+   "accroche": "Grand Prix en direct"
+  },
+  "F07": {
+   "style": "reel",
+   "musique": "swing",
+   "accroche": "Grand Prix en direct : la légende"
+  },
+  "F08": {
+   "style": "reel",
+   "musique": "hiphop",
+   "accroche": "Grand Prix en direct"
+  },
+  "F09": {
+   "style": "reel",
+   "musique": "synthwave",
+   "accroche": "Grand Prix en direct"
+  },
+  "F10": {
+   "style": "reel",
+   "musique": "country",
+   "accroche": "Grand Prix en direct"
+  },
+  "FR01": {
+   "style": "reel",
+   "musique": "symphonie",
+   "accroche": "Défilé républicain"
+  },
+  "FR02": {
+   "style": "reel",
+   "musique": "rock",
+   "accroche": "Record sur le Ring"
+  },
+  "FR03": {
+   "style": "film_noir",
+   "musique": "swing",
+   "accroche": "Déesse de 1968 en noir et blanc"
+  },
+  "FR04": {
+   "style": "retro80",
+   "musique": "disco",
+   "accroche": "Groupe B au Tour de Corse"
+  },
+  "FR05": {
+   "style": "reel",
+   "musique": "valse",
+   "accroche": "Défilé de haute couture"
+  },
+  "TK01": {
+   "style": "manga",
+   "musique": "eurobeat",
+   "accroche": "Samouraï turbo 1988"
+  },
+  "TK02": {
+   "style": "manga",
+   "musique": "synthwave",
+   "accroche": "Masque de fer à Tokyo"
+  },
+  "TK03": {
+   "style": "reel",
+   "musique": "rock",
+   "accroche": "Monstre du championnat de tourisme"
+  },
+  "TK04": {
+   "style": "retro80",
+   "musique": "disco",
+   "accroche": "Muscle car façon Ginza"
+  },
+  "TK05": {
+   "style": "cartoon",
+   "musique": "kawaii",
+   "accroche": "Dessin animé électrique"
+  },
+  "TK06": {
+   "style": "manga",
+   "musique": "kawaii",
+   "accroche": "Diva virtuelle sur circuit"
+  }
+ }
+}

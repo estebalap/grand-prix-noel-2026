@@ -1,8 +1,13 @@
 /* Atmosphère visuelle pilotée par un THÈME (un par mode de jeu) : ciel, aurore/rubans, route en perspective,
    particules (neige, braises, pluie néon, étincelles, warp, poussière, serpentins), effets spéciaux
-   (soleil rétro, projecteurs, feux de régime F1). Canvas 2D plafonné à 60 FPS, qualité adaptative. */
+   (soleil rétro, projecteurs, feux de régime F1).
+   Performances (voir perf.js) : dessinée par la boucle UNIQUE de la page, à 60 images/s au plus (30 quand une scène 3D
+   occupe le premier plan, moins si le régulateur dégrade), dans un tampon plafonné par un budget de pixels (le fond est
+   flou par nature : inutile de le calculer en DPR 3 ou en 4K), ciel et étoiles précalculés une fois par
+   redimensionnement, halo de la route limité à sa zone. */
 import { THEMES, DEFAULT_THEME } from './themes.js';
 import { createScenery } from './scenes.js';
+import { boucle, budget, dprPour, onNiveau } from './perf.js';
 
 const TAU = Math.PI * 2;
 
@@ -12,6 +17,7 @@ export function startAtmosphere(opts = {}) {
   if (!cv) { cv = document.createElement('canvas'); cv.id = 'atmo'; document.body.prepend(cv); }
   const ctx = cv.getContext('2d');
   let W = 0, H = 0, dpr = 1;
+  let fondCiel = null, etoilesA = null, etoilesB = null;       // calques précalculés (ciel dégradé, 2 demi-champs d'étoiles)
   let T = THEMES[theme] || THEMES[DEFAULT_THEME];
   const state = { speed: 0.25, targetSpeed: 0.25, snow, aurora, road, hue: 0, paused: false, quality: 1, level: 0 };
   let parts = [], stars = [];
@@ -31,28 +37,40 @@ export function startAtmosphere(opts = {}) {
     return p;
   };
 
+  function calque() { const c = document.createElement('canvas'); c.width = cv.width; c.height = cv.height; const x = c.getContext('2d'); x.setTransform(dpr, 0, 0, dpr, 0, 0); return [c, x]; }
+  function precalculer() {
+    // ciel : un dégradé plein écran recalculé à chaque image coûtait un remplissage complet + l'interpolation ; une fois suffit
+    const [c, x] = calque();
+    const g = x.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, T.sky[0]); g.addColorStop(0.45, T.sky[1]); g.addColorStop(1, T.sky[2]);
+    x.fillStyle = g; x.fillRect(0, 0, W, H);
+    fondCiel = c;
+    // étoiles : 2 demi-champs dessinés une fois ; le scintillement = 2 opacités en opposition de phase (2 images au lieu
+    // de centaines de cercles par image)
+    const [a, xa] = calque(), [b, xb] = calque();
+    stars.forEach((s, i) => { const k = i % 2 ? xb : xa; k.fillStyle = `rgba(${T.starColor},1)`; k.beginPath(); k.arc(s.x, s.y, s.r, 0, TAU); k.fill(); });
+    etoilesA = a; etoilesB = b;
+  }
   function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
     W = cv.clientWidth; H = cv.clientHeight;
-    cv.width = Math.floor(W * dpr); cv.height = Math.floor(H * dpr);
+    dpr = dprPour(W, H, '2d');
+    cv.width = Math.max(1, Math.floor(W * dpr)); cv.height = Math.max(1, Math.floor(H * dpr));
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const dens = T.particles.density * state.snow * state.quality;
+    const dens = T.particles.density * state.snow * state.quality * budget().particules;
     const n = Math.min(Math.round((W * H) / 14000 * dens), 300);
     parts = Array.from({ length: n }, () => spawn({}, true));
     stars = Array.from({ length: Math.round((W * H) / 9000 * T.stars) }, () => ({ x: Math.random() * W, y: Math.random() * H * 0.62, r: Math.random() * 1.3 + 0.2, p: Math.random() * TAU }));
+    precalculer();
   }
   window.addEventListener('resize', resize);
   resize();
 
   function drawSky(t) {
-    const g = ctx.createLinearGradient(0, 0, 0, H);
-    g.addColorStop(0, T.sky[0]); g.addColorStop(0.45, T.sky[1]); g.addColorStop(1, T.sky[2]);
-    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-    for (const s of stars) {
-      const tw = 0.5 + 0.5 * Math.sin(t * 0.0015 + s.p);
-      ctx.fillStyle = `rgba(${T.starColor},${0.25 + tw * 0.65})`;
-      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, TAU); ctx.fill();
-    }
+    ctx.drawImage(fondCiel, 0, 0, W, H);
+    const tw = 0.5 + 0.5 * Math.sin(t * 0.0015);
+    ctx.globalAlpha = 0.25 + tw * 0.65; ctx.drawImage(etoilesA, 0, 0, W, H);
+    ctx.globalAlpha = 0.9 - tw * 0.65; ctx.drawImage(etoilesB, 0, 0, W, H);
+    ctx.globalAlpha = 1;
     if (state.aurora > 0 && (T.aurora ?? 1) > 0) {
       ctx.globalCompositeOperation = 'screen';
       for (const r of T.ribbons) {
@@ -123,9 +141,9 @@ export function startAtmosphere(opts = {}) {
       ctx.strokeStyle = `rgba(${R.grid},.14)`; ctx.lineWidth = 1;
       for (let i = -14; i <= 14; i++) { ctx.beginPath(); ctx.moveTo(vx + i * roadHalfTop * 2, horizon); ctx.lineTo(vx + i * W * 0.14, H); ctx.stroke(); }
     }
-    const hg = ctx.createRadialGradient(vx, horizon, 0, vx, horizon, W * 0.42);
+    const hr = W * 0.42, hg = ctx.createRadialGradient(vx, horizon, 0, vx, horizon, hr);
     hg.addColorStop(0, `rgba(${R.halo},.22)`); hg.addColorStop(1, `rgba(${R.halo},0)`);
-    ctx.fillStyle = hg; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = hg; ctx.fillRect(vx - hr, Math.max(0, horizon - hr), hr * 2, Math.min(H, horizon + hr) - Math.max(0, horizon - hr));   // seulement là où le halo existe
   }
 
   function drawParticles(t, dt) {
@@ -215,11 +233,9 @@ export function startAtmosphere(opts = {}) {
     }
   }
 
-  let last = performance.now(), slow = 0, frames = 0;
-  function loop(t) {
-    requestAnimationFrame(loop);
-    if (state.paused || document.hidden) { last = t; return; }
-    const dt = Math.min(64, t - last); last = t;
+  function loop(t, pas) {
+    if (state.paused) return;
+    const dt = Math.min(64, pas);
     state.speed += (state.targetSpeed - state.speed) * Math.min(1, dt / 400);
     state.hue = (state.hue + dt * T.hueSpeed) % 360;
     drawSky(t);
@@ -228,24 +244,26 @@ export function startAtmosphere(opts = {}) {
     if (state.snow > 0) drawParticles(t, dt);
     drawExtras(t);
     scenery.overlay(ctx, T, W, H, t, state.speed);
-    frames++; if (dt > 25) slow++;
-    if (frames === 120) { if (slow > 60 && state.quality > 0.4) { state.quality *= 0.6; resize(); } frames = 0; slow = 0; }
   }
-  requestAnimationFrame(loop);
+  const tache = boucle('atmosphere', loop, { fps: budget().fxFps });
+  // le régulateur de perf.js baisse la cadence, la définition et les particules si la page rame
+  let niv0 = 0;
+  onNiveau((n, b) => { tache.fps = b.fxFps; if (n !== niv0) { niv0 = n; state.quality = Math.max(0.35, 1 - n * 0.2); resize(); } });
 
   return {
     setSpeed(v) { state.targetSpeed = v; },
     setRoad(v) { state.road = v; },
     setAurora(v) { state.aurora = v; },
     setSnow(v) { state.snow = v; resize(); },
-    pause(v) { state.paused = v; },
+    pause(v) { state.paused = v; tache.pause(v); },
     setTheme(id) { const n = THEMES[id] || THEMES[DEFAULT_THEME]; if (n === T) return; T = n; resize(); },
+    get resolution() { return { dpr, px: cv.width * cv.height }; },
     get theme() { return T.id; },
   };
 }
 
 /* ---------------------------------------------------------------- confettis */
-let cfCv, cfCtx, parts = [], cfRunning = false;
+let cfCv, cfCtx, parts = [], cfRunning = false, cfTache = null;
 function ensureConfetti() {
   if (cfCv) return;
   cfCv = document.createElement('canvas');
@@ -265,7 +283,7 @@ export function confetti({ x = 0.5, y = 0.4, count = 140, power = 1, spread = TA
     parts.push({ x: cx, y: cy, vx: Math.cos(a) * v, vy: Math.sin(a) * v, w: 6 + Math.random() * 8, h: 3 + Math.random() * 6, r: Math.random() * TAU, vr: (Math.random() - 0.5) * 0.4,
       c: PALETTE[(Math.random() * PALETTE.length) | 0], life: 160 + Math.random() * 120, g: gravity, shape: Math.random() < 0.18 ? 1 : 0 });
   }
-  if (!cfRunning) { cfRunning = true; requestAnimationFrame(stepConfetti); }
+  if (!cfRunning) { cfRunning = true; cfTache = boucle('confettis', stepConfetti, { fps: 60, premierPlan: true }); }
 }
 function stepConfetti() {
   cfCtx.clearRect(0, 0, cfCv.width, cfCv.height);
@@ -277,7 +295,7 @@ function stepConfetti() {
     if (p.shape) { cfCtx.beginPath(); cfCtx.arc(0, 0, p.w / 2.4, 0, TAU); cfCtx.fill(); } else cfCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
     cfCtx.restore();
   }
-  if (parts.length) requestAnimationFrame(stepConfetti); else { cfRunning = false; cfCtx.clearRect(0, 0, cfCv.width, cfCv.height); }
+  if (!parts.length) { cfRunning = false; cfTache.arreter(); cfTache = null; cfCtx.clearRect(0, 0, cfCv.width, cfCv.height); }
 }
 export function confettiCannons() {
   confetti({ x: 0.04, y: 0.95, count: 120, angle: -Math.PI / 3, spread: 0.7, power: 1.5 });

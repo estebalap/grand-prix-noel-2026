@@ -14,6 +14,20 @@
    10,
    5
   ],
+  "heatPoints5": [
+   6,
+   4,
+   3,
+   2,
+   1
+  ],
+  "heatCoins5": [
+   25,
+   18,
+   12,
+   8,
+   5
+  ],
   "betWindowSec": 45,
   "countdownSec": 4,
   "betMin": 5,
@@ -72,7 +86,7 @@
    "blurb": "Paris, pièges et Météo : le grand classique.",
    "badge": "PARIS & OBJETS TACTIQUES",
    "type": "Championnat stratégique • Économie de Pièces",
-   "banner": "CIRCUIT ARC-EN-CIEL 4 VOIES • PARIS OUVERTS",
+   "banner": "CIRCUIT ARC-EN-CIEL 5 VOIES • PARIS OUVERTS",
    "rules": [
     {
      "icon": "🪙",
@@ -104,12 +118,12 @@
    "prefer": null,
    "blurb": "Zéro piège, zéro pari : seul le chrono parle.",
    "badge": "CIRCUIT OFFICIEL MARIO KART 3D",
-   "type": "Championnat au temps • 4 Voies Rainbow Road",
-   "banner": "CIRCUIT ARC-EN-CIEL 4 VOIES • DÉPART IMMINENT",
+   "type": "Championnat au temps • 5 Voies Rainbow Road",
+   "banner": "CIRCUIT ARC-EN-CIEL 5 VOIES • DÉPART IMMINENT",
    "rules": [
     {
      "icon": "🚦",
-     "text": "Départ simultané : la tour à compte à rebours libère les portillons des 4 voies."
+     "text": "Départ simultané : la tour à compte à rebours libère les portillons des 5 voies."
     },
     {
      "icon": "🚫",
@@ -383,7 +397,7 @@
  "chaos": [
   {
    "title": "DÉPART EN MARCHE ARRIÈRE !",
-   "desc": "Tous les 4 bolides doivent être posés le coffre en avant sur la grille de départ."
+   "desc": "Tous les bolides doivent être posés le coffre en avant sur la grille de départ."
   },
   {
    "title": "CHICANAGE EXPRESS : DEUX BANANES !",
@@ -443,7 +457,7 @@
    "blurb": "Un duel impromptu, une revanche avant d'aller se coucher. Pas de draft long : on choisit ses bolides et on file.",
    "steps": [
     "Choix des bolides et connexion des téléphones",
-    "4 à 6 manches express (rotation des 4 voies)",
+    "4 à 6 manches express (rotation sur les 5 voies)",
     "Décompte des points et médaille immédiate"
    ]
   },

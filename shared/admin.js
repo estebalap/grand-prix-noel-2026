@@ -8,7 +8,7 @@ const KINDS = [['poule', 'Poule'], ['demi', 'Demi-finale'], ['finale', 'Grande F
 const PHASE_LABEL = { LOBBY: 'Accueil', DRAFT: 'Draft', GRID: 'Grille', BETTING: 'Bourse', COUNTDOWN: 'Départ', RACING: 'Course', RESULT: 'Résultat', INTERVIEW: 'Interview', STANDINGS: 'Classement', INTERMISSION: 'Entracte', CEREMONY: 'Cérémonie' };
 
 export function mountAdmin(root, { onToast = () => {}, compact = false } = {}) {
-  const ui = { kind: 'poule', weatherDone: {}, chaosDone: {}, open: new Set(['next', 'show']), resultOrder: [], dnf: new Set(), spun: new Set(), resultOpen: false, manual: ['', '', '', ''], draftCode: '', draftTeam: 1, busy: false, cerExtras: true };
+  const ui = { kind: 'poule', weatherDone: {}, chaosDone: {}, open: new Set(['next', 'show']), resultOrder: [], dnf: new Set(), spun: new Set(), resultOpen: false, manual: ['', '', '', '', ''], draftCode: '', draftTeam: 1, busy: false, cerExtras: true };
 
   let musicLib = null;
   async function loadMusicLib() {
@@ -48,7 +48,7 @@ export function mountAdmin(root, { onToast = () => {}, compact = false } = {}) {
         disabled: true, act: () => {}, alt: { label: 'Passer ce tour', act: () => run('draft.skip', {}, 'Tour passé') } };
     }
     if (s.phase === 'DRAFT' && (hh.status === 'idle' || hh.status === 'finished')) {
-      return { label: 'Tirer la grille — manche ' + (n + 1), sub: 'Tirage au sort de 4 paddocks, un bolide par voie (' + KINDS.find((k) => k[0] === ui.kind)[1] + ')', act: () => run('heat.setup', { kind: ui.kind }) };
+      return { label: 'Tirer la grille — manche ' + (n + 1), sub: 'Tirage au sort de ' + ((store.state && store.state.voies) || 4) + ' paddocks, un bolide par voie (' + KINDS.find((k) => k[0] === ui.kind)[1] + ')', act: () => run('heat.setup', { kind: ui.kind }) };
     }
     if (s.phase === 'CEREMONY') {
       const c = s.ceremony;
@@ -111,13 +111,14 @@ export function mountAdmin(root, { onToast = () => {}, compact = false } = {}) {
       <div class="adm-next-sub">${esc(step.sub || '')}${step.alt ? ` <button class="adm-link" id="altBtn">${esc(step.alt.label)}</button>` : ''}</div>`;
 
     const secPhases = section('phases', 'Phases de l\'émission', `<div class="adm-grid">${Object.keys(PHASE_LABEL).map((p) => `<button class="btn ghost sm ${s.phase === p ? 'on' : ''}" data-phase="${p}">${PHASE_LABEL[p]}</button>`).join('')}</div>
-      <label>Mode de jeu</label><select id="modeSel">${opt(DATA.rules.modes.map((m) => [m.id, m.name]), s.mode)}</select>`);
+      <label>Mode de jeu</label><select id="modeSel">${opt(DATA.rules.modes.map((m) => [m.id, m.name]), s.mode)}</select>
+      <label>Voies de course</label><select id="voiesSel">${opt([['5', '5 voies (piste complète)'], ['4', '4 voies (la 5e reste libre)']], String(s.voies || 4))}</select>`);
 
     const secHeat = section('heat', 'Manche & grille', `
       <label>Type de manche</label><select id="kindSel">${opt(KINDS, ui.kind)}</select>
       <div class="adm-row"><button class="btn sm" id="setupRand">Tirage au sort</button><button class="btn ghost sm" id="cancelRes" ${hh.result ? '' : 'disabled'}>Annuler le résultat</button></div>
       <label>Grille manuelle (codes gommettes, ex : B07)</label>
-      <div class="adm-manual">${[0, 1, 2, 3].map((i) => `<input data-man="${i}" placeholder="Voie ${i + 1}" value="${esc(ui.manual[i])}" autocapitalize="characters">`).join('')}</div>
+      <div class="adm-manual">${Array.from({ length: s.voies || 4 }, (_, i) => i).map((i) => `<input data-man="${i}" placeholder="Voie ${i + 1}" value="${esc(ui.manual[i])}" autocapitalize="characters">`).join('')}</div>
       <button class="btn ghost sm" id="setupMan">Valider la grille manuelle</button>`);
 
     const secWeather = section('weather', 'Météo & Chaos', `
@@ -214,6 +215,7 @@ export function mountAdmin(root, { onToast = () => {}, compact = false } = {}) {
     $$('[data-toggle]', root).forEach((b) => b.onclick = () => { const id = b.dataset.toggle; ui.open.has(id) ? ui.open.delete(id) : ui.open.add(id); render(); });
     $$('[data-phase]', root).forEach((b) => b.onclick = () => run('phase.set', { phase: b.dataset.phase }));
     const ms = g('modeSel'); if (ms) ms.onchange = () => run('mode.set', { mode: ms.value }, 'Mode changé');
+    const vs = g('voiesSel'); if (vs) vs.onchange = () => run('voies.set', { n: Number(vs.value) }, 'Voies : ' + vs.value);
     const ks = g('kindSel'); if (ks) ks.onchange = () => { ui.kind = ks.value; render(); };
     const my = g('muYt'); if (my) my.oninput = () => { ui.ytUrl = my.value; };
     const mn = g('muNext'); if (mn) mn.onclick = () => run('music.next', {}, 'Morceau suivant');
@@ -233,7 +235,7 @@ export function mountAdmin(root, { onToast = () => {}, compact = false } = {}) {
     const sr = g('setupRand'); if (sr) sr.onclick = () => run('heat.setup', { kind: ui.kind }, 'Grille tirée');
     const cr = g('cancelRes'); if (cr) cr.onclick = () => confirm('Annuler le résultat de cette manche ?') && run('race.cancel', {}, 'Résultat annulé');
     $$('[data-man]', root).forEach((i) => i.oninput = () => { ui.manual[Number(i.dataset.man)] = i.value; });
-    const sm = g('setupMan'); if (sm) sm.onclick = () => run('heat.setup', { kind: ui.kind, lanes: ui.manual.map((c) => (c.trim() ? { code: c.trim() } : null)) }, 'Grille posée');
+    const sm = g('setupMan'); if (sm) sm.onclick = () => run('heat.setup', { kind: ui.kind, lanes: ui.manual.slice(0, store.state.voies || 4).map((c) => (c.trim() ? { code: c.trim() } : null)) }, 'Grille posée');
     $$('[data-weather]', root).forEach((b) => b.onclick = () => { ui.weatherDone[s.heat.n] = true; run('weather.roll', b.dataset.weather ? { id: b.dataset.weather } : {}); });
     const cg = g('chaosGo'); if (cg) cg.onclick = () => { const v = g('chaosSel').value; ui.chaosDone[s.heat.n] = true; run('chaos.spin', v === '' ? {} : { index: Number(v) }); };
     const bo = g('betOpen'); if (bo) bo.onclick = () => run('bets.open');
@@ -279,7 +281,7 @@ export const ADMIN_CSS = `
 .adm-phase{font-family:var(--font-display);letter-spacing:.14em;text-transform:uppercase;color:var(--gold-2);font-weight:700}
 .dim{color:var(--ink-dim)}.adm-note{color:var(--ink-dim);font-size:.85em;margin:.4em 0}
 .adm-order{display:flex;flex-wrap:wrap;gap:4px 6px;margin:.3em 0 .6em}.adm-order span{font-size:.78em;padding:2px 8px;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}.adm-order span.cur{background:rgba(255,211,106,.25);border-color:var(--gold-2,#ffd36a);color:#fff}.adm-order i{font-style:normal;opacity:.6}
-.adm-lanes{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.adm-lanes{display:grid;grid-template-columns:repeat(var(--nv,4),1fr);gap:6px}
 .adm-lane{border-left:4px solid var(--lc);background:var(--glass);border-radius:8px;padding:6px 8px;display:flex;flex-direction:column;min-width:0;font-size:.78em}
 .adm-lane b{color:var(--lc)}.adm-lane span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.adm-lane small{color:var(--ink-dim)}
 .adm-next{width:100%;font-size:1.15em;padding:1.1em 1em}.adm-next-sub{color:var(--ink-dim);font-size:.85em;margin:.6em 0 1em;min-height:1.2em}

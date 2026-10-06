@@ -6,6 +6,7 @@ import { $, $$, esc } from '../shared/core.js';
 import { startAtmosphere } from '../shared/fx.js';
 import { preparerScene, creerBloom } from '../shared/caisses3d.js';
 import { chargerManifeste, construireTrophee, couleurTrophee } from '../shared/pantheon3d.js';
+import { budget, boucle as boucleUnique, dprPour, onNiveau, tailleOmbre } from '../shared/perf.js';
 
 const Q = new URLSearchParams(location.search);
 const CAPTURE = Q.get('capture') === '1';
@@ -19,16 +20,17 @@ let renderer, scene, camera, bloom, salle, vitrine, plateau, ray, souris;
 
 function initScene() {
   const c = $('#c3');
-  renderer = new THREE.WebGLRenderer({ canvas: c, antialias: true, alpha: true, preserveDrawingBuffer: CAPTURE });
-  renderer.setPixelRatio(CAPTURE ? 1 : Math.min(2, window.devicePixelRatio || 1));
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  const b0 = budget();
+  // l'anticrénelage du tampon écran ne sert à rien quand le bloom dessine dans son propre tampon MSAA (coût ×4 gaspillé)
+  renderer = new THREE.WebGLRenderer({ canvas: c, antialias: b0.bloom === 0 && b0.msaa > 0, alpha: true, preserveDrawingBuffer: CAPTURE });
+  renderer.shadowMap.enabled = b0.ombres > 0;
+  renderer.shadowMap.type = b0.ombreDouce ? THREE.PCFSoftShadowMap : THREE.PCFShadowMap;
   scene = new THREE.Scene();
   preparerScene(THREE, renderer, scene, { teinte: 0xffb84d });
-  bloom = creerBloom(THREE, renderer, { force: 0.6, seuil: 0.9, exposition: 0.78 });
+  bloom = creerBloom(THREE, renderer, { force: 0.6, seuil: 0.9, exposition: 0.78, actifs: CAPTURE ? 5 : b0.bloom, msaa: CAPTURE ? 4 : b0.msaa });
   camera = new THREE.PerspectiveCamera(34, 1, 0.1, 500);
   scene.add(new THREE.HemisphereLight(0xdfe8ff, 0x1a1030, 0.35));
-  const key = new THREE.SpotLight(0xfff1d6, 1.35, 220, 0.75, 0.6); key.position.set(-20, 70, 45); key.castShadow = true; key.shadow.mapSize.set(CAPTURE ? 1024 : 2048, CAPTURE ? 1024 : 2048); scene.add(key); scene.add(key.target);
+  const key = new THREE.SpotLight(0xfff1d6, 1.35, 220, 0.75, 0.6); key.position.set(-20, 70, 45); key.castShadow = b0.ombres > 0; key.shadow.mapSize.set(CAPTURE ? 1024 : tailleOmbre(2048) || 512, CAPTURE ? 1024 : tailleOmbre(2048) || 512); scene.add(key); scene.add(key.target);
   const rimG = new THREE.PointLight(0xff4fb0, 1.2, 120); rimG.position.set(-45, 14, -25); scene.add(rimG);
   const rimD = new THREE.PointLight(0x4cc9f0, 1.2, 120); rimD.position.set(45, 14, -25); scene.add(rimD);
   // sol miroir sombre + liseré arc-en-ciel
@@ -48,8 +50,17 @@ function initScene() {
   const halo = new THREE.Mesh(new THREE.TorusGeometry(9.3, 0.07, 8, 160), new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffd34d').multiplyScalar(2.2) }));
   halo.rotation.x = Math.PI / 2; halo.position.y = 0.02; vitrine.add(halo);
   ray = new THREE.Raycaster(); souris = new THREE.Vector2(-9, -9);
-  const resize = () => { const r = c.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); bloom.taille(r.width, r.height); camera.aspect = r.width / Math.max(1, r.height); camera.updateProjectionMatrix(); };
+  const resize = () => {
+    const r = c.getBoundingClientRect();
+    renderer.setPixelRatio(CAPTURE ? 1 : dprPour(r.width, r.height, '3d'));      // budget de pixels du palier (perf.js)
+    renderer.setSize(r.width, r.height, false); bloom.taille(r.width, r.height); camera.aspect = r.width / Math.max(1, r.height); camera.updateProjectionMatrix();
+  };
   window.addEventListener('resize', resize); resize();
+  if (!CAPTURE) onNiveau((n, b) => {
+    if (!n) return;
+    resize(); bloom.regler(b.bloom);
+    if (b.ombres === 0 && key.castShadow) { key.castShadow = false; renderer.shadowMap.enabled = false; scene.traverse((o) => { if (o.material) o.material.needsUpdate = true; }); }
+  });
   c.addEventListener('pointermove', (e) => { const r = c.getBoundingClientRect(); souris.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1); });
   c.addEventListener('click', () => { if (st.mode === 'salle' && st.survol) choisir(st.survol, 'vitrine'); });
 }
@@ -80,7 +91,8 @@ async function construireSalle() {
   // en capture « vitrine », seul le trophée demandé est chargé (rendus rapides pour le catalogue et les tutoriels)
   const liste = CAPTURE && st.mode === 'vitrine' && st.id ? st.man.trophees.filter((t) => t.id === st.id) : st.man.trophees;
   await Promise.all(liste.map(async (t) => {
-    const tr = await construireTrophee(THREE, t);
+    // salle d'honneur : versions allégées (LOD) ; la vitrine recharge la vraie STL du trophée ouvert
+    const tr = await construireTrophee(THREE, t, undefined, { lod: !(CAPTURE && st.mode === 'vitrine') });
     st.trophees.set(t.id, tr);
     const p = st.poses.get(t.id);
     const g = new THREE.Group();
@@ -147,6 +159,8 @@ function salleInfo() {
 
 async function choisir(id, mode) {
   st.id = id;
+  const tr = st.trophees.get(id);
+  if (tr && (mode || st.mode) === 'vitrine') await tr.detail();
   $$('#rail button').forEach((b) => b.classList.toggle('on', b.dataset.id === id));
   setMode(mode || st.mode);
   info();
@@ -209,7 +223,6 @@ function boucle(now) {
   camera.position.lerp(st.cam.pos, CAPTURE ? 1 : 0.06);
   camera.lookAt(st.cam.cible);
   bloom.rendre(scene, camera);
-  requestAnimationFrame(boucle);
 }
 
 async function main() {
@@ -224,7 +237,7 @@ async function main() {
   if (st.id && st.man.trophees.some((t) => t.id === st.id)) await choisir(st.id, st.mode);
   else setMode('salle');
   info();
-  requestAnimationFrame(boucle);
+  boucleUnique('pantheon', boucle, { fps: 60, premierPlan: true });     // boucle d'images unique de la page (perf.js)
   if (CAPTURE) setTimeout(() => { window.__pret = true; }, 400);
 }
 main().catch((e) => { console.error(e); $('#info').innerHTML = `<div class="panel">Panthéon indisponible : ${esc(e.message)}</div>`; });

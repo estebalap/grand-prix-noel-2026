@@ -53,7 +53,7 @@ input[type=range]{width:100%;accent-color:#ffd36a;height:36px}
 .tapbtn{width:min(78vw,300px);aspect-ratio:1;border-radius:50%;border:0;position:relative;background:radial-gradient(circle at 35% 30%,#fff3c4,#ffd36a 35%,#e9a92b 65%,#a8690f);box-shadow:0 14px 0 #6b4108,0 30px 60px rgba(0,0,0,.6),0 0 90px rgba(255,200,90,.35);color:#2a1700;font:800 40px var(--font-display);letter-spacing:.06em;transition:transform .05s}
 .tapbtn:active,.tapbtn.press{transform:translateY(10px) scale(.98);box-shadow:0 4px 0 #6b4108,0 12px 30px rgba(0,0,0,.6)}
 .tapbtn small{display:block;font:700 14px var(--font-display);letter-spacing:.14em;margin-top:6px}
-.laneswitch{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:6px}
+.laneswitch{display:grid;grid-template-columns:repeat(var(--nv,4),1fr);gap:8px;margin-bottom:6px}
 .laneswitch button{padding:12px 0;border-radius:12px;border:2px solid var(--lc);background:rgba(0,0,0,.35);font:800 18px var(--font-display);color:var(--lc);--lc:#fff}
 .laneswitch button.on{background:var(--lc);color:#111}
 .tauntgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}

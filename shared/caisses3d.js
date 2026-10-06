@@ -771,11 +771,14 @@ export function buildCaisse(THREE, gamme = 'standard', famille = 'piege') {
  * Conserve l'alpha : la caisse peut être incrustée sur la TV, son halo déborde sur l'interface.
  *   const b = creerBloom(THREE, renderer); b.taille(w, h); … b.rendre(scene, camera);
  */
-export function creerBloom(THREE, renderer, { force = 0.9, seuil = 0.82, exposition = 1.0, niveaux = 5 } = {}) {
+export function creerBloom(THREE, renderer, { force = 0.9, seuil = 0.82, exposition = 1.0, niveaux = 5, actifs = niveaux, msaa = 4 } = {}) {
+  // actifs : niveaux de flou réellement calculés (budget du palier, perf.js) ; 0 = pas de bloom, rendu direct
+  // avec le même tone mapping ACES. msaa : échantillons de l'anticrénelage du tampon principal (0 = aucun).
   const gl2 = renderer.capabilities.isWebGL2;
   const type = gl2 || renderer.extensions.get('OES_texture_half_float') ? THREE.HalfFloatType : THREE.UnsignedByteType;
   const opts = { type, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat };
-  const principal = gl2 && THREE.WebGLMultisampleRenderTarget ? new THREE.WebGLMultisampleRenderTarget(4, 4, { ...opts }) : new THREE.WebGLRenderTarget(4, 4, opts);
+  const principal = gl2 && THREE.WebGLMultisampleRenderTarget && msaa > 0 ? new THREE.WebGLMultisampleRenderTarget(4, 4, { ...opts }) : new THREE.WebGLRenderTarget(4, 4, opts);
+  if (principal.samples !== undefined) principal.samples = Math.max(0, msaa);
   const lumiere = new THREE.WebGLRenderTarget(4, 4, { ...opts, depthBuffer: false });
   const flous = [];
   for (let i = 0; i < niveaux; i++) flous.push([new THREE.WebGLRenderTarget(4, 4, { ...opts, depthBuffer: false }), new THREE.WebGLRenderTarget(4, 4, { ...opts, depthBuffer: false })]);
@@ -793,12 +796,12 @@ export function creerBloom(THREE, renderer, { force = 0.9, seuil = 0.82, exposit
       s += texture2D(tSrc, vUv + uDir * 3.2308).rgb * .070270; s += texture2D(tSrc, vUv - uDir * 3.2308).rgb * .070270; gl_FragColor = vec4(s, 1.); }`, depthTest: false, depthWrite: false });
   const poids = [1.0, 0.85, 0.7, 0.55, 0.45, 0.35, 0.3];
   const uniformsComp = { tBase: { value: null }, uForce: { value: force }, uExpo: { value: exposition } };
-  for (let i = 0; i < niveaux; i++) uniformsComp['tB' + i] = { value: null };
+  for (let i = 0; i < niveaux; i++) { uniformsComp['tB' + i] = { value: null }; uniformsComp['uP' + i] = { value: poids[i] }; }
   const mComp = new THREE.ShaderMaterial({ uniforms: uniformsComp, vertexShader: vert,
-    fragmentShader: `uniform sampler2D tBase; ${flous.map((_, i) => `uniform sampler2D tB${i};`).join(' ')} uniform float uForce; uniform float uExpo; varying vec2 vUv;
+    fragmentShader: `uniform sampler2D tBase; ${flous.map((_, i) => `uniform sampler2D tB${i}; uniform float uP${i};`).join(' ')} uniform float uForce; uniform float uExpo; varying vec2 vUv;
       vec3 aces(vec3 x){ return clamp((x * (2.51 * x + .03)) / (x * (2.43 * x + .59) + .14), 0., 1.); }
       void main(){ vec4 b = texture2D(tBase, vUv);
-        vec3 h = ${flous.map((_, i) => `texture2D(tB${i}, vUv).rgb * ${poids[i].toFixed(2)}`).join(' + ')};
+        vec3 h = ${flous.map((_, i) => `texture2D(tB${i}, vUv).rgb * uP${i}`).join(' + ')};
         h *= uForce;
         vec3 c = aces(b.rgb * uExpo * 1.05) + h;
         float v = smoothstep(1.25, .35, length(vUv - .5) * 1.6);
@@ -813,22 +816,32 @@ export function creerBloom(THREE, renderer, { force = 0.9, seuil = 0.82, exposit
     },
     rendre(scene, camera) {
       const alpha = renderer.getClearAlpha(), auto = renderer.autoClear;
+      if (actifs <= 0) {                      // palier modeste : rendu direct, même tone mapping, aucune passe
+        const tm = renderer.toneMapping, te = renderer.toneMappingExposure;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = exposition * 1.05;
+        renderer.setRenderTarget(null); renderer.render(scene, camera);
+        renderer.toneMapping = tm; renderer.toneMappingExposure = te;
+        return;
+      }
       renderer.autoClear = true;
       renderer.setClearAlpha(0);
       renderer.setRenderTarget(principal); renderer.clear(); renderer.render(scene, camera);
       mLum.uniforms.tSrc.value = principal.texture; passe(mLum, lumiere);
       let src = lumiere;
-      for (const [a, b] of flous) {
+      for (const [a, b] of flous.slice(0, actifs)) {
         mFlou.uniforms.tSrc.value = src.texture; mFlou.uniforms.uDir.value.set(1 / a.width, 0); passe(mFlou, a);
         mFlou.uniforms.tSrc.value = a.texture; mFlou.uniforms.uDir.value.set(0, 1 / b.height); passe(mFlou, b);
         src = b;
       }
       mComp.uniforms.tBase.value = principal.texture;
-      flous.forEach(([, b], i) => { mComp.uniforms['tB' + i].value = b.texture; });
+      flous.forEach(([, b], i) => { mComp.uniforms['tB' + i].value = b.texture; mComp.uniforms['uP' + i].value = i < actifs ? poids[i] : 0; });
       quad.material = mComp; renderer.setRenderTarget(null); renderer.clear(); renderer.render(sc, cam);
       renderer.setClearAlpha(alpha); renderer.autoClear = auto;
     },
     set force(v) { mComp.uniforms.uForce.value = v; },
+    /** Niveaux de flou calculés (0 = bloom coupé) : appelé par le régulateur de perf.js. */
+    regler(n) { actifs = Math.max(0, Math.min(niveaux, n | 0)); },
+    get actifs() { return actifs; },
     dispose() { principal.dispose(); lumiere.dispose(); flous.forEach(([a, b]) => { a.dispose(); b.dispose(); }); [mLum, mFlou, mComp].forEach((m) => m.dispose()); },
   };
 }

@@ -2,20 +2,13 @@
    six trophées, sol miroir, projecteurs, particules dorées. Fond transparent : l'atmosphère de la page reste visible. */
 
 import { buildConceptCar } from './concept_cars.js';
+import { palier, budget, boucle, dprPour, onNiveau } from './perf.js';
 
 const T = () => window.THREE;
 
 /** Palier de qualité : 'high' (PC / TV), 'medium' (tablette, petit écran), 'low' (téléphone modeste).
     Forçable par l'URL : ?q=low|medium|high. Le rendu se dégrade ensuite tout seul si les FPS chutent. */
-export function detectQuality() {
-  try { const f = new URLSearchParams(location.search).get('q'); if (f === 'low' || f === 'medium' || f === 'high') return f; } catch (e) { /* hors navigateur */ }
-  const coarse = typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches;
-  const small = Math.min(screen.width || 1920, screen.height || 1080) < 820;
-  const cores = navigator.hardwareConcurrency || 4;
-  if (coarse && (cores <= 4 || (navigator.deviceMemory || 4) <= 3)) return 'low';
-  if (coarse || small) return 'medium';
-  return 'high';
-}
+export function detectQuality() { return palier; }        // un seul détecteur pour toute l'application : perf.js
 const TIER = { high: { dpr: 2, shadow: 1024, dust: 220 }, medium: { dpr: 1.5, shadow: 512, dust: 120 }, low: { dpr: 1.25, shadow: 0, dust: 60 } };
 /* r128 : les couleurs hexadécimales sont en sRGB, le rendu attend du linéaire → conversion explicite. */
 const col = (hex) => new (T().Color)(hex).convertSRGBToLinear();
@@ -185,11 +178,11 @@ export function createStage(canvas, { camera: camOpts = {}, floor = true } = {})
   const THREE = T();
   const quality = detectQuality(), tier = TIER[quality];
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: quality !== 'low', alpha: true, powerPreference: 'high-performance' });
-  let dpr = Math.min(window.devicePixelRatio || 1, tier.dpr);
-  renderer.setPixelRatio(dpr);
+  let dpr = 1;                               // fixé par size() : budget de pixels du palier (perf.js), plus le DPR natif
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
-  renderer.shadowMap.enabled = tier.shadow > 0; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.enabled = tier.shadow > 0 && budget().ombres > 0;
+  renderer.shadowMap.type = budget().ombreDouce ? THREE.PCFSoftShadowMap : THREE.PCFShadowMap;
   renderer.setClearColor(0x000000, 0);
 
   const scene = new THREE.Scene();
@@ -225,7 +218,7 @@ export function createStage(canvas, { camera: camOpts = {}, floor = true } = {})
   }
 
   // poussière d'or
-  const N = tier.dust, pos = new Float32Array(N * 3), spd = new Float32Array(N);
+  const N = Math.round(tier.dust * budget().particules), pos = new Float32Array(N * 3), spd = new Float32Array(N);
   for (let i = 0; i < N; i++) { pos[i * 3] = (Math.random() - 0.5) * 12; pos[i * 3 + 1] = Math.random() * 6; pos[i * 3 + 2] = (Math.random() - 0.5) * 12; spd[i] = 0.1 + Math.random() * 0.25; }
   const pg = new THREE.BufferGeometry(); pg.setAttribute('position', new THREE.BufferAttribute(pos, 3));
   const dust = new THREE.Points(pg, new THREE.PointsMaterial({ color: col(0xffe3a0), size: 0.045, transparent: true, opacity: 0.8, depthWrite: false, blending: THREE.AdditiveBlending }));
@@ -238,21 +231,27 @@ export function createStage(canvas, { camera: camOpts = {}, floor = true } = {})
 
   function size() {
     const w = canvas.clientWidth || canvas.parentElement.clientWidth, hgt = canvas.clientHeight || canvas.parentElement.clientHeight;
+    dpr = Math.min(tier.dpr, dprPour(w, hgt, '3d'));
+    renderer.setPixelRatio(dpr);
     renderer.setSize(w, hgt, false); camera.aspect = w / Math.max(1, hgt); camera.updateProjectionMatrix();
   }
   new ResizeObserver(size).observe(canvas); size();
+  // le régulateur commun (perf.js) baisse la définition puis coupe les ombres si la page rame
+  const desabonner = onNiveau((n, b) => {
+    if (n === 0) return;
+    perf.downgrades = n; size();
+    if (b.ombres === 0 && key.castShadow) { key.castShadow = false; renderer.shadowMap.enabled = false; scene.traverse((o) => { if (o.material) o.material.needsUpdate = true; }); }
+  });
+  // hors de l'écran (scène masquée, carte repliée) : on ne dessine plus rien
+  let visible = true, tache = null;
+  const io = typeof IntersectionObserver === 'function' ? new IntersectionObserver((e) => { visible = e[e.length - 1].isIntersecting; if (tache) tache.pause(!(visible && running)); }) : null;
+  if (io) io.observe(canvas);
 
   function frame(now) {
-    raf = requestAnimationFrame(frame);
-    if (!running || document.hidden) return;
+    if (!running || !visible) { t0 = now; return; }
     const rawDt = (now - t0) / 1000; const dt = Math.min(0.12, rawDt); t0 = now;
-    // garde-fou 60 FPS : moyenne glissante, on baisse la définition puis les ombres si ça rame
     if (rawDt > 0 && rawDt < 0.5) { perf.acc += rawDt; perf.n++; }
-    if (perf.n >= 90) {
-      perf.fps = perf.n / perf.acc; perf.n = 0; perf.acc = 0;
-      if (perf.fps < 48 && dpr > 1) { dpr = Math.max(1, dpr - 0.25); renderer.setPixelRatio(dpr); size(); perf.downgrades++; }
-      else if (perf.fps < 40 && key.castShadow) { key.castShadow = false; perf.downgrades++; }
-    }
+    if (perf.n >= 90) { perf.fps = perf.n / perf.acc; perf.n = 0; perf.acc = 0; }
     if (autoOrbit) camState.a += dt * 0.12;
     if (camState.fit) { // cadrage automatique : la sphère englobante du bolide tient toujours dans l'image
       const vf = (camera.fov * Math.PI) / 360, hf = Math.atan(Math.tan(vf) * camera.aspect);
@@ -274,7 +273,7 @@ export function createStage(canvas, { camera: camOpts = {}, floor = true } = {})
     key.intensity = 2.2 + Math.sin(now * 0.0012) * 0.15;
     renderer.render(scene, camera);
   }
-  raf = requestAnimationFrame(frame);
+  tache = boucle('stage3d:' + (canvas.id || 'c') + ':' + Math.random().toString(36).slice(2, 6), frame, { fps: 60, premierPlan: true });
 
   function dispose3(o) { o.traverse((c) => { if (c.geometry) c.geometry.dispose(); if (c.material) { (Array.isArray(c.material) ? c.material : [c.material]).forEach((m) => m.dispose()); } }); }
   function show(obj, { scale = 1, turn = 1 } = {}) {
@@ -320,8 +319,8 @@ export function createStage(canvas, { camera: camOpts = {}, floor = true } = {})
     get fps() { return Math.round(perf.fps); }, get quality() { return quality; }, get pixelRatio() { return dpr; },
     showCar(colors) { camState.fit = null; camState.r = 8.4; camState.h = 2.2; camState.look = 0.7; const c = buildCar(colors); show(c, { scale: 1.15 }); },
     setSpin(v) { spinSpeed = v; }, setOrbit(v) { autoOrbit = v; },
-    setRunning(v) { running = v; },
+    setRunning(v) { running = v; tache.pause(!(v && visible)); },
     flash() { key.intensity = 8; },
-    dispose() { cancelAnimationFrame(raf); if (current) dispose3(current); renderer.dispose(); },
+    dispose() { tache.arreter(); desabonner(); if (io) io.disconnect(); if (current) dispose3(current); renderer.dispose(); },
   };
 }

@@ -12,9 +12,9 @@
  },
  "voies": {
   "nombre_physique": 5,
-  "nombre_grand_prix": 4,
+  "nombre_grand_prix": 5,
   "statut": "publie",
-  "note": "5 voies translucides arc-en-ciel ; le Grand Prix utilise 4 voies (comme l'app) ; la 5e sert de voie « neutre » de réglage ou de voie Boss."
+  "note": "5 voies translucides arc-en-ciel ; le Grand Prix court sur les 5 voies (5 bolides par manche, 15 écuries = 3 groupes de 5)."
  },
  "section_voie": {
   "largeur_utile_mm": {

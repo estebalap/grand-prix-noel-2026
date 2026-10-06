@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Reveals des bolides — Grand Prix de Noël</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../tv/tv.css">
+<link rel="stylesheet" href="../shared/nintendo.css">
+<link rel="stylesheet" href="../shared/perf.css">
+<style>
+  body{margin:0;background:#05030c;color:var(--ink);font-family:var(--font-body,system-ui)}
+  #scene{position:fixed;inset:0;overflow:hidden}
+  #barre{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 16px;background:rgba(5,6,18,.86)}
+  #barre button,#barre select{font:700 15px var(--font-display,system-ui);padding:8px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:#171a33;color:#fff;cursor:pointer}
+  #barre .dim{opacity:.7;font-size:14px}
+  .capture #barre{display:none}
+</style>
+<script>try{var k=new URLSearchParams(location.search).get("skin");if(k)localStorage.setItem("gp.skin",k);document.documentElement.dataset.skin=localStorage.getItem("gp.skin")||"nintendo"}catch(e){document.documentElement.dataset.skin="nintendo"}</script>
+</head>
+<body>
+<div id="scene"></div>
+<div id="barre">
+  <button id="son" type="button">🔊 Activer le son</button>
+  <select id="choix" aria-label="Bolide"></select>
+  <button id="jouer" type="button">▶ Jouer</button>
+  <button id="defile" type="button">⏩ Défilé complet</button>
+  <span class="dim" id="etat"></span>
+</div>
+<script type="module" src="reveal_page.js"></script>
+</body>
+</html>

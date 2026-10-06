@@ -39,8 +39,8 @@ function anglePeage(tau) {
 }
 function chutePeage(cible) { let t = 0; while (anglePeage(t) < cible && t < 5) t += 0.01; return t; }
 
-/* Piste GXX41 (notice) : 5 voies translucides rose, bleu, vert, jaune, orange ; le Grand Prix court sur 1 à 4, la 5e est la
-   voie technique. Cotes de piste_rainbow_road.scad (voie 46, cloison 2,4, entraxe 48,4 mm). La voie VISÉE du labo est la 3
+/* Piste GXX41 (notice) : 5 voies translucides rose, bleu, vert, jaune, orange ; le Grand Prix court sur les 5.
+   Cotes de piste_rainbow_road.scad (voie 46, cloison 2,4, entraxe 48,4 mm). La voie VISÉE du labo est la 3
    (verte), centrée sur z = 0. */
 export const PISTE = { voie: 4.6, cloison: 0.24, pas: 4.84, nb: 5, paroiExt: 0.24, hLibre: 4.6 };
 PISTE.largeur = PISTE.nb * PISTE.voie + (PISTE.nb - 1) * PISTE.cloison;
@@ -298,7 +298,7 @@ export function buildLane(THREE, longueur = 32) {
   // piste complète de la notice : 5 voies aux couleurs GXX41, cloisons et parois extérieures translucides
   const g = new THREE.Group();
   for (let i = 1; i <= PISTE.nb; i++) {
-    const c = COULEURS_VOIES[i - 1].hex, gp = i <= 4;
+    const c = COULEURS_VOIES[i - 1].hex, gp = true;   // les 5 voies sont des voies de course
     const fond = box(THREE, longueur, 0.06, PISTE.voie, new THREE.MeshStandardMaterial({ color: c, transparent: true, opacity: gp ? 0.6 : 0.3,
       emissive: c, emissiveIntensity: i === VOIE_LABO ? 0.55 : 0.22, roughness: 0.25, metalness: 0.05 }));
     fond.position.set(0, -0.03, zVoie(i)); fond.receiveShadow = true; g.add(fond);

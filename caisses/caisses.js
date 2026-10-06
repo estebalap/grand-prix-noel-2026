@@ -6,6 +6,7 @@ import { startAtmosphere } from '../shared/fx.js';
 import { icon } from '../shared/icons.js';
 import * as LBX from '../shared/lootbox.js';
 import { buildCaisse, vignette, DESIGNS, preparerScene, creerBloom } from '../shared/caisses3d.js';
+import { budget, boucle as boucleUnique, dprPour, onNiveau, tailleOmbre } from '../shared/perf.js';
 
 startAtmosphere({ road: false, snow: 0.35, aurora: 0.9 });
 const THREE = window.THREE;
@@ -21,7 +22,7 @@ let renderer, scene, camera, caisses = [], ray, mouse, bloom;
   await placer();
   drawInfo();
   $('#demoL').onclick = demoLegendaire;
-  requestAnimationFrame(boucle);
+  boucleUnique('caisses', boucle, { fps: 60, premierPlan: true });
 })();
 
 const C = () => DATA.rules.caisses;
@@ -34,16 +35,17 @@ function drawFams() {
 
 function initScene() {
   const c = $('#c3');
-  renderer = new THREE.WebGLRenderer({ canvas: c, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+  const b0 = budget();
+  renderer = new THREE.WebGLRenderer({ canvas: c, antialias: b0.bloom === 0 && b0.msaa > 0, alpha: true });
   if ('outputColorSpace' in renderer && THREE.SRGBColorSpace) renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.enabled = b0.ombres > 0;
+  renderer.shadowMap.type = b0.ombreDouce ? THREE.PCFSoftShadowMap : THREE.PCFShadowMap;
   scene = new THREE.Scene();
   preparerScene(THREE, renderer, scene, { teinte: 0x9b7bff });
-  bloom = creerBloom(THREE, renderer, { force: 0.85 });
+  bloom = creerBloom(THREE, renderer, { force: 0.85, actifs: b0.bloom, msaa: b0.msaa });
   camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
   scene.add(new THREE.HemisphereLight(0xdfe7ff, 0x231a3a, 0.85));
-  const sun = new THREE.DirectionalLight(0xffffff, 1.15); sun.position.set(5, 9, 6); sun.castShadow = true; sun.shadow.mapSize.set(1024, 1024); scene.add(sun);
+  const sun = new THREE.DirectionalLight(0xffffff, 1.15); sun.position.set(5, 9, 6); sun.castShadow = b0.ombres > 0; sun.shadow.mapSize.set(tailleOmbre(1024) || 512, tailleOmbre(1024) || 512); scene.add(sun);
   const rimV = new THREE.PointLight(0x9b7bff, 1.4, 30); rimV.position.set(-6, 4, -4); scene.add(rimV);
   const rimG = new THREE.PointLight(0xffc040, 1.2, 30); rimG.position.set(6, 3, -3); scene.add(rimG);
   // socles
@@ -62,8 +64,13 @@ function initScene() {
     const k = caisses.find((x) => { let o = hit.object; while (o) { if (o === x.c.group) return true; o = o.parent; } return false; });
     if (k) { if (st.tier === k.tier) ouvrirDemo(); else { st.tier = k.tier; drawInfo(); } }
   });
-  const resize = () => { const r = c.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); bloom.taille(r.width, r.height); camera.aspect = r.width / Math.max(1, r.height); camera.updateProjectionMatrix(); };
+  const resize = () => { const r = c.getBoundingClientRect(); renderer.setPixelRatio(dprPour(r.width, r.height, '3d')); renderer.setSize(r.width, r.height, false); bloom.taille(r.width, r.height); camera.aspect = r.width / Math.max(1, r.height); camera.updateProjectionMatrix(); };
   window.addEventListener('resize', resize); resize();
+  onNiveau((n, b) => {
+    if (!n) return;
+    resize(); bloom.regler(b.bloom);
+    if (b.ombres === 0 && sun.castShadow) { sun.castShadow = false; renderer.shadowMap.enabled = false; scene.traverse((o) => { if (o.material) o.material.needsUpdate = true; }); }
+  });
 }
 
 async function placer() {
@@ -160,5 +167,4 @@ function boucle(now) {
   const k = Math.max(1, 1.55 / Math.max(0.6, camera.aspect));        // recule sur écran étroit : les 3 caisses restent visibles
   camera.position.set(Math.sin(a) * 1.4, 4.6 * k, (11.8 + Math.cos(a) * 0.6) * k); camera.lookAt(0, 0.8, 0);
   bloom.rendre(scene, camera);
-  requestAnimationFrame(boucle);
 }

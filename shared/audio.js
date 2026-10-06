@@ -17,6 +17,8 @@ export function unlock() {
   if (BANK && !unlock.pre) { unlock.pre = true; preloadMode(bankMode); }
   return true;
 }
+/** Contexte audio débloqué et bus de sortie (null tant que la page n'a pas reçu de geste de l'utilisateur). */
+export const sortieAudio = () => (ac && master && ac.state !== 'closed' ? { ac, master } : null);
 export const setMuted = (m) => { muted = m; if (master) master.gain.value = m ? 0 : 0.7; };
 export const isMuted = () => muted;
 

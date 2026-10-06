@@ -176,7 +176,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "coupe_arc_en_ciel/socle.lod.stl"
     },
     {
      "id": "cheville",
@@ -220,7 +221,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "coupe_arc_en_ciel/cheville.lod.stl"
     },
     {
      "id": "cheville_haut",
@@ -264,7 +266,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "coupe_arc_en_ciel/cheville_haut.lod.stl"
     },
     {
      "id": "plaque",
@@ -308,7 +311,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "coupe_arc_en_ciel/plaque.lod.stl"
     },
     {
      "id": "pied",
@@ -352,7 +356,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "coupe_arc_en_ciel/pied.lod.stl"
     },
     {
      "id": "anneau_1",
@@ -396,7 +401,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "coupe_arc_en_ciel/anneau_1.lod.stl"
     },
     {
      "id": "anneau_2",
@@ -442,7 +448,8 @@
        "~ 8 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
       ],
       "verdict_impression": "A_SURVEILLER"
-     }
+     },
+     "stl_lod": "coupe_arc_en_ciel/anneau_2.lod.stl"
     },
     {
      "id": "anneau_3",
@@ -488,7 +495,8 @@
        "~ 7 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
       ],
       "verdict_impression": "A_SURVEILLER"
-     }
+     },
+     "stl_lod": "coupe_arc_en_ciel/anneau_3.lod.stl"
     },
     {
      "id": "anneau_4",
@@ -534,7 +542,8 @@
        "~ 7 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
       ],
       "verdict_impression": "A_SURVEILLER"
-     }
+     },
+     "stl_lod": "coupe_arc_en_ciel/anneau_4.lod.stl"
     },
     {
      "id": "anneau_5",
@@ -578,7 +587,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "coupe_arc_en_ciel/anneau_5.lod.stl"
     },
     {
      "id": "anneau_6",
@@ -622,7 +632,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "coupe_arc_en_ciel/anneau_6.lod.stl"
     },
     {
      "id": "levre",
@@ -666,7 +677,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "coupe_arc_en_ciel/levre.lod.stl"
     },
     {
      "id": "anse_droite",
@@ -710,7 +722,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "coupe_arc_en_ciel/anse_droite.lod.stl"
     },
     {
      "id": "anse_gauche",
@@ -754,7 +767,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "coupe_arc_en_ciel/anse_gauche.lod.stl"
     }
    ]
   },
@@ -824,7 +838,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "grand_parieur/socle.lod.stl"
     },
     {
      "id": "plaque",
@@ -868,7 +883,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "grand_parieur/plaque.lod.stl"
     },
     {
      "id": "medaillon",
@@ -927,7 +943,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "grand_parieur/medaillon.lod.stl"
     }
    ]
   },
@@ -999,7 +1016,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "cascadeur/socle.lod.stl"
     },
     {
      "id": "cheville",
@@ -1043,7 +1061,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "cascadeur/cheville.lod.stl"
     },
     {
      "id": "plaque",
@@ -1087,7 +1106,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "cascadeur/plaque.lod.stl"
     },
     {
      "id": "tremplin",
@@ -1131,7 +1151,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "cascadeur/tremplin.lod.stl"
     },
     {
      "id": "tonneau",
@@ -1175,7 +1196,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "cascadeur/tonneau.lod.stl"
     },
     {
      "id": "cerclage_1",
@@ -1219,7 +1241,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "cascadeur/cerclage_1.lod.stl"
     },
     {
      "id": "cerclage_2",
@@ -1263,7 +1286,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "cascadeur/cerclage_2.lod.stl"
     }
    ]
   },
@@ -1335,7 +1359,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "saboteur/socle.lod.stl"
     },
     {
      "id": "cheville_c",
@@ -1379,7 +1404,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "saboteur/cheville_c.lod.stl"
     },
     {
      "id": "plaque",
@@ -1423,7 +1449,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "saboteur/plaque.lod.stl"
     },
     {
      "id": "coussin",
@@ -1467,7 +1494,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "saboteur/coussin.lod.stl"
     },
     {
      "id": "couronne",
@@ -1575,7 +1603,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "saboteur/couronne.lod.stl"
     },
     {
      "id": "gland_1",
@@ -1619,7 +1648,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "saboteur/gland_1.lod.stl"
     },
     {
      "id": "gland_2",
@@ -1663,7 +1693,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "saboteur/gland_2.lod.stl"
     },
     {
      "id": "gland_3",
@@ -1707,7 +1738,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "saboteur/gland_3.lod.stl"
     },
     {
      "id": "gland_4",
@@ -1751,7 +1783,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "saboteur/gland_4.lod.stl"
     }
    ]
   },
@@ -1822,7 +1855,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "legende_retro/socle.lod.stl"
     },
     {
      "id": "plaque",
@@ -1866,7 +1900,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "legende_retro/plaque.lod.stl"
     },
     {
      "id": "calandre",
@@ -1910,7 +1945,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "legende_retro/calandre.lod.stl"
     }
    ]
   },
@@ -1981,7 +2017,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "cuillere_bois/socle.lod.stl"
     },
     {
      "id": "plaque",
@@ -2027,7 +2064,8 @@
        "~ 8 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
       ],
       "verdict_impression": "A_SURVEILLER"
-     }
+     },
+     "stl_lod": "cuillere_bois/plaque.lod.stl"
     },
     {
      "id": "cuillere",
@@ -2071,7 +2109,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "cuillere_bois/cuillere.lod.stl"
     }
    ]
   },
@@ -2144,7 +2183,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "loup_wall_street/socle.lod.stl"
     },
     {
      "id": "cheville",
@@ -2188,7 +2228,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "loup_wall_street/cheville.lod.stl"
     },
     {
      "id": "cheville_haut",
@@ -2232,7 +2273,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "loup_wall_street/cheville_haut.lod.stl"
     },
     {
      "id": "plaque",
@@ -2278,7 +2320,8 @@
        "~ 6 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
       ],
       "verdict_impression": "A_SURVEILLER"
-     }
+     },
+     "stl_lod": "loup_wall_street/plaque.lod.stl"
     },
     {
      "id": "pile",
@@ -2330,7 +2373,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "loup_wall_street/pile.lod.stl"
     },
     {
      "id": "moitie_d",
@@ -2374,7 +2418,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "loup_wall_street/moitie_d.lod.stl"
     },
     {
      "id": "moitie_g",
@@ -2418,7 +2463,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "loup_wall_street/moitie_g.lod.stl"
     },
     {
      "id": "cravate",
@@ -2462,7 +2508,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "loup_wall_street/cravate.lod.stl"
     },
     {
      "id": "fleche",
@@ -2506,24 +2553,26 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "loup_wall_street/fleche.lod.stl"
     }
    ]
   },
   {
    "id": "etoile_chaos",
-   "nom": "Étoile du Chaos",
+   "nom": "Étoile du Chaos — la Bombe à Mèche",
    "categorie": "officiel",
    "attribution": "Le plus de pièges posés sur la piste.",
    "prix": "chaos",
    "valide": true,
-   "hauteur_mm": 93.4,
+   "hauteur_mm": 140.8,
    "largeur_mm": 85.0,
-   "masse_g": 62.5,
-   "temps_min": 94,
+   "masse_g": 74.0,
+   "temps_min": 108,
    "couleurs": [
     "11101",
     "11300",
+    "13405",
     "32101"
    ],
    "pieces": [
@@ -2566,7 +2615,7 @@
        },
        {
         "genre": "pont",
-        "aire_mm2": 1137.8,
+        "aire_mm2": 872.2,
         "portee_mm": 39.2,
         "longueur_mm": 39.2,
         "z_mm": 17.0
@@ -2575,16 +2624,17 @@
       "zones_voute": [],
       "aire_surplomb_mm2": 0,
       "pont_max_mm": 39.2,
-      "epaisseur_p1_mm": 5.82,
+      "epaisseur_p1_mm": 5.93,
       "part_paroi_fine": 0.0,
-      "volume_cm3": 152.86,
-      "masse_g": 47.8,
-      "temps_min": 58,
+      "volume_cm3": 148.34,
+      "masse_g": 46.9,
+      "temps_min": 57,
       "couches": 170,
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "etoile_chaos/socle.lod.stl"
     },
     {
      "id": "plaque",
@@ -2628,11 +2678,12 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "etoile_chaos/plaque.lod.stl"
     },
     {
-     "id": "demi_etoile",
-     "nom": "Demi-étoile facettée (PETG)",
+     "id": "bombe",
+     "nom": "Bombe à facettes (PETG)",
      "role": "figure",
      "qte": 1,
      "fil": {
@@ -2642,95 +2693,97 @@
       "hex": "#dfeef3"
      },
      "matiere": "PETG",
-     "stl": "etoile_chaos/demi_etoile.stl",
-     "fichier": "etoile_chaos/03_demi_etoile__translucide.stl",
+     "stl": "etoile_chaos/bombe.stl",
+     "fichier": "etoile_chaos/03_bombe__translucide.stl",
      "analyse": {
-      "nom": "03_demi_etoile__translucide.stl",
+      "nom": "03_bombe__translucide.stl",
       "matiere": "PETG",
       "dimensions_mm": [
-       83.7,
-       79.6,
-       10.0
+       52.0,
+       51.7,
+       75.8
       ],
       "tient_sur_plateau": true,
       "etanche": true,
       "corps": 1,
       "corps_en_lair": 0,
-      "contact_plateau_mm2": 2514.7,
-      "elancement": 0.2,
+      "contact_plateau_mm2": 313.7,
+      "elancement": 4.28,
       "zones_surplomb": [],
       "zones_pont": [],
       "zones_voute": [],
       "aire_surplomb_mm2": 0,
       "pont_max_mm": 0,
-      "epaisseur_p1_mm": 1.02,
-      "part_paroi_fine": 0.0058,
-      "volume_cm3": 9.52,
-      "masse_g": 6.9,
-      "temps_min": 15,
-      "couches": 50,
+      "epaisseur_p1_mm": 0.2,
+      "part_paroi_fine": 0.0217,
+      "volume_cm3": 80.2,
+      "masse_g": 25.1,
+      "temps_min": 39,
+      "couches": 379,
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "etoile_chaos/bombe.lod.stl"
     },
     {
-     "id": "demi_etoile_dos",
-     "nom": "Demi-étoile facettée, dos (PETG)",
-     "role": "figure",
+     "id": "meche",
+     "nom": "Mèche et étincelle",
+     "role": "ornement",
      "qte": 1,
      "fil": {
-      "ref": "32101",
-      "gamme": "PETG",
-      "nom": "Translucide",
-      "hex": "#dfeef3"
+      "ref": "13405",
+      "gamme": "PLA Silk+",
+      "nom": "Doré",
+      "hex": "#d8a63a"
      },
-     "matiere": "PETG",
-     "stl": "etoile_chaos/demi_etoile_dos.stl",
-     "fichier": "etoile_chaos/04_demi_etoile_dos__translucide.stl",
+     "matiere": "PLA",
+     "stl": "etoile_chaos/meche.stl",
+     "fichier": "etoile_chaos/04_meche__dore.stl",
      "analyse": {
-      "nom": "04_demi_etoile_dos__translucide.stl",
-      "matiere": "PETG",
+      "nom": "04_meche__dore.stl",
+      "matiere": "PLA",
       "dimensions_mm": [
-       83.7,
-       79.6,
-       10.0
+       26.7,
+       56.0,
+       3.0
       ],
       "tient_sur_plateau": true,
       "etanche": true,
-      "corps": 1,
+      "corps": 3,
       "corps_en_lair": 0,
-      "contact_plateau_mm2": 2514.7,
-      "elancement": 0.2,
+      "contact_plateau_mm2": 292.2,
+      "elancement": 0.18,
       "zones_surplomb": [],
       "zones_pont": [],
       "zones_voute": [],
       "aire_surplomb_mm2": 0,
       "pont_max_mm": 0,
-      "epaisseur_p1_mm": 1.15,
-      "part_paroi_fine": 0.0025,
-      "volume_cm3": 9.52,
-      "masse_g": 6.9,
-      "temps_min": 15,
-      "couches": 50,
+      "epaisseur_p1_mm": 0.09,
+      "part_paroi_fine": 0.045,
+      "volume_cm3": 0.88,
+      "masse_g": 1.1,
+      "temps_min": 6,
+      "couches": 15,
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "etoile_chaos/meche.lod.stl"
     }
    ]
   },
   {
    "id": "etoile_phenix",
-   "nom": "Étoile du Phénix",
+   "nom": "Étoile du Phénix — le Phénix du Garage",
    "categorie": "officiel",
    "attribution": "La plus belle remontée entre les deux moitiés de la soirée.",
    "prix": "phenix",
    "valide": true,
-   "hauteur_mm": 93.4,
+   "hauteur_mm": 150.5,
    "largeur_mm": 85.0,
-   "masse_g": 62.5,
-   "temps_min": 94,
+   "masse_g": 69.0,
+   "temps_min": 97,
    "couleurs": [
     "11101",
     "11200",
@@ -2776,7 +2829,7 @@
        },
        {
         "genre": "pont",
-        "aire_mm2": 1137.8,
+        "aire_mm2": 941.8,
         "portee_mm": 39.2,
         "longueur_mm": 39.2,
         "z_mm": 17.0
@@ -2785,16 +2838,17 @@
       "zones_voute": [],
       "aire_surplomb_mm2": 0,
       "pont_max_mm": 39.2,
-      "epaisseur_p1_mm": 5.82,
+      "epaisseur_p1_mm": 6.07,
       "part_paroi_fine": 0.0,
-      "volume_cm3": 152.86,
-      "masse_g": 47.8,
+      "volume_cm3": 149.52,
+      "masse_g": 47.4,
       "temps_min": 58,
       "couches": 170,
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "etoile_phenix/socle.lod.stl"
     },
     {
      "id": "plaque",
@@ -2838,11 +2892,12 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "etoile_phenix/plaque.lod.stl"
     },
     {
-     "id": "demi_etoile",
-     "nom": "Demi-étoile facettée (PETG)",
+     "id": "phenix",
+     "nom": "Phénix gravé (PETG)",
      "role": "figure",
      "qte": 1,
      "fil": {
@@ -2852,95 +2907,52 @@
       "hex": "#dfeef3"
      },
      "matiere": "PETG",
-     "stl": "etoile_phenix/demi_etoile.stl",
-     "fichier": "etoile_phenix/03_demi_etoile__translucide.stl",
+     "stl": "etoile_phenix/phenix.stl",
+     "fichier": "etoile_phenix/03_phenix__translucide.stl",
      "analyse": {
-      "nom": "03_demi_etoile__translucide.stl",
+      "nom": "03_phenix__translucide.stl",
       "matiere": "PETG",
       "dimensions_mm": [
-       83.7,
-       79.6,
-       10.0
+       82.5,
+       133.5,
+       8.0
       ],
       "tient_sur_plateau": true,
       "etanche": true,
       "corps": 1,
       "corps_en_lair": 0,
-      "contact_plateau_mm2": 2514.7,
-      "elancement": 0.2,
+      "contact_plateau_mm2": 4943.1,
+      "elancement": 0.11,
       "zones_surplomb": [],
       "zones_pont": [],
       "zones_voute": [],
       "aire_surplomb_mm2": 0,
       "pont_max_mm": 0,
-      "epaisseur_p1_mm": 1.02,
-      "part_paroi_fine": 0.0058,
-      "volume_cm3": 9.52,
-      "masse_g": 6.9,
-      "temps_min": 15,
-      "couches": 50,
+      "epaisseur_p1_mm": 0.22,
+      "part_paroi_fine": 0.0249,
+      "volume_cm3": 29.88,
+      "masse_g": 20.7,
+      "temps_min": 33,
+      "couches": 40,
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
-    },
-    {
-     "id": "demi_etoile_dos",
-     "nom": "Demi-étoile facettée, dos (PETG)",
-     "role": "figure",
-     "qte": 1,
-     "fil": {
-      "ref": "32101",
-      "gamme": "PETG",
-      "nom": "Translucide",
-      "hex": "#dfeef3"
      },
-     "matiere": "PETG",
-     "stl": "etoile_phenix/demi_etoile_dos.stl",
-     "fichier": "etoile_phenix/04_demi_etoile_dos__translucide.stl",
-     "analyse": {
-      "nom": "04_demi_etoile_dos__translucide.stl",
-      "matiere": "PETG",
-      "dimensions_mm": [
-       83.7,
-       79.6,
-       10.0
-      ],
-      "tient_sur_plateau": true,
-      "etanche": true,
-      "corps": 1,
-      "corps_en_lair": 0,
-      "contact_plateau_mm2": 2514.7,
-      "elancement": 0.2,
-      "zones_surplomb": [],
-      "zones_pont": [],
-      "zones_voute": [],
-      "aire_surplomb_mm2": 0,
-      "pont_max_mm": 0,
-      "epaisseur_p1_mm": 1.15,
-      "part_paroi_fine": 0.0025,
-      "volume_cm3": 9.52,
-      "masse_g": 6.9,
-      "temps_min": 15,
-      "couches": 50,
-      "supports": "aucun",
-      "alertes": [],
-      "verdict_impression": "OK"
-     }
+     "stl_lod": "etoile_phenix/phenix.lod.stl"
     }
    ]
   },
   {
    "id": "etoile_chat",
-   "nom": "Étoile Malchance",
+   "nom": "Étoile Malchance — le Chat Noir n° 13",
    "categorie": "officiel",
    "attribution": "Le plus de paris perdus d'un cheveu et de têtes-à-queue.",
    "prix": "chat",
    "valide": true,
-   "hauteur_mm": 93.4,
+   "hauteur_mm": 100.3,
    "largeur_mm": 85.0,
-   "masse_g": 62.5,
-   "temps_min": 94,
+   "masse_g": 63.7,
+   "temps_min": 96,
    "couleurs": [
     "10701",
     "11101",
@@ -2986,7 +2998,7 @@
        },
        {
         "genre": "pont",
-        "aire_mm2": 1137.8,
+        "aire_mm2": 872.2,
         "portee_mm": 39.2,
         "longueur_mm": 39.2,
         "z_mm": 17.0
@@ -2995,16 +3007,17 @@
       "zones_voute": [],
       "aire_surplomb_mm2": 0,
       "pont_max_mm": 39.2,
-      "epaisseur_p1_mm": 5.82,
+      "epaisseur_p1_mm": 5.93,
       "part_paroi_fine": 0.0,
-      "volume_cm3": 152.86,
-      "masse_g": 47.8,
-      "temps_min": 58,
+      "volume_cm3": 148.34,
+      "masse_g": 46.9,
+      "temps_min": 57,
       "couches": 170,
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "etoile_chat/socle.lod.stl"
     },
     {
      "id": "plaque",
@@ -3048,11 +3061,12 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "etoile_chat/plaque.lod.stl"
     },
     {
-     "id": "demi_etoile",
-     "nom": "Demi-étoile facettée (PETG)",
+     "id": "chat",
+     "nom": "Chat noir sur miroir brisé (PETG)",
      "role": "figure",
      "qte": 1,
      "fil": {
@@ -3062,81 +3076,95 @@
       "hex": "#dfeef3"
      },
      "matiere": "PETG",
-     "stl": "etoile_chat/demi_etoile.stl",
-     "fichier": "etoile_chat/03_demi_etoile__translucide.stl",
+     "stl": "etoile_chat/chat.stl",
+     "fichier": "etoile_chat/03_chat__translucide.stl",
      "analyse": {
-      "nom": "03_demi_etoile__translucide.stl",
+      "nom": "03_chat__translucide.stl",
       "matiere": "PETG",
       "dimensions_mm": [
-       83.7,
-       79.6,
-       10.0
+       44.0,
+       44.0,
+       83.3
       ],
       "tient_sur_plateau": true,
       "etanche": true,
       "corps": 1,
       "corps_en_lair": 0,
-      "contact_plateau_mm2": 2514.7,
-      "elancement": 0.2,
+      "contact_plateau_mm2": 313.7,
+      "elancement": 4.7,
       "zones_surplomb": [],
-      "zones_pont": [],
+      "zones_pont": [
+       {
+        "genre": "pont",
+        "aire_mm2": 7.4,
+        "portee_mm": 6.0,
+        "longueur_mm": 6.0,
+        "z_mm": 46.8
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 7.8,
+        "portee_mm": 6.1,
+        "longueur_mm": 6.1,
+        "z_mm": 51.2
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 9.0,
+        "portee_mm": 7.0,
+        "longueur_mm": 7.0,
+        "z_mm": 55.8
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 4.2,
+        "portee_mm": 0.9,
+        "longueur_mm": 4.7,
+        "z_mm": 32.2
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 3.6,
+        "portee_mm": 1.2,
+        "longueur_mm": 4.0,
+        "z_mm": 32.2
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 3.6,
+        "portee_mm": 1.2,
+        "longueur_mm": 4.0,
+        "z_mm": 32.2
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 3.6,
+        "portee_mm": 1.2,
+        "longueur_mm": 4.0,
+        "z_mm": 32.2
+       },
+       {
+        "genre": "pont",
+        "aire_mm2": 4.2,
+        "portee_mm": 0.9,
+        "longueur_mm": 4.7,
+        "z_mm": 32.2
+       }
+      ],
       "zones_voute": [],
       "aire_surplomb_mm2": 0,
-      "pont_max_mm": 0,
-      "epaisseur_p1_mm": 1.02,
-      "part_paroi_fine": 0.0058,
-      "volume_cm3": 9.52,
-      "masse_g": 6.9,
-      "temps_min": 15,
-      "couches": 50,
+      "pont_max_mm": 7.0,
+      "epaisseur_p1_mm": 0.97,
+      "part_paroi_fine": 0.0067,
+      "volume_cm3": 40.21,
+      "masse_g": 15.9,
+      "temps_min": 33,
+      "couches": 416,
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
-    },
-    {
-     "id": "demi_etoile_dos",
-     "nom": "Demi-étoile facettée, dos (PETG)",
-     "role": "figure",
-     "qte": 1,
-     "fil": {
-      "ref": "32101",
-      "gamme": "PETG",
-      "nom": "Translucide",
-      "hex": "#dfeef3"
      },
-     "matiere": "PETG",
-     "stl": "etoile_chat/demi_etoile_dos.stl",
-     "fichier": "etoile_chat/04_demi_etoile_dos__translucide.stl",
-     "analyse": {
-      "nom": "04_demi_etoile_dos__translucide.stl",
-      "matiere": "PETG",
-      "dimensions_mm": [
-       83.7,
-       79.6,
-       10.0
-      ],
-      "tient_sur_plateau": true,
-      "etanche": true,
-      "corps": 1,
-      "corps_en_lair": 0,
-      "contact_plateau_mm2": 2514.7,
-      "elancement": 0.2,
-      "zones_surplomb": [],
-      "zones_pont": [],
-      "zones_voute": [],
-      "aire_surplomb_mm2": 0,
-      "pont_max_mm": 0,
-      "epaisseur_p1_mm": 1.15,
-      "part_paroi_fine": 0.0025,
-      "volume_cm3": 9.52,
-      "masse_g": 6.9,
-      "temps_min": 15,
-      "couches": 50,
-      "supports": "aucun",
-      "alertes": [],
-      "verdict_impression": "OK"
-     }
+     "stl_lod": "etoile_chat/chat.lod.stl"
     }
    ]
   },
@@ -3207,7 +3235,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "demi_coupe/socle.lod.stl"
     },
     {
      "id": "cheville",
@@ -3251,7 +3280,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "demi_coupe/cheville.lod.stl"
     },
     {
      "id": "plaque",
@@ -3295,7 +3325,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "demi_coupe/plaque.lod.stl"
     },
     {
      "id": "demi_coupe",
@@ -3339,7 +3370,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "demi_coupe/demi_coupe.lod.stl"
     },
     {
      "id": "lame_scie",
@@ -3383,7 +3415,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "demi_coupe/lame_scie.lod.stl"
     }
    ]
   },
@@ -3453,7 +3486,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "pigeon_or/socle.lod.stl"
     },
     {
      "id": "cheville",
@@ -3497,7 +3531,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "pigeon_or/cheville.lod.stl"
     },
     {
      "id": "plaque",
@@ -3541,7 +3576,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "pigeon_or/plaque.lod.stl"
     },
     {
      "id": "moitie_d",
@@ -3585,7 +3621,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "pigeon_or/moitie_d.lod.stl"
     },
     {
      "id": "moitie_g",
@@ -3629,7 +3666,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "pigeon_or/moitie_g.lod.stl"
     }
    ]
   },
@@ -3700,7 +3738,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "hamster/socle.lod.stl"
     },
     {
      "id": "cheville",
@@ -3744,7 +3783,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "hamster/cheville.lod.stl"
     },
     {
      "id": "plaque",
@@ -3788,7 +3828,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "hamster/plaque.lod.stl"
     },
     {
      "id": "moitie_d",
@@ -3832,7 +3873,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "hamster/moitie_d.lod.stl"
     },
     {
      "id": "moitie_g",
@@ -3876,7 +3918,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "hamster/moitie_g.lod.stl"
     }
    ]
   },
@@ -3948,7 +3991,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "boomerang/socle.lod.stl"
     },
     {
      "id": "plaque",
@@ -3992,7 +4036,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "boomerang/plaque.lod.stl"
     },
     {
      "id": "tige",
@@ -4038,7 +4083,8 @@
        "~ Pièce élancée (h / √surface = 7.8) : bordure de 3 mm conseillée"
       ],
       "verdict_impression": "A_SURVEILLER"
-     }
+     },
+     "stl_lod": "boomerang/tige.lod.stl"
     },
     {
      "id": "boomerang",
@@ -4082,7 +4128,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "boomerang/boomerang.lod.stl"
     }
    ]
   },
@@ -4155,7 +4202,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "paratonnerre/socle.lod.stl"
     },
     {
      "id": "cheville",
@@ -4199,7 +4247,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "paratonnerre/cheville.lod.stl"
     },
     {
      "id": "plaque",
@@ -4243,7 +4292,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "paratonnerre/plaque.lod.stl"
     },
     {
      "id": "mat",
@@ -4289,7 +4339,8 @@
        "~ Pièce élancée (h / √surface = 8.5) : bordure de 3 mm conseillée"
       ],
       "verdict_impression": "A_SURVEILLER"
-     }
+     },
+     "stl_lod": "paratonnerre/mat.lod.stl"
     },
     {
      "id": "eclair",
@@ -4333,7 +4384,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "paratonnerre/eclair.lod.stl"
     },
     {
      "id": "nuage",
@@ -4377,7 +4429,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "paratonnerre/nuage.lod.stl"
     }
    ]
   },
@@ -4449,7 +4502,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "kamikaze/socle.lod.stl"
     },
     {
      "id": "cheville",
@@ -4493,7 +4547,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "kamikaze/cheville.lod.stl"
     },
     {
      "id": "plaque",
@@ -4537,7 +4592,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "kamikaze/plaque.lod.stl"
     },
     {
      "id": "moitie_d",
@@ -4589,7 +4645,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "kamikaze/moitie_d.lod.stl"
     },
     {
      "id": "moitie_g",
@@ -4641,7 +4698,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "kamikaze/moitie_g.lod.stl"
     },
     {
      "id": "aile_droite",
@@ -4685,7 +4743,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "kamikaze/aile_droite.lod.stl"
     },
     {
      "id": "aile_gauche",
@@ -4729,7 +4788,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "kamikaze/aile_gauche.lod.stl"
     }
    ]
   },
@@ -4800,7 +4860,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "tortue/socle.lod.stl"
     },
     {
      "id": "cheville",
@@ -4844,7 +4905,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "tortue/cheville.lod.stl"
     },
     {
      "id": "plaque",
@@ -4890,7 +4952,8 @@
        "~ 6 % de la surface sur des parois < 0,8 mm (vérifier l'aperçu du trancheur)"
       ],
       "verdict_impression": "A_SURVEILLER"
-     }
+     },
+     "stl_lod": "tortue/plaque.lod.stl"
     },
     {
      "id": "moitie_d",
@@ -4934,7 +4997,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "tortue/moitie_d.lod.stl"
     },
     {
      "id": "moitie_g",
@@ -4978,7 +5042,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "tortue/moitie_g.lod.stl"
     },
     {
      "id": "lunettes",
@@ -5022,7 +5087,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "tortue/lunettes.lod.stl"
     }
    ]
   },
@@ -5093,7 +5159,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "collectionneur/socle.lod.stl"
     },
     {
      "id": "cheville",
@@ -5137,7 +5204,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "collectionneur/cheville.lod.stl"
     },
     {
      "id": "plaque",
@@ -5181,7 +5249,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "collectionneur/plaque.lod.stl"
     },
     {
      "id": "tour",
@@ -5225,7 +5294,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "collectionneur/tour.lod.stl"
     }
    ]
   },
@@ -5296,7 +5366,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "trefle/socle.lod.stl"
     },
     {
      "id": "plaque",
@@ -5340,7 +5411,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "trefle/plaque.lod.stl"
     },
     {
      "id": "trefle",
@@ -5384,7 +5456,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "trefle/trefle.lod.stl"
     }
    ]
   },
@@ -5455,7 +5528,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "mendiant/socle.lod.stl"
     },
     {
      "id": "cheville",
@@ -5499,7 +5573,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "mendiant/cheville.lod.stl"
     },
     {
      "id": "plaque",
@@ -5543,7 +5618,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "mendiant/plaque.lod.stl"
     },
     {
      "id": "chapeau",
@@ -5595,7 +5671,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "mendiant/chapeau.lod.stl"
     },
     {
      "id": "piece_1",
@@ -5639,7 +5716,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "mendiant/piece_1.lod.stl"
     },
     {
      "id": "piece_2",
@@ -5683,7 +5761,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "mendiant/piece_2.lod.stl"
     },
     {
      "id": "piece_3",
@@ -5727,7 +5806,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "mendiant/piece_3.lod.stl"
     },
     {
      "id": "ruban",
@@ -5771,7 +5851,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "mendiant/ruban.lod.stl"
     }
    ]
   },
@@ -5845,7 +5926,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "doigt_de_feu/socle.lod.stl"
     },
     {
      "id": "plaque",
@@ -5889,7 +5971,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "doigt_de_feu/plaque.lod.stl"
     },
     {
      "id": "bouton",
@@ -5933,7 +6016,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "doigt_de_feu/bouton.lod.stl"
     },
     {
      "id": "flammes_jaunes",
@@ -5977,7 +6061,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "doigt_de_feu/flammes_jaunes.lod.stl"
     },
     {
      "id": "flammes_orange",
@@ -6021,7 +6106,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "doigt_de_feu/flammes_orange.lod.stl"
     },
     {
      "id": "flammes_rouges",
@@ -6065,7 +6151,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "doigt_de_feu/flammes_rouges.lod.stl"
     }
    ]
   },
@@ -6138,7 +6225,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "oeil_de_lynx/socle.lod.stl"
     },
     {
      "id": "plaque",
@@ -6182,7 +6270,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "oeil_de_lynx/plaque.lod.stl"
     },
     {
      "id": "anneau_1",
@@ -6226,7 +6315,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "oeil_de_lynx/anneau_1.lod.stl"
     },
     {
      "id": "anneau_2",
@@ -6270,7 +6360,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "oeil_de_lynx/anneau_2.lod.stl"
     },
     {
      "id": "anneau_3",
@@ -6314,7 +6405,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "oeil_de_lynx/anneau_3.lod.stl"
     },
     {
      "id": "anneau_4",
@@ -6358,7 +6450,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "oeil_de_lynx/anneau_4.lod.stl"
     },
     {
      "id": "flechette",
@@ -6404,7 +6497,8 @@
        "~ Pièce élancée (h / √surface = 7.8) : bordure de 3 mm conseillée"
       ],
       "verdict_impression": "A_SURVEILLER"
-     }
+     },
+     "stl_lod": "oeil_de_lynx/flechette.lod.stl"
     }
    ]
   },
@@ -6474,7 +6568,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "boss_de_fin/socle.lod.stl"
     },
     {
      "id": "plaque",
@@ -6518,7 +6613,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "boss_de_fin/plaque.lod.stl"
     },
     {
      "id": "contour",
@@ -6562,7 +6658,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "boss_de_fin/contour.lod.stl"
     },
     {
      "id": "sprite",
@@ -6606,7 +6703,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "boss_de_fin/sprite.lod.stl"
     }
    ]
   },
@@ -6680,7 +6778,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "game_over/socle.lod.stl"
     },
     {
      "id": "cheville",
@@ -6724,7 +6823,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "game_over/cheville.lod.stl"
     },
     {
      "id": "plaque",
@@ -6768,7 +6868,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "game_over/plaque.lod.stl"
     },
     {
      "id": "borne",
@@ -6812,7 +6913,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "game_over/borne.lod.stl"
     },
     {
      "id": "ecran",
@@ -6856,7 +6958,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "game_over/ecran.lod.stl"
     },
     {
      "id": "fronton",
@@ -6900,7 +7003,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "game_over/fronton.lod.stl"
     },
     {
      "id": "manette",
@@ -6944,7 +7048,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "game_over/manette.lod.stl"
     }
    ]
   },
@@ -7016,7 +7121,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "combo/socle.lod.stl"
     },
     {
      "id": "plaque",
@@ -7060,7 +7166,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "combo/plaque.lod.stl"
     },
     {
      "id": "contour",
@@ -7104,7 +7211,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "combo/contour.lod.stl"
     },
     {
      "id": "chiffres",
@@ -7148,7 +7256,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "combo/chiffres.lod.stl"
     }
    ]
   },
@@ -7220,7 +7329,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "rage_quit/socle.lod.stl"
     },
     {
      "id": "plaque",
@@ -7264,7 +7374,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "rage_quit/plaque.lod.stl"
     },
     {
      "id": "moitie_droite",
@@ -7308,7 +7419,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "rage_quit/moitie_droite.lod.stl"
     },
     {
      "id": "moitie_gauche",
@@ -7352,7 +7464,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "rage_quit/moitie_gauche.lod.stl"
     },
     {
      "id": "etincelle",
@@ -7396,7 +7509,8 @@
       "supports": "aucun",
       "alertes": [],
       "verdict_impression": "OK"
-     }
+     },
+     "stl_lod": "rage_quit/etincelle.lod.stl"
     }
    ]
   }

@@ -78,7 +78,7 @@
 .wxcard{width:520px;padding:12px 26px;display:flex;gap:18px;align-items:center}.wxcard .ico{color:var(--gold-2)}.wxcard b{font:700 28px var(--font-display);text-transform:uppercase;display:block}.wxcard span{font-size:16px;color:var(--ink-dim);line-height:1.25;display:block}
 .timer{width:166px;display:grid;place-items:center;position:relative}.timer svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
 .timer b{font:800 58px var(--font-display);position:relative}.timer.hot b{color:var(--red);animation:pulse 1s infinite}
-.lanes{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;flex:1;perspective:1600px}
+.lanes{display:grid;grid-template-columns:repeat(var(--nv,4),1fr);gap:20px;flex:1;perspective:1600px}
 .lane{--lc:#fff;--tc:#fff;position:relative;display:flex;flex-direction:column;padding:18px 20px 16px;border-top:6px solid var(--lc);transform:rotateX(4deg);transform-origin:50% 100%;transition:transform .6s,box-shadow .6s}
 .lane.win{box-shadow:0 0 0 3px var(--gold-2),0 0 90px rgba(255,211,106,.45);transform:none}
 .lane .ln{position:absolute;left:18px;top:-2px;transform:translateY(-100%);font:800 24px var(--font-display);background:var(--lc);color:#111;padding:4px 18px;border-radius:12px 12px 0 0;letter-spacing:.1em}
@@ -112,7 +112,7 @@
 
 /* ---------- RÉSULTAT ---------- */
 .result{height:100%;display:grid;grid-template-columns:1fr 600px;gap:36px}
-.podium{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:end;height:100%;padding-bottom:12px}
+.podium{display:grid;grid-template-columns:repeat(var(--nv,4),1fr);gap:18px;align-items:end;height:100%;padding-bottom:12px}
 .pcol{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:8px;--lc:#fff;position:relative}
 .pcol .car-svg{width:100%;max-width:330px;filter:drop-shadow(0 12px 14px rgba(0,0,0,.55))}
 .pcol .al{font:700 25px/1.05 var(--font-display);text-transform:uppercase;text-align:center;min-height:54px}

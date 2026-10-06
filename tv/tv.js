@@ -12,6 +12,7 @@ import { applyTheme, themeOf } from '../shared/themes.js';
 import { createPlaylistPlayer } from '../shared/playlist.js';
 import { medal, ghostMedal, carArt, statBars, teamAccent, pad2 } from '../shared/ui.js';
 import { createStage } from '../shared/stage3d.js';
+import { revealCinematique, chargerReveal } from '../shared/reveal.js';
 import { mountAdmin, ADMIN_CSS } from '../shared/admin.js';
 import { createVideoLibrary, makeVideo, waitPlayable, playWithSound, fadeVolume, disposeVideo } from '../shared/videos.js';
 import * as LBX from '../shared/lootbox.js';
@@ -360,6 +361,7 @@ async function runReveals() {
     const c = car(code); if (!c) continue;
     const src = vids.car(code);
     if (src && await revealVideo(c, teamId, src, slot, size)) continue;
+    if (await revealPhoto(c, teamId, slot, size)) continue;          // cinématique générée par le code (photo + jingle)
     await revealCard(c, teamId, slot, size);
   }
   revealBusy = false;
@@ -372,7 +374,19 @@ function revealInfo(c, teamId, slot, size) {
     <div class="qt">« ${esc(c.citation)} »</div><div class="lore">${esc(c.lore)}</div>
     ${statBars(c, 5)}`;
 }
-/* Repli sans vidéo : fiche profil avec balayage de lumière dorée */
+/* Sans clip vidéo mais avec la photo de la miniature : cinématique générée (shared/reveal.js) dans le thème du bolide,
+   jingle assorti, puis fiche (stats + description) */
+async function revealPhoto(c, teamId, slot, size) {
+  const t = team(teamId);
+  const vol = music.volume; music.setVolume(Math.min(vol, 0.1));
+  snd.sfx('reveal');
+  const ok = await revealCinematique(overlay, { car: c, teamId, couleurs: t ? t.colors : undefined, infoHtml: revealInfo(c, teamId, slot, size),
+    duree: revealQueue.length ? 4800 : 6200 }).catch(() => false);
+  music.setVolume(vol);
+  if (ok) confetti({ x: 0.3, y: 0.55, count: 50, power: 0.8 });
+  return ok;
+}
+/* Repli sans vidéo ni photo : fiche profil avec balayage de lumière dorée */
 async function revealCard(c, teamId, slot, size) {
   snd.sfx('reveal');
   const el = h(`<div class="reveal gold"><div class="card deco"><div class="art">${carArt(c.code, teamId, 'rv')}</div><div>${revealInfo(c, teamId, slot, size)}</div></div><div class="sweep"></div></div>`);
@@ -515,8 +529,8 @@ function raceLive(s, el) {
 }
 function renderBoost(el) {
   if (!S || !el || cur?.name !== 'race') return;
-  const per = [0, 0, 0, 0], who = [0, 0, 0, 0];
-  Object.values(boostLast).forEach((d) => { if (d.lane >= 0 && d.lane < 4) { per[d.lane] += d.taps; who[d.lane] += 1; } });
+  const nL = S.heat.lanes.length, per = Array(nL).fill(0), who = Array(nL).fill(0);
+  Object.values(boostLast).forEach((d) => { if (d.lane >= 0 && d.lane < nL) { per[d.lane] += d.taps; who[d.lane] += 1; } });
   const mx = Math.max(60, ...per);
   per.forEach((v, i) => {
     const bar = $(`[data-boost="${i}"]`, el); if (bar) bar.style.width = (v / mx * 100) + '%';
@@ -563,7 +577,7 @@ function sResult(s) {
   const cols = r.order.map((lane, rank) => {
     const l = hh.lanes[lane], c = car(l.code), tm = l.teamId != null ? team(l.teamId) : null;
     const dnf = r.dnf.includes(lane);
-    const pts = dnf ? 0 : DATA.rules.rules.heatPoints[rank];
+    const pts = dnf ? 0 : ((hh.lanes.length >= 5 && DATA.rules.rules.heatPoints5) || DATA.rules.rules.heatPoints)[rank];   // barème selon le nombre de voies
     return `<div class="pcol" style="--lc:${LANE_COLORS[lane]}">
       ${rank === 0 && !dnf ? `<div class="crown">${icon('crown', 64)}</div>` : ''}
       ${carArt(l.code, l.teamId, 'p' + lane)}

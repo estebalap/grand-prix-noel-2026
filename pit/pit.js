@@ -355,7 +355,7 @@ function betLimits(s, lane = ui.betLane, kind = ui.betKind) {
 }
 function renderBetting(s) {
   const hh = s.heat, p = s.players[me], mode = modeOf(s.mode);
-  if (hh.n === 0 || hh.status === 'idle') { main.innerHTML = `<div class="card deco center"><div class="h2">En attente de la grille</div><p class="dim">La régie tire les 4 bolides de la prochaine manche…</p></div>${tauntCard(s)}`; bindTaunts(); return; }
+  if (hh.n === 0 || hh.status === 'idle') { main.innerHTML = `<div class="card deco center"><div class="h2">En attente de la grille</div><p class="dim">La régie tire les bolides de la prochaine manche…</p></div>${tauntCard(s)}`; bindTaunts(); return; }
   const open = hh.betsOpen;
   if (ui.betLane == null || !hh.lanes[ui.betLane]) ui.betLane = hh.lanes.findIndex((l) => l);
   const lim = betLimits(s);
@@ -379,7 +379,7 @@ function renderBetting(s) {
   main.innerHTML = `
     <div class="card deco"><div class="row sp"><div><div class="h2" style="margin:0">Manche ${hh.n}</div><b>${esc(hh.kind === 'finale' ? 'Grande Finale' : hh.kind === 'demi' ? 'Demi-finale' : hh.kind === 'reliques' ? 'Coupe des Reliques' : 'Poule')}</b></div>
       <div style="text-align:right"><div class="h2" style="margin:0">${open ? 'Bourse ouverte' : hh.status === 'setup' ? 'Grille prête' : 'Bourse fermée'}</div><div class="tnum ${''}" id="tn" style="font-size:34px">${open ? '' : '—'}</div></div></div>
-      <div class="timer ${open ? '' : 'hide'}"><i id="tb" style="width:100%"></i></div></div>
+      <div class="timer ${open ? '' : 'hide'}"><i id="tb" class="perf-barre" style="width:100%"></i></div></div>
     ${fog ? `<div class="card fogcard">${icon('glasses', 34)}<div><b>Verres Teintés !</b><div class="small">Une écurie rivale t'a brouillé la vue : cotes masquées pour cette manche. Tu peux parier… à l'aveugle.</div></div></div>` : ''}
     ${weatherCard(s)}
     ${mode.betting ? `<div class="card deco"><div class="h2">Ta mise</div>
@@ -702,7 +702,7 @@ function renderRace(s) {
   const l = hh.lanes[ui.tapLane], c = l && l.code ? car(l.code) : null;
   main.innerHTML = `<div class="card deco center"><div class="h2" id="rt">${hh.status === 'countdown' ? 'Tous au départ !' : 'Course en cours'}</div>
     <div class="dim small">Choisis ton camp, puis tape comme un fou : 1 pièce toutes les ${DATA.rules.rules.boostCoinsPerTaps} frappes si ta voie gagne (max ${DATA.rules.rules.boostCoinsMax}).</div></div>
-    <div class="laneswitch">${[0, 1, 2, 3].map((i) => hh.lanes[i] ? `<button style="--lc:${LANE_COLORS[i]}" data-ln="${i}" class="${ui.tapLane === i ? 'on' : ''}">${i + 1}</button>` : '<span></span>').join('')}</div>
+    <div class="laneswitch">${hh.lanes.map((_, i) => i).map((i) => hh.lanes[i] ? `<button style="--lc:${LANE_COLORS[i]}" data-ln="${i}" class="${ui.tapLane === i ? 'on' : ''}">${i + 1}</button>` : '<span></span>').join('')}</div>
     <div class="center dim small">Tu soutiens : <b style="color:${LANE_COLORS[ui.tapLane]}">${esc(c ? c.alias : 'voie ' + (ui.tapLane + 1))}</b></div>
     ${fireCard(s)}
     <div class="tapzone"><button class="tapbtn" id="tap">TAPE !<small id="tapn">${ui.taps} frappes</small></button></div>
@@ -745,7 +745,7 @@ function renderResult(s) {
   const lines = r.order.map((lane, rank) => {
     const l = hh.lanes[lane], c = car(l.code), t = l.teamId != null ? team(l.teamId) : null;
     const dnf = r.dnf.includes(lane);
-    return `<div class="res"><span class="r">${dnf ? '✕' : rank + 1}</span>${t ? medal(t.id, 40) : ''}<div class="grow"><b style="text-transform:uppercase;font:700 14px var(--font-display)">${esc(c.alias)}</b><div class="dim small">${esc(t ? t.nickname : 'Fantôme')}${dnf ? ' · sorti de piste' : ''}</div></div><b class="coin">${dnf ? 0 : '+' + DATA.rules.rules.heatPoints[rank] + ' pts'}</b></div>`;
+    return `<div class="res"><span class="r">${dnf ? '✕' : rank + 1}</span>${t ? medal(t.id, 40) : ''}<div class="grow"><b style="text-transform:uppercase;font:700 14px var(--font-display)">${esc(c.alias)}</b><div class="dim small">${esc(t ? t.nickname : 'Fantôme')}${dnf ? ' · sorti de piste' : ''}</div></div><b class="coin">${dnf ? 0 : '+' + ((hh.lanes.length >= 5 && DATA.rules.rules.heatPoints5) || DATA.rules.rules.heatPoints)[rank] + ' pts'}</b></div>`;
   }).join('');
   main.innerHTML = `
     <div class="card deco center"><div class="h2">Manche ${hh.n} · Résultat</div>
@@ -859,7 +859,7 @@ function frame() {
   if (tn && hh.betsOpen) {
     const total = DATA.rules.rules.betWindowSec * 1000, left = Math.max(0, hh.windowEndsAt - now());
     tn.textContent = Math.ceil(left / 1000) + ' s'; tn.classList.toggle('hot', left < 10000);
-    if (tb) tb.style.width = (left / total * 100) + '%';
+    if (tb) tb.style.transform = 'scaleX(' + Math.max(0, Math.min(1, left / total)).toFixed(4) + ')';   // compositeur : pas de mise en page
     if (left <= 0 && S.phase === 'BETTING') { /* le serveur fermera la Bourse ; l'état suivant redessine l'écran */ }
   }
 }

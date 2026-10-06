@@ -14,7 +14,10 @@
     "citation": "N'a jamais payé un seul PV de stationnement à Gotham City.",
     "lore": "Dotée d'un réacteur dorsal et d'un gyrophare rouge clignotant, cette légende vintage impose le silence sur la grille de départ.",
     "voie_preferee": "Voie 1 (Côté remparts)",
-    "poids_estime": "34g"
+    "poids_estime": "34g",
+    "photo_fichier": "B01_Batmobile_Classic_1966.jpg",
+    "photo_resolution": "1000x1200",
+    "photo_taille_kb": 274
   },
   {
     "category_folder": "01_Univers_Batman",
@@ -31,7 +34,10 @@
     "citation": "Quand Alfred fait la vidange, les chronos tombent.",
     "lore": "Version allégée conçue pour les ruelles étroites de Gotham, redoutable en relance après chicane.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "32g"
+    "poids_estime": "32g",
+    "photo_fichier": "B02_Batmobile_1989.jpg",
+    "photo_resolution": "320x153",
+    "photo_taille_kb": 13
   },
   {
     "category_folder": "01_Univers_Batman",
@@ -48,7 +54,10 @@
     "citation": "Si vous la voyez dans le rétro, c'est déjà trop tard.",
     "lore": "Carrosserie noir satiné traitée au téflon pour glisser entre les concurrents sans la moindre égratignure.",
     "voie_preferee": "Voie 3",
-    "poids_estime": "33g"
+    "poids_estime": "33g",
+    "photo_fichier": "B03_Batmobile_Animated_Series.jpg",
+    "photo_resolution": "1600x661",
+    "photo_taille_kb": 167
   },
   {
     "category_folder": "01_Univers_Batman",
@@ -65,7 +74,10 @@
     "citation": "Une chauve-souris sur roues, le cauchemar des assureurs.",
     "lore": "Son aileron en queue de chauve-souris lui confère un appui monumental dans les descentes vertigineuses.",
     "voie_preferee": "Voie 4",
-    "poids_estime": "35g"
+    "poids_estime": "35g",
+    "photo_fichier": "B04_Batmobile_The_Batman.jpg",
+    "photo_resolution": "1600x875",
+    "photo_taille_kb": 209
   },
   {
     "category_folder": "01_Univers_Batman",
@@ -82,7 +94,10 @@
     "citation": "Moins de parlotte, plus de nitro.",
     "lore": "Châssis en zamak lourd qui garantit une stabilité maximale même face aux rafales de ventilateur.",
     "voie_preferee": "Voie 1",
-    "poids_estime": "36g"
+    "poids_estime": "36g",
+    "photo_fichier": "B05_Batmobile_Classic_Comic.jpg",
+    "photo_resolution": "1000x1200",
+    "photo_taille_kb": 274
   },
   {
     "category_folder": "01_Univers_Batman",
@@ -99,7 +114,10 @@
     "citation": "Dis-moi... est-ce que tes amortisseurs saignent ?",
     "lore": "Profil bas et blindage méchant : cette bête a été conçue pour encaisser les coups bas et rouler sur les carapaces.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "37g"
+    "poids_estime": "37g",
+    "photo_fichier": "B06_Batmobile_BvS.jpg",
+    "photo_resolution": "1600x1085",
+    "photo_taille_kb": 239
   },
   {
     "category_folder": "01_Univers_Batman",
@@ -116,7 +134,10 @@
     "citation": "Qui a dit que les hélicos n'avaient pas le droit de courir sur piste ?",
     "lore": "Les pales tournent à vide pour créer un courant d'air déstabilisateur pour les concurrents des voies adjacentes.",
     "voie_preferee": "Voie 4 (Plein air)",
-    "poids_estime": "29g"
+    "poids_estime": "29g",
+    "photo_fichier": "B07_Batcopter.jpg",
+    "photo_resolution": "1000x1200",
+    "photo_taille_kb": 315
   },
   {
     "category_folder": "01_Univers_Batman",
@@ -133,7 +154,10 @@
     "citation": "Même l'homme d'acier n'ose pas la doubler par l'extérieur.",
     "lore": "Un museau effilé capable de fendre l'air et de bousculer n'importe quel poids lourd sur la grille.",
     "voie_preferee": "Voie 3",
-    "poids_estime": "35g"
+    "poids_estime": "35g",
+    "photo_fichier": "B08_Batmobile_BvS_Kryptonite.jpg",
+    "photo_resolution": "320x153",
+    "photo_taille_kb": 13
   },
   {
     "category_folder": "01_Univers_Batman",
@@ -150,7 +174,10 @@
     "citation": "Une gueule de tank avec un cœur de dragster.",
     "lore": "Les jantes renforcées résistent à toutes les sorties de piste impromptues.",
     "voie_preferee": "Voie 1",
-    "poids_estime": "38g"
+    "poids_estime": "38g",
+    "photo_fichier": "B09_Batmobile_BvS_Armure.jpg",
+    "photo_resolution": "1600x1085",
+    "photo_taille_kb": 239
   },
   {
     "category_folder": "01_Univers_Batman",
@@ -167,7 +194,10 @@
     "citation": "Pourquoi as-tu dit ce nom ?!",
     "lore": "Un bolide ultra agressif dont le moteur rugit dès que la barrière de départ s'abaisse.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "36g"
+    "poids_estime": "36g",
+    "photo_fichier": "B10_Batmobile_BvS_Martha.jpg",
+    "photo_resolution": "1500x1125",
+    "photo_taille_kb": 231
   },
   {
     "category_folder": "01_Univers_Batman",
@@ -184,7 +214,10 @@
     "citation": "Permis et carte grise... et laissez passer le panier à salade !",
     "lore": "Sirène hurlante et boîte à gants bourrée de contraventions pour excès de vitesse.",
     "voie_preferee": "Voie 3",
-    "poids_estime": "34g"
+    "poids_estime": "34g",
+    "photo_fichier": "B11_GCPD_Police_Cruiser.jpg",
+    "photo_resolution": "1067x632",
+    "photo_taille_kb": 164
   },
   {
     "category_folder": "01_Univers_Batman",
@@ -201,7 +234,10 @@
     "citation": "Why so serious on the Rainbow Road?! HAHAHA !",
     "lore": "Carrosserie violette et verte toxique. Glisse sur les bananes comme si c'était fait exprès.",
     "voie_preferee": "Voie 4 (Côté précipice)",
-    "poids_estime": "33g"
+    "poids_estime": "33g",
+    "photo_fichier": "B12_Joker_Getaway_Car.jpg",
+    "photo_resolution": "957x853",
+    "photo_taille_kb": 225
   },
   {
     "category_folder": "01_Univers_Batman",
@@ -218,7 +254,17 @@
     "citation": "Un aileron plus grand que le sapin de Noël.",
     "lore": "Hommage à l'ère Schumacher avec ses néons bleus imaginaires et ses lignes biomorphiques extravagantes.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "35g"
+    "poids_estime": "35g",
+    "photo_fichier": "B13_Batmobile_Batman_Forever_1995.jpg",
+    "photo_resolution": "1600x880",
+    "photo_taille_kb": 226,
+    "casting": "Batman Forever Batmobile",
+    "variante": "gris argent, nervures et ailerons gris anthracite",
+    "couleurs": [
+      "#9ea3a8",
+      "#5b6066"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "01_Univers_Batman",
@@ -235,7 +281,17 @@
     "citation": "Sortez les patins à glace, Mr Freeze arrive !",
     "lore": "Cockpit ouvert démesuré et roues lumineuses. Une pièce de collection qui refuse de freiner.",
     "voie_preferee": "Voie 1",
-    "poids_estime": "34g"
+    "poids_estime": "34g",
+    "photo_fichier": "B14_Batmobile_Batman_and_Robin_1997.jpg",
+    "photo_resolution": "1600x678",
+    "photo_taille_kb": 144,
+    "casting": "Batman & Robin Batmobile",
+    "variante": "bleu nuit métallisé",
+    "couleurs": [
+      "#1c2a5c",
+      "#2b3d7a"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "01_Univers_Batman",
@@ -252,13 +308,23 @@
     "citation": "Est-ce qu'elle existe en noir ? Oui, et elle écrase tout.",
     "lore": "Un monstre blindé. Quand il touche un rail, c'est le rail qui s'excuse.",
     "voie_preferee": "Voie 3",
-    "poids_estime": "42g"
+    "poids_estime": "42g",
+    "photo_fichier": "B15_Tumbler_The_Dark_Knight.jpg",
+    "photo_resolution": "1253x896",
+    "photo_taille_kb": 184,
+    "casting": "The Dark Knight Batmobile",
+    "variante": "noir, jantes à liseré rouge",
+    "couleurs": [
+      "#16171a",
+      "#b3121c"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "01_Univers_Batman",
     "car_folder": "Batmobile_Generique",
     "code": "B16",
-    "real_name": "Batmobile Generic HW Concept",
+    "real_name": "Batmobile The Batman (2022)",
     "alias": "Le Prototype Furtif",
     "ecurie": "Wayne Skunkworks",
     "vitesse": 87,
@@ -269,13 +335,22 @@
     "citation": "Classée secret défense par Lucius Fox.",
     "lore": "Un concept hybride entre avion de chasse et dragster urbain, prêt à bondir à la moindre ouverture.",
     "voie_preferee": "Voie 4",
-    "poids_estime": "32g"
+    "poids_estime": "32g",
+    "photo_fichier": "B16_Batmobile_Generic_HW.jpg",
+    "photo_resolution": "1600x875",
+    "photo_taille_kb": 209,
+    "casting": "Batmobile (The Batman, 2022)",
+    "variante": "noir mat",
+    "couleurs": [
+      "#1b1c1f"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "02_JDM_et_Asiatiques",
     "car_folder": "Toyota_Supra",
     "code": "J01",
-    "real_name": "Toyota Supra MK4",
+    "real_name": "Toyota GR Supra (2020)",
     "alias": "Is That A Supra ?!",
     "ecurie": "Tokyo Midnight Club",
     "vitesse": 96,
@@ -284,9 +359,19 @@
     "facteur_chaos": 45,
     "intimidation": 96,
     "citation": "2JZ no shit ! 1000 chevaux sous le capot miniature.",
-    "lore": "Le son de son double turbo s'entend jusque dans le salon. Légende absolue des lignes droites.",
+    "lore": "Le grondement de son six-cylindres turbo s'entend jusque dans le salon. Héritière d'une légende des lignes droites.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "35g"
+    "poids_estime": "35g",
+    "photo_fichier": "J01_Toyota_Supra_MK4.jpg",
+    "photo_resolution": "1508x978",
+    "photo_taille_kb": 225,
+    "casting": "'20 Toyota GR Supra",
+    "variante": "gris argent",
+    "couleurs": [
+      "#a9adb3",
+      "#7d8288"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "02_JDM_et_Asiatiques",
@@ -303,7 +388,17 @@
     "citation": "Running in the 90s ! Gobelet d'eau intact sur le tableau de bord.",
     "lore": "La reine du drift sur le col d'Akina. Dévale la piste arc-en-ciel en crabe permanent.",
     "voie_preferee": "Voie 1 (Intérieur virage)",
-    "poids_estime": "31g"
+    "poids_estime": "31g",
+    "photo_fichier": "J02_Toyota_AE86_Sprinter_Trueno.jpg",
+    "photo_resolution": "320x167",
+    "photo_taille_kb": 16,
+    "casting": "Toyota AE86 Sprinter Trueno",
+    "variante": "violet, décor graphique blanc et rose",
+    "couleurs": [
+      "#5b2a8c",
+      "#7a3cb0"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "02_JDM_et_Asiatiques",
@@ -320,13 +415,16 @@
     "citation": "Zéro émission, 100% d'humiliation pour les V8.",
     "lore": "Personne ne la voit venir à cause de son moteur électrique ultra silencieux... jusqu'au dépassement fatal.",
     "voie_preferee": "Voie 3",
-    "poids_estime": "33g"
+    "poids_estime": "33g",
+    "photo_fichier": "J03_Toyota_Prius_Custom.jpg",
+    "photo_resolution": "1600x637",
+    "photo_taille_kb": 191
   },
   {
     "category_folder": "02_JDM_et_Asiatiques",
     "car_folder": "Toyota_Van",
     "code": "J04",
-    "real_name": "Toyota Van Custom",
+    "real_name": "Toyota Van 1986",
     "alias": "Le Minivan des Enfers",
     "ecurie": "Shibuya Cargo Clan",
     "vitesse": 83,
@@ -337,7 +435,17 @@
     "citation": "Pratique pour transporter les gosses et pour pourrir des Porsche.",
     "lore": "Carrosserie cubique japonaise et garde au sol rase-mottes. Un spectacle à chaque descente.",
     "voie_preferee": "Voie 4",
-    "poids_estime": "37g"
+    "poids_estime": "37g",
+    "photo_fichier": "J04_Toyota_Van_Custom.jpg",
+    "photo_resolution": "1600x926",
+    "photo_taille_kb": 296,
+    "casting": "1986 Toyota Van",
+    "variante": "gris argent, bandes noires et bleues (2e exemplaire : beige à flancs bois)",
+    "couleurs": [
+      "#b7bbc0",
+      "#1d1f24"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "02_JDM_et_Asiatiques",
@@ -354,7 +462,17 @@
     "citation": "Rupteur à 9000 tours/min même sur la moquette.",
     "lore": "Échappement inox miniature et stickers partout. Une furie urbaine taillée pour le chrono.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "32g"
+    "poids_estime": "32g",
+    "photo_fichier": "J05_Honda_Civic_Custom.jpg",
+    "photo_resolution": "987x690",
+    "photo_taille_kb": 113,
+    "casting": "'73 Honda Civic Custom",
+    "variante": "vert anis, capot noir",
+    "couleurs": [
+      "#8cc63f",
+      "#6aa82a"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "02_JDM_et_Asiatiques",
@@ -371,7 +489,10 @@
     "citation": "Bleu mica, jantes or et aileron pelle à tarte : le tiercé gagnant.",
     "lore": "Moteur boxer à plat et 4 roues motrices imaginaires qui collent à la piste même dans les pires virages.",
     "voie_preferee": "Voie 1",
-    "poids_estime": "34g"
+    "poids_estime": "34g",
+    "photo_fichier": "J06_Subaru_WRX_STI.jpg",
+    "photo_resolution": "1600x1200",
+    "photo_taille_kb": 213
   },
   {
     "category_folder": "02_JDM_et_Asiatiques",
@@ -388,7 +509,17 @@
     "citation": "Regardez ses phares escamotables, elle vous sourit avant de vous battre !",
     "lore": "La voiture la plus sympathique du plateau, mais son agilité légendaire en fait un piège mortel.",
     "voie_preferee": "Voie 3",
-    "poids_estime": "29g"
+    "poids_estime": "29g",
+    "photo_fichier": "J07_Mazda_MX5_Miata_NA_Phares_Leves.jpg",
+    "photo_resolution": "1438x1080",
+    "photo_taille_kb": 364,
+    "casting": "Mazda MX-5 Miata",
+    "variante": "bleu, décor course",
+    "couleurs": [
+      "#1f86c9",
+      "#2c9ad8"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "02_JDM_et_Asiatiques",
@@ -405,7 +536,17 @@
     "citation": "La sœur jumelle énervée qui a volé le turbo de la Supra.",
     "lore": "Rabaissée à l'extrême, elle frotte presque la piste mais décolle comme un pétard de Nouvel An.",
     "voie_preferee": "Voie 4",
-    "poids_estime": "30g"
+    "poids_estime": "30g",
+    "photo_fichier": "J08_Mazda_MX5_Miata_Custom_Turbo.jpg",
+    "photo_resolution": "1368x845",
+    "photo_taille_kb": 173,
+    "casting": "Mazda MX-5 Miata",
+    "variante": "blanc, décor course noir, aileron",
+    "couleurs": [
+      "#eeeeee",
+      "#1b1b1b"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "02_JDM_et_Asiatiques",
@@ -422,7 +563,17 @@
     "citation": "Un design de vaisseau spatial et 585 chevaux virtuels instantanés.",
     "lore": "Centre de gravité hyper bas grâce à ses batteries fictives, trajectoire rectiligne imperturbable.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "36g"
+    "poids_estime": "36g",
+    "photo_fichier": "J09_Custom_Kia_EV6_GT.jpg",
+    "photo_resolution": "1600x759",
+    "photo_taille_kb": 296,
+    "casting": "Custom Kia EV6",
+    "variante": "bleu roi, décor manga",
+    "couleurs": [
+      "#1f4fb8",
+      "#2a5fd0"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "02_JDM_et_Asiatiques",
@@ -439,7 +590,17 @@
     "citation": "Les lignes carrées des 70's, c'est ça la vraie classe.",
     "lore": "L'ancêtre de toutes les GT-R. Son nom seul fait frissonner les amateurs de rétro-course.",
     "voie_preferee": "Voie 1",
-    "poids_estime": "34g"
+    "poids_estime": "34g",
+    "photo_fichier": "J10_Hako_Type_D_Skyline_Tribute.jpg",
+    "photo_resolution": "1489x728",
+    "photo_taille_kb": 190,
+    "casting": "Hako Type D",
+    "variante": "blanc, pavillon et capot jaunes",
+    "couleurs": [
+      "#f1f1ee",
+      "#f2c230"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "03_Americaines_Muscle_et_Pickups",
@@ -456,7 +617,17 @@
     "citation": "Le cheval sauvage ne hennit plus, il foudroie.",
     "lore": "Sept moteurs électriques imaginaires et un aileron arrière capable de faire décoller un avion.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "37g"
+    "poids_estime": "37g",
+    "photo_fichier": "U01_Ford_Mustang_Mach_E_1400.jpg",
+    "photo_resolution": "768x432",
+    "photo_taille_kb": 22,
+    "casting": "Ford Mustang Mach-E 1400",
+    "variante": "bleu nuit, décor gris et blanc",
+    "couleurs": [
+      "#1a2a55",
+      "#22346a"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "03_Americaines_Muscle_et_Pickups",
@@ -473,13 +644,23 @@
     "citation": "Double aileron arrière et lunettes de soleil aviateur obligatoires.",
     "lore": "Le joyau turbo des années 80. Moins de cylindres, plus de caractère et un turbo-lag légendaire.",
     "voie_preferee": "Voie 3",
-    "poids_estime": "33g"
+    "poids_estime": "33g",
+    "photo_fichier": "U02_Ford_Mustang_SVO_1983.jpg",
+    "photo_resolution": "1438x1080",
+    "photo_taille_kb": 425,
+    "casting": "'84 Mustang SVO",
+    "variante": "noir, filet vert",
+    "couleurs": [
+      "#151618",
+      "#3fae49"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "03_Americaines_Muscle_et_Pickups",
     "car_folder": "Pontiac_Firebird_TA",
     "code": "U03",
-    "real_name": "Pontiac Firebird Trans Am",
+    "real_name": "Pontiac Firebird Trans Am 1977",
     "alias": "L'Oiseau de Feu Smokey",
     "ecurie": "Route 66 Outlaws",
     "vitesse": 90,
@@ -490,13 +671,23 @@
     "citation": "L'aigle géant doré sur le capot donne +15km/h de boost psychologique.",
     "lore": "Burt Reynolds approuve ce véhicule. Conçue pour semer les shérifs et les carapaces vertes.",
     "voie_preferee": "Voie 1",
-    "poids_estime": "36g"
+    "poids_estime": "36g",
+    "photo_fichier": "U03_Pontiac_Firebird_Trans_Am.jpg",
+    "photo_resolution": "1600x900",
+    "photo_taille_kb": 204,
+    "casting": "'77 Pontiac Firebird T/A",
+    "variante": "noir, bandes orange",
+    "couleurs": [
+      "#151618",
+      "#e0701e"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "03_Americaines_Muscle_et_Pickups",
     "car_folder": "83_Chevrolet_Silverado",
     "code": "U04",
-    "real_name": "'83 Chevrolet Silverado 4x4",
+    "real_name": "'83 Chevrolet Silverado",
     "alias": "Big Blue Silverado",
     "ecurie": "Texas Heavy Haulers",
     "vitesse": 82,
@@ -507,13 +698,22 @@
     "citation": "Si la piste est trop étroite, le Silverado élargit la piste.",
     "lore": "Un monstre d'acier. Il ne contourne pas les obstacles, il roule simplement dessus.",
     "voie_preferee": "Voie 4",
-    "poids_estime": "44g"
+    "poids_estime": "44g",
+    "photo_fichier": "U04_83_Chevrolet_Silverado_4x4.jpg",
+    "photo_resolution": "418x192",
+    "photo_taille_kb": 19,
+    "casting": "'83 Chevy Silverado",
+    "variante": "noir",
+    "couleurs": [
+      "#18191c"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "03_Americaines_Muscle_et_Pickups",
     "car_folder": "Voiture_Hemi_Generique",
     "code": "U05",
-    "real_name": "Hemi Muscle Car Generic HW",
+    "real_name": "Dodge Hemi Challenger 1970",
     "alias": "L'Ogre V8 Hemi",
     "ecurie": "Route 66 Outlaws",
     "vitesse": 92,
@@ -524,7 +724,17 @@
     "citation": "Consomme 60 litres aux 100 rien qu'en attendant le départ.",
     "lore": "Le compresseur volumétrique dépasse tellement du capot que le pilote ne voit même pas la voie devant lui.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "38g"
+    "poids_estime": "38g",
+    "photo_fichier": "U05_Hemi_Muscle_Car_Generic_HW.jpg",
+    "photo_resolution": "600x327",
+    "photo_taille_kb": 65,
+    "casting": "'70 Dodge Hemi Challenger",
+    "variante": "or, capot noir, n°70",
+    "couleurs": [
+      "#c9a24a",
+      "#b08a35"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "04_Europeennes_Sportives",
@@ -541,7 +751,10 @@
     "citation": "La rigueur allemande appliquée aux jouets en métal.",
     "lore": "Un son guttural de V8 atmosphérique et une calandre Panamericana qui dévore le bitume.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "35g"
+    "poids_estime": "35g",
+    "photo_fichier": "E01_Mercedes_AMG_GT3.jpg",
+    "photo_resolution": "1600x1200",
+    "photo_taille_kb": 242
   },
   {
     "category_folder": "04_Europeennes_Sportives",
@@ -558,7 +771,17 @@
     "citation": "Trop chère pour être rayée, trop rapide pour être rattrapée.",
     "lore": "Un avion furtif sans toit. Le moindre courant d'air la propulse vers la ligne d'arrivée.",
     "voie_preferee": "Voie 1",
-    "poids_estime": "34g"
+    "poids_estime": "34g",
+    "photo_fichier": "E02_Lamborghini_Centenario_Roadster.jpg",
+    "photo_resolution": "1600x803",
+    "photo_taille_kb": 178,
+    "casting": "'16 Lamborghini Centenario Roadster",
+    "variante": "jaune, éléments noirs",
+    "couleurs": [
+      "#f2c315",
+      "#e6b800"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "04_Europeennes_Sportives",
@@ -575,7 +798,17 @@
     "citation": "Du thé à 17h, un tour record à 17h05.",
     "lore": "Une tonne et demie de luxe miniaturisée en 38 grammes d'arrogance britannique.",
     "voie_preferee": "Voie 3",
-    "poids_estime": "39g"
+    "poids_estime": "39g",
+    "photo_fichier": "E03_Bentley_Continental_GT3.jpg",
+    "photo_resolution": "1439x1080",
+    "photo_taille_kb": 352,
+    "casting": "'18 Bentley Continental GT3",
+    "variante": "noir, filets or",
+    "couleurs": [
+      "#141517",
+      "#c9a24a"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "04_Europeennes_Sportives",
@@ -592,7 +825,17 @@
     "citation": "Light is right : zéro carrosserie, 100% de moteur Cosworth.",
     "lore": "La monoplace de Jim Clark. Sur la piste Rainbow Road, c'est quitte ou double à chaque virage.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "27g"
+    "poids_estime": "27g",
+    "photo_fichier": "E04_Lotus_Type_49_F1.jpg",
+    "photo_resolution": "1600x606",
+    "photo_taille_kb": 158,
+    "casting": "'67 Lotus Type 49",
+    "variante": "vert anglais, bande jaune, n°4",
+    "couleurs": [
+      "#1f4d2b",
+      "#e8c21a"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "04_Europeennes_Sportives",
@@ -607,9 +850,19 @@
     "facteur_chaos": 50,
     "intimidation": 80,
     "citation": "Lève la roue intérieure dans chaque courbe pour saluer le public.",
-    "lore": "Berline anglaise mythique des années 60 avec sa légendaire bande verte. Adorée des connaisseurs.",
+    "lore": "Berline anglaise mythique des années 60, en robe noire et filet blanc. Adorée des connaisseurs.",
     "voie_preferee": "Voie 4",
-    "poids_estime": "31g"
+    "poids_estime": "31g",
+    "photo_fichier": "E05_Ford_Lotus_Cortina.jpg",
+    "photo_resolution": "1600x606",
+    "photo_taille_kb": 158,
+    "casting": "Lotus Cortina",
+    "variante": "noir, filet blanc",
+    "couleurs": [
+      "#151618",
+      "#efefef"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "04_Europeennes_Sportives",
@@ -626,7 +879,10 @@
     "citation": "Couleur cuivre, étincelles bleues et accélération instantanée.",
     "lore": "Tourisme électrique de compétition. Reprend de la vitesse là où les autres freinent par peur du vide.",
     "voie_preferee": "Voie 1",
-    "poids_estime": "34g"
+    "poids_estime": "34g",
+    "photo_fichier": "E06_Cupra_e_Racer.jpg",
+    "photo_resolution": "2018x1069",
+    "photo_taille_kb": 367
   },
   {
     "category_folder": "04_Europeennes_Sportives",
@@ -643,13 +899,23 @@
     "citation": "Indestructible. En cas de collision, c'est la piste qui prend des dégâts.",
     "lore": "Le break familial le plus carré de l'histoire, reconverti en machine de glisse furieuse.",
     "voie_preferee": "Voie 3",
-    "poids_estime": "40g"
+    "poids_estime": "40g",
+    "photo_fichier": "E07_Volvo_240_Drift_Wagon.jpg",
+    "photo_resolution": "1537x708",
+    "photo_taille_kb": 214,
+    "casting": "Volvo 240 Drift Wagon",
+    "variante": "bleu, vitres jaunes, n°40",
+    "couleurs": [
+      "#1f6fc0",
+      "#2b80d2"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "04_Europeennes_Sportives",
     "car_folder": "Ford_Focus_2008",
     "code": "E08",
-    "real_name": "Ford Focus RS 2008",
+    "real_name": "Ford Focus 2008",
     "alias": "La Terreur du Rond-Point",
     "ecurie": "Rallye des Faubourgs",
     "vitesse": 89,
@@ -658,15 +924,25 @@
     "facteur_chaos": 55,
     "intimidation": 86,
     "citation": "Stage 3 reprogrammé avec amour et pops & bangs.",
-    "lore": "Teinte vert pomme fluo impossible à rater. Prête à faire l'intérieur à n'importe quelle supercar.",
+    "lore": "Teinte turquoise impossible à rater. Prête à faire l'intérieur à n'importe quelle supercar.",
     "voie_preferee": "Voie 4",
-    "poids_estime": "33g"
+    "poids_estime": "33g",
+    "photo_fichier": "E08_Ford_Focus_RS_2008.jpg",
+    "photo_resolution": "448x336",
+    "photo_taille_kb": 37,
+    "casting": "'08 Ford Focus",
+    "variante": "turquoise, décor graphique",
+    "couleurs": [
+      "#1fb5b0",
+      "#2bc7c0"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "05_Pop_Culture_et_Fantaisie",
     "car_folder": "Knight_Rider_KITT",
     "code": "P01",
-    "real_name": "Knight Rider - K.I.T.T.",
+    "real_name": "Knight Rider - K.I.T.T. Concept",
     "alias": "K.I.T.T. 2000 Turbo",
     "ecurie": "Fondation pour la Loi et l'Ordre",
     "vitesse": 93,
@@ -677,7 +953,17 @@
     "citation": "Michael, mes capteurs indiquent une peau de banane sur la voie 2.",
     "lore": "Scanner rouge hypnotique sur la calandre et carrosserie en alliage moléculaire résistant à tout.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "35g"
+    "poids_estime": "35g",
+    "photo_fichier": "P01_Knight_Rider_KITT.jpg",
+    "photo_resolution": "1600x772",
+    "photo_taille_kb": 200,
+    "casting": "HW K.I.T.T. Concept",
+    "variante": "noir, scanner rouge",
+    "couleurs": [
+      "#121314",
+      "#d01020"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "05_Pop_Culture_et_Fantaisie",
@@ -694,7 +980,10 @@
     "citation": "Mourir d'élégance sur la ligne d'arrivée.",
     "lore": "Un cabriolet violet et rose bonbon orné de toiles d'araignées et de cercueils miniatures.",
     "voie_preferee": "Voie 1",
-    "poids_estime": "33g"
+    "poids_estime": "33g",
+    "photo_fichier": "P02_Monster_High_Ghoul_Mobile_Pink.jpg",
+    "photo_resolution": "1444x757",
+    "photo_taille_kb": 216
   },
   {
     "category_folder": "05_Pop_Culture_et_Fantaisie",
@@ -711,7 +1000,17 @@
     "citation": "Plus effrayante qu'un Thwomp qui te tombe sur le toit.",
     "lore": "Sa calandre en forme de crâne terrifie les pilotes trop sérieux. Adorée des plus jeunes !",
     "voie_preferee": "Voie 4",
-    "poids_estime": "34g"
+    "poids_estime": "34g",
+    "photo_fichier": "P03_Monster_High_Ghoul_Mobile_Goth.jpg",
+    "photo_resolution": "1444x757",
+    "photo_taille_kb": 216,
+    "casting": "Monster High Ghoul Mobile",
+    "variante": "noir, toiles d'araignée roses",
+    "couleurs": [
+      "#1a1418",
+      "#e24b9a"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
@@ -728,7 +1027,17 @@
     "citation": "Passe les loopings sur deux roues sans jamais trembler.",
     "lore": "Le bolide le plus spectaculaire du circuit. Châssis ultra-court qui saute sur les bosses et amuse toute la famille.",
     "voie_preferee": "Voie 1",
-    "poids_estime": "26g"
+    "poids_estime": "26g",
+    "photo_fichier": "H01_Wheelie_Chair.jpg",
+    "photo_resolution": "1440x1080",
+    "photo_taille_kb": 255,
+    "casting": "Wheelie Chair",
+    "variante": "noir et or",
+    "couleurs": [
+      "#141516",
+      "#c9a24a"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
@@ -745,7 +1054,17 @@
     "citation": "Conçu par Mattel expressément pour ne JAMAIS dérailler.",
     "lore": "Un croisement entre un dragster et un dragon mécanique avec aileron arrière démesuré.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "32g"
+    "poids_estime": "32g",
+    "photo_fichier": "H02_Track_Dwagon_Orange.jpg",
+    "photo_resolution": "1600x918",
+    "photo_taille_kb": 232,
+    "casting": "Track Dwagon",
+    "variante": "gris, châssis et vitres roses",
+    "couleurs": [
+      "#8c8f94",
+      "#e0457b"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
@@ -762,7 +1081,17 @@
     "citation": "Crache des flammes imaginaires dans les yeux des suiveurs.",
     "lore": "La version boostée du Track Dwagon, optimisée pour la vitesse pure en sortie de rampe.",
     "voie_preferee": "Voie 3",
-    "poids_estime": "32g"
+    "poids_estime": "32g",
+    "photo_fichier": "H03_Track_Dwagon_Flamme.jpg",
+    "photo_resolution": "1600x918",
+    "photo_taille_kb": 232,
+    "casting": "Track Dwagon",
+    "variante": "noir, vitres jaunes",
+    "couleurs": [
+      "#151618",
+      "#e8d21a"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
@@ -779,7 +1108,17 @@
     "citation": "Un museau pointu comme un harpon.",
     "lore": "Lignes tendues, profil effilé et cockpit fermé en dôme : un favori naturel pour les parieurs.",
     "voie_preferee": "Voie 4",
-    "poids_estime": "31g"
+    "poids_estime": "31g",
+    "photo_fichier": "H04_HW_Ravenger.jpg",
+    "photo_resolution": "1600x761",
+    "photo_taille_kb": 197,
+    "casting": "Ravenger",
+    "variante": "orange, flancs noirs",
+    "couleurs": [
+      "#e8621a",
+      "#d4561a"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
@@ -796,7 +1135,10 @@
     "citation": "Châssis de 2 mètres de long, moteur de 500 chevaux.",
     "lore": "Une minuscule camionnette japonaise greffée d'un moteur central gargantuesque.",
     "voie_preferee": "Voie 1",
-    "poids_estime": "28g"
+    "poids_estime": "28g",
+    "photo_fichier": "H05_Kei_Swap_Custom.jpg",
+    "photo_resolution": "1600x1240",
+    "photo_taille_kb": 346
   },
   {
     "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
@@ -813,7 +1155,17 @@
     "citation": "Votre colis sera livré en 4 secondes... ou pulvérisé.",
     "lore": "Camionnette postale Hot Wheels surbaissée avec porte latérale ouverte laissant entrevoir des colis mystères.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "35g"
+    "poids_estime": "35g",
+    "photo_fichier": "H06_Mailed_It_Postal_Truck.jpg",
+    "photo_resolution": "1600x1142",
+    "photo_taille_kb": 386,
+    "casting": "Mailed It!",
+    "variante": "blanc (série Let's Race) ; 2e exemplaire bleu",
+    "couleurs": [
+      "#eeeeee",
+      "#1f4fb8"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
@@ -830,7 +1182,10 @@
     "citation": "Pousse les autres voitures hors de la piste rien que par effet d'aspiration.",
     "lore": "Le poids lourd du tournoi. Une inertie phénoménale qui écrase les peaux de banane comme de la compote.",
     "voie_preferee": "Voie 3",
-    "poids_estime": "46g"
+    "poids_estime": "46g",
+    "photo_fichier": "H07_HW_Heavyweights_Hauler.jpg",
+    "photo_resolution": "1440x1080",
+    "photo_taille_kb": 279
   },
   {
     "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
@@ -847,7 +1202,17 @@
     "citation": "Tarif de nuit appliqué dès le premier virage.",
     "lore": "Le célèbre taxi londonien customisé avec un compresseur chromé et des pneus slick ultra-larges.",
     "voie_preferee": "Voie 4",
-    "poids_estime": "36g"
+    "poids_estime": "36g",
+    "photo_fichier": "H08_Cockney_Cab_II.jpg",
+    "photo_resolution": "350x200",
+    "photo_taille_kb": 21,
+    "casting": "Cockney Cab II",
+    "variante": "blanc et bleu, drapeau britannique, TAXI",
+    "couleurs": [
+      "#f0f0f0",
+      "#1f3f9c"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
@@ -864,7 +1229,17 @@
     "citation": "Benne arrière chargée de bananes prêtes à être catapultées.",
     "lore": "Le petit pick-up Kei préféré des collectionneurs. Compact, ultra-stable et plein de malice.",
     "voie_preferee": "Voie 1",
-    "poids_estime": "30g"
+    "poids_estime": "30g",
+    "photo_fichier": "H09_HW_Mighty_K.jpg",
+    "photo_resolution": "1134x877",
+    "photo_taille_kb": 157,
+    "casting": "Mighty K",
+    "variante": "bleu-gris",
+    "couleurs": [
+      "#7e9db3",
+      "#6b8aa0"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
@@ -881,7 +1256,17 @@
     "citation": "Rampe de phares avant aveuglante pour les adversaires.",
     "lore": "Conçue pour les spéciales nocturnes sous la pluie. Sur piste plastique, son aérodynamisme fait merveille.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "33g"
+    "poids_estime": "33g",
+    "photo_fichier": "H10_HW_Rally_Speciale.jpg",
+    "photo_resolution": "1760x898",
+    "photo_taille_kb": 260,
+    "casting": "Rally Speciale",
+    "variante": "noir, rouge et bleu",
+    "couleurs": [
+      "#151618",
+      "#c8202a"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
@@ -898,7 +1283,17 @@
     "citation": "Le moteur fait 80% du volume total de la voiture.",
     "lore": "Un bloc moteur avec quatre roues greffées dessus. Brutal, instable et hilarant à regarder dévaler la rampe.",
     "voie_preferee": "Voie 3",
-    "poids_estime": "37g"
+    "poids_estime": "37g",
+    "photo_fichier": "H11_HW_Small_Bloc.jpg",
+    "photo_resolution": "1600x607",
+    "photo_taille_kb": 179,
+    "casting": "Small Bloc",
+    "variante": "jaune et blanc, damier",
+    "couleurs": [
+      "#f2c315",
+      "#f0f0f0"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
@@ -915,7 +1310,17 @@
     "citation": "Prête à secourir ses propres victimes après le carambolage.",
     "lore": "Une ambulance aérodynamique prête à intervenir dès qu'une voiture fait un looping non contrôlé hors de la piste.",
     "voie_preferee": "Voie 4",
-    "poids_estime": "39g"
+    "poids_estime": "39g",
+    "photo_fichier": "H12_West_Coast_Flyer_Paramedic.jpg",
+    "photo_resolution": "960x458",
+    "photo_taille_kb": 57,
+    "casting": "West Coast Flyer",
+    "variante": "noir, filets rouges",
+    "couleurs": [
+      "#141516",
+      "#c8202a"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "07_Formule_1_2025",
@@ -932,7 +1337,17 @@
     "citation": "Radio Toto Wolff : 'Lewis/Kimi, hammer time on the rainbow road !'",
     "lore": "Ailerons en fibre de carbone ultra-tranchants et effet de sol phénoménal. Sur la pente Rainbow Road, elle frotte presque le plastique tellement l'appui est titanesque.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "30g"
+    "poids_estime": "30g",
+    "photo_fichier": "F01_Mercedes_AMG_F1_W16.jpg",
+    "photo_resolution": "3362x2521",
+    "photo_taille_kb": 676,
+    "casting": "Mercedes-AMG Petronas F1 Team",
+    "variante": "noir, filets turquoise",
+    "couleurs": [
+      "#121315",
+      "#00a19c"
+    ],
+    "verifie": "achat"
   },
   {
     "category_folder": "07_Formule_1_2025",
@@ -949,7 +1364,10 @@
     "citation": "Simply lovely ! Max ne ralentit même pas devant les Thwomps.",
     "lore": "Dessinée dans les souffleries secrètes d'Adrian Newey. Son DRS miniature s'ouvre dès que l'arbitre baisse le levier de départ.",
     "voie_preferee": "Voie 1",
-    "poids_estime": "31g"
+    "poids_estime": "31g",
+    "photo_fichier": "F02_Red_Bull_Racing_RB21.jpg",
+    "photo_resolution": "3528x1984",
+    "photo_taille_kb": 1485
   },
   {
     "category_folder": "07_Formule_1_2025",
@@ -966,7 +1384,10 @@
     "citation": "We are checking... Plan B, Plan B ! Tifosi en transe.",
     "lore": "Le rouge le plus éclatant du paddock. Un son de moteur mythique et des millions de supporters qui retiennent leur souffle à chaque virage.",
     "voie_preferee": "Voie 3",
-    "poids_estime": "30g"
+    "poids_estime": "30g",
+    "photo_fichier": "F03_Scuderia_Ferrari_SF25.jpg",
+    "photo_resolution": "3527x1984",
+    "photo_taille_kb": 1295
   },
   {
     "category_folder": "07_Formule_1_2025",
@@ -983,7 +1404,10 @@
     "citation": "Papaya rules : dépassement autorisé même dans le looping !",
     "lore": "Couleur orange papaye électrique impossible à rater. L'aérodynamisme le plus affûté de la grille 2025.",
     "voie_preferee": "Voie 4",
-    "poids_estime": "29g"
+    "poids_estime": "29g",
+    "photo_fichier": "F04_McLaren_MCL39_Papaya.jpg",
+    "photo_resolution": "3880x2105",
+    "photo_taille_kb": 1654
   },
   {
     "category_folder": "07_Formule_1_2025",
@@ -1000,7 +1424,10 @@
     "citation": "Fernando Alonso ne vieillit jamais, il prend juste plus d'élan.",
     "lore": "British Racing Green sublime. Un mélange de classe d'espion à la James Bond et de férocité en sortie de chicane.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "31g"
+    "poids_estime": "31g",
+    "photo_fichier": "F05_Aston_Martin_AMR25.jpg",
+    "photo_resolution": "6840x3665",
+    "photo_taille_kb": 6009
   },
   {
     "category_folder": "07_Formule_1_2025",
@@ -1017,7 +1444,10 @@
     "citation": "Cocorico avec une touche de rose bonbon !",
     "lore": "Fière représentante du savoir-faire normand et d'Enstone. Prête à prouver aux sceptiques qu'elle peut monter sur le podium.",
     "voie_preferee": "Voie 1",
-    "poids_estime": "30g"
+    "poids_estime": "30g",
+    "photo_fichier": "F06_Alpine_A525_BWT.jpg",
+    "photo_resolution": "3128x2172",
+    "photo_taille_kb": 1626
   },
   {
     "category_folder": "07_Formule_1_2025",
@@ -1034,7 +1464,10 @@
     "citation": "Frank Williams veille sur le chrono depuis les étoiles.",
     "lore": "L'une des écuries les plus respectées de l'histoire du sport automobile, de retour aux avant-postes sur la piste orange.",
     "voie_preferee": "Voie 3",
-    "poids_estime": "30g"
+    "poids_estime": "30g",
+    "photo_fichier": "F07_Williams_FW47.jpg",
+    "photo_resolution": "6000x4000",
+    "photo_taille_kb": 4826
   },
   {
     "category_folder": "07_Formule_1_2025",
@@ -1051,7 +1484,10 @@
     "citation": "Livrée bleu électrique et argent qui brille sous les projecteurs du salon.",
     "lore": "L'écurie sœur de Faenza, agile et véloce, souvent le cauchemar des écuries d'usine.",
     "voie_preferee": "Voie 4",
-    "poids_estime": "29g"
+    "poids_estime": "29g",
+    "photo_fichier": "F08_Racing_Bulls_VCARB_02.jpg",
+    "photo_resolution": "4032x2268",
+    "photo_taille_kb": 2293
   },
   {
     "category_folder": "07_Formule_1_2025",
@@ -1068,7 +1504,10 @@
     "citation": "Impossible de la rater, elle brille même dans le noir.",
     "lore": "La livrée vert fluo la plus audacieuse de la grille. Un monstre futuriste avant l'arrivée d'Audi.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "30g"
+    "poids_estime": "30g",
+    "photo_fichier": "F09_Kick_Sauber_C45.jpg",
+    "photo_resolution": "4368x2912",
+    "photo_taille_kb": 4266
   },
   {
     "category_folder": "07_Formule_1_2025",
@@ -1085,7 +1524,10 @@
     "citation": "Guenther Steiner n'est plus là, mais l'esprit guerrier reste intact !",
     "lore": "L'outsider américain préféré des fans. Quand tout le monde crash, Haas ramasse les points !",
     "voie_preferee": "Voie 1",
-    "poids_estime": "31g"
+    "poids_estime": "31g",
+    "photo_fichier": "F10_Haas_VF25.jpg",
+    "photo_resolution": "3528x1984",
+    "photo_taille_kb": 1736
   },
   {
     "category_folder": "08_Pack_France_Majorette",
@@ -1102,7 +1544,10 @@
     "citation": "Escorte présidentielle prioritaire sur toutes les voies.",
     "lore": "Finition luxueuse, calandre chromée et suspensions souples Majorette. Traverse la piste avec la sérénité d'un chef d'État.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "42g"
+    "poids_estime": "42g",
+    "photo_fichier": "FR01_Majorette_DS7_Crossback.jpg",
+    "photo_resolution": "1553x849",
+    "photo_taille_kb": 185
   },
   {
     "category_folder": "08_Pack_France_Majorette",
@@ -1119,7 +1564,10 @@
     "citation": "Jaune Sirius et châssis Cup : gare aux supercars prétentieuses !",
     "lore": "Détentrice morale de tous les records de traction avant. Ses suspensions Majorette encaissent les bosses sans sourciller.",
     "voie_preferee": "Voie 1",
-    "poids_estime": "36g"
+    "poids_estime": "36g",
+    "photo_fichier": "FR02_Majorette_Renault_Megane_RS.jpg",
+    "photo_resolution": "1000x562",
+    "photo_taille_kb": 91
   },
   {
     "category_folder": "08_Pack_France_Majorette",
@@ -1136,7 +1584,10 @@
     "citation": "Fantômas appuie sur le bouton : sortez les ailes escamotables !",
     "lore": "La voiture la plus mythique de l'histoire française. Sa suspension hydropneumatique miniature donne l'impression qu'elle plane au-dessus des rails.",
     "voie_preferee": "Voie 3",
-    "poids_estime": "38g"
+    "poids_estime": "38g",
+    "photo_fichier": "FR03_Majorette_Citroen_DS21.jpg",
+    "photo_resolution": "874x492",
+    "photo_taille_kb": 63
   },
   {
     "category_folder": "08_Pack_France_Majorette",
@@ -1153,7 +1604,10 @@
     "citation": "Des ailes arrière plus larges que la table basse du salon !",
     "lore": "Moteur central arrière, bruit d'échappement pétaradant et réputation de tueuse de géants sur asphalte.",
     "voie_preferee": "Voie 4",
-    "poids_estime": "33g"
+    "poids_estime": "33g",
+    "photo_fichier": "FR04_Majorette_Renault_5_Turbo.jpg",
+    "photo_resolution": "1600x900",
+    "photo_taille_kb": 321
   },
   {
     "category_folder": "08_Pack_France_Majorette",
@@ -1170,7 +1624,10 @@
     "citation": "Le raffinement parisien lancé à tombeau ouvert dans la chicane.",
     "lore": "Lignes acérées, feux diurnes verticaux spectaculaires et tenue de route imperturbable.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "39g"
+    "poids_estime": "39g",
+    "photo_fichier": "FR05_Majorette_DS4_E_Tense.jpg",
+    "photo_resolution": "1600x899",
+    "photo_taille_kb": 136
   },
   {
     "category_folder": "09_Pack_Japon_Tomica",
@@ -1187,7 +1644,10 @@
     "citation": "Phares pop-up fermés, turbo sous pression, respect obligatoire.",
     "lore": "Un joyau de l'ère Showa importé directement du Japon. Finition Tomica Premium avec roues détaillées et châssis lourd.",
     "voie_preferee": "Voie 1",
-    "poids_estime": "41g"
+    "poids_estime": "41g",
+    "photo_fichier": "TK01_Tomica_Mitsubishi_Starion_4WD.jpg",
+    "photo_resolution": "639x350",
+    "photo_taille_kb": 47
   },
   {
     "category_folder": "09_Pack_Japon_Tomica",
@@ -1204,7 +1664,10 @@
     "citation": "La calandre sans grille la plus intimidante des années 80.",
     "lore": "Surnommée 'Iron Mask' par tous les passionnés japonais. Son moteur 4 cylindres 16 soupapes turbo a marqué des générations de pilotes.",
     "voie_preferee": "Voie 2",
-    "poids_estime": "43g"
+    "poids_estime": "43g",
+    "photo_fichier": "TK02_Tomica_Nissan_Skyline_HT2000_Turbo_RS.jpg",
+    "photo_resolution": "600x600",
+    "photo_taille_kb": 40
   },
   {
     "category_folder": "09_Pack_Japon_Tomica",
@@ -1221,7 +1684,10 @@
     "citation": "Un aileron arrière démesuré validé en soufflerie par les dieux allemands.",
     "lore": "L'incarnation ultime des berlines de course DTM. Métal ultra lourd, peinture noire profonde et présence royale sur la grille.",
     "voie_preferee": "Voie 3",
-    "poids_estime": "45g"
+    "poids_estime": "45g",
+    "photo_fichier": "TK03_Tomica_Mercedes_Benz_190E_Evo_II.jpg",
+    "photo_resolution": "600x400",
+    "photo_taille_kb": 45
   },
   {
     "category_folder": "09_Pack_Japon_Tomica",
@@ -1238,7 +1704,10 @@
     "citation": "La puissance brute américaine sculptée avec la précision de l'horlogerie japonaise.",
     "lore": "Une Firebird produite par Tomica : un véritable objet de culte collector ! Ses suspensions avalent les bosses avec gourmandise.",
     "voie_preferee": "Voie 4",
-    "poids_estime": "44g"
+    "poids_estime": "44g",
+    "photo_fichier": "TK04_Tomica_Pontiac_Firebird_Trans_Am.jpg",
+    "photo_resolution": "640x360",
+    "photo_taille_kb": 45
   },
   {
     "category_folder": "09_Pack_Japon_Tomica",
@@ -1255,7 +1724,10 @@
     "citation": "Pika-Pikachu ! Attaque Éclair sur la voie 2 !",
     "lore": "La voiture officielle Pokémon TV avec les oreilles et la queue de Pikachu en relief ! Adorée des enfants, redoutée des adultes car son centre de gravité bas la rend surprenamment rapide !",
     "voie_preferee": "Voie 1 (Côté tribune enfants)",
-    "poids_estime": "39g"
+    "poids_estime": "39g",
+    "photo_fichier": "TK05_Tomica_Pikachu_PokeDoko_Car.jpg",
+    "photo_resolution": "640x360",
+    "photo_taille_kb": 31
   },
   {
     "category_folder": "09_Pack_Japon_Tomica",
@@ -1272,7 +1744,10 @@
     "citation": "Miku-Miku ni shite ageru ! Chants holographiques dans les virages.",
     "lore": "La célèbre Itasha de course japonaise décorée à l'effigie de la chanteuse virtuelle Hatsune Miku. Vainqueur en Super GT au Japon, favorite absolue du public branché pop-culture !",
     "voie_preferee": "Voie 3",
-    "poids_estime": "42g"
+    "poids_estime": "42g",
+    "photo_fichier": "TK06_Tomica_Hatsune_Miku_AMG_GT3.jpg",
+    "photo_resolution": "1534x997",
+    "photo_taille_kb": 245
   },
   {
     "category_folder": "10_Les_Reliques_Antiques",
