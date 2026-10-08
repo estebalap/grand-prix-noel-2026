@@ -963,6 +963,8 @@ let introOnOpen = qs.get('intro') === '1';                 // ouverture depuis /
 if (introOnOpen) { gate.textContent = "🎬 Cliquer (ou une touche) pour lancer l'intro officielle"; gate.classList.add('intro-gate'); }
 function unlockSound() {
   let started = false;
+  // premier clic / première touche sur la TV : passage en plein écran (le navigateur l'exige après un geste ; F pour basculer ensuite)
+  if (!unlockSound.pleinEcran && !document.fullscreenElement && document.documentElement.requestFullscreen) { unlockSound.pleinEcran = true; document.documentElement.requestFullscreen().catch(() => {}); }
   if (introOnOpen) { introOnOpen = false; started = true; gate.classList.remove('intro-gate'); playIntro(); history.replaceState(null, '', location.pathname); }
   if (snd.unlock()) { gate.classList.add('hide'); music.unlock(); if (music.source === 'synth') { snd.setMusicOn(musicWanted); if (musicWanted) snd.musicStart(themeOf(S?.mode || curMode).music); } }
   return started;
