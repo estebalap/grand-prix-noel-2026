@@ -7,12 +7,15 @@ import {
 import { icon } from '../shared/icons.js';
 import { qrSvg } from '../shared/qr.js';
 import { startAtmosphere, confetti, confettiCannons } from '../shared/fx.js';
+import { suspendre as suspendreAnimations } from '../shared/perf.js';
 import * as snd from '../shared/audio.js';
 import { applyTheme, themeOf } from '../shared/themes.js';
 import { createPlaylistPlayer } from '../shared/playlist.js';
 import { medal, ghostMedal, carArt, statBars, teamAccent, pad2 } from '../shared/ui.js';
 import { createStage } from '../shared/stage3d.js';
 import { revealCinematique, chargerReveal } from '../shared/reveal.js';
+import { revealFret, revealFretDisponible } from '../shared/reveal_fret.js';
+import { badgeRarete, styleRarete, rareteDe } from '../shared/rarete.js';
 import { mountAdmin, ADMIN_CSS } from '../shared/admin.js';
 import { createVideoLibrary, makeVideo, waitPlayable, playWithSound, fadeVolume, disposeVideo } from '../shared/videos.js';
 import * as LBX from '../shared/lootbox.js';
@@ -108,9 +111,19 @@ async function playIntroInner() {
   const ok = await waitPlayable(v, 5000);
   if (!ok || intro?.v !== v) { if (intro?.v === v) { intro = null; layer.remove(); disposeVideo(v); music.setEnabled(musicWanted); toast('Intro illisible : vérifiez le format (H.264 + AAC, MP4)'); } return; }
   v.volume = 0;
+  // 1) le calque noir recouvre la régie (0,8 s), vidéo encore à l'arrêt sur sa première image (noire)
+  requestAnimationFrame(() => layer.classList.add('on'));     // fondu d'entrée de l'image
+  await sleep(850);
+  if (intro?.v !== v) return;
+  // 2) décor, 3D et animations CSS mis en sommeil AVANT la lecture : le recalcul de style a lieu pendant le noir,
+  //    pas pendant la vidéo (sinon ~1 s de saccade au début)
+  suspendreAnimations(true); document.body.classList.add('intro-plein');
+  await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+  await sleep(150);
+  if (intro?.v !== v) return;
+  // 3) lecture
   const sound = await playWithSound(v);
   if (!sound) { const hint = $('.intro-hint', layer); hint.classList.remove('hide'); layer.addEventListener('pointerdown', () => { v.muted = false; hint.classList.add('hide'); fadeVolume(v, 1, 600); }, { once: true }); }
-  requestAnimationFrame(() => layer.classList.add('on'));     // fondu d'entrée de l'image
   fadeVolume(v, 1, 1400);                                    // fondu d'entrée du son
   v.addEventListener('ended', () => endIntro(true), { once: true });
   v.addEventListener('error', () => endIntro(false), { once: true });
@@ -119,6 +132,7 @@ async function playIntroInner() {
 async function endIntro(natural) {
   if (!intro) return;
   const { layer, v } = intro; intro = null;
+  document.body.classList.remove('intro-plein'); suspendreAnimations(false);
   fadeVolume(v, 0, 700);
   layer.classList.remove('on'); layer.classList.add('off');
   await sleep(900);
@@ -361,15 +375,47 @@ async function runReveals() {
     const c = car(code); if (!c) continue;
     const src = vids.car(code);
     if (src && await revealVideo(c, teamId, src, slot, size)) continue;
+    if (REVEAL_MOTEUR !== 'photo' && await revealFretTV(c, teamId, slot, size)) continue;   // trailer d'invocation ou conteneur Fret 3D (shared/reveal_fret.js)
     if (await revealPhoto(c, teamId, slot, size)) continue;          // cinématique générée par le code (photo + jingle)
     await revealCard(c, teamId, slot, size);
   }
   revealBusy = false;
 }
+/* Moteur de révélation sans clip vidéo : « trailer » (défaut : trailer d'invocation dans l'univers du bolide),
+   « fret » (conteneur 3D classique avec fiche) ou « photo » (cinématique 2D).
+   ?reveal=trailer, ?reveal=fret ou ?reveal=photo dans l'adresse de la TV, mémorisé. */
+const REVEAL_MOTEUR = (() => {
+  const ok = ['trailer', 'fret', 'photo'];
+  try {
+    const q = new URLSearchParams(location.search).get('reveal');
+    if (ok.includes(q)) { localStorage.setItem('gp.reveal', q); return q; }
+    const m = localStorage.getItem('gp.reveal');
+    return m === 'photo' || m === 'fret' ? m : 'trailer';
+  } catch (e) { return 'trailer'; }
+})();
+/* Fin du reveal : l'écran reste figé (musique en boucle) jusqu'à Espace sur le PC branché à la TV (ou Entrée, clic).
+   ?tenue=N dans l'adresse de la TV : passe seul après N secondes (soirée sans régisseur) ; ?tenue= (vide) revient à l'attente. */
+const REVEAL_TENUE = (() => {
+  try {
+    const q = new URLSearchParams(location.search);
+    if (q.has('tenue')) { const v = q.get('tenue'); if (v === '') localStorage.removeItem('gp.tenue'); else localStorage.setItem('gp.tenue', String(Number(v) || 0)); }
+    const m = localStorage.getItem('gp.tenue'); return m == null ? null : Number(m);
+  } catch (e) { return null; }
+})();
+async function revealFretTV(c, teamId, slot, size) {
+  if (!revealFretDisponible()) return false;
+  const t = team(teamId);
+  const vol = music.volume; music.setVolume(Math.min(vol, 0.06));
+  const equipe = t ? `${medal(t.id, 52)}<span>${esc(t.name)}</span>${slot ? `<em class="slotnum">Slot ${slot}/${size || DATA.rules.rules.paddockSize}</em>` : ''}` : '';
+  const ok = await revealFret(overlay, { car: c, teamId, team: t, couleurs: t ? t.colors : undefined, equipeHtml: equipe, express: revealQueue.length > 0, mode: REVEAL_MOTEUR, tenue: REVEAL_TENUE }).catch((e) => { console.warn('reveal fret', e); return false; });
+  music.setVolume(vol);
+  if (ok) confetti({ x: 0.7, y: 0.55, count: 40, power: 0.7 });
+  return ok;
+}
 function revealInfo(c, teamId, slot, size) {
   const t = team(teamId);
   return `<div class="own">${t ? medal(t.id, 62) : ''}<span>${esc(t ? t.name : '')}</span>${slot ? `<em class="slotnum">Slot ${slot}/${size || DATA.rules.rules.paddockSize}</em>` : ''}</div>
-    <span class="eyebrow">${esc(c.code)} · ${esc(c.real_name || c.ecurie)}</span>
+    <span class="eyebrow">${esc(c.code)} · ${esc(c.real_name || c.ecurie)}</span> ${badgeRarete(c)}
     <h3 class="display foil">${esc(c.alias)}</h3>
     <div class="qt">« ${esc(c.citation)} »</div><div class="lore">${esc(c.lore)}</div>
     ${statBars(c, 5)}`;
@@ -389,7 +435,7 @@ async function revealPhoto(c, teamId, slot, size) {
 /* Repli sans vidéo ni photo : fiche profil avec balayage de lumière dorée */
 async function revealCard(c, teamId, slot, size) {
   snd.sfx('reveal');
-  const el = h(`<div class="reveal gold"><div class="card deco"><div class="art">${carArt(c.code, teamId, 'rv')}</div><div>${revealInfo(c, teamId, slot, size)}</div></div><div class="sweep"></div></div>`);
+  const el = h(`<div class="reveal gold"><div class="card deco"><div class="art">${carArt(c.code, teamId, 'rv', { grand: true })}</div><div>${revealInfo(c, teamId, slot, size)}</div></div><div class="sweep"></div></div>`);
   overlay.appendChild(el);
   confetti({ x: 0.5, y: 0.5, count: 70, power: 0.9 });
   snd.carVoice(c.code);
@@ -440,7 +486,7 @@ function laneHtml(i, l, st) {
     <div class="traps" data-traps="${i}"></div>
     <div class="carart">${carArt(l.code, l.teamId, 'l' + i)}</div>
     <div class="pool" data-pool="${i}"></div>
-    <div class="alias">${esc(c ? c.alias : l.code)}</div>
+    <div class="alias">${esc(c ? c.alias : l.code)}</div>${c ? `<div class="rar-ligne">${badgeRarete(c)}</div>` : ''}
     <div class="real">${esc(c ? c.real_name : '')} · ${esc(l.code)}</div>
     <div class="owner">${tm ? medal(tm.id, 52) : ghostMedal(52)}<div>${esc(tm ? tm.nickname : 'Bolide fantôme')}<small>${esc(tm ? tm.name : 'sans écurie')}</small></div></div>
     <div class="stats">${c ? statBars(c, 4) : ''}</div>
@@ -861,7 +907,7 @@ function pumpTraps() {
 function handleFx(f) {
   switch (f.type) {
     case 'join': if (!snd.teamSound(f.teamId, 'join')) snd.sfx('join'); { const t = team(f.teamId); if (t) toast(`${t.nickname} rejoint la grille !`); } break;
-    case 'reveal': if (S && S.phase === 'DRAFT') { revealQueue.push({ teamId: f.teamId, code: f.code, slot: f.slot, size: f.size }); while (revealQueue.length > 4) revealQueue.shift(); runReveals(); } break;
+    case 'reveal': if (S && S.phase === 'DRAFT') { revealQueue.push({ teamId: f.teamId, code: f.code, slot: f.slot, size: f.size }); while (revealQueue.length > 30) revealQueue.shift(); runReveals(); } break;
     case 'intro': if (f.action === 'play') playIntro(); else endIntro(false); break;
     case 'draft_order': showDraftOrder(f.order); break;
     case 'grid': snd.sfx('reveal'); gridVoices(); break;

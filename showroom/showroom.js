@@ -5,7 +5,11 @@ import { createStage } from '../shared/stage3d.js';
 import { conceptInfo } from '../shared/concept_cars.js';
 import { createEngineAudio } from '../shared/engine_audio.js';
 import { isMuted } from '../shared/audio.js';
-import { medal, carArt, statBars, pad2 } from '../shared/ui.js';
+import { medal, carArt, statBars, pad2, inclinerVignettes, vignetteDe } from '../shared/ui.js';
+import { badgeRarete, styleRarete, rareteDe, coteAffichee } from '../shared/rarete.js';
+import { revealFret, revealFretDisponible } from '../shared/reveal_fret.js';
+import { vue360 } from '../shared/bolides3d.js';
+import { unlock } from '../shared/audio.js';
 import { icon } from '../shared/icons.js';
 
 startAtmosphere({ road: false, snow: 0.8, aurora: 1 });
@@ -90,16 +94,39 @@ function draw(soft) {
     const list = DATA.carList.filter((c) => st.cat === 'all' || c.category_folder === st.cat);
     if (!soft) {
       rail.innerHTML = `<div class="filters"><button data-cat="all" class="${st.cat === 'all' ? 'on' : ''}">Tous (${DATA.carList.length})</button>${cats.map((c) => `<button data-cat="${c}" class="${st.cat === c ? 'on' : ''}">${esc(label(c))}</button>`).join('')}</div>` +
-        list.map((c, i) => `<button class="carchip ${i === st.idx ? 'on' : ''}" data-i="${i}">${carArt(c.code, null, 'g' + c.code)}<b>${esc(c.alias)}</b><small class="mono">${esc(c.code)} · ${esc(c.ecurie)}</small></button>`).join('');
+        list.map((c, i) => `<button class="carchip rar-carte rar-${rareteDe(c)} ${i === st.idx ? 'on' : ''}" style="${styleRarete(c)}" data-i="${i}">${carArt(c.code, null, 'g' + c.code)}<b>${esc(c.alias)}</b><small class="mono">${esc(c.code)} · ${esc(c.ecurie)}</small>${badgeRarete(c)}</button>`).join('');
       $$('.filters button', rail).forEach((b) => b.onclick = () => { st.cat = b.dataset.cat; st.idx = 0; draw(); });
       $$('.carchip', rail).forEach((b) => b.onclick = () => { st.idx = Number(b.dataset.i); $$('.carchip', rail).forEach((x) => x.classList.toggle('on', x === b)); showCar(list[st.idx]); });
     }
     showCar(list[st.idx]);
     function showCar(c) {
       if (!c) { info.innerHTML = ''; return; }
-      info.innerHTML = `<div class="panel deco"><div class="h2">${esc(c.code)} · ${esc(label(c.category_folder))}</div>${carArt(c.code, null, 'big')}<h2 class="display foil" style="margin-top:8px">${esc(c.alias)}</h2><div class="dim">${esc(c.real_name)} — ${esc(c.ecurie)}</div>
+      const k = coteAffichee(c);
+      info.innerHTML = `<div class="panel deco rar-carte rar-${rareteDe(c)}" style="${styleRarete(c)}"><div class="h2">${esc(c.code)} · ${esc(label(c.category_folder))}</div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0">${badgeRarete(c, { long: true })}${k ? `<span class="cote-chip">cote ${k.affinee ? 'affinée' : 'initiale'} ×${String(k.cote).replace('.', ',')}</span>` : ''}${revealFretDisponible() ? '<button class="btn-reveler" type="button">▶ Révéler (conteneur Fret)</button><button class="btn-360" type="button">⟳ Vue 360° 3D</button>' : ''}</div>${carArt(c.code, null, 'big', { grand: true })}${vignetteDe(c.code) ? `<div class="photo-ref">${carArt(c.code, null, 'ph' + c.code, { photo: true })}<small>Photo de la vraie miniature<br>(référence du portrait et du modèle 3D)</small></div>` : ''}<h2 class="display foil" style="margin-top:8px">${esc(c.alias)}</h2><div class="dim">${esc(c.real_name)} — ${esc(c.ecurie)}</div>
         <div class="qt">« ${esc(c.citation)} »</div><div class="dim" style="margin-bottom:12px">${esc(c.lore)}</div>${statBars(c, 5)}
         <div class="dim" style="margin-top:12px;font-size:14px">Voie préférée : ${esc(c.voie_preferee)} · Poids : ${esc(c.poids_estime)}</div></div>`;
+      inclinerVignettes(info);
+      const b360 = info.querySelector('.btn-360');
+      if (b360) b360.onclick = async () => {
+        const boite = document.createElement('div'); boite.className = 'vue360-boite';
+        boite.innerHTML = `<div class="titre360">${esc(c.alias)}</div><button class="fermer" type="button">✕ Fermer</button><div class="aide360">Glisser pour tourner · molette pour zoomer</div>`;
+        document.body.appendChild(boite);
+        const fermer = await vue360(boite, c.code);
+        const quitter = () => { if (fermer) fermer(); boite.remove(); removeEventListener('keydown', echap); };
+        const echap = (e) => { if (e.key === 'Escape') quitter(); };
+        boite.querySelector('.fermer').onclick = quitter; addEventListener('keydown', echap);
+        if (!fermer) quitter();
+      };
+      const b = info.querySelector('.btn-reveler');
+      if (b) b.onclick = async () => {
+        unlock();
+        const scene = document.createElement('div'); scene.className = 'reveal-plein-ecran';
+        scene.style.cssText = 'position:fixed;inset:0;z-index:200';
+        document.body.appendChild(scene);
+        const fermer = () => scene.remove();
+        scene.addEventListener('click', (e) => { if (e.target === scene) fermer(); });
+        try { await revealFret(scene, { car: c }); } finally { fermer(); }
+      };
     }
   }
 }

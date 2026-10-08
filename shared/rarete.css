@@ -1,0 +1,20 @@
+/* Rareté des bolides (shared/rarete.js) : badge, cartes à liseré néon, apparition. */
+.rar-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;font:800 11px/1.4 var(--font-display,system-ui);
+  letter-spacing:.08em;color:#fff;background:color-mix(in srgb,var(--rar) 26%,#0b0d1a);border:1px solid var(--rar);
+  box-shadow:0 0 10px color-mix(in srgb,var(--rar-l) 55%,transparent);white-space:nowrap;text-transform:uppercase}
+.rar-badge.rar-standard{color:#dfe5f3;box-shadow:none}
+.rar-badge.rar-legendaire{background:linear-gradient(90deg,#7a4b00,#c98a00,#7a4b00);background-size:200% 100%;animation:rarOr 3s linear infinite}
+.rar-badge.rar-relique_interdite{background:repeating-linear-gradient(135deg,#2a0008 0 6px,#5c0016 6px 12px);animation:rarAlerte 1.2s steps(2) infinite}
+@keyframes rarOr{to{background-position:-200% 0}}
+@keyframes rarAlerte{50%{box-shadow:0 0 16px #ff2d55,0 0 2px #fff inset}}
+
+/* cartes : liseré et lueur du palier (Showroom, Pit, TV) */
+.rar-carte{border-color:color-mix(in srgb,var(--rar) 70%,transparent)!important;
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--rar) 35%,transparent),0 0 18px color-mix(in srgb,var(--rar-l) 32%,transparent)}
+.rar-carte.rar-legendaire,.rar-carte.rar-relique_interdite{box-shadow:0 0 0 1px var(--rar),0 0 26px color-mix(in srgb,var(--rar-l) 55%,transparent)}
+.carchip .rar-badge{margin-top:6px;font-size:10px;padding:1px 6px}
+.cote-chip{display:inline-block;margin-left:6px;font:700 12px var(--font-mono,monospace);color:var(--gold-2,#ffd34d);opacity:.9}
+@media (prefers-reduced-motion:reduce){.rar-badge{animation:none!important}}
+.btn-reveler{font:800 13px var(--font-display,system-ui);padding:6px 12px;border-radius:999px;border:1px solid var(--rar,#ffd34d);background:color-mix(in srgb,var(--rar,#ffd34d) 22%,#0b0d1a);color:#fff;cursor:pointer;letter-spacing:.04em}
+.btn-reveler:hover{box-shadow:0 0 14px var(--rar-l,#ffd34d)}
+.lane .rar-ligne{margin:2px 0 4px;text-align:center}

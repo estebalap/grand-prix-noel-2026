@@ -1,0 +1,59 @@
+/* Vignettes studio 2D : la photo détourée de la vraie miniature (web/photos/bolides/vignettes/), mise en scène en 2,5D.
+   Sans vignette (site public, photo absente ou en erreur), la silhouette dessinée .car-svg reste affichée. */
+.vgn{position:relative;display:block;width:100%;aspect-ratio:var(--vr,2.6);max-height:100%;margin:0 auto;
+  perspective:900px;isolation:isolate;--tx:0deg;--ty:0deg;--lx:50%}
+.vgn:not(.ko)>.car-svg{display:none!important}
+.vgn.ko>.car-svg{display:block;width:100%;height:auto}
+.vgn.ko>.vgn-scene{display:none}
+.vgn-scene{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--tx)) rotateY(var(--ty));transition:transform .25s ease-out}
+/* halo néon à la couleur d'accent de la carrosserie */
+.vgn-scene::before{content:"";position:absolute;inset:8% 6% 14%;z-index:-2;border-radius:50%;
+  background:radial-gradient(closest-side,color-mix(in srgb,var(--va,#9fb0ff) 55%,transparent),transparent 72%);
+  filter:blur(14px);opacity:.75}
+/* ombre de contact au sol */
+.vgn-scene::after{content:"";position:absolute;left:7%;right:7%;bottom:2%;height:13%;z-index:-1;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(0,0,0,.75),rgba(0,0,0,0) 80%)}
+.vgn-img{position:absolute;inset:0 0 6% 0;width:100%;height:94%;object-fit:contain;object-position:50% 100%;
+  filter:drop-shadow(0 6px 10px rgba(0,0,0,.45)) saturate(1.06) contrast(1.04);-webkit-user-drag:none;user-select:none}
+/* balayage de lumière, confiné à la silhouette de la voiture (masque = la vignette elle-même) */
+.vgn-shine{position:absolute;inset:0 0 6% 0;pointer-events:none;mix-blend-mode:screen;opacity:0;
+  -webkit-mask:var(--vu) 50% 100%/contain no-repeat;mask:var(--vu) 50% 100%/contain no-repeat;
+  background:linear-gradient(105deg,transparent calc(var(--lx) - 18%),rgba(255,255,255,.55) var(--lx),transparent calc(var(--lx) + 18%))}
+.vgn.grand .vgn-shine,.vgn:hover .vgn-shine{opacity:1}
+/* reflet sur le sol (seulement en grand) */
+.vgn.grand .vgn-refl{position:absolute;left:0;right:0;top:94%;height:40%;pointer-events:none;opacity:.22;
+  background:var(--vu) 50% 0/contain no-repeat;transform:scaleY(-1);transform-origin:50% 0;
+  -webkit-mask:linear-gradient(to top,#000,transparent 70%);mask:linear-gradient(to top,#000,transparent 70%);filter:blur(1.5px)}
+.vgn:not(.grand) .vgn-refl{display:none}
+.vgn.grand{margin-bottom:6%}
+.vgn.grand .vgn-scene::before{opacity:.95;filter:blur(22px)}
+/* vie au repos : léger flottement et lumière qui passe */
+@media (prefers-reduced-motion:no-preference){
+  .vgn.grand:not(.suivi) .vgn-scene{animation:vgnFlotte 7s ease-in-out infinite}
+  .vgn.grand:not(.suivi) .vgn-shine{animation:vgnBalaye 5.5s ease-in-out infinite}
+  .vgn:not(.grand):hover .vgn-shine{animation:vgnBalaye 1.6s ease-in-out}
+}
+@keyframes vgnFlotte{0%,100%{transform:rotateX(2deg) rotateY(-7deg) translateY(0)}50%{transform:rotateX(-1deg) rotateY(7deg) translateY(-2%)}}
+@keyframes vgnBalaye{0%{--lx:-20%}60%,100%{--lx:120%}}
+@property --lx{syntax:'<percentage>';inherits:true;initial-value:50%}
+/* emplacements existants */
+.carchip .vgn{aspect-ratio:2.4}
+.lane .carart .vgn{width:92%;aspect-ratio:2.2}
+.carc .vgn{max-height:140px;aspect-ratio:2.4}
+.reveal .art .vgn{width:100%}
+
+/* Portrait vectoriel 2D (shared/bolides2d.js) : contour net, lueur néon, flottement en grand format */
+.car-2d{overflow:visible}
+.carchip .car-2d,.lane .car-2d,.carc .car-2d{filter:drop-shadow(0 4px 6px rgba(0,0,0,.45))}
+.b2d.grand{position:relative;width:100%;padding:4% 2% 2%}
+.b2d.grand .car-2d{width:100%;height:auto;display:block;filter:drop-shadow(0 10px 14px rgba(0,0,0,.55)) drop-shadow(0 0 10px color-mix(in srgb,var(--rar-l,#8a9cff) 45%,transparent))}
+@media (prefers-reduced-motion:no-preference){.b2d.grand .car-2d{animation:b2dFlotte 6s ease-in-out infinite}}
+@keyframes b2dFlotte{0%,100%{transform:translateY(0) rotate(-.4deg)}50%{transform:translateY(-2.5%) rotate(.4deg)}}
+.photo-ref{display:flex;gap:12px;align-items:center;margin:10px 0 4px;padding:8px 10px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+.photo-ref .vgn{width:150px;flex:none;aspect-ratio:2.2}
+.photo-ref small{color:var(--ink-dim,#aab4d8);font:600 12px var(--font-body,system-ui)}
+.btn-360{font:800 13px var(--font-display,system-ui);padding:6px 12px;border-radius:999px;border:1px solid #22d3ee;background:rgba(34,211,238,.14);color:#fff;cursor:pointer;letter-spacing:.04em}
+.vue360-boite{position:fixed;inset:0;z-index:210}
+.vue360-boite .fermer{position:absolute;top:16px;right:16px;z-index:2;font:800 15px var(--font-display,system-ui);padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(10,8,28,.8);color:#fff;cursor:pointer}
+.vue360-boite .titre360{position:absolute;left:20px;top:16px;z-index:2;font:900 clamp(18px,2.4vw,34px) var(--font-display,system-ui);color:#fff;text-shadow:0 0 14px #22d3ee;pointer-events:none}
+.vue360-boite .aide360{position:absolute;left:20px;bottom:16px;z-index:2;color:#aab4d8;font:600 13px var(--font-body,system-ui);pointer-events:none}

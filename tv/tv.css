@@ -256,6 +256,9 @@ body.rotated #ytBox,body.rotated #nowPlaying{display:none}
 .intro-layer:hover .intro-skip{opacity:1}
 .intro-layer .intro-hint{position:absolute;left:50%;bottom:40px;transform:translateX(-50%);padding:12px 22px;border-radius:999px;background:rgba(0,0,0,.6);color:#fff;font:700 18px var(--font-display)}
 .intro-layer .hide{display:none}
+/* pendant l'intro (calque opaque) : rien d'autre n'est peint ni animé */
+body.intro-plein > :not(.intro-layer){visibility:hidden}
+body.intro-plein *:not(.intro-layer):not(.intro-layer *){animation-play-state:paused!important}
 #soundGate.intro-gate{left:50%;right:auto;bottom:50%;transform:translate(-50%,50%);font-size:26px;padding:1em 1.6em;box-shadow:0 0 0 8px rgba(255,211,106,.2),0 0 60px rgba(255,211,106,.5);animation:turnGlow 1.6s ease-in-out infinite}
 /* Draft à 6 places : tout tient à l'écran (titre compact, cases plus basses) */
 .draft{gap:14px}

@@ -8,6 +8,7 @@ import { startAtmosphere, confetti } from '../shared/fx.js';
 import * as snd from '../shared/audio.js';
 import { applyTheme, themeOf } from '../shared/themes.js';
 import { medal, carArt, statBars, teamAccent } from '../shared/ui.js';
+import { badgeRarete, styleRarete, rareteDe } from '../shared/rarete.js';
 import * as LBX from '../shared/lootbox.js';
 import { vignette } from '../shared/caisses3d.js';
 
@@ -288,7 +289,7 @@ function renderDraft(s) {
 }
 function carCard(code) {
   const c = car(code); if (!c) return '';
-  return `<div class="card deco carc">${carArt(code, me, 'pc' + code)}<div class="dim small mono">${esc(c.code)} · ${esc(c.ecurie)}</div><h3 class="foil">${esc(c.alias)}</h3><div class="qt">« ${esc(c.citation)} »</div>${statBars(c, 5)}<div class="dim small" style="margin-top:8px">${esc(c.lore)}</div></div>`;
+  return `<div class="card deco carc rar-carte rar-${rareteDe(c)}" style="${styleRarete(c)}">${carArt(code, me, 'pc' + code)}<div class="dim small mono">${esc(c.code)} · ${esc(c.ecurie)} ${badgeRarete(c)}</div><h3 class="foil">${esc(c.alias)}</h3><div class="qt">« ${esc(c.citation)} »</div>${statBars(c, 5)}<div class="dim small" style="margin-top:8px">${esc(c.lore)}</div></div>`;
 }
 
 /* ---------------------------------------------------------------- GRILLE + BOURSE + PIÈGES */

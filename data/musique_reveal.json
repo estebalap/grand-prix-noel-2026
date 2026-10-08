@@ -1,0 +1,1664 @@
+{
+ "_doc": "Bande-son des reveals Fret (shared/reveal_fret.js). Déposer un extrait dans Musique/08_Reveal_Bolides/ : CODE.mp3 (ex. B07.mp3) pour un bolide, ou GENRE.mp3 (ex. rock.mp3) pour tout un genre. Le reveal détecte le « drop » et le cale sur la sortie du bolide. Sans fichier : jingle synthétisé du thème. Morceaux cités = suggestions, usage privé.",
+ "dossier": "Musique/08_Reveal_Bolides",
+ "genres": {
+  "rock": {
+   "libelle": "Gros rock",
+   "ambiance": "riff saturé, batterie qui cogne",
+   "bpm": 140,
+   "suggestions": [
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now",
+    "The White Stripes — Seven Nation Army"
+   ],
+   "fichier": "rock.mp3"
+  },
+  "hiphop": {
+   "libelle": "Rap saignant",
+   "ambiance": "boom-bap lourd, basse qui claque",
+   "bpm": 92,
+   "suggestions": [
+    "DMX — X Gon' Give It to Ya",
+    "Eminem — Lose Yourself",
+    "Run-DMC — It's Tricky"
+   ],
+   "fichier": "hiphop.mp3"
+  },
+  "synthwave": {
+   "libelle": "Électro / synthwave",
+   "ambiance": "arpèges néon, nuit sur l'autoroute",
+   "bpm": 110,
+   "suggestions": [
+    "Kavinsky — Nightcall",
+    "Daft Punk — Derezzed",
+    "Carpenter Brut — Turbo Killer"
+   ],
+   "fichier": "synthwave.mp3"
+  },
+  "eurobeat": {
+   "libelle": "Eurobeat de drift",
+   "ambiance": "tempo 155, synthés survoltés",
+   "bpm": 155,
+   "suggestions": [
+    "Dave Rodgers — Deja Vu",
+    "Manuel — Gas Gas Gas",
+    "Max Coveri — Running in the 90s"
+   ],
+   "fichier": "eurobeat.mp3"
+  },
+  "bubblegum": {
+   "libelle": "Pop acidulée",
+   "ambiance": "bonbon, claps, refrain qui colle",
+   "bpm": 128,
+   "suggestions": [
+    "Aqua — Barbie Girl",
+    "Caramella Girls — Caramelldansen",
+    "Britney Spears — Toxic"
+   ],
+   "fichier": "bubblegum.mp3"
+  },
+  "country": {
+   "libelle": "Country western",
+   "ambiance": "banjo, violon, poussière de Route 66",
+   "bpm": 120,
+   "suggestions": [
+    "Rednex — Cotton Eye Joe",
+    "Johnny Cash — Ring of Fire",
+    "Lil Nas X — Old Town Road"
+   ],
+   "fichier": "country.mp3"
+  },
+  "disco": {
+   "libelle": "Disco-funk",
+   "ambiance": "basse slappée, boule à facettes",
+   "bpm": 118,
+   "suggestions": [
+    "Bee Gees — Stayin' Alive",
+    "Daft Punk — One More Time",
+    "Chic — Le Freak"
+   ],
+   "fichier": "disco.mp3"
+  },
+  "swing": {
+   "libelle": "Swing de casino",
+   "ambiance": "cuivres, contrebasse, élégance louche",
+   "bpm": 160,
+   "suggestions": [
+    "Louis Prima — Jump, Jive an' Wail",
+    "Benny Goodman — Sing, Sing, Sing",
+    "Caravan Palace — Lone Digger"
+   ],
+   "fichier": "swing.mp3"
+  },
+  "symphonie": {
+   "libelle": "Symphonique sombre",
+   "ambiance": "cordes, cuivres, cathédrale gothique",
+   "bpm": 100,
+   "suggestions": [
+    "Danny Elfman — The Batman Theme (1989)",
+    "Hans Zimmer — Why So Serious?",
+    "Carl Orff — O Fortuna"
+   ],
+   "fichier": "symphonie.mp3"
+  },
+  "chiptune": {
+   "libelle": "Chiptune 8 bits",
+   "ambiance": "bips de console, trésor trouvé",
+   "bpm": 140,
+   "suggestions": [
+    "Korobeiniki (thème populaire russe, version 8 bits)",
+    "Anamanaguchi — Endless Fantasy",
+    "Disasterpeace — Fez (bande originale)"
+   ],
+   "fichier": "chiptune.mp3"
+  },
+  "epique": {
+   "libelle": "Épique bande-annonce",
+   "ambiance": "chœurs, tambours de guerre",
+   "bpm": 96,
+   "suggestions": [
+    "Two Steps From Hell — Heart of Courage",
+    "Hans Zimmer — Time",
+    "Carl Orff — O Fortuna"
+   ],
+   "fichier": "epique.mp3"
+  },
+  "doom": {
+   "libelle": "Metal industriel",
+   "ambiance": "riff très grave, enclume",
+   "bpm": 130,
+   "suggestions": [
+    "Mick Gordon — BFG Division",
+    "Rammstein — Du hast",
+    "Gesaffelstein — Pursuit"
+   ],
+   "fichier": "doom.mp3"
+  },
+  "kawaii": {
+   "libelle": "J-pop kawaii",
+   "ambiance": "clochettes, voix aiguës, sucre",
+   "bpm": 132,
+   "suggestions": [
+    "Kyary Pamyu Pamyu — PonPonPon",
+    "Hatsune Miku — Ievan Polkka",
+    "Momoiro Clover Z — Ikuze! Kaitō Shōjo"
+   ],
+   "fichier": "kawaii.mp3"
+  },
+  "acidjazz": {
+   "libelle": "Acid jazz d'anime",
+   "ambiance": "cuivres nerveux, contrebasse",
+   "bpm": 120,
+   "suggestions": [
+    "Seatbelts — Tank!",
+    "Jamiroquai — Virtual Insanity",
+    "Jamiroquai — Cosmic Girl"
+   ],
+   "fichier": "acidjazz.mp3"
+  },
+  "punk": {
+   "libelle": "Punk-rock",
+   "ambiance": "trois accords, zéro freins",
+   "bpm": 170,
+   "suggestions": [
+    "The Offspring — The Kids Aren't Alright",
+    "Ramones — Blitzkrieg Bop",
+    "The Clash — London Calling"
+   ],
+   "fichier": "punk.mp3"
+  },
+  "valse": {
+   "libelle": "Valse électro-swing",
+   "ambiance": "trois temps qui tournent la tête",
+   "bpm": 150,
+   "suggestions": [
+    "Johann Strauss II — Le Beau Danube bleu (enregistrement libre de droits, ex. Musopen)",
+    "Chostakovitch — Valse n° 2",
+    "Parov Stelar — Booty Swing"
+   ],
+   "fichier": "valse.mp3"
+  }
+ },
+ "bolides": {
+  "B01": {
+   "genre": "acidjazz",
+   "fichiers": [
+    "B01.mp3",
+    "acidjazz.mp3"
+   ],
+   "suggestions": [
+    "Neal Hefti — Batman Theme (1966)",
+    "Seatbelts — Tank!",
+    "Jamiroquai — Virtual Insanity"
+   ]
+  },
+  "B02": {
+   "genre": "epique",
+   "fichiers": [
+    "B02.mp3",
+    "epique.mp3"
+   ],
+   "suggestions": [
+    "Two Steps From Hell — Heart of Courage",
+    "Hans Zimmer — Time",
+    "Carl Orff — O Fortuna"
+   ]
+  },
+  "B03": {
+   "genre": "symphonie",
+   "fichiers": [
+    "B03.mp3",
+    "symphonie.mp3"
+   ],
+   "suggestions": [
+    "Danny Elfman — The Batman Theme (1989)",
+    "Hans Zimmer — Why So Serious?",
+    "Carl Orff — O Fortuna"
+   ]
+  },
+  "B04": {
+   "genre": "doom",
+   "fichiers": [
+    "B04.mp3",
+    "doom.mp3"
+   ],
+   "suggestions": [
+    "Mick Gordon — BFG Division",
+    "Rammstein — Du hast",
+    "Gesaffelstein — Pursuit"
+   ]
+  },
+  "B05": {
+   "genre": "epique",
+   "fichiers": [
+    "B05.mp3",
+    "epique.mp3"
+   ],
+   "suggestions": [
+    "Two Steps From Hell — Heart of Courage",
+    "Hans Zimmer — Time",
+    "Carl Orff — O Fortuna"
+   ]
+  },
+  "B06": {
+   "genre": "epique",
+   "fichiers": [
+    "B06.mp3",
+    "epique.mp3"
+   ],
+   "suggestions": [
+    "Two Steps From Hell — Heart of Courage",
+    "Hans Zimmer — Time",
+    "Carl Orff — O Fortuna"
+   ]
+  },
+  "B07": {
+   "genre": "synthwave",
+   "fichiers": [
+    "B07.mp3",
+    "synthwave.mp3"
+   ],
+   "suggestions": [
+    "Kavinsky — Nightcall",
+    "Daft Punk — Derezzed",
+    "Carpenter Brut — Turbo Killer"
+   ]
+  },
+  "B08": {
+   "genre": "doom",
+   "fichiers": [
+    "B08.mp3",
+    "doom.mp3"
+   ],
+   "suggestions": [
+    "Mick Gordon — BFG Division",
+    "Rammstein — Du hast",
+    "Gesaffelstein — Pursuit"
+   ]
+  },
+  "B09": {
+   "genre": "epique",
+   "fichiers": [
+    "B09.mp3",
+    "epique.mp3"
+   ],
+   "suggestions": [
+    "Two Steps From Hell — Heart of Courage",
+    "Hans Zimmer — Time",
+    "Carl Orff — O Fortuna"
+   ]
+  },
+  "B10": {
+   "genre": "symphonie",
+   "fichiers": [
+    "B10.mp3",
+    "symphonie.mp3"
+   ],
+   "suggestions": [
+    "Danny Elfman — The Batman Theme (1989)",
+    "Hans Zimmer — Why So Serious?",
+    "Carl Orff — O Fortuna"
+   ]
+  },
+  "B11": {
+   "genre": "synthwave",
+   "fichiers": [
+    "B11.mp3",
+    "synthwave.mp3"
+   ],
+   "suggestions": [
+    "Kavinsky — Nightcall",
+    "Daft Punk — Derezzed",
+    "Carpenter Brut — Turbo Killer"
+   ]
+  },
+  "B12": {
+   "genre": "punk",
+   "fichiers": [
+    "B12.mp3",
+    "punk.mp3"
+   ],
+   "suggestions": [
+    "Hans Zimmer — Why So Serious?",
+    "The Offspring — The Kids Aren't Alright",
+    "Ramones — Blitzkrieg Bop"
+   ]
+  },
+  "B13": {
+   "genre": "synthwave",
+   "fichiers": [
+    "B13.mp3",
+    "synthwave.mp3"
+   ],
+   "suggestions": [
+    "Kavinsky — Nightcall",
+    "Daft Punk — Derezzed",
+    "Carpenter Brut — Turbo Killer"
+   ]
+  },
+  "B14": {
+   "genre": "bubblegum",
+   "fichiers": [
+    "B14.mp3",
+    "bubblegum.mp3"
+   ],
+   "suggestions": [
+    "Aqua — Barbie Girl",
+    "Caramella Girls — Caramelldansen",
+    "Britney Spears — Toxic"
+   ]
+  },
+  "B15": {
+   "genre": "doom",
+   "fichiers": [
+    "B15.mp3",
+    "doom.mp3"
+   ],
+   "suggestions": [
+    "Hans Zimmer — Molossus",
+    "Mick Gordon — BFG Division",
+    "Rammstein — Du hast"
+   ]
+  },
+  "B16": {
+   "genre": "synthwave",
+   "fichiers": [
+    "B16.mp3",
+    "synthwave.mp3"
+   ],
+   "suggestions": [
+    "Kavinsky — Nightcall",
+    "Daft Punk — Derezzed",
+    "Carpenter Brut — Turbo Killer"
+   ]
+  },
+  "B17": {
+   "genre": "punk",
+   "fichiers": [
+    "B17.mp3",
+    "punk.mp3"
+   ],
+   "suggestions": [
+    "Hans Zimmer — Why So Serious?",
+    "The Offspring — The Kids Aren't Alright",
+    "Ramones — Blitzkrieg Bop"
+   ]
+  },
+  "J01": {
+   "genre": "eurobeat",
+   "fichiers": [
+    "J01.mp3",
+    "eurobeat.mp3"
+   ],
+   "suggestions": [
+    "Manuel — Gas Gas Gas",
+    "Dave Rodgers — Deja Vu",
+    "Max Coveri — Running in the 90s"
+   ]
+  },
+  "J02": {
+   "genre": "eurobeat",
+   "fichiers": [
+    "J02.mp3",
+    "eurobeat.mp3"
+   ],
+   "suggestions": [
+    "Dave Rodgers — Deja Vu",
+    "Manuel — Gas Gas Gas",
+    "Max Coveri — Running in the 90s"
+   ]
+  },
+  "J04": {
+   "genre": "punk",
+   "fichiers": [
+    "J04.mp3",
+    "punk.mp3"
+   ],
+   "suggestions": [
+    "The Offspring — The Kids Aren't Alright",
+    "Ramones — Blitzkrieg Bop",
+    "The Clash — London Calling"
+   ]
+  },
+  "J05": {
+   "genre": "eurobeat",
+   "fichiers": [
+    "J05.mp3",
+    "eurobeat.mp3"
+   ],
+   "suggestions": [
+    "Dave Rodgers — Deja Vu",
+    "Manuel — Gas Gas Gas",
+    "Max Coveri — Running in the 90s"
+   ]
+  },
+  "J07": {
+   "genre": "kawaii",
+   "fichiers": [
+    "J07.mp3",
+    "kawaii.mp3"
+   ],
+   "suggestions": [
+    "Kyary Pamyu Pamyu — PonPonPon",
+    "Hatsune Miku — Ievan Polkka",
+    "Momoiro Clover Z — Ikuze! Kaitō Shōjo"
+   ]
+  },
+  "J08": {
+   "genre": "eurobeat",
+   "fichiers": [
+    "J08.mp3",
+    "eurobeat.mp3"
+   ],
+   "suggestions": [
+    "Dave Rodgers — Deja Vu",
+    "Manuel — Gas Gas Gas",
+    "Max Coveri — Running in the 90s"
+   ]
+  },
+  "J09": {
+   "genre": "bubblegum",
+   "fichiers": [
+    "J09.mp3",
+    "bubblegum.mp3"
+   ],
+   "suggestions": [
+    "Aqua — Barbie Girl",
+    "Caramella Girls — Caramelldansen",
+    "Britney Spears — Toxic"
+   ]
+  },
+  "J10": {
+   "genre": "rock",
+   "fichiers": [
+    "J10.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now",
+    "The White Stripes — Seven Nation Army"
+   ]
+  },
+  "J11": {
+   "genre": "eurobeat",
+   "fichiers": [
+    "J11.mp3",
+    "eurobeat.mp3"
+   ],
+   "suggestions": [
+    "Manuel — Gas Gas Gas",
+    "Dave Rodgers — Deja Vu",
+    "Max Coveri — Running in the 90s"
+   ]
+  },
+  "J12": {
+   "genre": "acidjazz",
+   "fichiers": [
+    "J12.mp3",
+    "acidjazz.mp3"
+   ],
+   "suggestions": [
+    "Seatbelts — Tank!",
+    "Jamiroquai — Virtual Insanity",
+    "Jamiroquai — Cosmic Girl"
+   ]
+  },
+  "U01": {
+   "genre": "rock",
+   "fichiers": [
+    "U01.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now",
+    "The White Stripes — Seven Nation Army"
+   ]
+  },
+  "U02": {
+   "genre": "synthwave",
+   "fichiers": [
+    "U02.mp3",
+    "synthwave.mp3"
+   ],
+   "suggestions": [
+    "Kavinsky — Nightcall",
+    "Daft Punk — Derezzed",
+    "Carpenter Brut — Turbo Killer"
+   ]
+  },
+  "U03": {
+   "genre": "country",
+   "fichiers": [
+    "U03.mp3",
+    "country.mp3"
+   ],
+   "suggestions": [
+    "Jerry Reed — East Bound and Down",
+    "Rednex — Cotton Eye Joe",
+    "Johnny Cash — Ring of Fire"
+   ]
+  },
+  "U04": {
+   "genre": "country",
+   "fichiers": [
+    "U04.mp3",
+    "country.mp3"
+   ],
+   "suggestions": [
+    "Rednex — Cotton Eye Joe",
+    "Johnny Cash — Ring of Fire",
+    "Lil Nas X — Old Town Road"
+   ]
+  },
+  "U05": {
+   "genre": "rock",
+   "fichiers": [
+    "U05.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now",
+    "The White Stripes — Seven Nation Army"
+   ]
+  },
+  "E02": {
+   "genre": "disco",
+   "fichiers": [
+    "E02.mp3",
+    "disco.mp3"
+   ],
+   "suggestions": [
+    "Bee Gees — Stayin' Alive",
+    "Daft Punk — One More Time",
+    "Chic — Le Freak"
+   ]
+  },
+  "E03": {
+   "genre": "swing",
+   "fichiers": [
+    "E03.mp3",
+    "swing.mp3"
+   ],
+   "suggestions": [
+    "Louis Prima — Jump, Jive an' Wail",
+    "Benny Goodman — Sing, Sing, Sing",
+    "Caravan Palace — Lone Digger"
+   ]
+  },
+  "E04": {
+   "genre": "swing",
+   "fichiers": [
+    "E04.mp3",
+    "swing.mp3"
+   ],
+   "suggestions": [
+    "Fleetwood Mac — The Chain",
+    "Louis Prima — Jump, Jive an' Wail",
+    "Benny Goodman — Sing, Sing, Sing"
+   ]
+  },
+  "E05": {
+   "genre": "rock",
+   "fichiers": [
+    "E05.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now",
+    "The White Stripes — Seven Nation Army"
+   ]
+  },
+  "E06": {
+   "genre": "synthwave",
+   "fichiers": [
+    "E06.mp3",
+    "synthwave.mp3"
+   ],
+   "suggestions": [
+    "Kavinsky — Nightcall",
+    "Daft Punk — Derezzed",
+    "Carpenter Brut — Turbo Killer"
+   ]
+  },
+  "E07": {
+   "genre": "punk",
+   "fichiers": [
+    "E07.mp3",
+    "punk.mp3"
+   ],
+   "suggestions": [
+    "ABBA — Gimme! Gimme! Gimme!",
+    "The Offspring — The Kids Aren't Alright",
+    "Ramones — Blitzkrieg Bop"
+   ]
+  },
+  "E08": {
+   "genre": "rock",
+   "fichiers": [
+    "E08.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now",
+    "The White Stripes — Seven Nation Army"
+   ]
+  },
+  "P01": {
+   "genre": "synthwave",
+   "fichiers": [
+    "P01.mp3",
+    "synthwave.mp3"
+   ],
+   "suggestions": [
+    "Stu Phillips — Knight Rider Theme",
+    "Kavinsky — Nightcall",
+    "Daft Punk — Derezzed"
+   ]
+  },
+  "P03": {
+   "genre": "doom",
+   "fichiers": [
+    "P03.mp3",
+    "doom.mp3"
+   ],
+   "suggestions": [
+    "Mick Gordon — BFG Division",
+    "Rammstein — Du hast",
+    "Gesaffelstein — Pursuit"
+   ]
+  },
+  "P04": {
+   "genre": "bubblegum",
+   "fichiers": [
+    "P04.mp3",
+    "bubblegum.mp3"
+   ],
+   "suggestions": [
+    "Aqua — Barbie Girl",
+    "Caramella Girls — Caramelldansen",
+    "Britney Spears — Toxic"
+   ]
+  },
+  "H01": {
+   "genre": "punk",
+   "fichiers": [
+    "H01.mp3",
+    "punk.mp3"
+   ],
+   "suggestions": [
+    "The Offspring — The Kids Aren't Alright",
+    "Ramones — Blitzkrieg Bop",
+    "The Clash — London Calling"
+   ]
+  },
+  "H02": {
+   "genre": "epique",
+   "fichiers": [
+    "H02.mp3",
+    "epique.mp3"
+   ],
+   "suggestions": [
+    "Two Steps From Hell — Heart of Courage",
+    "Hans Zimmer — Time",
+    "Carl Orff — O Fortuna"
+   ]
+  },
+  "H03": {
+   "genre": "chiptune",
+   "fichiers": [
+    "H03.mp3",
+    "chiptune.mp3"
+   ],
+   "suggestions": [
+    "Korobeiniki (thème populaire russe, version 8 bits)",
+    "Anamanaguchi — Endless Fantasy",
+    "Disasterpeace — Fez (bande originale)"
+   ]
+  },
+  "H04": {
+   "genre": "doom",
+   "fichiers": [
+    "H04.mp3",
+    "doom.mp3"
+   ],
+   "suggestions": [
+    "Mick Gordon — BFG Division",
+    "Rammstein — Du hast",
+    "Gesaffelstein — Pursuit"
+   ]
+  },
+  "H05": {
+   "genre": "eurobeat",
+   "fichiers": [
+    "H05.mp3",
+    "eurobeat.mp3"
+   ],
+   "suggestions": [
+    "Dave Rodgers — Deja Vu",
+    "Manuel — Gas Gas Gas",
+    "Max Coveri — Running in the 90s"
+   ]
+  },
+  "H06": {
+   "genre": "bubblegum",
+   "fichiers": [
+    "H06.mp3",
+    "bubblegum.mp3"
+   ],
+   "suggestions": [
+    "The Marvelettes — Please Mr. Postman",
+    "Aqua — Barbie Girl",
+    "Caramella Girls — Caramelldansen"
+   ]
+  },
+  "H07": {
+   "genre": "rock",
+   "fichiers": [
+    "H07.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now",
+    "The White Stripes — Seven Nation Army"
+   ]
+  },
+  "H08": {
+   "genre": "punk",
+   "fichiers": [
+    "H08.mp3",
+    "punk.mp3"
+   ],
+   "suggestions": [
+    "The Clash — London Calling",
+    "The Offspring — The Kids Aren't Alright",
+    "Ramones — Blitzkrieg Bop"
+   ]
+  },
+  "H09": {
+   "genre": "chiptune",
+   "fichiers": [
+    "H09.mp3",
+    "chiptune.mp3"
+   ],
+   "suggestions": [
+    "Korobeiniki (thème populaire russe, version 8 bits)",
+    "Anamanaguchi — Endless Fantasy",
+    "Disasterpeace — Fez (bande originale)"
+   ]
+  },
+  "H10": {
+   "genre": "rock",
+   "fichiers": [
+    "H10.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now",
+    "The White Stripes — Seven Nation Army"
+   ]
+  },
+  "H11": {
+   "genre": "chiptune",
+   "fichiers": [
+    "H11.mp3",
+    "chiptune.mp3"
+   ],
+   "suggestions": [
+    "Korobeiniki (thème populaire russe, version 8 bits)",
+    "Anamanaguchi — Endless Fantasy",
+    "Disasterpeace — Fez (bande originale)"
+   ]
+  },
+  "H12": {
+   "genre": "epique",
+   "fichiers": [
+    "H12.mp3",
+    "epique.mp3"
+   ],
+   "suggestions": [
+    "The Clash — London Calling",
+    "Two Steps From Hell — Heart of Courage",
+    "Hans Zimmer — Time"
+   ]
+  },
+  "F01": {
+   "genre": "symphonie",
+   "fichiers": [
+    "F01.mp3",
+    "symphonie.mp3"
+   ],
+   "suggestions": [
+    "Fleetwood Mac — The Chain",
+    "Danny Elfman — The Batman Theme (1989)",
+    "Hans Zimmer — Why So Serious?"
+   ]
+  },
+  "F02": {
+   "genre": "rock",
+   "fichiers": [
+    "F02.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "Fleetwood Mac — The Chain",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ]
+  },
+  "F03": {
+   "genre": "symphonie",
+   "fichiers": [
+    "F03.mp3",
+    "symphonie.mp3"
+   ],
+   "suggestions": [
+    "Fleetwood Mac — The Chain",
+    "Danny Elfman — The Batman Theme (1989)",
+    "Hans Zimmer — Why So Serious?"
+   ]
+  },
+  "F04": {
+   "genre": "disco",
+   "fichiers": [
+    "F04.mp3",
+    "disco.mp3"
+   ],
+   "suggestions": [
+    "Fleetwood Mac — The Chain",
+    "Bee Gees — Stayin' Alive",
+    "Daft Punk — One More Time"
+   ]
+  },
+  "F05": {
+   "genre": "epique",
+   "fichiers": [
+    "F05.mp3",
+    "epique.mp3"
+   ],
+   "suggestions": [
+    "Fleetwood Mac — The Chain",
+    "Two Steps From Hell — Heart of Courage",
+    "Hans Zimmer — Time"
+   ]
+  },
+  "F06": {
+   "genre": "bubblegum",
+   "fichiers": [
+    "F06.mp3",
+    "bubblegum.mp3"
+   ],
+   "suggestions": [
+    "Fleetwood Mac — The Chain",
+    "Aqua — Barbie Girl",
+    "Caramella Girls — Caramelldansen"
+   ]
+  },
+  "F07": {
+   "genre": "swing",
+   "fichiers": [
+    "F07.mp3",
+    "swing.mp3"
+   ],
+   "suggestions": [
+    "Fleetwood Mac — The Chain",
+    "Louis Prima — Jump, Jive an' Wail",
+    "Benny Goodman — Sing, Sing, Sing"
+   ]
+  },
+  "F08": {
+   "genre": "hiphop",
+   "fichiers": [
+    "F08.mp3",
+    "hiphop.mp3"
+   ],
+   "suggestions": [
+    "Fleetwood Mac — The Chain",
+    "DMX — X Gon' Give It to Ya",
+    "Eminem — Lose Yourself"
+   ]
+  },
+  "F09": {
+   "genre": "synthwave",
+   "fichiers": [
+    "F09.mp3",
+    "synthwave.mp3"
+   ],
+   "suggestions": [
+    "Fleetwood Mac — The Chain",
+    "Kavinsky — Nightcall",
+    "Daft Punk — Derezzed"
+   ]
+  },
+  "F10": {
+   "genre": "country",
+   "fichiers": [
+    "F10.mp3",
+    "country.mp3"
+   ],
+   "suggestions": [
+    "Fleetwood Mac — The Chain",
+    "Rednex — Cotton Eye Joe",
+    "Johnny Cash — Ring of Fire"
+   ]
+  },
+  "FR01": {
+   "genre": "symphonie",
+   "fichiers": [
+    "FR01.mp3",
+    "symphonie.mp3"
+   ],
+   "suggestions": [
+    "Kavinsky — Nightcall",
+    "Danny Elfman — The Batman Theme (1989)",
+    "Hans Zimmer — Why So Serious?"
+   ]
+  },
+  "FR02": {
+   "genre": "rock",
+   "fichiers": [
+    "FR02.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now",
+    "The White Stripes — Seven Nation Army"
+   ]
+  },
+  "FR03": {
+   "genre": "swing",
+   "fichiers": [
+    "FR03.mp3",
+    "swing.mp3"
+   ],
+   "suggestions": [
+    "Serge Gainsbourg — Bonnie and Clyde",
+    "Louis Prima — Jump, Jive an' Wail",
+    "Benny Goodman — Sing, Sing, Sing"
+   ]
+  },
+  "FR04": {
+   "genre": "disco",
+   "fichiers": [
+    "FR04.mp3",
+    "disco.mp3"
+   ],
+   "suggestions": [
+    "Daft Punk — Around the World",
+    "Bee Gees — Stayin' Alive",
+    "Daft Punk — One More Time"
+   ]
+  },
+  "FR05": {
+   "genre": "valse",
+   "fichiers": [
+    "FR05.mp3",
+    "valse.mp3"
+   ],
+   "suggestions": [
+    "Johann Strauss II — Le Beau Danube bleu (enregistrement libre de droits, ex. Musopen)",
+    "Chostakovitch — Valse n° 2",
+    "Parov Stelar — Booty Swing"
+   ]
+  },
+  "TK01": {
+   "genre": "eurobeat",
+   "fichiers": [
+    "TK01.mp3",
+    "eurobeat.mp3"
+   ],
+   "suggestions": [
+    "Dave Rodgers — Deja Vu",
+    "Manuel — Gas Gas Gas",
+    "Max Coveri — Running in the 90s"
+   ]
+  },
+  "TK02": {
+   "genre": "synthwave",
+   "fichiers": [
+    "TK02.mp3",
+    "synthwave.mp3"
+   ],
+   "suggestions": [
+    "Kavinsky — Nightcall",
+    "Daft Punk — Derezzed",
+    "Carpenter Brut — Turbo Killer"
+   ]
+  },
+  "TK03": {
+   "genre": "rock",
+   "fichiers": [
+    "TK03.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now",
+    "The White Stripes — Seven Nation Army"
+   ]
+  },
+  "TK04": {
+   "genre": "disco",
+   "fichiers": [
+    "TK04.mp3",
+    "disco.mp3"
+   ],
+   "suggestions": [
+    "Bee Gees — Stayin' Alive",
+    "Daft Punk — One More Time",
+    "Chic — Le Freak"
+   ]
+  },
+  "TK05": {
+   "genre": "kawaii",
+   "fichiers": [
+    "TK05.mp3",
+    "kawaii.mp3"
+   ],
+   "suggestions": [
+    "Kyary Pamyu Pamyu — PonPonPon",
+    "Hatsune Miku — Ievan Polkka",
+    "Momoiro Clover Z — Ikuze! Kaitō Shōjo"
+   ]
+  },
+  "TK06": {
+   "genre": "kawaii",
+   "fichiers": [
+    "TK06.mp3",
+    "kawaii.mp3"
+   ],
+   "suggestions": [
+    "Hatsune Miku — Ievan Polkka",
+    "Kyary Pamyu Pamyu — PonPonPon",
+    "Momoiro Clover Z — Ikuze! Kaitō Shōjo"
+   ]
+  }
+ },
+ "trailers": {
+  "dossier": "Musique/09_Trailers_Invocation",
+  "univers": {
+   "manga": {
+    "libelle": "Manga / anime",
+    "genre": "Eurobeat / J-pop survoltée",
+    "ambiance": "synthés en arpèges, basse octave sur les contretemps, 150-160 BPM",
+    "bpm": 156,
+    "recherche_cc": "eurobeat, j-pop, anime opening, vocaloid (licence CC BY ou CC0 indiquée)",
+    "fichier": "manga.mp3"
+   },
+   "gothique": {
+    "libelle": "Comics noir / film noir",
+    "genre": "Cuivres orchestraux sombres",
+    "ambiance": "cuivres massifs, timbales, ostinato de cordes graves, tonnerre",
+    "bpm": 92,
+    "recherche_cc": "dark orchestral brass, epic trailer hit, noir jazz, thunder (licence CC BY ou CC0 indiquée)",
+    "fichier": "gothique.mp3"
+   },
+   "post_apo": {
+    "libelle": "Post-apocalyptique / muscle",
+    "genre": "Rock saturé",
+    "ambiance": "riff de guitare saturée en mi, batterie lourde, larsen",
+    "bpm": 128,
+    "recherche_cc": "dirty rock riff, desert rock, stoner, garage rock (licence CC BY ou CC0 indiquée)",
+    "fichier": "post_apo.mp3"
+   },
+   "pop": {
+    "libelle": "Pop / glamour",
+    "genre": "Bubblegum pop",
+    "ambiance": "mélodie sucrée en majeur, clap, cloches, 125-130 BPM",
+    "bpm": 128,
+    "recherche_cc": "bubblegum pop, k-pop instrumental, happy upbeat pop (licence CC BY ou CC0 indiquée)",
+    "fichier": "pop.mp3"
+   },
+   "vintage": {
+    "libelle": "Relique vintage",
+    "genre": "Western spaghetti / jazz rétro",
+    "ambiance": "trompette solo avec vibrato, sifflet, craquements de vinyle",
+    "bpm": 76,
+    "recherche_cc": "spaghetti western trumpet, vintage jazz 1920s, ragtime, vinyl crackle (licence CC BY ou CC0, ou domaine public)",
+    "fichier": "vintage.mp3"
+   },
+   "blockbuster": {
+    "libelle": "Blockbuster",
+    "genre": "Trailer épique",
+    "ambiance": "BRAAAM, taikos, ostinato de cordes, sub-drop",
+    "bpm": 120,
+    "recherche_cc": "epic trailer music, cinematic percussion, braam, orchestral hybrid (licence CC BY ou CC0 indiquée)",
+    "fichier": "blockbuster.mp3"
+   }
+  },
+  "bolides": {
+   "B01": {
+    "archetype": "vintage",
+    "fichiers": [
+     "B01.mp3",
+     "vintage.mp3"
+    ]
+   },
+   "B02": {
+    "archetype": "gothique",
+    "fichiers": [
+     "B02.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "B03": {
+    "archetype": "gothique",
+    "fichiers": [
+     "B03.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "B04": {
+    "archetype": "gothique",
+    "fichiers": [
+     "B04.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "B05": {
+    "archetype": "gothique",
+    "fichiers": [
+     "B05.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "B06": {
+    "archetype": "gothique",
+    "fichiers": [
+     "B06.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "B07": {
+    "archetype": "gothique",
+    "fichiers": [
+     "B07.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "B08": {
+    "archetype": "gothique",
+    "fichiers": [
+     "B08.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "B09": {
+    "archetype": "gothique",
+    "fichiers": [
+     "B09.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "B10": {
+    "archetype": "gothique",
+    "fichiers": [
+     "B10.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "B11": {
+    "archetype": "gothique",
+    "fichiers": [
+     "B11.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "B12": {
+    "archetype": "gothique",
+    "fichiers": [
+     "B12.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "B13": {
+    "archetype": "gothique",
+    "fichiers": [
+     "B13.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "B14": {
+    "archetype": "gothique",
+    "fichiers": [
+     "B14.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "B15": {
+    "archetype": "gothique",
+    "fichiers": [
+     "B15.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "B16": {
+    "archetype": "gothique",
+    "fichiers": [
+     "B16.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "B17": {
+    "archetype": "gothique",
+    "fichiers": [
+     "B17.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "J01": {
+    "archetype": "manga",
+    "fichiers": [
+     "J01.mp3",
+     "manga.mp3"
+    ]
+   },
+   "J02": {
+    "archetype": "manga",
+    "fichiers": [
+     "J02.mp3",
+     "manga.mp3"
+    ]
+   },
+   "J04": {
+    "archetype": "manga",
+    "fichiers": [
+     "J04.mp3",
+     "manga.mp3"
+    ]
+   },
+   "J05": {
+    "archetype": "manga",
+    "fichiers": [
+     "J05.mp3",
+     "manga.mp3"
+    ]
+   },
+   "J07": {
+    "archetype": "manga",
+    "fichiers": [
+     "J07.mp3",
+     "manga.mp3"
+    ]
+   },
+   "J08": {
+    "archetype": "manga",
+    "fichiers": [
+     "J08.mp3",
+     "manga.mp3"
+    ]
+   },
+   "J09": {
+    "archetype": "manga",
+    "fichiers": [
+     "J09.mp3",
+     "manga.mp3"
+    ]
+   },
+   "J10": {
+    "archetype": "manga",
+    "fichiers": [
+     "J10.mp3",
+     "manga.mp3"
+    ]
+   },
+   "J11": {
+    "archetype": "manga",
+    "fichiers": [
+     "J11.mp3",
+     "manga.mp3"
+    ]
+   },
+   "J12": {
+    "archetype": "manga",
+    "fichiers": [
+     "J12.mp3",
+     "manga.mp3"
+    ]
+   },
+   "U01": {
+    "archetype": "post_apo",
+    "fichiers": [
+     "U01.mp3",
+     "post_apo.mp3"
+    ]
+   },
+   "U02": {
+    "archetype": "post_apo",
+    "fichiers": [
+     "U02.mp3",
+     "post_apo.mp3"
+    ]
+   },
+   "U03": {
+    "archetype": "post_apo",
+    "fichiers": [
+     "U03.mp3",
+     "post_apo.mp3"
+    ]
+   },
+   "U04": {
+    "archetype": "post_apo",
+    "fichiers": [
+     "U04.mp3",
+     "post_apo.mp3"
+    ]
+   },
+   "U05": {
+    "archetype": "post_apo",
+    "fichiers": [
+     "U05.mp3",
+     "post_apo.mp3"
+    ]
+   },
+   "E02": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "E02.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "E03": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "E03.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "E04": {
+    "archetype": "vintage",
+    "fichiers": [
+     "E04.mp3",
+     "vintage.mp3"
+    ]
+   },
+   "E05": {
+    "archetype": "vintage",
+    "fichiers": [
+     "E05.mp3",
+     "vintage.mp3"
+    ]
+   },
+   "E06": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "E06.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "E07": {
+    "archetype": "post_apo",
+    "fichiers": [
+     "E07.mp3",
+     "post_apo.mp3"
+    ]
+   },
+   "E08": {
+    "archetype": "post_apo",
+    "fichiers": [
+     "E08.mp3",
+     "post_apo.mp3"
+    ]
+   },
+   "P01": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "P01.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "P03": {
+    "archetype": "pop",
+    "fichiers": [
+     "P03.mp3",
+     "pop.mp3"
+    ]
+   },
+   "P04": {
+    "archetype": "pop",
+    "fichiers": [
+     "P04.mp3",
+     "pop.mp3"
+    ]
+   },
+   "H01": {
+    "archetype": "post_apo",
+    "fichiers": [
+     "H01.mp3",
+     "post_apo.mp3"
+    ]
+   },
+   "H02": {
+    "archetype": "manga",
+    "fichiers": [
+     "H02.mp3",
+     "manga.mp3"
+    ]
+   },
+   "H03": {
+    "archetype": "post_apo",
+    "fichiers": [
+     "H03.mp3",
+     "post_apo.mp3"
+    ]
+   },
+   "H04": {
+    "archetype": "post_apo",
+    "fichiers": [
+     "H04.mp3",
+     "post_apo.mp3"
+    ]
+   },
+   "H05": {
+    "archetype": "manga",
+    "fichiers": [
+     "H05.mp3",
+     "manga.mp3"
+    ]
+   },
+   "H06": {
+    "archetype": "post_apo",
+    "fichiers": [
+     "H06.mp3",
+     "post_apo.mp3"
+    ]
+   },
+   "H07": {
+    "archetype": "post_apo",
+    "fichiers": [
+     "H07.mp3",
+     "post_apo.mp3"
+    ]
+   },
+   "H08": {
+    "archetype": "vintage",
+    "fichiers": [
+     "H08.mp3",
+     "vintage.mp3"
+    ]
+   },
+   "H09": {
+    "archetype": "manga",
+    "fichiers": [
+     "H09.mp3",
+     "manga.mp3"
+    ]
+   },
+   "H10": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "H10.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "H11": {
+    "archetype": "pop",
+    "fichiers": [
+     "H11.mp3",
+     "pop.mp3"
+    ]
+   },
+   "H12": {
+    "archetype": "post_apo",
+    "fichiers": [
+     "H12.mp3",
+     "post_apo.mp3"
+    ]
+   },
+   "F01": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "F01.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "F02": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "F02.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "F03": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "F03.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "F04": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "F04.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "F05": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "F05.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "F06": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "F06.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "F07": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "F07.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "F08": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "F08.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "F09": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "F09.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "F10": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "F10.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "FR01": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "FR01.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "FR02": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "FR02.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "FR03": {
+    "archetype": "vintage",
+    "fichiers": [
+     "FR03.mp3",
+     "vintage.mp3"
+    ]
+   },
+   "FR04": {
+    "archetype": "vintage",
+    "fichiers": [
+     "FR04.mp3",
+     "vintage.mp3"
+    ]
+   },
+   "FR05": {
+    "archetype": "pop",
+    "fichiers": [
+     "FR05.mp3",
+     "pop.mp3"
+    ]
+   },
+   "TK01": {
+    "archetype": "manga",
+    "fichiers": [
+     "TK01.mp3",
+     "manga.mp3"
+    ]
+   },
+   "TK02": {
+    "archetype": "manga",
+    "fichiers": [
+     "TK02.mp3",
+     "manga.mp3"
+    ]
+   },
+   "TK03": {
+    "archetype": "manga",
+    "fichiers": [
+     "TK03.mp3",
+     "manga.mp3"
+    ]
+   },
+   "TK04": {
+    "archetype": "manga",
+    "fichiers": [
+     "TK04.mp3",
+     "manga.mp3"
+    ]
+   },
+   "TK05": {
+    "archetype": "manga",
+    "fichiers": [
+     "TK05.mp3",
+     "manga.mp3"
+    ]
+   },
+   "TK06": {
+    "archetype": "manga",
+    "fichiers": [
+     "TK06.mp3",
+     "manga.mp3"
+    ]
+   }
+  }
+ }
+}

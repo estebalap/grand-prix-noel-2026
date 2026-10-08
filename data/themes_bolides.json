@@ -384,6 +384,26 @@
    "style": "manga",
    "musique": "kawaii",
    "accroche": "Diva virtuelle sur circuit"
+  },
+  "J11": {
+   "style": "manga",
+   "musique": "eurobeat",
+   "accroche": "Godzilla sort du parking de Daikoku"
+  },
+  "J12": {
+   "style": "film_noir",
+   "musique": "acidjazz",
+   "accroche": "Le Parrain ouvre la portière"
+  },
+  "P04": {
+   "style": "cartoon",
+   "musique": "bubblegum",
+   "accroche": "Nuage de paillettes en approche"
+  },
+  "B17": {
+   "style": "comics",
+   "musique": "punk",
+   "accroche": "Partie de quilles à Gotham"
   }
  }
 }

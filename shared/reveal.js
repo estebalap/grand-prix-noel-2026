@@ -18,7 +18,7 @@
 import { boucle, dprPour } from './perf.js';
 import { sortieAudio } from './audio.js';
 
-let MUSIQUE = null, PHOTOS = null, THEMES = null;
+let MUSIQUE = null, PHOTOS = null, THEMES = null, VIGNETTES = null;
 const TAU = Math.PI * 2;
 
 /** Charge la table des genres et le manifeste des photos (une fois). base : préfixe des URL (relais ou site). */
@@ -27,9 +27,12 @@ export async function chargerReveal(base = '..') {
   if (!MUSIQUE) MUSIQUE = (await lire(base + '/data/musique_ecuries.json')) || { genres: {}, ecuries: {}, categories: {} };
   if (!PHOTOS) PHOTOS = (await lire(base + '/photos/bolides/photos.json')) || {};
   if (!THEMES) THEMES = (await lire(base + '/data/themes_bolides.json')) || { bolides: {}, styles: {} };
+  if (!VIGNETTES) VIGNETTES = (await lire(base + '/photos/bolides/vignettes/vignettes.json')) || {};
   return { musique: MUSIQUE, photos: PHOTOS, themes: THEMES };
 }
 export const photoDe = (code, base = '..') => (PHOTOS && PHOTOS[code] ? `${base}/photos/bolides/${PHOTOS[code].fichier}` : null);
+/** Vignette détourée (fond transparent) d'un bolide, ou null : sert à faire « jaillir » la voiture hors du cadre. */
+export const vignetteDe = (code, base = '..') => (VIGNETTES && VIGNETTES[code] ? `${base}/photos/bolides/vignettes/${VIGNETTES[code].fichier}` : null);
 export const photosDisponibles = () => Object.keys(PHOTOS || {});
 
 /** Thème du bolide : { style, musique, accroche } (data/themes_bolides.json), sinon déduit de la catégorie du code. */
@@ -283,6 +286,8 @@ export async function revealCinematique(parent, { car, teamId = null, team = nul
   const url = photoDe(car.code, base);
   const img = url ? await charger(url) : null;
   if (!img) return false;
+  const vurl = vignetteDe(car.code, base);
+  const cut = vurl ? await charger(vurl) : null;          // photo détourée : la voiture jaillit du cadre, la photo devient le décor
   if (!document.getElementById('reveal-code-css')) { const st = document.createElement('style'); st.id = 'reveal-code-css'; st.textContent = CSS; document.head.appendChild(st); }
   const th = themeDe(car), S = STYLES[th.style] || STYLES.reel;
   const el = document.createElement('div');
@@ -329,7 +334,11 @@ export async function revealCinematique(parent, { car, teamId = null, team = nul
       if (S.pixels && t < 1.4) {                                                        // les pixels se dessinent
         const r = Math.max(8, Math.round(8 + (t / 1.4) * 150)); pix.width = r; pix.height = Math.max(4, Math.round(r / ratio));
         pctx.drawImage(img, 0, 0, pix.width, pix.height); ctx.imageSmoothingEnabled = false; ctx.drawImage(pix, ix, iy, iw, ih); ctx.imageSmoothingEnabled = true;
-      } else ctx.drawImage(img, ix, iy, iw, ih);
+      } else {
+        if (cut) ctx.filter = (ctx.filter && ctx.filter !== 'none' ? ctx.filter + ' ' : '') + 'blur(9px) brightness(.5) saturate(1.2)';
+        ctx.drawImage(img, ix, iy, iw, ih);
+        ctx.filter = 'none';
+      }
       if (S.aberration) { ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = 0.18; ctx.drawImage(img, ix - 5, iy, iw, ih); ctx.drawImage(img, ix + 5, iy, iw, ih); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; }
       ctx.filter = 'none';
       for (const ts of [0.8, tCarte - 0.6]) {                                            // balayages de lumière
@@ -338,6 +347,27 @@ export async function revealCinematique(parent, { car, teamId = null, team = nul
       }
       ctx.restore();
       if (S.cadre) S.cadre(ctx, fw, fh, etat); else { ctx.lineWidth = 6; ctx.strokeStyle = c1; ctx.shadowColor = c1; ctx.shadowBlur = 26; ctx.stroke(); ctx.shadowBlur = 0; }
+      if (cut && !(S.pixels && t < 1.4)) {                                               // la voiture détourée sort du cadre
+        const t1 = S.pixels ? 1.4 : 0.22, pop = ease((t - t1) / 0.45);
+        if (pop > 0) {
+          const cr = cut.width / cut.height;
+          let cw = fw * 1.08, ch = cw / cr;
+          if (ch > fh * 1.12) { ch = fh * 1.12; cw = ch * cr; }
+          const flotte = Math.sin(t * 1.7) * fh * 0.008, s = 0.82 + 0.18 * pop;
+          const sol = fh * 0.95 + flotte;
+          ctx.save();
+          ctx.globalAlpha = Math.min(1, pop * 1.4);
+          const halo = ctx.createRadialGradient(fw / 2, sol, 4, fw / 2, sol, cw * 0.55);   // lueur au sol aux couleurs de l'écurie
+          halo.addColorStop(0, c1 + 'aa'); halo.addColorStop(1, c1 + '00');
+          ctx.fillStyle = halo; ctx.fillRect(fw / 2 - cw * 0.6, sol - ch * 0.35, cw * 1.2, ch * 0.6);
+          ctx.translate(fw / 2, sol); ctx.scale(s, s);
+          if (S.photo) S.photo(ctx, t);                                                   // même grain que la photo (noir et blanc du film noir…)
+          ctx.shadowColor = 'rgba(0,0,0,.65)'; ctx.shadowBlur = 34; ctx.shadowOffsetY = 16;
+          ctx.drawImage(cut, -cw / 2, -ch, cw, ch);
+          ctx.restore();
+          ctx.filter = 'none';
+        }
+      }
       ctx.restore();
       // étincelles de meuleuse au pied du cadre (thèmes « mécaniques »)
       if (['reel', 'retro80', 'jeu_video', 'film_noir'].includes(th.style) && t > 0.3 && t < tCarte) for (let i = 0; i < 5; i++) {

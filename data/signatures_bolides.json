@@ -1,0 +1,473 @@
+{
+ "_doc": "Signature d'invocation de chaque bolide (outils/signatures_bolides.py) : particules au sol, filtre d'écran au franchissement du seuil, jingle d'entrée. Lu par web/shared/signatures.js.",
+ "particules": {
+  "billets": "billets verts qui volent (évasion, crédit, sponsors)",
+  "pieces": "pièces d'or qui roulent et tournoient",
+  "cerfa": "paperasse administrative en rafale",
+  "huile": "fumée d'huile noire et gouttes irisées",
+  "braises": "braises incandescentes qui montent",
+  "cendres": "cendres grises en suspension",
+  "confettis": "confettis multicolores",
+  "pluie_acide": "pluie acide verdâtre",
+  "arcs_electriques": "arcs électriques bleus au ras du sol",
+  "radioactif": "poussière radioactive verte",
+  "etincelles_bleues": "étincelles bleues de gyrophare",
+  "pixels": "cubes de pixels qui rebondissent",
+  "glacons": "éclats de glace",
+  "sable": "sable et gravats du désert",
+  "petales": "pétales qui tombent en tournoyant",
+  "feuilles_mortes": "feuilles mortes",
+  "fumee_violette": "volutes de fumée violette",
+  "notes": "notes de musique qui s'envolent",
+  "neige": "neige sale",
+  "paillettes_noires": "paillettes noires et argent",
+  "bulles": "bulles de savon irisées",
+  "cartes": "cartes à jouer",
+  "etoiles": "étoiles pop-art qui scintillent"
+ },
+ "filtres": {
+  "vhs": "cassette VHS : lignes de balayage, bavure chromatique, bande de tracking",
+  "thermique": "caméra thermique",
+  "nocturne": "vision nocturne au phosphore vert",
+  "glitch": "glitch numérique : bandes décalées, RGB séparé",
+  "radioactif": "lueur radioactive pulsée",
+  "negatif": "flashs en négatif",
+  "pixel": "pixelisation 8 bits",
+  "or_liquide": "or liquide sur les hautes lumières",
+  "halo_reve": "halo de rêve irisé",
+  "bichro_rouge": "bichromie rouge sang",
+  "onde": "onde de choc qui fait ondoyer l'image",
+  "neige_tv": "neige de vieille télé",
+  "teinte": "lavis de la couleur du bolide",
+  "contre_jour": "projecteur de scène, bolide en pleine lumière"
+ },
+ "jingles": [
+  "fanfare",
+  "caisse_enregistreuse",
+  "tampon",
+  "klaxon_cartoon",
+  "court_circuit",
+  "tonnerre",
+  "jackpot",
+  "compteur_geiger",
+  "sirene_police",
+  "gong",
+  "rire_demoniaque",
+  "scratch_vinyle",
+  "cristal",
+  "boum",
+  "piano_triste",
+  "notification",
+  "turbo_pschitt",
+  "reveil",
+  "moteur_aigu",
+  "harpe_magique",
+  "moteur_electrique",
+  "dragon_rugit",
+  "sabre",
+  "clac_metal",
+  "rugissement_v8",
+  "pop_bulle",
+  "bip_robot",
+  "corne_brume",
+  "orgue_gothique",
+  "cloche_eglise",
+  "pistolet_depart",
+  "bouchon_champagne",
+  "glitch_son",
+  "flash_radar",
+  "sifflet_arbitre",
+  "chute_pieces",
+  "clochette_noel"
+ ],
+ "bolides": {
+  "B01": {
+   "particules": "etoiles",
+   "filtre": "neige_tv",
+   "jingle": "fanfare"
+  },
+  "B02": {
+   "particules": "billets",
+   "filtre": "or_liquide",
+   "jingle": "caisse_enregistreuse"
+  },
+  "B03": {
+   "particules": "cerfa",
+   "filtre": "vhs",
+   "jingle": "tampon"
+  },
+  "B04": {
+   "particules": "huile",
+   "filtre": "glitch",
+   "jingle": "klaxon_cartoon"
+  },
+  "B05": {
+   "particules": "arcs_electriques",
+   "filtre": "nocturne",
+   "jingle": "court_circuit"
+  },
+  "B06": {
+   "particules": "pluie_acide",
+   "filtre": "negatif",
+   "jingle": "tonnerre"
+  },
+  "B07": {
+   "particules": "billets",
+   "filtre": "teinte",
+   "jingle": "jackpot",
+   "teinte": "#ffd34d"
+  },
+  "B08": {
+   "particules": "radioactif",
+   "filtre": "radioactif",
+   "jingle": "compteur_geiger",
+   "teinte": "#57ff6a"
+  },
+  "B09": {
+   "particules": "cerfa",
+   "filtre": "bichro_rouge",
+   "jingle": "sirene_police"
+  },
+  "B10": {
+   "particules": "cendres",
+   "filtre": "onde",
+   "jingle": "gong"
+  },
+  "B11": {
+   "particules": "etincelles_bleues",
+   "filtre": "nocturne",
+   "jingle": "sirene_police"
+  },
+  "B12": {
+   "particules": "confettis",
+   "filtre": "glitch",
+   "jingle": "rire_demoniaque"
+  },
+  "B13": {
+   "particules": "pixels",
+   "filtre": "vhs",
+   "jingle": "scratch_vinyle"
+  },
+  "B14": {
+   "particules": "glacons",
+   "filtre": "thermique",
+   "jingle": "cristal"
+  },
+  "B15": {
+   "particules": "sable",
+   "filtre": "bichro_rouge",
+   "jingle": "boum"
+  },
+  "B16": {
+   "particules": "pluie_acide",
+   "filtre": "teinte",
+   "jingle": "piano_triste",
+   "teinte": "#5b8cff"
+  },
+  "B17": {
+   "particules": "confettis",
+   "filtre": "halo_reve",
+   "jingle": "klaxon_cartoon"
+  },
+  "J01": {
+   "particules": "pieces",
+   "filtre": "vhs",
+   "jingle": "notification"
+  },
+  "J02": {
+   "particules": "pixels",
+   "filtre": "onde",
+   "jingle": "turbo_pschitt"
+  },
+  "J04": {
+   "particules": "cerfa",
+   "filtre": "teinte",
+   "jingle": "reveil",
+   "teinte": "#9fb3ff"
+  },
+  "J05": {
+   "particules": "braises",
+   "filtre": "pixel",
+   "jingle": "moteur_aigu"
+  },
+  "J07": {
+   "particules": "petales",
+   "filtre": "halo_reve",
+   "jingle": "harpe_magique"
+  },
+  "J08": {
+   "particules": "billets",
+   "filtre": "bichro_rouge",
+   "jingle": "caisse_enregistreuse"
+  },
+  "J09": {
+   "particules": "arcs_electriques",
+   "filtre": "onde",
+   "jingle": "moteur_electrique"
+  },
+  "J10": {
+   "particules": "feuilles_mortes",
+   "filtre": "neige_tv",
+   "jingle": "gong"
+  },
+  "J11": {
+   "particules": "cendres",
+   "filtre": "thermique",
+   "jingle": "dragon_rugit"
+  },
+  "J12": {
+   "particules": "fumee_violette",
+   "filtre": "contre_jour",
+   "jingle": "gong",
+   "teinte": "#c77dff"
+  },
+  "TK01": {
+   "particules": "petales",
+   "filtre": "bichro_rouge",
+   "jingle": "sabre"
+  },
+  "TK02": {
+   "particules": "etincelles_bleues",
+   "filtre": "nocturne",
+   "jingle": "clac_metal"
+  },
+  "TK03": {
+   "particules": "cerfa",
+   "filtre": "glitch",
+   "jingle": "notification"
+  },
+  "TK04": {
+   "particules": "sable",
+   "filtre": "or_liquide",
+   "jingle": "rugissement_v8"
+  },
+  "TK05": {
+   "particules": "arcs_electriques",
+   "filtre": "halo_reve",
+   "jingle": "pop_bulle"
+  },
+  "TK06": {
+   "particules": "notes",
+   "filtre": "pixel",
+   "jingle": "harpe_magique"
+  },
+  "H02": {
+   "particules": "braises",
+   "filtre": "thermique",
+   "jingle": "dragon_rugit"
+  },
+  "H05": {
+   "particules": "huile",
+   "filtre": "onde",
+   "jingle": "turbo_pschitt"
+  },
+  "H09": {
+   "particules": "cendres",
+   "filtre": "nocturne",
+   "jingle": "sabre"
+  },
+  "U01": {
+   "particules": "arcs_electriques",
+   "filtre": "teinte",
+   "jingle": "moteur_electrique",
+   "teinte": "#4cc9f0"
+  },
+  "U02": {
+   "particules": "cerfa",
+   "filtre": "negatif",
+   "jingle": "tampon"
+  },
+  "U03": {
+   "particules": "sable",
+   "filtre": "thermique",
+   "jingle": "sirene_police"
+  },
+  "U04": {
+   "particules": "cendres",
+   "filtre": "neige_tv",
+   "jingle": "tonnerre"
+  },
+  "U05": {
+   "particules": "huile",
+   "filtre": "contre_jour",
+   "jingle": "rugissement_v8",
+   "teinte": "#ff8a3d"
+  },
+  "E07": {
+   "particules": "neige",
+   "filtre": "vhs",
+   "jingle": "klaxon_cartoon"
+  },
+  "E08": {
+   "particules": "feuilles_mortes",
+   "filtre": "neige_tv",
+   "jingle": "klaxon_cartoon"
+  },
+  "H01": {
+   "particules": "cerfa",
+   "filtre": "glitch",
+   "jingle": "tampon"
+  },
+  "H03": {
+   "particules": "braises",
+   "filtre": "or_liquide",
+   "jingle": "dragon_rugit"
+  },
+  "H04": {
+   "particules": "cerfa",
+   "filtre": "bichro_rouge",
+   "jingle": "flash_radar"
+  },
+  "H06": {
+   "particules": "cendres",
+   "filtre": "contre_jour",
+   "jingle": "boum",
+   "teinte": "#ffb347"
+  },
+  "H07": {
+   "particules": "sable",
+   "filtre": "vhs",
+   "jingle": "corne_brume"
+  },
+  "H12": {
+   "particules": "etincelles_bleues",
+   "filtre": "teinte",
+   "jingle": "sirene_police",
+   "teinte": "#ff3b4a"
+  },
+  "P03": {
+   "particules": "paillettes_noires",
+   "filtre": "negatif",
+   "jingle": "orgue_gothique"
+  },
+  "P04": {
+   "particules": "confettis",
+   "filtre": "halo_reve",
+   "jingle": "pop_bulle"
+  },
+  "H11": {
+   "particules": "bulles",
+   "filtre": "pixel",
+   "jingle": "pop_bulle"
+  },
+  "FR05": {
+   "particules": "petales",
+   "filtre": "or_liquide",
+   "jingle": "notification"
+  },
+  "E04": {
+   "particules": "huile",
+   "filtre": "neige_tv",
+   "jingle": "pistolet_depart"
+  },
+  "E05": {
+   "particules": "feuilles_mortes",
+   "filtre": "vhs",
+   "jingle": "klaxon_cartoon"
+  },
+  "H08": {
+   "particules": "pluie_acide",
+   "filtre": "neige_tv",
+   "jingle": "cloche_eglise"
+  },
+  "FR03": {
+   "particules": "petales",
+   "filtre": "neige_tv",
+   "jingle": "cloche_eglise"
+  },
+  "FR04": {
+   "particules": "sable",
+   "filtre": "vhs",
+   "jingle": "pistolet_depart"
+  },
+  "E02": {
+   "particules": "billets",
+   "filtre": "or_liquide",
+   "jingle": "bouchon_champagne"
+  },
+  "E03": {
+   "particules": "billets",
+   "filtre": "contre_jour",
+   "jingle": "caisse_enregistreuse",
+   "teinte": "#ffd34d"
+  },
+  "E06": {
+   "particules": "pixels",
+   "filtre": "glitch",
+   "jingle": "glitch_son"
+  },
+  "P01": {
+   "particules": "pixels",
+   "filtre": "vhs",
+   "jingle": "bip_robot"
+  },
+  "H10": {
+   "particules": "sable",
+   "filtre": "contre_jour",
+   "jingle": "boum",
+   "teinte": "#ffcf6a"
+  },
+  "FR01": {
+   "particules": "cerfa",
+   "filtre": "or_liquide",
+   "jingle": "fanfare"
+  },
+  "FR02": {
+   "particules": "etincelles_bleues",
+   "filtre": "thermique",
+   "jingle": "flash_radar"
+  },
+  "F01": {
+   "particules": "pixels",
+   "filtre": "teinte",
+   "jingle": "bip_robot",
+   "teinte": "#c0c8d8"
+  },
+  "F02": {
+   "particules": "arcs_electriques",
+   "filtre": "onde",
+   "jingle": "turbo_pschitt"
+  },
+  "F03": {
+   "particules": "braises",
+   "filtre": "bichro_rouge",
+   "jingle": "fanfare"
+  },
+  "F04": {
+   "particules": "confettis",
+   "filtre": "teinte",
+   "jingle": "notification",
+   "teinte": "#ff8000"
+  },
+  "F05": {
+   "particules": "billets",
+   "filtre": "or_liquide",
+   "jingle": "clochette_noel"
+  },
+  "F06": {
+   "particules": "cerfa",
+   "filtre": "onde",
+   "jingle": "tampon"
+  },
+  "F07": {
+   "particules": "pieces",
+   "filtre": "neige_tv",
+   "jingle": "chute_pieces"
+  },
+  "F08": {
+   "particules": "cerfa",
+   "filtre": "vhs",
+   "jingle": "sifflet_arbitre"
+  },
+  "F09": {
+   "particules": "cartes",
+   "filtre": "glitch",
+   "jingle": "jackpot"
+  },
+  "F10": {
+   "particules": "billets",
+   "filtre": "neige_tv",
+   "jingle": "caisse_enregistreuse"
+  }
+ }
+}

@@ -78,6 +78,10 @@ export function dprPour(w, h, genre = '3d') {
 /* -------------------------------------------------------------------- ordonnanceur unique */
 const taches = new Map();           // nom -> { fn, fps, dernier, premierPlan, actif }
 let rafId = 0, precedent = 0;
+let suspendu = false;
+/** Suspend toutes les animations de la page (ex. pendant l'intro vidéo plein écran : le décor caché ne doit pas
+ *  disputer le processeur au décodeur vidéo). Le régulateur ne mesure rien pendant la suspension. */
+export function suspendre(v) { suspendu = !!v; precedent = 0; for (const t of taches.values()) t.dernier = 0; }
 const raf = typeof requestAnimationFrame === 'function' ? requestAnimationFrame.bind(window) : (f) => setTimeout(() => f(performance.now()), 16);
 
 function cadence(t) {
@@ -91,6 +95,7 @@ function image(now) {
   rafId = raf(image);
   const dt = precedent ? now - precedent : 16.7;
   precedent = now;
+  if (suspendu) { precedent = 0; return; }
   if (typeof document !== 'undefined' && document.hidden) return;
   mesure(dt);
   for (const t of taches.values()) {
