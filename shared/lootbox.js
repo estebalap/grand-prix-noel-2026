@@ -227,7 +227,7 @@ function carteSprite(it, w, h, dpr, iconSvg) {
 }
 
 /* ================================================================== roulette plein écran */
-const reduit = () => window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reduit = () => !!(document.documentElement && document.documentElement.hasAttribute('data-calme'));   // opt-in (cf. tokens.css)
 const easeOut = (u, k) => 1 - Math.pow(1 - u, k);
 
 /**

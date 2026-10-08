@@ -76,7 +76,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
 @keyframes shine{0%{background-position:-200% 0}100%{background-position:200% 0}}
-@media (prefers-reduced-motion:reduce){*{animation-duration:.001s!important;transition-duration:.001s!important}}
+/* Mode calme (opt-in : <html data-calme>). Ne PAS lier ce mode a la preference systeme : sous Windows « animations desactivees », .001s sur des animations infinies (bandeau EN DIRECT, pulsations) les faisait tourner 1000 fois par seconde. */
+:root[data-calme] *{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
 
 /* ---------- ambiance par mode (le reste est piloté par shared/themes.js) ---------- */
 body.theme-switch::before{content:"";position:fixed;inset:0;z-index:950;pointer-events:none;

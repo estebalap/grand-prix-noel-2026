@@ -20,7 +20,7 @@
 
 const Q = (() => { try { return new URLSearchParams(location.search); } catch (e) { return new URLSearchParams(); } })();
 const CAPTURE = Q.get('capture') === '1';
-const reduit = () => { try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } };
+const reduit = () => { try { return !!(document.documentElement && document.documentElement.hasAttribute('data-calme')); } catch (e) { return false; } };   // opt-in : le réglage Windows « animations désactivées » ne bride plus la TV
 
 /** Palier de l'appareil : 'high' (PC / TV), 'medium' (tablette, petit écran, mode éco), 'low' (téléphone modeste). */
 export function detecterPalier() {
