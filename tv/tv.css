@@ -234,6 +234,8 @@ body.rotated #ytBox,body.rotated #nowPlaying{display:none}
 .reveal-video.on{opacity:1}.reveal-video.out{opacity:0}
 .reveal-video .rv-frame{position:absolute;inset:0}
 .reveal-video .rv-video{width:100%;height:100%;object-fit:cover;display:block}
+.reveal-video.attente::after{content:"ESPACE  ▸  BOLIDE SUIVANT";position:absolute;right:3vw;bottom:3vh;padding:8px 18px;border-radius:99px;background:rgba(0,0,0,.55);color:#fff;font:700 15px var(--font-display);letter-spacing:.14em;opacity:0;animation:rvAttente 1.2s .8s ease forwards}
+@keyframes rvAttente{to{opacity:.8}}
 .reveal-video .rv-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0) 45%,rgba(3,5,15,.82) 72%),linear-gradient(0deg,rgba(3,5,15,.7),transparent 30%)}
 .reveal-video .rv-panel{position:absolute;right:56px;top:50%;width:700px;padding:30px 36px;transform:translate(60px,-50%);opacity:0;transition:transform .6s cubic-bezier(.34,1.56,.64,1),opacity .4s;
   background:rgba(8,12,34,.62);backdrop-filter:blur(10px);box-shadow:0 0 0 2px rgba(120,220,255,.35),0 0 40px rgba(80,200,255,.35),inset 0 0 30px rgba(80,200,255,.12)}

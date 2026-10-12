@@ -187,22 +187,34 @@
     "acidjazz.mp3"
    ],
    "suggestions": [
-    "Neal Hefti — Batman Theme (1966)",
+    "Neal Hefti — Batman Theme",
     "Seatbelts — Tank!",
     "Jamiroquai — Virtual Insanity"
-   ]
+   ],
+   "morceau": {
+    "titre": "Batman Theme",
+    "artiste": "Neal Hefti",
+    "genre": "acidjazz",
+    "style": "big band surf 1966, cuivres et chœurs « Batmaaan ! »"
+   }
   },
   "B02": {
-   "genre": "epique",
+   "genre": "symphonie",
    "fichiers": [
     "B02.mp3",
-    "epique.mp3"
+    "symphonie.mp3"
    ],
    "suggestions": [
-    "Two Steps From Hell — Heart of Courage",
-    "Hans Zimmer — Time",
-    "Carl Orff — O Fortuna"
-   ]
+    "Danny Elfman — The Batman Theme",
+    "Danny Elfman — The Batman Theme (1989)",
+    "Hans Zimmer — Why So Serious?"
+   ],
+   "morceau": {
+    "titre": "The Batman Theme",
+    "artiste": "Danny Elfman",
+    "genre": "symphonie",
+    "style": "orchestre gothique 1989, cuivres massifs"
+   }
   },
   "B03": {
    "genre": "symphonie",
@@ -211,34 +223,52 @@
     "symphonie.mp3"
    ],
    "suggestions": [
+    "Danny Elfman — Face to Face (Batman Returns)",
     "Danny Elfman — The Batman Theme (1989)",
-    "Hans Zimmer — Why So Serious?",
-    "Carl Orff — O Fortuna"
-   ]
+    "Hans Zimmer — Why So Serious?"
+   ],
+   "morceau": {
+    "titre": "Face to Face (Batman Returns)",
+    "artiste": "Danny Elfman",
+    "genre": "symphonie",
+    "style": "valse de cirque macabre"
+   }
   },
   "B04": {
-   "genre": "doom",
+   "genre": "swing",
    "fichiers": [
     "B04.mp3",
-    "doom.mp3"
+    "swing.mp3"
    ],
    "suggestions": [
-    "Mick Gordon — BFG Division",
-    "Rammstein — Du hast",
-    "Gesaffelstein — Pursuit"
-   ]
+    "Looney Tunes (Carl Stalling) — Merry Go Round Broke Down",
+    "Louis Prima — Jump, Jive an' Wail",
+    "Benny Goodman — Sing, Sing, Sing"
+   ],
+   "morceau": {
+    "titre": "Merry Go Round Broke Down",
+    "artiste": "Looney Tunes (Carl Stalling)",
+    "genre": "swing",
+    "style": "cartoons des années 40, cuivres élastiques"
+   }
   },
   "B05": {
-   "genre": "epique",
+   "genre": "swing",
    "fichiers": [
     "B05.mp3",
-    "epique.mp3"
+    "swing.mp3"
    ],
    "suggestions": [
-    "Two Steps From Hell — Heart of Courage",
-    "Hans Zimmer — Time",
-    "Carl Orff — O Fortuna"
-   ]
+    "Original Dixieland Jazz Band — Tiger Rag",
+    "Louis Prima — Jump, Jive an' Wail",
+    "Benny Goodman — Sing, Sing, Sing"
+   ],
+   "morceau": {
+    "titre": "Tiger Rag",
+    "artiste": "Original Dixieland Jazz Band",
+    "genre": "swing",
+    "style": "jazz Nouvelle-Orléans 1917, clarinette folle"
+   }
   },
   "B06": {
    "genre": "epique",
@@ -247,154 +277,232 @@
     "epique.mp3"
    ],
    "suggestions": [
+    "Hans Zimmer & Junkie XL — Beast",
     "Two Steps From Hell — Heart of Courage",
-    "Hans Zimmer — Time",
-    "Carl Orff — O Fortuna"
-   ]
+    "Hans Zimmer — Time"
+   ],
+   "morceau": {
+    "titre": "Beast",
+    "artiste": "Hans Zimmer & Junkie XL",
+    "genre": "epique",
+    "style": "percussions industrielles BvS, tambours de guerre"
+   }
   },
   "B07": {
-   "genre": "synthwave",
+   "genre": "acidjazz",
    "fichiers": [
     "B07.mp3",
-    "synthwave.mp3"
+    "acidjazz.mp3"
    ],
    "suggestions": [
-    "Kavinsky — Nightcall",
-    "Daft Punk — Derezzed",
-    "Carpenter Brut — Turbo Killer"
-   ]
+    "Seatbelts — Tank!",
+    "Jamiroquai — Virtual Insanity",
+    "Jamiroquai — Cosmic Girl"
+   ],
+   "morceau": {
+    "titre": "Tank!",
+    "artiste": "Seatbelts",
+    "genre": "acidjazz",
+    "style": "big band bebop de Cowboy Bebop"
+   }
   },
   "B08": {
-   "genre": "doom",
+   "genre": "rock",
    "fichiers": [
     "B08.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "Imagine Dragons — Radioactive",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Radioactive",
+    "artiste": "Imagine Dragons",
+    "genre": "rock",
+    "style": "stadium rock, basses saturées"
+   }
+  },
+  "B09": {
+   "genre": "doom",
+   "fichiers": [
+    "B09.mp3",
     "doom.mp3"
    ],
    "suggestions": [
+    "Hans Zimmer & Junkie XL — Is She With You?",
     "Mick Gordon — BFG Division",
-    "Rammstein — Du hast",
-    "Gesaffelstein — Pursuit"
-   ]
+    "Rammstein — Du hast"
+   ],
+   "morceau": {
+    "titre": "Is She With You?",
+    "artiste": "Hans Zimmer & Junkie XL",
+    "genre": "doom",
+    "style": "guitares lourdes et percussions de combat"
+   }
   },
-  "B09": {
+  "B10": {
+   "genre": "rock",
+   "fichiers": [
+    "B10.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "Europe — The Final Countdown",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "The Final Countdown",
+    "artiste": "Europe",
+    "genre": "rock",
+    "style": "synthés 80's, riff de stade"
+   }
+  },
+  "B11": {
+   "genre": "rock",
+   "fichiers": [
+    "B11.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "Inner Circle — Bad Boys",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Bad Boys",
+    "artiste": "Inner Circle",
+    "genre": "rock",
+    "style": "reggae-rock de série policière"
+   }
+  },
+  "B12": {
+   "genre": "doom",
+   "fichiers": [
+    "B12.mp3",
+    "doom.mp3"
+   ],
+   "suggestions": [
+    "Hans Zimmer — Why So Serious?",
+    "Mick Gordon — BFG Division",
+    "Rammstein — Du hast"
+   ],
+   "morceau": {
+    "titre": "Why So Serious?",
+    "artiste": "Hans Zimmer",
+    "genre": "doom",
+    "style": "cordes grinçantes et crescendo de rire fou"
+   }
+  },
+  "B13": {
+   "genre": "disco",
+   "fichiers": [
+    "B13.mp3",
+    "disco.mp3"
+   ],
+   "suggestions": [
+    "Seal — Kiss from a Rose",
+    "Bee Gees — Stayin' Alive",
+    "Daft Punk — One More Time"
+   ],
+   "morceau": {
+    "titre": "Kiss from a Rose",
+    "artiste": "Seal",
+    "genre": "disco",
+    "style": "ballade soul-disco 1995"
+   }
+  },
+  "B14": {
+   "genre": "rock",
+   "fichiers": [
+    "B14.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "The Smashing Pumpkins — The End Is the Beginning Is the End",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "The End Is the Beginning Is the End",
+    "artiste": "The Smashing Pumpkins",
+    "genre": "rock",
+    "style": "rock alternatif 1997 de la BO du film"
+   }
+  },
+  "B15": {
    "genre": "epique",
    "fichiers": [
-    "B09.mp3",
+    "B15.mp3",
     "epique.mp3"
    ],
    "suggestions": [
+    "Hans Zimmer — Molossus",
     "Two Steps From Hell — Heart of Courage",
-    "Hans Zimmer — Time",
-    "Carl Orff — O Fortuna"
-   ]
-  },
-  "B10": {
-   "genre": "symphonie",
-   "fichiers": [
-    "B10.mp3",
-    "symphonie.mp3"
+    "Hans Zimmer — Time"
    ],
-   "suggestions": [
-    "Danny Elfman — The Batman Theme (1989)",
-    "Hans Zimmer — Why So Serious?",
-    "Carl Orff — O Fortuna"
-   ]
+   "morceau": {
+    "titre": "Molossus",
+    "artiste": "Hans Zimmer",
+    "genre": "epique",
+    "style": "cordes graves et tambour sourd"
+   }
   },
-  "B11": {
-   "genre": "synthwave",
-   "fichiers": [
-    "B11.mp3",
-    "synthwave.mp3"
-   ],
-   "suggestions": [
-    "Kavinsky — Nightcall",
-    "Daft Punk — Derezzed",
-    "Carpenter Brut — Turbo Killer"
-   ]
-  },
-  "B12": {
-   "genre": "punk",
-   "fichiers": [
-    "B12.mp3",
-    "punk.mp3"
-   ],
-   "suggestions": [
-    "Hans Zimmer — Why So Serious?",
-    "The Offspring — The Kids Aren't Alright",
-    "Ramones — Blitzkrieg Bop"
-   ]
-  },
-  "B13": {
-   "genre": "synthwave",
-   "fichiers": [
-    "B13.mp3",
-    "synthwave.mp3"
-   ],
-   "suggestions": [
-    "Kavinsky — Nightcall",
-    "Daft Punk — Derezzed",
-    "Carpenter Brut — Turbo Killer"
-   ]
-  },
-  "B14": {
-   "genre": "bubblegum",
-   "fichiers": [
-    "B14.mp3",
-    "bubblegum.mp3"
-   ],
-   "suggestions": [
-    "Aqua — Barbie Girl",
-    "Caramella Girls — Caramelldansen",
-    "Britney Spears — Toxic"
-   ]
-  },
-  "B15": {
+  "B16": {
    "genre": "doom",
    "fichiers": [
-    "B15.mp3",
+    "B16.mp3",
     "doom.mp3"
    ],
    "suggestions": [
-    "Hans Zimmer — Molossus",
+    "Nirvana — Something in the Way",
     "Mick Gordon — BFG Division",
     "Rammstein — Du hast"
-   ]
-  },
-  "B16": {
-   "genre": "synthwave",
-   "fichiers": [
-    "B16.mp3",
-    "synthwave.mp3"
    ],
-   "suggestions": [
-    "Kavinsky — Nightcall",
-    "Daft Punk — Derezzed",
-    "Carpenter Brut — Turbo Killer"
-   ]
+   "morceau": {
+    "titre": "Something in the Way",
+    "artiste": "Nirvana",
+    "genre": "doom",
+    "style": "grunge lent, basses étouffées"
+   }
   },
   "B17": {
-   "genre": "punk",
+   "genre": "bubblegum",
    "fichiers": [
     "B17.mp3",
-    "punk.mp3"
+    "bubblegum.mp3"
    ],
    "suggestions": [
-    "Hans Zimmer — Why So Serious?",
-    "The Offspring — The Kids Aren't Alright",
-    "Ramones — Blitzkrieg Bop"
-   ]
+    "Marina — Bubblegum Bitch",
+    "Aqua — Barbie Girl",
+    "Caramella Girls — Caramelldansen"
+   ],
+   "morceau": {
+    "titre": "Bubblegum Bitch",
+    "artiste": "Marina",
+    "genre": "bubblegum",
+    "style": "pop sarcastique, cris et claps"
+   }
   },
   "J01": {
-   "genre": "eurobeat",
+   "genre": "hiphop",
    "fichiers": [
     "J01.mp3",
-    "eurobeat.mp3"
+    "hiphop.mp3"
    ],
    "suggestions": [
-    "Manuel — Gas Gas Gas",
-    "Dave Rodgers — Deja Vu",
-    "Max Coveri — Running in the 90s"
-   ]
+    "Teriyaki Boyz — Tokyo Drift (Fast & Furious)",
+    "DMX — X Gon' Give It to Ya",
+    "Eminem — Lose Yourself"
+   ],
+   "morceau": {
+    "titre": "Tokyo Drift (Fast & Furious)",
+    "artiste": "Teriyaki Boyz",
+    "genre": "hiphop",
+    "style": "rap japonais 2006, basse de drift"
+   }
   },
   "J02": {
    "genre": "eurobeat",
@@ -406,67 +514,103 @@
     "Dave Rodgers — Deja Vu",
     "Manuel — Gas Gas Gas",
     "Max Coveri — Running in the 90s"
-   ]
+   ],
+   "morceau": {
+    "titre": "Deja Vu",
+    "artiste": "Dave Rodgers",
+    "genre": "eurobeat",
+    "style": "eurobeat à 155 BPM, ligne de synthé qui dérape"
+   }
   },
   "J04": {
-   "genre": "punk",
+   "genre": "rock",
    "fichiers": [
     "J04.mp3",
-    "punk.mp3"
+    "rock.mp3"
    ],
    "suggestions": [
-    "The Offspring — The Kids Aren't Alright",
-    "Ramones — Blitzkrieg Bop",
-    "The Clash — London Calling"
-   ]
+    "The Surfaris — Wipe Out",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Wipe Out",
+    "artiste": "The Surfaris",
+    "genre": "rock",
+    "style": "rock surf 1963, batterie qui déboule"
+   }
   },
   "J05": {
-   "genre": "eurobeat",
+   "genre": "disco",
    "fichiers": [
     "J05.mp3",
-    "eurobeat.mp3"
+    "disco.mp3"
    ],
    "suggestions": [
-    "Dave Rodgers — Deja Vu",
-    "Manuel — Gas Gas Gas",
-    "Max Coveri — Running in the 90s"
-   ]
+    "Mariya Takeuchi — Plastic Love",
+    "Bee Gees — Stayin' Alive",
+    "Daft Punk — One More Time"
+   ],
+   "morceau": {
+    "titre": "Plastic Love",
+    "artiste": "Mariya Takeuchi",
+    "genre": "disco",
+    "style": "city pop 1984, basse chaude"
+   }
   },
   "J07": {
-   "genre": "kawaii",
+   "genre": "rock",
    "fichiers": [
     "J07.mp3",
-    "kawaii.mp3"
+    "rock.mp3"
    ],
    "suggestions": [
-    "Kyary Pamyu Pamyu — PonPonPon",
-    "Hatsune Miku — Ievan Polkka",
-    "Momoiro Clover Z — Ikuze! Kaitō Shōjo"
-   ]
+    "Electric Light Orchestra — Mr. Blue Sky",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Mr. Blue Sky",
+    "artiste": "Electric Light Orchestra",
+    "genre": "rock",
+    "style": "pop-rock ensoleillé 1977"
+   }
   },
   "J08": {
-   "genre": "eurobeat",
+   "genre": "synthwave",
    "fichiers": [
     "J08.mp3",
-    "eurobeat.mp3"
+    "synthwave.mp3"
    ],
    "suggestions": [
-    "Dave Rodgers — Deja Vu",
-    "Manuel — Gas Gas Gas",
-    "Max Coveri — Running in the 90s"
-   ]
+    "Yello — The Race",
+    "Kavinsky — Nightcall",
+    "Daft Punk — Derezzed"
+   ],
+   "morceau": {
+    "titre": "The Race",
+    "artiste": "Yello",
+    "genre": "synthwave",
+    "style": "électro 1988 aux claviers sautillants"
+   }
   },
   "J09": {
-   "genre": "bubblegum",
+   "genre": "synthwave",
    "fichiers": [
     "J09.mp3",
-    "bubblegum.mp3"
+    "synthwave.mp3"
    ],
    "suggestions": [
-    "Aqua — Barbie Girl",
-    "Caramella Girls — Caramelldansen",
-    "Britney Spears — Toxic"
-   ]
+    "Home — Resonance",
+    "Kavinsky — Nightcall",
+    "Daft Punk — Derezzed"
+   ],
+   "morceau": {
+    "titre": "Resonance",
+    "artiste": "Home",
+    "genre": "synthwave",
+    "style": "synthwave rêveuse, arpèges de nuit"
+   }
   },
   "J10": {
    "genre": "rock",
@@ -475,10 +619,16 @@
     "rock.mp3"
    ],
    "suggestions": [
+    "Steppenwolf — Born to Be Wild",
     "AC/DC — Thunderstruck",
-    "Queen — Don't Stop Me Now",
-    "The White Stripes — Seven Nation Army"
-   ]
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Born to Be Wild",
+    "artiste": "Steppenwolf",
+    "genre": "rock",
+    "style": "rock de biker 1968"
+   }
   },
   "J11": {
    "genre": "eurobeat",
@@ -490,19 +640,31 @@
     "Manuel — Gas Gas Gas",
     "Dave Rodgers — Deja Vu",
     "Max Coveri — Running in the 90s"
-   ]
+   ],
+   "morceau": {
+    "titre": "Gas Gas Gas",
+    "artiste": "Manuel",
+    "genre": "eurobeat",
+    "style": "eurobeat sous contrat de drift"
+   }
   },
   "J12": {
-   "genre": "acidjazz",
+   "genre": "valse",
    "fichiers": [
     "J12.mp3",
-    "acidjazz.mp3"
+    "valse.mp3"
    ],
    "suggestions": [
-    "Seatbelts — Tank!",
-    "Jamiroquai — Virtual Insanity",
-    "Jamiroquai — Cosmic Girl"
-   ]
+    "Nino Rota — Speak Softly Love (Theme from The Godfather)",
+    "Johann Strauss II — Le Beau Danube bleu (enregistrement libre de droits, ex. Musopen)",
+    "Chostakovitch — Valse n° 2"
+   ],
+   "morceau": {
+    "titre": "Speak Softly Love (Theme from The Godfather)",
+    "artiste": "Nino Rota",
+    "genre": "valse",
+    "style": "valse italienne de parrain, violons"
+   }
   },
   "U01": {
    "genre": "rock",
@@ -511,10 +673,16 @@
     "rock.mp3"
    ],
    "suggestions": [
+    "The White Stripes — Seven Nation Army",
     "AC/DC — Thunderstruck",
-    "Queen — Don't Stop Me Now",
-    "The White Stripes — Seven Nation Army"
-   ]
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Seven Nation Army",
+    "artiste": "The White Stripes",
+    "genre": "rock",
+    "style": "riff de basse 7 notes, stade qui chante"
+   }
   },
   "U02": {
    "genre": "synthwave",
@@ -523,22 +691,34 @@
     "synthwave.mp3"
    ],
    "suggestions": [
+    "Gary Numan — Cars",
     "Kavinsky — Nightcall",
-    "Daft Punk — Derezzed",
-    "Carpenter Brut — Turbo Killer"
-   ]
+    "Daft Punk — Derezzed"
+   ],
+   "morceau": {
+    "titre": "Cars",
+    "artiste": "Gary Numan",
+    "genre": "synthwave",
+    "style": "synthé 1979, riff froid"
+   }
   },
   "U03": {
-   "genre": "country",
+   "genre": "rock",
    "fichiers": [
     "U03.mp3",
-    "country.mp3"
+    "rock.mp3"
    ],
    "suggestions": [
-    "Jerry Reed — East Bound and Down",
-    "Rednex — Cotton Eye Joe",
-    "Johnny Cash — Ring of Fire"
-   ]
+    "Lynyrd Skynyrd — Free Bird",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Free Bird",
+    "artiste": "Lynyrd Skynyrd",
+    "genre": "rock",
+    "style": "solo de guitare final de neuf minutes"
+   }
   },
   "U04": {
    "genre": "country",
@@ -547,10 +727,16 @@
     "country.mp3"
    ],
    "suggestions": [
+    "John Denver — Take Me Home, Country Roads",
     "Rednex — Cotton Eye Joe",
-    "Johnny Cash — Ring of Fire",
-    "Lil Nas X — Old Town Road"
-   ]
+    "Johnny Cash — Ring of Fire"
+   ],
+   "morceau": {
+    "titre": "Take Me Home, Country Roads",
+    "artiste": "John Denver",
+    "genre": "country",
+    "style": "country folk de route"
+   }
   },
   "U05": {
    "genre": "rock",
@@ -559,46 +745,70 @@
     "rock.mp3"
    ],
    "suggestions": [
+    "AC/DC — Highway to Hell",
     "AC/DC — Thunderstruck",
-    "Queen — Don't Stop Me Now",
-    "The White Stripes — Seven Nation Army"
-   ]
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Highway to Hell",
+    "artiste": "AC/DC",
+    "genre": "rock",
+    "style": "riff de six cordes, batterie de stade"
+   }
   },
   "E02": {
-   "genre": "disco",
+   "genre": "epique",
    "fichiers": [
     "E02.mp3",
-    "disco.mp3"
+    "epique.mp3"
    ],
    "suggestions": [
-    "Bee Gees — Stayin' Alive",
-    "Daft Punk — One More Time",
-    "Chic — Le Freak"
-   ]
+    "Giacomo Puccini — Nessun Dorma",
+    "Two Steps From Hell — Heart of Courage",
+    "Hans Zimmer — Time"
+   ],
+   "morceau": {
+    "titre": "Nessun Dorma",
+    "artiste": "Giacomo Puccini",
+    "genre": "epique",
+    "style": "ténor d'opéra, orchestre en crescendo"
+   }
   },
   "E03": {
-   "genre": "swing",
+   "genre": "rock",
    "fichiers": [
     "E03.mp3",
-    "swing.mp3"
+    "rock.mp3"
    ],
    "suggestions": [
-    "Louis Prima — Jump, Jive an' Wail",
-    "Benny Goodman — Sing, Sing, Sing",
-    "Caravan Palace — Lone Digger"
-   ]
+    "Pink Floyd — Money",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Money",
+    "artiste": "Pink Floyd",
+    "genre": "rock",
+    "style": "caisse enregistreuse, basse 7/4"
+   }
   },
   "E04": {
-   "genre": "swing",
+   "genre": "rock",
    "fichiers": [
     "E04.mp3",
-    "swing.mp3"
+    "rock.mp3"
    ],
    "suggestions": [
-    "Fleetwood Mac — The Chain",
-    "Louis Prima — Jump, Jive an' Wail",
-    "Benny Goodman — Sing, Sing, Sing"
-   ]
+    "Fleetwood Mac — Go Your Own Way",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Go Your Own Way",
+    "artiste": "Fleetwood Mac",
+    "genre": "rock",
+    "style": "rock de grille de départ"
+   }
   },
   "E05": {
    "genre": "rock",
@@ -607,34 +817,52 @@
     "rock.mp3"
    ],
    "suggestions": [
+    "Blur — Parklife",
     "AC/DC — Thunderstruck",
-    "Queen — Don't Stop Me Now",
-    "The White Stripes — Seven Nation Army"
-   ]
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Parklife",
+    "artiste": "Blur",
+    "genre": "rock",
+    "style": "britpop de rue, voix parlée"
+   }
   },
   "E06": {
-   "genre": "synthwave",
+   "genre": "hiphop",
    "fichiers": [
     "E06.mp3",
-    "synthwave.mp3"
+    "hiphop.mp3"
    ],
    "suggestions": [
-    "Kavinsky — Nightcall",
-    "Daft Punk — Derezzed",
-    "Carpenter Brut — Turbo Killer"
-   ]
+    "Daddy Yankee — Gasolina",
+    "DMX — X Gon' Give It to Ya",
+    "Eminem — Lose Yourself"
+   ],
+   "morceau": {
+    "titre": "Gasolina",
+    "artiste": "Daddy Yankee",
+    "genre": "hiphop",
+    "style": "reggaeton de piste"
+   }
   },
   "E07": {
-   "genre": "punk",
+   "genre": "disco",
    "fichiers": [
     "E07.mp3",
-    "punk.mp3"
+    "disco.mp3"
    ],
    "suggestions": [
     "ABBA — Gimme! Gimme! Gimme!",
-    "The Offspring — The Kids Aren't Alright",
-    "Ramones — Blitzkrieg Bop"
-   ]
+    "Bee Gees — Stayin' Alive",
+    "Daft Punk — One More Time"
+   ],
+   "morceau": {
+    "titre": "Gimme! Gimme! Gimme!",
+    "artiste": "ABBA",
+    "genre": "disco",
+    "style": "disco suédois 1979"
+   }
   },
   "E08": {
    "genre": "rock",
@@ -643,10 +871,16 @@
     "rock.mp3"
    ],
    "suggestions": [
+    "Blur — Song 2",
     "AC/DC — Thunderstruck",
-    "Queen — Don't Stop Me Now",
-    "The White Stripes — Seven Nation Army"
-   ]
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Song 2",
+    "artiste": "Blur",
+    "genre": "rock",
+    "style": "wouh-hou 2 minutes, guitare grosse"
+   }
   },
   "P01": {
    "genre": "synthwave",
@@ -658,19 +892,31 @@
     "Stu Phillips — Knight Rider Theme",
     "Kavinsky — Nightcall",
     "Daft Punk — Derezzed"
-   ]
+   ],
+   "morceau": {
+    "titre": "Knight Rider Theme",
+    "artiste": "Stu Phillips",
+    "genre": "synthwave",
+    "style": "synthé orchestral de série 80"
+   }
   },
   "P03": {
-   "genre": "doom",
+   "genre": "swing",
    "fichiers": [
     "P03.mp3",
-    "doom.mp3"
+    "swing.mp3"
    ],
    "suggestions": [
-    "Mick Gordon — BFG Division",
-    "Rammstein — Du hast",
-    "Gesaffelstein — Pursuit"
-   ]
+    "Bobby Pickett — Monster Mash",
+    "Louis Prima — Jump, Jive an' Wail",
+    "Benny Goodman — Sing, Sing, Sing"
+   ],
+   "morceau": {
+    "titre": "Monster Mash",
+    "artiste": "Bobby Pickett",
+    "genre": "swing",
+    "style": "rockabilly d'Halloween 1962"
+   }
   },
   "P04": {
    "genre": "bubblegum",
@@ -682,19 +928,31 @@
     "Aqua — Barbie Girl",
     "Caramella Girls — Caramelldansen",
     "Britney Spears — Toxic"
-   ]
+   ],
+   "morceau": {
+    "titre": "Barbie Girl",
+    "artiste": "Aqua",
+    "genre": "bubblegum",
+    "style": "eurodance 1997"
+   }
   },
   "H01": {
-   "genre": "punk",
+   "genre": "rock",
    "fichiers": [
     "H01.mp3",
-    "punk.mp3"
+    "rock.mp3"
    ],
    "suggestions": [
-    "The Offspring — The Kids Aren't Alright",
-    "Ramones — Blitzkrieg Bop",
-    "The Clash — London Calling"
-   ]
+    "David Bowie — Space Oddity",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Space Oddity",
+    "artiste": "David Bowie",
+    "genre": "rock",
+    "style": "ballade spatiale 1969, décollage"
+   }
   },
   "H02": {
    "genre": "epique",
@@ -703,34 +961,52 @@
     "epique.mp3"
    ],
    "suggestions": [
+    "Jeremy Soule — Dragonborn (Skyrim Main Theme)",
     "Two Steps From Hell — Heart of Courage",
-    "Hans Zimmer — Time",
-    "Carl Orff — O Fortuna"
-   ]
+    "Hans Zimmer — Time"
+   ],
+   "morceau": {
+    "titre": "Dragonborn (Skyrim Main Theme)",
+    "artiste": "Jeremy Soule",
+    "genre": "epique",
+    "style": "chœur de guerre en vieux nordique"
+   }
   },
   "H03": {
-   "genre": "chiptune",
-   "fichiers": [
-    "H03.mp3",
-    "chiptune.mp3"
-   ],
-   "suggestions": [
-    "Korobeiniki (thème populaire russe, version 8 bits)",
-    "Anamanaguchi — Endless Fantasy",
-    "Disasterpeace — Fez (bande originale)"
-   ]
-  },
-  "H04": {
    "genre": "doom",
    "fichiers": [
-    "H04.mp3",
+    "H03.mp3",
     "doom.mp3"
    ],
    "suggestions": [
+    "DragonForce — Through the Fire and Flames",
     "Mick Gordon — BFG Division",
-    "Rammstein — Du hast",
-    "Gesaffelstein — Pursuit"
-   ]
+    "Rammstein — Du hast"
+   ],
+   "morceau": {
+    "titre": "Through the Fire and Flames",
+    "artiste": "DragonForce",
+    "genre": "doom",
+    "style": "power metal à 200 BPM, solos"
+   }
+  },
+  "H04": {
+   "genre": "punk",
+   "fichiers": [
+    "H04.mp3",
+    "punk.mp3"
+   ],
+   "suggestions": [
+    "Rage Against the Machine — Killing in the Name",
+    "The Offspring — The Kids Aren't Alright",
+    "Ramones — Blitzkrieg Bop"
+   ],
+   "morceau": {
+    "titre": "Killing in the Name",
+    "artiste": "Rage Against the Machine",
+    "genre": "punk",
+    "style": "riff de fureur, refrain d'émeute"
+   }
   },
   "H05": {
    "genre": "eurobeat",
@@ -739,34 +1015,52 @@
     "eurobeat.mp3"
    ],
    "suggestions": [
+    "Nintendo — Mute City (F-Zero)",
     "Dave Rodgers — Deja Vu",
-    "Manuel — Gas Gas Gas",
-    "Max Coveri — Running in the 90s"
-   ]
+    "Manuel — Gas Gas Gas"
+   ],
+   "morceau": {
+    "titre": "Mute City (F-Zero)",
+    "artiste": "Nintendo",
+    "genre": "eurobeat",
+    "style": "rock électronique 16 bits"
+   }
   },
   "H06": {
-   "genre": "bubblegum",
+   "genre": "disco",
    "fichiers": [
     "H06.mp3",
-    "bubblegum.mp3"
+    "disco.mp3"
    ],
    "suggestions": [
     "The Marvelettes — Please Mr. Postman",
-    "Aqua — Barbie Girl",
-    "Caramella Girls — Caramelldansen"
-   ]
+    "Bee Gees — Stayin' Alive",
+    "Daft Punk — One More Time"
+   ],
+   "morceau": {
+    "titre": "Please Mr. Postman",
+    "artiste": "The Marvelettes",
+    "genre": "disco",
+    "style": "Motown 1961, claps"
+   }
   },
   "H07": {
-   "genre": "rock",
+   "genre": "country",
    "fichiers": [
     "H07.mp3",
-    "rock.mp3"
+    "country.mp3"
    ],
    "suggestions": [
-    "AC/DC — Thunderstruck",
-    "Queen — Don't Stop Me Now",
-    "The White Stripes — Seven Nation Army"
-   ]
+    "C.W. McCall — Convoy",
+    "Rednex — Cotton Eye Joe",
+    "Johnny Cash — Ring of Fire"
+   ],
+   "morceau": {
+    "titre": "Convoy",
+    "artiste": "C.W. McCall",
+    "genre": "country",
+    "style": "country CB 1975"
+   }
   },
   "H08": {
    "genre": "punk",
@@ -778,67 +1072,103 @@
     "The Clash — London Calling",
     "The Offspring — The Kids Aren't Alright",
     "Ramones — Blitzkrieg Bop"
-   ]
+   ],
+   "morceau": {
+    "titre": "London Calling",
+    "artiste": "The Clash",
+    "genre": "punk",
+    "style": "punk-rock 1979"
+   }
   },
   "H09": {
-   "genre": "chiptune",
+   "genre": "swing",
    "fichiers": [
     "H09.mp3",
-    "chiptune.mp3"
+    "swing.mp3"
    ],
    "suggestions": [
-    "Korobeiniki (thème populaire russe, version 8 bits)",
-    "Anamanaguchi — Endless Fantasy",
-    "Disasterpeace — Fez (bande originale)"
-   ]
+    "Kyu Sakamoto — Ue o Muite Arukō",
+    "Louis Prima — Jump, Jive an' Wail",
+    "Benny Goodman — Sing, Sing, Sing"
+   ],
+   "morceau": {
+    "titre": "Ue o Muite Arukō",
+    "artiste": "Kyu Sakamoto",
+    "genre": "swing",
+    "style": "pop japonaise 1961, sifflement"
+   }
   },
   "H10": {
-   "genre": "rock",
+   "genre": "eurobeat",
    "fichiers": [
     "H10.mp3",
-    "rock.mp3"
+    "eurobeat.mp3"
    ],
    "suggestions": [
-    "AC/DC — Thunderstruck",
-    "Queen — Don't Stop Me Now",
-    "The White Stripes — Seven Nation Army"
-   ]
+    "Darude — Sandstorm",
+    "Dave Rodgers — Deja Vu",
+    "Manuel — Gas Gas Gas"
+   ],
+   "morceau": {
+    "titre": "Sandstorm",
+    "artiste": "Darude",
+    "genre": "eurobeat",
+    "style": "trance à 136 BPM, lead saturé"
+   }
   },
   "H11": {
-   "genre": "chiptune",
+   "genre": "swing",
    "fichiers": [
     "H11.mp3",
-    "chiptune.mp3"
+    "swing.mp3"
    ],
    "suggestions": [
-    "Korobeiniki (thème populaire russe, version 8 bits)",
-    "Anamanaguchi — Endless Fantasy",
-    "Disasterpeace — Fez (bande originale)"
-   ]
+    "Shirley Bassey — Big Spender",
+    "Louis Prima — Jump, Jive an' Wail",
+    "Benny Goodman — Sing, Sing, Sing"
+   ],
+   "morceau": {
+    "titre": "Big Spender",
+    "artiste": "Shirley Bassey",
+    "genre": "swing",
+    "style": "jazz big band, cuivres de casino"
+   }
   },
   "H12": {
-   "genre": "epique",
+   "genre": "disco",
    "fichiers": [
     "H12.mp3",
-    "epique.mp3"
+    "disco.mp3"
    ],
    "suggestions": [
-    "The Clash — London Calling",
-    "Two Steps From Hell — Heart of Courage",
-    "Hans Zimmer — Time"
-   ]
+    "Bee Gees — Stayin' Alive",
+    "Daft Punk — One More Time",
+    "Chic — Le Freak"
+   ],
+   "morceau": {
+    "titre": "Stayin' Alive",
+    "artiste": "Bee Gees",
+    "genre": "disco",
+    "style": "disco à 103 BPM, rythme de massage cardiaque"
+   }
   },
   "F01": {
-   "genre": "symphonie",
+   "genre": "doom",
    "fichiers": [
     "F01.mp3",
-    "symphonie.mp3"
+    "doom.mp3"
    ],
    "suggestions": [
-    "Fleetwood Mac — The Chain",
-    "Danny Elfman — The Batman Theme (1989)",
-    "Hans Zimmer — Why So Serious?"
-   ]
+    "Rammstein — Du hast",
+    "Mick Gordon — BFG Division",
+    "Gesaffelstein — Pursuit"
+   ],
+   "morceau": {
+    "titre": "Du hast",
+    "artiste": "Rammstein",
+    "genre": "doom",
+    "style": "metal industriel allemand, voix grave"
+   }
   },
   "F02": {
    "genre": "rock",
@@ -847,82 +1177,124 @@
     "rock.mp3"
    ],
    "suggestions": [
-    "Fleetwood Mac — The Chain",
     "AC/DC — Thunderstruck",
-    "Queen — Don't Stop Me Now"
-   ]
+    "Queen — Don't Stop Me Now",
+    "The White Stripes — Seven Nation Army"
+   ],
+   "morceau": {
+    "titre": "Thunderstruck",
+    "artiste": "AC/DC",
+    "genre": "rock",
+    "style": "riff d'introduction, chœur de stade"
+   }
   },
   "F03": {
-   "genre": "symphonie",
+   "genre": "rock",
    "fichiers": [
     "F03.mp3",
-    "symphonie.mp3"
+    "rock.mp3"
    ],
    "suggestions": [
-    "Fleetwood Mac — The Chain",
-    "Danny Elfman — The Batman Theme (1989)",
-    "Hans Zimmer — Why So Serious?"
-   ]
+    "Gianna Nannini & Edoardo Bennato — Un'estate italiana",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Un'estate italiana",
+    "artiste": "Gianna Nannini & Edoardo Bennato",
+    "genre": "rock",
+    "style": "hymne de l'été 1990, guitare et chœur"
+   }
   },
   "F04": {
-   "genre": "disco",
+   "genre": "rock",
    "fichiers": [
     "F04.mp3",
-    "disco.mp3"
+    "rock.mp3"
    ],
    "suggestions": [
-    "Fleetwood Mac — The Chain",
-    "Bee Gees — Stayin' Alive",
-    "Daft Punk — One More Time"
-   ]
+    "Oasis — Don't Look Back in Anger",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Don't Look Back in Anger",
+    "artiste": "Oasis",
+    "genre": "rock",
+    "style": "britpop de refrain collectif"
+   }
   },
   "F05": {
-   "genre": "epique",
-   "fichiers": [
-    "F05.mp3",
-    "epique.mp3"
-   ],
-   "suggestions": [
-    "Fleetwood Mac — The Chain",
-    "Two Steps From Hell — Heart of Courage",
-    "Hans Zimmer — Time"
-   ]
-  },
-  "F06": {
-   "genre": "bubblegum",
-   "fichiers": [
-    "F06.mp3",
-    "bubblegum.mp3"
-   ],
-   "suggestions": [
-    "Fleetwood Mac — The Chain",
-    "Aqua — Barbie Girl",
-    "Caramella Girls — Caramelldansen"
-   ]
-  },
-  "F07": {
    "genre": "swing",
    "fichiers": [
-    "F07.mp3",
+    "F05.mp3",
     "swing.mp3"
    ],
    "suggestions": [
-    "Fleetwood Mac — The Chain",
+    "Monty Norman — James Bond Theme",
     "Louis Prima — Jump, Jive an' Wail",
     "Benny Goodman — Sing, Sing, Sing"
-   ]
+   ],
+   "morceau": {
+    "titre": "James Bond Theme",
+    "artiste": "Monty Norman",
+    "genre": "swing",
+    "style": "cuivres sixties, guitare baryton"
+   }
   },
-  "F08": {
-   "genre": "hiphop",
+  "F06": {
+   "genre": "disco",
    "fichiers": [
-    "F08.mp3",
-    "hiphop.mp3"
+    "F06.mp3",
+    "disco.mp3"
    ],
    "suggestions": [
-    "Fleetwood Mac — The Chain",
-    "DMX — X Gon' Give It to Ya",
-    "Eminem — Lose Yourself"
-   ]
+    "Stromae — Alors on danse",
+    "Bee Gees — Stayin' Alive",
+    "Daft Punk — One More Time"
+   ],
+   "morceau": {
+    "titre": "Alors on danse",
+    "artiste": "Stromae",
+    "genre": "disco",
+    "style": "électro-pop belge 2009"
+   }
+  },
+  "F07": {
+   "genre": "synthwave",
+   "fichiers": [
+    "F07.mp3",
+    "synthwave.mp3"
+   ],
+   "suggestions": [
+    "New Order — Blue Monday",
+    "Kavinsky — Nightcall",
+    "Daft Punk — Derezzed"
+   ],
+   "morceau": {
+    "titre": "Blue Monday",
+    "artiste": "New Order",
+    "genre": "synthwave",
+    "style": "synthé 1983, boîte à rythmes"
+   }
+  },
+  "F08": {
+   "genre": "rock",
+   "fichiers": [
+    "F08.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "The Killers — Mr. Brightside",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Mr. Brightside",
+    "artiste": "The Killers",
+    "genre": "rock",
+    "style": "rock indé 2003, guitares claires"
+   }
   },
   "F09": {
    "genre": "synthwave",
@@ -931,130 +1303,196 @@
     "synthwave.mp3"
    ],
    "suggestions": [
-    "Fleetwood Mac — The Chain",
+    "Nena — 99 Luftballons",
     "Kavinsky — Nightcall",
     "Daft Punk — Derezzed"
-   ]
+   ],
+   "morceau": {
+    "titre": "99 Luftballons",
+    "artiste": "Nena",
+    "genre": "synthwave",
+    "style": "synth-pop allemande 1983"
+   }
   },
   "F10": {
-   "genre": "country",
-   "fichiers": [
-    "F10.mp3",
-    "country.mp3"
-   ],
-   "suggestions": [
-    "Fleetwood Mac — The Chain",
-    "Rednex — Cotton Eye Joe",
-    "Johnny Cash — Ring of Fire"
-   ]
-  },
-  "FR01": {
-   "genre": "symphonie",
-   "fichiers": [
-    "FR01.mp3",
-    "symphonie.mp3"
-   ],
-   "suggestions": [
-    "Kavinsky — Nightcall",
-    "Danny Elfman — The Batman Theme (1989)",
-    "Hans Zimmer — Why So Serious?"
-   ]
-  },
-  "FR02": {
    "genre": "rock",
    "fichiers": [
-    "FR02.mp3",
+    "F10.mp3",
     "rock.mp3"
    ],
    "suggestions": [
+    "Dire Straits — Money for Nothing",
     "AC/DC — Thunderstruck",
-    "Queen — Don't Stop Me Now",
-    "The White Stripes — Seven Nation Army"
-   ]
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Money for Nothing",
+    "artiste": "Dire Straits",
+    "genre": "rock",
+    "style": "riff de guitare 1985, synthé"
+   }
   },
-  "FR03": {
-   "genre": "swing",
+  "FR01": {
+   "genre": "epique",
    "fichiers": [
-    "FR03.mp3",
-    "swing.mp3"
+    "FR01.mp3",
+    "epique.mp3"
    ],
    "suggestions": [
-    "Serge Gainsbourg — Bonnie and Clyde",
-    "Louis Prima — Jump, Jive an' Wail",
-    "Benny Goodman — Sing, Sing, Sing"
-   ]
+    "Hector Berlioz — La Marseillaise (orchestration de Berlioz)",
+    "Two Steps From Hell — Heart of Courage",
+    "Hans Zimmer — Time"
+   ],
+   "morceau": {
+    "titre": "La Marseillaise (orchestration de Berlioz)",
+    "artiste": "Hector Berlioz",
+    "genre": "epique",
+    "style": "chœur et orchestre de cérémonie"
+   }
   },
-  "FR04": {
+  "FR02": {
    "genre": "disco",
    "fichiers": [
-    "FR04.mp3",
+    "FR02.mp3",
     "disco.mp3"
    ],
    "suggestions": [
-    "Daft Punk — Around the World",
+    "Daft Punk — Harder, Better, Faster, Stronger",
     "Bee Gees — Stayin' Alive",
     "Daft Punk — One More Time"
-   ]
+   ],
+   "morceau": {
+    "titre": "Harder, Better, Faster, Stronger",
+    "artiste": "Daft Punk",
+    "genre": "disco",
+    "style": "French touch 2001"
+   }
   },
-  "FR05": {
-   "genre": "valse",
+  "FR03": {
+   "genre": "acidjazz",
    "fichiers": [
-    "FR05.mp3",
-    "valse.mp3"
+    "FR03.mp3",
+    "acidjazz.mp3"
    ],
    "suggestions": [
-    "Johann Strauss II — Le Beau Danube bleu (enregistrement libre de droits, ex. Musopen)",
-    "Chostakovitch — Valse n° 2",
-    "Parov Stelar — Booty Swing"
-   ]
-  },
-  "TK01": {
-   "genre": "eurobeat",
-   "fichiers": [
-    "TK01.mp3",
-    "eurobeat.mp3"
+    "Michel Magne — Fantômas (Générique)",
+    "Seatbelts — Tank!",
+    "Jamiroquai — Virtual Insanity"
    ],
-   "suggestions": [
-    "Dave Rodgers — Deja Vu",
-    "Manuel — Gas Gas Gas",
-    "Max Coveri — Running in the 90s"
-   ]
+   "morceau": {
+    "titre": "Fantômas (Générique)",
+    "artiste": "Michel Magne",
+    "genre": "acidjazz",
+    "style": "jazz de comédie policière 1964"
+   }
   },
-  "TK02": {
+  "FR04": {
    "genre": "synthwave",
    "fichiers": [
-    "TK02.mp3",
+    "FR04.mp3",
     "synthwave.mp3"
    ],
    "suggestions": [
     "Kavinsky — Nightcall",
     "Daft Punk — Derezzed",
     "Carpenter Brut — Turbo Killer"
-   ]
+   ],
+   "morceau": {
+    "titre": "Nightcall",
+    "artiste": "Kavinsky",
+    "genre": "synthwave",
+    "style": "synthwave 2010, voix de robot"
+   }
   },
-  "TK03": {
+  "FR05": {
+   "genre": "synthwave",
+   "fichiers": [
+    "FR05.mp3",
+    "synthwave.mp3"
+   ],
+   "suggestions": [
+    "Desireless — Voyage, Voyage",
+    "Kavinsky — Nightcall",
+    "Daft Punk — Derezzed"
+   ],
+   "morceau": {
+    "titre": "Voyage, Voyage",
+    "artiste": "Desireless",
+    "genre": "synthwave",
+    "style": "synth-pop française 1986"
+   }
+  },
+  "TK01": {
    "genre": "rock",
    "fichiers": [
-    "TK03.mp3",
+    "TK01.mp3",
     "rock.mp3"
    ],
    "suggestions": [
+    "Kenny Loggins — Danger Zone",
     "AC/DC — Thunderstruck",
-    "Queen — Don't Stop Me Now",
-    "The White Stripes — Seven Nation Army"
-   ]
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Danger Zone",
+    "artiste": "Kenny Loggins",
+    "genre": "rock",
+    "style": "rock 80's de bande-annonce"
+   }
   },
-  "TK04": {
-   "genre": "disco",
+  "TK02": {
+   "genre": "rock",
    "fichiers": [
-    "TK04.mp3",
-    "disco.mp3"
+    "TK02.mp3",
+    "rock.mp3"
    ],
    "suggestions": [
-    "Bee Gees — Stayin' Alive",
-    "Daft Punk — One More Time",
-    "Chic — Le Freak"
-   ]
+    "Survivor — Burning Heart",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Burning Heart",
+    "artiste": "Survivor",
+    "genre": "rock",
+    "style": "rock de film d'action 1985"
+   }
+  },
+  "TK03": {
+   "genre": "epique",
+   "fichiers": [
+    "TK03.mp3",
+    "epique.mp3"
+   ],
+   "suggestions": [
+    "Richard Wagner — Ride of the Valkyries",
+    "Two Steps From Hell — Heart of Courage",
+    "Hans Zimmer — Time"
+   ],
+   "morceau": {
+    "titre": "Ride of the Valkyries",
+    "artiste": "Richard Wagner",
+    "genre": "epique",
+    "style": "orchestre wagnérien, cuivres impériaux"
+   }
+  },
+  "TK04": {
+   "genre": "country",
+   "fichiers": [
+    "TK04.mp3",
+    "country.mp3"
+   ],
+   "suggestions": [
+    "Jerry Reed — East Bound and Down",
+    "Rednex — Cotton Eye Joe",
+    "Johnny Cash — Ring of Fire"
+   ],
+   "morceau": {
+    "titre": "East Bound and Down",
+    "artiste": "Jerry Reed",
+    "genre": "country",
+    "style": "country-rock 1977 de poursuite"
+   }
   },
   "TK05": {
    "genre": "kawaii",
@@ -1063,10 +1501,16 @@
     "kawaii.mp3"
    ],
    "suggestions": [
+    "Jason Paige — Pokémon Theme",
     "Kyary Pamyu Pamyu — PonPonPon",
-    "Hatsune Miku — Ievan Polkka",
-    "Momoiro Clover Z — Ikuze! Kaitō Shōjo"
-   ]
+    "Hatsune Miku — Ievan Polkka"
+   ],
+   "morceau": {
+    "titre": "Pokémon Theme",
+    "artiste": "Jason Paige",
+    "genre": "kawaii",
+    "style": "J-pop/rock 1998, générique de dessin animé"
+   }
   },
   "TK06": {
    "genre": "kawaii",
@@ -1075,10 +1519,16 @@
     "kawaii.mp3"
    ],
    "suggestions": [
-    "Hatsune Miku — Ievan Polkka",
+    "Hatsune Miku (ryo) — World Is Mine",
     "Kyary Pamyu Pamyu — PonPonPon",
-    "Momoiro Clover Z — Ikuze! Kaitō Shōjo"
-   ]
+    "Hatsune Miku — Ievan Polkka"
+   ],
+   "morceau": {
+    "titre": "World Is Mine",
+    "artiste": "Hatsune Miku (ryo)",
+    "genre": "kawaii",
+    "style": "vocaloid électro-pop 2008"
+   }
   }
  },
  "trailers": {

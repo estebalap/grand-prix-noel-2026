@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Banc 3D — contrôle des 75 bolides</title>
+<style>
+  :root{--fond:#07070d;--carte:#12131c;--txt:#e9ecf4;--dim:#8d93a8;--ok:#36d07a;--ko:#ff4b5c;--av:#ffbf2e}
+  body{margin:0;background:var(--fond);color:var(--txt);font:14px/1.4 system-ui,Segoe UI,Arial,sans-serif}
+  header{position:sticky;top:0;z-index:5;background:rgba(7,7,13,.94);padding:12px 18px;border-bottom:1px solid #222538;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  h1{font-size:18px;margin:0}
+  #bilan b{font-variant-numeric:tabular-nums}
+  #grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px;padding:14px 18px}
+  .c{background:var(--carte);border:1px solid #23263a;border-radius:10px;overflow:hidden}
+  .c.ko{border-color:var(--ko)} .c.av{border-color:var(--av)}
+  .c canvas{display:block;width:100%;aspect-ratio:16/9;background:#0b0c14}
+  .c .l{padding:8px 10px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+  .c .code{font-weight:800}
+  .c .m{padding:0 10px 9px;color:var(--dim);font:12px/1.45 ui-monospace,Consolas,monospace}
+  .v{font-weight:800;font-size:12px;padding:2px 7px;border-radius:6px}
+  .v.ok{background:#123522;color:var(--ok)} .v.ko{background:#3a1218;color:var(--ko)} .v.av{background:#3a2c0e;color:var(--av)}
+  select,button{font:600 14px system-ui;padding:6px 10px;border-radius:8px;border:1px solid #34384f;background:#191b29;color:#fff}
+</style>
+</head>
+<body>
+<header>
+  <h1>Banc 3D — les 75 bolides sculptés</h1>
+  <span id="bilan">Chargement…</span>
+  <label>Vue <select id="vue"><option value="34">3/4 avant</option><option value="profil">Profil</option><option value="roue">Macro roue</option></select></label>
+  <button id="relancer" type="button">Relancer</button>
+</header>
+<main id="grille"></main>
+<script src="../lib/three.min.js"></script>
+<script type="module" src="banc3d.js"></script>
+</body>
+</html>

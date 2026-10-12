@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Salle de projection — Grand Prix de Noël</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../shared/rarete.css">
+<link rel="stylesheet" href="../tv/tv.css">
+<link rel="stylesheet" href="../shared/nintendo.css">
+<link rel="stylesheet" href="../shared/perf.css">
+<link rel="stylesheet" href="cinema.css">
+<script>try{var k=new URLSearchParams(location.search).get("skin");if(k)localStorage.setItem("gp.skin",k);document.documentElement.dataset.skin=localStorage.getItem("gp.skin")||"nintendo"}catch(e){document.documentElement.dataset.skin="nintendo"}</script>
+</head>
+<body class="cinema">
+<header id="tete">
+  <div class="titre"><span class="eyebrow">Les 75 cinématiques des bolides</span><b class="display foil">Salle de projection</b></div>
+  <div class="outils">
+    <input id="cherche" type="search" placeholder="Code ou nom (TK06, Miku…)" aria-label="Rechercher un bolide">
+    <select id="f-univers" aria-label="Univers"><option value="">Tous les univers</option></select>
+    <select id="f-rarete" aria-label="Rareté"><option value="">Toutes les raretés</option></select>
+    <label class="bascule"><input type="checkbox" id="f-clips"> Clips filmés seulement</label>
+    <button id="defile" type="button">⏩ Défilé complet</button>
+    <a class="lk" href="../showroom/">Showroom</a><a class="lk" href="../reveal/">Banc d'essai</a>
+  </div>
+  <p id="compte" class="dim"></p>
+</header>
+<main id="grille" aria-live="polite"></main>
+
+<div id="salle" hidden>
+  <div id="scene"></div>
+  <video id="clip" playsinline controls hidden></video>
+  <div id="bandeau">
+    <button id="fermer" type="button" title="Fermer (Échap)">✕</button>
+    <button id="prec" type="button" title="Bolide précédent (←)">◀</button>
+    <div id="legende"></div>
+    <button id="suiv" type="button" title="Bolide suivant (→)">▶</button>
+    <button id="version" type="button" hidden></button>
+    <button id="rejouer" type="button" title="Rejouer (R)">↻</button>
+  </div>
+  <p id="aide">Espace : bolide suivant à la fin · ← → : précédent / suivant · R : rejouer · Échap : fermer</p>
+</div>
+<script src="../lib/three.min.js"></script>
+<script type="module" src="cinema.js"></script>
+</body>
+</html>

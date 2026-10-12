@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ouverture du plateau — Grand Prix de Noël</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  body{margin:0;background:#020108;color:#fff;font-family:var(--font-display,system-ui)}
+  #go{position:fixed;inset:0;display:grid;place-items:center;cursor:pointer;text-align:center}
+  #go b{font-size:46px;letter-spacing:.08em;text-transform:uppercase;text-shadow:0 0 24px #ff3b6b}
+  #go small{display:block;margin-top:14px;opacity:.7;font-size:18px;letter-spacing:.2em}
+</style>
+</head>
+<body>
+<div id="go"><div><b>🎬 Ouverture du plateau</b><small>Clic ou touche pour lancer · Échap pour passer</small></div></div>
+<script src="../lib/three.min.js"></script>
+<script type="module" src="ouverture_page.js"></script>
+</body>
+</html>

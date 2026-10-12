@@ -1,7 +1,35 @@
 /* Synthétiseur audio procédural : bruitages des invités, jingles de l'émission, voix des commentateurs.
    Le synthétiseur sert de repli : quand la banque d'échantillons (web/sounds) est présente, elle est utilisée en priorité. */
 
-let ac = null, master = null, comp = null, muted = false;
+let ac = null, master = null, comp = null, limiteur = null, sortie = null, brickwall = null, muted = false;
+
+/* LIMITEUR BRICKWALL À −1,0 dBFS (AudioWorklet, anticipation 5 ms) : la crête d'échantillon ne dépasse JAMAIS 0,891.
+   (Le DynamicsCompressorNode du navigateur applique un gain de compensation automatique : à 20:1 il ramenait des crêtes
+   à −0,2 dBFS dans les captures du 11 oct. Ce n'est pas un limiteur.) Gain de réduction instantané à l'attaque grâce à
+   l'anticipation, relâchement exponentiel en 80 ms, gain commun aux deux canaux (pas de décalage stéréo). */
+const PLAFOND = Math.pow(10, -1.0 / 20);
+const CODE_BRICKWALL = `
+class Brickwall extends AudioWorkletProcessor {
+  constructor() { super(); this.n = Math.max(1, Math.round(sampleRate * 0.005)); this.buf = [new Float32Array(this.n), new Float32Array(this.n)];
+    this.pic = new Float32Array(this.n); this.i = 0; this.g = 1; this.rel = Math.exp(-1 / (sampleRate * 0.08)); this.plafond = ${PLAFOND}; }
+  process(entrees, sorties) {
+    const e = entrees[0], s = sorties[0]; if (!s || !s.length) return true;
+    const L = e && e[0] ? e[0] : null, R = e && e[1] ? e[1] : L, n = s[0].length;
+    for (let k = 0; k < n; k++) {
+      const xl = L ? L[k] : 0, xr = R ? R[k] : 0, a = Math.max(Math.abs(xl), Math.abs(xr));
+      this.pic[this.i] = a; let m = 0; for (let j = 0; j < this.n; j++) if (this.pic[j] > m) m = this.pic[j];   // crête sur la fenêtre d'anticipation
+      const cible = m > this.plafond ? this.plafond / m : 1;
+      this.g = cible < this.g ? cible : cible - (cible - this.g) * this.rel;
+      const yl = this.buf[0][this.i], yr = this.buf[1][this.i];                    // échantillon retardé de 5 ms
+      this.buf[0][this.i] = xl; this.buf[1][this.i] = xr; this.i = (this.i + 1) % this.n;
+      const ol = yl * this.g, or = yr * this.g;
+      s[0][k] = ol > this.plafond ? this.plafond : ol < -this.plafond ? -this.plafond : ol;
+      if (s[1]) s[1][k] = or > this.plafond ? this.plafond : or < -this.plafond ? -this.plafond : or;
+    }
+    return true;
+  }
+}
+registerProcessor('gp-brickwall', Brickwall);`;
 
 export function unlock() {
   if (!ac) {
@@ -11,14 +39,31 @@ export function unlock() {
     comp = ac.createDynamicsCompressor();
     comp.threshold.value = -14; comp.ratio.value = 6;
     master = ac.createGain(); master.gain.value = 0.7;
-    master.connect(comp); comp.connect(ac.destination);
+    // sortie : nœud FIXE vers les enceintes (on s'y branche pour enregistrer). En attendant le brickwall (chargement asynchrone),
+    // un compresseur rapide sert de garde-fou ; il est retiré dès que le vrai limiteur est prêt.
+    sortie = ac.createGain(); sortie.gain.value = 1; sortie.connect(ac.destination);
+    limiteur = ac.createDynamicsCompressor();
+    limiteur.threshold.value = -3; limiteur.knee.value = 0; limiteur.ratio.value = 20; limiteur.attack.value = 0.001; limiteur.release.value = 0.08;
+    master.connect(comp); comp.connect(limiteur); limiteur.connect(sortie);
+    if (ac.audioWorklet && typeof AudioWorkletNode !== 'undefined') {
+      const url = URL.createObjectURL(new Blob([CODE_BRICKWALL], { type: 'application/javascript' }));
+      brickwall = ac.audioWorklet.addModule(url).then(() => {
+        const bw = new AudioWorkletNode(ac, 'gp-brickwall', { numberOfInputs: 1, numberOfOutputs: 1, outputChannelCount: [2], channelCount: 2, channelCountMode: 'explicit' });
+        comp.connect(bw); bw.connect(sortie);
+        try { comp.disconnect(limiteur); limiteur.disconnect(); } catch (e) { /* déjà débranché */ }
+        limiteur = bw; return true;
+      }).catch((e) => { console.warn('[audio] brickwall indisponible, compresseur de secours conservé', e); return false; })
+        .finally(() => URL.revokeObjectURL(url));
+    }
   }
   if (ac.state === 'suspended') ac.resume();
   if (BANK && !unlock.pre) { unlock.pre = true; preloadMode(bankMode); }
   return true;
 }
-/** Contexte audio débloqué et bus de sortie (null tant que la page n'a pas reçu de geste de l'utilisateur). */
-export const sortieAudio = () => (ac && master && ac.state !== 'closed' ? { ac, master } : null);
+/** Promesse résolue quand le limiteur brickwall est en place (true) ou définitivement indisponible (false). */
+export const limiteurPret = () => brickwall || Promise.resolve(false);
+/** { ac, master, final } : `master` = entrée du bus général (on s'y branche pour jouer un son) ; `final` = sortie limitée réellement envoyée aux enceintes (on s'y branche pour ENREGISTRER). */
+export const sortieAudio = () => (ac && master && ac.state !== 'closed' ? { ac, master, final: sortie || master } : null);
 export const setMuted = (m) => { muted = m; if (master) master.gain.value = m ? 0 : 0.7; };
 export const isMuted = () => muted;
 

@@ -29,7 +29,7 @@ export function bolide2dSvg(code, uid = 'b', opts = {}) {
   TEXTURE = tex;
   try {
     corps = f.fam === 'f1' ? f1(f, id) : f.fam === 'f1vintage' ? f1Vintage(f, id) : f.fam === 'helico' ? helico(f, id)
-      : f.fam === 'fauteuil' ? fauteuil(f, id) : route(f, id);
+      : f.fam === 'fauteuil' ? fauteuil(f, id) : f.fam === 'locomotive' ? locomotive(f, id) : route(f, id);
   } catch (e) {
     console.warn('bolide2d', code, e);
     return '';
@@ -438,6 +438,42 @@ function fauteuil(f, id) {
   return s;
 }
 
+/* ------------------------------------------------------------------ locomotive à roues (La Grève) : chaudière, cheminée, cabine, bielles, chasse-buffles */
+function locomotive(f, id) {
+  const c = f.c, ac = c.accent || '#c8372d', or = c.laiton || '#d4a017';
+  let s = socle(f, id, 40, 304);
+  s += `<defs><linearGradient id="${id}b" x1="0" y1="44" x2="0" y2="82" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="${clair(c.caisse, 0.34)}"/><stop offset=".45" stop-color="${c.caisse}"/><stop offset="1" stop-color="${sombre(c.caisse, 0.5)}"/></linearGradient></defs>`;
+  // chasse-buffles (avant) et tampon (arrière)
+  s += `<path d="M286 80L306 106L274 106L274 90Z" fill="${ac}"/><path d="M291 88L301 104M285 90L290 104M279 92L281 104" stroke="${sombre(ac, 0.5)}" stroke-width="1.4"/>`;
+  s += `<rect x="36" y="82" width="12" height="7" rx="1.5" fill="#2a2d36"/><rect x="34" y="80" width="3" height="11" fill="#9aa1ae"/>`;
+  // châssis et cylindres
+  s += `<rect x="46" y="80" width="238" height="12" rx="3" fill="${sombre(c.caisse, 0.35)}"/>`;
+  s += `<rect x="238" y="82" width="36" height="15" rx="5" fill="${c.caisse}" stroke="${or}" stroke-width="1.3"/><path d="M274 89H294" stroke="#cfd3dc" stroke-width="2.6"/>`;
+  // chaudière, boîte à fumée et ceintures de laiton
+  s += `<path d="${arrondi([[148, 44, 10], [276, 44, 12], [286, 52, 6], [286, 76, 6], [276, 82, 10], [148, 82, 6]])}" fill="url(#${id}b)"/>`;
+  s += `<rect x="272" y="46" width="14" height="34" rx="4" fill="${sombre(c.caisse, 0.55)}"/>`;
+  for (const x of [176, 214, 250]) s += `<rect x="${x}" y="43" width="5" height="40" rx="1" fill="${or}"/>`;
+  s += `<path d="M156 52H266" stroke="#fff" stroke-width="2" opacity=".2"/>`;
+  // cheminée, dôme et sifflet
+  s += `<path d="${arrondi([[252, 46, 0], [255, 29, 0], [246, 22, 2], [273, 22, 2], [264, 29, 0], [267, 46, 0]])}" fill="${sombre(c.caisse, 0.35)}"/><rect x="245" y="20" width="29" height="4" rx="2" fill="${or}"/>`;
+  s += `<path d="M203 44Q203 29 216 29Q229 29 229 44Z" fill="url(#${id}b)"/><circle cx="216" cy="28" r="3.2" fill="${or}"/>`;
+  s += `<rect x="185" y="31" width="5" height="13" rx="1.5" fill="${or}"/><circle cx="187.5" cy="30" r="3" fill="${or}"/>`;
+  // cabine : toit débordant, vitres, bandeau rouge et plaque
+  s += `<rect x="54" y="30" width="98" height="52" rx="3" fill="${c.caisse}" stroke="${sombre(c.caisse, 0.5)}" stroke-width="1"/>`;
+  s += `<path d="M42 24H162L157 31H47Z" fill="${sombre(c.caisse, 0.45)}"/>`;
+  s += `<rect x="64" y="38" width="32" height="22" rx="2" fill="${c.vitre || '#1b2433'}"/><rect x="108" y="38" width="32" height="22" rx="2" fill="${c.vitre || '#1b2433'}"/><path d="M68 42L82 42L72 56L68 56Z M112 42L126 42L116 56L112 56Z" fill="#fff" opacity=".18"/>`;
+  s += `<rect x="54" y="66" width="98" height="8" fill="${ac}"/><text x="103" y="72.5" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="6.4" fill="#f4f4f4" letter-spacing="1.2">${esc((f.plaque || 'GRÈVE'))}</text>`;
+  // phare de tête
+  s += `<circle cx="284" cy="52" r="6.5" fill="${sombre(c.caisse, 0.5)}"/><circle cx="284" cy="52" r="4.6" fill="#fff6c8"/>`;
+  // fumée (portrait seulement ; le volume 3D a ses propres volutes)
+  if (!TEXTURE) s += `<g fill="#f4f4f4"><circle cx="258" cy="15" r="5" opacity=".5"/><circle cx="249" cy="11" r="6.5" opacity=".38"/><circle cx="238" cy="14" r="8" opacity=".26"/></g>`;
+  // roues motrices, bielle d'accouplement, boggie avant
+  s += roue(104, 17, f, id, 0) + roue(146, 17, f, id, 0.3) + roue(188, 17, f, id, 0.6) + roue(246, 10, Object.assign({}, f, { jante: '#cfd3dc' }), id, 0);
+  s += `<path d="M104 89H188" stroke="${or}" stroke-width="3.4" stroke-linecap="round"/><path d="M188 91L240 90" stroke="#cfd3dc" stroke-width="2.4" stroke-linecap="round"/>`;
+  for (const x of [104, 146, 188]) s += `<circle cx="${x}" cy="89" r="2.6" fill="${or}"/>`;
+  return s;
+}
+
 /* ------------------------------------------------------------------ géométrie pour le modèle 3D (shared/bolides3d.js) */
 /** Échantillonne un polygone à coins arrondis (même construction que arrondi()) : [[x, y], …] fermé implicitement. */
 function echantillonner(pts, n = 5) {
@@ -492,6 +528,13 @@ export function geometrie3d(code) {
     const siege = echantillonner([[118, 34, 6], [134, 30, 6], [142, 66, 6], [206, 66, 6], [212, 80, 4], [140, 84, 4], [124, 70, 4]]);
     return { fam: 'fauteuil', f, c, kit: [], bas: siege, haut: [], ceinture: 66, xAvant: 254, xArriere: 108,
       roues: [{ x: 244, y: G - 10, r: 10, avant: true, roulette: true }, { x: 160, y: G - 36, r: 36 }], parts: {} };
+  }
+  if (f.fam === 'locomotive') {
+    const caisse = echantillonner([[48, 24, 3], [158, 24, 3], [158, 80, 0], [282, 80, 0], [282, 92, 3], [46, 92, 3]]);        // cabine + châssis (la chaudière est un vrai cylindre)
+    return { fam: 'locomotive', f, c, kit: [], bas: caisse, haut: [], ceinture: 60, xAvant: 306, xArriere: 34,
+      roues: [{ x: 104, y: G - 17, r: 17 }, { x: 146, y: G - 17, r: 17 }, { x: 188, y: G - 17, r: 17 }, { x: 246, y: G - 10, r: 10, avant: true }],
+      parts: { chaudiere: [148, 44, 286, 82], cheminee: [259, 46, 24], dome: [216, 44, 13], cabine: [48, 24, 158, 82], phare: [284, 52], cylindres: [238, 82, 274, 97],
+        chasse: [[286, 80], [306, 106], [274, 106], [274, 90]], bandes: [176, 214, 250], sifflet: [187.5, 44, 14] } };
   }
   const g = geometrie(f);
   const { X, Y, XF, XR, r, roues, clr } = g;

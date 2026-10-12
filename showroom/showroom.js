@@ -6,7 +6,7 @@ import { conceptInfo } from '../shared/concept_cars.js';
 import { createEngineAudio } from '../shared/engine_audio.js';
 import { isMuted } from '../shared/audio.js';
 import { medal, carArt, statBars, pad2, inclinerVignettes, vignetteDe } from '../shared/ui.js';
-import { badgeRarete, styleRarete, rareteDe, coteAffichee } from '../shared/rarete.js';
+import { badgeRarete, styleRarete, rareteDe, classeRarete, coteAffichee } from '../shared/rarete.js';
 import { revealFret, revealFretDisponible } from '../shared/reveal_fret.js';
 import { vue360 } from '../shared/bolides3d.js';
 import { unlock } from '../shared/audio.js';
@@ -83,8 +83,10 @@ function draw(soft) {
     if (!soft) rail.innerHTML = list.map((t, i) => `<button class="tr" data-i="${i}" title="${esc(t.name)}">${icon(ICON[t.id] || 'trophy', 38)}</button>`).join('');
     $$('#rail button').forEach((b) => { b.classList.toggle('on', Number(b.dataset.i) === st.idx); b.onclick = () => { st.idx = Number(b.dataset.i); st.auto = false; draw(true); }; });
     const t = list[st.idx];
-    stage.showTrophy(t.id);
-    if (t.modele && stage.showPantheon) stage.showPantheon(t.modele, t.id);      // vrai trophée imprimable (Panthéon)
+    if (t.modele && stage.showPantheon) {                              // vrai trophée imprimable (Panthéon), sans flash de l'ancien modèle
+      stage.showPantheon(t.modele, t.id);
+      if (stage.prechargerPantheon) stage.prechargerPantheon(list.map((x) => x.modele));
+    } else stage.showTrophy(t.id);
     info.innerHTML = `<div class="panel deco"><div class="h2">Trophée ${st.idx + 1} / ${list.length}</div><h2 class="display foil">${esc(t.name)}</h2><div class="qt">${esc(t.sub)}</div>
       <div class="dim" style="margin-top:12px">Pièce de collection imprimée sur la Bambu Lab P1S, sans support : STL orientées, fiche et montage dans « 10_Pantheon_Trophees ». <a href="../pantheon/?id=${esc(t.modele || '')}&mode=vitrine" style="color:var(--gold-2)">Ouvrir au Panthéon →</a></div></div>
       <div class="panel deco"><div class="h2">Les 4 étoiles bonus</div>${DATA.rules.stars.map((s) => `<div style="margin:8px 0"><b class="display">${esc(s.name)}</b> <span class="dim">— ${esc(s.sub)}</span><div class="dim" style="font-size:13px">${esc(s.desc)}</div></div>`).join('')}</div>`;
@@ -94,7 +96,7 @@ function draw(soft) {
     const list = DATA.carList.filter((c) => st.cat === 'all' || c.category_folder === st.cat);
     if (!soft) {
       rail.innerHTML = `<div class="filters"><button data-cat="all" class="${st.cat === 'all' ? 'on' : ''}">Tous (${DATA.carList.length})</button>${cats.map((c) => `<button data-cat="${c}" class="${st.cat === c ? 'on' : ''}">${esc(label(c))}</button>`).join('')}</div>` +
-        list.map((c, i) => `<button class="carchip rar-carte rar-${rareteDe(c)} ${i === st.idx ? 'on' : ''}" style="${styleRarete(c)}" data-i="${i}">${carArt(c.code, null, 'g' + c.code)}<b>${esc(c.alias)}</b><small class="mono">${esc(c.code)} · ${esc(c.ecurie)}</small>${badgeRarete(c)}</button>`).join('');
+        list.map((c, i) => `<button class="carchip rar-carte ${classeRarete(c)} ${i === st.idx ? 'on' : ''}" style="${styleRarete(c)}" data-i="${i}">${carArt(c.code, null, 'g' + c.code)}<b>${esc(c.alias)}</b><small class="mono">${esc(c.code)} · ${esc(c.ecurie)}</small>${badgeRarete(c)}</button>`).join('');
       $$('.filters button', rail).forEach((b) => b.onclick = () => { st.cat = b.dataset.cat; st.idx = 0; draw(); });
       $$('.carchip', rail).forEach((b) => b.onclick = () => { st.idx = Number(b.dataset.i); $$('.carchip', rail).forEach((x) => x.classList.toggle('on', x === b)); showCar(list[st.idx]); });
     }
@@ -102,7 +104,7 @@ function draw(soft) {
     function showCar(c) {
       if (!c) { info.innerHTML = ''; return; }
       const k = coteAffichee(c);
-      info.innerHTML = `<div class="panel deco rar-carte rar-${rareteDe(c)}" style="${styleRarete(c)}"><div class="h2">${esc(c.code)} · ${esc(label(c.category_folder))}</div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0">${badgeRarete(c, { long: true })}${k ? `<span class="cote-chip">cote ${k.affinee ? 'affinée' : 'initiale'} ×${String(k.cote).replace('.', ',')}</span>` : ''}${revealFretDisponible() ? '<button class="btn-reveler" type="button">▶ Révéler (conteneur Fret)</button><button class="btn-360" type="button">⟳ Vue 360° 3D</button>' : ''}</div>${carArt(c.code, null, 'big', { grand: true })}${vignetteDe(c.code) ? `<div class="photo-ref">${carArt(c.code, null, 'ph' + c.code, { photo: true })}<small>Photo de la vraie miniature<br>(référence du portrait et du modèle 3D)</small></div>` : ''}<h2 class="display foil" style="margin-top:8px">${esc(c.alias)}</h2><div class="dim">${esc(c.real_name)} — ${esc(c.ecurie)}</div>
+      info.innerHTML = `<div class="panel deco rar-carte ${classeRarete(c)}" style="${styleRarete(c)}"><div class="h2">${esc(c.code)} · ${esc(label(c.category_folder))}</div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0">${badgeRarete(c, { long: true })}${k ? `<span class="cote-chip">cote ${k.affinee ? 'affinée' : 'initiale'} ×${String(k.cote).replace('.', ',')}</span>` : ''}${revealFretDisponible() ? '<button class="btn-reveler" type="button">▶ Révéler (conteneur Fret)</button><button class="btn-360" type="button">⟳ Vue 360° 3D</button>' : ''}</div>${carArt(c.code, null, 'big', { grand: true })}${vignetteDe(c.code) ? `<div class="photo-ref">${carArt(c.code, null, 'ph' + c.code, { photo: true })}<small>Photo de la vraie miniature<br>(référence du portrait et du modèle 3D)</small></div>` : ''}<h2 class="display foil" style="margin-top:8px">${esc(c.alias)}</h2><div class="dim">${esc(c.real_name)} — ${esc(c.ecurie)}</div>
         <div class="qt">« ${esc(c.citation)} »</div><div class="dim" style="margin-bottom:12px">${esc(c.lore)}</div>${statBars(c, 5)}
         <div class="dim" style="margin-top:12px;font-size:14px">Voie préférée : ${esc(c.voie_preferee)} · Poids : ${esc(c.poids_estime)}</div></div>`;
       inclinerVignettes(info);

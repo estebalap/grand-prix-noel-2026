@@ -80,7 +80,7 @@ export const THEMES = {
     aurora: 0.35,
     scene: 'rave',
     id: 'chaos', name: 'Chaos Rave', tagline: 'Tunnel techno · lasers & stroboscope', music: 'chiptune', speed: 0.8,
-    sky: ['#000000', '#08001a', '#180032'], starColor: '255,255,255', stars: 0.5, waveSpeed: 2, hueSpeed: 0.14, flashColor: '255,120,220',
+    sky: ['#000000', '#08001a', '#180032'], starColor: '255,255,255', stars: 0.5, waveSpeed: 1.2, hueSpeed: 0.05, flashColor: '255,120,220',
     ribbons: [rib([168, 85, 247], 0.2, 0.34, 0.00016, 0), rib([244, 63, 94], 0.28, 0.3, 0.00012, 2), rib([250, 204, 21], 0.12, 0.2, 0.00018, 4), rib([6, 182, 212], 0.34, 0.24, 0.00014, 1)],
     particles: { kind: 'warp', density: 0.8 },
     road: { ground: 'rgba(14,2,34,.92)', fill: ['rgba(255,80,200,0)', 'rgba(150,60,230,.26)', 'rgba(50,10,100,.6)'], edge: '255,120,230', lane: '120,220,255', hue: null, sat: 100, light: 64, halo: '255,90,210', grid: null, sun: null },

@@ -18,6 +18,9 @@
 export const SEUIL_HAUTEUR = 0.12;        // seuil arrondi de 1,2 mm (Lootbox Fret), à l'échelle de la scène
 export const SEUIL_LARGEUR = 0.32;
 
+/** Braquage des roues avant (rad) pendant la sortie : un petit coup à gauche pour se placer, puis il se redresse (u de 0 à 1). */
+export const braquage = (u, amplitude = 0.3) => { const k = Math.max(0, Math.min(1, u)); return amplitude * Math.sin(k * Math.PI * 1.7) * Math.pow(1 - k, 0.9); };
+
 export const smoother = (u) => u * u * u * (u * (u * 6 - 15) + 10);
 export const smootherD = (u) => 30 * u * u * (1 - u) * (1 - u);
 export const smootherDD = (u) => 60 * u * (1 - u) * (1 - 2 * u);

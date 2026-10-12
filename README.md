@@ -15,6 +15,7 @@ Le soir de l'événement, l'application tourne sur le PC de la régie (relais Py
 | `regie/` | Pupitre de la régie |
 | `reveal/`, `caisses/` | Révélation des bolides et des caisses |
 | `showroom/`, `pantheon/`, `paddock/` | Showroom 3D, panthéon des trophées, paddock des écuries |
+| `cinema/` | Salle de projection : les 75 cinématiques de révélation, une par une ou en défilé |
 | `labo/` | Prototypes |
 | `shared/`, `lib/`, `data/`, `fonts/`, `logos/`, `sounds/` | Code commun, données, polices, logos, sons sous licence libre |
 

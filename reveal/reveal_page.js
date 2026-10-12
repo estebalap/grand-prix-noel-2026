@@ -11,7 +11,7 @@ import * as snd from '../shared/audio.js';
 import { chargerReveal, photosDisponibles, revealCinematique, ficheBolide, themeDe, jingle } from '../shared/reveal.js';
 import { revealFret, revealFretDisponible, NOMS_EFFETS } from '../shared/reveal_fret.js';
 import { medal } from '../shared/ui.js';
-import { RARETES, rareteDe } from '../shared/rarete.js';
+import { RARETES, rareteDe, infoRarete } from '../shared/rarete.js';
 import { ARCHETYPES, archetypeDe } from '../shared/archetypes.js';
 
 const Q = new URLSearchParams(location.search);
@@ -23,7 +23,7 @@ async function jouer(code, { enregistrer = false, tenue = tenueUrl } = {}) {
   let c = DATA.cars[code]; if (!c) return false;
   if (ARCHETYPES[Q.get('arche')]) c = { ...c, archetype: Q.get('arche') };
   const tid = Q.get('ecurie') ? Number(Q.get('ecurie')) : null, t = tid ? team(tid) : null;
-  const r = RARETES[rareteDe(c)];
+  const r = infoRarete(c);
   $('#etat').textContent = moteur === 'trailer'
     ? `${code} — ${c.alias} · ${r.nom} · univers ${ARCHETYPES[archetypeDe(c)].nom}`
     : `${code} — ${c.alias} · ${r.nom} · thème ${themeDe(c).style} · musique ${themeDe(c).musique}`;

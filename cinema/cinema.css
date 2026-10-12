@@ -1,0 +1,44 @@
+/* Salle de projection : grille des 75 cinématiques + écran plein cadre */
+body.cinema{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -10%,#2a1446 0%,#0b0716 45%,#04030a 100%);color:var(--ink,#f4f1ff);font-family:var(--font-body,system-ui,sans-serif)}
+body.cinema.projection{overflow:hidden}
+#tete{position:sticky;top:0;z-index:20;padding:18px clamp(16px,3vw,40px) 10px;background:linear-gradient(#0b0716f2,#0b0716d9 70%,#0b071600);backdrop-filter:blur(8px)}
+#tete .titre{display:flex;flex-direction:column;gap:2px}
+#tete .titre b{font-size:clamp(28px,4vw,48px);letter-spacing:.06em;text-transform:uppercase}
+#tete .eyebrow{font:700 12px var(--font-display,system-ui);letter-spacing:.24em;text-transform:uppercase;color:#ffd34d}
+#tete .outils{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+#tete input[type=search],#tete select,#tete button,#tete .lk{font:700 14px var(--font-display,system-ui);padding:9px 14px;border-radius:12px;border:1px solid #ffffff33;background:#171433;color:#fff;text-decoration:none}
+#tete input[type=search]{min-width:min(260px,100%);flex:1 1 220px}
+#tete button{cursor:pointer;background:linear-gradient(#ffe08a,#e6a73a);color:#2b1a00;border:0}
+#tete .lk{background:transparent}
+#tete .bascule{display:flex;gap:6px;align-items:center;font-size:14px;opacity:.9}
+#compte{margin:8px 0 0;font-size:13px;opacity:.7}
+#grille{padding:6px clamp(16px,3vw,40px) 60px}
+.univers{margin:22px 0 8px}
+.univers h2{margin:0 0 12px;font:800 18px var(--font-display,system-ui);letter-spacing:.14em;text-transform:uppercase;color:var(--u);display:flex;gap:10px;align-items:baseline;border-bottom:1px solid color-mix(in srgb,var(--u) 40%,transparent);padding-bottom:6px}
+.univers h2 small{font-size:13px;opacity:.6}
+.cartes{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.carte{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-height:132px;padding:14px 14px 12px;border-radius:16px;cursor:pointer;text-align:left;color:#fff;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--rar) 22%,#141029),#0d0a1c 70%);border:1px solid color-mix(in srgb,var(--rar) 55%,transparent);
+  box-shadow:0 0 0 0 var(--rar-l);transition:transform .15s ease,box-shadow .2s ease}
+.carte:hover,.carte:focus-visible{transform:translateY(-3px);box-shadow:0 8px 28px -6px var(--rar-l);outline:none}
+.carte .code{font:900 26px var(--font-display,system-ui);letter-spacing:.04em;color:var(--rar)}
+.carte .nom{font:800 16px var(--font-display,system-ui);line-height:1.15}
+.carte .vrai{font-size:12px;opacity:.6;line-height:1.25}
+.carte .pied{margin-top:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.carte .pied .rar-badge{font-size:11px}
+.carte .clip,.carte .ok{font-style:normal;font-size:15px}
+.carte .ok{color:#3ddc97;font-weight:900}
+.carte.vu{opacity:.82}
+.vide{opacity:.7;padding:40px 0;text-align:center}
+#salle{position:fixed;inset:0;z-index:100;background:#000}
+#salle[hidden]{display:none}
+#salle #scene{position:absolute;inset:0;overflow:hidden}
+#salle #clip{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
+#bandeau{position:absolute;left:50%;top:14px;transform:translateX(-50%);z-index:200;display:flex;gap:8px;align-items:center;max-width:calc(100% - 32px);
+  padding:8px 10px;border-radius:999px;background:#05040dcc;border:1px solid #ffffff22;backdrop-filter:blur(6px);opacity:.25;transition:opacity .25s}
+#bandeau:hover,#salle:focus-within #bandeau{opacity:1}
+#bandeau button{font:800 15px var(--font-display,system-ui);min-width:40px;height:38px;padding:0 12px;border-radius:999px;border:1px solid #ffffff2e;background:#1a1636;color:#fff;cursor:pointer}
+#legende{font:700 15px var(--font-display,system-ui);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 6px}
+#legende .dim{opacity:.65;font-weight:600}
+#aide{position:absolute;left:0;right:0;bottom:10px;z-index:200;margin:0;text-align:center;font-size:12px;opacity:.35;pointer-events:none}
+@media (max-width:640px){#legende{display:none}.cartes{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}}

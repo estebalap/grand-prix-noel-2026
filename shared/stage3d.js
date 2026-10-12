@@ -277,8 +277,28 @@ export function createStage(canvas, { camera: camOpts = {}, floor = true } = {})
 
   function dispose3(o) { o.traverse((c) => { if (c.geometry) c.geometry.dispose(); if (c.material) { (Array.isArray(c.material) ? c.material : [c.material]).forEach((m) => m.dispose()); } }); }
   function show(obj, { scale = 1, turn = 1 } = {}) {
-    if (current) { holder.remove(current); dispose3(current); }
-    current = obj; obj.userData.baseScale = scale; obj.userData.turn = turn; popT = 0; holder.add(obj);
+    if (current) { holder.remove(current); if (!current.userData.enCache) dispose3(current); }      // les trophées du Panthéon restent en cache
+    current = obj; obj.userData.baseScale = scale; obj.userData.turn = turn; popT = 0; holder.add(obj); holder.visible = true;
+  }
+  /* Cache des trophées du Panthéon (modèle -> Promise<{ g, k, sz }>) : parsés UNE fois, réaffichés instantanément ensuite.
+     Ainsi l'ancien trophée procédural n'apparaît plus jamais le temps d'un chargement. */
+  const cachePantheon = new Map();
+  function trophePantheon(modele) {
+    if (!cachePantheon.has(modele)) cachePantheon.set(modele, (async () => {
+      const { chargerManifeste, construireTrophee } = await import('./pantheon3d.js');
+      const man = await chargerManifeste();
+      const t = man.trophees.find((x) => x.id === modele);
+      if (!t) throw new Error('trophée inconnu : ' + modele);
+      const tr = await construireTrophee(THREE, t);
+      // cette scène sort en sRGB : les teintes de filament (sRGB) passent en linéaire pour garder leur vraie couleur
+      if (renderer.outputEncoding === THREE.sRGBEncoding) for (const m of tr.pieces) m.material.color.convertSRGBToLinear();
+      const g = new THREE.Group();
+      const c = tr.boite.getCenter(new THREE.Vector3()), sz = tr.boite.getSize(new THREE.Vector3());
+      tr.group.position.set(-c.x, -tr.boite.min.y, -c.z);
+      g.add(tr.group); g.userData.enCache = true;
+      return { g, k: 3.3 / Math.max(sz.y, Math.max(sz.x, sz.z) * 0.8), sz };      // ~ la taille des trophées procéduraux
+    })().catch((e) => { cachePantheon.delete(modele); throw e; }));
+    return cachePantheon.get(modele);
   }
   return {
     renderer, scene, camera,
@@ -286,20 +306,10 @@ export function createStage(canvas, { camera: camOpts = {}, floor = true } = {})
     /** Trophée RÉEL du Panthéon (STL de montage imprimées sur la P1S) ; repli sur le modèle procédural si indisponible. */
     async showPantheon(modele, repli = 'grandprix') {
       const jeton = ++jetonPantheon;
+      if (current) holder.visible = false;                         // rien d'autre ne s'affiche pendant le chargement (pas d'ancien trophée)
       try {
-        const { chargerManifeste, construireTrophee } = await import('./pantheon3d.js');
-        const man = await chargerManifeste();
-        const t = man.trophees.find((x) => x.id === modele);
-        if (!t) throw new Error('trophée inconnu : ' + modele);
-        const tr = await construireTrophee(THREE, t);
-        if (jeton !== jetonPantheon) { tr.dispose(); return false; }
-        // cette scène sort en sRGB : les teintes de filament (sRGB) passent en linéaire pour garder leur vraie couleur
-        if (renderer.outputEncoding === THREE.sRGBEncoding) for (const m of tr.pieces) m.material.color.convertSRGBToLinear();
-        const g = new THREE.Group();
-        const c = tr.boite.getCenter(new THREE.Vector3()), sz = tr.boite.getSize(new THREE.Vector3());
-        tr.group.position.set(-c.x, -tr.boite.min.y, -c.z);
-        g.add(tr.group);
-        const k = 3.3 / Math.max(sz.y, Math.max(sz.x, sz.z) * 0.8);      // ~ la taille des trophées procéduraux
+        const { g, k, sz } = await trophePantheon(modele);
+        if (jeton !== jetonPantheon) return false;
         camState.fit = null; camState.r = 8.2; camState.h = 2.6; camState.look = sz.y * k * 0.5;
         show(g, { scale: k });
         return true;
@@ -308,6 +318,8 @@ export function createStage(canvas, { camera: camOpts = {}, floor = true } = {})
         return false;
       }
     },
+    /** Charge en arrière-plan les trophées du Panthéon (affichage instantané au moment voulu). */
+    prechargerPantheon(modeles) { for (const m of modeles || []) if (m) trophePantheon(m).catch(() => {}); },
     /** Concept-car de l'écurie (objet équipe ou numéro). */
     showConcept(team) {
       const car = buildConceptCar(team, { quality });

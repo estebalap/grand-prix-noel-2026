@@ -277,7 +277,7 @@ const BEHIND = {
   },
   rave(ctx, W, H, hz, t, speed) {
     // tunnel de lumière pulsé
-    const cx = W / 2, cy = H * 0.45, beat = (t * 0.002 * (1 + speed)) % 1;
+    const cx = W / 2, cy = H * 0.45, beat = (t * 0.0007 * (1 + speed)) % 1;   // 3,6 Hz -> 1,3 Hz : le tunnel pulsait comme un stroboscope
     ctx.globalCompositeOperation = 'screen';
     for (let i = 0; i < 14; i++) {
       const f = ((i + beat) / 14), r = f * f * Math.hypot(W, H) * 0.75;
@@ -372,7 +372,7 @@ const OVER = {
     if (rnd((t / 140) | 0) > 0.7) { ctx.fillStyle = 'rgba(255,240,210,.18)'; ctx.fillRect(rnd(((t / 140) | 0) + 1) * W, 0, 1.5, H); }
   },
   rave(ctx, W, H, t, speed) {
-    const beat = (t * 0.002 * (1 + speed)) % 1;
+    const beat = (t * 0.0007 * (1 + speed)) % 1;   // 3,6 Hz -> 1,3 Hz : le tunnel pulsait comme un stroboscope
     if (beat < 0.05) { ctx.fillStyle = `hsla(${(t * 0.1) % 360},100%,70%,.07)`; ctx.fillRect(0, 0, W, H); }
   },
   desert(ctx, W, H, t) {

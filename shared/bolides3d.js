@@ -14,6 +14,8 @@
    scene.add(m.groupe);  m.maj(dt, vitesse);  m.dispose();
    Repère : l'avant du bolide regarde +x, le sol est y = 0, le bolide est centré en x = 0 et z = 0. */
 import { bolide2dSvg, geometrie3d, REPERE_SVG } from './bolides2d.js';
+import { MODELES_SUR_MESURE } from './bolides3d_modeles.js';
+import { creerRoue, materiauxRoue, construireFauteuil, construireLocomotive, galber } from './bolides3d_pieces.js';
 
 export const ECHELLE = 0.0262;                  // 1 px du portrait = 0,262 mm à l'échelle 1/64 « ×10 » de la scène
 const { G, CX, vb } = REPERE_SVG;
@@ -26,11 +28,12 @@ export function envNeon(THREE, renderer) {
   if (memoEnv.has(renderer)) return memoEnv.get(renderer);
   const c = document.createElement('canvas'); c.width = 1024; c.height = 512;
   const g = c.getContext('2d');
-  const fond = g.createLinearGradient(0, 0, 0, 512); fond.addColorStop(0, '#1a1440'); fond.addColorStop(0.5, '#090716'); fond.addColorStop(1, '#020206');
+  // studio neutre : dégradé gris froid + grandes softboxes blanches ; touches néon discrètes (le reflet ne doit plus teinter la carrosserie en lilas)
+  const fond = g.createLinearGradient(0, 0, 0, 512); fond.addColorStop(0, '#3a3e48'); fond.addColorStop(0.5, '#15171c'); fond.addColorStop(1, '#050507');
   g.fillStyle = fond; g.fillRect(0, 0, 1024, 512);
   const barre = (x, y, w, h, col, flou) => { g.shadowColor = col; g.shadowBlur = flou; g.fillStyle = col; g.fillRect(x, y, w, h); };
-  barre(80, 120, 260, 26, '#ff2bd6', 40); barre(560, 100, 320, 22, '#22d3ee', 40); barre(380, 60, 220, 70, '#ffffff', 60);
-  barre(0, 300, 1024, 6, '#ffb84d', 30); barre(700, 180, 120, 18, '#b06bff', 30);
+  barre(60, 90, 300, 70, '#f4f6fa', 50); barre(600, 80, 340, 80, '#ffffff', 50); barre(380, 30, 240, 50, '#e8ecf4', 60);
+  barre(0, 300, 1024, 5, '#ffd9a0', 24); barre(140, 200, 120, 10, '#22d3ee', 18); barre(760, 210, 110, 10, '#ff4fd8', 18);
   g.shadowBlur = 0;
   const tex = new THREE.CanvasTexture(c); tex.mapping = THREE.EquirectangularReflectionMapping; tex.encoding = THREE.sRGBEncoding;
   const pm = new THREE.PMREMGenerator(renderer);
@@ -103,58 +106,158 @@ function extruder(THREE, pts, largeur, biseau = 0.05) {
 function colorierPavillon(THREE, geo, laque, vitre) {
   const n = geo.attributes.normal, nb = n.count, col = new Float32Array(nb * 3);
   const L = new THREE.Color(laque), V = new THREE.Color(vitre);
-  for (let i = 0; i < nb; i += 3) {
-    const ny = Math.abs((n.getY(i) + n.getY(i + 1) + n.getY(i + 2)) / 3), nz = Math.abs((n.getZ(i) + n.getZ(i + 1) + n.getZ(i + 2)) / 3);
+  for (let i = 0; i < nb; i++) {
+    const ny = Math.abs(n.getY(i)), nz = Math.abs(n.getZ(i));
     const c = nz > 0.7 ? L : ny > 0.82 ? L : V;          // flancs (couverts par la peau) et toit plat : laque ; pare-brise et lunette : verre
-    for (let k = 0; k < 3; k++) col.set([c.r, c.g, c.b], (i + k) * 3);
+    col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
   }
   geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
 }
 const boite = (THREE, l, h, p, mat, x, y, z) => { const m = new THREE.Mesh(new THREE.BoxGeometry(l, h, p), mat); m.position.set(x, y, z); return m; };
 
-/** Construit le bolide 3D (null si le code n'a pas de fiche). */
-export async function construireBolide3D(code, { THREE = window.THREE, envMap = null } = {}) {
+
+/** Phare à lentille : boîtier sombre, réflecteur, lentille émissive (modérée), verre bombé et anneau chromé. Aucun halo ni sprite : rien ne « brûle » à l'écran. */
+function phareLentille(THREE, parent, { x, y, z, r, lum, mat, envMap }) {
+  const sombre = mat(new THREE.MeshStandardMaterial({ color: 0x0f1015, roughness: 0.5, metalness: 0.7, envMap }));
+  const chrome = mat(new THREE.MeshStandardMaterial({ color: 0xe6e9ef, roughness: 0.06, metalness: 1, envMap }));
+  const verre = mat(new THREE.MeshPhysicalMaterial({ color: 0xbfe4ff, roughness: 0.03, metalness: 0.1, transparent: true, opacity: 0.35, clearcoat: 1, envMap }));
+  const g = new THREE.Group(); g.position.set(x, y, z); g.rotation.y = Math.PI / 2; parent.add(g);
+  const bt = new THREE.Mesh(mat(new THREE.CylinderGeometry(r * 1.08, r * 1.0, r * 0.55, 28)), sombre); bt.rotation.x = Math.PI / 2; g.add(bt);
+  const lens = new THREE.Mesh(mat(new THREE.CircleGeometry(r * 0.78, 28)), lum); lens.position.z = r * 0.29; g.add(lens);
+  const anneau = new THREE.Mesh(mat(new THREE.TorusGeometry(r * 0.96, r * 0.07, 8, 32)), chrome); anneau.position.z = r * 0.28; g.add(anneau);
+  const dome = new THREE.Mesh(mat(new THREE.SphereGeometry(r * 0.92, 24, 8, 0, Math.PI * 2, 0, Math.PI / 2)), verre); dome.rotation.x = Math.PI / 2; dome.scale.set(1, 0.4, 1); dome.position.z = r * 0.28; g.add(dome);
+}
+
+/* ------------------------------------------------------------------ proportions (cahier des charges du 11 oct. 2026)
+   H = hauteur de pavillon (lancer de rayons vertical sur le tiers central de l'empattement : ailerons, antennes et gyrophares
+   des extrémités exclus) ; W = largeur hors tout, roues comprises (ce qu'on mesure sur la photo du jouet vu de face).
+   Plafonds imposés : supercar / coupé sport 0,58 · berline / coupé 0,66. Les familles validées sur photo (compactes 0,75,
+   SUV 0,82, vans et camions 1,05) gardent leur plafond photo ; F1, hélico, fauteuil et locomotive sont exemptés. */
+export const FAMILLES_PROPORTION = {
+  supercar: { plafond: 0.58, codes: ['H10', 'J01', 'TK01', 'E02', 'E03'] },
+  compacte: { plafond: 0.75, codes: ['J05', 'FR02', 'FR04', 'E06', 'E08', 'H02', 'H03', 'J09'] },
+  SUV: { plafond: 0.82, codes: ['U01', 'FR01', 'FR05'] },
+  utilitaire: { plafond: 1.05, codes: ['J04', 'TK05', 'H05', 'H06', 'H07', 'H09', 'H08', 'H11', 'B12', 'U04'] },
+  exempte: { plafond: Infinity, codes: ['F01', 'F02', 'F03', 'F04', 'F05', 'F06', 'F07', 'F08', 'F09', 'F10', 'E04', 'B07', 'H01', 'H12'] },
+};
+/** { nom, plafond } de la famille de proportions d'un code (par défaut : berline / coupé, plafond 0,66). */
+export function familleProportion(code) {
+  for (const [nom, f] of Object.entries(FAMILLES_PROPORTION)) if (f.codes.includes(code)) return { nom, plafond: f.plafond };
+  return { nom: 'berline', plafond: 0.66 };
+}
+/** Hauteur de pavillon (unités scène) mesurée par lancer de rayons sur le tiers central de l'empattement. */
+export function hauteurPavillon(THREE, chassis, xAr, xAv, largeur) {
+  chassis.updateMatrixWorld(true);
+  const rc = new THREE.Raycaster(), cibles = [];
+  chassis.traverse((o) => { if (o.isMesh && !(o.material && o.material.transparent && o.material.opacity < 0.3)) cibles.push(o); });
+  let h = 0;
+  const o = new THREE.Vector3(), d = new THREE.Vector3(0, -1, 0);
+  for (let i = 0; i <= 8; i++) for (const z of [-0.15, 0, 0.15]) {
+    o.set(xAr + (xAv - xAr) * (0.33 + 0.34 * i / 8), 50, z * largeur); rc.set(o, d);
+    const hit = rc.intersectObjects(cibles, false)[0]; if (hit) h = Math.max(h, hit.point.y);
+  }
+  return h;
+}
+/** Abaisse le pavillon AU-DESSUS de la ligne de caisse (yc) d'un facteur k : y' = yc + (y − yc)·k, normales corrigées
+ *  (transformation inverse-transposée). Sous yc (passages de roues, bas de caisse) rien ne bouge : aucun pneu ne peut
+ *  traverser la tôle. Les géométries partagées sont clonées avant d'être modifiées. */
+function abaisserPavillon(THREE, chassis, yc, k) {
+  chassis.updateMatrixWorld(true);
+  const inv = new THREE.Matrix4().copy(chassis.matrixWorld).invert(), M = new THREE.Matrix4(), Mi = new THREE.Matrix4(), N = new THREE.Matrix3(), Ni = new THREE.Matrix3();
+  const v = new THREE.Vector3(), n = new THREE.Vector3(), vus = new Set();
+  chassis.traverse((o) => {
+    if (!o.isMesh || !o.geometry || !o.geometry.attributes.position) return;
+    if (vus.has(o.geometry)) o.geometry = o.geometry.clone();
+    vus.add(o.geometry);
+    M.multiplyMatrices(inv, o.matrixWorld); Mi.copy(M).invert(); N.getNormalMatrix(M); Ni.copy(N).invert();
+    const pos = o.geometry.attributes.position, nor = o.geometry.attributes.normal;
+    let touche = false;
+    for (let i = 0; i < pos.count; i++) {
+      v.fromBufferAttribute(pos, i).applyMatrix4(M);
+      if (v.y <= yc) continue;
+      touche = true;
+      v.y = yc + (v.y - yc) * k; v.applyMatrix4(Mi); pos.setXYZ(i, v.x, v.y, v.z);
+      if (nor) { n.fromBufferAttribute(nor, i).applyMatrix3(N); n.y /= k; n.normalize().applyMatrix3(Ni).normalize(); nor.setXYZ(i, n.x, n.y, n.z); }
+    }
+    if (touche) { pos.needsUpdate = true; if (nor) nor.needsUpdate = true; o.geometry.computeBoundingBox(); o.geometry.computeBoundingSphere(); }
+  });
+}
+
+/** Erreur de construction 3D : jamais avalée en silence (le reveal refuse alors de tourner en carton). */
+export class ErreurBolide3D extends Error {
+  constructor(code, raison, cause = null) { super(`Bolide 3D ${code} : ${raison}`); this.name = 'ErreurBolide3D'; this.code = code; this.raison = raison; if (cause) this.cause = cause; }
+}
+/** Codes qui ont un modèle sculpté sur mesure (m3d/groupe1..10.js). */
+export const codesSurMesure = () => Object.keys(MODELES_SUR_MESURE);
+
+/** Construit le bolide 3D.
+ *  - Modèle sculpté sur mesure (m3d/) : TOUJOURS prioritaire, et indépendant du portrait 2D (ni fiche ni texture de peau requises).
+ *  - Sans modèle sur mesure : l'ancien profil 2D extrudé n'est construit que si { autoriserGenerique: true } (atelier, outils) ;
+ *    sinon une ErreurBolide3D est levée — plus jamais de repli « carton » silencieux dans un reveal.
+ *  - Une exception dans un constructeur m3d remonte avec le code du bolide (jamais transformée en null).
+ *  Le résultat porte `source` : 'sur-mesure' | 'generique-2d'. */
+export async function construireBolide3D(code, { THREE = window.THREE, envMap = null, autoriserGenerique = false } = {}) {
+  if (!THREE) throw new ErreurBolide3D(code, 'Three.js absent (web/lib/three.min.js non chargé)');
+  const mesure = MODELES_SUR_MESURE[code];
   const geo = geometrie3d(code);
-  if (!geo || !THREE) return null;
-  const canv = await peau(code, THREE);
-  if (!canv) return null;
-  const f = geo.f, c = geo.c;
+  if (!mesure) {
+    if (!autoriserGenerique) throw new ErreurBolide3D(code, 'aucun modèle sculpté dans m3d/ (le profil 2D extrudé est banni des reveals)');
+    if (!geo) throw new ErreurBolide3D(code, 'ni modèle sculpté ni fiche 2D');
+  }
+  const canv = mesure ? null : await peau(code, THREE);
+  if (!mesure && !canv) throw new ErreurBolide3D(code, 'texture de peau 2D illisible');
+  const f = geo ? geo.f : {}, c = geo ? geo.c : {};
   const jetables = [];
   const garde = (x) => { jetables.push(x); return x; };
   const groupe = new THREE.Group(); groupe.name = 'bolide3d-' + code;
   const chassis = new THREE.Group(); groupe.add(chassis);
-  const texP = garde(texturePeau(THREE, canv));
-  const vernis = { clearcoat: 1, clearcoatRoughness: 0.06, envMap, envMapIntensity: 1.25 };
-  const matPeau = garde(new THREE.MeshPhysicalMaterial({ map: texP, roughness: 0.34, metalness: 0.28, ...vernis }));
-  const matLaque = garde(new THREE.MeshPhysicalMaterial({ color: new THREE.Color(c.caisse), roughness: 0.22, metalness: 0.45, ...vernis }));
+  const vernis = { clearcoat: 1, clearcoatRoughness: 0.08, envMap, envMapIntensity: 1.1 };
+  const matPeau = canv ? garde(new THREE.MeshPhysicalMaterial({ map: garde(texturePeau(THREE, canv)), roughness: 0.34, metalness: 0.28, ...vernis })) : null;
+  const matLaque = garde(new THREE.MeshPhysicalMaterial({ color: new THREE.Color(c.caisse || '#808690'), roughness: 0.22, metalness: 0.45, ...vernis }));
   const matPavillon = garde(new THREE.MeshPhysicalMaterial({ vertexColors: true, roughness: 0.12, metalness: 0.6, ...vernis }));
   const matNoir = garde(new THREE.MeshStandardMaterial({ color: 0x15161c, roughness: 0.7, metalness: 0.3 }));
   const matAccent = garde(new THREE.MeshPhysicalMaterial({ color: new THREE.Color(c.accent || c.neon || c.caisse), roughness: 0.3, metalness: 0.5, ...vernis }));
   const matVerre = garde(new THREE.MeshPhysicalMaterial({ color: new THREE.Color(c.vitre || '#1d2a4a'), roughness: 0.05, metalness: 0.2, transparent: true, opacity: 0.72, ...vernis }));
-  const lumBlanche = garde(new THREE.MeshBasicMaterial({ color: new THREE.Color(c.phare || '#eaf6ff').multiplyScalar(2.2), toneMapped: false }));
+  const lumBlanche = garde(new THREE.MeshBasicMaterial({ color: new THREE.Color(c.phare || '#eaf6ff').multiplyScalar(1.5), toneMapped: false }));
   const lumRouge = garde(new THREE.MeshBasicMaterial({ color: new THREE.Color(c.feu || '#ff2a3d').multiplyScalar(2.2), toneMapped: false }));
   const animes = [];           // (t, dt, v) => void : gyrophares, scanner, rotor…
+  const lumieres = [];         // matériaux émissifs [matériau, couleur de base] pilotés par eclairer()
 
-  const L = (geo.xAvant - geo.xArriere) * K;
+  lumieres.push([lumBlanche, lumBlanche.color.clone()], [lumRouge, lumRouge.color.clone()]);
+  const L = geo ? (geo.xAvant - geo.xArriere) * K : 0;
+  let loco = null;
   let largeur = L * 0.4;
-  const special = geo.fam !== 'route';
-  if (geo.fam === 'route') {
+  let sm = null;
+  if (mesure) {
+    try { sm = mesure({ THREE, chassis, garde, envMap, animes, lumBlanche, lumRouge }); }
+    catch (e) { for (const x of jetables) { try { x.dispose(); } catch (e2) { /* rien */ } } throw new ErreurBolide3D(code, 'le constructeur m3d a planté : ' + (e && e.message ? e.message : e), e); }
+    const manque = ['L', 'largeur', 'hauteur', 'xAvant', 'xArriere'].filter((k) => !Number.isFinite(sm && sm[k]));
+    if (!sm || manque.length || !Array.isArray(sm.roues)) throw new ErreurBolide3D(code, 'modèle m3d incomplet (' + (manque.join(', ') || 'roues') + ')');
+    largeur = sm.largeur;
+  } else if (geo.fam === 'route') {
     const h = geo.hauteurs;
     if ((f.toit ?? 70) > 85) largeur = L * 0.44;
-    const corps = new THREE.Mesh(garde(extruder(THREE, geo.bas, largeur, 0.06)), [matPeau, matLaque]);
+    // caisse extrudée dans le profil de la fiche (passages de roues compris), légèrement exagérée en hauteur puis galbée
+    const gb = extruder(THREE, geo.bas, largeur, 0.06);
+    gb.computeBoundingBox(); const y0 = gb.boundingBox.min.y, p0 = gb.attributes.position;
+    for (let i = 0; i < p0.count; i++) p0.setY(i, y0 + (p0.getY(i) - y0) * 1.18);
+    const corps = new THREE.Mesh(garde(galber(THREE, gb, { avant: 0.4, arriere: 0.28, fruit: 0.14, bombe: 0.1 })), [matPeau, matLaque]);
     chassis.add(corps);
+    const yHaut = gb.boundingBox.max.y;
     if (geo.haut.length) {
-      const gp = garde(extruder(THREE, geo.haut, largeur * 0.8, 0.05));
+      const gh = extruder(THREE, geo.haut, largeur * 0.82, 0.05);
+      gh.computeBoundingBox(); const yb0 = gh.boundingBox.min.y, ph = gh.attributes.position;
+      for (let i = 0; i < ph.count; i++) ph.setY(i, yb0 + (ph.getY(i) - yb0) * 1.15);
+      const gp = garde(galber(THREE, gh, { avant: 0.25, arriere: 0.25, fruit: 0.3, bombe: 0.06, lAv: 0.3, lAr: 0.3 }));
       colorierPavillon(THREE, gp, c.caisse, c.vitre || '#1d2a4a');
       chassis.add(new THREE.Mesh(gp, [matPeau, matPavillon]));
     }
-    // dessous sombre (masque le vide entre les roues)
-    chassis.add(boite(THREE, L * 0.86, 0.04, largeur * 0.9, matNoir, (wx(geo.xAvant) + wx(geo.xArriere)) / 2, (h.garde + 1) * K, 0));
-    // feux
-    const yPh = (h.nez + (h.caisse - h.nez) * 0.3) * K, yFeu = (h.queue - 3) * K;
+    // feux : posés sur le nez et la queue réels de la caisse
+    const yPh = (h.nez + (h.caisse - h.nez) * 0.35) * K * 1.1, yFeu = (h.queue - 3) * K * 1.1 + 0.05;
+    const hwNez = largeur / 2 * (1 - 0.4 * 0.55), hwQueue = largeur / 2 * (1 - 0.28 * 0.5);
     for (const z of [-1, 1]) {
-      chassis.add(boite(THREE, 0.06, 0.16, largeur * 0.22, lumBlanche, wx(geo.xAvant) + 0.05, yPh, z * largeur * 0.3));
-      chassis.add(boite(THREE, 0.06, 0.13, largeur * 0.24, lumRouge, wx(geo.xArriere) - 0.05, yFeu, z * largeur * 0.32));
+      phareLentille(THREE, chassis, { x: wx(geo.xAvant) - 0.03, y: yPh, z: z * hwNez * 0.7, r: Math.min(0.1, hwNez * 0.14), lum: lumBlanche, mat: garde, envMap });
+      const fe = new THREE.Mesh(garde(new THREE.SphereGeometry(1, 14, 10)), lumRouge); fe.scale.set(0.05, 0.09, hwQueue * 0.2); fe.position.set(wx(geo.xArriere) + 0.025, yFeu, z * hwQueue * 0.66); chassis.add(fe);
     }
     kits3d(THREE, { geo, chassis, largeur, matLaque, matNoir, matAccent, matVerre, lumBlanche, lumRouge, garde, animes });
   } else if (geo.fam === 'f1' || geo.fam === 'f1vintage') {
@@ -205,50 +308,118 @@ export async function construireBolide3D(code, { THREE = window.THREE, envMap = 
     const rotorAr = new THREE.Group(); rotorAr.position.set(wx(48), wy(40), 0.12); chassis.add(rotorAr);
     rotorAr.add(boite(THREE, 0.7, 0.05, 0.02, matNoir, 0, 0, 0));
     animes.push((t, dt) => { rotor.rotation.y += dt * 38; rotorAr.rotation.z += dt * 55; });
+  } else if (geo.fam === 'locomotive') {
+    largeur = 1.78;
+    loco = construireLocomotive(THREE, { chassis, xr: wx(geo.xArriere), L, envMap, garde, animes, c });
   } else if (geo.fam === 'fauteuil') {
     largeur = 2.2;
-    chassis.add(new THREE.Mesh(garde(extruder(THREE, geo.bas, 1.6, 0.08)), [matPeau, matLaque]));
-    const matCadre = garde(new THREE.MeshStandardMaterial({ color: new THREE.Color(c.accent || '#d4a017'), roughness: 0.3, metalness: 0.9, envMap }));
-    for (const z of [-0.85, 0.85]) {
-      const barre = new THREE.Mesh(garde(new THREE.CylinderGeometry(0.04, 0.04, 2.6, 8)), matCadre);
-      barre.rotation.z = Math.PI / 2 - 0.12; barre.position.set(wx(200), wy(90), z); chassis.add(barre);
-    }
+    const gr = geo.roues.find((r) => !r.roulette), ro = geo.roues.find((r) => r.roulette);
+    const fo = construireFauteuil(THREE, { chassis, xAr: wx(gr.x), xAv: wx(ro.x), Rg: gr.r * K, Rc: ro.r * K, c, code, envMap, garde, animes });
+    for (const m of [fo.led, fo.ledCyan, fo.lumBlanche]) lumieres.push([m, m.color.clone()]);
   }
 
-  // roues
+  // roues : pneu en révolution (48 segments), jante à gorge, moyeu, boulons, disque de frein ventilé et étrier fixe
   const roues = [];
-  const matPneu = garde(new THREE.MeshStandardMaterial({ color: 0x0c0d12, roughness: 0.9, metalness: 0.05 }));
-  const texJ = garde(textureJante(THREE, f.jante || '#c9cfda', f.rayons || 'cinq', f.neonRoue));
-  const matJante = garde(new THREE.MeshPhysicalMaterial({ map: texJ, roughness: 0.25, metalness: 0.8, clearcoat: 0.6, envMap, envMapIntensity: 1.1 }));
-  const matFlanc = f.flanc ? garde(new THREE.MeshBasicMaterial({ color: new THREE.Color(f.flanc), toneMapped: false })) : null;
-  for (const r of geo.roues) {
-    const R = r.r * K, ep = geo.fam === 'f1' || geo.fam === 'f1vintage' ? R * 0.9 : geo.fam === 'fauteuil' && !r.roulette ? 0.12 : R * 0.62;
-    const zs = geo.fam === 'f1' ? [-1.3, 1.3] : geo.fam === 'f1vintage' ? [-1.12, 1.12] : geo.fam === 'fauteuil' ? (r.roulette ? [-0.6, 0.6] : [-1.0, 1.0]) : [-(largeur / 2 - ep * 0.42), largeur / 2 - ep * 0.42];
-    for (const z of zs) {
-      const pivot = new THREE.Group(); pivot.position.set(wx(r.x), R, z);
-      const pneu = new THREE.Mesh(garde(new THREE.CylinderGeometry(R, R, ep, 28, 1)), matPneu); pneu.rotation.x = Math.PI / 2; pivot.add(pneu);
-      const tore = new THREE.Mesh(garde(new THREE.TorusGeometry(R * 0.9, ep * 0.18, 8, 28)), matPneu); tore.position.z = Math.sign(z) * ep * 0.32; pivot.add(tore);
-      const disque = new THREE.Mesh(garde(new THREE.CircleGeometry(R * 0.66, 28)), matJante); disque.position.z = Math.sign(z) * (ep / 2 + 0.004); if (z < 0) disque.rotation.y = Math.PI; pivot.add(disque);
-      if (matFlanc) { const fl = new THREE.Mesh(garde(new THREE.RingGeometry(R * 0.68, R * 0.76, 28)), matFlanc); fl.position.z = disque.position.z * 1.002; if (z < 0) fl.rotation.y = Math.PI; pivot.add(fl); }
-      groupe.add(pivot);
-      roues.push({ pivot, r: R, x: wx(r.x), avant: !!r.avant, z });
+  const matR = materiauxRoue(THREE, { envMap, jante: f.jante || '#c9cfda', rayons: f.rayons || 'cinq', neon: null, etrier: c.accent || c.neon || '#e8202a', garde });   // plus jamais d'anneau néon d'arcade sur une jante
+  if (loco) {                                                         // deux essieux, roues noires à anneau rouge, petit ergot blanc au moyeu
+    const noir = garde(new THREE.MeshStandardMaterial({ color: 0x141519, roughness: 0.55, metalness: 0.2, envMap }));
+    const matL = materiauxRoue(THREE, { envMap, jante: '#17181c', rayons: 'plein', garde });
+    matL.chrome = noir; matL.boulon = noir;
+    for (const x of [loco.x1, loco.x2]) for (const z of [-loco.zRoue, loco.zRoue]) {
+      const w = creerRoue(THREE, matL, { R: loco.R, ep: loco.ep, cote: z >= 0 ? 1 : -1, flanc: '#ff3b2f', flancR: [0.8, 0.86], garde, sansFrein: true });
+      w.pivot.position.set(x, loco.R, z); groupe.add(w.pivot);
+      const pin = new THREE.Mesh(garde(new THREE.SphereGeometry(0.035, 10, 8)), garde(new THREE.MeshBasicMaterial({ color: 0xf2f2f2 }))); pin.position.set(0, 0, Math.sign(z) * (loco.ep / 2 + 0.01)); w.tourne.add(pin);
+      roues.push({ pivot: w.pivot, tourne: w.tourne, etriers: w.etriers, r: loco.R, ep: loco.ep, fin: true, x, avant: x === loco.x2, z });   // roues de locomotive : acier à boudin, pas de pneu
     }
   }
+  if (sm) for (const r of sm.roues) {
+    /* options par roue : RW (rayon exact, sinon R×1.22), ep (épaisseur du pneu), z (demi-voie : centre du pneu), jante, rayons, flanc, sansFrein, lenticulaire */
+    const R = r.RW ?? r.R * 1.22, ep = r.fin ? (r.ep ?? R * 0.3) : Math.max(r.ep ?? R * 0.66, 0.45);   // pneus « boudins » : jamais de roue de vélo (sauf fin: true)
+    const matS = materiauxRoue(THREE, { envMap, jante: r.jante || sm.jante || '#c9cfda', rayons: r.rayons || sm.rayons || 'cinq', neon: null, etrier: r.etrier || '#e8202a', garde, peinte: r.chrome === true ? false : !janteMetal(r.jante || sm.jante) });
+    const zc = r.z ?? (largeur / 2 - ep * 0.12);
+    for (const z of [-zc, zc]) {
+      const w = creerRoue(THREE, matS, { R, ep, cote: z >= 0 ? 1 : -1, flanc: r.flanc ?? sm.flanc ?? null, garde, sansFrein: !!r.sansFrein, lenticulaire: !!r.lenticulaire, main: !!r.main });
+      w.pivot.position.set(r.x, r.y ?? R, z); groupe.add(w.pivot);
+      roues.push({ pivot: w.pivot, tourne: w.tourne, etriers: w.etriers, r: R, ep, fin: !!r.fin, x: r.x, avant: !!r.avant, z });
+    }
+  }
+  for (const r of ((loco || sm || !geo) ? [] : geo.roues)) {
+    const R = r.r * K * (geo.fam === 'route' ? 1.12 : 1), fa = geo.fam === 'fauteuil', grande = fa && !r.roulette, ep = geo.fam === 'f1' || geo.fam === 'f1vintage' ? R * 0.9 : fa ? (r.roulette ? 0.2 : 0.2) : R * 0.62;
+    const zs = geo.fam === 'f1' ? [-1.3, 1.3] : geo.fam === 'f1vintage' ? [-1.12, 1.12] : fa ? (r.roulette ? [-0.6, 0.6] : [-1.0, 1.0]) : [-(largeur / 2 - ep * 0.5 + 0.03), largeur / 2 - ep * 0.5 + 0.03];
+    for (const z of zs) {
+      const w = creerRoue(THREE, matR, { R, ep, cote: z >= 0 ? 1 : -1, main: grande, lenticulaire: grande, flanc: f.flanc || null, garde, sansFrein: fa && !!r.roulette });
+      const pivot = w.pivot; pivot.position.set(wx(r.x), R, z);
+      if (grande) pivot.rotation.x = z > 0 ? -0.1 : 0.1;                       // carrossage : roues arrière inclinées, silhouette agressive
+      groupe.add(pivot);
+      roues.push({ pivot, tourne: w.tourne, etriers: w.etriers, r: R, ep, x: wx(r.x), avant: !!r.avant, z });
+    }
+  }
+  if (!sm && (geo.fam === 'f1' || geo.fam === 'f1vintage')) {
+    // bras de suspension (triangles supérieur et inférieur) entre la monocoque et chaque moyeu : plus de roue « collée »
+    const matBras = garde(new THREE.MeshStandardMaterial({ color: 0x1a1c23, roughness: 0.45, metalness: 0.8, envMap }));
+    const tige = (a, b, r = 0.026) => {
+      const d = b.clone().sub(a), m = new THREE.Mesh(garde(new THREE.CylinderGeometry(r, r, d.length(), 10)), matBras);
+      m.position.copy(a).addScaledVector(d, 0.5); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize()); groupe.add(m);
+    };
+    for (const w of roues) {
+      const sg = Math.sign(w.z), yy = w.r, cx = w.x;
+      const hub = new THREE.Vector3(cx, yy, w.z - sg * 0.12);
+      for (const dy of [0.16, -0.12]) for (const dx of [-0.34, 0.34]) tige(new THREE.Vector3(cx + dx, yy + dy * w.r / 0.5, sg * 0.3), hub);
+    }
+  }
+  /* proportions imposées (sculptures sur mesure) : si le pavillon dépasse le plafond de sa famille, il est abaissé au-dessus
+     de la ligne de caisse — jamais les passages de roues. Le facteur appliqué est publié dans `proportion`. */
+  let proportion = null, hauteurSm = sm ? sm.hauteur : 0;
+  if (sm && roues.length) {
+    const fp = familleProportion(code);
+    groupe.updateMatrixWorld(true);
+    const wTot = new THREE.Box3().setFromObject(groupe).getSize(new THREE.Vector3()).z;
+    const xsR = roues.map((w) => w.x), xAvR = Math.max(...xsR), xArR = Math.min(...xsR);
+    const pav = hauteurPavillon(THREE, chassis, xArR, xAvR, largeur);
+    const yc = Math.max(...roues.map((w) => w.pivot.position.y + w.r)) + 0.1;            // ligne de caisse : sommet des passages de roues
+    const cible = fp.plafond * wTot;
+    proportion = { famille: fp.nom, plafond: fp.plafond, largeurHorsTout: +wTot.toFixed(3), pavillon: +pav.toFixed(3), k: 1 };
+    if (Number.isFinite(cible) && pav > cible + 0.005 && pav > yc + 0.05) {
+      const k = Math.max(0.55, (cible - yc) / (pav - yc));
+      abaisserPavillon(THREE, chassis, yc, k);
+      if (hauteurSm > yc) hauteurSm = yc + (hauteurSm - yc) * k;
+      proportion.k = +k.toFixed(3);
+      proportion.pavillon = +hauteurPavillon(THREE, chassis, xArR, xAvR, largeur).toFixed(3);
+    }
+    proportion.rapport = +(proportion.pavillon / wTot).toFixed(3);
+  }
   const xs = roues.map((w) => w.x);
-  const xAv = roues.length ? Math.max(...xs) : wx(geo.xAvant) - 0.5, xAr = roues.length ? Math.min(...xs) : wx(geo.xArriere) + 0.5;
-  const hauteur = (G - Math.min(...geo.bas.concat(geo.haut).map((p) => p[1]))) * K;
+  const xAv = roues.length ? Math.max(...xs) : (sm ? sm.xAvant : wx(geo.xAvant)) - 0.5, xAr = roues.length ? Math.min(...xs) : (sm ? sm.xArriere : wx(geo.xArriere)) + 0.5;
+  const hauteur = sm ? hauteurSm : loco ? 2.45 : (G - Math.min(...geo.bas.concat(geo.haut).map((p) => p[1]))) * K;
+  // famille : celle de la fiche 2D si elle existe (helico, fauteuil, f1… pilotent la mise en scène), sinon déduite du modèle
+  const fam = geo ? geo.fam : (sm.fam || 'route');
   return {
-    code, fam: geo.fam, groupe, chassis, roues, largeur, longueur: L, hauteur, aRoues: roues.length > 0,
-    xAvant: wx(geo.xAvant), xArriere: wx(geo.xArriere), essieuAvant: xAv, essieuArriere: xAr, empattement: xAv - xAr,
+    code, fam, source: sm ? 'sur-mesure' : 'generique-2d', proportion, groupe, chassis, roues, largeur, longueur: sm ? sm.L : L, hauteur, aRoues: roues.length > 0,
+    xAvant: sm ? sm.xAvant : wx(geo.xAvant), xArriere: sm ? sm.xArriere : wx(geo.xArriere), essieuAvant: xAv, essieuArriere: xAr, empattement: xAv - xAr,
     rayonAvant: (roues.find((w) => w.avant) || { r: 0.45 }).r, rayonArriere: (roues.find((w) => !w.avant) || { r: 0.45 }).r,
     feux: { avant: lumBlanche, arriere: lumRouge },
+    /** Veilleuses : k de 0 (éteint, pénombre) à 1 (feux pleine puissance). Les feux ronronnent légèrement. */
+    eclairer(k, t = 0) {
+      const f = (0.1 + 0.9 * k) * (k < 1 ? 0.85 + 0.15 * Math.sin(t * 31) : 1);
+      for (const [mat, base] of lumieres) mat.color.copy(base).multiplyScalar(f);
+    },
+    /** Braque les roues avant (radians, + = à gauche) et leur étrier. */
+    braquer(a) { for (const w of roues) if (w.avant) w.pivot.rotation.y = a; },
     /** Avance d'un pas : roues qui tournent (v = ω × R), accessoires animés. v en unités/s (positif = vers l'avant). */
     maj(dt, v = 0, t = 0, glissement = 0) {
-      for (const w of roues) w.pivot.rotation.z -= (v * (1 + glissement)) * dt / w.r;
+      for (const w of roues) w.tourne.rotation.z -= (v * (1 + glissement)) * dt / w.r;
       for (const a of animes) a(t, dt, v);
     },
     dispose() { for (const x of jetables) { try { x.dispose(); } catch (e) { /* rien */ } } groupe.traverse((o) => { if (o.geometry) o.geometry.dispose(); }); },
   };
+}
+
+/** Jante métallique (argent, gris clair/moyen, peu saturé) ou laquée (blanc, crème, couleurs, noir) ? */
+function janteMetal(hex) {
+  if (!hex) return true;
+  const n = parseInt(String(hex).replace('#', '').padEnd(6, '0').slice(0, 6), 16), r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 510, sat = mx ? (mx - mn) / mx : 0;
+  return sat < 0.14 && l > 0.42 && l < 0.84;
 }
 
 /* ------------------------------------------------------------------ accessoires en volume */
@@ -323,7 +494,7 @@ function kits3d(THREE, { geo, chassis, largeur, matLaque, matNoir, matAccent, ma
       if (o.appuie !== false) { const ap = new THREE.Mesh(garde(new THREE.SphereGeometry(0.22, 12, 8, 0, Math.PI * 2, 0, Math.PI / 2)), couleur(o.ca, f.c.caisse)); ap.position.set(xP(o.pa ?? 0.6), yH(h.caisse), -largeur * 0.18); chassis.add(ap); }
     } else if (type === 'cockpit') {
       const casque = new THREE.Mesh(garde(new THREE.SphereGeometry(0.18, 14, 10)), couleur(o.c, '#f4f4f4')); casque.position.set(xP(a[0] ?? 0.45), yH(h.caisse) + 0.12, 0); chassis.add(casque);
-    } else if (type === 'lame') chassis.add(boite(THREE, 0.8, 0.05, largeur * 1.02, couleur(o.c, '#16181f'), wx(geo.xAvant) - 0.3, yH(h.garde + 1), 0));
+    } else if (type === 'lame') chassis.add(boite(THREE, 0.45, 0.07, largeur * 0.62, couleur(o.c, '#16181f'), wx(geo.xAvant) - 0.1, yH(h.garde + 2), 0));
     else if (type === 'antenne') { const an = new THREE.Mesh(garde(new THREE.CylinderGeometry(0.012, 0.012, 0.65, 6)), matNoir); an.position.set(xP(a[0]), yH(a[1]) + 0.3, -largeur * 0.3); an.rotation.z = 0.4; chassis.add(an); }
   }
 }
@@ -349,8 +520,9 @@ export async function vue360(parent, code, { THREE = window.THREE } = {}) {
   const sol = new THREE.Mesh(new THREE.CircleGeometry(7, 48), new THREE.MeshStandardMaterial({ color: 0x0a0a16, roughness: 0.4, metalness: 0.6 }));
   sol.rotation.x = -Math.PI / 2; scene.add(sol);
   const anneau = new THREE.Mesh(new THREE.RingGeometry(5.2, 5.32, 64), new THREE.MeshBasicMaterial({ color: 0x22d3ee, toneMapped: false })); anneau.rotation.x = -Math.PI / 2; anneau.position.y = 0.01; scene.add(anneau);
-  const m = await construireBolide3D(code, { THREE, envMap: env });
-  if (!m) { el.remove(); renderer.dispose(); return null; }
+  let m = null;
+  try { m = await construireBolide3D(code, { THREE, envMap: env }); }
+  catch (e) { console.error(e); el.remove(); renderer.dispose(); return null; }
   scene.add(m.groupe);
   let az = 0.6, el2 = 0.28, dist = 13, glisse = false, px = 0, py = 0, auto = true, fini = false, raf = 0, t0 = performance.now(), dernier = t0;
   const taille = () => { const w = el.clientWidth, h = el.clientHeight; renderer.setSize(w, h, false); cam.aspect = w / Math.max(1, h); cam.updateProjectionMatrix(); };

@@ -6,7 +6,7 @@
      post_apo     sépia brûlé, poussière, mirage de chaleur, braises, pochoir et tampon « RECHERCHÉ »
      pop          saturation acidulée, lueur glossy, cœurs néon et paillettes, typo bulle rose chrome
      vintage      noir et blanc scintillant, format 4:3 à bandes, rayures et poussières de pellicule, intertitres de film muet
-     blockbuster  teal & orange, bandes cinémascope 2,39, traînées anamorphiques, titre or « prochainement »
+     blockbuster  teal & orange, bandes cinémascope 2,39, traînées anamorphiques, titre or et bandeau « dossier classifié »
 
    Ce module fournit :
      ARCHETYPES, archetypeDe(car)                       définitions et attribution (repli sur le thème du bolide)
@@ -20,19 +20,40 @@ import { outilsSon } from './signatures.js';
 
 export const ARCHETYPES = {
   manga: { nom: 'Manga / anime', mode: 1, fond: 0x0d0526, brouillard: 0x1c0a40, lumiere: 0x8ff3ff, teinte: '#22d3ee', teinte2: '#ff2bd6', encre: '#0b0420',
-    bandeau: 'NOUVEAU CHALLENGER !', accroche: '', musique: 'eurobeat', titre: '900 {s} "Arial Black", "Segoe UI Black", Impact, sans-serif' },
+    bandeau: 'CHALLENGER ENTRANT // {code}', accroche: 'GRILLE VERROUILLÉE · DÉPART IMMINENT', musique: 'eurobeat', titre: '900 {s} "Arial Black", "Segoe UI Black", Impact, sans-serif' },
   gothique: { nom: 'Comics noir', mode: 2, fond: 0x040404, brouillard: 0x0b0b0e, lumiere: 0xfff1b0, teinte: '#ffd400', teinte2: '#f4f1e6', encre: '#000000',
-    bandeau: 'PENDANT CE TEMPS, DANS LA VILLE…', accroche: 'ALERTE ROUGE SUR LA GRILLE', musique: 'cuivres', titre: '900 {s} Impact, "Arial Black", "Bahnschrift", sans-serif' },
+    bandeau: 'RAPPORT D’INTERVENTION // {codeT}', accroche: 'COUVRE-FEU ACTIF · AUCUN TÉMOIN', musique: 'cuivres', titre: '900 {s} Impact, "Arial Black", "Bahnschrift", sans-serif' },
   post_apo: { nom: 'Post-apo', mode: 3, fond: 0x1c1006, brouillard: 0x4a2c12, lumiere: 0xffb46a, teinte: '#ff7a1a', teinte2: '#f3d9a4', encre: '#1a0f06',
-    bandeau: 'RECHERCHÉ', accroche: 'JOUR 1 024 APRÈS LA FIN DU CARBURANT', musique: 'riff', titre: '900 {s} Impact, "Arial Black", "Bahnschrift", sans-serif' },
+    bandeau: 'AVIS DE RECHERCHE // {codeT}', accroche: 'CARBURANT : 0 % · ZONE NON CARTOGRAPHIÉE', tampon: 'RECHERCHÉ', musique: 'riff', titre: '900 {s} Impact, "Arial Black", "Bahnschrift", sans-serif' },
   pop: { nom: 'Pop glamour', mode: 4, fond: 0x2a0624, brouillard: 0x5a0d46, lumiere: 0xffb3e0, teinte: '#ff3fa4', teinte2: '#fff0f8', encre: '#4a0636',
-    bandeau: 'NOUVELLE COLLECTION', accroche: 'ÉDITION LIMITÉE · PAILLETTES INCLUSES', musique: 'bubblegum', titre: '700 {s} "Fredoka GP", "Arial Rounded MT Bold", "Segoe UI", sans-serif' },
+    bandeau: 'ÉDITION SIGNATURE // {code}', accroche: 'TIRAGE UNIQUE · FINITION NACRÉE', musique: 'bubblegum', titre: '700 {s} "Fredoka GP", "Arial Rounded MT Bold", "Segoe UI", sans-serif' },
   vintage: { nom: 'Relique vintage', mode: 5, fond: 0x0c0b09, brouillard: 0x1d1a15, lumiere: 0xfff4dc, teinte: '#efe4c8', teinte2: '#ffffff', encre: '#0c0b09',
-    bandeau: 'ET SOUDAIN…', accroche: 'UNE PRODUCTION DE LA GRILLE', musique: 'western', titre: '700 {s} "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif' },
+    bandeau: 'BULLETIN SPÉCIAL // {codeT}', accroche: 'ARCHIVES DE LA GRILLE · BOBINE N° {num}', musique: 'western', titre: '700 {s} "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif' },
   blockbuster: { nom: 'Blockbuster', mode: 6, fond: 0x020611, brouillard: 0x071428, lumiere: 0xffe2b0, teinte: '#ffcf6a', teinte2: '#8fdcff', encre: '#020611',
-    bandeau: 'PROCHAINEMENT SUR LA PISTE', accroche: 'CE NOËL, UN SEUL BOLIDE…', musique: 'braaam', titre: '300 {s} "Bahnschrift", "Segoe UI Light", "Helvetica Neue", Arial, sans-serif' },
+    bandeau: 'DOSSIER {codeT} // CLASSIFIÉ', accroche: 'HOMOLOGATION SPÉCIALE · CATÉGORIE {rarete}', musique: 'braaam', titre: '300 {s} "Bahnschrift", "Segoe UI Light", "Helvetica Neue", Arial, sans-serif' },
 };
 export const CLES_ARCHETYPES = Object.keys(ARCHETYPES);
+
+/* Bandeaux broadcast : une identité de retransmission (fiche classifiée, télex de régie, punchline de teaser), jamais une formule
+   de bande-annonce de série Z. Chaque univers a ses gabarits ({code}, {codeT} = « B-07 », {rarete}, {num}) ; les bolides de
+   référence ont leurs propres textes. tampon : le tampon encré du post-apo (court). */
+export const BANDEAUX_BOLIDES = {
+  H12: { bandeau: 'AVIS DE BLOCUS SUR LA VOIE', accroche: 'PRESSION CHAUDIÈRE : CRITIQUE · AUCUN CONVOI NE PASSERA' },
+  H10: { bandeau: 'FORCE MAJEURE // ARTICLE 49 ALINÉA 3', accroche: 'ENGAGEMENT UNILATÉRAL SANS CONSULTATION DES COMMISSAIRES' },
+  TK06: { bandeau: 'TOKYO MIDNIGHT CHALLENGER // CLASSE S', accroche: 'SYNCHRONISATION NEURONALE : 100 % · BPM MAXIMUM' },
+  B07: { bandeau: 'DOSSIER CONFIDENTIEL // CODE B-07', accroche: 'INTERVENTION TACTIQUE NOCTURNE · ESPACE AÉRIEN VERROUILLÉ' },
+  H01: { bandeau: 'TITANE SAUVAGE // PROTOCOLE HAWKING', accroche: 'ZÉRO ASSISTANCE · INDESTRUCTIBLE PAR DÉCRET', tampon: 'INDESTRUCTIBLE' },
+  J11: { bandeau: 'GODZILLA // RB26DETT BITURBO', accroche: 'ATTESA E-TS ENGAGÉ · 7:59 AU NÜRBURGRING' },
+};
+/** Textes broadcast d'un bolide dans son univers : { bandeau, accroche, tampon }. */
+export function textesDe(car, cle, rarete = null) {
+  const A = ARCHETYPES[cle] || ARCHETYPES.blockbuster, perso = (car && BANDEAUX_BOLIDES[car.code]) || {};
+  const code = String((car && car.code) || '');
+  const m = code.match(/^([A-Z]+)(\d+)$/), codeT = m ? `${m[1]}-${m[2].padStart(2, '0')}` : code;
+  const remplir = (t) => String(t || '').replace(/\{code\}/g, code).replace(/\{codeT\}/g, codeT).replace(/\{num\}/g, m ? String(Number(m[2]) * 7 + 23).padStart(3, '0') : '001')
+    .replace(/\{rarete\}/g, String((rarete && (rarete.nomBase || rarete.nom)) || 'HORS NORMES').replace(/^Rareté /, '').toUpperCase());
+  return { bandeau: remplir(perso.bandeau || A.bandeau), accroche: remplir(perso.accroche || A.accroche), tampon: remplir(perso.tampon || A.tampon || 'RECHERCHÉ') };
+}
 const PAR_STYLE = { manga: 'manga', jeu_video: 'manga', film_noir: 'gothique', comics: 'gothique', retro80: 'vintage', reel: 'blockbuster', cartoon: 'pop' };
 
 /** Archétype d'un bolide : champ de cars.json, sinon déduit de son thème visuel (data/themes_bolides.json). */
@@ -77,7 +98,7 @@ vec3 grade(vec2 uv, vec3 c){
   int m = int(mode + 0.5);
   float l = lum(c);
   if (m == 1) {                                   // manga : aplats, trame magenta dans les ombres, encrage
-    float lq = (floor(l * 4.0) + smoothstep(0.4, 0.6, fract(l * 4.0))) / 4.0;   // aplats de luminance, teinte conservée
+    float lq = (floor(l * 6.0) + smoothstep(0.35, 0.65, fract(l * 6.0))) / 6.0;   // aplats de luminance (6 niveaux : le décor reste lisible), teinte conservée
     vec3 q = clamp(sat(c, 1.5) * (lq + 0.04) / (l + 0.04), 0.0, 1.0);
     q = mix(q, vec3(0.55, 0.06, 0.6), trame(l, 5.0, 0.785) * step(l, 0.3) * 0.55);
     return mix(q, vec3(0.03, 0.0, 0.08), encre(uv));
@@ -159,7 +180,9 @@ vec3 signature(vec2 uv, vec3 c){
   }
   if (s == 5) return c * vec3(0.55, 1.15, 0.5) + vec3(0.12, 0.5, 0.05) * (0.6 + 0.4 * sin(temps * 6.0)) * smoothstep(0.35, 0.9, l);
   if (s == 6) { float f = step(0.0, sin(temps * 7.0)) * step(0.82, fract(temps * 1.1)); return mix(c, 1.0 - c, f); }
-  if (s == 7) { vec2 px = vec2(7.0) / res; vec3 p = texture2D(tScene, (floor(uv / px) + 0.5) * px).rgb; return floor(p * 5.0 + 0.5) / 5.0; }
+  if (s == 7) {                                   // « 8 bits » sans gros pixels : image pleine définition vue à travers un écran LED (sous-pixels RVB de 3 px), palette 16 niveaux
+    vec3 p = floor(texture2D(tScene, uv).rgb * 16.0 + 0.5) / 16.0; float sx = mod(gl_FragCoord.x, 3.0); vec3 m = vec3(step(sx, 1.0), step(1.0, sx) * step(sx, 2.0), step(2.0, sx));
+    return p * (0.78 + 0.32 * m) * (0.94 + 0.06 * step(1.0, mod(gl_FragCoord.y, 3.0))); }
   if (s == 8) return mix(c, mix(vec3(0.25, 0.14, 0.02), vec3(1.0, 0.83, 0.36), l) * 1.15, 0.78);
   if (s == 9) {                                   // halo de rêve irisé
     vec2 px = 9.0 / res;
@@ -269,7 +292,7 @@ export async function prechargerPolices() {
 }
 
 export function creerSurcouche(cv, { car, cle, rarete, cote, express = false }) {
-  const A = ARCHETYPES[cle] || ARCHETYPES.blockbuster;
+  const A = { ...(ARCHETYPES[cle] || ARCHETYPES.blockbuster), ...textesDe(car, cle, rarete) };
   const g = cv.getContext('2d');
   let W = 0, H = 0, s = 1;
   const nom = String(car.alias || car.code).toUpperCase();
@@ -281,6 +304,7 @@ export function creerSurcouche(cv, { car, cle, rarete, cote, express = false }) 
   let lignes = [], derniereLigne = -1, focusFige = null;
 
   const police = (taille) => A.titre.replace('{s}', Math.round(taille) + 'px');
+  const ajusterTaille = (txt, f, max, taille) => { let t = taille; g.font = f(t); while (g.measureText(txt).width > max && t > 10) { t *= 0.94; g.font = f(t); } return t; };
   const ajuster = (txt, f, max, taille) => { let t = taille; g.font = f(t); while (g.measureText(txt).width > max && t > 10) { t *= 0.92; g.font = f(t); } return t; };
   const lignesDe = (txt, max) => {
     const mots = txt.split(' '), out = []; let l = '';
@@ -449,7 +473,8 @@ export function creerSurcouche(cv, { car, cle, rarete, cote, express = false }) 
       g.save(); g.clip(); g.fillStyle = trame(); g.fillRect(0, H * 0.78, W * 0.4, H * 0.22); g.restore();
       let y = H * 0.05;
       badge(x, y + 26 * s); y += 56 * s;
-      y += bloc(A.bandeau, x, y, w, `italic 900 ${Math.round(26 * s)}px "Arial Black",Impact,sans-serif`, A.teinte2, 32 * s, 1) + 4 * s;
+      y += bloc(A.bandeau, x, y, w, `italic 900 ${Math.round(ajusterTaille(A.bandeau, (t) => `italic 900 ${t}px "Arial Black",Impact,sans-serif`, w, 26 * s))}px "Arial Black",Impact,sans-serif`, A.teinte2, 32 * s, 1) + 2 * s;
+      y += bloc(A.accroche, x, y, w, `800 ${Math.round(15 * s)}px "Bahnschrift","Arial Narrow",sans-serif`, '#3a1060', 19 * s, 2, { alpha: ease(k * 3) }) + 6 * s;
       const n = nomAjuste((t) => `italic 900 ${t}px "Arial Black",Impact,sans-serif`, 70 * s, w);
       g.save(); const z = rebond(k * 1.4); g.translate(x, y); g.scale(z, z);
       n.ls.forEach((l, i) => { g.fillStyle = A.teinte; g.fillText(l, 5 * s, n.t * (0.9 + i * 1.02) + 5 * s); g.fillStyle = A.encre; g.fillText(l, 0, n.t * (0.9 + i * 1.02)); });
@@ -466,7 +491,8 @@ export function creerSurcouche(cv, { car, cle, rarete, cote, express = false }) 
       const fond = g.createLinearGradient(0, 0, W * 0.42, 0); fond.addColorStop(0, 'rgba(0,0,0,.82)'); fond.addColorStop(1, 'rgba(0,0,0,0)');
       g.fillStyle = fond; g.fillRect(0, 0, W * 0.42, H);
       badge(x, y + 26 * s); y += 56 * s;
-      g.save(); g.globalAlpha = ease(k * 4); y += cartouche(x, y, w, (A.bandeau + ' ' + st).toUpperCase(), '#ffd400', '#000', Math.round(21 * s)) + 12 * s; g.restore();
+      g.save(); g.globalAlpha = ease(k * 4); y += cartouche(x, y, w, A.bandeau, '#ffd400', '#000', Math.round(21 * s)) + 6 * s; g.restore();
+      g.save(); g.globalAlpha = ease((k - 0.05) * 4); y += cartouche(x, y, w, A.accroche + (st ? ' — ' + st.toUpperCase() : ''), '#f4f1e6', '#000', Math.round(15 * s)) + 12 * s; g.restore();
       const n = nomAjuste((t) => `900 ${t}px Impact,"Arial Black",sans-serif`, 82 * s, w);
       g.save(); const z = rebond(k * 1.5); g.translate(x, y); g.scale(z, z); g.lineJoin = 'round';
       n.ls.forEach((l, i) => { const yy = n.t * (0.9 + i * 1.0); g.lineWidth = n.t * 0.16; g.strokeStyle = '#000'; g.strokeText(l, 0, yy); g.fillStyle = '#fff'; g.fillText(l, 0, yy); g.lineWidth = n.t * 0.03; g.strokeStyle = '#ffd400'; g.strokeText(l, 0, yy); });
@@ -480,7 +506,8 @@ export function creerSurcouche(cv, { car, cle, rarete, cote, express = false }) 
       const x = COL_X(), w = COL_W(); let y = H * 0.05;
       g.fillStyle = 'rgba(26,15,6,.72)'; g.fillRect(0, 0, W * 0.39, H);
       badge(x, y + 26 * s); y += 50 * s;
-      y += bloc(A.accroche, x, y, w, `900 ${Math.round(20 * s)}px Impact,sans-serif`, '#f3d9a4', 26 * s, 2) + 8 * s;
+      y += bloc(A.bandeau, x, y, w, `900 ${Math.round(20 * s)}px Impact,sans-serif`, '#f3d9a4', 26 * s, 2) + 2 * s;
+      y += bloc(A.accroche, x, y, w, `700 ${Math.round(15 * s)}px "Courier New",monospace`, '#ffb46a', 19 * s, 2) + 8 * s;
       const n = nomAjuste((t) => `900 ${t}px Impact,"Arial Black",sans-serif`, 74 * s, w - 24 * s);
       const hb = n.t * (n.ls.length * 1.02 + 0.35);
       g.save(); g.translate(x - 10 * s + (1 - ease(k * 3)) * -W * 0.4, y); g.rotate(-0.03);
@@ -490,7 +517,7 @@ export function creerSurcouche(cv, { car, cle, rarete, cote, express = false }) 
       g.restore(); y += hb + 14 * s;
       g.save(); g.translate(x + w - 120 * s, H * 0.07); g.rotate(0.14); const z = rebond(k * 1.3); g.scale(z, z);
       g.globalAlpha = 0.9; g.strokeStyle = '#c1121f'; g.lineWidth = 6 * s; g.strokeRect(-110 * s, -36 * s, 220 * s, 72 * s);
-      g.fillStyle = '#c1121f'; g.textAlign = 'center'; g.font = `900 ${Math.round(34 * s)}px Impact,sans-serif`; g.fillText(A.bandeau, 0, 4 * s);
+      g.fillStyle = '#c1121f'; g.textAlign = 'center'; g.font = `900 ${Math.round(ajusterTaille(A.tampon, (t) => `900 ${t}px Impact,sans-serif`, 200 * s, 34 * s))}px Impact,sans-serif`; g.fillText(A.tampon, 0, 4 * s);
       g.font = `800 ${Math.round(15 * s)}px "Courier New",monospace`; g.fillText(rarete.court.toUpperCase(), 0, 26 * s); g.restore();
       y += bloc(st, x, y, w, `700 ${Math.round(20 * s)}px "Courier New",monospace`, '#f3d9a4', 25 * s, 2) + 10 * s;
       y += bloc('« ' + tape((k - 0.1) * 2.3, cit) + ' »', x, y, w, `italic 800 ${Math.round(27 * s)}px Georgia,serif`, '#1a0f06', 33 * s, 4, { fond: 'rgba(243,217,164,.95)', pad: 14 * s }) + 10 * s;
@@ -501,7 +528,7 @@ export function creerSurcouche(cv, { car, cle, rarete, cote, express = false }) 
       const x = COL_X(), w = COL_W(); let y = H * 0.05;
       boite(x - 14 * s, H * 0.025, w + 28 * s, H * 0.95, 'rgba(74,6,54,.62)', 'rgba(255,63,164,.8)', 34 * s);
       badge(x + 6 * s, y + 26 * s); y += 56 * s;
-      g.font = police(24 * s); const wb = g.measureText(A.bandeau).width + 36 * s;
+      const tb = ajusterTaille(A.bandeau, (t) => police(t), w - 40 * s, 24 * s); g.font = police(tb); const wb = g.measureText(A.bandeau).width + 36 * s;
       boite(x + 6 * s, y, wb, 40 * s, '#ffffff', null, 20 * s); g.fillStyle = '#ff3fa4'; g.fillText(A.bandeau, x + 24 * s, y + 29 * s); y += 54 * s;
       const n = nomAjuste((t) => police(t), 72 * s, w - 20 * s);
       g.save(); const z = rebond(k * 1.5); g.translate(x + 8 * s, y); g.scale(z, z); g.lineJoin = 'round';
@@ -574,28 +601,15 @@ export function creerSurcouche(cv, { car, cle, rarete, cote, express = false }) 
   }
 
   /* ---------- pendant la sortie du bolide (après la déchirure) */
+  /* Pendant la sortie : AUCUN carton ni bandeau plein écran — le bolide est montré directement. Seuls restent les effets graphiques de
+     l'univers (speed-lines, onomatopée, particules) ; les textes broadcast vivent dans la colonne du freeze-frame. */
   const BASCULE = {
     manga(k, f) { speedLines(f.x, f.y, Math.min(1, k * 2), '#ffffff', 0.9); katakanaGeant(ono, W * 0.88, H * 0.14, 120 * s, k * 1.6); },
-    gothique(k) {
-      if (k < 1.4) { g.save(); g.globalAlpha = ease(k * 4) * (1 - ease((k - 1.0) * 3)); cartouche(W * 0.04, H * 0.06, W * 0.4, A.bandeau, '#ffd400', '#000', Math.round(28 * s)); g.restore(); }
-      eclatement(W * 0.74, H * 0.2, 105 * s, '#ffd400', '#000', ono, '#d0021b', -0.15, k * 1.6);
-    },
-    post_apo(k, f, dt) { particules2D(dt, 'post_apo'); if (k < 1.5) { g.save(); g.globalAlpha = ease(k * 3) * (1 - ease((k - 1.1) * 3)); g.font = `900 ${Math.round(40 * s)}px Impact,"Arial Black",sans-serif`; g.fillStyle = '#f3d9a4'; g.fillText(A.accroche, W * 0.05, H * 0.12); g.restore(); } },
+    gothique(k) { eclatement(W * 0.74, H * 0.2, 105 * s, '#ffd400', '#000', ono, '#d0021b', -0.15, k * 1.6); },
+    post_apo(k, f, dt) { particules2D(dt, 'post_apo'); },
     pop(k, f, dt) { particules2D(dt, 'pop'); eclatement(W * 0.78, H * 0.18, 90 * s, '#ffffff', '#ff3fa4', ono, '#ff3fa4', 0.12, k * 1.6); },
-    vintage(k) {
-      if (k < 0.55) {                                     // intertitre plein écran, comme un film muet
-        g.fillStyle = '#0b0a08'; g.fillRect(0, 0, W, H);
-        g.strokeStyle = '#efe4c8'; g.lineWidth = 3 * s; g.strokeRect(W * 0.2, H * 0.3, W * 0.6, H * 0.4);
-        g.fillStyle = '#efe4c8'; g.textAlign = 'center'; g.font = police(76 * s); g.fillText(A.bandeau, W / 2, H * 0.53); g.textAlign = 'left';
-      }
-    },
-    blockbuster(k) {
-      if (k < 1.6) {
-        g.save(); g.globalAlpha = ease(k * 2.5) * (1 - ease((k - 1.2) * 3));
-        g.textAlign = 'center'; g.font = `300 ${Math.round(48 * s)}px "Bahnschrift","Segoe UI Light",sans-serif`; g.fillStyle = '#f2e6cc';
-        g.fillText(espacer(A.accroche), W / 2, H * 0.3); g.textAlign = 'left'; g.restore();
-      }
-    },
+    vintage() { },
+    blockbuster() { },
   };
 
   return {

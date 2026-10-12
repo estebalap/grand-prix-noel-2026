@@ -236,10 +236,8 @@ export const FICHES = {
   H11: m(MUSCLE, { nom: 'Small Bloc taxi', long: 250, garde: 9, c: { caisse: '#f4c21a', vitre: '#1b2433', neon: '#ffd23e' }, jante: '#15171c', rayons: 'six', flanc: '#f4c21a',
     liv: [['damier', 20, 28, 0.04, 0.96, '#15171c', 4], ['haut', 52, '#f1f2f4'], ['texte', 0.55, 36, 'TAXI', '#15171c', 10]],
     kit: [['moteur', 0.2, { c: '#c8ccd6', souffleur: '#15171c', l: 30 }]] }),
-  H12: m(COUPE, { nom: 'West Coast Flyer', long: 250, garde: 9, nez: 32, caisse: 44, toit: 64, queue: 44, pare: 0.4, toitAv: 0.5, toitAr: 0.66, lunette: 0.84,
-    c: { caisse: '#2c2f38', vitre: '#1b2433', neon: '#e5484d' }, jante: '#e5484d', rayons: 'cinq', flanc: '#15171c',
-    liv: [['filet', 30, '#e5484d', 0.03, 0.97, 30, 1.4], ['filet', 26, '#e5484d', 0.03, 0.97, 26, 1], ['damier', 34, 40, 0.68, 0.82, '#f4f4f4', 3]],
-    kit: [['moteur', 0.2, { c: '#d7dbe3', souffleur: '#e5484d', l: 34 }], ['echappement', 0.34, 0.62]] }),
+  H12: m({ nom: 'Locomotive à roues', fam: 'locomotive', long: 262, garde: 9, r: [10, 17], roues: [0.08, 0.7],
+    c: { caisse: '#2b303b', vitre: '#1b2433', accent: '#c8372d', laiton: '#d4a017', neon: '#e5484d' }, jante: '#c8372d', rayons: 'plein', flanc: '#15171c' }),
 
   /* ---------------- Pop culture ---------------- */
   P01: m(SUPERCAR, { nom: 'Voiture qui parle', long: 278, nez: 20, caisse: 34, toit: 54, queue: 40, garde: 7,

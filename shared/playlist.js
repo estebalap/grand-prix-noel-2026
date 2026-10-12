@@ -100,6 +100,9 @@ export function createPlaylistPlayer({ relayBase = () => '', onNowPlaying = () =
       if (e.data === 1) { try { const d = ytPlayer.getVideoData(); onNowPlaying({ source: 'youtube', title: d && d.title }); } catch { /* ignore */ } }
       if (e.data === 0 && !id.list) try { ytPlayer.seekTo(0); ytPlayer.playVideo(); } catch { /* ignore */ }
     };
+    /* vidéo indisponible / non intégrable : on passe à la suivante au lieu de rester figé ; si tout échoue, synthé */
+    let errs = 0;
+    const onErr = () => { errs++; try { if (id.list && errs < 8) ytPlayer.nextVideo(); else if (source === 'youtube') { stopYouTube(); source = 'synth'; if (enabled) playSynth(synthId || 'noel'); } } catch { /* ignore */ } };
     const key = JSON.stringify(id);
     if (ytPlayer && ytCurrent === key) { try { ytPlayer.playVideo(); } catch { /* ignore */ } return true; }
     if (ytPlayer) { try { ytPlayer.destroy(); } catch { /* ignore */ } ytPlayer = null; }
@@ -107,7 +110,7 @@ export function createPlaylistPlayer({ relayBase = () => '', onNowPlaying = () =
     (ytHost || document.body).querySelector('.yt-slot')?.replaceChildren(holder);
     if (!ytHost) document.body.appendChild(holder);
     ytCurrent = key;
-    ytPlayer = new YT.Player(holder, { width: 240, height: 200, videoId: id.video || undefined, playerVars: vars, events: { onReady, onStateChange: onState } });
+    ytPlayer = new YT.Player(holder, { width: 240, height: 200, videoId: id.video || undefined, playerVars: vars, events: { onReady, onStateChange: onState, onError: onErr } });
     return true;
   }
   function stopYouTube() {

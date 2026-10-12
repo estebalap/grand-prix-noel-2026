@@ -2,7 +2,7 @@
    Une scène par phase de l'émission, pilotée à 100 % par l'état diffusé par le relais. */
 import {
   $, $$, h, esc, DATA, store, admin, qs, LS, now, fmtOdds, LANE_COLORS, ranking, car, team, weatherOf, modeOf,
-  findRelay, setRelay, relayBase, loadData, asset, connect, onState, onFx, onBoost, onStatus, clamp, sleep,
+  findRelay, setRelay, relayBase, loadData, asset, connect, onState, onFx, onBoost, onStatus, clamp, sleep, logoUrl,
 } from '../shared/core.js';
 import { icon } from '../shared/icons.js';
 import { qrSvg } from '../shared/qr.js';
@@ -18,6 +18,7 @@ import { revealFret, revealFretDisponible } from '../shared/reveal_fret.js';
 import { badgeRarete, styleRarete, rareteDe } from '../shared/rarete.js';
 import { mountAdmin, ADMIN_CSS } from '../shared/admin.js';
 import { createVideoLibrary, makeVideo, waitPlayable, playWithSound, fadeVolume, disposeVideo } from '../shared/videos.js';
+import { jouerOuverture } from '../shared/ouverture.js';
 import * as LBX from '../shared/lootbox.js';
 import { buildCaisse, ensureThree, preparerScene, creerBloom } from '../shared/caisses3d.js';
 
@@ -129,6 +130,21 @@ async function playIntroInner() {
   v.addEventListener('error', () => endIntro(false), { once: true });
   $('.intro-skip', layer).onclick = (e) => { e.stopPropagation(); endIntro(false); };
 }
+/* ================================================================== OUVERTURE DU PLATEAU (temps réel, après l'intro officielle)
+   Compte à rebours, survol de la Rainbow Road, présentation des 15 écuries de la soirée : enchaînée automatiquement à la fin
+   NATURELLE de l'intro (pas si on la passe), ou à la demande avec la touche O. ?ouverture=0 la désactive. */
+let ouvertureEnCours = false;
+async function playOuverture({ express = false } = {}) {
+  if (ouvertureEnCours || intro) return;
+  ouvertureEnCours = true;
+  suspendreAnimations(true); music.setEnabled(false);
+  try {
+    let circuit = null;
+    try { circuit = await (await fetch(new URL('../data/circuit.json', location.href))).json(); } catch (e) { circuit = null; }
+    await jouerOuverture(document.body, { equipes: DATA.teams || [], circuit, logo: logoUrl, express });
+  } catch (e) { console.warn('[ouverture]', e); }
+  finally { suspendreAnimations(false); music.setEnabled(musicWanted); ouvertureEnCours = false; }
+}
 async function endIntro(natural) {
   if (!intro) return;
   const { layer, v } = intro; intro = null;
@@ -138,6 +154,7 @@ async function endIntro(natural) {
   await sleep(900);
   disposeVideo(v); layer.remove();
   introBusy = false;
+  if (natural && qs.get('ouverture') !== '0') await playOuverture();       // l'intro s'est jouée en entier : le plateau s'ouvre en direct
   music.setEnabled(musicWanted);
   if (S && (S.phase === 'LOBBY' || S.phase === 'DRAFT')) {
     snd.play('start', { fallback: 'fanfare' });
@@ -452,21 +469,93 @@ async function revealVideo(c, teamId, src, slot, size) {
   const vol = music.volume; music.setVolume(Math.min(vol, 0.08));      // la musique s'efface sous le clip
   snd.sfx('reveal');
   v.volume = 1;
-  await playWithSound(v);
+  if (!(await playWithSound(v))) {                                     // le navigateur a imposé le muet (aucun geste sur la page) : le son revient au premier clic ou à la première touche
+    const reprendre = () => { v.muted = false; fadeVolume(v, 1, 300); removeEventListener('pointerdown', reprendre, true); removeEventListener('keydown', reprendre, true); };
+    addEventListener('pointerdown', reprendre, true); addEventListener('keydown', reprendre, true);
+    v.addEventListener('ended', () => { removeEventListener('pointerdown', reprendre, true); removeEventListener('keydown', reprendre, true); }, { once: true });
+    console.warn('[TV] clip ' + c.code + ' lancé en muet : cliquez ou appuyez sur une touche pour le son');
+  }
   el.classList.add('on');
-  setTimeout(() => el.classList.add('info'), 700);                    // la fiche s'incruste après l'impact
+  const complet = isFinite(v.duration) && v.duration >= 9;              // cinématique complète enregistrée (outils/capture_videos_reveal.py) : la fiche et les stats sont déjà dans l'image
+  if (!complet) setTimeout(() => el.classList.add('info'), 700);     // clip court : la fiche s'incruste après l'impact
   confetti({ x: 0.75, y: 0.4, count: 60, power: 0.8 });
-  const cap = revealQueue.length ? 7000 : 12000;                       // 5-8 s attendues ; plafond de sécurité
+  const cap = complet ? v.duration * 1000 + 800 : (revealQueue.length ? 7000 : 12000);   // clip court : 5-8 s attendues, plafond de sécurité ; cinématique complète : lue en entier
+  const longue = complet ? await suiteMusicale(src) : null;          // version longue : le morceau complet du bolide prend le relais du clip
   await new Promise((res) => {
     const to = setTimeout(res, Math.min(cap, isFinite(v.duration) && v.duration > 0 ? v.duration * 1000 + 300 : cap));
+    if (longue) longue.armer(v, () => { clearTimeout(to); res(); });  // fondu enchaîné avant le fondu de sortie du clip
     v.addEventListener('ended', () => { clearTimeout(to); setTimeout(res, 600); }, { once: true });
     v.addEventListener('error', () => { clearTimeout(to); res(); }, { once: true });
   });
+  if (longue && longue.active()) await tenirImage(el, revealQueue.length > 0);   // dernière image figée, morceau en boucle, jusqu'à Espace / Entrée / clic / régie
   el.classList.add('out'); fadeVolume(v, 0, 400);
-  await sleep(450);
+  if (longue) longue.couper(700);
+  await sleep(longue ? 750 : 450);
   disposeVideo(v); el.remove();
+  if (longue) longue.liberer();
   music.setVolume(vol);
   return true;
+}
+/* Version longue de la musique d'un clip : web/videos/cars/CODE.json (écrit par outils/capture_videos_reveal.py) dit quel morceau
+   joue dans le clip, à quel instant il y démarre, à quelle vitesse et d'où il boucle. Juste avant la fin du clip, le morceau complet
+   repart au même endroit (fondu enchaîné de 0,9 s), puis tourne en boucle tant que l'image est tenue. */
+async function suiteMusicale(src) {
+  const url = String(src && (src.mp4 || src.webm) || '').split('?')[0].replace(/\.(mp4|webm)$/i, '.json');
+  if (!url) return null;
+  let info = null;
+  try { const r = await fetch(relayBase() + url, { cache: 'no-cache' }); if (r.ok) info = await r.json(); } catch (e) { info = null; }
+  if (!info || !info.musique) return null;
+  const a = new Audio(); a.preload = 'auto'; a.src = relayBase() + info.musique;
+  const vitesse = info.vitesse > 0 ? info.vitesse : 1;
+  a.playbackRate = vitesse; a.defaultPlaybackRate = vitesse; a.preservesPitch = false; a.mozPreservesPitch = false; a.webkitPreservesPitch = false;   // x2 : plus vite ET plus aigu, comme dans le clip
+  const cible = Math.max(0.05, Math.min(1, 0.92 * Math.pow(10, (info.gain_db || 0) / 20)));
+  const boucle = Math.max(0, info.boucle || 0);
+  const surFin = () => { try { a.currentTime = boucle; a.play().catch(() => {}); } catch (e) { /* morceau déchargé */ } };
+  a.addEventListener('ended', surFin);
+  let actif = false, arme = false;
+  const position = (tClip) => {                                         // instant du morceau correspondant à l'instant tClip du clip
+    let p = (info.drop || 0) + Math.max(0, tClip - (info.debut_clip || 0)) * vitesse;
+    const fin = info.duree_morceau || a.duration || Infinity, tour = fin - boucle;
+    if (isFinite(fin) && tour > 1) while (p >= fin) p -= tour;
+    return p;
+  };
+  try { await new Promise((ok, ko) => { a.addEventListener('canplaythrough', ok, { once: true }); a.addEventListener('error', ko, { once: true }); setTimeout(ok, 2500); }); } catch (e) { return null; }
+  return {
+    armer(v, fini) {
+      const avance = 1.6;                                                // le clip se termine par un gel + fondu : on relaie avant
+      const surTemps = () => {
+        if (arme || !isFinite(v.duration) || v.currentTime < v.duration - avance) return;
+        arme = true; v.removeEventListener('timeupdate', surTemps);
+        try { a.currentTime = position(v.currentTime + 0.05); } catch (e) { /* position hors tampon : le navigateur la rattrape */ }
+        a.volume = 0;
+        a.play().then(() => {
+          actif = true;
+          const t0 = performance.now();
+          const pas = () => { const k = Math.min(1, (performance.now() - t0) / 900); a.volume = cible * k; v.volume = Math.max(0, 1 - k); if (k < 1) requestAnimationFrame(pas); };
+          requestAnimationFrame(pas);
+          v.addEventListener('ended', () => fini(), { once: true });
+        }).catch(() => { actif = false; });
+      };
+      v.addEventListener('timeupdate', surTemps);
+    },
+    active: () => actif,
+    couper(ms) { if (!actif) return; const v0 = a.volume, t0 = performance.now(); const pas = () => { const k = Math.min(1, (performance.now() - t0) / ms); a.volume = v0 * (1 - k); if (k < 1) requestAnimationFrame(pas); else a.pause(); }; requestAnimationFrame(pas); },
+    liberer() { a.removeEventListener('ended', surFin); try { a.pause(); a.removeAttribute('src'); a.load(); } catch (e) { /* déjà libéré */ } },
+  };
+}
+/* Tient la dernière image du clip (morceau en boucle) jusqu'à Espace / Entrée / flèche droite / clic / régie (gp:suivant),
+   ou après REVEAL_TENUE secondes si la TV est réglée en passage automatique (?tenue=N). File d'attente : 4 s maximum. */
+function tenirImage(el, file) {
+  return new Promise((res) => {
+    const TOUCHES = new Set([' ', 'Spacebar', 'Enter', 'NumpadEnter', 'ArrowRight', 'PageDown', 'MediaPlayPause']);
+    let fait = false, to = null;
+    const fin = () => { if (fait) return; fait = true; clearTimeout(to); removeEventListener('keydown', surTouche, true); el.removeEventListener('pointerdown', fin); removeEventListener('gp:suivant', fin); el.classList.remove('attente'); res(); };
+    const surTouche = (e) => { if (TOUCHES.has(e.key) || e.code === 'Space') { e.preventDefault(); e.stopPropagation(); fin(); } };
+    addEventListener('keydown', surTouche, true); el.addEventListener('pointerdown', fin); addEventListener('gp:suivant', fin);
+    el.classList.add('attente');
+    const delai = file ? 4 : REVEAL_TENUE;
+    if (delai != null && isFinite(delai)) to = setTimeout(fin, Math.max(0, delai) * 1000);
+  });
 }
 
 /* ---------------------------------------------------------------- RACE (grille / bourse / départ / course) */
@@ -743,8 +832,7 @@ function sCer(s) {
       <div class="cv"><canvas id="c3"></canvas></div><div class="cerc" id="cerc"><span class="eyebrow kind">Cérémonie de clôture</span><h2 class="display foil">Remise des trophées</h2></div></div>`,
     mount(el) {
       st3 = createStage($('#c3', el), { camera: { r: 8.2, h: 2.6, look: 1.5 } });
-      st3.showTrophy('grandprix');
-      st3.showPantheon('coupe_arc_en_ciel', 'grandprix');
+      st3.showPantheon('coupe_arc_en_ciel', 'grandprix');           // directement le vrai trophée (pas de flash de l'ancien modèle)
       snd.carol();
     },
     live(st, el) {
@@ -763,8 +851,8 @@ function sCer(s) {
       const m = awardMeta(a);
       const tm = a.teamId != null ? team(a.teamId) : null;
       box.innerHTML = `<span class="eyebrow kind">${PRIX_LABEL[a.kind] || 'Trophée'}</span><h2 class="display foil">${esc(m.name)}</h2><div class="sub">${esc(m.sub || '')}</div><div class="dim" style="font-size:44px;margin-top:50px" class="pulse">…</div>`;
-      st3.showTrophy(a.kind === 'star' ? 'star' : a.kind === 'loufoque' ? 'grandprix' : a.id);
-      if (m.modele) st3.showPantheon(m.modele, a.kind === 'star' ? 'star' : a.kind === 'trophy' ? a.id : 'grandprix');   // vrai trophée imprimé
+      if (m.modele) st3.showPantheon(m.modele, a.kind === 'star' ? 'star' : a.kind === 'trophy' ? a.id : 'grandprix');   // vrai trophée imprimé, sans flash de l'ancien
+      else st3.showTrophy(a.kind === 'star' ? 'star' : a.kind === 'loufoque' ? 'grandprix' : a.id);
       snd.sfx('drumroll');
       setTimeout(() => {
         if (my !== token) return;
@@ -975,8 +1063,9 @@ addEventListener('keydown', (e) => {
   if (unlockSound()) { e.preventDefault(); return; }       // cette touche vient de lancer l'intro
   const k = e.key.toLowerCase();
   if (intro && (e.key === 'Escape' || e.key === ' ' || k === 'enter')) { e.preventDefault(); e.stopPropagation(); endIntro(false); return; }
-  if (introBusy) { e.preventDefault(); return; }
+  if (introBusy || ouvertureEnCours) { e.preventDefault(); return; }
   if (e.target && /^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName)) return;
+  if (k === 'o') { playOuverture(); return; }
   if (k === 'a') { const o = $('#drawer').classList.toggle('open'); snd.play(o ? 'ui.open' : 'ui.close'); }
   else if (k === 'f') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen().catch(() => {}); }
   else if (k === 'r') toggleModeIntro();

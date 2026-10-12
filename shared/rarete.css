@@ -18,3 +18,22 @@
 .btn-reveler{font:800 13px var(--font-display,system-ui);padding:6px 12px;border-radius:999px;border:1px solid var(--rar,#ffd34d);background:color-mix(in srgb,var(--rar,#ffd34d) 22%,#0b0d1a);color:#fff;cursor:pointer;letter-spacing:.04em}
 .btn-reveler:hover{box-shadow:0 0 14px var(--rar-l,#ffd34d)}
 .lane .rar-ligne{margin:2px 0 4px;text-align:center}
+
+
+/* ===== RARETÉS SIGNATURE (rarete_custom) : le badge garde .rar-<palier de base>, .rar-cust et .rar-c-<profil> s'y ajoutent ===== */
+.rar-badge.rar-cust{font-size:11px;letter-spacing:.06em;padding:3px 10px;color:#fff;animation:none;box-shadow:0 0 12px color-mix(in srgb,var(--rar-l) 70%,transparent),0 0 2px var(--rar) inset}
+.rar-badge.rar-c-handicap{color:#fff;border-color:#ffd400;background:repeating-linear-gradient(135deg,#0a2a73 0 9px,#0d3a99 9px 18px);text-shadow:0 0 6px #1f6bff;animation:rarHandicap 1.6s ease-in-out infinite}
+.rar-badge.rar-c-vocaloid{color:#eafff6;background:linear-gradient(90deg,#05282f,#0a6a78,#05282f);background-size:200% 100%;text-shadow:0 0 8px #2de2ee;animation:rarOr 2.4s linear infinite}
+.rar-badge.rar-c-drone{color:#b9ffcb;font-family:var(--font-mono,ui-monospace,monospace);border-style:dashed;
+  background:linear-gradient(100deg,#04200f 40%,#0b5a2d 50%,#04200f 60%);background-size:260% 100%;animation:rarRadar 2.6s linear infinite}
+.rar-badge.rar-c-sncf{color:#fff;background:linear-gradient(90deg,#3a0716,#7a0f2b,#3a0716);background-size:200% 100%;animation:rarPreavis 1.4s steps(2) infinite}
+.rar-badge.rar-c-critair5{color:#d8d8de;background:linear-gradient(180deg,#26262c,#0c0c0f);border-color:#a8a8b3;animation:rarSmog 3.2s ease-in-out infinite}
+.rar-badge.rar-c-startup{color:#fff;background:linear-gradient(90deg,#4a1b86,#b02a9c,#4a1b86);background-size:200% 100%;animation:rarOr 2.2s linear infinite}
+@keyframes rarHandicap{50%{box-shadow:0 0 22px #ffd400,0 0 6px #1f6bff inset}}
+@keyframes rarRadar{to{background-position:-260% 0}}
+@keyframes rarPreavis{50%{box-shadow:0 0 20px #ff9f1a,0 0 3px #fff inset}}
+@keyframes rarSmog{50%{box-shadow:0 0 22px #ff6a00,0 0 4px #888 inset}}
+.rar-carte.rar-cust{box-shadow:0 0 0 1px var(--rar),0 0 24px color-mix(in srgb,var(--rar-l) 60%,transparent)}
+.rar-carte.rar-c-handicap{background-image:repeating-linear-gradient(135deg,transparent 0 14px,rgba(255,212,0,.05) 14px 28px)}
+.rar-carte.rar-c-drone{background-image:radial-gradient(circle at 80% 20%,rgba(77,255,122,.12),transparent 55%)}
+.rar-carte.rar-c-sncf{background-image:linear-gradient(90deg,transparent 0 46%,rgba(255,255,255,.05) 46% 48%,transparent 48%)}
