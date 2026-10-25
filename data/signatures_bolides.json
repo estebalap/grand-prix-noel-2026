@@ -468,6 +468,71 @@
    "particules": "billets",
    "filtre": "neige_tv",
    "jingle": "caisse_enregistreuse"
+  },
+  "N01": {
+   "particules": "etincelles_bleues",
+   "filtre": "thermique",
+   "jingle": "sirene_police"
+  },
+  "N02": {
+   "particules": "bulles",
+   "filtre": "halo_reve",
+   "jingle": "pop_bulle"
+  },
+  "N03": {
+   "particules": "feuilles_mortes",
+   "filtre": "vhs",
+   "jingle": "turbo_pschitt"
+  },
+  "N04": {
+   "particules": "arcs_electriques",
+   "filtre": "glitch",
+   "jingle": "moteur_electrique"
+  },
+  "N05": {
+   "particules": "sable",
+   "filtre": "nocturne",
+   "jingle": "moteur_electrique"
+  },
+  "N06": {
+   "particules": "sable",
+   "filtre": "contre_jour",
+   "jingle": "rugissement_v8"
+  },
+  "N07": {
+   "particules": "neige",
+   "filtre": "nocturne",
+   "jingle": "corne_brume"
+  },
+  "N08": {
+   "particules": "pieces",
+   "filtre": "or_liquide",
+   "jingle": "cristal"
+  },
+  "N09": {
+   "particules": "etincelles_bleues",
+   "filtre": "negatif",
+   "jingle": "sabre"
+  },
+  "N10": {
+   "particules": "huile",
+   "filtre": "bichro_rouge",
+   "jingle": "boum"
+  },
+  "N11": {
+   "particules": "etoiles",
+   "filtre": "contre_jour",
+   "jingle": "fanfare"
+  },
+  "N12": {
+   "particules": "cendres",
+   "filtre": "vhs",
+   "jingle": "piano_triste"
+  },
+  "N13": {
+   "particules": "cendres",
+   "filtre": "glitch",
+   "jingle": "boum"
   }
  }
 }

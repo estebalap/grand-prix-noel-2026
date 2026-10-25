@@ -1,0 +1,104 @@
+{
+  "_doc": "Musiques réelles normalisées -16 LUFS pour N01-N11",
+  "bolides": {
+    "N01": {
+      "titre": "Breathe",
+      "artiste": "The Prodigy",
+      "fichier": "The Prodigy - Breathe",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "choisi_par": "Esteban & Antigravity (Nouveaux Bolides N01-N11, 15/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — pulse électronique survolté et basses lourdes Rapid Pulse."
+    },
+    "N02": {
+      "titre": "Figure-8 Circuit (Mario Kart DS)",
+      "artiste": "Shinobu Tanaka",
+      "fichier": "Mario Kart DS - Figure-8 Circuit Theme",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "choisi_par": "Esteban & Antigravity (Nouveaux Bolides N01-N11, 15/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — musique de fond Mario Kart DS demandée par Esteban pour Pedal Driver."
+    },
+    "N03": {
+      "titre": "Gas Gas Gas (Initial D)",
+      "artiste": "Manuel",
+      "fichier": "Manuel - Gas Gas Gas",
+      "debut_s": 48.0,
+      "debut_sur": true,
+      "choisi_par": "Esteban & Antigravity (Nouveaux Bolides N01-N11, 15/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — refrain Eurobeat culte Initial D Subaru WRX STI."
+    },
+    "N04": {
+      "titre": "Alles Neu",
+      "artiste": "Peter Fox",
+      "fichier": "Peter Fox - Alles Neu",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "choisi_par": "Esteban & Antigravity (Nouveaux Bolides N01-N11, 15/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — cordes percutantes et flow berlinois Mercedes CLA."
+    },
+    "N05": {
+      "titre": "Electric Avenue",
+      "artiste": "Eddy Grant",
+      "fichier": "Eddy Grant - Electric Avenue",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "choisi_par": "Esteban & Antigravity (Nouveaux Bolides N01-N11, 15/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — synth-funk électrique et satire hybride Prius kaki."
+    },
+    "N06": {
+      "titre": "Fortunate Son",
+      "artiste": "Creedence Clearwater Revival",
+      "fichier": "Creedence Clearwater Revival - Fortunate Son",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "choisi_par": "Esteban & Antigravity (Nouveaux Bolides N01-N11, 15/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — riff sudiste 60s d'anthologie Corvette Sting Ray 64."
+    },
+    "N07": {
+      "titre": "Misirlou",
+      "artiste": "Dick Dale & His Del-Tones",
+      "fichier": "Dick Dale - Misirlou",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "choisi_par": "Esteban & Antigravity (Nouveaux Bolides N01-N11, 15/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — guitare surf rock survoltée custom wagon Nomad 55."
+    },
+    "N08": {
+      "titre": "London Calling",
+      "artiste": "The Clash",
+      "fichier": "The Clash - London Calling",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "choisi_par": "Esteban & Antigravity (Nouveaux Bolides N01-N11, 15/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — hymne punk-rock britannique culte Gov'ner."
+    },
+    "N09": {
+      "titre": "Arkham City (Main Theme)",
+      "artiste": "Nick Arundel & Ron Fish",
+      "fichier": "Nick Arundel - Batman Arkham City Main Theme",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "choisi_par": "Esteban & Antigravity (Nouveaux Bolides N01-N11, 15/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — chœurs sombres et envolée symphonique Batman Arkham City (18e thème Batman)."
+    },
+    "N10": {
+      "titre": "Dragula",
+      "artiste": "Rob Zombie",
+      "fichier": "Rob Zombie - Dragula",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "choisi_par": "Esteban & Antigravity (Nouveaux Bolides N01-N11, 15/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — métal industriel et fureur dragster V8 454 Overbored 454."
+    },
+    "N11": {
+      "titre": "AcceleRacers Theme (Drive to Survive)",
+      "artiste": "Hot Wheels AcceleRacers",
+      "fichier": "Hot Wheels AcceleRacers - Drive to Survive Theme",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "choisi_par": "Esteban & Antigravity (Nouveaux Bolides N01-N11, 15/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — thème officiel AcceleRacers Metal Maniacs Riveted."
+    }
+  }
+}

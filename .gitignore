@@ -1,0 +1,40 @@
+# ── Grand Prix de Noël : ce qui ne doit JAMAIS partir sur le dépôt public ──────────────────────────────────────
+# Vidéos (lourdes, servies par le PC de la régie) — limite GitHub : 100 Mo par fichier
+*.mp4
+*.mov
+*.webm
+*.mkv
+
+# Intro_3D : mix audio .wav (> 5 Mo, régénérables par audio_v*/LANCER_V*.bat) et images de capture intermédiaires
+Intro_3D/**/*.wav
+Intro_3D/sorties/_images_*/
+Intro_3D/**/_tmp_*
+
+# Intro_3D : extraits musicaux COMMERCIAUX (droits d'auteur) — fournis à part dans AUDIO_REEL_INTRO_3D.zip
+Intro_3D/audio_v5/themes_ecuries/*.mp3
+Intro_3D/audio_v5/themes_ecuries/*.m4a
+Intro_3D/audio_v5/themes_ecuries/*.ogg
+Intro_3D/audio_v5/signatures_reelles/
+Intro_3D/audio_v5/sons_ecuries/
+Intro_3D/audio_*/sons_bbc*/
+
+# Banque de sons sous droits de l'application (seules les banques CC0 / CC BY sont publiées par preparer_pages.py)
+sounds/sfx/
+sounds/voice/
+sounds/sources_freesound/
+sounds/sources_turbine/
+sounds/moteurs/[0-9][0-9].mp3
+
+# Photos de miniatures récupérées sur des wikis (droits des photographes / fabricants) : usage privé
+photos/
+photos_bolides/
+videos/
+
+# Outils
+__pycache__/
+*.pyc
+node_modules/
+.DS_Store
+Thumbs.db
+desktop.ini
+AUDIO_REEL_INTRO_3D*.zip

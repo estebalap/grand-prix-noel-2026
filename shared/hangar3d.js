@@ -15,7 +15,7 @@
                   effacées quand on les voit par la tranche)
      contact      ombres de contact épaisses : empreinte du conteneur (qui s'assombrit à l'atterrissage), pièces de coin ISO et
                   calages d'acier aux quatre coins, chacun avec son ombre
-   creerHangar(THREE, { L, P, H, renderer, anisotropie }) → { groupe, solMat, spot, cible, maj(t, dt, { noir, yConteneur, univers }),
+   creerHangar(THREE, { L, P, H, renderer, anisotropie }) → { groupe, solMat, spot, cible, maj(t, dt, { noir, yConteneur, univers, extinction }),
                                                             ombreConteneur, lacher(), basculer(), dispose() } */
 
 const mulberry = (g) => () => { g = (g + 0x6D2B79F5) >>> 0; let t = g; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
@@ -295,7 +295,7 @@ export function creerHangar(THREE, { L = 9.54, P = 4.4, H = 4.16, renderer = nul
     const amp = new THREE.Mesh(geoAmp, matAmpoule); amp.rotation.x = Math.PI / 2; amp.position.y = -0.2; g.add(amp);
     const tige = new THREE.Mesh(geoTige, matAcier); tige.scale.y = yB - y - 0.5; tige.position.y = 0.55 + (yB - y - 0.5) / 2; g.add(tige);
     const h = new THREE.Sprite(matHalo); h.scale.setScalar(2.4 * halo); h.position.y = -0.35; g.add(h);
-    groupe.add(g); lampes.push({ g, h, base: 2.4 * halo }); return g;
+    groupe.add(g); lampes.push({ g, h, amp, base: 2.4 * halo }); return g;
   };
   suspension(0.5, 15.2, 0.05, 1.1);
   for (const [x, z] of [[-27, -6], [-18, -24], [9, -24], [27, -24], [-36, -30], [18, -36], [-9, -36], [27, 6]]) suspension(x, 15.2, z, 0.9);
@@ -334,7 +334,7 @@ export function creerHangar(THREE, { L = 9.54, P = 4.4, H = 4.16, renderer = nul
 
   /* --- maj par image */
   let univers = false;
-  const maj = (t, dt, { noir = 0, yConteneur = 0, conteneurX = 0, conteneurZ = 0 } = {}) => {
+  const maj = (t, dt, { noir = 0, yConteneur = 0, conteneurX = 0, conteneurZ = 0, extinction = null } = {}) => {
     if (univers) return;
     const pen = 1 - 0.97 * noir;                                              // inserts macro : la lampe s'efface (la pénombre est le sujet)
     spot.intensity = 3.4 * pen; for (const l of lointaines) l.intensity = (l === lointaines[0] ? 0.6 : 0.5) * (1 - 0.5 * noir);
@@ -342,6 +342,13 @@ export function creerHangar(THREE, { L = 9.54, P = 4.4, H = 4.16, renderer = nul
     matP.uniforms.temps.value = t; matP.uniforms.force.value = 1 - 0.7 * noir;
     for (const m of brumes) { m.material.uniforms.temps.value = t; m.material.uniforms.force.value = 1 - 0.4 * noir; }
     for (const l of lampes) l.h.scale.setScalar(l.base * (0.97 + 0.03 * Math.sin(t * 100 * Math.PI) ** 2));   // scintillement à 100 Hz du sodium
+    if (extinction) {                                                         // MODE DRAME : les lampes meurent une à une (facteurs 0 → 1 par lampe)
+      const ks = extinction.spot ?? 1;
+      spot.intensity *= ks; matCone.uniforms.force.value *= ks; matP.uniforms.force.value *= ks;
+      for (const m of brumes) m.material.uniforms.force.value *= 0.35 + 0.65 * ks;
+      lointaines.forEach((l, i) => { l.intensity *= (extinction.lointaines || [])[i] ?? 1; });
+      lampes.forEach((l, i) => { const k = (extinction.lampes || [])[i] ?? 1; l.h.scale.multiplyScalar(k); l.amp.visible = k > 0.5; });
+    }
     const k = Math.max(0, Math.min(1, 1 - yConteneur / 7));
     matEmpreinte.opacity = 0.9 * k * k; matBlob.opacity = yConteneur < 0.05 ? 0.85 : 0.85 * k * k * 0.6;
     contact.position.set(conteneurX, 0, conteneurZ);

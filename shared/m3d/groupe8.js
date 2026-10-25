@@ -7,6 +7,33 @@ import { aide, arco } from './aide_8.js';
    U05 (muscle-car 1970 dorée à bandes). Aucune marque : motifs et mots génériques uniquement.
    ===================================================================================================== */
 
+/** Inspection des trains roulants (chantier V5) : retire des AUTOCOLLANTS (maillages texturés transparents enfants de `cible`)
+ *  les triangles qui tombent dans le volume d'un pneu (disque du pneu × largeur de bande de roulement, de chaque côté).
+ *  Ces zones sont déjà rendues transparentes par le « trouage » du canvas : l'aspect ne change pas, mais plus aucune pellicule
+ *  ne traverse la gomme. roues : [{ x, y?, RW | R, z (demi-voie au centre du pneu), ep }]. */
+function ajourerPneus(cible, roues) {
+  const disques = [];
+  for (const r of roues) {
+    const R = r.RW ?? r.R, y = r.y ?? R, a = r.z - r.ep / 2 - 0.04, b = r.z + r.ep / 2 + 0.04;
+    disques.push({ x: r.x, y, R2: R * R, z0: a, z1: b }, { x: r.x, y, R2: R * R, z0: -b, z1: -a });
+  }
+  const dans = (x, y, z) => disques.some((d) => z >= d.z0 && z <= d.z1 && (x - d.x) ** 2 + (y - d.y) ** 2 < d.R2);
+  const T = [[1, 0], [0, 1], [0, 0], [0.5, 0.5], [0.5, 0], [0, 0.5], [1 / 3, 1 / 3]];
+  const liste = [];
+  cible.traverse((me) => { if (me.isMesh && me.geometry && me.geometry.groups.length <= 1 && [].concat(me.material).every((m) => m.map && m.transparent)) liste.push(me); });
+  for (const me of liste) {
+    me.updateWorldMatrix(true, false);
+    const e = me.matrixWorld.elements, g = me.geometry, p = g.attributes.position;
+    const P = (i) => { const x = p.getX(i), y = p.getY(i), z = p.getZ(i); return [e[0] * x + e[4] * y + e[8] * z + e[12], e[1] * x + e[5] * y + e[9] * z + e[13], e[2] * x + e[6] * y + e[10] * z + e[14]]; };
+    const idx = g.index ? Array.from(g.index.array) : Array.from({ length: p.count }, (_, i) => i), reste = [];
+    for (let t = 0; t + 2 < idx.length; t += 3) {
+      const A = P(idx[t]), B = P(idx[t + 1]), C = P(idx[t + 2]);
+      if (!T.some(([u, v]) => { const w = 1 - u - v; return dans(A[0] * u + B[0] * v + C[0] * w, A[1] * u + B[1] * v + C[1] * w, A[2] * u + B[2] * v + C[2] * w); })) reste.push(idx[t], idx[t + 1], idx[t + 2]);
+    }
+    if (reste.length < idx.length) g.setIndex(reste);
+  }
+}
+
 /** Aileron de GT : lame inclinée, déflecteurs latéraux, jambes inclinées. */
 function aileronGT(o, a, { x, y, larg, corde, lame, plaque, jambes, yPied }) {
   const c = corde / 2;
@@ -101,6 +128,7 @@ function gtTurquoise(ctx) {
   a.plaque(-3.96, 0.62, -1, '4');
   // barème : pavillon abaissé (2,16 → 1,68), caisse et voies élargies de 15 %, pneus à fleur des ailes
   const fin = a.finir(roues, { carte: [[0, 0], [1.3, 1.3], [2.16, 1.74]], sw: 1.15, rigides: rig, doublureMat: sombre, toit: { y: 2.16, x0: -1.3, x1: 0.3 } });
+  ajourerPneus(ctx.chassis, roues);                                     // inspection des trains : aucun autocollant dans la gomme
   return { L: 8.2, largeur: fin.largeur, hauteur: fin.hauteur, xAvant: 4.25, xArriere: -3.95, roues };
 }
 
@@ -162,7 +190,8 @@ function crossoverRallye(ctx) {
     const lu = o.boite(0.05, 0.05, 0.42, lumBlanche, 3.61, hy - 0.08, s * 0.64); lu.rotation.set(0, s * -0.32, 0);
   }
   // bouclier noir (pleine largeur, enveloppe le bas du nez) + lame avant débordante + canards
-  o.profil([[3.0, 0], [3.84, 0], [3.92, 0.18], [3.88, 0.48], [3.68, 0.6], [3.0, 0.6]], 2.12, noir, { galbe: { avant: 0.22, arriere: 0, fruit: 0.04, bombe: 0, lAv: 0.35 }, biseau: 0.04, y: 0.42 });
+  // (largeur 2,07 : les joues du bouclier s'arrêtent 1,5 cm avant la bande de roulement du pneu avant, qu'elles traversaient)
+  o.profil([[3.0, 0], [3.84, 0], [3.92, 0.18], [3.88, 0.48], [3.68, 0.6], [3.0, 0.6]], 2.07, noir, { galbe: { avant: 0.22, arriere: 0, fruit: 0.04, bombe: 0, lAv: 0.35 }, biseau: 0.04, y: 0.42 });
   o.profil([[3.3, 0], [4.06, 0], [4.06, 0.06], [3.3, 0.09]], 2.3, noir, { galbe: { avant: 0.3, arriere: 0, fruit: 0, bombe: 0, lAv: 0.25 }, biseau: 0.02, y: 0.36 });
   for (const s of [-1, 1]) { const ca = o.boite(0.42, 0.04, 0.3, noir, 3.68, 0.8, s * 1.0); ca.rotation.set(0.25 * s, s * -0.3, 0); }
   for (const s of [-1, 1]) o.boite(0.06, 0.16, 0.36, sombre, 3.91, 0.64, s * 0.62);   // entrées d'air de bouclier
@@ -200,6 +229,7 @@ function crossoverRallye(ctx) {
   a.plaque(-3.82, 0.98, -1, '01');
   // BRIEF 10 (famille SUV & crossovers, H_toit/W ≈ 0,80) : plus de chop top, caisse dessinée à sa hauteur réelle ; caisse et voies +5 %, pneus à fleur des élargisseurs
   const fin = a.finir(roues, { carte: [[0, 0], [1, 1]], sw: 1.08, rigides: rig, doublureMat: sombre, toit: { y: 2.48, x0: -2.4, x1: -0.2 } });
+  ajourerPneus(ctx.chassis, roues);                                     // inspection des trains : aucun autocollant dans la gomme
   return { L: 8.4, largeur: fin.largeur, hauteur: fin.hauteur, xAvant: 4.06, xArriere: -4.36, roues };
 }
 
@@ -269,6 +299,7 @@ function coupeTurbo84(ctx) {
   }, { cw: 2048, ch: 300, trous });
   // barème (catégorie A) : pavillon abaissé (2,14 → 1,64), caisse et voies élargies de 26 %, pneus à fleur
   const fin = a.finir(roues, { carte: [[0, 0], [1.18, 1.18], [2.14, 1.86]], sw: 1.26, rigides: rig, doublureMat: sombre, toit: { y: 2.14, x0: -0.7, x1: 0.15 } });
+  ajourerPneus(ctx.chassis, roues);                                     // inspection des trains : aucun autocollant dans la gomme
   return { L: 7.3, largeur: fin.largeur, hauteur: fin.hauteur, xAvant: 3.66, xArriere: -3.6, roues };
 }
 
@@ -339,6 +370,7 @@ function coupeFlammes77(ctx) {
   }, { cw: 2048, ch: 320, trous });
   // barème (catégorie A) : pavillon abaissé (2,08 → 1,65), caisse et voies élargies de 20 %, pneus à fleur
   const fin = a.finir(roues, { carte: [[0, 0], [1.22, 1.22], [2.085, 1.82]], sw: 1.2, rigides: rig, doublureMat: sombre, toit: { y: 2.085, x0: -0.75, x1: 0.25 } });
+  ajourerPneus(ctx.chassis, roues);                                     // inspection des trains : aucun autocollant dans la gomme
   return { L: 7.6, largeur: fin.largeur, hauteur: fin.hauteur, xAvant: 3.78, xArriere: -3.84, roues };
 }
 
@@ -422,6 +454,7 @@ function pickupSurbaisse(ctx) {
   }, { w: 3.28, h: 0.62, x: -2.28, y: 1.19, zBas: 1.04 - 0.06 + 0.065, zHaut: 1.04 - 0.06 + 0.065, cw: 1024, ch: 200, trous: [{ x: -2.2, y: 0.58, r: Rb + 0.06 }] });
   // barème (catégorie C) : cabine abaissée (2,32 → 2,08), caisse et voies élargies de 15 %, pneus à fleur
   const fin = a.finir(roues, { carte: [[0, 0], [1.55, 1.55], [2.32, 2.12]], sw: 1.3, rigides: rig, doublureMat: sombre, toit: { y: 2.32, x0: -0.5, x1: 0.85 } });
+  ajourerPneus(ctx.chassis, roues);                                     // inspection des trains : aucun autocollant dans la gomme
   return { L: 8.25, largeur: fin.largeur, hauteur: fin.hauteur, xAvant: 4.12, xArriere: -4.13, roues };
 }
 
@@ -504,6 +537,7 @@ function muscleCar70(ctx) {
   }, { cw: 2048, ch: 320, trous });
   // barème (catégorie A) : pavillon abaissé (2,18 → 1,64), caisse et voies élargies de 24 %, pneus à fleur
   const fin = a.finir(roues, { carte: [[0, 0], [1.3, 1.3], [2.18, 1.84]], sw: 1.24, rigides: rig, doublureMat: sombre, toit: { y: 2.18, x0: -0.9, x1: 0.25 } });
+  ajourerPneus(ctx.chassis, roues);                                     // inspection des trains : aucun autocollant dans la gomme
   return { L: 7.85, largeur: fin.largeur, hauteur: fin.hauteur, xAvant: 3.96, xArriere: -3.89, roues };
 }
 

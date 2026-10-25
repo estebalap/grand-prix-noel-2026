@@ -58,7 +58,7 @@ export async function chargerSTL(THREE, url, { echelle = 1, lisse = false } = {}
   const k = url + '|' + echelle + '|' + lisse;
   if (cache.has(k)) return cache.get(k);
   const p = (async () => {
-    const r = await fetch(url, { cache: 'force-cache' });
+    const r = await fetch(url, { cache: 'no-cache' });
     if (!r.ok) throw new Error('STL introuvable : ' + url);
     const { positions, normals } = parseSTL(await r.arrayBuffer());
     for (let i = 0; i < positions.length; i += 3) {

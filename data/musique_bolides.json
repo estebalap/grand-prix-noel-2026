@@ -1,8 +1,8 @@
 {
-  "_doc": "Morceau exact du reveal de chaque bolide (lu par generer_catalogue_reveal.py). Généré par enquete_bolides.py. Champs debut_s/debut_sur/achat : audit du 12 oct. 2026 (catalogue Apple Music). Copie lue par le navigateur : web/data/musique_bolides.json. « repli » : morceau déjà dans la bibliothèque, joué tant que le morceau idéal manque (« fichier » = nom exact sans extension). « remix »: 'jingle' : le fichier trouvé est remixé à la volée (remix_jingle.js). « vitesse » : facteur de lecture (2 = deux fois plus vite). « fichier » sur le morceau principal : nom exact du fichier choisi par Esteban.",
+  "_doc": "Morceau exact du reveal de chaque bolide (lu par generer_catalogue_reveal.py). Généré par enquete_bolides.py. Champs debut_s/debut_sur/achat : audit du 12 oct. 2026 (catalogue Apple Music). Copie lue par le navigateur : web/data/musique_bolides.json. « repli » : morceau déjà dans la bibliothèque, joué tant que le morceau idéal manque (« fichier » = nom exact sans extension). « remix »: 'jingle' : le fichier trouvé est remixé à la volée (remix_jingle.js). « vitesse » : facteur de lecture (2 = deux fois plus vite). « fichier » sur le morceau principal : nom exact du fichier choisi par Esteban. Les « repli » sous licence libre (CC0/CC BY/CC BY-SA) sont dans Musique/11_Musiques_Libres/ ; crédits dans CREDITS.md. · V5 : morceaux réels d'Esteban câblés par outils/v5_musiques_reelles.py (13/10/2026). • V5 : 75 musiques 100% distinctes normalisées -16 LUFS (13/10/2026). • V8 : 11 nouveaux bolides N01-N11 (15/10/2026), morceaux réels de la bibliothèque ou à déposer (repli réel).",
   "bolides": {
     "B01": {
-      "titre": "Batman Theme",
+      "titre": "Batman Theme (1966)",
       "artiste": "Neal Hefti",
       "genre": "acidjazz",
       "style": "big band surf 1966, cuivres et chœurs « Batmaaan ! »",
@@ -16,252 +16,722 @@
         }
       ],
       "fichier": "01 - Batman Theme",
-      "note": "Fichier fourni par Esteban : générique de la série de 1966.",
-      "choisi_par": "Esteban (12 oct. 2026)"
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — na-na-na-na cuivres surf 1966 Adam West.",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)"
     },
     "B02": {
-      "titre": "The Batman Theme",
+      "titre": "The Batman Theme (1989)",
       "artiste": "Danny Elfman",
       "genre": "symphonie",
       "style": "orchestre gothique 1989, cuivres massifs",
-      "debut_s": 48,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/fr/album/the-batman-theme/41229136?i=41229142"
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/the-batman-theme/41229136?i=41229142",
+      "repli": {
+        "fichier": "Alexandr Zhelanov - Darkness March",
+        "titre": "Darkness March",
+        "artiste": "Alexandr Zhelanov",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://opengameart.org/content/darkness-march",
+        "attribution": "\"Darkness March\" by Alexandr Zhelanov (soundcloud.com/alexandr-zhelanov) — CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+        "debut_s": 3.65,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Marche martiale lourde, pleine dès la 1re seconde (-9,9 LUFS, LRA 6,5) : l'ADN Elfman sans le citer."
+      },
+      "historique": [
+        {
+          "titre": "The Batman Theme",
+          "artiste": "Danny Elfman"
+        },
+        {
+          "titre": "Batman Theme",
+          "artiste": "Neal Hefti"
+        }
+      ],
+      "fichier": "Danny Elfman - The Batman Theme (1989)",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — thème gothique orchestral Tim Burton."
     },
     "B03": {
-      "titre": "Face to Face",
-      "artiste": "Siouxsie and the Banshees",
+      "titre": "Batman The Animated Series (Theme)",
+      "artiste": "Shirley Walker",
       "genre": "symphonie",
       "style": "valse de cirque macabre",
-      "debut_s": 55,
-      "debut_sur": false,
+      "debut_s": 0.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/us/album/face-to-face/322024519?i=322024849",
-      "note": "Correction d'attribution : « Face to Face » (BO de Batman Returns) est une chanson de Siouxsie and the Banshees coécrite/produite avec Danny Elfman, pas un morceau d'Elfman seul."
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — série animée culte 1992.",
+      "repli": {
+        "fichier": "joeBaxterWebb - Murder on the Metrorail",
+        "titre": "Murder on the Metrorail",
+        "artiste": "joeBaxterWebb",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://opengameart.org/content/murder-on-the-metrorail",
+        "attribution": "\"Murder on the Metrorail\" by joeBaxterWebb — CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+        "debut_s": 10.67,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Trip-hop gothique félin, entre fort et monte d'un cran à 11 s ; court (103 s) mais bouclable."
+      },
+      "historique": [
+        {
+          "titre": "Face to Face",
+          "artiste": "Siouxsie and the Banshees"
+        },
+        {
+          "titre": "Batman Theme",
+          "artiste": "Neal Hefti"
+        }
+      ],
+      "fichier": "Shirley Walker - Batman The Animated Series Theme",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)"
     },
     "B04": {
-      "titre": "Merry Go Round Broke Down",
-      "artiste": "Jerry Goldsmith",
+      "titre": "Birth of a Penguin (Batman Returns)",
+      "artiste": "Danny Elfman",
       "genre": "swing",
       "style": "cartoons des années 40, cuivres élastiques",
-      "debut_s": 0,
+      "debut_s": 15.0,
       "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/merry-go-round-broke-down/1444003038?i=1444004405",
-      "note": "Correction d'attribution : « Looney Tunes (Carl Stalling) » n'est pas un crédit commercial ; l'enregistrement orchestral disponible du thème (Friend/Franklin) est celui de Jerry Goldsmith (BO Looney Tunes: Back in Action, 0:56). Thème cartoon conservé pour la version Tooned."
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — cloche et cuivres sombres Batman Returns.",
+      "repli": {
+        "fichier": "Matthew Pablo - Circus Dilemma",
+        "titre": "Circus Dilemma",
+        "artiste": "Matthew Pablo",
+        "licence": "CC BY 3.0",
+        "page_licence": "https://opengameart.org/content/circus-dilemma",
+        "attribution": "\"Circus Dilemma\" by Matthew Pablo (www.matthewpablo.com) — CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/)",
+        "debut_s": 2.07,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Cartoon de cirque gag par gag, attaque immédiate : la Batmobile élastique a enfin sa bande-son Looney Tunes."
+      },
+      "historique": [
+        {
+          "titre": "Merry Go Round Broke Down",
+          "artiste": "Jerry Goldsmith"
+        },
+        {
+          "titre": "Batman Theme",
+          "artiste": "Neal Hefti"
+        }
+      ],
+      "fichier": "Danny Elfman - Batman Returns (Birth of a Penguin)",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)"
     },
     "B05": {
-      "titre": "Tiger Rag",
-      "artiste": "Original Dixieland Jazz Band",
+      "titre": "Batman Forever (Main Title)",
+      "artiste": "Elliot Goldenthal",
       "genre": "swing",
       "style": "jazz Nouvelle-Orléans 1917, clarinette folle",
-      "debut_s": 0,
-      "debut_sur": false,
+      "debut_s": 0.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/tiger-rag/1492365129?i=1492365133",
       "repli": {
         "fichier": "Rossini - William Tell Overture Finale",
         "titre": "William Tell Overture (Finale)",
         "artiste": "Gioachino Rossini",
         "note": "Ouverture des serials des années 40 pour la Batmobile 1943."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Tiger Rag",
+          "artiste": "Original Dixieland Jazz Band"
+        },
+        {
+          "titre": "Batman Theme",
+          "artiste": "Neal Hefti"
+        }
+      ],
+      "fichier": "Elliot Goldenthal - Batman Forever Main Title",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — fanfare héroïque baroque 1995."
     },
     "B06": {
-      "titre": "Men Are Still Good (The Batman Suite)",
+      "titre": "Beautiful Lie (Batman v Superman)",
       "artiste": "Hans Zimmer & Junkie XL",
       "genre": "epique",
       "style": "percussions industrielles BvS, tambours de guerre",
-      "debut_s": 300,
-      "debut_sur": false,
+      "debut_s": 10.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/us/album/men-are-still-good-the-batman-suite/1454323119?i=1454323295",
-      "note": "« Beast » n'existe pas sur la BO de Batman v Superman (vérifié sur la tracklist standard + deluxe) ; remplacé par la suite Batman officielle de la même BO."
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — piano et cordes dramatiques BvS.",
+      "repli": {
+        "fichier": "Matthew Pablo - Wasteland Showdown",
+        "titre": "Wasteland Showdown",
+        "artiste": "Matthew Pablo",
+        "licence": "CC BY 3.0",
+        "page_licence": "https://opengameart.org/content/wasteland-showdown-battle-music",
+        "attribution": "\"Wasteland Showdown\" by Matthew Pablo (www.matthewpablo.com) — CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/)",
+        "debut_s": 76.45,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Masse de tambours et cuivres graves dès 3 s, gros crescendo à 77 s : le registre Zimmer/Junkie XL sans citation."
+      },
+      "historique": [
+        {
+          "titre": "Men Are Still Good (The Batman Suite)",
+          "artiste": "Hans Zimmer & Junkie XL"
+        },
+        {
+          "titre": "Batman Theme",
+          "artiste": "Neal Hefti"
+        }
+      ],
+      "fichier": "Hans Zimmer - Beautiful Lie (Batman v Superman)",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)"
     },
     "B07": {
-      "titre": "Airwolf Main Theme",
-      "artiste": "Rick Patterson (thème de Sylvester Levay)",
+      "titre": "Airwolf Theme",
+      "artiste": "Sylvester Levay",
       "genre": "acidjazz",
       "style": "big band bebop de Cowboy Bebop",
-      "debut_s": 22,
-      "debut_sur": false,
+      "debut_s": 0.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/us/album/airwolf-main-theme/504702273?i=504702325",
-      "note": "« Tank! » (Cowboy Bebop) n'a aucun lien avec un engin volant ; le thème d'Airwolf est LE thème d'hélicoptère culte des années 80 (l'enregistrement original de Levay n'étant pas en vente, version fidèle de Rick Patterson)."
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — thème hélico Supercopter pour le Batcopter.",
+      "repli": {
+        "fichier": "Bogart VGM - Neon Action (Full)",
+        "titre": "Neon Action (Full)",
+        "artiste": "Bogart VGM",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://opengameart.org/content/neon-action",
+        "attribution": "\"Neon Action\" by Bogart VGM (facebook.com/BogartVGM) — CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+        "debut_s": 12.53,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Guitares et synthés 80s, drop net à 13 s (+6 dB) puis plateau tenu à -11 dB : générique de série aérienne parfait."
+      },
+      "historique": [
+        {
+          "titre": "Airwolf Main Theme",
+          "artiste": "Rick Patterson (thème de Sylvester Levay)"
+        },
+        {
+          "titre": "Batman Theme",
+          "artiste": "Neal Hefti"
+        }
+      ],
+      "fichier": "Airwolf Theme",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)"
     },
     "B08": {
-      "titre": "Kryptonite",
-      "artiste": "3 Doors Down",
+      "titre": "Molossus (Batman Begins)",
+      "artiste": "Hans Zimmer & James Newton Howard",
       "genre": "rock",
       "style": "stadium rock, basses saturées",
-      "debut_s": 42,
-      "debut_sur": false,
+      "debut_s": 8.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/kryptonite/1440664882?i=1440664900",
-      "note": "« Radioactive » n'est qu'une allusion indirecte ; « Kryptonite » (refrain « …will you still call me Superman? ») colle exactement à la Batmobile Kryptonite de BvS."
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — poursuite de chauves-souris Tumbler.",
+      "repli": {
+        "fichier": "Alex_089 - Burning",
+        "titre": "Burning",
+        "artiste": "Alex_089",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://opengameart.org/content/burning",
+        "attribution": "Music by Alex089 — \"Burning\" — CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+        "debut_s": 0.0,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Rock alternatif mélancolique propre (crête -4,2 dBTP) mais trop sage à -19 LUFS : à normaliser de +6 dB. À REMPLACER.",
+        "a_remplacer": true
+      },
+      "historique": [
+        {
+          "titre": "Kryptonite",
+          "artiste": "3 Doors Down"
+        },
+        {
+          "titre": "Batman Theme",
+          "artiste": "Neal Hefti"
+        }
+      ],
+      "fichier": "Hans Zimmer - Molossus (Batman Begins)",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)"
     },
     "B09": {
-      "titre": "Is She With You?",
-      "artiste": "Hans Zimmer & Junkie XL",
-      "genre": "doom",
-      "style": "guitares lourdes et percussions de combat",
-      "debut_s": 10,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/fr/album/is-she-with-you-wonder-woman-theme/1454323119?i=1454323292"
-    },
-    "B10": {
-      "titre": "The Final Countdown",
-      "artiste": "Europe",
-      "genre": "rock",
-      "style": "synthés 80's, riff de stade",
-      "debut_s": 0,
-      "debut_sur": true,
-      "achat": "https://music.apple.com/fr/album/the-final-countdown/196480323?i=196480329"
-    },
-    "B11": {
-      "titre": "Bad Boys",
-      "artiste": "Inner Circle",
-      "genre": "rock",
-      "style": "reggae-rock de série policière",
-      "debut_s": 0,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/fr/album/bad-boys/1718311580?i=1718311590"
-    },
-    "B12": {
       "titre": "Why So Serious?",
       "artiste": "Hans Zimmer",
       "genre": "doom",
+      "style": "guitares lourdes et percussions de combat",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/is-she-with-you-wonder-woman-theme/1454323119?i=1454323292",
+      "repli": {
+        "fichier": "Kevin MacLeod - Aggressor",
+        "titre": "Aggressor",
+        "artiste": "Kevin MacLeod",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1700051",
+        "attribution": "\"Aggressor\" Kevin MacLeod (incompetech.com) — Licensed under Creative Commons: By Attribution 4.0 License — http://creativecommons.org/licenses/by/4.0/",
+        "debut_s": 2.38,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Violoncelles et cuivres en speed metal orchestral, attaque à 3 s : le riff de l'Amazone sans le plagier."
+      },
+      "historique": [
+        {
+          "titre": "Is She With You?",
+          "artiste": "Hans Zimmer & Junkie XL"
+        },
+        {
+          "titre": "Batman Theme",
+          "artiste": "Neal Hefti"
+        }
+      ],
+      "fichier": "Hans Zimmer - Why So Serious",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — corde distordue et montée en tension Joker / TDK."
+    },
+    "B10": {
+      "titre": "Gotham's Reckoning (Deshi Basara)",
+      "artiste": "Hans Zimmer",
+      "genre": "rock",
+      "style": "synthés 80's, riff de stade",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/the-final-countdown/196480323?i=196480329",
+      "repli": {
+        "fichier": "jukeri12 - Riding the Supernova",
+        "titre": "Riding the Supernova",
+        "artiste": "jukeri12",
+        "licence": "CC BY-SA 3.0",
+        "page_licence": "https://opengameart.org/content/riding-the-supernova",
+        "attribution": "\"Riding the Supernova\" by jukeri12 — CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0/)",
+        "debut_s": 13.28,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Synth-rock spatial, rampe nette à 8-13 s puis plateau triomphal à -12 dB : le cosmos de Final Countdown."
+      },
+      "historique": [
+        {
+          "titre": "The Final Countdown",
+          "artiste": "Europe"
+        },
+        {
+          "titre": "Batman Theme",
+          "artiste": "Neal Hefti"
+        }
+      ],
+      "fichier": "Hans Zimmer - Gothams Reckoning (The Dark Knight Rises)",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — chant puissant Deshi Basara Bane."
+    },
+    "B11": {
+      "titre": "Bad Boys (COPS Theme)",
+      "artiste": "Inner Circle",
+      "genre": "rock",
+      "style": "reggae-rock de série policière",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/bad-boys/1718311580?i=1718311590",
+      "repli": {
+        "fichier": "Tausdei - Vice Police",
+        "titre": "Vice Police",
+        "artiste": "Tausdei",
+        "licence": "CC BY 3.0",
+        "page_licence": "https://opengameart.org/content/vice-police",
+        "attribution": "Music by Tausdei — \"Vice Police\" — CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/)",
+        "debut_s": 0.0,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Synthwave flic-série-télé, plein volume dès 0 s, propre (crête +0,6) : le gyrophare néon du GCPD."
+      },
+      "historique": [
+        {
+          "titre": "Bad Boys",
+          "artiste": "Inner Circle"
+        },
+        {
+          "titre": "Batman Theme",
+          "artiste": "Neal Hefti"
+        }
+      ],
+      "fichier": "Inner Circle - Bad Boys",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — reggae police cruiser de Gotham."
+    },
+    "B12": {
+      "titre": "The End Is the Beginning Is the End",
+      "artiste": "The Smashing Pumpkins",
+      "genre": "doom",
       "style": "cordes grinçantes et crescendo de rire fou",
-      "debut_s": 225,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/fr/album/why-so-serious/284530501?i=284530521"
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/why-so-serious/284530501?i=284530521",
+      "repli": {
+        "fichier": "Machine - Dark Carnival (Extended)",
+        "titre": "Dark Carnival (Extended)",
+        "artiste": "Machine",
+        "licence": "CC BY 3.0",
+        "page_licence": "https://opengameart.org/content/dark-carnival",
+        "attribution": "\"Dark Carnival\" by Machine — CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/)",
+        "debut_s": 7.28,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Fête foraine piégée et jouets inquiétants, pile le lore ; s'installe à 5-7 s, mais reste sage (-15,7 LUFS)."
+      },
+      "historique": [
+        {
+          "titre": "Why So Serious?",
+          "artiste": "Hans Zimmer"
+        },
+        {
+          "titre": "Batman Theme",
+          "artiste": "Neal Hefti"
+        }
+      ],
+      "fichier": "The Smashing Pumpkins - The End Is the Beginning Is the End",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — rock indus ténébreux Joker Van."
     },
     "B13": {
       "titre": "Kiss from a Rose",
       "artiste": "Seal",
       "genre": "disco",
       "style": "ballade soul-disco 1995",
-      "debut_s": 73,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/us/album/kiss-from-a-rose/30475342?i=30475379"
+      "debut_s": 15.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/us/album/kiss-from-a-rose/30475342?i=30475379",
+      "repli": {
+        "fichier": "FoxSynergy - (Blood) Stained Glass",
+        "titre": "(Blood) Stained Glass",
+        "artiste": "FoxSynergy",
+        "licence": "CC BY 3.0",
+        "page_licence": "https://opengameart.org/content/blood-stained-glass",
+        "attribution": "\"(Blood) Stained Glass\" by FoxSynergy — CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/)",
+        "debut_s": 16.0,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Cathédrale 16 bits avec orgue, kitsch gothique néon : bon thème, mais 15 s d'intro à -28 dB, à caler sur 16 s et normaliser."
+      },
+      "historique": [
+        {
+          "titre": "Kiss from a Rose",
+          "artiste": "Seal"
+        },
+        {
+          "titre": "Batman Theme",
+          "artiste": "Neal Hefti"
+        }
+      ],
+      "fichier": "Seal - Kiss from a Rose",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — balade culte Batman Forever."
     },
     "B14": {
-      "titre": "The End Is the Beginning Is the End",
-      "artiste": "The Smashing Pumpkins",
+      "titre": "Batman Beyond (Theme)",
+      "artiste": "Kristopher Carter",
       "genre": "rock",
       "style": "rock alternatif 1997 de la BO du film",
-      "debut_s": 60,
-      "debut_sur": false,
-      "achat": null
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "achat": null,
+      "repli": {
+        "fichier": "Bogart VGM - German Industrial Metal",
+        "titre": "German Industrial Metal",
+        "artiste": "Bogart VGM",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://opengameart.org/content/german-industrial-metal",
+        "attribution": "\"German Industrial Metal\" by Bogart VGM (facebook.com/BogartVGM) — CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+        "debut_s": 7.11,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Metal industriel riffé : 6 s de silence relatif puis +15 dB d'un coup, le drop le plus net du lot."
+      },
+      "historique": [
+        {
+          "titre": "The End Is the Beginning Is the End",
+          "artiste": "The Smashing Pumpkins"
+        },
+        {
+          "titre": "Batman Theme",
+          "artiste": "Neal Hefti"
+        }
+      ],
+      "fichier": "Kristopher Carter - Batman Beyond Theme",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — métal indus cyberpunk Terry McGinnis."
     },
     "B15": {
-      "titre": "Molossus",
+      "titre": "Like a Dog Chasing Cars (Tumbler Pursuit)",
       "artiste": "Hans Zimmer",
       "genre": "epique",
       "style": "cordes graves et tambour sourd",
-      "debut_s": 100,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/fr/album/molossus/339335217?i=339335330"
+      "debut_s": 15.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/molossus/339335217?i=339335330",
+      "repli": {
+        "fichier": "Kevin MacLeod - Mountain Emperor",
+        "titre": "Mountain Emperor",
+        "artiste": "Kevin MacLeod",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1700012",
+        "attribution": "\"Mountain Emperor\" Kevin MacLeod (incompetech.com) — Licensed under Creative Commons: By Attribution 4.0 License — http://creativecommons.org/licenses/by/4.0/",
+        "debut_s": 0.0,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Taikos en masse, à -13 dB dès la 1re seconde : un char de chantier qui rase le cadastre."
+      },
+      "historique": [
+        {
+          "titre": "Molossus",
+          "artiste": "Hans Zimmer"
+        },
+        {
+          "titre": "Batman Theme",
+          "artiste": "Neal Hefti"
+        }
+      ],
+      "fichier": "Hans Zimmer - Aggressive Tumbler Pursuit",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — tambours d'assaut blindé."
     },
     "B16": {
-      "titre": "Something in the Way",
-      "artiste": "Nirvana",
+      "titre": "The Batman (Main Theme 2022)",
+      "artiste": "Michael Giacchino",
       "genre": "doom",
       "style": "grunge lent, basses étouffées",
-      "debut_s": 52,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/fr/album/something-in-the-way/1440783617?i=1440783790"
+      "debut_s": 15.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/something-in-the-way/1440783617?i=1440783790",
+      "repli": {
+        "fichier": "Pro Sensory (Alex McCulloch) - Heavy Rain",
+        "titre": "Heavy Rain",
+        "artiste": "Pro Sensory (Alex McCulloch)",
+        "licence": "CC0",
+        "page_licence": "https://opengameart.org/content/heavy-rain",
+        "attribution": "\"Heavy Rain\" by Alex McCulloch (Pro Sensory) — CC0 (l'auteur demande d'inclure son nom dans les crédits)",
+        "debut_s": 0.0,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Électro sombre et pluvieuse, pleine dès 0 s ; très plate (LRA 1 dB) mais le monotone colle à Something in the Way."
+      },
+      "historique": [
+        {
+          "titre": "Something in the Way",
+          "artiste": "Nirvana"
+        },
+        {
+          "titre": "Batman Theme",
+          "artiste": "Neal Hefti"
+        }
+      ],
+      "fichier": "Michael Giacchino - The Batman (2022)",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — deux notes lourdes Robert Pattinson."
     },
     "B17": {
-      "titre": "You Don't Own Me",
-      "artiste": "Grace feat. G-Eazy",
+      "titre": "Who's the (Bat)Man",
+      "artiste": "Patrick Stump",
       "genre": "bubblegum",
       "style": "pop sarcastique, cris et claps",
-      "debut_s": 0,
-      "debut_sur": false,
+      "debut_s": 0.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/you-dont-own-me-radio-mix/1062092375?i=1062092595",
-      "note": "« Bubblegum Bitch » n'a pas de lien avec Harley Quinn et son titre est grossier pour un événement familial ; « You Don't Own Me » (Grace/SAYGRACE) est le morceau de la scène d'introduction d'Harley dans Suicide Squad (2016)."
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — hard rock Lego Batman / Harley Quinn.",
+      "repli": {
+        "fichier": "G_P - Electro Swing Type",
+        "titre": "Electro Swing Type",
+        "artiste": "G_P",
+        "licence": "CC0",
+        "page_licence": "https://opengameart.org/content/electro-swing-type",
+        "attribution": "\"Electro Swing Type\" by G_P — CC0",
+        "debut_s": 0.0,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Électro-swing frondeur, plein volume d'entrée : Harley tout craché. 82 s seulement, la boucle reviendra vite."
+      },
+      "historique": [
+        {
+          "titre": "You Don't Own Me",
+          "artiste": "Grace feat. G-Eazy"
+        },
+        {
+          "titre": "Batman Theme",
+          "artiste": "Neal Hefti"
+        }
+      ],
+      "fichier": "Patrick Stump - Whos the (Bat)Man",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)"
     },
     "J01": {
       "titre": "Tokyo Drift (Fast & Furious)",
       "artiste": "Teriyaki Boyz",
       "genre": "hiphop",
       "style": "rap japonais 2006, basse de drift",
-      "debut_s": 0,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/fr/album/tokyo-drift/1444300284?i=1444300286"
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/tokyo-drift/1444300284?i=1444300286",
+      "historique": [
+        {
+          "titre": "Tokyo Drift (Fast & Furious)",
+          "artiste": "Teriyaki Boyz"
+        }
+      ],
+      "fichier": "Teriyaki Boyz - Tokyo Drift",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — drift Tokyo."
     },
     "J02": {
       "titre": "Deja Vu",
       "artiste": "Dave Rodgers",
       "genre": "eurobeat",
       "style": "eurobeat à 155 BPM, ligne de synthé qui dérape",
-      "debut_s": 57,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/us/album/deja-vu/1477944583?i=1477944584"
+      "debut_s": 57.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/us/album/deja-vu/1477944583?i=1477944584",
+      "historique": [
+        {
+          "titre": "Deja Vu",
+          "artiste": "Dave Rodgers"
+        }
+      ],
+      "fichier": "Dave Rodgers - Deja Vu",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — eurobeat Initial D."
     },
     "J04": {
-      "titre": "Wipe Out",
-      "artiste": "The Surfaris",
+      "titre": "Tensions sociales (freestyle gilet jaune)",
+      "artiste": "D.ACE",
       "genre": "rock",
       "style": "rock surf 1963, batterie qui déboule",
-      "debut_s": 0,
+      "debut_s": 12.9,
       "debut_sur": true,
-      "achat": "https://music.apple.com/fr/album/wipe-out-hit-version/1354226132?i=1354226233"
+      "achat": "https://music.apple.com/fr/album/wipe-out-hit-version/1354226132?i=1354226233",
+      "repli": {
+        "fichier": "Blue Wave Theory - Road Hazard",
+        "titre": "Road Hazard",
+        "artiste": "Blue Wave Theory",
+        "licence": "CC BY-SA 4.0",
+        "page_licence": "https://freemusicarchive.org/music/Blue_Wave_Theory/Blue_Wave_Theory/road-hazard/",
+        "attribution": "\"Road Hazard\" par Blue Wave Theory (https://freemusicarchive.org/music/Blue_Wave_Theory/Blue_Wave_Theory/road-hazard/), sous licence CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)",
+        "debut_s": 0.0,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Surf-punk qui cavale dès 0 s : la batterie de Wipe Out. Master serré (crest 9,6 dB) mais crête à -1 dBTP, sans écrêtage."
+      },
+      "historique": [
+        {
+          "titre": "Wipe Out",
+          "artiste": "The Surfaris"
+        }
+      ],
+      "fichier": "D.ACE - TENSIONS SOCIALES ( Freestyle gilet jaune )",
+      "choisi_par": "Esteban (directive V5, 13/10/2026)",
+      "note": "Fichier fourni par Esteban — entrée du beat mesurée."
     },
     "J05": {
       "titre": "Plastic Love",
       "artiste": "Mariya Takeuchi",
       "genre": "disco",
       "style": "city pop 1984, basse chaude",
-      "debut_s": 92,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/fr/album/plastic-love/1541673202?i=1541673399"
+      "debut_s": 25.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/plastic-love/1541673202?i=1541673399",
+      "repli": {
+        "fichier": "HoliznaCC0 - Back In The 80s",
+        "titre": "Back In The 80s",
+        "artiste": "HoliznaCC0",
+        "licence": "CC0 1.0",
+        "page_licence": "https://freemusicarchive.org/music/holiznacc0/power-pop/back-in-the-80s/",
+        "attribution": "\"Back In The 80s\" par HoliznaCC0 — https://freemusicarchive.org/music/holiznacc0/power-pop/back-in-the-80s/ — domaine public (CC0), crédit facultatif",
+        "debut_s": 6.61,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Disco-pop 80s nostalgique, drop énorme à 6,6 s (+20 dB), CC0 vérifié : le city pop du pauvre, en bien."
+      },
+      "historique": [
+        {
+          "titre": "Plastic Love",
+          "artiste": "Mariya Takeuchi"
+        }
+      ],
+      "fichier": "Mariya Takeuchi - Plastic Love",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — city pop NSX."
     },
     "J07": {
       "titre": "Mr. Blue Sky",
       "artiste": "Electric Light Orchestra",
       "genre": "rock",
       "style": "pop-rock ensoleillé 1977",
-      "debut_s": 60,
-      "debut_sur": false,
+      "debut_s": 60.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/mr-blue-sky/1054525002?i=1054525017",
       "repli": {
         "fichier": "Mario Kart Double Dash - Rainbow Road",
         "titre": "Rainbow Road (Double Dash!!)",
         "artiste": "Nintendo",
         "note": "La Miata à phares levés."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Mr. Blue Sky",
+          "artiste": "Electric Light Orchestra"
+        }
+      ],
+      "fichier": "Electric Light Orchestra - Mr Blue Sky",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — pop symphonique Datsun 240Z."
     },
     "J08": {
       "titre": "The Race",
       "artiste": "Yello",
       "genre": "synthwave",
       "style": "électro 1988 aux claviers sautillants",
-      "debut_s": 0,
-      "debut_sur": false,
+      "debut_s": 28.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/the-race/1442618837?i=1442619196",
       "repli": {
         "fichier": "Manuel - Gas Gas Gas",
         "titre": "Gas Gas Gas",
         "artiste": "Manuel",
         "note": "Eurobeat d'Initial D, libéré par J11 (Godzilla)."
-      }
+      },
+      "historique": [
+        {
+          "titre": "The Race",
+          "artiste": "Yello"
+        }
+      ],
+      "fichier": "Yello - The Race",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — percussions course Silvia S15."
     },
     "J09": {
       "titre": "Resonance",
-      "artiste": "Home",
+      "artiste": "HOME",
       "genre": "synthwave",
       "style": "synthwave rêveuse, arpèges de nuit",
-      "debut_s": 32,
-      "debut_sur": false,
+      "debut_s": 32.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/resonance/1789601131?i=1789601140",
       "repli": {
         "fichier": "MOON - Hydrogen",
         "titre": "Hydrogen",
         "artiste": "M|O|O|N",
         "note": "Synthwave pour la Kia EV6 électrique."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Resonance",
+          "artiste": "Home"
+        }
+      ],
+      "fichier": "HOME - Resonance",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — synthwave RX-7 FD."
     },
     "J10": {
       "titre": "Born to Be Wild",
       "artiste": "Steppenwolf",
       "genre": "rock",
       "style": "rock de biker 1968",
-      "debut_s": 0,
+      "debut_s": 10.0,
       "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/born-to-be-wild/1440859623?i=1440860171",
       "repli": {
@@ -269,7 +739,16 @@
         "titre": "Running in the 90s",
         "artiste": "Max Coveri",
         "note": "Eurobeat d'Initial D pour la Skyline Hakosuka."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Born to Be Wild",
+          "artiste": "Steppenwolf"
+        }
+      ],
+      "fichier": "Steppenwolf - Born to Be Wild",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — biker rock Land Cruiser."
     },
     "J11": {
       "titre": "Godzilla Theme",
@@ -291,77 +770,166 @@
       "vitesse": 2
     },
     "J12": {
-      "titre": "Love Theme from \"The Godfather\"",
+      "titre": "Love Theme from The Godfather",
       "artiste": "Nino Rota",
       "genre": "valse",
       "style": "valse italienne de parrain, violons",
-      "debut_s": 0,
-      "debut_sur": false,
+      "debut_s": 0.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/love-theme-from-the-godfather/1440844661?i=1440844677",
-      "note": "Correction de titre : « Speak Softly Love » est la version chantée (paroles de Larry Kusik, Andy Williams) ; l'enregistrement de Nino Rota s'intitule « Love Theme from \"The Godfather\" »."
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — trompette Parrain Lexus LFA.",
+      "repli": {
+        "fichier": "Yubatake - El rincón",
+        "titre": "El rincón",
+        "artiste": "Yubatake",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://opengameart.org/content/el-rinc%C3%B3n",
+        "attribution": "\"El rincón\" par Yubatake (https://opengameart.org/content/el-rinc%C3%B3n), sous licence CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+        "debut_s": 0.56,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Tango bandonéon et violon : noblesse sombre façon Parrain, plein à -14 dB dès 3 s (2,3 s de silence à rogner)."
+      },
+      "historique": [
+        {
+          "titre": "Love Theme from \"The Godfather\"",
+          "artiste": "Nino Rota"
+        }
+      ],
+      "fichier": "Nino Rota - The Godfather Love Theme",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)"
     },
     "TK01": {
-      "titre": "Danger Zone",
+      "titre": "Danger Zone (Top Gun)",
       "artiste": "Kenny Loggins",
       "genre": "rock",
       "style": "rock 80's de bande-annonce",
-      "debut_s": 0,
+      "debut_s": 30.0,
       "debut_sur": true,
-      "achat": "https://music.apple.com/fr/album/danger-zone/387193895?i=387193955"
+      "achat": "https://music.apple.com/fr/album/danger-zone/387193895?i=387193955",
+      "repli": {
+        "fichier": "John Bartmann - Burning Rubber",
+        "titre": "Burning Rubber",
+        "artiste": "John Bartmann",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://freemusicarchive.org/music/John_Bartmann/80s-action-montage/burning-rubber/",
+        "attribution": "\"Burning Rubber\" par John Bartmann (https://freemusicarchive.org/music/John_Bartmann/80s-action-montage/burning-rubber/), sous licence CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+        "debut_s": 19.23,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Rock-synthé de montage d'action 80s, qui monte à -10 dB vers 20 s : Danger Zone sans procès."
+      },
+      "historique": [
+        {
+          "titre": "Danger Zone",
+          "artiste": "Kenny Loggins"
+        }
+      ],
+      "fichier": "Kenny Loggins - Danger Zone",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — synth rock Top Gun."
     },
     "TK02": {
-      "titre": "Burning Heart",
+      "titre": "Burning Heart (Rocky IV)",
       "artiste": "Survivor",
       "genre": "rock",
       "style": "rock de film d'action 1985",
-      "debut_s": 0,
+      "debut_s": 18.0,
       "debut_sur": true,
-      "achat": "https://music.apple.com/fr/album/burning-heart/207443884?i=207444127"
+      "achat": "https://music.apple.com/fr/album/burning-heart/207443884?i=207444127",
+      "repli": {
+        "fichier": "John Bartmann - Born A Tiger",
+        "titre": "Born A Tiger",
+        "artiste": "John Bartmann",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://freemusicarchive.org/music/John_Bartmann/80s-action-montage/born-a-tiger/",
+        "attribution": "\"Born A Tiger\" par John Bartmann (https://freemusicarchive.org/music/John_Bartmann/80s-action-montage/born-a-tiger/), sous licence CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+        "debut_s": 10.81,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Rock arena 80s, drop net à 11 s (+4 dB) : le souffle Survivor ; seul le titre fait un clin d'oeil."
+      },
+      "historique": [
+        {
+          "titre": "Burning Heart",
+          "artiste": "Survivor"
+        }
+      ],
+      "fichier": "Survivor - Burning Heart",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — puissance Rocky IV Sierra Cosworth."
     },
     "TK03": {
-      "titre": "Ride of the Valkyries",
-      "artiste": "Richard Wagner",
+      "titre": "Millionaire",
+      "artiste": "Joyca",
       "genre": "epique",
       "style": "orchestre wagnérien, cuivres impériaux",
-      "debut_s": 8,
-      "debut_sur": false,
+      "debut_s": 20.6,
+      "debut_sur": true,
       "achat": "https://music.apple.com/us/album/the-valkyrie-ride-of-the-valkyries/339006385?i=339006422",
       "repli": {
         "fichier": "Ennio Morricone - For a Few Dollars More",
         "titre": "For a Few Dollars More",
         "artiste": "Ennio Morricone",
         "note": "« Pour quelques dollars de plus » : le Contrôle Fiscal."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Ride of the Valkyries",
+          "artiste": "Richard Wagner"
+        }
+      ],
+      "fichier": "JOYCA - Millionaire",
+      "choisi_par": "Esteban (directive V5, 13/10/2026)",
+      "note": "Fichier fourni par Esteban — drop mesuré."
     },
     "TK04": {
       "titre": "East Bound and Down",
       "artiste": "Jerry Reed",
       "genre": "country",
       "style": "country-rock 1977 de poursuite",
-      "debut_s": 0,
-      "debut_sur": false,
+      "debut_s": 0.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/east-bound-and-down/1448328066?i=1448328067",
       "repli": {
         "fichier": "Ennio Morricone - The Good the Bad and the Ugly",
         "titre": "The Good, the Bad and the Ugly",
         "artiste": "Ennio Morricone",
         "note": "Le Bandit, hors-la-loi."
-      }
+      },
+      "historique": [
+        {
+          "titre": "East Bound and Down",
+          "artiste": "Jerry Reed"
+        }
+      ],
+      "fichier": "Jerry Reed - East Bound and Down",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — country camionneur Smokey and the Bandit."
     },
     "TK05": {
-      "titre": "Pokémon Theme",
-      "artiste": "Jason Paige",
+      "titre": "Pokémon Theme (Attrapez-les tous !)",
+      "artiste": "Jean-Marc Anthony Kabeya",
       "genre": "kawaii",
       "style": "J-pop/rock 1998, générique de dessin animé",
-      "debut_s": 0,
-      "debut_sur": false,
+      "debut_s": 0.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/pok%C3%A9mon-theme-new-studio-recording/1317448787?i=1317448793",
       "repli": {
         "fichier": "Mario Kart 64 - Rainbow Road",
         "titre": "Rainbow Road (Mario Kart 64)",
         "artiste": "Nintendo",
         "note": "Nintendo pour Pikachu."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Pokémon Theme",
+          "artiste": "Jason Paige"
+        }
+      ],
+      "fichier": "Pokemon Theme (Francais) - Jean-Marc Anthony Kabeya",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — générique officiel français Pikachu."
     },
     "TK06": {
       "titre": "M@GICAL☆CURE! LOVE ♥ SHOT!",
@@ -392,7 +960,7 @@
       "artiste": "The White Stripes",
       "genre": "rock",
       "style": "riff de basse 7 notes, stade qui chante",
-      "debut_s": 0,
+      "debut_s": 0.0,
       "debut_sur": true,
       "achat": "https://music.apple.com/us/album/seven-nation-army/1533513536?i=1533513537",
       "repli": {
@@ -400,14 +968,23 @@
         "titre": "Chapter Doof",
         "artiste": "Junkie XL",
         "note": "Fury Road : la Mach-E 1400 de survie."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Seven Nation Army",
+          "artiste": "The White Stripes"
+        }
+      ],
+      "fichier": "The White Stripes - Seven Nation Army",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — riff culte Mustang 67."
     },
     "U02": {
       "titre": "Cars",
       "artiste": "Gary Numan",
       "genre": "synthwave",
       "style": "synthé 1979, riff froid",
-      "debut_s": 0,
+      "debut_s": 12.0,
       "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/cars/251652523?i=251652727",
       "repli": {
@@ -415,38 +992,77 @@
         "titre": "Spikey Cars",
         "artiste": "Junkie XL",
         "note": "Fury Road pour la Mustang SVO."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Cars",
+          "artiste": "Gary Numan"
+        }
+      ],
+      "fichier": "Gary Numan - Cars",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — synthwave analogique Corvette C3."
     },
     "U03": {
       "titre": "Free Bird",
       "artiste": "Lynyrd Skynyrd",
       "genre": "rock",
       "style": "solo de guitare final de neuf minutes",
-      "debut_s": 270,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/us/album/free-bird/1440838012?i=1440838661"
+      "debut_s": 270.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/us/album/free-bird/1440838012?i=1440838661",
+      "repli": {
+        "fichier": "Ethos - Every Day to Play",
+        "titre": "Every Day to Play",
+        "artiste": "Ethos",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://freemusicarchive.org/music/ethos/deserted/every-day-to-play/",
+        "attribution": "\"Every Day to Play\" par Ethos (https://freemusicarchive.org/music/ethos/deserted/every-day-to-play/), sous licence CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+        "debut_s": 21.93,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Blues-rock à guitare solo qui monte jusqu'à 24 s puis tient -10 dB : l'épopée sudiste, avec de vraies nuances (LRA 5,8)."
+      },
+      "historique": [
+        {
+          "titre": "Free Bird",
+          "artiste": "Lynyrd Skynyrd"
+        }
+      ],
+      "fichier": "Lynyrd Skynyrd - Free Bird",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — solo d'anthologie Trans Am."
     },
     "U04": {
-      "titre": "Take Me Home, Country Roads",
-      "artiste": "John Denver",
+      "titre": "Gilet jaune",
+      "artiste": "Kopp Johnson",
       "genre": "country",
       "style": "country folk de route",
-      "debut_s": 58,
-      "debut_sur": false,
+      "debut_s": 17.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/take-me-home-country-roads-original-version/511074105?i=511074294",
       "repli": {
         "fichier": "Mad Max Fury Road - Blood Bag",
         "titre": "Blood Bag",
         "artiste": "Junkie XL",
         "note": "Fury Road pour le pick-up « Gilet Jaune »."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Take Me Home, Country Roads",
+          "artiste": "John Denver"
+        }
+      ],
+      "fichier": "KOPP JOHNSON - GILET JAUNE (clip officiel)",
+      "choisi_par": "Esteban (directive V5, 13/10/2026)",
+      "note": "Fichier fourni par Esteban — départ imposé par Esteban : 17 s."
     },
     "U05": {
       "titre": "Highway to Hell",
       "artiste": "AC/DC",
       "genre": "rock",
       "style": "riff de six cordes, batterie de stade",
-      "debut_s": 0,
+      "debut_s": 0.0,
       "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/highway-to-hell/574043989?i=574044008",
       "repli": {
@@ -454,123 +1070,280 @@
         "titre": "Brothers in Arms",
         "artiste": "Junkie XL",
         "note": "Fury Road pour la Challenger 70."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Highway to Hell",
+          "artiste": "AC/DC"
+        }
+      ],
+      "fichier": "ACDC - Highway to Hell",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — hard rock Dodge Charger R/T."
     },
     "E02": {
       "titre": "Nessun dorma (Turandot)",
       "artiste": "Luciano Pavarotti",
       "genre": "epique",
       "style": "ténor d'opéra, orchestre en crescendo",
-      "debut_s": 160,
-      "debut_sur": false,
+      "debut_s": 45.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/turandot-nessun-dorma/1440491516?i=1440492092",
-      "note": "Précision d'interprète (morceau conservé) : Puccini est le compositeur ; l'enregistrement de référence est celui de Pavarotti (Zubin Mehta, 1972). Le « Vincerò ! » final est le moment du drop.",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — climax lyrique Vincerò Lamborghini.",
       "repli": {
         "fichier": "Ennio Morricone - The Ecstasy of Gold",
         "titre": "The Ecstasy of Gold",
         "artiste": "Ennio Morricone",
         "note": "L'or pour la Lamborghini Centenario."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Nessun dorma (Turandot)",
+          "artiste": "Luciano Pavarotti"
+        }
+      ],
+      "fichier": "Luciano Pavarotti - Nessun dorma",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)"
     },
     "E03": {
       "titre": "Money",
       "artiste": "Pink Floyd",
       "genre": "rock",
       "style": "caisse enregistreuse, basse 7/4",
-      "debut_s": 0,
+      "debut_s": 15.0,
       "debut_sur": true,
-      "achat": "https://music.apple.com/fr/album/money/1665303755?i=1665303764"
+      "achat": "https://music.apple.com/fr/album/money/1665303755?i=1665303764",
+      "repli": {
+        "fichier": "Zane Little Music - Midnight Cruiser",
+        "titre": "Midnight Cruiser",
+        "artiste": "Zane Little Music",
+        "licence": "CC0",
+        "page_licence": "https://opengameart.org/content/midnight-cruiser",
+        "attribution": "\"Midnight Cruiser\" by Zane Little Music (opengameart.org/content/midnight-cruiser) - CC0 / domaine public (crédit facultatif, offert par courtoisie)",
+        "debut_s": 0.0,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Jazz-funk de croisière, groove immédiat et propre (crête -1,6 dBTP) : le gentleman driver de la Bentley."
+      },
+      "historique": [
+        {
+          "titre": "Money",
+          "artiste": "Pink Floyd"
+        }
+      ],
+      "fichier": "Pink Floyd - Money",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — tiroirs-caisses et basse Porsche 911 GT3."
     },
     "E04": {
       "titre": "The Chain",
       "artiste": "Fleetwood Mac",
       "genre": "rock",
       "style": "rock de grille de départ",
-      "debut_s": 193,
-      "debut_sur": false,
+      "debut_s": 193.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/the-chain/594061854?i=594061861",
-      "note": "« Go Your Own Way » n'a pas de lien avec la F1 ; « The Chain » (même groupe) est le générique historique de la F1 à la BBC — idéal pour une F1 des années 60."
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — ligne de basse culte GT britannique.",
+      "historique": [
+        {
+          "titre": "The Chain",
+          "artiste": "Fleetwood Mac"
+        }
+      ],
+      "fichier": "Fleetwood Mac - The Chain",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)"
     },
     "E05": {
       "titre": "Parklife",
       "artiste": "Blur",
       "genre": "rock",
       "style": "britpop de rue, voix parlée",
-      "debut_s": 0,
-      "debut_sur": false,
+      "debut_s": 0.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/parklife/699665183?i=699665745",
       "repli": {
         "fichier": "Dick Dale - Misirlou",
         "titre": "Misirlou",
         "artiste": "Dick Dale",
         "note": "Surf rock des années 60 pour la Lotus Cortina."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Parklife",
+          "artiste": "Blur"
+        }
+      ],
+      "fichier": "Blur - Parklife",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — britpop énergique Mini Cooper S."
     },
     "E06": {
-      "titre": "Gasolina",
-      "artiste": "Daddy Yankee",
+      "titre": "La Poudre de Perlimpinpin (remix)",
+      "artiste": "Remix",
       "genre": "hiphop",
       "style": "reggaeton de piste",
-      "debut_s": 0,
-      "debut_sur": false,
+      "debut_s": 10.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/gasolina/1785999696?i=1786000124",
       "repli": {
         "fichier": "Wipeout 2097 - Fluke Atom Bomb",
         "titre": "Atom Bomb",
         "artiste": "Fluke",
         "note": "Course futuriste (Wipeout) pour la Cupra e-Racer."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Gasolina",
+          "artiste": "Daddy Yankee"
+        }
+      ],
+      "fichier": "LA POUDRE DE PERLIMPINPIN (REMIX) - VERSION FINALE",
+      "choisi_par": "Esteban (directive V5, 13/10/2026)",
+      "note": "Fichier fourni par Esteban — départ imposé par Esteban : 10 s."
     },
     "E07": {
       "titre": "Gimme! Gimme! Gimme!",
       "artiste": "ABBA",
       "genre": "disco",
       "style": "disco suédois 1979",
-      "debut_s": 0,
+      "debut_s": 0.0,
       "debut_sur": true,
-      "achat": "https://music.apple.com/fr/album/gimme-gimme-gimme-a-man-after-midnight/1440816296?i=1440817183"
+      "achat": "https://music.apple.com/fr/album/gimme-gimme-gimme-a-man-after-midnight/1440816296?i=1440817183",
+      "repli": {
+        "fichier": "neocrey - Disco Century",
+        "titre": "Disco Century",
+        "artiste": "neocrey",
+        "licence": "CC BY-SA 3.0",
+        "page_licence": "https://opengameart.org/content/neocrey-disco-century",
+        "attribution": "\"Disco Century\" par neocrey (https://opengameart.org/content/neocrey-disco-century), sous licence CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0/)",
+        "debut_s": 14.98,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Disco synthé euphorique, drop à 15 s (+5 dB) : la 240 en paillettes. Master chaud (1,7 % de crêtes), baisser de 2 dB."
+      },
+      "historique": [
+        {
+          "titre": "Gimme! Gimme! Gimme!",
+          "artiste": "ABBA"
+        }
+      ],
+      "fichier": "ABBA - Gimme Gimme Gimme",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — synthpop suédoise Volvo 850 Estate."
     },
     "E08": {
       "titre": "Song 2",
       "artiste": "Blur",
       "genre": "rock",
       "style": "wouh-hou 2 minutes, guitare grosse",
-      "debut_s": 12,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/fr/album/song-2/867694889?i=867694916"
+      "debut_s": 12.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/song-2/867694889?i=867694916",
+      "repli": {
+        "fichier": "Lemon Knife - Ignite! (Instrumental)",
+        "titre": "Ignite! (Instrumental)",
+        "artiste": "Lemon Knife",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://freemusicarchive.org/music/lemon-knife/lemon-knife-instrumentals/ignite-instrumental/",
+        "attribution": "\"Ignite! (Instrumental)\" par Lemon Knife (https://freemusicarchive.org/music/lemon-knife/lemon-knife-instrumentals/ignite-instrumental/), sous licence CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+        "debut_s": 6.2,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Garage fuzz pied au plancher, et un drop à 6 s (+8 dB) façon « woo-hoo ». Compressé (-8 LUFS), à baisser au mix."
+      },
+      "historique": [
+        {
+          "titre": "Song 2",
+          "artiste": "Blur"
+        }
+      ],
+      "fichier": "Blur - Song 2",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — drop Woo-hoo BMW M3."
     },
     "P01": {
-      "titre": "Knight Rider Theme",
-      "artiste": "Stu Phillips",
+      "titre": "Les Indestructibles (thème)",
+      "artiste": "Michael Giacchino",
       "genre": "synthwave",
       "style": "synthé orchestral de série 80",
-      "debut_s": 0,
+      "debut_s": 1.8,
       "debut_sur": true,
-      "achat": "https://music.apple.com/fr/album/main-title-from-the-television-series-knight-rider/1528121613?i=1528121767"
+      "achat": "https://music.apple.com/fr/album/main-title-from-the-television-series-knight-rider/1528121613?i=1528121767",
+      "repli": {
+        "fichier": "Bogart VGM - Maximum Overdrive",
+        "titre": "Maximum Overdrive",
+        "artiste": "Bogart VGM",
+        "licence": "CC BY 3.0",
+        "page_licence": "https://opengameart.org/content/maximum-overdrive",
+        "attribution": "\"Maximum Overdrive\" by Bogart VGM - https://opengameart.org/content/maximum-overdrive - CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/)",
+        "debut_s": 0.0,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Synthwave de course, plein volume dès 0 s : la voiture qui parle, sans emprunter le galop protégé."
+      },
+      "historique": [
+        {
+          "titre": "Knight Rider Theme",
+          "artiste": "Stu Phillips"
+        }
+      ],
+      "fichier": "Les Indestructibles - Théme Song",
+      "choisi_par": "Esteban (directive V5, 13/10/2026)",
+      "note": "Fichier fourni par Esteban — attaque des cuivres mesurée."
     },
     "P03": {
-      "titre": "Monster Mash",
-      "artiste": "Bobby Pickett",
+      "titre": "Fright Song (Monster High)",
+      "artiste": "Monster High",
       "genre": "swing",
       "style": "rockabilly d'Halloween 1962",
-      "debut_s": 0,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/fr/album/monster-mash/1440723138?i=1440723145"
+      "debut_s": 5.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/monster-mash/1440723138?i=1440723145",
+      "repli": {
+        "fichier": "Loyalty Freak Music - Ghost Surf Rock",
+        "titre": "Ghost Surf Rock",
+        "artiste": "Loyalty Freak Music",
+        "licence": "CC0 1.0",
+        "page_licence": "https://freemusicarchive.org/music/Loyalty_Freak_Music/WITCHY_BATTY_SPOOKY_HALLOWEEN_IN_SEPTEMBER_/Ghost_Surf_Rock/",
+        "attribution": "\"Ghost Surf Rock\" par Loyalty Freak Music — https://freemusicarchive.org/music/Loyalty_Freak_Music/WITCHY_BATTY_SPOOKY_HALLOWEEN_IN_SEPTEMBER_/Ghost_Surf_Rock/ — domaine public (CC0), crédit facultatif",
+        "debut_s": 8.3,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Surf-rock fantôme d'album Halloween, CC0 vérifié, monte à 8 s : Monster Mash en instrumental."
+      },
+      "historique": [
+        {
+          "titre": "Monster Mash",
+          "artiste": "Bobby Pickett"
+        }
+      ],
+      "fichier": "Monster High - Fright Song",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — thème officiel Monster High."
     },
     "P04": {
       "titre": "Barbie Girl",
       "artiste": "Aqua",
       "genre": "bubblegum",
       "style": "eurodance 1997",
-      "debut_s": 0,
-      "debut_sur": false,
+      "debut_s": 32.5,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/barbie-girl/1440768394?i=1440768563",
       "repli": {
         "fichier": "Mario Kart Wii - Rainbow Road",
         "titre": "Rainbow Road (Mario Kart Wii)",
         "artiste": "Nintendo",
         "note": "Arc-en-ciel pour Barbie."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Barbie Girl",
+          "artiste": "Aqua"
+        }
+      ],
+      "fichier": "Aqua - Barbie Girl (Official Music Video)",
+      "choisi_par": "Esteban (directive V5, 13/10/2026)",
+      "note": "Fichier fourni par Esteban — refrain mesuré."
     },
     "H01": {
       "titre": "Galaxy Song (Stephen Hawking)",
@@ -591,26 +1364,35 @@
       "choisi_par": "Esteban (12 oct. 2026)"
     },
     "H02": {
-      "titre": "Dragonborn (Skyrim Main Theme)",
+      "titre": "Dragonborn (Skyrim Theme)",
       "artiste": "Jeremy Soule",
       "genre": "epique",
       "style": "chœur de guerre en vieux nordique",
-      "debut_s": 0,
-      "debut_sur": false,
+      "debut_s": 15.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/dragonborn/1849547039?i=1849547040",
       "repli": {
         "fichier": "Mario Kart 8 - Rainbow Road",
         "titre": "Rainbow Road (Mario Kart 8)",
         "artiste": "Nintendo",
         "note": "Le Dragon Wagon sur la Route Arc-en-ciel."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Dragonborn (Skyrim Main Theme)",
+          "artiste": "Jeremy Soule"
+        }
+      ],
+      "fichier": "Jeremy Soule - Dragonborn Skyrim Theme",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — chœurs épiques nordiques Dovahkiin."
     },
     "H03": {
-      "titre": "Through the Fire and Flames",
-      "artiste": "DragonForce",
+      "titre": "Receive You (The Hyperactive)",
+      "artiste": "—",
       "genre": "doom",
       "style": "power metal à 200 BPM, solos",
-      "debut_s": 0,
+      "debut_s": 24.1,
       "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/through-the-fire-and-flames/1679612960?i=1679612971",
       "repli": {
@@ -618,14 +1400,23 @@
         "titre": "Firestarter",
         "artiste": "The Prodigy",
         "note": "Le Dragon de Feu."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Through the Fire and Flames",
+          "artiste": "DragonForce"
+        }
+      ],
+      "fichier": "Receive You The Hyperactive",
+      "choisi_par": "Esteban (directive V5, 13/10/2026)",
+      "note": "Fichier fourni par Esteban — drop mesuré."
     },
     "H04": {
       "titre": "Killing in the Name",
       "artiste": "Rage Against the Machine",
       "genre": "punk",
       "style": "riff de fureur, refrain d'émeute",
-      "debut_s": 0,
+      "debut_s": 25.0,
       "debut_sur": true,
       "achat": null,
       "repli": {
@@ -633,59 +1424,160 @@
         "titre": "BFG Division",
         "artiste": "Mick Gordon",
         "note": "Metal de DOOM pour le Ravenger."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Killing in the Name",
+          "artiste": "Rage Against the Machine"
+        }
+      ],
+      "fichier": "Rage Against The Machine - Killing in the Name",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — riff de basse rebelle Cybertruck / ZFE."
     },
     "H05": {
-      "titre": "Mute City",
-      "artiste": "Yumiko Kanki & Naoto Ishida (F-Zero, Nintendo)",
+      "titre": "Mute City (F-Zero)",
+      "artiste": "Yumiko Kanki & Naoto Ishida",
       "genre": "eurobeat",
       "style": "rock électronique 16 bits",
-      "debut_s": 0,
-      "debut_sur": false,
+      "debut_s": 0.0,
+      "debut_sur": true,
       "achat": null,
-      "note": "Précision de crédit uniquement (morceau conservé) : compositeurs de la BO F-Zero (1990) ; l'original n'est pas vendu sur les plateformes grand public (disponible via l'app Nintendo Music)."
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — synthé 16-bit légendaire F-Zero.",
+      "repli": {
+        "fichier": "MintoDog - Hot Roadway (Climax version)",
+        "titre": "Hot Roadway (Climax version)",
+        "artiste": "MintoDog",
+        "licence": "CC0 1.0",
+        "page_licence": "https://opengameart.org/content/hot-roadway",
+        "attribution": "\"Hot Roadway (Climax version)\" par MintoDog — https://opengameart.org/content/hot-roadway — domaine public (CC0), crédit facultatif",
+        "debut_s": 0.0,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Techno de course à 175 BPM, à fond dès 0 s : la vitesse optimiste de Mute City. Très plat (LRA 0,4), boucle propre de 110 s."
+      },
+      "historique": [
+        {
+          "titre": "Mute City",
+          "artiste": "Yumiko Kanki & Naoto Ishida (F-Zero, Nintendo)"
+        }
+      ],
+      "fichier": "F-Zero - Mute City Theme",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)"
     },
     "H06": {
       "titre": "Please Mr. Postman",
       "artiste": "The Marvelettes",
       "genre": "disco",
       "style": "Motown 1961, claps",
-      "debut_s": 0,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/fr/album/please-mr-postman/1444133030?i=1444133527"
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/please-mr-postman/1444133030?i=1444133527",
+      "repli": {
+        "fichier": "Geoff Harvey - Purple Planet Music - Soul Train",
+        "titre": "Soul Train",
+        "artiste": "Geoff Harvey - Purple Planet Music",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://freemusicarchive.org/music/geoff-harvey-purple-planet-music/open-road/soul-train-1/",
+        "attribution": "\"Soul Train\" par Geoff Harvey - Purple Planet Music (https://freemusicarchive.org/music/geoff-harvey-purple-planet-music/open-road/soul-train-1/), sous licence CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+        "debut_s": 0.0,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Pop-soul instrumentale qui swingue d'entrée, propre (-11 LUFS) : le facteur Motown."
+      },
+      "historique": [
+        {
+          "titre": "Please Mr. Postman",
+          "artiste": "The Marvelettes"
+        }
+      ],
+      "fichier": "The Marvelettes - Please Mr Postman",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — soul postale camion douane."
     },
     "H07": {
-      "titre": "Convoy",
-      "artiste": "C.W. McCall",
+      "titre": "Blocus (remix blocus des lycées 2026)",
+      "artiste": "Remix",
       "genre": "country",
       "style": "country CB 1975",
-      "debut_s": 0,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/fr/album/convoy/1452801991?i=1452801999"
+      "debut_s": 6.9,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/convoy/1452801991?i=1452801999",
+      "repli": {
+        "fichier": "Geoff Harvey - Purple Planet Music - Dusty Back Roads",
+        "titre": "Dusty Back Roads",
+        "artiste": "Geoff Harvey - Purple Planet Music",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://freemusicarchive.org/music/geoff-harvey-purple-planet-music/american-byways/dusty-back-roads/",
+        "attribution": "\"Dusty Back Roads\" par Geoff Harvey - Purple Planet Music (https://freemusicarchive.org/music/geoff-harvey-purple-planet-music/american-byways/dusty-back-roads/), sous licence CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+        "debut_s": 31.33,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Americana camionneur ; drop net à 33 s (+8 dB) après une intro trop longue. Caler impérativement sur drop_s."
+      },
+      "historique": [
+        {
+          "titre": "Convoy",
+          "artiste": "C.W. McCall"
+        }
+      ],
+      "fichier": "BLOCUS (Remix Blocus Des Lycées 2026)",
+      "choisi_par": "Esteban (directive V5, 13/10/2026)",
+      "note": "Fichier fourni par Esteban — drop mesuré."
     },
     "H08": {
-      "titre": "London Calling",
-      "artiste": "The Clash",
+      "titre": "God Save the King",
+      "artiste": "Hymne du Royaume-Uni",
       "genre": "punk",
       "style": "punk-rock 1979",
-      "debut_s": 0,
+      "debut_s": 0.8,
       "debut_sur": true,
-      "achat": "https://music.apple.com/fr/album/london-calling/684811762?i=684811768"
+      "achat": "https://music.apple.com/fr/album/london-calling/684811762?i=684811768",
+      "repli": {
+        "fichier": "Alexandr Zhelanov - Post-Punk Theme",
+        "titre": "Post-Punk Theme",
+        "artiste": "Alexandr Zhelanov",
+        "licence": "CC BY 3.0",
+        "page_licence": "https://opengameart.org/content/post-punk-theme",
+        "attribution": "\"Post-Punk Theme\" by Alexandr Zhelanov - https://opengameart.org/content/post-punk-theme - CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/)",
+        "debut_s": 54.75,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Post-punk martial, basse sèche, monte à 15 s puis 57 s : London Calling sans le citer. Départ calé sur le pic."
+      },
+      "historique": [
+        {
+          "titre": "London Calling",
+          "artiste": "The Clash"
+        }
+      ],
+      "fichier": "National Anthem of the United Kingdom (new) God Save the King",
+      "choisi_par": "Esteban (directive V5, 13/10/2026)",
+      "note": "Fichier fourni par Esteban — première mesure de l'hymne."
     },
     "H09": {
-      "titre": "Ue o Muite Arukō",
+      "titre": "Ue o Muite Arukō (Sukiyaki)",
       "artiste": "Kyu Sakamoto",
       "genre": "swing",
       "style": "pop japonaise 1961, sifflement",
-      "debut_s": 0,
-      "debut_sur": false,
+      "debut_s": 0.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/ue-o-muite-aruko-sukiyaki/622712183?i=622714188",
       "repli": {
         "fichier": "Mario Kart 7 - Rainbow Road",
         "titre": "Rainbow Road (Mario Kart 7)",
         "artiste": "Nintendo",
         "note": "Le Mighty K."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Ue o Muite Arukō",
+          "artiste": "Kyu Sakamoto"
+        }
+      ],
+      "fichier": "Kyu Sakamoto - Sukiyaki (Ue o Muite Aruko)",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — classique mélodieux Toyota 2000GT."
     },
     "H10": {
       "titre": "49.3 (remix)",
@@ -706,13 +1598,34 @@
       "choisi_par": "Esteban (12 oct. 2026)"
     },
     "H11": {
-      "titre": "Big Spender",
-      "artiste": "Shirley Bassey",
+      "titre": "Embrouille au feu",
+      "artiste": "Mister V",
       "genre": "swing",
       "style": "jazz big band, cuivres de casino",
-      "debut_s": 0,
+      "debut_s": 1.5,
       "debut_sur": true,
-      "achat": "https://music.apple.com/fr/album/big-spender/691860815?i=691861898"
+      "achat": "https://music.apple.com/fr/album/big-spender/691860815?i=691861898",
+      "repli": {
+        "fichier": "Kevin MacLeod - Aces High",
+        "titre": "Aces High",
+        "artiste": "Kevin MacLeod",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://incompetech.com/music/royalty-free/faq.html",
+        "attribution": "\"Aces High\" Kevin MacLeod (incompetech.com) — Licensed under Creative Commons: By Attribution 4.0 License — http://creativecommons.org/licenses/by/4.0/",
+        "debut_s": 0.0,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Vegas, orgue et basse qui roule des hanches, plein dès 0 s : le Big Spender du small-block. Crête +2,1 dBTP : baisser de 3 dB."
+      },
+      "historique": [
+        {
+          "titre": "Big Spender",
+          "artiste": "Shirley Bassey"
+        }
+      ],
+      "fichier": "MISTER V - EMBROUILLE AU FEU",
+      "choisi_par": "Esteban (directive V5, 13/10/2026)",
+      "note": "Fichier fourni par Esteban — drop mesuré."
     },
     "H12": {
       "titre": "Sncf Remix (Coupé-décalé)",
@@ -737,85 +1650,139 @@
       "artiste": "Hector Berlioz",
       "genre": "epique",
       "style": "chœur et orchestre de cérémonie",
-      "debut_s": 0,
-      "debut_sur": false,
+      "debut_s": 0.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/la-marseillaise/1452573282?i=1452573292",
       "repli": {
         "fichier": "Modjo - Lady Hear Me Tonight",
         "titre": "Lady (Hear Me Tonight)",
         "artiste": "Modjo",
         "note": "French touch pour la DS 7 Élysée."
-      }
+      },
+      "historique": [
+        {
+          "titre": "La Marseillaise (orchestration de Berlioz)",
+          "artiste": "Hector Berlioz"
+        }
+      ],
+      "fichier": "Hector Berlioz - La Marseillaise",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — fanfare présidentielle DS 7 Élysée."
     },
     "FR02": {
       "titre": "Harder, Better, Faster, Stronger",
       "artiste": "Daft Punk",
       "genre": "disco",
       "style": "French touch 2001",
-      "debut_s": 0,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/fr/album/harder-better-faster-stronger/697194953?i=697195787"
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/harder-better-faster-stronger/697194953?i=697195787",
+      "historique": [
+        {
+          "titre": "Harder, Better, Faster, Stronger",
+          "artiste": "Daft Punk"
+        }
+      ],
+      "fichier": "Daft Punk - Harder, Better, Faster, Stronger",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — électro française Mégane RS Trophy."
     },
     "FR03": {
       "titre": "Fantômas (Générique)",
       "artiste": "Michel Magne",
       "genre": "acidjazz",
       "style": "jazz de comédie policière 1964",
-      "debut_s": 0,
-      "debut_sur": false,
+      "debut_s": 0.0,
+      "debut_sur": true,
       "achat": null,
       "repli": {
         "fichier": "Stardust - Music Sounds Better With You",
         "titre": "Music Sounds Better with You",
         "artiste": "Stardust",
         "note": "French touch pour la Déesse."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Fantômas (Générique)",
+          "artiste": "Michel Magne"
+        }
+      ],
+      "fichier": "Michel Magne - Fantomas",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — cuivres mystère Citroën DS 21."
     },
     "FR04": {
       "titre": "Nightcall",
       "artiste": "Kavinsky",
       "genre": "synthwave",
       "style": "synthwave 2010, voix de robot",
-      "debut_s": 0,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/fr/album/nightcall/1442447952?i=1442447970"
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/nightcall/1442447952?i=1442447970",
+      "historique": [
+        {
+          "titre": "Nightcall",
+          "artiste": "Kavinsky"
+        }
+      ],
+      "fichier": "Kavinsky - Nightcall",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — synthwave culte Renault 5 Turbo."
     },
     "FR05": {
       "titre": "Voyage, Voyage",
       "artiste": "Desireless",
       "genre": "synthwave",
       "style": "synth-pop française 1986",
-      "debut_s": 0,
-      "debut_sur": false,
+      "debut_s": 20.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/voyage-voyage/322417715?i=322417717",
       "repli": {
         "fichier": "Daft Punk - One More Time",
         "titre": "One More Time",
         "artiste": "Daft Punk",
         "note": "« One more time » pour la Start-Up Nation."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Voyage, Voyage",
+          "artiste": "Desireless"
+        }
+      ],
+      "fichier": "Desireless - Voyage Voyage",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — synthpop 80s 1.2L PureTech."
     },
     "F01": {
-      "titre": "Du hast",
-      "artiste": "Rammstein",
+      "titre": "Lewis Hamilton",
+      "artiste": "Mercedes AMG F1",
       "genre": "doom",
       "style": "metal industriel allemand, voix grave",
-      "debut_s": 0,
-      "debut_sur": false,
+      "debut_s": 0.0,
+      "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/du-hast/1390562159?i=1390562691",
       "repli": {
         "fichier": "Brian Tyler - Formula 1 Theme",
         "titre": "Formula 1 Theme",
         "artiste": "Brian Tyler",
         "note": "Générique officiel de la F1, pour la Mercedes."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Du hast",
+          "artiste": "Rammstein"
+        }
+      ],
+      "fichier": "Lewis Hamilton - F1 Song",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — thème Lewis Hamilton fourni par Esteban."
     },
     "F02": {
-      "titre": "Thunderstruck",
-      "artiste": "AC/DC",
+      "titre": "Max Verstappen Song",
+      "artiste": "Red Bull Racing",
       "genre": "rock",
       "style": "riff d'introduction, chœur de stade",
-      "debut_s": 0,
+      "debut_s": 11.0,
       "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/thunderstruck/574049507?i=574051407",
       "repli": {
@@ -823,41 +1790,117 @@
         "titre": "We Got To Try",
         "artiste": "The Chemical Brothers",
         "note": "Bande originale du film F1 (2025)."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Thunderstruck",
+          "artiste": "AC/DC"
+        },
+        {
+          "titre": "Super Max! (Tu tu tu du Max Verstappen)",
+          "artiste": "Pitstop Boys"
+        }
+      ],
+      "fichier": "Max Verstappen - F1 Song",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — refrain à 11 s imposé par Esteban."
     },
     "F03": {
-      "titre": "Un'estate italiana",
-      "artiste": "Gianna Nannini & Edoardo Bennato",
+      "titre": "Smooth Operator (Ferrari Edit)",
+      "artiste": "Sade",
       "genre": "rock",
       "style": "hymne de l'été 1990, guitare et chœur",
-      "debut_s": 57,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/fr/album/unestate-italiana-notti-magiche/1525407000?i=1525407005"
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/unestate-italiana-notti-magiche/1525407000?i=1525407005",
+      "repli": {
+        "fichier": "MintoDog - Fever Stadium",
+        "titre": "Fever Stadium",
+        "artiste": "MintoDog",
+        "licence": "CC0",
+        "page_licence": "https://opengameart.org/content/fever-stadium",
+        "attribution": "\"Fever Stadium\" by MintoDog (opengameart.org/content/fever-stadium) - CC0 / domaine public (crédit facultatif, offert par courtoisie)",
+        "debut_s": 0.0,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Eurobeat de stade à 165 BPM, à fond dès 0 s, CC0 vérifié : les tifosi en version Italo. 86 s, boucle courte."
+      },
+      "historique": [
+        {
+          "titre": "Un'estate italiana",
+          "artiste": "Gianna Nannini & Edoardo Bennato"
+        }
+      ],
+      "fichier": "Sade - Smooth Operator (Ferrari Carlos Sainz)",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — Smooth Operator Carlos Sainz / Ferrari fourni par Esteban."
     },
     "F04": {
       "titre": "Don't Look Back in Anger",
       "artiste": "Oasis",
       "genre": "rock",
       "style": "britpop de refrain collectif",
-      "debut_s": 0,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/fr/album/dont-look-back-in-anger/1517447039?i=1517447336"
+      "debut_s": 60.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/dont-look-back-in-anger/1517447039?i=1517447336",
+      "repli": {
+        "fichier": "Jason Shaw (Audionautix) - Nickel Rock",
+        "titre": "Nickel Rock",
+        "artiste": "Jason Shaw (Audionautix)",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://audionautix.com/creative-commons-music",
+        "attribution": "\"Nickel Rock\" - Music by Jason Shaw, audionautix.com - CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+        "debut_s": 0.0,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Rock ascendant à tempo Oasis, plein dès 0 s, propre : l'hymne collectif papaye."
+      },
+      "historique": [
+        {
+          "titre": "Don't Look Back in Anger",
+          "artiste": "Oasis"
+        }
+      ],
+      "fichier": "Oasis - Don't Look Back in Anger",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — refrain britpop McLaren Papaya."
     },
     "F05": {
       "titre": "James Bond Theme",
-      "artiste": "Monty Norman",
+      "artiste": "Monty Norman & John Barry",
       "genre": "swing",
       "style": "cuivres sixties, guitare baryton",
-      "debut_s": 0,
+      "debut_s": 0.0,
       "debut_sur": true,
-      "achat": "https://music.apple.com/fr/album/james-bond-theme/1720641174?i=1720641175"
+      "achat": "https://music.apple.com/fr/album/james-bond-theme/1720641174?i=1720641175",
+      "repli": {
+        "fichier": "ATMANAN - Man With A Plan",
+        "titre": "Man With A Plan",
+        "artiste": "ATMANAN",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://opengameart.org/content/man-with-a-plan",
+        "attribution": "\"Man With A Plan\" by ATMANAN - https://opengameart.org/content/man-with-a-plan - CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+        "debut_s": 0.0,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Groove d'espion élégant, constant et propre ; un peu bas (-17,8 LUFS) et sans éclat, à normaliser."
+      },
+      "historique": [
+        {
+          "titre": "James Bond Theme",
+          "artiste": "Monty Norman"
+        }
+      ],
+      "fichier": "Monty Norman - James Bond Theme",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — thème officiel 007 Aston Martin."
     },
     "F06": {
       "titre": "Alors on danse",
       "artiste": "Stromae",
       "genre": "disco",
       "style": "électro-pop belge 2009",
-      "debut_s": 0,
+      "debut_s": 0.0,
       "debut_sur": true,
       "achat": "https://music.apple.com/fr/album/alors-on-danse/1444872839?i=1444872841",
       "repli": {
@@ -865,43 +1908,308 @@
         "titre": "D.A.N.C.E.",
         "artiste": "Justice",
         "note": "Électro française pour l'Alpine."
-      }
+      },
+      "historique": [
+        {
+          "titre": "Alors on danse",
+          "artiste": "Stromae"
+        }
+      ],
+      "fichier": "Stromae - Alors on danse",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — French touch électro Alpine."
     },
     "F07": {
       "titre": "Blue Monday",
       "artiste": "New Order",
       "genre": "synthwave",
       "style": "synthé 1983, boîte à rythmes",
-      "debut_s": 0,
+      "debut_s": 0.0,
       "debut_sur": true,
-      "achat": "https://music.apple.com/fr/album/blue-monday/1530256325?i=1530256511"
+      "achat": "https://music.apple.com/fr/album/blue-monday/1530256325?i=1530256511",
+      "repli": {
+        "fichier": "Cluster Buster (OveMelaa) - Shop til you drop, dead!",
+        "titre": "Shop til you drop, dead!",
+        "artiste": "Cluster Buster (OveMelaa)",
+        "licence": "CC BY 3.0",
+        "page_licence": "https://opengameart.org/content/cluster-buster-80s-inspired-electronica",
+        "attribution": "\"Shop til you drop, dead!\" by Cluster Buster (OveMelaa) - https://opengameart.org/content/cluster-buster-80s-inspired-electronica - CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/)",
+        "debut_s": 16.47,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Électronica new wave, séquences froides et drop à 16 s : l'esprit Blue Monday, propre (crête +0,5)."
+      },
+      "historique": [
+        {
+          "titre": "Blue Monday",
+          "artiste": "New Order"
+        }
+      ],
+      "fichier": "New Order - Blue Monday",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — beat boîte à rythmes Williams."
     },
     "F08": {
       "titre": "Mr. Brightside",
       "artiste": "The Killers",
       "genre": "rock",
       "style": "rock indé 2003, guitares claires",
-      "debut_s": 0,
+      "debut_s": 0.0,
       "debut_sur": true,
-      "achat": "https://music.apple.com/fr/album/mr-brightside/1526194184?i=1526194192"
+      "achat": "https://music.apple.com/fr/album/mr-brightside/1526194184?i=1526194192",
+      "repli": {
+        "fichier": "Alexandr Zhelanov - Rock Theme",
+        "titre": "Rock Theme",
+        "artiste": "Alexandr Zhelanov",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://opengameart.org/content/rocktheme",
+        "attribution": "\"Rock Theme\" by Alexandr Zhelanov - https://opengameart.org/content/rocktheme - CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+        "debut_s": 1.75,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Rock indie rapide, à fond dès 2 s : la frénésie Brightside en 102 s ; brillant (HF 6,9 %), crête +1,1 à trimmer."
+      },
+      "historique": [
+        {
+          "titre": "Mr. Brightside",
+          "artiste": "The Killers"
+        }
+      ],
+      "fichier": "The Killers - Mr Brightside",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — hymne rock énergique Haas."
     },
     "F09": {
       "titre": "99 Luftballons",
       "artiste": "Nena",
       "genre": "synthwave",
       "style": "synth-pop allemande 1983",
-      "debut_s": 0,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/fr/album/99-luftballons/1446014467?i=1446014714"
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/99-luftballons/1446014467?i=1446014714",
+      "repli": {
+        "fichier": "Kevin MacLeod - Newer Wave",
+        "titre": "Newer Wave",
+        "artiste": "Kevin MacLeod",
+        "licence": "CC BY 4.0",
+        "page_licence": "https://incompetech.com/music/royalty-free/",
+        "attribution": "\"Newer Wave\" Kevin MacLeod (incompetech.com) — Licensed under Creative Commons: By Attribution 4.0 License (http://creativecommons.org/licenses/by/4.0/)",
+        "debut_s": 1.83,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Le provisoire gagne : galop synth-pop 80s lumineux, plein dès 2,5 s : la candeur de Nena."
+      },
+      "historique": [
+        {
+          "titre": "99 Luftballons",
+          "artiste": "Nena"
+        }
+      ],
+      "fichier": "Nena - 99 Luftballons",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — pop allemande Kick Sauber."
     },
     "F10": {
       "titre": "Money for Nothing",
       "artiste": "Dire Straits",
       "genre": "rock",
       "style": "riff de guitare 1985, synthé",
-      "debut_s": 30,
-      "debut_sur": false,
-      "achat": "https://music.apple.com/fr/album/money-for-nothing-single-edit-remastered-2022/1622635555?i=1622635805"
+      "debut_s": 30.0,
+      "debut_sur": true,
+      "achat": "https://music.apple.com/fr/album/money-for-nothing-single-edit-remastered-2022/1622635555?i=1622635805",
+      "repli": {
+        "fichier": "Human Antagonist - Hard Rock 01",
+        "titre": "Hard Rock 01",
+        "artiste": "Human Antagonist",
+        "licence": "CC BY-SA 3.0",
+        "page_licence": "https://opengameart.org/content/hard-rock-01",
+        "attribution": "\"Hard Rock 01\" by Human Antagonist - https://opengameart.org/content/hard-rock-01 - CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0/)",
+        "debut_s": 0.0,
+        "debut_sur": true,
+        "source": "libre (sélection chef d’atelier, 13 oct. 2026)",
+        "note": "Gros riff hard rock à 136 BPM, plein dès 0 s, dynamique saine (crest 17 dB) : Money for Nothing sans le riff."
+      },
+      "historique": [
+        {
+          "titre": "Money for Nothing",
+          "artiste": "Dire Straits"
+        }
+      ],
+      "fichier": "Dire Straits - Money for Nothing",
+      "choisi_par": "Esteban & Chef d'Atelier (75 musiques uniques, 13/10/2026)",
+      "note": "Morceau 100% unique normalisé EBU R128 (-16 LUFS) — riff de guitare VCARB."
+    },
+    "N01": {
+      "titre": "Breathe",
+      "artiste": "The Prodigy",
+      "genre": "punk",
+      "style": "big beat électro-punk, pouls survolté et basses lourdes",
+      "fichier": "The Prodigy - Breathe",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "note": "Fourni par Esteban : pulse électronique survolté et basses lourdes.",
+      "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+    },
+    "N02": {
+      "titre": "Figure-8 Circuit (Mario Kart DS)",
+      "artiste": "Shinobu Tanaka",
+      "genre": "chiptune",
+      "style": "musique de Mario Kart DS, demandée par Esteban",
+      "fichier": "Mario Kart DS - Figure-8 Circuit Theme",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "note": "Fourni par Esteban : la musique Mario Kart DS qu'il a demandée.",
+      "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+    },
+    "N03": {
+      "titre": "Gas Gas Gas (Initial D)",
+      "artiste": "Manuel",
+      "genre": "eurobeat",
+      "style": "eurobeat de descente de col, freinage tardif",
+      "fichier": "Manuel - Gas Gas Gas",
+      "debut_s": 48.0,
+      "debut_sur": true,
+      "note": "Fourni par Esteban : refrain eurobeat culte à 48 s.",
+      "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+    },
+    "N04": {
+      "titre": "Alles Neu",
+      "artiste": "Peter Fox",
+      "genre": "hiphop",
+      "style": "cordes percutantes et flow berlinois",
+      "fichier": "Peter Fox - Alles Neu",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "note": "Fourni par Esteban : cordes percutantes et flow berlinois.",
+      "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+    },
+    "N05": {
+      "titre": "Electric Avenue",
+      "artiste": "Eddy Grant",
+      "genre": "disco",
+      "style": "synth-funk électrique pour une hybride en treillis",
+      "fichier": "Eddy Grant - Electric Avenue",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "note": "Fourni par Esteban : synth-funk électrique, satire hybride.",
+      "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+    },
+    "N06": {
+      "titre": "Fortunate Son",
+      "artiste": "Creedence Clearwater Revival",
+      "genre": "rock",
+      "style": "riff sudiste de 1969, fierté américaine",
+      "fichier": "Creedence Clearwater Revival - Fortunate Son",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "note": "Fourni par Esteban : riff d'ouverture immédiat.",
+      "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+    },
+    "N07": {
+      "titre": "Misirlou",
+      "artiste": "Dick Dale & His Del-Tones",
+      "genre": "rock",
+      "style": "surf rock 1962, guitare en trémolo",
+      "fichier": "Dick Dale - Misirlou",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "note": "Fourni par Esteban : le trémolo démarre à la première seconde.",
+      "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+    },
+    "N08": {
+      "titre": "London Calling",
+      "artiste": "The Clash",
+      "genre": "punk",
+      "style": "hymne punk britannique, sirène sur la Tamise",
+      "fichier": "The Clash - London Calling",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "note": "Fourni par Esteban : guitares d'ouverture immédiates.",
+      "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+    },
+    "N09": {
+      "titre": "Arkham City (Main Theme)",
+      "artiste": "Nick Arundel & Ron Fish",
+      "genre": "symphonie",
+      "style": "chœurs sombres et envolée symphonique",
+      "fichier": "Nick Arundel - Batman Arkham City Main Theme",
+      "debut_s": 2.5,
+      "debut_sur": true,
+      "note": "Fourni par Esteban (départ 0 s) : le fichier commence par 2,5 s de silence, départ recalé à 2,5 s.",
+      "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+    },
+    "N10": {
+      "titre": "Dragula",
+      "artiste": "Rob Zombie",
+      "genre": "rock",
+      "style": "métal industriel de dragster, moteur à nu",
+      "fichier": "Rob Zombie - Dragula",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "note": "Fourni par Esteban : riff industriel immédiat.",
+      "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+    },
+    "N11": {
+      "titre": "AcceleRacers Theme (Drive to Survive)",
+      "artiste": "Hot Wheels AcceleRacers",
+      "genre": "rock",
+      "style": "thème officiel des AcceleRacers, guitares Metal Maniacs",
+      "fichier": "Hot Wheels AcceleRacers - Drive to Survive Theme",
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "note": "Fourni par Esteban : thème officiel AcceleRacers.",
+      "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+    },
+    "N12": {
+      "titre": "Yakety Sax",
+      "artiste": "Boots Randolph",
+      "genre": "swing",
+      "style": "saxophone de poursuite burlesque, après la chute",
+      "fichier": "Boots Randolph - Yakety Sax",
+      "motsCles": [
+        "yakety sax"
+      ],
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "note": "Morceau idéal à déposer dans Musique/10_Morceaux_Bolides : il démarre APRÈS la chute (mode drame).",
+      "repli": {
+        "fichier": "Matthew Pablo - Circus Dilemma",
+        "titre": "Circus Dilemma",
+        "artiste": "Matthew Pablo",
+        "licence": "CC BY 3.0",
+        "page_licence": "https://opengameart.org/content/circus-dilemma",
+        "attribution": "\"Circus Dilemma\" by Matthew Pablo (www.matthewpablo.com) — CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/)",
+        "debut_s": 0.0,
+        "debut_sur": true,
+        "source": "bibliothèque libre d'Esteban (Musique/11_Musiques_Libres)",
+        "note": "Cirque désenchanté, en attendant le saxo burlesque."
+      },
+      "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-16)"
+    },
+    "N13": {
+      "titre": "The Final Countdown",
+      "artiste": "Europe",
+      "genre": "rock",
+      "style": "fanfare de synthé triomphale, en décalage total avec l'épave",
+      "fichier": "Europe - The Final Countdown",
+      "motsCles": [
+        "final countdown"
+      ],
+      "debut_s": 0.0,
+      "debut_sur": true,
+      "note": "Morceau idéal à déposer dans Musique/10_Morceaux_Bolides : il démarre APRÈS le crash (mode drame).",
+      "repli": {
+        "fichier": "Kevin MacLeod - Aces High",
+        "titre": "Aces High",
+        "artiste": "Kevin MacLeod",
+        "licence": "CC BY 4.0",
+        "debut_s": 12.0,
+        "debut_sur": true,
+        "attribution": "\"Aces High\" Kevin MacLeod (incompetech.com) — CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+        "source": "bibliothèque libre d'Esteban (Musique/11_Musiques_Libres)",
+        "note": "Fanfare d'as de l'aviation (départ à 12 s : H11 l'utilise dès 0 s), en attendant le compte à rebours final."
+      },
+      "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-16)"
     }
   }
 }

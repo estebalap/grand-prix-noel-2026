@@ -14,6 +14,12 @@
                        la pression (donc la vitesse du jet) tombe ; claquement de la valve.
      rideau            lames d'acier qui s'enroulent : chocs périodiques (une lame par 70-120 ms), frottement dans les coulisses,
                        ronflement du moto-réducteur.
+     MODE EXPLOSION    subBoom : infrabasse ~35 Hz (glissando 77 → 35 Hz, attaque 1,5 ms) + onde de souffle de Friedlander (pic
+                       transitoire) ; clacForge : barre d'acier forgé libre-libre (modes d'Euler-Bernoulli) + plaque épaisse ;
+                       detonation = les deux + éclats ; titan : sub-boom 30 Hz, deux claquements, décompression, pluie d'éclats.
+     ferraille brute   pene (5 kg d'acier forgé qui tombe : rebonds à restitution 0,42), raclement de tôle galvanisée (collé-glissé
+                       dense + grain du zinc), decompression (valve qui claque, jet qui plonge 6,5 kHz → 0,9 kHz), charnière GRIPPÉE
+                       (grincement à à-coups), arcElectrique (claquements de décharge, bourdonnement 100 Hz).
      hangar            réponse impulsionnelle stéréo d'un hangar de fret (≈ 90 × 85 × 16 m) : premières réflexions (sol, murs,
                        charpente) puis queue diffuse RT60 ≈ 2,6 s dont les aigus meurent plus vite (absorption de l'air).
 
@@ -72,16 +78,17 @@ export function chocLourd(sr, masse, rnd) {
 }
 
 /** Charnière rouillée qui grince : collé-glissé. */
-export function grincement(sr, duree, rnd, { grave = false } = {}) {
+export function grincement(sr, duree, rnd, { grave = false, grippe = false } = {}) {
   const { n, g, d } = stereo(sr, duree + 0.4);
   const modes = (grave ? [310, 720, 1180, 1730, 2410] : [520, 1240, 1980, 2870, 3940]).map((f, k) => ({ f: f * (1 + 0.02 * rnd.signe()), t60: 0.06 + 0.02 * k, a: 1 / (1 + k * 0.4) }));
   const banc = new BancModal(sr, modes);
   let ph = 0;
   for (let i = 0; i < n; i++) {
     const t = i / sr, u = Math.min(1, t / duree), vit = Math.sin(Math.PI * u) ** 0.7;          // vitesse de glissement en cloche
-    const fq = (grave ? 45 : 90) + (grave ? 120 : 230) * vit * (1 + 0.25 * Math.sin(2 * Math.PI * 1.7 * t + rnd() * 0.2));
+    // charnière GRIPPÉE : la rouille bloque l'axe, qui ne lâche que par à-coups (cadence basse, gigue forte, décollements violents)
+    const fq = grippe ? 16 + 48 * vit * (1 + 0.6 * Math.sin(2 * Math.PI * 0.9 * t)) : (grave ? 45 : 90) + (grave ? 120 : 230) * vit * (1 + 0.25 * Math.sin(2 * Math.PI * 1.7 * t + rnd() * 0.2));
     ph += fq / sr; let ex = 0;
-    if (ph >= 1) { ph -= 1 + 0.12 * rnd.signe(); ex = vit * (0.7 + 0.6 * rnd()); }
+    if (ph >= 1) { ph -= 1 + (grippe ? 0.35 : 0.12) * rnd.signe(); ex = vit * (0.7 + 0.6 * rnd()) * (grippe ? 2.2 : 1); }
     const v = banc.pas(ex) * (t < duree ? 1 : 0.4);
     g[i] = v; d[i] = v * 0.85;
   }
@@ -187,7 +194,9 @@ export function butee(sr, rnd) {
 /** Contacteur de projecteur qui enclenche : clac sec, ronflement du ballast, arc qui s'amorce. */
 export function contacteur(sr, rnd) {
   const { n, g, d } = stereo(sr, 0.9);
-  const clac = exciter(sr, new BancModal(sr, [{ f: 2210, t60: 0.04 }, { f: 4460, t60: 0.03, a: 0.6 }, { f: 980, t60: 0.06, a: 0.5 }]), n, 0.0004, 1, rnd);
+  // contacteur industriel (projecteur de 2 kW) : l'armature d'acier de ~400 g claque sur le noyau (modes graves, contact 1,2 ms), puis les
+  // contacts d'argent (aigus) — un CLONK de ferraille, plus un clic numérique
+  const clac = exciter(sr, new BancModal(sr, [{ f: 178, t60: 0.22 }, { f: 412, t60: 0.16, a: 0.9 }, { f: 980, t60: 0.09, a: 0.6 }, { f: 2210, t60: 0.04, a: 0.45 }, { f: 4460, t60: 0.03, a: 0.3 }]), n, 0.0012, 1.3, rnd);
   const arc = new Biquad(sr, 'highpass', 3500, 0.7);
   for (let i = 0; i < n; i++) {
     const t = i / sr, hum = (Math.sin(2 * Math.PI * 100 * t) * 0.6 + Math.sin(2 * Math.PI * 200 * t) * 0.3 + Math.sin(2 * Math.PI * 300 * t) * 0.15) * 0.12 * Math.min(1, t / 0.03) * Math.exp(-t / 0.5);
@@ -227,6 +236,159 @@ export function atterrissage(sr, rnd) {
   return fini(sr, g, d, 0.95);
 }
 
+/* ------------------------------------------------------------------ MODE EXPLOSION : détonations, ferraille brute */
+/** Onde de souffle de Friedlander : surpression p(t) = (1 − t/T)·e^(−b·t/T), phase positive brève puis dépression plus longue. */
+export function friedlander(t, T = 0.012, b = 1.8) { return t < 0 ? 0 : (1 - t / T) * Math.exp(-b * t / T); }
+
+/** SUB-BOOM : infrabasse de détonation. Sinus dont la fréquence plonge de ~2,2·f0 à f0 (≈ 35 Hz) en 45 ms (la cavité du conteneur
+ *  se vide), attaque de 1,5 ms, décroissance longue ; pic transitoire = onde de souffle de Friedlander (surpression + dépression)
+ *  filtrée ; grondement de la structure (bruit < 90 Hz). Saturation douce, crête 0,95 : aucun écrêtage. */
+export function subBoom(sr, rnd, { f0 = 35, duree = 1.8, force = 1 } = {}) {
+  const { n, g, d } = stereo(sr, duree);
+  const tau = 0.2 + 0.26 * Math.min(1.8, force), lp = new Biquad(sr, 'lowpass', 1800, 0.7), gr = new Biquad(sr, 'lowpass', 85, 0.9), grD = new Biquad(sr, 'lowpass', 92, 0.9);
+  const souffle = new Biquad(sr, 'lowpass', 260, 0.7);
+  // enveloppes exponentielles calculées par récurrence (une multiplication par échantillon au lieu d'un Math.exp)
+  const k = (tc) => Math.exp(-1 / (tc * sr));
+  const kGl = k(0.045), kAt = k(0.0015), kTau = k(tau), kH2 = k(0.08), kCl = k(0.004), kRo = k(tau * 1.4), kRa = k(0.02), iChoc = Math.round(0.08 * sr);
+  let ph = 0, eGl = 1, eAt = 1, eTau = 1, eH2 = 1, eCl = 1, eRo = 1, eRa = 1;
+  for (let i = 0; i < n; i++) {
+    const t = i / sr, f = f0 * (1 + 1.2 * eGl);
+    ph += 2 * Math.PI * f / sr;
+    const env = (1 - eAt) * eTau;
+    const corps = Math.sin(ph) * env * 1.25 + Math.sin(2 * ph + 0.4) * env * 0.12 * eH2;
+    const choc = i < iChoc ? souffle.pas(friedlander(t, 0.014, 1.7) * 1.6) + lp.pas(rnd.signe()) * eCl * 0.45 : 0;   // pic transitoire
+    const roule = eRo * (1 - eRa);
+    const v = sature(corps + choc);
+    g[i] = v + gr.pas(rnd.signe()) * roule * 0.9; d[i] = v + grD.pas(rnd.signe()) * roule * 0.9;
+    eGl *= kGl; eAt *= kAt; eTau *= kTau; eH2 *= kH2; eCl *= kCl; eRo *= kRo; eRa *= kRa;
+  }
+  const nf = Math.round(n * 0.45);                                            // queue : fondu en cosinus sur 45 % (une infrabasse ne s'arrête pas net)
+  for (let i = 0; i < nf; i++) { const w = 0.5 - 0.5 * Math.cos(Math.PI * i / nf); g[n - 1 - i] *= w; d[n - 1 - i] *= w; }
+  return fini(sr, g, d, 0.95);
+}
+
+/** CLAQUEMENT D'ACIER FORGÉ : barre libre-libre (modes d'Euler-Bernoulli 1 : 2,756 : 5,404 : 8,933 : 13,34 : 19,48), plaque épaisse
+ *  et frappe acier sur acier (contact 0,7 ms). Les modes graves tiennent 1,5 s, les aigus meurent vite (T60 ∝ 1/√f). */
+export function clacForge(sr, rnd, { f1 = 196, masse = 1, duree = 2.2 } = {}) {
+  const { n, g, d } = stereo(sr, duree);
+  const barre = [1, 2.756, 5.404, 8.933, 13.344, 19.48].map((k, i) => ({ f: f1 * k * (1 + 0.008 * rnd.signe()), t60: Math.max(0.08, (1.1 + 0.6 * masse) * Math.pow(1 / k, 0.55)), a: 1 / (1 + 0.45 * i) }));
+  const plaque = modesPlaque(118 - 30 * masse, 16, rnd, { t60Bas: 1.3, aigus: 0.6 });
+  const b1 = exciter(sr, new BancModal(sr, barre), n, 0.0007, 1.4, rnd, 0.1);
+  const b2 = exciter(sr, new BancModal(sr, plaque), n, 0.0012, 1.0, rnd, 0.2);
+  const air = new Biquad(sr, 'highpass', 2500, 0.7);
+  for (let i = 0; i < n; i++) {
+    const t = i / sr, crack = air.pas(rnd.signe()) * Math.exp(-t / 0.0025) * 0.9;
+    const v = sature(b1[i] * 1.6 + b2[i] * 1.2) + crack;
+    g[i] = v; d[i] = v * 0.9 + b2[i] * 0.15;
+  }
+  return fini(sr, g, d, 0.9);
+}
+
+/** Rebonds d'un objet lâché : temps de vol t_{k+1} − t_k = e · (t_k − t_{k−1}) (vitesse de rebond × e), amplitude ∝ vitesse d'impact
+ *  (√e d'énergie conservée par choc, pertes de contact en plus). [[instant (s), amplitude]…] jusqu'à ce que le vol dure < 6 ms. */
+export function rebondsPene(e = 0.42, gap0 = 0.19, t0 = 0.008) {
+  const r = []; let t = t0, gap = gap0, amp = 1;
+  while (gap > 0.006 && t < 1.4) { r.push([t, amp]); t += gap; gap *= e; amp *= Math.sqrt(e) * 0.95; }
+  return r;
+}
+/** Chute d'un PÊNE en acier forgé de 5 kg (Ø 45 × 400 mm) sur le plancher du conteneur : impact lourd puis rebonds dont l'intervalle
+ *  et l'amplitude suivent le coefficient de restitution (e = 0,42), jusqu'au roulis final. Modes de flexion de la barre
+ *  (≈ 1,3 / 3,6 / 7,0 kHz) + coup sourd de la tôle de plancher. */
+export function pene(sr, rnd, { e = 0.42, masse = 1 } = {}) {
+  const { n, g, d } = stereo(sr, 1.9);
+  const modesBarre = (k) => [{ f: 1298 * (1 + 0.01 * rnd.signe()), t60: 0.32, a: 1 }, { f: 3578, t60: 0.2, a: 0.7 }, { f: 7014, t60: 0.11, a: 0.45 }, { f: 11590, t60: 0.06, a: 0.25 }].map((m) => ({ ...m, a: m.a * (k ? 0.8 : 1) }));
+  const plancher = modesPlaque(46, 14, rnd, { t60Bas: 0.45, aigus: 0.4 });          // la barre posée sur la tôle est amortie par le contact
+  const impacts = rebondsPene(e);
+  const tFin = impacts[impacts.length - 1][0] + 0.012;
+  for (let k = 0; k < 7; k++) impacts.push([tFin + k * 0.012 + 0.004 * rnd(), 0.05 * (1 - k / 7)]);    // la barre finit de vibrer sur le plancher
+  const sourd = new Biquad(sr, 'lowpass', 140, 1.1);
+  for (const [ti, a] of impacts) {
+    const i0 = Math.round(ti * sr), lb = new BancModal(sr, modesBarre(ti > 0.01 ? 1 : 0)), lp = new BancModal(sr, plancher), pan = 0.5 + 0.15 * rnd.signe();
+    const L = Math.min(n - i0, Math.round((0.12 + 0.8 * a) * sr)), nc = Math.max(2, Math.round((0.0009 + 0.0012 * masse) * sr));
+    for (let k = 0; k < L; k++) {
+      const ex = k < nc ? Math.sin(Math.PI * k / nc) * a : 0, tt = k / sr;
+      const contact = k < nc * 2 ? rnd.signe() * a * 0.9 * (1 - k / (nc * 2)) : 0;              // le choc acier sur acier : craquement large bande
+      const v = lb.pas(ex) * 1.1 + lp.pas(ex) * 1.6 + contact + (tt < 0.15 ? sourd.pas(k < nc * 3 ? rnd.signe() * a : 0) * Math.exp(-tt / 0.03) * 2.2 : 0);
+      g[i0 + k] += v * (1.1 - pan * 0.4); d[i0 + k] += v * (0.7 + pan * 0.4);
+    }
+  }
+  return fini(sr, g, d, 0.9);
+}
+
+/** RACLEMENT de tôle galvanisée : collé-glissé dense (60 → 180 Hz, gigue forte) qui excite les modes du panneau, plus le grain du
+ *  zinc (bruit 1,5–4 kHz modulé par chaque décollement). La vitesse de glissement monte puis retombe. */
+export function raclement(sr, duree, rnd) {
+  const { n, g, d } = stereo(sr, duree + 0.4);
+  const panneau = new BancModal(sr, modesPlaque(82, 24, rnd, { t60Bas: 0.45, aigus: 0.8 }));
+  const grain = new Biquad(sr, 'bandpass', 2600, 0.8), grainD = new Biquad(sr, 'bandpass', 2900, 0.8), corps = new Biquad(sr, 'bandpass', 480, 1.4);
+  let ph = 0, mod = 0;
+  for (let i = 0; i < n; i++) {
+    const t = i / sr, u = Math.min(1, t / duree), vit = Math.pow(Math.sin(Math.PI * u), 0.6) * (t < duree ? 1 : 0);
+    ph += (60 + 120 * vit) * (1 + 0.35 * rnd.signe()) / sr;
+    let ex = 0; if (ph >= 1) { ph -= 1; ex = vit * (0.5 + rnd()); mod = 1; }
+    mod *= 0.995;
+    const p = panneau.pas(ex * 0.6) * 0.9, gr = grain.pas(rnd.signe()) * (0.25 + 0.75 * mod) * vit * 0.5, c = corps.pas(rnd.signe()) * vit * 0.25;
+    g[i] = p + gr + c; d[i] = p * 0.9 + grainD.pas(rnd.signe()) * (0.25 + 0.75 * mod) * vit * 0.5 + c;
+  }
+  return fini(sr, g, d, 0.8);
+}
+
+/** DÉCOMPRESSION pneumatique brutale : la valve claque (CLONK modal), le jet démarre en < 1 ms avec une onde de souffle, puis son
+ *  spectre plonge (la pression s'effondre : 6,5 kHz → 900 Hz en 0,4 s) ; coup sourd du réservoir qui se vide. */
+export function decompression(sr, rnd, { force = 1, duree = 0.9 } = {}) {
+  const { n, g, d } = stereo(sr, duree + 0.4);
+  const valve = exciter(sr, new BancModal(sr, [{ f: 226, t60: 0.3 }, { f: 534, t60: 0.22, a: 0.8 }, { f: 1112, t60: 0.14, a: 0.6 }, { f: 2210, t60: 0.08, a: 0.4 }]), n, 0.0015, 1.2, rnd);
+  const bpG = new Biquad(sr, 'bandpass', 6500, 0.6), bpD = new Biquad(sr, 'bandpass', 6900, 0.6), sourd = new Biquad(sr, 'lowpass', 120, 1);
+  for (let i = 0; i < n; i++) {
+    const t = i / sr;
+    if (i % 32 === 0) { const fc = 900 + 5600 * Math.exp(-t / 0.15); bpG.regler('bandpass', fc, 0.6); bpD.regler('bandpass', fc * 1.06, 0.6); }
+    const env = (1 - Math.exp(-t / 0.0006)) * Math.exp(-t / (0.16 + 0.1 * force)) * force * (t < duree ? 1 : Math.exp(-(t - duree) / 0.05));
+    const boum = friedlander(t, 0.01, 1.6) * 0.9 + sourd.pas(rnd.signe()) * Math.exp(-t / 0.06) * 1.6;
+    g[i] = bpG.pas(rnd.signe()) * env * 1.5 + valve[i] * 0.9 + boum; d[i] = bpD.pas(rnd.signe()) * env * 1.5 + valve[i] * 0.85 + boum;
+  }
+  return fini(sr, g, d, 0.9);
+}
+
+/** ARC ÉLECTRIQUE : claquements de décharge (Poisson en rafales), bourdonnement 100 Hz de l'alimentation, sifflement d'ionisation. */
+export function arcElectrique(sr, duree, rnd) {
+  const { n, g, d } = stereo(sr, duree + 0.15);
+  const hp = new Biquad(sr, 'highpass', 2200, 0.7), hpD = new Biquad(sr, 'highpass', 2400, 0.7), ion = new Biquad(sr, 'bandpass', 7000, 1.5);
+  let rafale = 0;
+  for (let i = 0; i < n; i++) {
+    const t = i / sr, actif = t < duree ? 1 : Math.exp(-(t - duree) / 0.03);
+    if (rnd() < 0.002) rafale = 1; rafale *= 0.9993;
+    const clic = rnd() < (60 + 900 * rafale) / sr ? (0.6 + 0.4 * rnd()) * (rnd() < 0.5 ? 1 : -1) : 0;
+    const buzz = (Math.sin(2 * Math.PI * 100 * t) * 0.5 + Math.sign(Math.sin(2 * Math.PI * 100 * t)) * 0.2) * 0.12;
+    const s = ion.pas(rnd.signe()) * 0.12;
+    g[i] = (hp.pas(clic * 3) + buzz + s) * actif; d[i] = (hpD.pas(clic * 3) + buzz * 0.9 + s) * actif;
+  }
+  return fini(sr, g, d, 0.75);
+}
+
+/** DÉTONATION composite (un palier de rareté) : sub-boom + claquement d'acier forgé + éclats de rouille et de boulons. */
+export function detonation(sr, rnd, { force = 1, f0 = 35 } = {}) {
+  const { n, g, d } = stereo(sr, 2.4);
+  const sb = subBoom(sr, rnd, { f0, duree: 2.2, force }), cl = clacForge(sr, rnd, { f1: 210 - 40 * force, masse: Math.min(1, force) });
+  const eclats = particules(sr, n, { debut: 0.01, duree: 0.35 + 0.3 * force, densite: 90, modes: [{ f: 2650, t60: 0.05 }, { f: 4310, t60: 0.04 }, { f: 1380, t60: 0.07, a: 0.5 }, { f: 6200, t60: 0.03, a: 0.4 }], gain: 0.6 }, rnd);
+  const ajouter = (src, k, decal = 0) => { const a = Math.round(decal * sr); for (let i = 0; i + a < n && i < src.gauche.length; i++) { g[i + a] += src.gauche[i] * k; d[i + a] += src.droite[i] * k; } };
+  ajouter(sb, 1.0); ajouter(cl, 0.62 + 0.15 * force);
+  for (let i = 0; i < n; i++) { g[i] += eclats[i] * 0.35; d[i] += eclats[i] * 0.4; }
+  return fini(sr, g, d, 0.95);
+}
+
+/** EXPLOSION TITANESQUE (le scellé est pulvérisé) : sub-boom le plus profond (30 Hz, 3 s), deux claquements de forge décalés de 17 ms,
+ *  décompression, pluie d'éclats qui retombent sur le toit et le béton. */
+export function titan(sr, rnd) {
+  const { n, g, d } = stereo(sr, 3.6);
+  const sb = subBoom(sr, rnd, { f0: 30, duree: 3.4, force: 1.8 }), c1 = clacForge(sr, rnd, { f1: 148, masse: 1, duree: 2.6 }), c2 = clacForge(sr, rnd, { f1: 233, masse: 0.8 });
+  const dc = decompression(sr, rnd, { force: 1, duree: 1.1 });
+  const pluie = particules(sr, n, { debut: 0.25, duree: 1.6, densite: 70, modes: [{ f: 3100, t60: 0.05 }, { f: 1720, t60: 0.08, a: 0.6 }, { f: 5200, t60: 0.03, a: 0.4 }, { f: 820, t60: 0.1, a: 0.4 }], gain: 0.7 }, rnd);
+  const ajouter = (src, k, decal = 0) => { const a = Math.round(decal * sr); for (let i = 0; i + a < n && i < src.gauche.length; i++) { g[i + a] += src.gauche[i] * k; d[i + a] += src.droite[i] * k; } };
+  ajouter(sb, 1.05); ajouter(c1, 0.7); ajouter(c2, 0.5, 0.017); ajouter(dc, 0.45, 0.03);
+  for (let i = 0; i < n; i++) { g[i] += pluie[i] * 0.3; d[i] += pluie[i] * 0.34; }
+  return fini(sr, g, d, 0.95);
+}
+
 /* ------------------------------------------------------------------ hangar */
 /** Réponse impulsionnelle stéréo du hangar (convolution) : premières réflexions + queue diffuse, aigus qui meurent plus vite. */
 export function reponseHangar(sr, germe = 7, rt60 = 2.6) {
@@ -249,6 +411,75 @@ export function reponseHangar(sr, germe = 7, rt60 = 2.6) {
 
 function fini(sr, g, d, crete) { fondus(g, sr, 0.0005, 0.05); fondus(d, sr, 0.0005, 0.05); normaliser(crete, g, d); return { gauche: g, droite: d }; }
 
+/* ------------------------------------------------------------------ MODE DRAME : le rideau qui se coince, la lame qui tombe, l'enjoliveur */
+/** Mélange stéréo de sources { gauche, droite } posées à des instants (s) avec leur gain, normalisé à `crete`. */
+function melange(sr, duree, pistes, crete = 0.9) {
+  const { n, g, d } = stereo(sr, duree);
+  for (const [src, t, k] of pistes) {
+    const a = Math.round(t * sr);
+    for (let i = 0; i < src.gauche.length && a + i < n; i++) { g[a + i] += src.gauche[i] * k; d[a + i] += src.droite[i] * k; }
+  }
+  return fini(sr, g, d, crete);
+}
+/** À-coup du rideau coincé : le moto-réducteur force, quelques lames claquent sur l'axe, la charnière grippée geint, puis le
+ *  rideau s'arrête net sur sa butée de rouille (choc sourd). */
+export function aCoupRideau(sr, rnd, k = 0) {
+  const r = rideau(sr, 0.24, rnd), gr = grincement(sr, 0.32, rnd, { grave: true, grippe: true }), c = chocLourd(sr, 0.3 + 0.1 * k, rnd);
+  return melange(sr, 1.6, [[r, 0, 0.8], [gr, 0.02, 0.7], [c, 0.22, 0.55]]);
+}
+/** Rideau bloqué à mi-hauteur : le moteur du rideau cale (47 → 30 Hz, ronflement qui bat), la charnière grippée hurle par à-coups. */
+export function rideauCoince(sr, rnd) {
+  const gr = grincement(sr, 1.0, rnd, { grippe: true }), gr2 = grincement(sr, 0.7, rnd, { grave: true, grippe: true });
+  const { n, g, d } = stereo(sr, 1.4);
+  let ph = 0;
+  for (let i = 0; i < n; i++) {
+    const t = i / sr, u = Math.min(1, t / 1.0), f = 47 - 17 * u, env = Math.min(1, t / 0.05) * (t < 1.0 ? 1 : Math.exp(-(t - 1) / 0.06));
+    ph += 2 * Math.PI * f / sr;
+    const v = (Math.sin(ph) * 0.5 + Math.sin(2 * ph) * 0.25 + Math.sin(5 * ph) * 0.1) * 0.22 * env * (1 + 0.4 * Math.sin(2 * Math.PI * 9 * t));
+    g[i] = v; d[i] = v;
+  }
+  const moteur = fini(sr, g, d, 0.6);
+  return melange(sr, 1.6, [[moteur, 0, 0.7], [gr, 0.05, 0.8], [gr2, 0.45, 0.5]]);
+}
+/** Lame d'acier du rideau qui tombe à plat sur le béton : claquement (modes de poutre libre-libre d'une lame mince, f ∝ (k + ½)²),
+ *  corps sourd du béton, deux rebonds de plus en plus faibles ; la lame « chante » un instant au sol. Le CLONK du drame. */
+export function lameTombe(sr, rnd) {
+  const { n, g, d } = stereo(sr, 1.8);
+  const modes = [];
+  for (let k = 1; k <= 9; k++) modes.push({ f: 168 * Math.pow(k + 0.5, 2) / 2.25 * (1 + 0.02 * rnd.signe()), t60: Math.max(0.04, 0.9 / Math.sqrt(k)), a: 1 / Math.sqrt(k) });
+  const sol = new Biquad(sr, 'lowpass', 120, 1.1);
+  for (const [t, a] of [[0, 1], [0.11, 0.45], [0.19, 0.2]]) {
+    const i0 = Math.round(t * sr), x = exciter(sr, new BancModal(sr, modes), n - i0, 0.0012, a, rnd);
+    for (let i = 0; i < x.length; i++) { const corps = sol.pas(rnd.signe()) * Math.exp(-(i / sr) / 0.035) * 2.2 * a; g[i0 + i] += x[i] + corps; d[i0 + i] += x[i] * 0.9 + corps; }
+  }
+  return fini(sr, g, d, 0.95);
+}
+/** Fin d'enroulement pénible : lames qui basculent, deux grincements de charnière grippée, butée en fin de course. */
+export function finRideau(sr, duree, rnd) {
+  const r = rideau(sr, duree, rnd), a = grincement(sr, 0.5, rnd, { grave: true, grippe: true }), b = grincement(sr, 0.45, rnd, { grippe: true }), bu = butee(sr, rnd);
+  return melange(sr, duree + 1.4, [[r, 0, 0.75], [a, duree * 0.3, 0.6], [b, duree * 0.66, 0.55], [bu, duree, 0.6]]);
+}
+/** Enjoliveur de tôle qui se détache (clac), roule sur le béton (un contact par tour, cadence qui ralentit), puis tourne en
+ *  toupie comme un disque d'Euler (contacts de plus en plus rapprochés, de plus en plus faibles) avant de se coucher à plat. */
+export function enjoliveur(sr, rnd, { roule = 1.3, toupie = 1.0 } = {}) {
+  const tot = roule + toupie + 1.0, { n, g, d } = stereo(sr, tot);
+  const modes = modesPlaque(780, 14, rnd, { t60Bas: 0.5, rapport: 1 });
+  const frappe = (t, a, pan = 0.5) => {
+    const i0 = Math.round(t * sr), x = exciter(sr, new BancModal(sr, modes), Math.max(1, Math.min(n - i0, Math.round(0.6 * sr))), 0.0004, a, rnd);
+    for (let i = 0; i < x.length; i++) { g[i0 + i] += x[i] * (1.1 - pan * 0.4); d[i0 + i] += x[i] * (0.7 + pan * 0.4); }
+  };
+  frappe(0, 0.9);
+  for (let t = 0.12, p = 0.07; t < roule; t += p, p *= 1.06) frappe(t, 0.18 + 0.1 * rnd(), 0.3 + 0.4 * t / roule);
+  for (let t = roule, p = 0.16; t < roule + toupie && p > 0.008; t += p, p *= 0.86) frappe(t, 0.32 * (0.4 + 0.6 * p / 0.16), 0.75);
+  frappe(roule + toupie, 0.8, 0.75);
+  return fini(sr, g, d, 0.85);
+}
+/** Bruitages du MODE DRAME (rendus une fois, avant le top départ, seulement pour un bolide à rareté « drame »). */
+export function banqueDrame(sr, { germe = 1, dureeFin = 1.4, enjo = { roule: 1.3, toupie: 1.0 } } = {}) {
+  const rnd = hasard(germe);
+  return { acoup: [0, 1, 2].map((k) => aCoupRideau(sr, rnd, k)), coince: rideauCoince(sr, rnd), lame: lameTombe(sr, rnd), fin: finRideau(sr, dureeFin, rnd), enjoliveur: enjoliveur(sr, rnd, enjo) };
+}
+
 /** Tous les bruitages d'un reveal (rendus une fois, avant le top départ). */
 export function banqueFoley(sr, { germe = 1, rang = 0, dureeRideau = 4.4 } = {}) {
   const rnd = hasard(germe), B = {};
@@ -266,5 +497,13 @@ export function banqueFoley(sr, { germe = 1, rang = 0, dureeRideau = 4.4 } = {})
   B.contacteur = contacteur(sr, rnd);
   B.battement = battement(sr, rnd);
   B.eclatPlaque = eclatPlaque(sr, rnd);
+  // MODE EXPLOSION : détonations par niveau de force (léger / lourd / climax), explosion titanesque (rang ≥ 3), ferraille brute
+  B.detonation = [detonation(sr, rnd, { force: 0.5, f0: 38 }), detonation(sr, rnd, { force: 0.8, f0: 36 }), detonation(sr, rnd, { force: 1.1, f0: 34 })];
+  if (rang >= 3) B.titan = titan(sr, rnd);
+  B.pene = [pene(sr, rnd), pene(sr, rnd, { e: 0.38, masse: 0.8 })];
+  B.raclement = raclement(sr, 0.65, rnd);
+  B.decompression = decompression(sr, rnd);
+  B.arc = arcElectrique(sr, 0.4, rnd);
+  B.charniere = grincement(sr, 0.9, rnd, { grave: true, grippe: true });
   return B;
 }

@@ -1,0 +1,110 @@
+{
+ "version": "v6",
+ "largeur": 1280,
+ "erreurs_console": [],
+ "determinisme": {
+  "126.50": "identique",
+  "61.93": "identique",
+  "44.66": "identique",
+  "24.00": "identique",
+  "2.00": "identique"
+ },
+ "inventaire": {
+  "concepts": [
+   {
+    "ecurie": 1,
+    "nom": "Intercepteur furtif MK-Mimine",
+    "longueur_cm": 9.14,
+    "roues": 4
+   },
+   {
+    "ecurie": 2,
+    "nom": "Micro-Fusée Oasis V16",
+    "longueur_cm": 5.9,
+    "roues": 4
+   },
+   {
+    "ecurie": 3,
+    "nom": "Hyper-Optic 24 H",
+    "longueur_cm": 8.05,
+    "roues": 4
+   },
+   {
+    "ecurie": 4,
+    "nom": "Vinyl Royale GT",
+    "longueur_cm": 8.29,
+    "roues": 4
+   },
+   {
+    "ecurie": 5,
+    "nom": "Pression V8 Hot-Rod",
+    "longueur_cm": 6.96,
+    "roues": 4
+   },
+   {
+    "ecurie": 6,
+    "nom": "Symphonie E-F1",
+    "longueur_cm": 7.76,
+    "roues": 4
+   },
+   {
+    "ecurie": 7,
+    "nom": "Yaris Invincible WRC",
+    "longueur_cm": 6.7,
+    "roues": 4
+   },
+   {
+    "ecurie": 8,
+    "nom": "Oil-Leak Recovery Mk.II",
+    "longueur_cm": 16,
+    "roues": 8
+   },
+   {
+    "ecurie": 9,
+    "nom": "Wyvern GT-R",
+    "longueur_cm": 8.11,
+    "roues": 4
+   },
+   {
+    "ecurie": 10,
+    "nom": "Doom Crawler 666",
+    "longueur_cm": 8.87,
+    "roues": 6
+   },
+   {
+    "ecurie": 11,
+    "nom": "Milo Princess Coupé",
+    "longueur_cm": 6.2,
+    "roues": 4
+   },
+   {
+    "ecurie": 12,
+    "nom": "Menacing Wedge ゴゴゴ",
+    "longueur_cm": 7.34,
+    "roues": 4
+   },
+   {
+    "ecurie": 13,
+    "nom": "Sirène Veloce Hydro",
+    "longueur_cm": 8.42,
+    "roues": 4
+   },
+   {
+    "ecurie": 14,
+    "nom": "Kage Street Ninja",
+    "longueur_cm": 8.27,
+    "roues": 4
+   },
+   {
+    "ecurie": 15,
+    "nom": "Daisy Streamliner 37-X",
+    "longueur_cm": 8.22,
+    "roues": 4
+   }
+  ],
+  "parc": 52,
+  "parcUniques": 52,
+  "foule_arene_masquee": 15,
+  "boites": 0
+ }
+}

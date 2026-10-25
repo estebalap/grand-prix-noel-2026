@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arène ring — aperçu (intro v4)</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #05040a; color: #eee; font: 14px/1.4 system-ui, sans-serif; overflow: hidden; }
+  canvas { display: block; }
+  #barre { position: fixed; left: 12px; top: 12px; display: flex; flex-wrap: wrap; gap: 6px; max-width: calc(100% - 24px); }
+  #barre button { background: rgba(20,18,30,.82); color: #f3eadf; border: 1px solid #4a3c5c; border-radius: 8px; padding: 6px 10px; cursor: pointer; font: inherit; }
+  #barre button.actif { border-color: #ffc83d; color: #ffc83d; }
+  #info { position: fixed; left: 12px; bottom: 12px; background: rgba(20,18,30,.82); padding: 8px 12px; border-radius: 8px; }
+  #erreur { position: fixed; inset: 0; display: none; place-items: center; background: #200; color: #fbb; padding: 30px; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<div id="barre"></div>
+<div id="info">Glisser : tourner · Molette : avancer · Maj + glisser : déplacer</div>
+<div id="erreur"></div>
+<!-- three.js r128 est chargé par src/shared_bridge.js (pont universel : dépôt GitHub ou PC local) -->
+<script type="module">
+import './src/shared_bridge.js';
+import { construireArene } from './src/decors/arene.js';
+import { reglerRendu, environnementSalon } from './src/decors/salon.js';
+import { chargerEquipes } from './src/donnees_v4.js';
+const THREE = window.THREE;
+const err = (e) => { const d = document.getElementById('erreur'); d.style.display = 'grid'; d.textContent = 'Erreur : ' + (e && e.stack || e); console.error(e); };
+(async () => {
+  try {
+    const { equipes, logos } = await chargerEquipes();
+    const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+    renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1)); renderer.setSize(innerWidth, innerHeight); reglerRendu(renderer);
+    document.body.prepend(renderer.domElement);
+    const scene = new THREE.Scene(); scene.background = new THREE.Color(0x05040a); scene.environment = environnementSalon(renderer);
+    const arene = construireArene({ equipes, logos }); scene.add(arene.groupe); scene.fog = arene.ancres.brouillard;
+    const q = new URLSearchParams(location.search);
+    const etat = { theme: q.get('theme') || 'championnat', allume: 1, rebond: [], casse: 0, foule: 1 };
+    let ecranIdx = q.has('ecurie') ? parseInt(q.get('ecurie'), 10) : -1;
+    const cam = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 1, 5000);
+    const orbite = { cible: arene.ancres.ring.centre.clone().add(new THREE.Vector3(0, 25, -30)), r: 330, az: 0.5, el: 0.2 };
+    const barre = document.getElementById('barre');
+    const bouton = (txt, fn) => { const b = document.createElement('button'); b.textContent = txt; b.onclick = fn; barre.appendChild(b); return b; };
+    for (const th of ['tapis', 'championnat', 'sauvage']) bouton('Ambiance ' + th, () => { etat.theme = th; });
+    bouton('Rebond des cordes', () => { etat.rebond.push({ t0: t, force: 6, cote: -1 }); });
+    bouton('Casser le luminaire', () => { tCasse = t; });
+    bouton('Écran : écurie suivante', () => { ecranIdx = (ecranIdx + 1) % equipes.length; });
+    bouton('Écran : titre', () => { ecranIdx = -1; });
+    bouton('Lumières on / off', () => { etat.allume = etat.allume ? 0 : 1; });
+    let glisse = null, tCasse = -1;
+    renderer.domElement.addEventListener('pointerdown', (e) => { glisse = { x: e.clientX, y: e.clientY, maj: e.shiftKey }; });
+    addEventListener('pointerup', () => { glisse = null; });
+    renderer.domElement.addEventListener('pointermove', (e) => {
+      if (!glisse) return; const dx = e.clientX - glisse.x, dy = e.clientY - glisse.y; glisse.x = e.clientX; glisse.y = e.clientY;
+      if (glisse.maj) { const r = new THREE.Vector3().setFromMatrixColumn(cam.matrix, 0), u = new THREE.Vector3().setFromMatrixColumn(cam.matrix, 1); orbite.cible.addScaledVector(r, -dx * orbite.r * 0.0015).addScaledVector(u, dy * orbite.r * 0.0015); }
+      else { orbite.az -= dx * 0.005; orbite.el = Math.max(-0.1, Math.min(1.45, orbite.el + dy * 0.004)); }
+    });
+    renderer.domElement.addEventListener('wheel', (e) => { e.preventDefault(); orbite.r = Math.max(8, Math.min(2500, orbite.r * Math.exp(e.deltaY * 0.001))); }, { passive: false });
+    addEventListener('resize', () => { renderer.setSize(innerWidth, innerHeight); cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); });
+    const tImpose = q.get('t'); let t = tImpose ? parseFloat(tImpose) : 0, dernier = performance.now();
+    if (q.has('casse')) tCasse = t - parseFloat(q.get('casse')) * 2;
+    function image() {
+      const now = performance.now(); if (!tImpose) t += (now - dernier) / 1000; dernier = now;
+      etat.casse = tCasse < 0 ? 0 : Math.min(1, (t - tCasse) / 2);
+      if (ecranIdx >= 0) arene.ecran.afficher('ecurie', { equipe: equipes[ecranIdx], cle: 'e' + ecranIdx }); else arene.ecran.afficher('titre', { cle: 'titre' });
+      arene.maj(t, etat);
+      cam.position.set(orbite.cible.x + orbite.r * Math.cos(orbite.el) * Math.sin(orbite.az), orbite.cible.y + orbite.r * Math.sin(orbite.el), orbite.cible.z + orbite.r * Math.cos(orbite.el) * Math.cos(orbite.az));
+      cam.lookAt(orbite.cible); renderer.render(scene, cam);
+      if (!tImpose) requestAnimationFrame(image);
+    }
+    image(); window.pret = true;
+  } catch (e) { err(e); }
+})();
+</script>
+</body>
+</html>

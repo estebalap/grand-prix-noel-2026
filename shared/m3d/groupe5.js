@@ -56,7 +56,7 @@ function breakDragon(ctx) {
     g.fillStyle = '#3a3c42'; g.fillRect(X(-1.5), Y(0.86), X(-0.45) - X(-1.5), Y(0.62) - Y(0.86));
   }, 1024, 120, 0.02, (x) => C.haut(x, 0) - 0.01);
   for (const r of roues) r.z = +(r.z * KZ).toFixed(3);                                              // voies élargies avec la caisse
-  return { L: 7.5, largeur: 2.1 * KZ, hauteur: 1.95, xAvant: 3.8, xArriere: -3.7, roues };
+  return { L: 7.5, largeur: 2.1 * KZ, hauteur: 1.95, xAvant: 3.8, xArriere: -3.7, roues, plafond: 0.79 };   // fantaisie : rapport mesuré sur la sculpture validée (break-dragon haut)
 }
 
 /* ------------------------------------------------------------------ H04 : coupé musclé orange, long capot bombé, fastback, becquet de queue */
@@ -488,7 +488,8 @@ function rallyeSpeciale(ctx) {
   o.boite(0.9, 0.04, 0.7, noir, -0.35, 1.83, 0);
   for (const z of [-1, 1]) a.tube([[-1.5, 1.46, z * 0.76], [-0.5, 1.78, z * 0.72], [0.5, 1.76, z * 0.7], [1.4, 1.38, z * 0.72]], 0.055, noir, 20);
   // entrées d'air arrière : deux pontons-fins de part et d'autre du cockpit, dessus au niveau du pavillon (surface supérieure large)
-  for (const z of [-1, 1]) { o.profil([[-3.75, 1.45], [-3.6, 1.8], [-1.25, 1.76], [-1.45, 1.4]], 0.34, noir, { galbe: false, biseau: 0.04 }).position.z = z * 0.92; }
+  // (inspection des trains : arête basse cintrée au-dessus du pneu arrière — la partie noyée dans l'aile ne descend plus dans la gomme)
+  for (const z of [-1, 1]) { o.profil([[-3.75, 1.45], [-3.6, 1.8], [-1.25, 1.76], [-1.45, 1.4], [-1.9, 1.42], [-2.1, 1.52], [-2.45, 1.6], [-2.8, 1.52], [-3.0, 1.43]], 0.34, noir, { galbe: false, biseau: 0.04 }).position.z = z * 0.92; }
   // grand aileron arrière (plan large, flasques, haubans)
   a.boiteInc(1.7, 0.1, 2.4, noir, -3.35, 2.1, 0, 0.1);
   for (const z of [-1, 1]) { o.profil([[-4.2, 1.78], [-4.25, 2.3], [-2.5, 2.23], [-2.8, 1.78]], 0.08, noir, { galbe: false, biseau: 0.03 }).position.z = z * 1.2; a.boiteInc(0.12, 0.42, 0.1, noir, -2.9, 1.86, z * 0.6, -0.25); }
@@ -517,7 +518,7 @@ function rallyeSpeciale(ctx) {
     g.globalCompositeOperation = 'source-over';
   }, 1024, 144, 0.02, (x) => C.haut(x, 0) - 0.01);
   for (const r of roues) r.z = +(r.z * KZ).toFixed(3);                                              // voies élargies avec la caisse
-  return { L: 8.9, largeur: W * KZ, hauteur: 2.3, xAvant: 4.7, xArriere: -4.3, roues };
+  return { L: 8.9, largeur: W * KZ, hauteur: 2.3, xAvant: 4.7, xArriere: -4.3, roues, plafond: 0.6 };   // fantaisie (rallye italien années 70, type Stratos 1 114 / 1 750 ≈ 0,64) : verrière basse ≈ 0,60
 }
 
 /* ------------------------------------------------------------------ H11 : « dalle » jaune de taxi, pavillon blanc posé, prise d'air noire */

@@ -36,6 +36,7 @@ export function allumages(f) {
       return ordre.map((c, k) => ({ a: k * 90, banc: c % 2 ? 0 : 1, cyl: c - 1 }));
     }
     case 'V8f': return reg(8, true);                                // 1-5-3-7-4-8-2-6 : alterne les bancs à chaque allumage
+    case 'V6i': return [0, 90, 240, 330, 480, 570].map((a, k) => ({ a, banc: 0, cyl: k }));   // V6 90° à manetons communs (Maserati C114) : 90°/150°, échappements réunis → la « boiterie » rauque
     case 'V6': case 'V6T': case 'V12': return reg(f.cyl, true);
     default: return reg(f.cyl, false);                              // en ligne : un seul collecteur
   }
@@ -104,12 +105,21 @@ function rendrePiston(sr, f, R, rnd) {
   const accel = (f.diesel ? 0.38 : 0.85) * red * (f.inertie < 0.08 ? 1.25 : f.inertie > 0.18 ? 0.7 : 1);   // tr/min par seconde en 1re
   let rpm = 0, gaz = 0, enPrise = false, coupure = 0, boost = 0, gazPrec = 0, tLeve = -9, rapport = 1, allume = false, rupt = false;
   let phi = 0, iEv = 0, prochain = ev[0].a, cycle = 0, bovT = -9, bovForce = 0, antiLag = 0, ratees = 0;
+  let arbre = 0, phT1 = 0, phT2 = 0, phC = 0, phP = 0, phK = 0, phD = 0, rapportVit = 1;   // arbre du turbo, phases des sifflements, rapport de démultiplication cumulé
+  /* MODE DRAME (repères facultatifs, absents pour tous les autres bolides) : « mou » plafonne l'accélérateur à la sortie (le bolide
+     sort au ralenti), « toux » liste les instants des quintes de toux : pendant ±L/2, la plupart des allumages ratent, le régime
+     s'effondre, puis un retour de flamme claque à la reprise. */
+  const TOUX = Array.isArray(R.toux) && R.toux.length ? [...R.toux].sort((a, b) => a - b) : null, LT = 0.38;
+  const enToux = (t) => { if (!TOUX) return 0; let q = 0; for (const c of TOUX) { const u = (t - c) / LT + 0.5; if (u > 0 && u < 1) q = Math.max(q, Math.sin(Math.PI * u)); } return q; };
+  let iToux = 0;
+  const mou = Number.isFinite(R.mou) ? R.mou : null;
   const etatCtrl = (t) => {
     if (t < R.demarrage) return { mode: 'arret' };
     if (!f.hybride && t < tAllume) return { mode: 'demarreur' };
     if (f.hybride && t < tAllumeReel) return { mode: 'arret' };
     if (t >= R.sortie) {
       if (t > fin - 0.75) return { mode: 'prise', gaz: 0 };
+      if (mou != null) return { mode: 'prise', gaz: (t > R.seuil + 1.0 ? 0.6 : 1) * mou * (t < R.sortie + 0.12 ? 0.6 : 1) };
       if (t > R.seuil + 1.0) return { mode: 'prise', gaz: 0.3 };
       return { mode: 'prise', gaz: t < R.sortie + 0.12 ? 0.6 : 1 };
     }
@@ -159,11 +169,15 @@ function rendrePiston(sr, f, R, rnd) {
         rpm += accel * rapport * (1 - 0.45 * rpm / red) * gaz * dt;
         if (rpm >= (f.boite === 'auto' ? 0.82 : 0.94) * red && t - tLastShift > 0.25) {
           tLastShift = t; coupure = coupe; const k = f.boite === 'f1' ? 0.86 : 0.72 + 0.04 * (1 - rapport);
-          rpm *= k; rapport *= 0.74; evenements.push(['rapport', +t.toFixed(3)]);
+          rpm *= k; rapport *= 0.74; rapportVit /= k; evenements.push(['rapport', +t.toFixed(3)]);   // la vitesse de la voiture est continue au passage
           const amp = { crabots: 0.5, sequentielle: 0.36, f1: 0.07, manuelle: 0.12, auto: 0 }[f.boite] ?? 0.1;
           if (amp) impact(sr, choc, i + Math.round(0.004 * sr), MODES_CRABOTS, amp, rnd);
         }
       } else { rpm += ((gaz > 0.1 ? 0.62 : 0.4) * red - rpm) * dt / (gaz > 0.1 ? 1.8 : 0.9); }
+    }
+    if (TOUX && allume && ctrl.mode !== 'demarreur') {               // quinte de toux : le régime s'effondre, retour de flamme à la reprise
+      const q = enToux(t); if (q > 0) rpm -= rpm * dt * 4.2 * q;
+      if (iToux < TOUX.length && t >= TOUX[iToux] + LT * 0.42) { iToux++; poser(exc[0], i, 2.6, Math.max(300, rpm) * 0.4, 1.1, f.diesel); impact(sr, choc, i + Math.round(0.006 * sr), MODES_CRABOTS, 0.22, rnd); }
     }
     rupt = rpm > red;
     if (rpm > red * 1.04) rpm = red * 1.04;
@@ -189,6 +203,7 @@ function rendrePiston(sr, f, R, rnd) {
           if (coupure > 0 && f.boite !== 'f1') amp *= 0.04;
           if (rupt && rnd() < 0.55) amp *= 0.03;                     // rupteur : allumages sautés → « brap »
           if (ratees > 0) { ratees--; if (rnd() < 0.35) amp *= 0.05; }
+          if (TOUX) { const q = enToux(t); if (q > 0 && rnd() < 0.85 * q) amp *= 0.04; }         // ratés de la quinte de toux
           if (f.freinMoteur && gaz < 0.1 && rpm > 0.5 * red) amp = 1.5 * (1 + 0.1 * rnd.gauss());       // frein moteur : la compression est lâchée à l'échappement
           // retours de flamme au lever de pied
           const dl = t - tLeve;
@@ -208,15 +223,32 @@ function rendrePiston(sr, f, R, rnd) {
       iEv = (iEv + 1) % ev.length; if (iEv === 0) cycle++;
       prochain = cycle * 720 + ev[iEv].a;
     }
-    /* sifflements portés par le régime */
-    if (f.admission !== 'atmo' && boost > 0.02) {
-      const fw = 1600 + 6400 * boost;
-      const s = Math.sin(2 * Math.PI * fw * t) + (f.admission === 'biturbo' ? 0.8 * Math.sin(2 * Math.PI * fw * 1.031 * t + 1) : 0) + 0.25 * Math.sin(2 * Math.PI * fw * 2 * t);
-      ton[i] += s * 0.035 * Math.pow(boost, 1.4) * (0.35 + 0.65 * gaz);
+    /* sifflements portés par le régime — phases INTÉGRÉES (sin(2π·f·t) avec f variable faisait glisser la hauteur de t·df/dt) */
+    if (f.admission !== 'atmo') {
+      // arbre du turbo : sa vitesse suit la pression de suralimentation avec sa propre inertie ; le MGU-H d'une F1 le maintient lancé au lever de pied
+      const cibleA = boost * (0.35 + 0.65 * Math.min(1, rpm / red)) + (f.mguh && allume ? 0.25 * Math.min(1, rpm / red) : 0);
+      arbre += (cibleA - arbre) * dt / (cibleA > arbre ? 0.12 : (f.mguh ? 0.9 : 0.3));
+      if (arbre > 0.02) {
+        const fw = f.mguh ? 2600 + 7400 * arbre : 1600 + 6400 * arbre;
+        phT1 += 2 * Math.PI * fw / sr; phT2 += 2 * Math.PI * fw * 1.031 / sr;
+        const s = Math.sin(phT1) + (f.admission === 'biturbo' ? 0.8 * Math.sin(phT2 + 1) : 0) + 0.25 * Math.sin(2 * phT1);
+        ton[i] += s * (f.mguh ? 0.05 : 0.035) * Math.pow(arbre, 1.4) * (0.35 + 0.65 * Math.max(gaz, f.mguh ? 0.5 : 0));
+        if (f.mguh) ton[i] += Math.sin(3 * phT1 + 0.7) * 0.01 * arbre;                       // MGU-H : harmonique électrique de l'arbre
+      }
     }
-    if (f.compresseur) { const fw = rpm * 0.135; ton[i] += (Math.sin(2 * Math.PI * fw * t) + 0.5 * Math.sin(4 * Math.PI * fw * t) + 0.25 * Math.sin(6 * Math.PI * fw * t)) * 0.03 * Math.min(1, rpm / red) * (0.4 + 0.6 * gaz); }
-    if ((f.pignonsDroits || f.boite === 'sequentielle' || f.boite === 'crabots' || f.boite === 'f1') && enPrise) ton[i] += Math.sin(2 * Math.PI * rpm * 0.39 * t) * 0.012 * Math.min(1, rpm / red);
-    if (f.mguk && allume) ton[i] += Math.sin(2 * Math.PI * rpm * 0.22 * t) * 0.01 * (0.3 + 0.7 * gaz) + Math.sin(2 * Math.PI * 7800 * (0.6 + 0.4 * boost) * t) * 0.006 * boost;
+    if (f.compresseur) { phC += 2 * Math.PI * rpm * 0.135 / sr; ton[i] += (Math.sin(phC) + 0.5 * Math.sin(2 * phC) + 0.25 * Math.sin(3 * phC)) * 0.03 * Math.min(1, rpm / red) * (0.4 + 0.6 * gaz); }
+    if ((f.pignonsDroits || f.boite === 'sequentielle' || f.boite === 'crabots' || f.boite === 'f1') && enPrise) { phP += 2 * Math.PI * rpm * 0.39 / sr; ton[i] += Math.sin(phP) * 0.012 * Math.min(1, rpm / red); }
+    if (f.mguk && allume) {
+      /* MGU-K : moteur-générateur synchrone engrené au vilebrequin (≈ ×3,33, 4 paires de pôles → 2,6 kHz à 12 000 tr/min), harmoniques
+         d'encoches ; il DÉPLOIE en accélération (gémissement qui enfle avec la vitesse de la voiture) et RÉCUPÈRE au lever de pied
+         (timbre plus nasal). Différentiel et pignons de sortie à taille droite : leur sifflement suit la vitesse des roues. */
+      const vN = enPrise ? Math.min(1.2, (rpm * rapportVit) / (red * 3.4)) : 0;
+      phK += 2 * Math.PI * (rpm * 3.33 / 60 * 4) / sr;
+      const deploie = enPrise && gaz > 0.5, recup = enPrise && gaz < 0.2;
+      const aK = deploie ? 0.012 + 0.03 * vN : recup ? 0.014 + 0.012 * vN : 0.004;
+      ton[i] += (Math.sin(phK) + (recup ? 0.55 : 0.3) * Math.sin(2 * phK + 0.3) + 0.22 * Math.sin(6 * phK)) * aK;
+      if (enPrise) { phD += 2 * Math.PI * (220 + 2900 * vN) / sr; ton[i] += Math.sin(phD) * 0.014 * vN; }
+    }
     /* décharge du turbo */
     const db = t - bovT;
     if (db >= 0 && db < 0.7) {

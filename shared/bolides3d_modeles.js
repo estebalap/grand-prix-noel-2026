@@ -16,6 +16,16 @@ import { GROUPE_7 } from './m3d/groupe7.js';
 import { GROUPE_8 } from './m3d/groupe8.js';
 import { GROUPE_9 } from './m3d/groupe9.js';
 import { GROUPE_10 } from './m3d/groupe10.js';
+// Chantier V5 (révision choc) : refontes de géométrie, prioritaires sur les groupes historiques (gardés pour l'archive et les tests).
+import { V5_NIPPONS } from './m3d/v5_nippons.js';
+import { V5_EUROPE } from './m3d/v5_europe.js';
+import { V5_POP_H } from './m3d/v5_pop_h.js';
+import { V5_F1 } from './m3d/v5_f1.js';
+import { V5_FRANCE } from './m3d/v5_france.js';
+import { V8_A } from './m3d/v8_a.js';
+import { V8_B } from './m3d/v8_b.js';
+import { V8_C } from './m3d/v8_c.js';
+import { V9_EPAVE } from './m3d/v9_epave.js';
 
 
 /* ---- H09 : petit camion plateau à cabine avancée (kei truck) ---- */
@@ -142,4 +152,5 @@ function dalleTaxi(ctx) {
 
 const ANCIENS = { H09: camionPlateau, H07: camionCaisson, H06: fourgonPostal, H08: taxiHotRod, H11: dalleTaxi };
 /** Les groupes (m3d/groupeN.js) priment sur les anciens constructeurs. */
-export const MODELES_SUR_MESURE = { ...ANCIENS, ...GROUPE_1, ...GROUPE_2, ...GROUPE_3, ...GROUPE_4, ...GROUPE_5, ...GROUPE_6, ...GROUPE_7, ...GROUPE_8, ...GROUPE_9, ...GROUPE_10 };
+export const MODELES_SUR_MESURE = { ...ANCIENS, ...GROUPE_1, ...GROUPE_2, ...GROUPE_3, ...GROUPE_4, ...GROUPE_5, ...GROUPE_6, ...GROUPE_7, ...GROUPE_8, ...GROUPE_9, ...GROUPE_10,
+  ...V5_NIPPONS, ...V5_EUROPE, ...V5_POP_H, ...V5_F1, ...V5_FRANCE, ...V8_A, ...V8_B, ...V8_C, ...V9_EPAVE };

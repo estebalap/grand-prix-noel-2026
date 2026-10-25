@@ -14,7 +14,7 @@
              chargerCri(code, base, S), jouerCri(S, buf, quand, bus), parlerNom(car, delaiS) → annuler() */
 import { ficheMoteur, signatureMoteur } from './fiches_moteurs.js';
 import { rendreMoteur } from './moteurs_physiques.js';
-import { banqueFoley, reponseHangar } from './foley_acier.js';
+import { banqueFoley, banqueDrame, reponseHangar } from './foley_acier.js';
 import { germeDe } from './dsp_hors_ligne.js';
 
 /** Signature du moteur d'un bolide (« v8x atmo », « l6 biturbo », « vapeur »…), publiée pour la régie et le rapport de capture. */
@@ -25,6 +25,11 @@ export function typeMoteur(car) {
 
 /** Repères du moteur sur la chronologie du reveal (secondes absolues depuis le top départ). */
 export function reperesMoteur(D, tSeuil) {
+  if (D.drame) {                                       // MODE DRAME : démarreur pendant la fin d'enroulement du rideau, aucun coup de gaz,
+    const DR = D.drame;                                // aucun rugissement ; ralenti qui tousse, sortie au ralenti, il cale à la pose
+    return { demarrage: DR.demarrage, blips: [], rugit: null, sortie: D.sortie, seuil: tSeuil, fin: D.pose + 0.35,
+      toux: [...DR.touxRalenti, ...DR.touxSortie.map((x) => D.sortie + x)], mou: 0.42 };
+  }
   const ja = D.plans.find((p) => p.id === 'jante'), la = D.plans.find((p) => p.id === 'large'), ph = D.plans.find((p) => p.id === 'phares');
   const b0 = ja.t0 + (ja.t1 - ja.t0) * 0.25;
   const demarrage = Math.max(ph ? ph.t0 + 0.1 : D.trappeDebut + 0.2, b0 - 1.25);
@@ -42,7 +47,8 @@ export function preparerSonsReveal(S, car, D, tSeuil, { rang = 0 } = {}) {
   if (!fiche) throw new Error('aucune fiche moteur pour ' + car.code);
   const R = reperesMoteur(D, tSeuil), debut = R.demarrage - 0.05;
   const rel = { demarrage: R.demarrage - debut, blips: R.blips.map((b) => b - debut), rugit: R.rugit - debut, sortie: R.sortie - debut, seuil: R.seuil - debut, fin: R.fin - debut };
-  const cleM = car.code + '|' + sr + '|' + Object.values(rel).flat().map((x) => x.toFixed(3)).join(',');
+  if (D.drame) { rel.rugit = null; rel.toux = R.toux.map((x) => x - debut); rel.mou = R.mou; }     // repères du MODE DRAME (absents ailleurs : clé de mémo inchangée)
+  const cleM = car.code + '|' + sr + '|' + Object.values(rel).flat().map((x) => (x == null ? '-' : x.toFixed(3))).join(',');
   let moteur = memoMoteur.get(cleM);
   if (!moteur) {
     const r = rendreMoteur(sr, fiche, rel, { germe: germeDe(car.code) });
@@ -59,7 +65,17 @@ export function preparerSonsReveal(S, car, D, tSeuil, { rang = 0 } = {}) {
   }
   let salle = memoSalle.get(sr);
   if (!salle) { salle = vers(ac, reponseHangar(sr, 7)); memoSalle.set(sr, salle); }
-  return { fiche, signature: signatureMoteur(fiche), moteur: moteur.buf, evenements: moteur.evenements, debut, reperes: R, foley, salle, ms: Math.round(performance.now() - t0) };
+  let foleyDrame = null;
+  if (D.drame && D.drame.scenario !== 'crash') {       // MODE DRAME (scénario épave) : rideau coincé, lame qui tombe, fin d'enroulement pénible (foley_acier.banqueDrame)
+    const DR = D.drame, cleD = 'drame|' + sr + '|' + (DR.fin[1] - DR.fin[0]).toFixed(2) + '|' + DR.enjoliveur.roule.toFixed(2);
+    foleyDrame = memoFoley.get(cleD);
+    if (!foleyDrame) {
+      const b = banqueDrame(sr, { germe: germeDe('drame' + car.code), dureeFin: DR.fin[1] - DR.fin[0], enjo: DR.enjoliveur });
+      foleyDrame = {}; for (const [k, v] of Object.entries(b)) foleyDrame[k] = Array.isArray(v) ? v.map((x) => vers(ac, x)) : vers(ac, v);
+      memoFoley.set(cleD, foleyDrame);
+    }
+  }
+  return { fiche, signature: signatureMoteur(fiche), moteur: moteur.buf, evenements: moteur.evenements, debut, reperes: R, foley, foleyDrame, salle, ms: Math.round(performance.now() - t0) };
 }
 
 /** Réverbération du hangar : un ConvolverNode partagé (envoi « salle »), sortie vers `sortie`. */
@@ -114,7 +130,7 @@ export async function chargerCri(code, base, S) {
   if (memo.has(code)) return memo.get(code);
   let buf = null;
   try {
-    const r = await fetch(`${base}/sounds/voice/annonce/${encodeURIComponent(code)}.mp3`, { cache: 'force-cache' });
+    const r = await fetch(`${base}/sounds/voice/annonce/${encodeURIComponent(code)}.mp3`, { cache: 'no-cache' });
     if (r.ok) buf = await S.ac.decodeAudioData(await r.arrayBuffer());
   } catch (e) { buf = null; }
   memo.set(code, buf);

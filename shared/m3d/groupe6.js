@@ -34,11 +34,12 @@ function coupeGTArgent(ctx) {
   opt.coiffes = k.coiffes(caisse, opt, roues, { zr: 0.5 });                                         // brief 10 : tôle garantie au-dessus des pneus
   k.loft(caisse, argent, opt);
   // pavillon en bulle bas et reculé (demi-largeur 0,77 ≤ 0,74 × 1,07 au droit des hanches), pare-brise couché, longue lunette fastback
+  // plafond réel (chantier V5, GR Supra 0,697) : hauteur de bulle 0,52 → 0,76 du dessin, le moteur n'écrase plus le pavillon
   const yb = 1.38;
   const cab = [
     { x: 1.38, w: 0.6, y1: 1.47, wt: 0.86 }, { x: 1.0, w: 0.7, y1: 1.74, wt: 0.82 }, { x: 0.3, w: 0.76, y1: 2.12, wt: 0.8 }, { x: -0.3, w: 0.77, y1: 2.27, wt: 0.8 },
     { x: -0.95, w: 0.77, y1: 2.3, wt: 0.8 }, { x: -1.6, w: 0.76, y1: 2.22, wt: 0.8 }, { x: -2.5, w: 0.7, y1: 1.97, wt: 0.82 }, { x: -3.2, w: 0.6, y1: 1.76, wt: 0.84 },
-    { x: -3.45, w: 0.46, y1: 1.62, wt: 0.86 }].map((q) => ({ ...q, y1: yb + (q.y1 - yb) * 0.52, w: q.w * 1.28, wt: Math.min(0.93, q.wt + 0.1), nt: 3.4, nb: 3 })).map((q) => ({ ...q, y0: 2 * yb - q.y1 }));   // pavillon élargi, dessus plat, hauteur finale dessinée (brief 10)
+    { x: -3.45, w: 0.46, y1: 1.62, wt: 0.86 }].map((q) => ({ ...q, y1: yb + (q.y1 - yb) * 0.76, w: q.w * 1.28, wt: Math.min(0.93, q.wt + 0.1), nt: 3.4, nb: 3 })).map((q) => ({ ...q, y0: 2 * yb - q.y1 }));   // pavillon élargi, dessus plat, hauteur finale dessinée (brief 10)
   const plC = (x) => (x < -1.9 ? 1.5 : x < -1.4 ? 1.5 - 0.24 * (x + 1.9) / 0.5 : 1.26);              // plancher de la bulle : au-dessus des passages de roues
   k.pavillon(o, cab, argent, { verre, toit: [-3.5, 0.42], A: [0.42, 1.42], tR: 0.6, lb: 0.22, ep: 0.06, plancher: plC });
   for (const [a2, b2] of [[-0.7, 0.62], [Math.PI - 0.62, Math.PI + 0.7]]) aplanir(k.nappe(cab, {}, -3.5, -1.85, a2, b2, k.peau(argent), 0.06, 40, 10), plC);   // custode pleine effilée
@@ -77,7 +78,7 @@ function coupeGTArgent(ctx) {
     ['#d6252b', '#e0661f', '#e8b52a'].forEach((c, i) => { g.fillStyle = c; g.fillRect(w * (0.56 + i * 0.075), h * 0.62, w * 0.06, h * 0.12); });
   }, 1024, 256);
   const f = finir(ctx, roues, { yA: 1.56, s: 1, d: 0.2, sz });                                    // brief 10 : hauteurs dessinées, élargissement seul
-  return { L: 8.2, largeur: 2.4 * sz, hauteur: f(2.5), xAvant: 4.16, xArriere: -4.02, roues, jante: rd.jante, flanc: rd.flanc };
+  return { L: 8.2, largeur: 2.4 * sz, hauteur: f(2.5), xAvant: 4.16, xArriere: -4.02, roues, jante: rd.jante, flanc: rd.flanc, plafond: 0.697 };   // GR Supra A90 : 1 292 / 1 854 mm
 }
 
 /* ---- J02 : coupé hatchback violet des années 80 (caisse anguleuse), roues dorées à trois branches, livrée de dérive or / rose, capot noir ---- */
@@ -138,7 +139,22 @@ function monospaceArgent(ctx) {
   const optH = { ailes: k.ailes(roues, 0.04, 1.1, 0.3, 0.5), arches: k.arches(roues) };
   const optB = { ailes: k.ailes(roues, 0.06, 1.15, 0.3, 0.6), taille: { x: 0, L: 1.1, y: 0.65, h: 0.4, amp: 0.03 }, arches: k.arches(roues, 1.12) };
   k.loft(caisse, argent, optH);
-  k.loft(bas, noir, optB);                                                                         // soubassement noir épais
+  {
+    const mb = k.loft(bas, noir, optB);                                                              // soubassement noir épais
+    // inspection des trains : le soubassement (dessus à y ≈ 1,0, sous le sommet des pneus à 1,12) laissait une lamelle noire
+    // plafonnée dans la bande du pneu, visible comme un trait à travers le haut de la gomme. Au droit de chaque passage, les
+    // sommets tombant dans le disque du pneu (+3 cm) sont rabattus sur la paroi intérieure du passage (|z| = zin) : la caisse
+    // s'arrête contre le flanc intérieur du pneu, l'extérieur reste inchangé.
+    const pa = mb.geometry.attributes.position;
+    for (let i = 0; i < pa.count; i++) {
+      const x = pa.getX(i), y = pa.getY(i), z = pa.getZ(i);
+      for (const [j, a] of optB.arches.entries()) {
+        const Rp = roues[j].RW + 0.03;
+        if (Math.abs(z) > a.zin && (x - a.x) ** 2 + (y - a.y) ** 2 < Rp * Rp) { pa.setZ(i, Math.sign(z) * a.zin); break; }
+      }
+    }
+    pa.needsUpdate = true; mb.geometry.computeVertexNormals(); mb.geometry.computeBoundingSphere();
+  }
   k.pavillon(o, [
     { x: 2.85, w: 0.92, y1: 1.56, wt: 0.92 }, { x: 2.55, w: 0.95, y1: 2.06, wt: 0.91 }, { x: 1.9, w: 0.96, y1: 2.62, wt: 0.9 }, { x: 1.2, w: 0.96, y1: 2.68, wt: 0.9 },
     { x: -3.3, w: 0.96, y1: 2.7, wt: 0.9 }, { x: -3.52, w: 0.92, y1: 2.6, wt: 0.91 }, { x: -3.6, w: 0.82, y1: 2.3, wt: 0.92 }].map((q) => ({ ...q, nt: 3.6, wt: Math.max(q.wt, 0.93) })),
@@ -182,14 +198,14 @@ function compacteCitron(ctx) {
   opt.coiffes = k.coiffes(caisse, opt, roues, { zr: 0.5 });                                         // tôle garantie au-dessus des pneus
   k.loft(caisse, vert, opt);
   // pavillon à coins arrondis (sections superellipses nt 3,6) : demi-largeur 0,72 ≤ 0,74 × 0,98, montants rentrants (wt)
-  const yb = 1.38;
+  const yb = 1.38, kH = 0.92;                                                                     // kH : hauteur de cabine (0,74 → 0,92, plafond réel 0,88 : plus de « crêpe »)
   const cab = [
     { x: 1.55, w: 0.66, y1: 1.64, wt: 0.9 }, { x: 1.1, w: 0.71, y1: 2.14, wt: 0.86 }, { x: 0.62, w: 0.72, y1: 2.56, wt: 0.84 }, { x: 0.25, w: 0.72, y1: 2.66, wt: 0.84 },
     { x: -1.5, w: 0.72, y1: 2.68, wt: 0.84 }, { x: -2.45, w: 0.71, y1: 2.64, wt: 0.84 }, { x: -2.8, w: 0.68, y1: 2.42, wt: 0.85 }, { x: -3.0, w: 0.63, y1: 1.94, wt: 0.88 },
-    { x: -3.06, w: 0.58, y1: 1.64, wt: 0.9 }].map((q) => ({ ...q, y1: 1.4 + (q.y1 - 1.64) * 0.74, w: q.w * 1.34, wt: 0.92, nt: 3.2, nb: 3 })).map((q) => ({ ...q, y0: 2 * yb - q.y1 }));   // pavillon haut dessiné (sans tassement)   // pavillon élargi, coins adoucis
+    { x: -3.06, w: 0.58, y1: 1.64, wt: 0.9 }].map((q) => ({ ...q, y1: 1.4 + (q.y1 - 1.64) * kH, w: q.w * 1.34, wt: 0.92, nt: 3.2, nb: 3 })).map((q) => ({ ...q, y0: 2 * yb - q.y1 }));   // pavillon haut dessiné (sans tassement)   // pavillon élargi, coins adoucis
   k.pavillon(o, cab, vert, { verre, toit: [-2.62, 0.48], A: [0.48, 1.58], C: [-3.08, -2.55], B: [-0.68], lB: 0.08, tR: 0.6, lb: 0.2, ep: 0.06, plancher: 1.3, ceinture: 0.06 });   // + seuil de vitre couleur caisse (ceinture)
   k.nappe(cab, {}, -3.03, -2.72, 0.75, Math.PI - 0.75, cyan, 0.065, 16, 20);                       // hayon vitré cyan
-  acc(o.boite(0.5, 0.07, 1.9, noir, -2.6, 2.21, 0)).rotation.z = 0.12;                                 // becquet de pavillon
+  acc(o.boite(0.5, 0.07, 1.9, noir, -2.6, 1.4 + kH + 0.07, 0)).rotation.z = 0.12;                                 // becquet de pavillon
   puitsInt(k, roues, sombre);
   for (const r of roues) for (const sg of [-1, 1]) {                                                 // élargisseurs d'ailes 3D larges + rivets chromés
     const R0 = r.RW + 0.15, tube = 0.12, zc = sg * (r.z + 0.02), fl = new THREE.Mesh(garde(new THREE.TorusGeometry(R0, tube, 10, 36, Math.PI + 0.36)), vert);
@@ -221,7 +237,7 @@ function compacteCitron(ctx) {
   echappement(o, THREE, -3.3, 0.5, 0.55, 0.08, 0.2);
   k.decalFlancs(caisse, opt, -2.2, -1.5, 0.15, 0.65, (g, w, h) => { g.fillStyle = '#f4f6f4'; g.fillRect(20, 40, 210, 170); g.fillStyle = '#1a9a4a'; g.font = '900 150px Arial Black, Arial'; g.fillText('R', 70, 190); }, 256, 256);
   const f = finir(ctx, roues, { yA: 1.35, s: 1, d: 0.25, sz });                                 // brief 10 : citadine haute (H_toit/W ≈ 0,73) : élargissement seul, plus de tassement
-  return { L: 6.64, largeur: 2.3 * sz, hauteur: f(2.24), xAvant: 3.32, xArriere: -3.32, roues, jante: rd.jante, flanc: null };
+  return { L: 6.64, largeur: 2.3 * sz, hauteur: f(2.24), xAvant: 3.32, xArriere: -3.32, roues, jante: rd.jante, flanc: null, plafond: 0.88 };   // Civic 1973 : 1 325 / 1 505 mm
 }
 
 /* ---- Base commune J07 / J08 (9e vague, reconstruction imposée) : petit roadster japonais FERMÉ par un hardtop, tout en rondeurs.

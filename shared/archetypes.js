@@ -10,7 +10,9 @@
 
    Ce module fournit :
      ARCHETYPES, archetypeDe(car)                       définitions et attribution (repli sur le thème du bolide)
-     creerPost(THREE, renderer, cle)                    passe de post-traitement (un seul quad plein écran, 60 i/s)
+     creerPost(THREE, renderer, cle)                    passe de post-traitement (un seul quad plein écran, 60 i/s) ; MODE EXPLOSION :
+                                                        u.flashCouleur / u.flashSat (strobe saturé 2 images), u.onde (x, y, rayon) /
+                                                        u.ondeForce (anneau de réfraction de l'onde de choc), dans les deux modes
      celShading(THREE, racine)                          matériaux toon sur le modèle 3D (univers manga)
      creerSurcouche(canvas, {...})                      speed-lines, onomatopées, particules 2D et carton du freeze-frame
      themeSonore(cle, sortie, {...})                    bande-son procédurale originale (aucun extrait protégé), annulable
@@ -44,6 +46,7 @@ export const BANDEAUX_BOLIDES = {
   B07: { bandeau: 'DOSSIER CONFIDENTIEL // CODE B-07', accroche: 'INTERVENTION TACTIQUE NOCTURNE · ESPACE AÉRIEN VERROUILLÉ' },
   H01: { bandeau: 'TITANE SAUVAGE // PROTOCOLE HAWKING', accroche: 'ZÉRO ASSISTANCE · INDESTRUCTIBLE PAR DÉCRET', tampon: 'INDESTRUCTIBLE' },
   J11: { bandeau: 'GODZILLA // RB26DETT BITURBO', accroche: 'ATTESA E-TS ENGAGÉ · 7:59 AU NÜRBURGRING' },
+  N12: { bandeau: 'AVIS DE MISE EN FOURRIÈRE // N-12', accroche: 'CONTRÔLE TECHNIQUE : 47 DÉFAUTS MAJEURS · HAYON PORTÉ DISPARU', tampon: 'CONTRE-VISITE' },
 };
 /** Textes broadcast d'un bolide dans son univers : { bandeau, accroche, tampon }. */
 export function textesDe(car, cle, rarete = null) {
@@ -74,6 +77,12 @@ uniform vec2 res;
 uniform float temps, tScene_t, mode, da, dechirure, tension, pouls, flash, zoom, eclair, chaleur, sig, sigForce;
 uniform vec3 sigTeinte, fuite;
 uniform float fuiteForce;
+// MODE EXPLOSION : flash stroboscopique saturé (couleur du palier, 2 images) et onde de choc en espace écran (centre, rayon)
+uniform vec3 flashCouleur, onde;
+uniform float flashSat, ondeForce;
+uniform vec3 gel1, gel2;                         // V6 : gélatines de l'ambiance du bolide (ambiances_v6.js) : clé, contre-jour
+uniform float gelForce;                         // 0 = étalonnage d'origine de l'univers
+uniform float desat;                            // MODE DRAME : l'arrêt sur image vire au sépia rouillé (0 = aucun effet)
 varying vec2 vUv;
 float h21(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
 float bruit(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
@@ -105,7 +114,8 @@ vec3 grade(vec2 uv, vec3 c){
   }
   if (m == 2) {                                   // comics noir : bichromie noir / jaune, encre, pluie, éclairs
     float k = smoothstep(0.06, 0.62, l * 1.2);
-    vec3 duo = mix(vec3(0.0), vec3(1.0, 0.8, 0.0), k);
+    vec3 ton = mix(vec3(1.0, 0.8, 0.0), mix(gel2, gel1, smoothstep(0.2, 0.75, l)) * 1.15, gelForce);   // bichromie jaune, ou tritone de l'ambiance (ombres → contre-jour → clé)
+    vec3 duo = mix(vec3(0.0), ton, k);
     duo = mix(duo, vec3(1.0, 0.97, 0.86), smoothstep(0.8, 0.98, l));
     duo *= 1.0 - trame(l, 4.0, 0.4) * step(l, 0.22) * 0.5;
     duo = mix(duo, vec3(0.0), encre(uv) * 0.9);
@@ -122,6 +132,7 @@ vec3 grade(vec2 uv, vec3 c){
     s = mix(s, c, 0.22) * vec3(1.1, 0.94, 0.74);
     s = (s - 0.5) * 1.2 + 0.5;
     s += (bruit(uv * vec2(5.0, 2.5) + vec2(tScene_t * 0.5, 0.0)) - 0.5) * 0.14 * vec3(1.0, 0.72, 0.4);
+    s = mix(s, lum(s) * mix(gel2, gel1, smoothstep(0.1, 0.8, l)) * 1.6, gelForce * 0.55);          // V6 : la poussière prend la couleur de l'ambiance
     return s;
   }
   if (m == 4) {                                   // pop : saturation, ombres fuchsia, lueur glossy
@@ -141,10 +152,11 @@ vec3 grade(vec2 uv, vec3 c){
     float xr2 = h21(vec2(floor(temps * 5.0), 8.0));
     v += 0.35 * smoothstep(0.001, 0.0, abs(uv.x - xr2)) * step(0.6, h21(vec2(floor(temps * 5.0), 9.0)));
     float tache = step(0.9988, h21(floor(uv * res / 3.0) + floor(temps * 12.0)));
+    v = mix(v, g * mix(gel2, gel1, clamp(g, 0.0, 1.0)) * 1.3, gelForce * 0.5);                     // V6 : pellicule virée à la couleur de l'ambiance
     return mix(v, vec3(0.04), tache);
   }
   if (m == 6) {                                   // blockbuster : teal & orange, traînées anamorphiques
-    vec3 b = mix(vec3(0.0, 0.13, 0.17), vec3(1.0, 0.62, 0.28), smoothstep(0.05, 0.85, l));
+    vec3 b = mix(mix(vec3(0.0, 0.13, 0.17), gel2 * 0.18, gelForce), mix(vec3(1.0, 0.62, 0.28), gel1, gelForce * 0.8), smoothstep(0.05, 0.85, l));   // teal & orange, ou les gélatines V6
     vec3 o = mix(c, b * 1.2 * (0.35 + l), 0.42);
     o = (o - 0.5) * 1.12 + 0.5;
     vec3 tr = vec3(0.0);
@@ -200,7 +212,15 @@ void main(){
   int m = int(mode + 0.5);
   vec2 uv = (vUv - 0.5) / zoom + 0.5;
   uv.x += sin(uv.y * 70.0 + tScene_t * 9.0) * 0.0013 * chaleur;
-  float ab = tension * 0.006 * (0.4 + pouls);
+  // onde de choc : anneau de réfraction qui s'étend depuis le conteneur (l'air comprimé dévie la lumière), aberration au passage
+  float anneau = 0.0;
+  if (ondeForce > 0.001) {
+    vec2 ar2 = vec2(res.x / res.y, 1.0), dq = (vUv - onde.xy) * ar2;
+    float dd = length(dq), larg = 0.035 + 0.05 * onde.z;
+    anneau = exp(-pow((dd - onde.z) / larg, 2.0)) * ondeForce;
+    uv += (dq / max(dd, 1e-4)) / ar2 * anneau * 0.024 * clamp((dd - onde.z) / larg, -1.0, 1.0);   // lentille annulaire
+  }
+  float ab = tension * 0.006 * (0.4 + pouls) + anneau * 0.008 + flashSat * 0.006;
   vec3 brut = vec3(texture2D(tScene, uv + vec2(ab, 0.0)).r, texture2D(tScene, uv).g, texture2D(tScene, uv - vec2(ab, 0.0)).b);
   // déchirure du décor : fente diagonale dentelée qui s'ouvre et révèle l'univers du bolide
   vec2 dv = vUv - 0.5; dv.x *= res.x / res.y;
@@ -213,7 +233,20 @@ void main(){
   else col = texture2D(tScene, uv + n * sign(axe) * ouv * 0.18 * vec2(res.y / res.x, 1.0)).rgb * (1.0 - 0.35 * dechirure);
   float bord = smoothstep(0.028, 0.0, abs(abs(axe) - ouv)) * step(0.001, dechirure) * step(dechirure, 0.998);
   col += vec3(1.0, 0.86, 0.62) * bord * 1.6;
-  if (sigForce > 0.001) col = mix(col, signature(uv, col), sigForce);
+  // filtre de signature DOSÉ (boucle 2) : chaque filtre a son poids maximal (les filtres qui remplacent l'image — thermique,
+  // nocturne, bichromie, négatif, neige — ne dépassent pas 35-50 %), puis le contraste de luminance d'origine est restitué en
+  // partie : l'identité du bolide reste, le décor de l'univers reste lisible après la déchirure.
+  if (sigForce > 0.001) {
+    int sf = int(sig + 0.5);
+    float poids = sf == 2 ? 0.38 : sf == 3 ? 0.45 : sf == 10 ? 0.4 : sf == 6 ? 0.5 : sf == 12 ? 0.45 : sf == 8 ? 0.5 : sf == 5 ? 0.55
+      : sf == 13 ? 0.42 : sf == 14 ? 0.6 : sf == 9 ? 0.65 : sf == 1 ? 0.75 : sf == 7 ? 0.7 : 1.0;
+    float w = sigForce * poids;
+    vec3 s2 = mix(col, signature(uv, col), w);
+    float l0 = lum(col), l1 = lum(s2);
+    col = mix(s2, s2 * (l0 + 0.04) / (l1 + 0.04), 0.55 * w);
+  }
+  // MODE DRAME : univers désaturé, viré au sépia rouillé (ombres brun-noir, lumières crème), contraste un peu écrasé
+  if (desat > 0.001) { float ld = lum(col); vec3 rouille = mix(vec3(0.09, 0.055, 0.035), vec3(0.93, 0.76, 0.55), smoothstep(0.0, 0.9, ld)); col = mix(col, rouille * (0.82 + 0.28 * ld), desat); }
   // lueur de suspense (couleur de la rareté) qui baigne l'écran à chaque palier
   col += fuite * fuiteForce * (0.35 + 0.65 * smoothstep(0.9, 0.2, length(dv)));
   // vignette (pulsée pendant l'amorce) et grain
@@ -225,6 +258,16 @@ void main(){
   float ar = res.x / res.y;
   if (m == 5) { float k = mix(0.5, 0.5 * (4.0 / 3.0) / ar, da); if (abs(vUv.x - 0.5) > k) col = vec3(0.0); }
   if (m == 6) { float k = mix(0.5, 0.5 * ar / 2.39, da); if (abs(vUv.y - 0.5) > k) col = vec3(0.0); }
+  // anneau lumineux (souffle) et FLASH STROBOSCOPIQUE saturé : la couleur du palier frappe l'écran en gardant le modelé (jamais un
+  // aplat blanc) — les hautes lumières virent au blanc teinté, les ombres plongent dans la couleur pure
+  col += flashCouleur * anneau * 0.35;
+  if (flashSat > 0.001) {
+    float lf = lum(col);
+    vec3 strobe = flashCouleur * (0.45 + 1.1 * lf);
+    strobe /= max(1.0, max(strobe.r, max(strobe.g, strobe.b)));          // écrêtage qui garde la teinte : saturé, jamais rosi ni blanchi
+    strobe += vec3(smoothstep(1.0, 1.6, lf)) * 0.15;
+    col = mix(col, strobe, flashSat);
+  }
   gl_FragColor = vec4(mix(col, vec3(1.0), flash), 1.0);
 }`;
 
@@ -244,6 +287,8 @@ export function creerPost(THREE, renderer, cle) {
     mode: { value: A.mode }, da: { value: 0 }, dechirure: { value: 0 }, tension: { value: 0 }, pouls: { value: 0 },
     flash: { value: 0 }, zoom: { value: 1 }, eclair: { value: 0 }, chaleur: { value: 0 },
     sig: { value: 0 }, sigForce: { value: 0 }, sigTeinte: { value: new THREE.Color(A.teinte) }, fuite: { value: new THREE.Color(0, 0, 0) }, fuiteForce: { value: 0 },
+    flashCouleur: { value: new THREE.Color(1, 1, 1) }, flashSat: { value: 0 }, onde: { value: new THREE.Vector3(0.5, 0.5, 0) }, ondeForce: { value: 0 },
+    gel1: { value: new THREE.Color(1, 0.8, 0) }, gel2: { value: new THREE.Color(1, 0.8, 0) }, gelForce: { value: 0 }, desat: { value: 0 },
   };
   const mat = new THREE.ShaderMaterial({ uniforms: u, vertexShader: VERT, fragmentShader: FRAG, depthTest: false, depthWrite: false });
   const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mat);
@@ -291,7 +336,9 @@ export async function prechargerPolices() {
   await Promise.race([tache, new Promise((r) => setTimeout(r, 400))]);
 }
 
-export function creerSurcouche(cv, { car, cle, rarete, cote, express = false }) {
+export function creerSurcouche(cv, { car, cle, rarete, cote, express = false, alea = null }) {
+  // alea : générateur à graine (MODE DRAME, capture déterministe) ; sans lui, le hasard du navigateur, comme toujours
+  const hz = alea || Math.random, rnd = (a, b) => a + hz() * (b - a);
   const A = { ...(ARCHETYPES[cle] || ARCHETYPES.blockbuster), ...textesDe(car, cle, rarete) };
   const g = cv.getContext('2d');
   let W = 0, H = 0, s = 1;
@@ -330,7 +377,7 @@ export function creerSurcouche(cv, { car, cle, rarete, cote, express = false }) 
     const f = Math.floor(performance.now() / 50);
     if (f !== derniereLigne) {           // nouveau tirage toutes les 50 ms : le « tremblement » du manga
       derniereLigne = f;
-      lignes = Array.from({ length: 120 }, () => ({ a: Math.random() * Math.PI * 2, r: rnd(0.32, 0.55), l: rnd(0.6, 1.4), w: rnd(0.002, 0.012) }));
+      lignes = Array.from({ length: 120 }, () => ({ a: hz() * Math.PI * 2, r: rnd(0.32, 0.55), l: rnd(0.6, 1.4), w: rnd(0.002, 0.012) }));
     }
     const R = Math.hypot(W, H);
     g.save(); g.globalAlpha = 0.55 * intensite; g.fillStyle = couleur;
@@ -402,8 +449,8 @@ export function creerSurcouche(cv, { car, cle, rarete, cote, express = false }) 
   function particules2D(dt, type, xMax = 0) {
     const n = { post_apo: 2, pop: 2 }[type] || 0;
     for (let i = 0; i < n; i++) {
-      if (type === 'post_apo') parts.push({ x: rnd(0, xMax || W), y: H + 10, vx: rnd(-20, 60) * s, vy: rnd(-120, -40) * s, r: rnd(1.5, 4.5) * s, vie: rnd(1.5, 3), age: 0, c: Math.random() < 0.6 ? '#ffb347' : '#e8d4a8', braise: Math.random() < 0.6 });
-      else parts.push({ x: rnd(0, xMax || W), y: H + 20, vx: rnd(-30, 30) * s, vy: rnd(-180, -90) * s, r: rnd(8, 22) * s, vie: rnd(1.8, 3), age: 0, c: Math.random() < 0.5 ? '#ff3fa4' : '#ffd1ec', coeur: Math.random() < 0.55 });
+      if (type === 'post_apo') parts.push({ x: rnd(0, xMax || W), y: H + 10, vx: rnd(-20, 60) * s, vy: rnd(-120, -40) * s, r: rnd(1.5, 4.5) * s, vie: rnd(1.5, 3), age: 0, c: hz() < 0.6 ? '#ffb347' : '#e8d4a8', braise: hz() < 0.6 });
+      else parts.push({ x: rnd(0, xMax || W), y: H + 20, vx: rnd(-30, 30) * s, vy: rnd(-180, -90) * s, r: rnd(8, 22) * s, vie: rnd(1.8, 3), age: 0, c: hz() < 0.5 ? '#ff3fa4' : '#ffd1ec', coeur: hz() < 0.55 });
     }
     for (let i = parts.length - 1; i >= 0; i--) {
       const p = parts[i]; p.age += dt; if (p.age > p.vie) { parts.splice(i, 1); continue; }

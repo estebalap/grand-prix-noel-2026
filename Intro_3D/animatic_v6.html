@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intro V6 — L'Hybride Ultime</title>
+<style>
+  :root { --fond: #05040a; --panneau: rgba(16,14,26,.86); --bord: #3c3150; --or: #ffc83d; --texte: #f1eadf; }
+  html, body { margin: 0; height: 100%; background: var(--fond); color: var(--texte); font: 14px/1.4 system-ui, sans-serif; overflow: hidden; }
+  #vue { position: fixed; inset: 0 0 92px 0; display: grid; place-items: center; }
+  canvas { display: block; max-width: 100%; max-height: 100%; aspect-ratio: 16 / 9; }
+  #hud { position: fixed; left: 12px; top: 12px; background: var(--panneau); border: 1px solid var(--bord); border-radius: 10px; padding: 8px 12px; max-width: min(640px, calc(100% - 24px)); }
+  #hud b { color: var(--or); }
+  #barre { position: fixed; left: 0; right: 0; bottom: 0; height: 92px; background: #0b0a12; border-top: 1px solid var(--bord); padding: 8px 12px; box-sizing: border-box; }
+  #controles { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; flex-wrap: wrap; }
+  button { background: #1a1726; color: var(--texte); border: 1px solid var(--bord); border-radius: 8px; padding: 4px 10px; cursor: pointer; font: inherit; }
+  #frise { position: relative; height: 40px; background: #12101c; border-radius: 6px; cursor: pointer; overflow: hidden; }
+  .plan { position: absolute; top: 0; bottom: 0; border-right: 1px solid #000; opacity: .75; }
+  .hit { position: absolute; top: 0; height: 10px; width: 2px; background: #fff; opacity: .7; }
+  #tete { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--or); box-shadow: 0 0 8px var(--or); }
+  #erreur { position: fixed; inset: 0; display: none; place-items: center; background: #200; color: #fbb; padding: 30px; white-space: pre-wrap; z-index: 9; }
+  body.capture #hud, body.capture #barre { display: none; } body.capture #vue { inset: 0; }
+</style>
+</head>
+<body>
+<div id="vue"></div>
+<div id="hud">Chargement de l'intro V6…</div>
+<div id="barre">
+  <div id="controles">
+    <button id="lecture">▶ Lecture (Espace)</button>
+    <button id="debut">⏮ Début</button>
+    <span id="temps">0,00 s</span>
+    <span style="opacity:.6">← → : image par image · Maj + ← → : 1 s · PgPréc / PgSuiv : plan · M : son</span>
+  </div>
+  <div id="frise"><div id="tete"></div></div>
+</div>
+<div id="erreur"></div>
+<audio id="son" preload="auto"></audio>
+<!-- three.js r128 est chargé par src/shared_bridge.js (pont universel : dépôt GitHub ou PC local) -->
+<script type="module">
+import './src/shared_bridge.js';
+import { reglerRendu } from './src/decors/salon.js';
+import { chargerEquipes, chargerMontage, CHEMINS } from './src/donnees_v6.js';
+import { creerFilm } from './src/film_v6.js';
+const THREE = window.THREE, q = new URLSearchParams(location.search);
+const err = (e) => { const d = document.getElementById('erreur'); d.style.display = 'grid'; d.textContent = 'Erreur : ' + (e && e.stack || e); console.error(e); window.erreurFilm = String(e); };
+(async () => {
+  try {
+    const capture = q.has('capture'); if (capture) document.body.classList.add('capture');
+    const L = parseInt(q.get('l') || (capture ? 1280 : 1920), 10), H = Math.round(L * 9 / 16);
+    const [{ equipes, logos }, { plans: montage }] = await Promise.all([chargerEquipes(), chargerMontage()]);   // montage = data/plans_intro_v6.json
+    const renderer = new THREE.WebGLRenderer({ antialias: !capture || q.get('aa') === '1', preserveDrawingBuffer: true });
+    renderer.setPixelRatio(1); renderer.setSize(L, H, false); reglerRendu(renderer);
+    document.getElementById('vue').appendChild(renderer.domElement);
+    const film = await creerFilm({ renderer, equipes, logos, montage, qualite: q.get('qualite') || (capture ? 'brouillon' : 'apercu'), parcMax: parseInt(q.get('parc') || '52', 10) });
+    window.filmV6 = film; window.inventaireFilm = film.inventaire; console.info('Intro V6 :', JSON.stringify(film.inventaire));
+    window.rendreTemps = (t) => film.rendreTemps(t);                                   // API de capture (Playwright)
+    window.dureeFilm = film.duree;
+
+    const son = document.getElementById('son'); son.src = CHEMINS.son; son.onerror = () => console.warn('Bande-son absente : ' + CHEMINS.son + ' (lancer audio_v6\\LANCER_V6.bat)');
+    const hud = document.getElementById('hud'), tete = document.getElementById('tete'), frise = document.getElementById('frise'), temps = document.getElementById('temps');
+    const couleursDecor = { salon: '#7a5a3a', transfo: '#c46b2a', noir: '#000', arene: '#1d4fd8' };
+    const couleursUnivers = { gotham: '#3a4a7a', f1: '#c82020', apoca: '#c45a14', caisses: '#9b5de5', pieges: '#ffe23d', paris: '#35e07a', gloire: '#ffc83d', titre: '#ff4fb8', final: '#ff8a2a' };
+    for (const p of montage.plans) {
+      const d = document.createElement('div'); d.className = 'plan'; d.title = `${p.id} · ${p.titre}`;
+      d.style.left = (p.debut / film.duree * 100) + '%'; d.style.width = ((p.fin - p.debut) / film.duree * 100) + '%';
+      d.style.background = couleursUnivers[p.univers] || couleursDecor[p.decor] || '#444'; frise.appendChild(d);
+    }
+    for (const [th] of montage.hits) { const h = document.createElement('div'); h.className = 'hit'; h.style.left = (th / film.duree * 100) + '%'; frise.appendChild(h); }
+    let t = parseFloat(q.get('t') || '0'), lecture = false;
+    const afficher = () => {
+      const p = film.rendreTemps(t);
+      tete.style.left = (t / film.duree * 100) + '%'; temps.textContent = t.toFixed(2).replace('.', ',') + ' s / ' + film.duree.toFixed(0) + ' s';
+      hud.innerHTML = `<b>${p.id}</b> · ${p.titre}<br><span style="opacity:.7">${p.debut.toFixed(2)} → ${p.fin.toFixed(2)} s · ${p.decor}${p.univers ? ' · ' + p.univers : ''} · ambiance ${p.theme}</span>`;
+    };
+    const aller = (nt) => { t = Math.max(0, Math.min(film.duree - 1 / 60, nt)); if (lecture) son.currentTime = t; afficher(); };
+    const basculer = async () => { lecture = !lecture; document.getElementById('lecture').textContent = lecture ? '⏸ Pause (Espace)' : '▶ Lecture (Espace)'; if (lecture) { son.currentTime = t; try { await son.play(); } catch { } } else son.pause(); };
+    document.getElementById('lecture').onclick = basculer;
+    document.getElementById('debut').onclick = () => aller(0);
+    const depuisFrise = (e) => { const r = frise.getBoundingClientRect(); aller((e.clientX - r.left) / r.width * film.duree); };
+    let glisse = false; frise.addEventListener('pointerdown', (e) => { glisse = true; depuisFrise(e); }); addEventListener('pointermove', (e) => { if (glisse) depuisFrise(e); }); addEventListener('pointerup', () => { glisse = false; });
+    addEventListener('keydown', (e) => {
+      const p = film.planA(t), i = montage.plans.indexOf(p);
+      if (e.code === 'Space') { e.preventDefault(); basculer(); }
+      else if (e.key === 'ArrowRight') aller(t + (e.shiftKey ? 1 : 1 / 60));
+      else if (e.key === 'ArrowLeft') aller(t - (e.shiftKey ? 1 : 1 / 60));
+      else if (e.key === 'PageDown') aller(montage.plans[Math.min(montage.plans.length - 1, i + 1)].debut);
+      else if (e.key === 'PageUp') aller(montage.plans[Math.max(0, i - (t - p.debut < 0.3 ? 1 : 0))].debut);
+      else if (e.key === 'm' || e.key === 'M') { son.muted = !son.muted; if (!son.muted && lecture) { son.currentTime = t; son.play().catch(() => {}); } }
+    });
+    if (capture || q.has('t')) { afficher(); window.pret = true; return; }
+    let horloge = performance.now();
+    const boucle = () => { const maintenant = performance.now(), dt = (maintenant - horloge) / 1000; horloge = maintenant; if (lecture) { t = (!son.paused && !son.muted) ? son.currentTime : t + dt;   // son bloqué ou coupé : horloge du navigateur
+ if (son.ended || t >= film.duree - 0.02) { lecture = false; t = 0; document.getElementById('lecture').textContent = '▶ Lecture (Espace)'; } afficher(); } requestAnimationFrame(boucle); };
+    afficher(); window.pret = true; boucle();
+  } catch (e) { err(e); }
+})();
+</script>
+</body>
+</html>

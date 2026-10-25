@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Salon 3D — aperçu (intro v4)</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #07060a; color: #eee; font: 14px/1.4 system-ui, sans-serif; overflow: hidden; }
+  canvas { display: block; }
+  #barre { position: fixed; left: 12px; top: 12px; display: flex; flex-wrap: wrap; gap: 6px; max-width: calc(100% - 24px); }
+  #barre button, #barre label { background: rgba(20,18,30,.82); color: #f3eadf; border: 1px solid #4a3c5c; border-radius: 8px; padding: 6px 10px; cursor: pointer; font: inherit; }
+  #barre button.actif { border-color: #ffc83d; color: #ffc83d; }
+  #info { position: fixed; left: 12px; bottom: 12px; background: rgba(20,18,30,.82); padding: 8px 12px; border-radius: 8px; max-width: 560px; }
+  #erreur { position: fixed; inset: 0; display: none; place-items: center; background: #200; color: #fbb; padding: 30px; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<div id="barre"></div>
+<div id="info">Glisser : tourner · Molette : avancer · Maj + glisser : déplacer · <b>Espace</b> : pause · <b>L</b> : lumières du salon (on / off)</div>
+<div id="erreur"></div>
+<!-- three.js r128 est chargé par src/shared_bridge.js (pont universel : dépôt GitHub ou PC local) -->
+<script type="module">
+import './src/shared_bridge.js';
+import { construireSalon, reglerRendu, environnementSalon } from './src/decors/salon.js';
+const THREE = window.THREE;
+const err = (e) => { const d = document.getElementById('erreur'); d.style.display = 'grid'; d.textContent = 'Erreur : ' + (e && e.stack || e); console.error(e); };
+try {
+  const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1)); renderer.setSize(innerWidth, innerHeight);
+  reglerRendu(renderer); document.body.prepend(renderer.domElement);
+  const scene = new THREE.Scene(); scene.background = new THREE.Color(0x07060a);
+  scene.environment = environnementSalon(renderer);
+  const salon = construireSalon({ graine: 2312 }); scene.add(salon.groupe);
+
+  // miniatures à l'échelle (blocs de 7,5 cm aux couleurs des 5 voies) posées sur le tapis : repère de taille pour la future meute
+  const voies = [0xff4fb8, 0x3f8cff, 0x35e07a, 0xffe23d, 0xff8a2a], minis = new THREE.Group();
+  voies.forEach((c, i) => {
+    const m = new THREE.Mesh(new THREE.BoxGeometry(7.5, 2.2, 3.4), new THREE.MeshPhysicalMaterial({ color: c, roughness: 0.25, clearcoat: 1 }));
+    m.position.set(-22, 2.1, 52 + i * 9); m.castShadow = true; minis.add(m);
+  });
+  scene.add(minis);
+
+  const cam = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.5, 4000);
+  const focaleVersFov = (mm) => 2 * Math.atan(24 / (2 * mm)) * 180 / Math.PI;   // capteur plein format (24 mm de haut)
+  const orbite = { cible: new THREE.Vector3(), r: 300, az: 0, el: 0.4 };
+  function poser(nom) {
+    const p = salon.ancres.cameras[nom];
+    cam.fov = focaleVersFov(p.focale_mm); cam.updateProjectionMatrix();
+    const pos = new THREE.Vector3(...p.position); orbite.cible.set(...p.cible);
+    const d = pos.clone().sub(orbite.cible); orbite.r = d.length(); orbite.az = Math.atan2(d.x, d.z); orbite.el = Math.asin(d.y / orbite.r);
+    document.querySelectorAll('#barre button[data-cam]').forEach((b) => b.classList.toggle('actif', b.dataset.cam === nom));
+  }
+  const noms = { ensemble: 'Vue d’ensemble', canape: 'Depuis le canapé', ras_tapis: 'Ras du tapis', plongee: 'Plongée', cheminee: 'Cheminée', tele: 'Vers la télé' };
+  const barre = document.getElementById('barre');
+  for (const k of Object.keys(salon.ancres.cameras)) { const b = document.createElement('button'); b.textContent = noms[k] || k; b.dataset.cam = k; b.onclick = () => poser(k); barre.appendChild(b); }
+  const lab = document.createElement('label'); lab.innerHTML = '<input type="checkbox" checked> Miniatures (échelle)'; lab.querySelector('input').onchange = (e) => { minis.visible = e.target.checked; }; barre.appendChild(lab);
+  poser(new URLSearchParams(location.search).get('cam') || 'ensemble');
+
+  let glisse = null, pause = false, lumieres = 1;
+  renderer.domElement.addEventListener('pointerdown', (e) => { glisse = { x: e.clientX, y: e.clientY, maj: e.shiftKey }; renderer.domElement.setPointerCapture(e.pointerId); });
+  renderer.domElement.addEventListener('pointerup', () => { glisse = null; });
+  renderer.domElement.addEventListener('pointermove', (e) => {
+    if (!glisse) return; const dx = e.clientX - glisse.x, dy = e.clientY - glisse.y; glisse.x = e.clientX; glisse.y = e.clientY;
+    if (glisse.maj) { const right = new THREE.Vector3().setFromMatrixColumn(cam.matrix, 0), up = new THREE.Vector3().setFromMatrixColumn(cam.matrix, 1); orbite.cible.addScaledVector(right, -dx * orbite.r * 0.0015).addScaledVector(up, dy * orbite.r * 0.0015); }
+    else { orbite.az -= dx * 0.005; orbite.el = Math.max(-1.2, Math.min(1.45, orbite.el + dy * 0.004)); }
+  });
+  renderer.domElement.addEventListener('wheel', (e) => { e.preventDefault(); orbite.r = Math.max(4, Math.min(1500, orbite.r * Math.exp(e.deltaY * 0.001))); }, { passive: false });
+  addEventListener('keydown', (e) => { if (e.code === 'Space') pause = !pause; if (e.key === 'l' || e.key === 'L') lumieres = lumieres ? 0 : 1; });
+  addEventListener('resize', () => { renderer.setSize(innerWidth, innerHeight); cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); });
+
+  // temps : horloge en aperçu, ou temps imposé (?t=) pour les captures de contrôle (rendu déterministe)
+  const tImpose = new URLSearchParams(location.search).get('t');
+  let t = tImpose ? parseFloat(tImpose) : 0, dernier = performance.now();
+  function image() {
+    const now = performance.now(); if (!pause && !tImpose) t += (now - dernier) / 1000; dernier = now;
+    salon.maj(t, { intensiteSalon: lumieres });
+    cam.position.set(orbite.cible.x + orbite.r * Math.cos(orbite.el) * Math.sin(orbite.az), orbite.cible.y + orbite.r * Math.sin(orbite.el), orbite.cible.z + orbite.r * Math.cos(orbite.el) * Math.cos(orbite.az));
+    cam.lookAt(orbite.cible);
+    renderer.render(scene, cam);
+    if (!tImpose) requestAnimationFrame(image);   // temps imposé (?t=) : une seule image, pour les captures de contrôle
+  }
+  image(); window.pret = true;
+} catch (e) { err(e); }
+</script>
+</body>
+</html>

@@ -60,6 +60,33 @@ function aide(ctx) {
   return { o, THREE, garde, ell, plaque, paire, vitre, emis, tige, decal, decalDessus };
 }
 
+/** Inspection des trains roulants (chantier V5) : retire des AUTOCOLLANTS (maillages texturés transparents enfants de `cible`)
+ *  les triangles qui tombent dans le volume d'un pneu (disque du pneu × largeur de bande de roulement, de chaque côté).
+ *  Ces zones sont déjà rendues transparentes par le « trouage » du canvas : l'aspect ne change pas, mais plus aucune pellicule
+ *  ne traverse la gomme. roues : [{ x, y?, RW | R, z (demi-voie au centre du pneu), ep }]. */
+function ajourerPneus(cible, roues) {
+  const disques = [];
+  for (const r of roues) {
+    const R = r.RW ?? r.R, y = r.y ?? R, a = r.z - r.ep / 2 - 0.04, b = r.z + r.ep / 2 + 0.04;
+    disques.push({ x: r.x, y, R2: R * R, z0: a, z1: b }, { x: r.x, y, R2: R * R, z0: -b, z1: -a });
+  }
+  const dans = (x, y, z) => disques.some((d) => z >= d.z0 && z <= d.z1 && (x - d.x) ** 2 + (y - d.y) ** 2 < d.R2);
+  const T = [[1, 0], [0, 1], [0, 0], [0.5, 0.5], [0.5, 0], [0, 0.5], [1 / 3, 1 / 3]];
+  const liste = [];
+  cible.traverse((me) => { if (me.isMesh && me.geometry && me.geometry.groups.length <= 1 && [].concat(me.material).every((m) => m.map && m.transparent)) liste.push(me); });
+  for (const me of liste) {
+    me.updateWorldMatrix(true, false);
+    const e = me.matrixWorld.elements, g = me.geometry, p = g.attributes.position;
+    const P = (i) => { const x = p.getX(i), y = p.getY(i), z = p.getZ(i); return [e[0] * x + e[4] * y + e[8] * z + e[12], e[1] * x + e[5] * y + e[9] * z + e[13], e[2] * x + e[6] * y + e[10] * z + e[14]]; };
+    const idx = g.index ? Array.from(g.index.array) : Array.from({ length: p.count }, (_, i) => i), reste = [];
+    for (let t = 0; t + 2 < idx.length; t += 3) {
+      const A = P(idx[t]), B = P(idx[t + 1]), C = P(idx[t + 2]);
+      if (!T.some(([u, v]) => { const w = 1 - u - v; return dans(A[0] * u + B[0] * v + C[0] * w, A[1] * u + B[1] * v + C[1] * w, A[2] * u + B[2] * v + C[2] * w); })) reste.push(idx[t], idx[t + 1], idx[t + 2]);
+    }
+    if (reste.length < idx.length) g.setIndex(reste);
+  }
+}
+
 /** Montant de pavillon : tube plaqué sur la surface d'un pavillon lofté (suit le tumblehome), des deux côtés. */
 function montant(ctx, L, gh, xa, ya, xb, yb, r, m) {
   const { THREE, garde } = ctx;
@@ -134,6 +161,7 @@ function cabrioletAilerons(ctx) {
     emblemeAile(g, C.X(-0.1), C.Y(0.7), 40, '#d2262e');
     C.trouer(g, roues, 1.15);
   }, cw, ch, 0.022, roues);
+  ajourerPneus(ctx.chassis, roues);                                       // filets drapés : rien dans la gomme
   const pt = { rayons: 'cinq', jante: '#d9dde4', flanc: '#d2262e', chrome: true, sansFrein: true };
   return { L: 8.1, largeur: 2.16, hauteur: 2.0, xAvant: 4.02, xArriere: -4.06,
     roues: [{ ...roues[0], ...pt }, { ...roues[1], avant: true, ...pt }], jante: '#d9dde4', flanc: '#d2262e' };
@@ -248,7 +276,7 @@ function berlineAilee(ctx) {
     o.phares(4.17, 0.6, [s * 1.0], 0.08, lumBlanche);
     o.boite(0.06, 0.12, 0.26, lumRouge, -3.98, 0.85, s * 1.0);
     // grand aileron festonné posé sur l'aile arrière + nervures + liseré rouge
-    const ail = [[-1.75, 1.2], [-2.6, 1.55], [-3.95, 2.5], [-3.82, 2.12], [-3.55, 2.06], [-3.68, 1.78], [-3.4, 1.72], [-3.5, 1.42], [-3.2, 1.25]];
+    const ail = [[-1.75, 1.23], [-2.6, 1.55], [-3.95, 2.5], [-3.82, 2.12], [-3.55, 2.06], [-3.68, 1.78], [-3.4, 1.72], [-3.5, 1.42], [-3.2, 1.28]];   // arête basse relevée de 3 cm : dégage le haut du pneu arrière
     plaque(ail, 0.1, noir, s * 1.04, 0.03);
     for (let i = 0; i < 3; i++) tige([-2.3 - i * 0.45, 1.42 + i * 0.25, s * 1.11], [-3.7 + i * 0.12, 2.3 - i * 0.22, s * 1.11], 0.022, noirM);
     tige([-1.8, 1.24, s * 1.1], [-3.95, 2.5, s * 1.1], 0.018, rouge);
@@ -374,7 +402,8 @@ function blindeLarge(ctx) {
   o.boite(0.42, 0.18, 0.26, plat(panneau), -0.3, 2.19, 0); o.cyl(0.05, 0.05, 1.0, arg, 0.35, 2.21, 0, 0, Math.PI / 2, 10);
   tige([-0.3, 2.1, 0], [-0.4, 1.98, 0], 0.06, noirM);
   turbine(h, ctx, -4.2, 1.4, 0.28, '#ff6a1a');
-  return { L: 9.1, largeur: 3.72, hauteur: 2.66, xAvant: 4.75, xArriere: -4.35, roues: R, jante: '#2a2c33', flanc: null };
+  // plafond réel (chantier V5) : Batmobile de tournage basse et très large ; rapport pavillon / largeur hors tout ≈ 0,71
+  return { L: 9.1, largeur: 3.72, hauteur: 2.66, xAvant: 4.75, xArriere: -4.35, roues: R, jante: '#2a2c33', flanc: null, plafond: 0.71 };
 }
 
 
@@ -551,22 +580,24 @@ function policeBerline(ctx) {
   L.puits(roues, noir);
   // pavillon vitré en retrait (tumblehome) + toit blanc + montants
   // barème « tolérance zéro » : pavillon bas (sommet 1,62 ≤ 0,66 × W) et large (toit ≈ 80 % de la caisse), faible tumblehome
+  // plafond réel (chantier V5, Crown Victoria 0,745) : pavillon remonté de 12 cm (vitrages, toit et montants), plus d'écrasement moteur
+  const dT = 0.12;
   const gh = [
     { x: -2.55, w: 0.94, y0: 1.0, y1: 1.18, nt: 4, nb: 2, wt: 0.92 },
-    { x: -1.55, w: 0.96, y0: 1.0, y1: 1.52, nt: 4, nb: 2, wt: 0.92 },
-    { x: -0.4, w: 0.97, y0: 1.0, y1: 1.55, nt: 4, nb: 2, wt: 0.92 },
-    { x: 0.7, w: 0.96, y0: 1.0, y1: 1.52, nt: 4, nb: 2, wt: 0.92 },
+    { x: -1.55, w: 0.96, y0: 1.0, y1: 1.52 + dT, nt: 4, nb: 2, wt: 0.92 },
+    { x: -0.4, w: 0.97, y0: 1.0, y1: 1.55 + dT, nt: 4, nb: 2, wt: 0.92 },
+    { x: 0.7, w: 0.96, y0: 1.0, y1: 1.52 + dT, nt: 4, nb: 2, wt: 0.92 },
     { x: 1.65, w: 0.94, y0: 0.98, y1: 1.1, nt: 4, nb: 2, wt: 0.92 },
   ];
   L.loft(gh, L.vitre('#0c111c', 0.96));
   const toit = [
     { x: -1.62, w: 0.86, y0: 1.44, y1: 1.54, nt: 4, nb: 2, wt: 0.95 }, { x: -0.4, w: 0.9, y0: 1.44, y1: 1.56, nt: 4, nb: 2, wt: 0.95 }, { x: 0.68, w: 0.86, y0: 1.44, y1: 1.54, nt: 4, nb: 2, wt: 0.95 },
-  ];
+  ].map((s) => ({ ...s, y0: s.y0 + dT, y1: s.y1 + dT }));
   L.loft(toit, blanc, { nx: 50 });
   o.boite(1.0, 0.03, 0.56, noirB, -0.45, L.hautAu(toit, -0.45, 0.28) + 0.004, 0);                                // toit ouvrant
-  montant(ctx, L, gh, 0.22, 1.04, 0.18, 1.5, 0.06, blanc);                                                 // montant central
-  montant(ctx, L, gh, -2.42, 1.16, -1.5, 1.46, 0.09, blanc);                                              // custode
-  montant(ctx, L, gh, 1.58, 1.04, 0.68, 1.48, 0.05, blanc);                                                 // montant de pare-brise
+  montant(ctx, L, gh, 0.22, 1.04, 0.18, 1.5 + dT, 0.06, blanc);                                                 // montant central
+  montant(ctx, L, gh, -2.42, 1.16, -1.5, 1.46 + dT, 0.09, blanc);                                              // custode
+  montant(ctx, L, gh, 1.58, 1.04, 0.68, 1.48 + dT, 0.05, blanc);                                                 // montant de pare-brise
   // face avant : calandre noire large à cadre chrome, phares effilés, bouclier sculpté
   o.boite(0.08, 0.22, 1.2, noir, 3.6, 0.82, 0); o.boite(0.09, 0.03, 1.22, o.chrome, 3.62, 0.94, 0); o.boite(0.09, 0.22, 0.03, o.chrome, 3.62, 0.82, 0);
   o.boite(0.08, 0.12, 1.1, noir, 3.56, 0.52, 0);
@@ -592,9 +623,11 @@ function policeBerline(ctx) {
     for (const x of [1.45, -0.36, -1.95]) { g.beginPath(); g.moveTo(C.X(x), C.Y(1.18)); g.lineTo(C.X(x - 0.05), C.Y(0.45)); g.stroke(); }
     C.trouer(g, roues, 1.12);
   }, cw, ch, 0.022, roues);
+  ajourerPneus(ctx.chassis, roues);                                       // décor drapé : rien dans la gomme
   const pt = { rayons: 'cinq', jante: '#16171c', sansFrein: true };
   return { L: 7.2, largeur: 2.24, hauteur: 1.64, xAvant: 3.62, xArriere: -3.58,
-    roues: [{ ...roues[0], ...pt }, { ...roues[1], avant: true, ...pt }], jante: '#16171c', flanc: null };
+    roues: [{ ...roues[0], ...pt }, { ...roues[1], avant: true, ...pt }], jante: '#16171c', flanc: null,
+    plafond: 0.745 };                                                                                      // berline de police type Crown Victoria P71 : 1 481 / 1 987 mm
 }
 
 /* ------------------------------------------------------------------ B12 : pick-up violet surbaissé, losanges verts, compresseur chromé derrière la cabine, liserés dorés */
@@ -662,6 +695,7 @@ function pickupFarceur(ctx) {
     g.fillStyle = '#111'; g.font = '900 30px Arial Black, Arial, sans-serif'; g.fillText('BANG!', C.X(1.0), C.Y(0.98) + 10);
     C.trouer(g, roues, 1.12);
   }, cw, ch, 0.022, roues);
+  ajourerPneus(ctx.chassis, roues);                                       // décor drapé : rien dans la gomme
   const pt = { rayons: 'cinq', jante: '#16171c', flanc: '#e8c24a', sansFrein: true };
   return { L: 7.45, largeur: 2.32, hauteur: 2.25, xAvant: 3.75, xArriere: -3.7,
     roues: [{ ...roues[0], ...pt }, { ...roues[1], avant: true, ...pt }], jante: '#16171c', flanc: '#e8c24a' };

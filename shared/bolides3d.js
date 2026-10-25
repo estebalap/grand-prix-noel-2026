@@ -320,6 +320,7 @@ export async function construireBolide3D(code, { THREE = window.THREE, envMap = 
 
   // roues : pneu en révolution (48 segments), jante à gorge, moyeu, boulons, disque de frein ventilé et étrier fixe
   const roues = [];
+  const cacheJante = new Map(), cacheMatJante = new Map();             // jantes 3D : géométries et matériaux partagés entre roues identiques
   const matR = materiauxRoue(THREE, { envMap, jante: f.jante || '#c9cfda', rayons: f.rayons || 'cinq', neon: null, etrier: c.accent || c.neon || '#e8202a', garde });   // plus jamais d'anneau néon d'arcade sur une jante
   if (loco) {                                                         // deux essieux, roues noires à anneau rouge, petit ergot blanc au moyeu
     const noir = garde(new THREE.MeshStandardMaterial({ color: 0x141519, roughness: 0.55, metalness: 0.2, envMap }));
@@ -333,12 +334,16 @@ export async function construireBolide3D(code, { THREE = window.THREE, envMap = 
     }
   }
   if (sm) for (const r of sm.roues) {
-    /* options par roue : RW (rayon exact, sinon R×1.22), ep (épaisseur du pneu), z (demi-voie : centre du pneu), jante, rayons, flanc, sansFrein, lenticulaire */
+    /* options par roue : RW (rayon exact, sinon R×1.22), ep (épaisseur du pneu), z (demi-voie : centre du pneu), jante, rayons, flanc, sansFrein, lenticulaire,
+       levre (jantes 3D : largeur de lèvre polie / profondeur de bol, 0 à 0,3 R). rayons ∈ JANTES_3D → vraie jante en relief. */
     const R = r.RW ?? r.R * 1.22, ep = r.fin ? (r.ep ?? R * 0.3) : Math.max(r.ep ?? R * 0.66, 0.45);   // pneus « boudins » : jamais de roue de vélo (sauf fin: true)
-    const matS = materiauxRoue(THREE, { envMap, jante: r.jante || sm.jante || '#c9cfda', rayons: r.rayons || sm.rayons || 'cinq', neon: null, etrier: r.etrier || '#e8202a', garde, peinte: r.chrome === true ? false : !janteMetal(r.jante || sm.jante) });
+    const style = r.rayons || sm.rayons || 'cinq', jante = r.jante || sm.jante || '#c9cfda', peinte = r.chrome === true ? false : !janteMetal(r.jante || sm.jante);
+    const matS = materiauxRoue(THREE, { envMap, jante, rayons: style, neon: null, etrier: r.etrier || '#e8202a', garde, peinte });
     const zc = r.z ?? (largeur / 2 - ep * 0.12);
     for (const z of [-zc, zc]) {
       const w = creerRoue(THREE, matS, { R, ep, cote: z >= 0 ? 1 : -1, flanc: r.flanc ?? sm.flanc ?? null, garde, sansFrein: !!r.sansFrein, lenticulaire: !!r.lenticulaire, main: !!r.main });
+      // jantes 3D en relief (styles JANTES_3D) : le disque texturé est remplacé ; tout autre style garde le rendu historique
+      if (!r.lenticulaire) poserJante3D(THREE, w, matS, { style, R, ep, cote: z >= 0 ? 1 : -1, levre: r.levre ?? sm.levre, jante, peinte, envMap, garde, cacheGeo: cacheJante, cacheMat: cacheMatJante });
       w.pivot.position.set(r.x, r.y ?? R, z); groupe.add(w.pivot);
       roues.push({ pivot: w.pivot, tourne: w.tourne, etriers: w.etriers, r: R, ep, fin: !!r.fin, x: r.x, avant: !!r.avant, z });
     }
@@ -348,6 +353,7 @@ export async function construireBolide3D(code, { THREE = window.THREE, envMap = 
     const zs = geo.fam === 'f1' ? [-1.3, 1.3] : geo.fam === 'f1vintage' ? [-1.12, 1.12] : fa ? (r.roulette ? [-0.6, 0.6] : [-1.0, 1.0]) : [-(largeur / 2 - ep * 0.5 + 0.03), largeur / 2 - ep * 0.5 + 0.03];
     for (const z of zs) {
       const w = creerRoue(THREE, matR, { R, ep, cote: z >= 0 ? 1 : -1, main: grande, lenticulaire: grande, flanc: f.flanc || null, garde, sansFrein: fa && !!r.roulette });
+      if (!grande) poserJante3D(THREE, w, matR, { style: f.rayons || 'cinq', R, ep, cote: z >= 0 ? 1 : -1, levre: f.levre, jante: f.jante || '#c9cfda', peinte: false, envMap, garde, cacheGeo: cacheJante, cacheMat: cacheMatJante });
       const pivot = w.pivot; pivot.position.set(wx(r.x), R, z);
       if (grande) pivot.rotation.x = z > 0 ? -0.1 : 0.1;                       // carrossage : roues arrière inclinées, silhouette agressive
       groupe.add(pivot);
@@ -371,7 +377,9 @@ export async function construireBolide3D(code, { THREE = window.THREE, envMap = 
      de la ligne de caisse — jamais les passages de roues. Le facteur appliqué est publié dans `proportion`. */
   let proportion = null, hauteurSm = sm ? sm.hauteur : 0;
   if (sm && roues.length) {
-    const fp = familleProportion(code);
+    // Chantier V5 : un modèle peut déclarer son propre plafond (`plafond` = hauteur / largeur hors tout de la VRAIE voiture,
+    // mesurée sur ses cotes constructeur). Il remplace le plafond de famille, qui écrasait les berlines (« plates comme des crêpes »).
+    const fp = sm.plafond ? { nom: 'réel', plafond: sm.plafond } : familleProportion(code);
     groupe.updateMatrixWorld(true);
     const wTot = new THREE.Box3().setFromObject(groupe).getSize(new THREE.Vector3()).z;
     const xsR = roues.map((w) => w.x), xAvR = Math.max(...xsR), xArR = Math.min(...xsR);
@@ -398,6 +406,8 @@ export async function construireBolide3D(code, { THREE = window.THREE, envMap = 
     xAvant: sm ? sm.xAvant : wx(geo.xAvant), xArriere: sm ? sm.xArriere : wx(geo.xArriere), essieuAvant: xAv, essieuArriere: xAr, empattement: xAv - xAr,
     rayonAvant: (roues.find((w) => w.avant) || { r: 0.45 }).r, rayonArriere: (roues.find((w) => !w.avant) || { r: 0.45 }).r,
     feux: { avant: lumBlanche, arriere: lumRouge },
+    /** Contrat « drame » du modèle sculpté (MODE DRAME, scénario « crash » : neuf(), epave(), teinte(k), pieces), sinon null. */
+    drame: sm ? (sm.drame || null) : null,
     /** Veilleuses : k de 0 (éteint, pénombre) à 1 (feux pleine puissance). Les feux ronronnent légèrement. */
     eclairer(k, t = 0) {
       const f = (0.1 + 0.9 * k) * (k < 1 ? 0.85 + 0.15 * Math.sin(t * 31) : 1);
@@ -420,6 +430,341 @@ function janteMetal(hex) {
   const n = parseInt(String(hex).replace('#', '').padEnd(6, '0').slice(0, 6), 16), r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
   const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 510, sat = mx ? (mx - mn) / mx : 0;
   return sat < 0.14 && l > 0.42 && l < 0.84;
+}
+
+/* ------------------------------------------------------------------ jantes 3D en relief (Chantier V5 — atelier jantes)
+   Les styles historiques (cinq, six, trois, dix, etoile, plein, maille) restent des disques texturés (bolides3d_pieces.js).
+   Les styles ci-dessous sont de VRAIES jantes en volume : branches extrudées et galbées, fenêtres ouvertes sur le disque de
+   frein, moyeu en bossage, écrous, lèvre polie et bol. Sélection par l'option `rayons` (par roue `r.rayons` ou par modèle
+   `sm.rayons`) ; `levre` (0 à 0,3, en fraction du rayon du pneu) règle la largeur de la lèvre polie ET la profondeur du bol.
+     bbs       : rayons croisés en maille (BBS RS / LM), couronne rivetée, lèvre polie, moyeu en bossage
+     deepdish  : bol profond — lèvre polie large (défaut 0,20 R), voile reculé à 5 branches fines, rivets d'assemblage
+     evo6      : 6 branches pleines, larges et bombées (berline sportive allemande fin des années 80)
+     cinqCreux : 5 branches dédoublées et creusées (berline / SUV moderne), voile concave
+     turbine   : 12 pales incurvées et vrillées (supercar / années 80)
+     fils      : roue à rayons fins (48 rayons laçés sur trois nappes), moyeu saillant et papillon central
+     rallye    : disque plein à 8 trous ronds chanfreinés (jante de rallye), 4 écrous
+     f1_2022   : enjoliveur aérodynamique plein (Formule 1 actuelle, 18 pouces), écrou central unique
+     etoileVIP : 5 branches larges et plates, lèvre étagée rivetée (« VIP » japonais)
+   Tout est construit dans le repère de la roue (axe z, face visible côté +z) puis tourné de π autour de y pour le flanc −z.
+   Le groupe est ENFANT de `tourne` : la jante tourne avec le pneu ; disque de frein, étrier et voile de fond sont conservés.
+   Aucun matériau émissif. Géométries mises en cache par (style, R, ep, lèvre) : partagées par les roues identiques d'un modèle. */
+export const JANTES_3D = ['bbs', 'deepdish', 'evo6', 'cinqCreux', 'turbine', 'fils', 'rallye', 'f1_2022', 'etoileVIP'];
+const LEVRE_DEFAUT = { bbs: 0.1, deepdish: 0.2, evo6: 0.03, cinqCreux: 0.03, turbine: 0.03, fils: 0.06, rallye: 0.04, f1_2022: 0.02, etoileVIP: 0.12 };
+
+/** Fusionne des géométries (position + normale) en une seule géométrie non indexée : un seul appel de dessin par matériau. */
+function fusionGeo(THREE, geos) {
+  const parts = geos.filter(Boolean).map((g) => { const x = g.index ? g.toNonIndexed() : g; if (!x.attributes.normal) x.computeVertexNormals(); return x; });
+  let n = 0; for (const p of parts) n += p.attributes.position.count;
+  const pos = new Float32Array(n * 3), nor = new Float32Array(n * 3);
+  let o = 0;
+  for (const p of parts) { pos.set(p.attributes.position.array, o); nor.set(p.attributes.normal.array, o); o += p.attributes.position.count * 3; }
+  for (const g of geos) if (g) g.dispose();
+  for (const p of parts) p.dispose();
+  const out = new THREE.BufferGeometry();
+  out.setAttribute('position', new THREE.BufferAttribute(pos, 3)); out.setAttribute('normal', new THREE.BufferAttribute(nor, 3));
+  out.computeBoundingSphere();
+  return out;
+}
+
+/** Nappe paramétrique indexée (nI × nJ sommets, f(i, j) → [x, y, z]) aux normales lissées. Sens : i radial, j tangentiel → face +z. */
+function nappe(THREE, nI, nJ, f) {
+  const pos = new Float32Array(nI * nJ * 3), idx = [];
+  for (let i = 0; i < nI; i++) for (let j = 0; j < nJ; j++) pos.set(f(i, j), (i * nJ + j) * 3);
+  for (let i = 0; i < nI - 1; i++) for (let j = 0; j < nJ - 1; j++) {
+    const a = i * nJ + j, b = a + nJ, c = a + 1, d = b + 1;
+    idx.push(a, b, c, c, b, d);
+  }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+  return g;
+}
+
+/** Mur (paroi de fenêtre) le long d'une arête : haut = points de l'arête, bas = mêmes (x, y) à z = bas(i). `garder(i)` : segment utile. */
+function murArete(THREE, haut, bas, garder) {
+  const pos = [], idx = [];
+  for (let i = 0; i < haut.length; i++) { pos.push(...haut[i], haut[i][0], haut[i][1], bas(i)); }
+  for (let i = 0; i < haut.length - 1; i++) if (garder(i)) { const a = i * 2, b = a + 1, c = a + 2, d = a + 3; idx.push(a, c, b, b, c, d); }
+  if (!idx.length) return null;
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(pos), 3)); g.setIndex(idx); g.computeVertexNormals();
+  return g;
+}
+
+/** Profil de révolution (points [r, z]) autour de l'axe z de la roue. */
+function tour(THREE, pts, segs = 48) {
+  const g = new THREE.LatheGeometry(pts.map(([r, z]) => new THREE.Vector2(Math.max(r, 0), z)), segs);
+  g.rotateX(Math.PI / 2);
+  return g;
+}
+
+/** Cylindre d'axe z (écrous, rivets, moyeux) posé en (x, y), de z0 à z1. */
+function plot(THREE, x, y, r, z0, z1, n = 6, rHaut = r) {
+  const g = new THREE.CylinderGeometry(rHaut, r, Math.abs(z1 - z0), n, 1, false);
+  g.rotateX(Math.PI / 2); g.translate(x, y, (z0 + z1) / 2);
+  return g;
+}
+
+/** Barre tubulaire fine entre deux points 3D (rayons de roue à fils). */
+function tige(THREE, a, b, r) {
+  const d = new THREE.Vector3().subVectors(b, a), L = d.length();
+  const g = new THREE.CylinderGeometry(r, r, L, 4, 1, true);
+  const q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize());
+  g.applyMatrix4(new THREE.Matrix4().compose(new THREE.Vector3().addVectors(a, b).multiplyScalar(0.5), q, new THREE.Vector3(1, 1, 1)));
+  return g;
+}
+
+/** Enveloppe d'une fenêtre (superellipse) : 1 au centre de [r0 ; r1], 0 aux bouts ; p grand = bouts plus carrés. */
+function enveloppe(r, r0, r1, p) {
+  const t = (2 * r - r0 - r1) / (r1 - r0);
+  return Math.abs(t) >= 1 ? 0 : Math.pow(1 - Math.pow(Math.abs(t), p), 1 / p);
+}
+
+/**
+ * Voile à fenêtres : secteurs pleins entre fenêtres successives. Fenêtre = { c(r) angle central, w(r) demi-angle ≥ 0, r0, r1 }.
+ * Z(r, u, oa, ob) : cote du dessus (u ∈ [0 ; 1] en travers de la branche, oa/ob ouverture des fenêtres voisines 0…1).
+ * Chaque branche reçoit un chanfrein le long des fenêtres (normales lissées → arête adoucie) et une paroi jusqu'à zb(r) − épaisseur.
+ */
+function voileAFenetres(THREE, { fen, rA, rB, nU = 5, Z, zb, ep, zMin, chanf, q }) {
+  // anneaux : réguliers + resserrés aux bouts de chaque fenêtre (bouts arrondis nets)
+  const rs = [];
+  for (let i = 0; i <= 6; i++) rs.push(rA + (rB - rA) * i / 6);
+  const plages = new Set();
+  for (const F of fen) plages.add(F.r0.toFixed(5) + ':' + F.r1.toFixed(5));
+  for (const pl of plages) {
+    const [r0, r1] = pl.split(':').map(Number), m = (r0 + r1) / 2, d = (r1 - r0) / 2;
+    for (const t of [1, 0.985, 0.94, 0.85, 0.68, 0.42, 0.14]) { rs.push(m - d * t, m + d * t); }
+  }
+  rs.sort((a, b) => a - b);
+  const R_ = rs.filter((r, i) => r >= rA - 1e-9 && r <= rB + 1e-9 && (i === 0 || r - rs[i - 1] > q * 0.006));
+  const e = 0.08, us = [0, e];
+  for (let k = 1; k < nU; k++) us.push(e + (1 - 2 * e) * k / nU);
+  us.push(1 - e, 1);
+  const n = fen.length, dessus = [], murs = [];
+  const ouv = (F, r) => Math.min(1, Math.max(0, F.w(r) * r / (q * 0.02)));
+  for (let k = 0; k < n; k++) {
+    const A = fen[k], B = fen[(k + 1) % n], tour2 = k + 1 === n ? Math.PI * 2 : 0;
+    const pt = (r, u) => {
+      const ta = A.c(r) + A.w(r), tb = B.c(r) - B.w(r) + tour2, oa = ouv(A, r), ob = ouv(B, r);
+      const th = ta + (tb - ta) * u;
+      let z = Z(r, u, oa, ob);
+      if (u === 0) z -= chanf * oa; else if (u === 1) z -= chanf * ob;
+      return [Math.cos(th) * r, Math.sin(th) * r, z];
+    };
+    dessus.push(nappe(THREE, R_.length, us.length, (i, j) => pt(R_[i], us[j])));
+    const bas = (i) => Math.max(zMin, zb(R_[i]) - ep);
+    murs.push(murArete(THREE, R_.map((r) => pt(r, 0)), bas, (i) => ouv(A, R_[i]) > 0 || ouv(A, R_[i + 1]) > 0));
+    murs.push(murArete(THREE, R_.map((r) => pt(r, 1)), bas, (i) => ouv(B, R_[i]) > 0 || ouv(B, R_[i + 1]) > 0));
+  }
+  return { dessus, murs };
+}
+
+/** Barre droite (rayon de jante maille) de (r0, a0) à (r1, a1), largeur l, dessus Zr(r) + dz, chanfreinée, avec parois. */
+function barreJante(THREE, { r0, a0, r1, a1, l, Zr, dz = 0, ep, zMin, chanf, n = 10 }) {
+  const P0 = [Math.cos(a0) * r0, Math.sin(a0) * r0], P1 = [Math.cos(a1) * r1, Math.sin(a1) * r1];
+  const dx = P1[0] - P0[0], dy = P1[1] - P0[1], L = Math.hypot(dx, dy), nx = -dy / L, ny = dx / L;
+  const us = [0, 0.12, 0.5, 0.88, 1];
+  const pt = (i, u) => {
+    const t = i / n, x = P0[0] + dx * t + nx * l * (u - 0.5), y = P0[1] + dy * t + ny * l * (u - 0.5), r = Math.hypot(x, y);
+    return [x, y, Zr(r) + dz - ((u === 0 || u === 1) ? chanf : 0) + (u === 0.5 ? chanf * 0.3 : 0)];
+  };
+  const dessus = nappe(THREE, n + 1, us.length, (i, j) => pt(i, us[j]));
+  const bas = (u) => (i) => { const p = pt(i, u); return Math.max(zMin, Math.min(p[2] - 0.004, Zr(Math.hypot(p[0], p[1])) + dz - ep)); };
+  const ids = Array.from({ length: n + 1 }, (_, i) => i);
+  return { dessus, murs: [murArete(THREE, ids.map((i) => pt(i, 0)), bas(0), () => true), murArete(THREE, ids.map((i) => pt(i, 1)), bas(1), () => true)] };
+}
+
+/**
+ * Géométries d'une jante 3D (repère roue, face +z) : { face, flanc, poli, boulon } (BufferGeometry ou null).
+ * Cotes reprises de creerRoue (bolides3d_pieces.js) : rayon de fût rj = 0,627 R, lèvre chromée à z = 0,86 h, face historique zF.
+ * Rien ne descend sous zF − 0,025 ep (l'étrier fixe et le disque de frein restent libres derrière le voile qui tourne).
+ */
+export function geometrieJante3D(THREE, style, R, ep, levreOpt) {
+  const h = ep / 2, rb = R * 0.66, q = rb * 0.95;
+  const enf = Math.min(Math.max(ep * 0.36, 0.08), 0.15, h * 0.8);
+  const zL = h * 0.86, zF = h - enf, D = zL - zF, zMin = zF - ep * 0.025;
+  const levre = Math.min(0.3, Math.max(0, Number.isFinite(levreOpt) ? levreOpt : LEVRE_DEFAUT[style]));
+  const rL = Math.max(q - levre * R, q * 0.55);
+  const zLip = style === 'deepdish' ? zL + R * 0.01 : zL - R * 0.004;
+  const face = [], flanc = [], poli = [], boulon = [];
+  const lerp = (a, b, t) => a + (b - a) * t;
+  /** profil radial du voile : zO au bord (rL), zH au moyeu (rH), bombé (+) ou creusé (−) au milieu */
+  const profil = (zO, zH, rH, bombe = 0) => (r) => { const t = Math.min(1, Math.max(0, (rL - r) / (rL - rH))); return lerp(zO, zH, t) + bombe * Math.sin(Math.PI * t); };
+  /** lèvre : chant extérieur, plat poli de rL à q, puis bol (paroi) jusque sous le voile à zBol */
+  const levrePolie = (zBol, matPoli = true) => {
+    const cf = Math.min(q * 0.02, (q - rL) * 0.3 + q * 0.004);
+    const pts = [[q * 1.0, zL - R * 0.02], [q * 1.0, zLip - cf * 0.5], [q - cf * 0.5, zLip], [rL + cf, zLip], [rL, zLip - cf], [rL - q * 0.004, zBol]];
+    (matPoli ? poli : face).push(tour(THREE, pts, 48));
+  };
+  /** moyeu en bossage : plat à zT, chanfrein, jupe jusque sous les branches ; cache central ; n écrous sur le cercle rN */
+  const moyeu = (rH, zT, zJupe, nEcrous = 5, cache = true) => {
+    face.push(tour(THREE, [[0, zT], [rH * 0.84, zT], [rH, zT - rH * 0.1], [rH * 1.04, zJupe]], 32));
+    if (cache) poli.push(tour(THREE, [[0, zT + rH * 0.2], [rH * 0.16, zT + rH * 0.18], [rH * 0.3, zT + rH * 0.07], [rH * 0.32, zT - 0.002]], 24));
+    const rN = rH * 0.6, rn = Math.max(rH * 0.085, 0.006);
+    for (let i = 0; i < nEcrous; i++) { const a = i / nEcrous * Math.PI * 2 + Math.PI / 2; boulon.push(plot(THREE, Math.cos(a) * rN, Math.sin(a) * rN, rn, zT - 0.002, zT + rn * 1.3, 6)); }
+  };
+  /** rivets d'assemblage (jantes en plusieurs pièces) sur le cercle r, à la cote z */
+  const rivets = (r, z, n) => { const rr = Math.max(q * 0.018, 0.0035); for (let i = 0; i < n; i++) { const a = i / n * Math.PI * 2; boulon.push(plot(THREE, Math.cos(a) * r, Math.sin(a) * r, rr, z - 0.002, z + rr * 0.9, 6, rr * 0.7)); } };
+  /** voile à fenêtres + bol + moyeu, commun aux styles « à branches » */
+  const voile = ({ fen, rH, Zb, Z, epV, chanf, nU, zT, nEcrous }) => {
+    const v = voileAFenetres(THREE, { fen, rA: rH * 0.92, rB: rL + q * 0.012, nU, Z, zb: Zb, ep: epV, zMin, chanf, q });
+    face.push(...v.dessus); flanc.push(...v.murs);
+    moyeu(rH, zT, Math.max(zMin, Zb(rH) - epV * 0.6), nEcrous);
+  };
+  /** croisillon de travers : bord haut/bas d'une branche selon l'ouverture des fenêtres voisines (galbe en travers) */
+  const galbe = (bomb) => (u, oa, ob) => -bomb * (oa * (1 - u) * (1 - u) + ob * u * u);
+
+  switch (style) {
+    case 'evo6': {                                      // 6 branches pleines, larges et bombées
+      const n = 6, rH = q * 0.3, r0 = q * 0.37, r1 = rL - q * 0.075;
+      const sw = (r) => q * 0.075 + 0.1 * r;
+      const fen = Array.from({ length: n }, (_, k) => ({ c: () => (k + 0.5) / n * Math.PI * 2, w: (r) => Math.max(0, Math.PI / n - sw(r) / r) * enveloppe(r, r0, r1, 3), r0, r1 }));
+      const Zb = profil(zLip - 0.3 * D, zF + 0.72 * D, rH, 0.16 * D), g = galbe(0.14 * D);
+      levrePolie(zLip - 0.42 * D, levre >= 0.06);
+      voile({ fen, rH, Zb, Z: (r, u, oa, ob) => Zb(r) + g(u, oa, ob), epV: 0.45 * D, chanf: 0.06 * D, nU: 5, zT: zF + 0.86 * D, nEcrous: 5 });
+      break;
+    }
+    case 'cinqCreux': {                                 // 5 branches dédoublées, creusées en gouttière, voile concave
+      const n = 5, rH = q * 0.28, r0 = q * 0.36, r1 = rL - q * 0.07, s0 = q * 0.5, s1 = rL - q * 0.1;
+      const sw = (r) => q * 0.05 + 0.12 * r, sl = (r) => q * 0.012 + 0.07 * (r - s0);
+      const fen = [];
+      for (let k = 0; k < n; k++) {
+        fen.push({ c: () => k / n * Math.PI * 2, w: (r) => (sl(r) / r) * enveloppe(r, s0, s1, 2.5), r0: s0, r1: s1 });
+        fen.push({ c: () => (k + 0.5) / n * Math.PI * 2, w: (r) => Math.max(0, Math.PI / n - sw(r) / r) * enveloppe(r, r0, r1, 4), r0, r1 });
+      }
+      const Zb = profil(zLip - 0.16 * D, zF + 0.22 * D, rH, -0.1 * D), g = galbe(-0.12 * D);   // galbe négatif : bords hauts, fond creux
+      levrePolie(zLip - 0.3 * D, levre >= 0.06);
+      voile({ fen, rH, Zb, Z: (r, u, oa, ob) => Zb(r) + g(u, oa, ob), epV: 0.42 * D, chanf: 0.05 * D, nU: 3, zT: zF + 0.4 * D, nEcrous: 5 });
+      break;
+    }
+    case 'turbine': {                                   // 12 pales incurvées (spirale) et vrillées
+      const n = 12, rH = q * 0.3, r0 = q * 0.38, r1 = rL - q * 0.07, courbe = 1.05;
+      const fen = Array.from({ length: n }, (_, k) => ({ c: (r) => (k + 0.5) / n * Math.PI * 2 + courbe * (r - r0) / q, w: (r) => 0.125 * enveloppe(r, r0, r1, 4), r0, r1 }));
+      const Zb = profil(zLip - 0.25 * D, zF + 0.6 * D, rH, 0.1 * D), vrille = 0.2 * D;
+      levrePolie(zLip - 0.38 * D, levre >= 0.06);
+      voile({ fen, rH, Zb, Z: (r, u, oa, ob) => Zb(r) + vrille * (u - 0.5) * 2 * Math.min(oa, ob) - 0.03 * D * (oa * (1 - u) ** 2 + ob * u * u), epV: 0.45 * D, chanf: 0.04 * D, nU: 3, zT: zF + 0.74 * D, nEcrous: 5 });
+      break;
+    }
+    case 'rallye': {                                    // disque plein à 8 trous ronds chanfreinés, 4 écrous
+      const n = 8, rH = q * 0.3, rc = (rH + rL) / 2 + q * 0.03, rho = Math.min(q * 0.16, (rL - rH) * 0.3);
+      const w = (r) => { if (Math.abs(r - rc) >= rho) return 0; const x = (r * r + rc * rc - rho * rho) / (2 * r * rc); return Math.acos(Math.min(1, Math.max(-1, x))); };
+      const fen = Array.from({ length: n }, (_, k) => ({ c: () => k / n * Math.PI * 2, w, r0: rc - rho, r1: rc + rho }));
+      const Zb = profil(zLip - 0.35 * D, zF + 0.36 * D, rH, -0.08 * D);
+      levrePolie(zLip - 0.45 * D, levre >= 0.06);
+      voile({ fen, rH, Zb, Z: (r) => Zb(r), epV: 0.45 * D, chanf: 0.08 * D, nU: 4, zT: zF + 0.5 * D, nEcrous: 4 });
+      break;
+    }
+    case 'etoileVIP': {                                 // 5 branches larges et plates, lèvre étagée rivetée
+      const n = 5, rH = q * 0.3, r0 = q * 0.4, r1 = rL - q * 0.05;
+      const sw = (r) => q * 0.13 + 0.12 * r;
+      const fen = Array.from({ length: n }, (_, k) => ({ c: () => (k + 0.5) / n * Math.PI * 2, w: (r) => Math.max(0, Math.PI / n - sw(r) / r) * enveloppe(r, r0, r1, 6), r0, r1 }));
+      const zO = zF + D * Math.max(0.12, 0.62 - levre * 1.4), Zb = profil(zO, zO + 0.06 * D, rH), g = galbe(0.03 * D);
+      levrePolie(zO - 0.2 * D, true);
+      rivets((q + rL) / 2, zLip, 20);
+      voile({ fen, rH, Zb, Z: (r, u, oa, ob) => Zb(r) + g(u, oa, ob), epV: 0.4 * D, chanf: 0.04 * D, nU: 4, zT: zO + 0.26 * D, nEcrous: 5 });
+      break;
+    }
+    case 'deepdish': {                                  // bol profond : lèvre large polie, voile reculé à 5 branches fines
+      const n = 5, rH = q * 0.26, r0 = q * 0.32, r1 = rL - q * 0.04;
+      const sw = (r) => q * 0.04 + 0.03 * r;
+      const fen = Array.from({ length: n }, (_, k) => ({ c: () => (k + 0.5) / n * Math.PI * 2, w: (r) => Math.max(0, Math.PI / n - sw(r) / r) * enveloppe(r, r0, r1, 4), r0, r1 }));
+      const zO = zF + D * Math.max(0.02, 0.5 - levre * 2), Zb = profil(zO, zO + 0.4 * D, rH, 0.08 * D), g = galbe(0.1 * D);
+      levrePolie(Math.max(zMin, zO - 0.3 * D), true);
+      rivets((q + rL) / 2 + (q - rL) * 0.18, zLip, 18);
+      voile({ fen, rH, Zb, Z: (r, u, oa, ob) => Zb(r) + g(u, oa, ob), epV: 0.35 * D, chanf: 0.05 * D, nU: 3, zT: zO + 0.55 * D, nEcrous: 5 });
+      break;
+    }
+    case 'bbs': {                                       // maille de rayons croisés, couronne rivetée, lèvre polie, moyeu en bossage
+      const rH = q * 0.27, rM = rL - q * 0.085, zO = zLip - 0.45 * D;
+      levrePolie(zO - 0.25 * D, true);
+      face.push(tour(THREE, [[rL + 0.002, zO], [rM + q * 0.01, zO], [rM, zO - q * 0.01], [rM - 0.002, Math.max(zMin, zO - 0.4 * D)]], 48));   // couronne
+      rivets((rM + rL) / 2, zO, 20);
+      const Zr = (r) => { const t = Math.min(1, Math.max(0, (rM - r) / (rM - rH))); return lerp(zO, zLip - 0.18 * D, t) - 0.42 * D * Math.sin(Math.PI * t); };
+      const n = 10, l = q * 0.05;
+      for (let k = 0; k < n; k++) {
+        const a = k / n * Math.PI * 2;
+        for (const [sg, dz] of [[1, 0], [-1, 0.006 * R]]) {
+          const b = barreJante(THREE, { r0: rH * 0.9, a0: a, r1: rM + q * 0.03, a1: a + sg * 0.36, l, Zr, dz, ep: 0.32 * D, zMin, chanf: 0.05 * D });
+          face.push(b.dessus); flanc.push(...b.murs);
+        }
+      }
+      moyeu(rH, zLip - 0.02 * D, Math.max(zMin, Zr(rH) - 0.3 * D), 5);
+      break;
+    }
+    case 'fils': {                                      // roue à rayons : jante chromée, 48 rayons laçés, moyeu saillant, papillon
+      const zO = zLip - 0.45 * D, rN = rL - q * 0.03, rMy = q * 0.17;
+      levrePolie(zO, true);
+      poli.push(tour(THREE, [[rL + 0.002, zO], [q * 0.8, zO - 0.05 * D], [q * 0.8, Math.max(zMin, zO - 0.35 * D)]], 48));   // fond de jante (talon des rayons)
+      const zAv = Math.min(h * 0.98, zLip + 0.35 * D), zFl1 = zLip - 0.05 * D, zFl2 = zF + 0.1 * D;
+      poli.push(tour(THREE, [[0, zAv + 0.25 * D], [rMy * 0.55, zAv + 0.22 * D], [rMy * 0.8, zAv], [rMy, zFl1 + 0.06 * D], [rMy * 1.35, zFl1 + 0.02 * D], [rMy * 1.35, zFl1 - 0.02 * D], [rMy * 0.9, zFl1 - 0.06 * D], [rMy * 0.9, zFl2 + 0.03 * D], [rMy * 1.3, zFl2], [rMy * 1.3, zFl2 - 0.04 * D], [rMy * 0.8, zMin]], 24));
+      for (const sg of [1, -1]) {                       // papillon (écrou à oreilles) du moyeu
+        const o = new THREE.BoxGeometry(rMy * 0.9, rMy * 0.26, 0.18 * D);
+        o.translate(sg * rMy * 0.75, 0, zAv + 0.12 * D); o.rotateZ(0.3); poli.push(o);
+      }
+      const rt = Math.max(q * 0.011, 0.0028), V3 = (r, a, z) => new THREE.Vector3(Math.cos(a) * r, Math.sin(a) * r, z);
+      for (let k = 0; k < 16; k++) {
+        const a = k / 16 * Math.PI * 2;
+        face.push(tige(THREE, V3(rMy * 1.25, a, zFl1), V3(rN, a + 0.42, zO - 0.05 * D), rt));            // nappe avant, tangente +
+        face.push(tige(THREE, V3(rMy * 1.25, a + 0.2, zFl1 - 0.01 * D), V3(rN, a - 0.22, zO - 0.08 * D), rt));   // nappe avant, tangente −
+        face.push(tige(THREE, V3(rMy * 1.2, a + 0.1, zFl2), V3(rN, a + 0.1 + 0.3, zO - 0.12 * D), rt));        // nappe arrière
+      }
+      break;
+    }
+    case 'f1_2022': {                                   // enjoliveur aéro plein (18 pouces), écrou central et ergots
+      const zC = zLip - 0.02 * D;
+      poli.push(tour(THREE, [[q, zL - R * 0.02], [q, zLip], [q * 0.965, zLip + 0.01 * D], [q * 0.94, zLip - 0.06 * D]], 48));
+      face.push(tour(THREE, [[q * 0.94, zLip - 0.06 * D], [q * 0.915, zC - 0.12 * D], [q * 0.89, zC - 0.04 * D], [q * 0.7, zC + 0.02 * D], [q * 0.5, zC + 0.06 * D],
+        [q * 0.45, zC + 0.07 * D], [q * 0.44, zC + 0.16 * D], [q * 0.37, zC + 0.17 * D], [q * 0.355, zC + 0.04 * D], [q * 0.24, zC + 0.02 * D], [q * 0.2, zMin]], 48));
+      flanc.push(tour(THREE, [[q * 0.2, zC + 0.02 * D], [q * 0.12, zC + 0.04 * D], [0, zC + 0.04 * D]], 24));                // fond du moyeu
+      boulon.push(plot(THREE, 0, 0, q * 0.14, zC, zC + 0.42 * D, 12, q * 0.12));                                              // écrou central
+      poli.push(plot(THREE, 0, 0, q * 0.06, zC + 0.42 * D, zC + 0.55 * D, 16, q * 0.045));                                    // goupille
+      for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2; boulon.push(plot(THREE, Math.cos(a) * q * 0.29, Math.sin(a) * q * 0.29, q * 0.025, zC + 0.02 * D, zC + 0.12 * D, 6)); }
+      for (let i = 0; i < 10; i++) {                    // nervures aéro rayonnantes, très basses
+        const a = i / 10 * Math.PI * 2, b = barreJante(THREE, { r0: q * 0.47, a0: a, r1: q * 0.86, a1: a + 0.18, l: q * 0.03, Zr: (r) => zC + 0.06 * D * (1 - (r - q * 0.5) / (q * 0.4)) + 0.015 * D, ep: 0.08 * D, zMin, chanf: 0.02 * D, n: 6 });
+        face.push(b.dessus); flanc.push(...b.murs);
+      }
+      break;
+    }
+    default: return null;
+  }
+  const f = (arr) => (arr.length ? fusionGeo(THREE, arr) : null);
+  return { face: f(face), flanc: f(flanc), poli: f(poli), boulon: f(boulon) };
+}
+
+/** Matériaux d'une jante 3D (teinte de la jante ; lèvre polie et écrous métal). Aucun émissif. Tous DoubleSide (normales cohérentes). */
+function materiauxJante3D(THREE, { jante, peinte, envMap, garde }) {
+  const lin = (x) => new THREE.Color(x).convertSRGBToLinear();
+  const lum = (() => { const hsl = { h: 0, s: 0, l: 0 }; new THREE.Color(jante).getHSL(hsl); return hsl.l; })(), sombre = lum < 0.2;
+  const mj = peinte ? 0.08 : 0.85, D2 = THREE.DoubleSide;
+  return {
+    face: garde(new THREE.MeshPhysicalMaterial({ color: lin(jante), roughness: peinte ? 0.3 : 0.2, metalness: mj, clearcoat: sombre ? 0.5 : 0.8, clearcoatRoughness: 0.08, envMap, envMapIntensity: sombre ? 0.75 : 1.2, side: D2 })),
+    flanc: garde(new THREE.MeshPhysicalMaterial({ color: lin(jante).multiplyScalar(peinte ? 0.62 : 0.5), roughness: 0.4, metalness: peinte ? 0.15 : 0.85, clearcoat: 0.3, envMap, envMapIntensity: 0.8, side: D2 })),
+    poli: garde(new THREE.MeshStandardMaterial({ color: 0xe8ebf1, roughness: 0.2, metalness: 0.78, envMap, envMapIntensity: 1.5, side: D2 })),   // alu poli : reste clair même dans un studio sombre
+    boulon: garde(new THREE.MeshStandardMaterial({ color: 0xbfc3cc, roughness: 0.22, metalness: 1, envMap, envMapIntensity: 1.2, side: D2 })),
+  };
+}
+
+/** Remplace le disque texturé d'une roue (creerRoue) par une jante 3D en relief ; renvoie false si le style n'est pas un style 3D. */
+function poserJante3D(THREE, w, matRoue, { style, R, ep, cote, levre, jante, peinte, envMap, garde, cacheGeo, cacheMat }) {
+  if (!JANTES_3D.includes(style)) return false;
+  const cleG = [style, R.toFixed(4), ep.toFixed(4), Number.isFinite(levre) ? levre.toFixed(3) : '-'].join('|');
+  let geos = cacheGeo.get(cleG);
+  if (!geos) {
+    geos = geometrieJante3D(THREE, style, R, ep, levre);
+    for (const g of Object.values(geos)) if (g) garde(g);
+    cacheGeo.set(cleG, geos);
+  }
+  const cleM = String(jante) + '|' + (peinte ? 1 : 0);
+  let mats = cacheMat.get(cleM);
+  if (!mats) { mats = materiauxJante3D(THREE, { jante, peinte, envMap, garde }); cacheMat.set(cleM, mats); }
+  // retrait du disque texturé, du moyeu, du cache et des boulons historiques (pneu, fût, lèvre torique, frein, voile, étrier : conservés)
+  for (const o of [...w.tourne.children]) {
+    const m = o.material;
+    if (m === matRoue.rayons || m === matRoue.moyeu || m === matRoue.boulon || (m === matRoue.chrome && o.geometry && o.geometry.type === 'SphereGeometry')) w.tourne.remove(o);
+  }
+  const grp = new THREE.Group(); grp.name = 'jante3d-' + style;
+  for (const k of ['face', 'flanc', 'poli', 'boulon']) if (geos[k]) { const m = new THREE.Mesh(geos[k], mats[k]); m.name = 'jante3d-' + k; grp.add(m); }
+  if (cote < 0) grp.rotation.y = Math.PI;
+  w.tourne.add(grp);
+  return true;
 }
 
 /* ------------------------------------------------------------------ accessoires en volume */

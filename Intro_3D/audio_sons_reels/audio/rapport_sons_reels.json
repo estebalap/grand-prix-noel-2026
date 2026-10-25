@@ -1,0 +1,982 @@
+{
+ "licence": "BBC Sound Effects — RemArc Licence (usage personnel, éducatif, recherche). © BBC.",
+ "source": "https://sound-effects.bbcrewind.co.uk",
+ "mix_synth": 0.0,
+ "remplacements": [
+  {
+   "role": "crowd_noise",
+   "duree_s": 49.0,
+   "son": "07075033",
+   "debut_s": 20.0,
+   "gain_db": 10.4
+  },
+  {
+   "role": "crowd_noise",
+   "duree_s": 49.0,
+   "son": "07075033",
+   "debut_s": 140.0,
+   "gain_db": 11.1
+  },
+  {
+   "role": "claps",
+   "duree_s": 49.0,
+   "son": "07050215",
+   "debut_s": 0.5,
+   "gain_db": 7.5
+  },
+  {
+   "role": "crowd_noise",
+   "duree_s": 1.5,
+   "son": "07075033",
+   "debut_s": 92.9,
+   "gain_db": 0.3
+  },
+  {
+   "role": "crowd_noise",
+   "duree_s": 2.95,
+   "son": "07075033",
+   "debut_s": 230.8,
+   "gain_db": -0.3
+  },
+  {
+   "role": "crowd_noise",
+   "duree_s": 2.6,
+   "son": "07075033",
+   "debut_s": 110.1,
+   "gain_db": 0.5
+  },
+  {
+   "role": "crowd_noise",
+   "duree_s": 1.1,
+   "son": "07075033",
+   "debut_s": 76.2,
+   "gain_db": 9.7
+  },
+  {
+   "role": "crowd_noise",
+   "duree_s": 3.45,
+   "son": "07075033",
+   "debut_s": 278.9,
+   "gain_db": 2.1
+  },
+  {
+   "role": "crowd_noise",
+   "duree_s": 4.35,
+   "son": "07075033",
+   "debut_s": 93.4,
+   "gain_db": -0.5
+  },
+  {
+   "role": "crowd_noise",
+   "duree_s": 4.55,
+   "son": "07075033",
+   "debut_s": 231.2,
+   "gain_db": 2.0
+  },
+  {
+   "role": "statique_tv",
+   "duree_s": 0.4,
+   "son": "0010006",
+   "debut_s": 27.3,
+   "ressemblance": 0.74,
+   "alerte": "gain plafonné à +15 dB",
+   "gain_db": 15.0
+  },
+  {
+   "role": "crunch",
+   "duree_s": 0.5,
+   "son": "07022366",
+   "pic_s": 1.155,
+   "cale_sur_s": 0.016,
+   "gain_db": -10.0
+  },
+  {
+   "role": "crunch",
+   "duree_s": 0.5,
+   "son": "07022351",
+   "pic_s": 1.847,
+   "cale_sur_s": 0.018,
+   "gain_db": -9.6
+  },
+  {
+   "role": "crunch",
+   "duree_s": 0.5,
+   "son": "07022366",
+   "pic_s": 2.418,
+   "cale_sur_s": 0.015,
+   "gain_db": -4.0
+  },
+  {
+   "role": "crunch",
+   "duree_s": 0.5,
+   "son": "07022366",
+   "pic_s": 1.155,
+   "cale_sur_s": 0.017,
+   "gain_db": -10.2
+  },
+  {
+   "role": "cannon",
+   "duree_s": 1.6,
+   "son": "07019112",
+   "pic_s": 0.697,
+   "cale_sur_s": 0.024,
+   "gain_db": 2.3
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 1.386,
+   "cale_sur_s": 0.515,
+   "gain_db": -5.2
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 4.166,
+   "cale_sur_s": 0.515,
+   "gain_db": -3.0
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 5.687,
+   "cale_sur_s": 0.515,
+   "gain_db": -3.0
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 8.653,
+   "cale_sur_s": 0.576,
+   "gain_db": -3.6
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 11.176,
+   "cale_sur_s": 0.515,
+   "gain_db": -1.1
+  },
+  {
+   "role": "crunch",
+   "duree_s": 0.5,
+   "son": "07022351",
+   "pic_s": 1.849,
+   "cale_sur_s": 0.016,
+   "gain_db": 0.5
+  },
+  {
+   "role": "crunch",
+   "duree_s": 0.5,
+   "son": "07022366",
+   "pic_s": 2.418,
+   "cale_sur_s": 0.017,
+   "gain_db": 5.4
+  },
+  {
+   "role": "crunch",
+   "duree_s": 0.5,
+   "son": "07022366",
+   "pic_s": 1.155,
+   "cale_sur_s": 0.016,
+   "gain_db": -0.9
+  },
+  {
+   "role": "thunder",
+   "duree_s": 2.6,
+   "son": "07005226",
+   "pic_s": 1.312,
+   "cale_sur_s": 0.015,
+   "gain_db": 10.3
+  },
+  {
+   "role": "ailes",
+   "duree_s": 0.12,
+   "son": "07037498",
+   "pic_s": 2.895,
+   "cale_sur_s": 0.016,
+   "gain_db": 8.4
+  },
+  {
+   "role": "ailes",
+   "duree_s": 0.12,
+   "son": "07037498",
+   "pic_s": 3.159,
+   "cale_sur_s": 0.016,
+   "gain_db": 5.0
+  },
+  {
+   "role": "ailes",
+   "duree_s": 0.12,
+   "son": "07037498",
+   "pic_s": 3.645,
+   "cale_sur_s": 0.016,
+   "gain_db": 2.6
+  },
+  {
+   "role": "ailes",
+   "duree_s": 0.12,
+   "son": "07037498",
+   "pic_s": 3.781,
+   "cale_sur_s": 0.016,
+   "gain_db": -0.4
+  },
+  {
+   "role": "ailes",
+   "duree_s": 0.12,
+   "son": "07037498",
+   "pic_s": 4.019,
+   "cale_sur_s": 0.016,
+   "gain_db": 6.4
+  },
+  {
+   "role": "ailes",
+   "duree_s": 0.12,
+   "son": "07037498",
+   "pic_s": 4.606,
+   "cale_sur_s": 0.016,
+   "gain_db": 13.9
+  },
+  {
+   "role": "engine_rev",
+   "duree_s": 1.4,
+   "son": "07050095",
+   "debut_s": 14.56,
+   "ressemblance": 0.35,
+   "gain_db": 10.5
+  },
+  {
+   "role": "engine_rev",
+   "duree_s": 1.4,
+   "son": "07024142",
+   "debut_s": 8.84,
+   "ressemblance": 0.46,
+   "gain_db": 9.4
+  },
+  {
+   "role": "explosion",
+   "duree_s": 1.6,
+   "son": "07037327",
+   "pic_s": 0.946,
+   "cale_sur_s": 0.018,
+   "gain_db": -1.7
+  },
+  {
+   "role": "crunch",
+   "duree_s": 0.5,
+   "son": "07022351",
+   "pic_s": 1.848,
+   "cale_sur_s": 0.017,
+   "gain_db": 3.9
+  },
+  {
+   "role": "engine_vtec",
+   "duree_s": 0.5,
+   "son": "07044058",
+   "debut_s": 8.82,
+   "ressemblance": 0.82,
+   "gain_db": 3.3
+  },
+  {
+   "role": "engine_vtec",
+   "duree_s": 0.9,
+   "son": "07010017",
+   "debut_s": 15.92,
+   "ressemblance": 0.75,
+   "gain_db": 9.3
+  },
+  {
+   "role": "screech",
+   "duree_s": 0.55,
+   "son": "07022357",
+   "pic_s": 2.226,
+   "cale_sur_s": 0.046,
+   "gain_db": -2.0
+  },
+  {
+   "role": "blow_off",
+   "duree_s": 0.75,
+   "son": "NHU05078130",
+   "pic_s": 3.198,
+   "cale_sur_s": 0.025,
+   "gain_db": 4.7
+  },
+  {
+   "role": "engine_vtec",
+   "duree_s": 0.28,
+   "son": "07044058",
+   "debut_s": 8.82,
+   "ressemblance": 0.81,
+   "gain_db": 5.4
+  },
+  {
+   "role": "engine_vtec",
+   "duree_s": 0.28,
+   "son": "07010017",
+   "debut_s": 3.52,
+   "ressemblance": 0.85,
+   "gain_db": -1.2
+  },
+  {
+   "role": "engine_vtec",
+   "duree_s": 0.28,
+   "son": "07044058",
+   "debut_s": 8.82,
+   "ressemblance": 0.81,
+   "gain_db": 5.5
+  },
+  {
+   "role": "engine_vtec",
+   "duree_s": 0.28,
+   "son": "07010017",
+   "debut_s": 3.52,
+   "ressemblance": 0.86,
+   "gain_db": -1.1
+  },
+  {
+   "role": "engine_v8",
+   "duree_s": 1.55,
+   "son": "07010036",
+   "debut_s": 42.62,
+   "ressemblance": 0.58,
+   "gain_db": 2.4
+  },
+  {
+   "role": "pluie",
+   "duree_s": 1.4,
+   "son": "07038337",
+   "debut_s": 44.94,
+   "ressemblance": 0.87,
+   "gain_db": 1.9
+  },
+  {
+   "role": "dust_wind",
+   "duree_s": 2.1,
+   "son": "NHU05039063",
+   "debut_s": 57.22,
+   "ressemblance": 0.48,
+   "gain_db": -0.3
+  },
+  {
+   "role": "engine_diesel",
+   "duree_s": 2.1,
+   "son": "07024141",
+   "debut_s": 2.32,
+   "ressemblance": 0.39,
+   "gain_db": 0.6
+  },
+  {
+   "role": "chain_rattle",
+   "duree_s": 1.4,
+   "son": "07037386",
+   "debut_s": 10.48,
+   "ressemblance": 0.44,
+   "gain_db": 13.1
+  },
+  {
+   "role": "backfire",
+   "duree_s": 0.6,
+   "son": "07011171",
+   "pic_s": 6.15,
+   "cale_sur_s": 0.017,
+   "gain_db": 3.4
+  },
+  {
+   "role": "backfire",
+   "duree_s": 0.6,
+   "son": "07011171",
+   "pic_s": 13.862,
+   "cale_sur_s": 0.015,
+   "gain_db": 8.8
+  },
+  {
+   "role": "backfire",
+   "duree_s": 0.6,
+   "son": "07011171",
+   "pic_s": 6.15,
+   "cale_sur_s": 0.015,
+   "gain_db": 4.5
+  },
+  {
+   "role": "backfire",
+   "duree_s": 0.6,
+   "son": "07011171",
+   "pic_s": 13.862,
+   "cale_sur_s": 0.017,
+   "gain_db": 8.9
+  },
+  {
+   "role": "crunch",
+   "duree_s": 0.5,
+   "son": "07022366",
+   "pic_s": 2.418,
+   "cale_sur_s": 0.017,
+   "gain_db": 9.7
+  },
+  {
+   "role": "chain_rattle",
+   "duree_s": 0.5,
+   "son": "07037386",
+   "debut_s": 45.7,
+   "ressemblance": 0.61,
+   "gain_db": 14.6
+  },
+  {
+   "role": "engine_f1",
+   "duree_s": 1.25,
+   "son": "07020021",
+   "pic_s": 2.552,
+   "cale_sur_s": 0.597,
+   "gain_db": -2.1
+  },
+  {
+   "role": "engine_f1",
+   "duree_s": 1.25,
+   "son": "07020021",
+   "pic_s": 5.979,
+   "cale_sur_s": 0.595,
+   "gain_db": 0.9
+  },
+  {
+   "role": "engine_f1",
+   "duree_s": 1.25,
+   "son": "07020022",
+   "pic_s": 7.581,
+   "cale_sur_s": 0.622,
+   "gain_db": -2.0
+  },
+  {
+   "role": "engine_f1",
+   "duree_s": 1.25,
+   "son": "07020022",
+   "pic_s": 9.684,
+   "cale_sur_s": 0.591,
+   "gain_db": -1.1
+  },
+  {
+   "role": "engine_f1",
+   "duree_s": 1.25,
+   "son": "07020022",
+   "pic_s": 11.475,
+   "cale_sur_s": 0.614,
+   "gain_db": -1.1
+  },
+  {
+   "role": "toy_motor",
+   "duree_s": 0.45,
+   "son": "07036134",
+   "pic_s": 8.391,
+   "cale_sur_s": 0.323,
+   "gain_db": -10.2
+  },
+  {
+   "role": "toy_motor",
+   "duree_s": 0.55,
+   "son": "07036134",
+   "pic_s": 10.446,
+   "cale_sur_s": 0.418,
+   "gain_db": -10.3
+  },
+  {
+   "role": "toy_motor",
+   "duree_s": 0.65,
+   "son": "07036134",
+   "pic_s": 3.698,
+   "cale_sur_s": 0.445,
+   "gain_db": -6.4
+  },
+  {
+   "role": "toy_motor",
+   "duree_s": 0.75,
+   "son": "07036134",
+   "pic_s": 6.68,
+   "cale_sur_s": 0.63,
+   "gain_db": -7.2
+  },
+  {
+   "role": "engine_vtec",
+   "duree_s": 0.45,
+   "son": "07044058",
+   "debut_s": 8.82,
+   "ressemblance": 0.85,
+   "gain_db": 3.3
+  },
+  {
+   "role": "screech",
+   "duree_s": 0.7,
+   "son": "07045249",
+   "pic_s": 1.544,
+   "cale_sur_s": 0.044,
+   "gain_db": 0.8
+  },
+  {
+   "role": "crunch",
+   "duree_s": 0.5,
+   "son": "07022366",
+   "pic_s": 1.155,
+   "cale_sur_s": 0.017,
+   "gain_db": 3.0
+  },
+  {
+   "role": "sleigh",
+   "duree_s": 0.9,
+   "son": "07012094",
+   "pic_s": 0.881,
+   "cale_sur_s": 0.06,
+   "gain_db": -9.2
+  },
+  {
+   "role": "engine_v8",
+   "duree_s": 0.6,
+   "son": "07010036",
+   "debut_s": 15.16,
+   "ressemblance": 0.86,
+   "gain_db": -2.2
+  },
+  {
+   "role": "engine_f1",
+   "duree_s": 0.5,
+   "son": "07020021",
+   "pic_s": 8.545,
+   "cale_sur_s": 0.246,
+   "gain_db": 2.4
+  },
+  {
+   "role": "crunch",
+   "duree_s": 0.5,
+   "son": "07022351",
+   "pic_s": 1.848,
+   "cale_sur_s": 0.017,
+   "gain_db": 4.5
+  },
+  {
+   "role": "coin",
+   "duree_s": 0.5,
+   "son": "07042056",
+   "pic_s": 1.572,
+   "cale_sur_s": 0.065,
+   "gain_db": 5.4
+  },
+  {
+   "role": "coin",
+   "duree_s": 0.5,
+   "son": "07042056",
+   "pic_s": 2.807,
+   "cale_sur_s": 0.065,
+   "gain_db": 12.0
+  },
+  {
+   "role": "coin",
+   "duree_s": 0.5,
+   "son": "07042056",
+   "pic_s": 1.572,
+   "cale_sur_s": 0.065,
+   "gain_db": 5.4
+  },
+  {
+   "role": "coin",
+   "duree_s": 0.5,
+   "son": "07042056",
+   "pic_s": 2.807,
+   "cale_sur_s": 0.065,
+   "gain_db": 12.0
+  },
+  {
+   "role": "coin",
+   "duree_s": 0.5,
+   "son": "07042056",
+   "pic_s": 1.572,
+   "cale_sur_s": 0.065,
+   "gain_db": 5.4
+  },
+  {
+   "role": "coin",
+   "duree_s": 0.5,
+   "son": "07042056",
+   "pic_s": 2.807,
+   "cale_sur_s": 0.065,
+   "gain_db": 12.0
+  },
+  {
+   "role": "coin",
+   "duree_s": 0.5,
+   "son": "07042056",
+   "pic_s": 1.572,
+   "cale_sur_s": 0.065,
+   "gain_db": 5.4
+  },
+  {
+   "role": "coin",
+   "duree_s": 0.5,
+   "son": "07042056",
+   "pic_s": 2.807,
+   "cale_sur_s": 0.065,
+   "gain_db": 12.0
+  },
+  {
+   "role": "coin",
+   "duree_s": 0.5,
+   "son": "07042056",
+   "pic_s": 1.572,
+   "cale_sur_s": 0.065,
+   "gain_db": 5.4
+  },
+  {
+   "role": "sleigh",
+   "duree_s": 1.0,
+   "son": "07012094",
+   "pic_s": 16.252,
+   "cale_sur_s": 0.015,
+   "gain_db": -6.9
+  },
+  {
+   "role": "cannon",
+   "duree_s": 1.6,
+   "son": "07019112",
+   "pic_s": 0.697,
+   "cale_sur_s": 0.022,
+   "gain_db": 2.3
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07043155",
+   "pic_s": 0.798,
+   "cale_sur_s": 1.103,
+   "gain_db": 3.7
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 1.386,
+   "cale_sur_s": 0.515,
+   "gain_db": -3.4
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 4.166,
+   "cale_sur_s": 0.515,
+   "gain_db": -1.3
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 5.687,
+   "cale_sur_s": 0.515,
+   "gain_db": -1.6
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 8.653,
+   "cale_sur_s": 0.515,
+   "gain_db": -2.4
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 11.176,
+   "cale_sur_s": 0.58,
+   "gain_db": 0.8
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07043155",
+   "pic_s": 0.798,
+   "cale_sur_s": 0.646,
+   "gain_db": 3.3
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 1.386,
+   "cale_sur_s": 0.516,
+   "gain_db": -3.8
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 4.166,
+   "cale_sur_s": 0.515,
+   "gain_db": -1.3
+  },
+  {
+   "role": "sleigh",
+   "duree_s": 0.5,
+   "son": "07012094",
+   "pic_s": 27.262,
+   "cale_sur_s": 0.06,
+   "gain_db": -8.0
+  },
+  {
+   "role": "sleigh",
+   "duree_s": 0.5,
+   "son": "07012094",
+   "pic_s": 28.912,
+   "cale_sur_s": 0.015,
+   "gain_db": -6.5
+  },
+  {
+   "role": "sleigh",
+   "duree_s": 0.5,
+   "son": "07012094",
+   "pic_s": 45.108,
+   "cale_sur_s": 0.06,
+   "gain_db": -9.4
+  },
+  {
+   "role": "sleigh",
+   "duree_s": 0.5,
+   "son": "07012094",
+   "pic_s": 0.881,
+   "cale_sur_s": 0.06,
+   "gain_db": -8.6
+  },
+  {
+   "role": "sleigh",
+   "duree_s": 0.5,
+   "son": "07012094",
+   "pic_s": 16.252,
+   "cale_sur_s": 0.06,
+   "gain_db": -6.5
+  },
+  {
+   "role": "sleigh",
+   "duree_s": 0.5,
+   "son": "07012094",
+   "pic_s": 27.262,
+   "cale_sur_s": 0.015,
+   "gain_db": -9.5
+  },
+  {
+   "role": "sleigh",
+   "duree_s": 0.5,
+   "son": "07012094",
+   "pic_s": 28.912,
+   "cale_sur_s": 0.015,
+   "gain_db": -6.0
+  },
+  {
+   "role": "sleigh",
+   "duree_s": 0.5,
+   "son": "07012094",
+   "pic_s": 45.108,
+   "cale_sur_s": 0.06,
+   "gain_db": -11.3
+  },
+  {
+   "role": "sleigh",
+   "duree_s": 0.5,
+   "son": "07012094",
+   "pic_s": 0.881,
+   "cale_sur_s": 0.06,
+   "gain_db": -10.6
+  },
+  {
+   "role": "sleigh",
+   "duree_s": 0.5,
+   "son": "07012094",
+   "pic_s": 16.252,
+   "cale_sur_s": 0.015,
+   "gain_db": -8.1
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 5.687,
+   "cale_sur_s": 0.515,
+   "gain_db": 0.1
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 8.653,
+   "cale_sur_s": 0.515,
+   "gain_db": -0.6
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 11.176,
+   "cale_sur_s": 0.515,
+   "gain_db": 1.9
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07043155",
+   "pic_s": 0.798,
+   "cale_sur_s": 0.593,
+   "gain_db": 4.6
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 1.386,
+   "cale_sur_s": 0.515,
+   "gain_db": -2.5
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 4.166,
+   "cale_sur_s": 0.572,
+   "gain_db": 0.1
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 5.687,
+   "cale_sur_s": 0.515,
+   "gain_db": -0.2
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 8.653,
+   "cale_sur_s": 0.515,
+   "gain_db": -0.9
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 11.176,
+   "cale_sur_s": 0.954,
+   "gain_db": 1.9
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07043155",
+   "pic_s": 0.798,
+   "cale_sur_s": 0.515,
+   "gain_db": 4.7
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 1.386,
+   "cale_sur_s": 0.926,
+   "gain_db": -2.7
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 4.166,
+   "cale_sur_s": 0.515,
+   "gain_db": -0.0
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 5.687,
+   "cale_sur_s": 0.515,
+   "gain_db": -0.2
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 8.653,
+   "cale_sur_s": 0.515,
+   "gain_db": -0.9
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 11.176,
+   "cale_sur_s": 0.516,
+   "gain_db": 2.2
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07043155",
+   "pic_s": 0.798,
+   "cale_sur_s": 1.123,
+   "gain_db": 5.1
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 1.386,
+   "cale_sur_s": 0.581,
+   "gain_db": -1.7
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 4.166,
+   "cale_sur_s": 0.515,
+   "gain_db": 0.1
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 5.687,
+   "cale_sur_s": 0.515,
+   "gain_db": -0.2
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 8.653,
+   "cale_sur_s": 1.087,
+   "gain_db": -0.9
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07019114",
+   "pic_s": 11.176,
+   "cale_sur_s": 0.515,
+   "gain_db": 1.6
+  },
+  {
+   "role": "firework",
+   "duree_s": 1.6,
+   "son": "07043155",
+   "pic_s": 0.798,
+   "cale_sur_s": 0.515,
+   "gain_db": 4.5
+  },
+  {
+   "role": "sleigh",
+   "duree_s": 1.0,
+   "son": "07012094",
+   "pic_s": 27.262,
+   "cale_sur_s": 0.015,
+   "gain_db": -11.2
+  }
+ ]
+}

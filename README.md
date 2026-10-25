@@ -26,3 +26,9 @@ Le soir de l'événement, l'application tourne sur le PC de la régie (relais Py
 
 ## Mise à jour
 Généré par `5_Mise_en_ligne/preparer_pages.py` à partir de `3_Application/web`, puis copié ici.
+
+## Intro 3D et Claude Code
+- `Intro_3D/` : chantier de l'intro 3D du show (three.js r128, capture image par image, rendu FFmpeg). L'audio sous droits
+  et les mix `.wav` ne sont pas publiés : ils se restaurent avec `RESTAURER_AUDIO_REEL.py` depuis `AUDIO_REEL_INTRO_3D.zip` et `AUDIO_REEL_INTRO_3D_MIX_V6.zip`.
+- `CLAUDE.md` : guide d'architecture (structure, briques `shared/`, pont d'import universel, commandes de test et de rendu).
+- `docs_claude/` : documents de référence (étude du trailer, méga-prompt V7, arsenal V3).

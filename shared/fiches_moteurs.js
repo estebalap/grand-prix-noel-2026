@@ -3,7 +3,7 @@
 
    Champs d'un moteur à pistons (type 'piston') :
      archi       'L3' 'L4' 'L5' 'L6' (en ligne), 'V6' (60-65°, manetons décalés : allumage régulier tous les 120°), 'V6T' (V6 turbo 90°
-                 de F1), 'V8x' (vilebrequin croisé : intervalles 90-180-270 par banc → le « borborygme » américain), 'V8f' (vilebrequin
+                 de F1), 'V6i' (V6 à 90° à manetons communs, Maserati C114 : allumage irrégulier 90°/150°, collecteur commun), 'V8x' (vilebrequin croisé : intervalles 90-180-270 par banc → le « borborygme » américain), 'V8f' (vilebrequin
                  plat : 180° réguliers par banc → hurlement de course), 'V12' (60° réguliers)
      cyl, cylindree (L), ralenti / rupteur (tr/min), admission 'atmo' | 'turbo' | 'biturbo' | 'compresseur', spool (s, constante
      de montée du turbo), bov 'recirc' (discrète) | 'atmo' (pschitt) | 'flutter' (pompage du compresseur, « stututu »), antiLag,
@@ -26,9 +26,12 @@ export const ECHAPPEMENTS = {
 const P = (o) => ({ type: 'piston', admission: 'atmo', spool: 0.7, bov: null, antiLag: false, ech: 'origine', double: false, diesel: false,
   boite: 'manuelle', came: 0.1, poussoirs: 'hydro', demarreur: 'normal', inertie: 0.12, hybride: false, compresseur: false, ...o });
 const V8US = (o) => P({ archi: 'V8x', cyl: 8, ralenti: 650, rupteur: 5200, ech: 'vintage', double: true, came: 0.35, poussoirs: 'meca', inertie: 0.16, ...o });
+/* F1 actuelle : V6 1,6 L turbo HYBRIDE. Hurlement aigu (allumage régulier tous les 120° : 600-700 Hz à 12-14 000 tr/min, échappement
+   unique très court), sifflement du turbocompresseur et de son MGU-H (arbre jusqu'à 125 000 tr/min), gémissement électrique du MGU-K
+   (onduleur + moteur-générateur engrené au vilebrequin) qui monte avec la vitesse, pignons droits de la boîte et du différentiel. */
 const F1 = (motoriste, rupteur) => P({ nom: `V6 1,6 L turbo hybride ${motoriste} (F1 2025)`, archi: 'V6T', cyl: 6, cylindree: 1.6, ralenti: 4200, rupteur, admission: 'turbo', spool: 0.12, ech: 'f1', boite: 'f1',
-  demarreur: 'externe', inertie: 0.03, came: 0.05, poussoirs: 'meca', mguk: true,
-  recherche: `Groupe propulseur F1 2025 ${motoriste} : V6 1,6 L à 90°, turbo unique + MGU-K/MGU-H, débit d'essence plafonné (100 kg/h) : régime utile 10 500-12 000 tr/min (limite réglementaire 15 000), ralenti instable vers 4 000 tr/min, démarreur externe.` });
+  demarreur: 'externe', inertie: 0.03, came: 0.05, poussoirs: 'meca', mguk: true, mguh: true,
+  recherche: `Groupe propulseur F1 2025 ${motoriste} : V6 1,6 L à 90°, turbo unique + MGU-K (120 kW, ≤ 50 000 tr/min) / MGU-H, débit d'essence plafonné (100 kg/h) : régime utile 10 500-13 500 tr/min (limite réglementaire 15 000), ralenti instable vers 4 000 tr/min, démarreur externe.` });
 const ELEC = (o) => ({ type: 'electrique', moteurs: 1, poles: 4, vmax: 16000, dents: 19, ...o });
 
 export const FICHES_MOTEUR = {
@@ -97,13 +100,15 @@ export const FICHES_MOTEUR = {
   H12: { type: 'vapeur', nom: 'Pacific 231 compound à 4 cylindres (de Glehn)', roues: 1.95, cylindres: 4, compound: true,
     recherche: 'Locomotive Pacific 231 (type 231 C Nord) : compound à quatre cylindres avec surchauffe, deux haute pression entre les longerons et deux basse pression à l\'extérieur (techno-science.net) ; l\'échappement ne sort que des basse pression → 4 coups par tour de roue, comme une machine à 2 cylindres à double effet (trains.com). Roues motrices de 1,95 m ; purgeurs ouverts au démarrage, pompe à air Westinghouse, sifflet.' },
   /* ---------- F1 2025 */
-  F01: F1('Mercedes-AMG M16', 11800), F02: F1('Honda RBPT', 11900), F03: F1('Ferrari 066/12', 11700), F04: F1('Mercedes-AMG M16', 11800),
-  F05: F1('Mercedes-AMG M16', 11700), F06: F1('Renault E-Tech RE25', 11500), F07: F1('Mercedes-AMG M16', 11800), F08: F1('Honda RBPT', 11900),
-  F09: F1('Ferrari 066/12', 11700), F10: F1('Ferrari 066/12', 11700),
+  F01: F1('Mercedes-AMG M16', 13200), F02: F1('Honda RBPT', 13500), F03: F1('Ferrari 066/12', 13300), F04: F1('Mercedes-AMG M16', 13200),
+  F05: F1('Mercedes-AMG M16', 13100), F06: F1('Renault E-Tech RE25', 12800), F07: F1('Mercedes-AMG M16', 13200), F08: F1('Honda RBPT', 13500),
+  F09: F1('Ferrari 066/12', 13300), F10: F1('Ferrari 066/12', 13300),
   /* ---------- France */
   FR01: P({ nom: 'PSA 1,6 THP + 2 moteurs électriques (DS 7 E-Tense 4x4)', archi: 'L4', cyl: 4, cylindree: 1.6, ralenti: 800, rupteur: 6200, admission: 'turbo', spool: 0.5, bov: 'recirc', hybride: true, boite: 'auto', recherche: 'DS 7 Crossback Élysée (cabriolet présidentiel 2017) : prototype de la chaîne E-Tense 4x4 (1,6 L turbo + 2 moteurs électriques) → départ électrique silencieux, puis le 4 cylindres prend le relais.' }),
   FR02: P({ nom: 'Renault M5P 1,8 L TCe turbo 300 ch (Mégane R.S. Trophy)', archi: 'L4', cyl: 4, cylindree: 1.8, ralenti: 800, rupteur: 6800, admission: 'turbo', spool: 0.4, bov: 'recirc', ech: 'sport', recherche: 'Mégane R.S. Trophy : 1,8 L 300 ch (pedigree), échappement Akrapovič à clapets, crépitements au lever de pied.' }),
-  FR03: P({ nom: 'Citroën 2,1 L 4 cylindres (DS 21 Pallas) + hydropneumatique', archi: 'L4', cyl: 4, cylindree: 2.1, ralenti: 650, rupteur: 5500, ech: 'origine', inertie: 0.18, hydropneumatique: true, recherche: 'DS 21 Pallas : 2,1 L ~100 ch (pedigree) ; suspension hydropneumatique (Paul Magès) : la caisse se lève au démarrage, sifflement de la pompe haute pression.' }),
+  FR03: P({ nom: 'Maserati C114 2,7 L V6 90° (Citroën SM) + hydropneumatique', archi: 'V6i', cyl: 6, cylindree: 2.67, ralenti: 900, rupteur: 6500, ech: 'sport', echSur: { fc: 1750, L: 2.4, collecteur: 230, g: 0.4 },
+    papillons: true, poussoirs: 'meca', inertie: 0.11, came: 0.2, boite: 'manuelle', hydropneumatique: true,
+    recherche: 'Son voulu par Esteban : le V6 Maserati C114 de la Citroën SM (1970-75) — 2 670 cm³, V à 90° à manetons communs (pas de manetons décalés) donc allumage IRRÉGULIER 90°/150°, 4 ACT par chaînes, 3 carburateurs Weber 42 DCNF double corps, 170 ch à 5 500 tr/min. Le bolide reste la DS 21 Pallas (pedigree), qui partage la suspension hydropneumatique : la caisse se lève au démarrage, sifflement de la pompe haute pression.' }),
   FR04: P({ nom: 'Renault Cléon 1,4 L turbo Garrett (R5 Turbo)', archi: 'L4', cyl: 4, cylindree: 1.4, ralenti: 900, rupteur: 7000, admission: 'turbo', spool: 1.4, bov: 'flutter', ech: 'sport', inertie: 0.07, recherche: 'R5 Turbo (1980) : 1 397 cm³ turbo 160 ch (pedigree), turbo sans intercooler à gros temps de réponse, typique du Groupe B.' }),
   FR05: P({ nom: 'PSA 1,6 PureTech + moteur électrique 81 kW (DS 4 E-Tense)', archi: 'L4', cyl: 4, cylindree: 1.6, ralenti: 800, rupteur: 6000, admission: 'turbo', spool: 0.5, bov: 'recirc', hybride: true, boite: 'auto', recherche: 'DS 4 E-Tense 225 : 1,6 L essence + 81 kW électrique, ~50 km en électrique (pedigree).' }),
   /* ---------- Tomica */
@@ -114,6 +119,23 @@ export const FICHES_MOTEUR = {
   TK05: P({ nom: 'Diesel 4 cylindres turbo de minibus (Pikachu Car)', archi: 'L4', cyl: 4, cylindree: 4.0, ralenti: 650, rupteur: 3200, admission: 'turbo', spool: 0.9, diesel: true, ech: 'camion', boite: 'auto', inertie: 0.25, recherche: 'Bus de l\'émission « Pokémon to Doko Iku » (pedigree) : minibus japonais à diesel 4 cylindres turbo.' }),
   TK06: P({ nom: 'Mercedes-AMG M159 6,2 L V8 atmosphérique (AMG GT3)', archi: 'V8x', cyl: 8, cylindree: 6.2, ralenti: 1200, rupteur: 7400, ech: 'course', double: true, boite: 'sequentielle', poussoirs: 'meca', came: 0.3, inertie: 0.07, pignonsDroits: true,
     recherche: 'AMG GT3 de Good Smile Racing (Super GT GT300, pedigree) : V8 6,2 L ATMOSPHÉRIQUE repris de la SLS AMG GT3, sans turbo (jalopnik.com) ; vilebrequin croisé, sorties latérales, boîte séquentielle à pignons droits (sifflement). Ce n\'est donc PAS un moteur JDM turbo : il gronde et hurle, il ne siffle pas.' }),
+  /* ---------- V8 : nouveaux bolides de l'atelier photo (15 oct. 2026) */
+  N01: V8US({ nom: 'Ford 7,3 L Godzilla V8 (ambulance type III)', cylindree: 7.3, ralenti: 650, rupteur: 5500, ech: 'origine', came: 0.08, poussoirs: 'hydro', boite: 'auto', inertie: 0.22, recherche: 'Rapid Pulse (casting Hot Wheels de fiction) : ambulance américaine sur châssis de pick-up lourd ; motorisation de référence des ambulances type III récentes, V8 Ford 7,3 L à boîte automatique.' }),
+  N02: P({ nom: 'Monocylindre de kart 200 cm³ « décoratif » (Pedal Driver)', archi: 'L3', cyl: 1, cylindree: 0.2, ralenti: 1500, rupteur: 7200, ech: 'ouvert', inertie: 0.04, came: 0.15, demarreur: 'inertie', recherche: 'Pedal Driver : voiture à pédales de fiction dont le moteur chromé est décoratif ; on lui prête la voix d\'un monocylindre de kart de loisir (moteur 4 temps type 200 cm³) : aigu, pétaradant, sans inertie.' }),
+  N03: P({ nom: 'Subaru EJ257 2,5 L flat-4 turbo (WRX STI GRB)', archi: 'L4', cyl: 4, cylindree: 2.5, ralenti: 800, rupteur: 6700, admission: 'turbo', spool: 0.6, bov: 'atmo', ech: 'sport', boite: 'manuelle', recherche: 'WRX STI GRB (2008-2014) : 4 cylindres à plat EJ257 2,5 L turbo, 300 ch ; pschitt de soupape de décharge atmosphérique typique des préparations.' }),
+  N04: ELEC({ nom: 'Mercedes-Benz CLA 250+ : moteur synchrone 800 V (200 kW)', moteurs: 1, vmax: 18000, recherche: 'Nouvelle CLA électrique (C178, 2025) : architecture 800 V, moteur arrière 200 kW et boîte 2 rapports ; sifflement d\'onduleur et de réducteur.' }),
+  N05: P({ nom: 'Toyota M20A-FXS 2,0 L hybride (Prius 5e génération)', archi: 'L4', cyl: 4, cylindree: 2.0, ralenti: 1000, rupteur: 6000, hybride: true, boite: 'auto', ech: 'origine', inertie: 0.1, recherche: 'Prius 2023 : 4 cylindres 2,0 L à cycle Atkinson + moteur électrique, 196 ch cumulés ; départ en tout électrique silencieux, puis le thermique prend le relais (e-CVT).' }),
+  N06: V8US({ nom: 'Chevrolet 327 ci 5,4 L V8 small-block (Sting Ray 1964)', cylindree: 5.4, ralenti: 700, rupteur: 6000, ech: 'vintage', came: 0.4, boite: 'manuelle', recherche: 'Corvette C2 1964 : V8 small-block 327 ci (5,4 L), de 250 à 375 ch selon la version (carburateur ou injection), boîte manuelle 4 rapports.' }),
+  N07: V8US({ nom: 'Chevrolet 265 ci 4,3 L V8 (Nomad 1955)', cylindree: 4.3, ralenti: 600, rupteur: 4800, ech: 'vintage', came: 0.25, boite: 'manuelle', inertie: 0.2, recherche: 'Chevrolet Nomad 1955 : premier V8 small-block 265 ci (4,3 L) de 162 à 180 ch ; la miniature est une préparation hot rod.' }),
+  N08: V8US({ nom: 'Big-block 454 ci V8 « néo-rétro » (The Gov\'ner)', cylindree: 7.4, rupteur: 5600, ech: 'sport', came: 0.45, recherche: 'The Gov\'ner (casting Hot Wheels de fiction, 1990) : coupé néo-rétro à long capot ; on lui prête un big-block américain à arbre à cames agressif.' }),
+  N09: V8US({ nom: 'V8 de fiction + turbine scénique (Batmobile 2013)', cylindree: 6.2, rupteur: 6400, ech: 'course', turbine: true, recherche: 'Batmobile Hot Wheels de fiction : V8 de course et sifflement de turbine scénique, comme les Batmobiles de tournage.' }),
+  N10: V8US({ nom: 'Chevrolet 454 ci 7,4 L V8 à compresseur (Overbored 454)', cylindree: 7.4, rupteur: 6000, admission: 'compresseur', compresseur: true, ech: 'ouvert', came: 0.55, recherche: 'Overbored 454 (casting Hot Wheels) : le nom désigne un big-block Chevrolet 454 ci réalésé, compresseur volumétrique sur le capot → sifflement de compresseur et ralenti très instable.' }),
+  N12: P({ nom: 'Mercedes OM640 2,0 L diesel CDI fatigué (Classe B 180 CDI, W245)', archi: 'L4', cyl: 4, cylindree: 2.0, ralenti: 780, rupteur: 4400, admission: 'turbo', spool: 1.0,
+    bov: null, ech: 'origine', diesel: true, inertie: 0.17, boite: 'auto', demarreur: 'haute_compression', came: 0.12,
+    recherche: 'Classe B de 1re génération (W245, 2005-2011) en B 180 CDI : OM640 4 cylindres 2,0 L à rampe commune, turbo à géométrie variable, 109 ch, boîte Autotronic à variation continue ; démarreur de diesel à haute compression. Épave du reveal : le mode drame lui fait tousser des ratés et caler à moitié (moteurs_physiques.js, repères « toux » et « mou »).' }),
+  N13: V8US({ nom: 'V8 compact + turboréacteur de fiction (Jet Threat 4.0)', cylindree: 5.0, rupteur: 7200, ech: 'course', turbine: true, came: 0.3, inertie: 0.09, boite: 'sequentielle',
+    recherche: 'Hot Wheels Jet Threat 4.0 : casting de fiction (voiture-chasseur à ailes déployables), moteur V8 apparent à l\'arrière et tuyère centrale ; la turbine scénique siffle au-dessus du V8. En MODE DRAME « crash », c\'est un réacteur synthétique qui chante en vol (signatures.js, drameCrashSonore).' }),
+  N11: V8US({ nom: 'V8 big-block à nu (Riveted)', cylindree: 7.0, rupteur: 6200, ech: 'ouvert', came: 0.45, recherche: 'Riveted (casting Hot Wheels de fiction, 2004) : muscle-car dragster à moteur V8 à nu sur le capot, échappements libres.' }),
 };
 
 /** Fiche d'un bolide, ou null (le contrôle exige les 75). */

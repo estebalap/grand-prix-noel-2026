@@ -54,7 +54,7 @@ export function createEngineAudio({ base = '../sounds/', isMuted = () => false }
     if (files.has(url)) return files.get(url);
     files.set(url, null);
     try {
-      const r = await fetch(url, { cache: 'force-cache' });
+      const r = await fetch(url, { cache: 'no-cache' });
       if (!r.ok || !/audio|octet|mpeg/i.test(r.headers.get('content-type') || 'audio')) return null;
       const buf = await ctx().decodeAudioData(await r.arrayBuffer());
       files.set(url, buf); return buf;

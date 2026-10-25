@@ -1529,6 +1529,334 @@
     "genre": "kawaii",
     "style": "vocaloid électro-pop 2008"
    }
+  },
+  "N07": {
+   "genre": "rock",
+   "fichiers": [
+    "N07.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "Dick Dale & His Del-Tones — Misirlou",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Misirlou",
+    "artiste": "Dick Dale & His Del-Tones",
+    "genre": "rock",
+    "style": "surf rock 1962, guitare en trémolo",
+    "fichier": "Dick Dale - Misirlou",
+    "debut_s": 0.0,
+    "debut_sur": true,
+    "note": "Fourni par Esteban : le trémolo démarre à la première seconde.",
+    "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+   }
+  },
+  "N08": {
+   "genre": "punk",
+   "fichiers": [
+    "N08.mp3",
+    "punk.mp3"
+   ],
+   "suggestions": [
+    "The Clash — London Calling",
+    "The Offspring — The Kids Aren't Alright",
+    "Ramones — Blitzkrieg Bop"
+   ],
+   "morceau": {
+    "titre": "London Calling",
+    "artiste": "The Clash",
+    "genre": "punk",
+    "style": "hymne punk britannique, sirène sur la Tamise",
+    "fichier": "The Clash - London Calling",
+    "debut_s": 0.0,
+    "debut_sur": true,
+    "note": "Fourni par Esteban : guitares d'ouverture immédiates.",
+    "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+   }
+  },
+  "N09": {
+   "genre": "symphonie",
+   "fichiers": [
+    "N09.mp3",
+    "symphonie.mp3"
+   ],
+   "suggestions": [
+    "Nick Arundel & Ron Fish — Arkham City (Main Theme)",
+    "Danny Elfman — The Batman Theme (1989)",
+    "Hans Zimmer — Why So Serious?"
+   ],
+   "morceau": {
+    "titre": "Arkham City (Main Theme)",
+    "artiste": "Nick Arundel & Ron Fish",
+    "genre": "symphonie",
+    "style": "chœurs sombres et envolée symphonique",
+    "fichier": "Nick Arundel - Batman Arkham City Main Theme",
+    "debut_s": 2.5,
+    "debut_sur": true,
+    "note": "Fourni par Esteban (départ 0 s) : le fichier commence par 2,5 s de silence, départ recalé à 2,5 s.",
+    "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+   }
+  },
+  "N10": {
+   "genre": "rock",
+   "fichiers": [
+    "N10.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "Rob Zombie — Dragula",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Dragula",
+    "artiste": "Rob Zombie",
+    "genre": "rock",
+    "style": "métal industriel de dragster, moteur à nu",
+    "fichier": "Rob Zombie - Dragula",
+    "debut_s": 0.0,
+    "debut_sur": true,
+    "note": "Fourni par Esteban : riff industriel immédiat.",
+    "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+   }
+  },
+  "N03": {
+   "genre": "eurobeat",
+   "fichiers": [
+    "N03.mp3",
+    "eurobeat.mp3"
+   ],
+   "suggestions": [
+    "Manuel — Gas Gas Gas (Initial D)",
+    "Dave Rodgers — Deja Vu",
+    "Manuel — Gas Gas Gas"
+   ],
+   "morceau": {
+    "titre": "Gas Gas Gas (Initial D)",
+    "artiste": "Manuel",
+    "genre": "eurobeat",
+    "style": "eurobeat de descente de col, freinage tardif",
+    "fichier": "Manuel - Gas Gas Gas",
+    "debut_s": 48.0,
+    "debut_sur": true,
+    "note": "Fourni par Esteban : refrain eurobeat culte à 48 s.",
+    "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+   }
+  },
+  "N05": {
+   "genre": "disco",
+   "fichiers": [
+    "N05.mp3",
+    "disco.mp3"
+   ],
+   "suggestions": [
+    "Eddy Grant — Electric Avenue",
+    "Bee Gees — Stayin' Alive",
+    "Daft Punk — One More Time"
+   ],
+   "morceau": {
+    "titre": "Electric Avenue",
+    "artiste": "Eddy Grant",
+    "genre": "disco",
+    "style": "synth-funk électrique pour une hybride en treillis",
+    "fichier": "Eddy Grant - Electric Avenue",
+    "debut_s": 0.0,
+    "debut_sur": true,
+    "note": "Fourni par Esteban : synth-funk électrique, satire hybride.",
+    "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+   }
+  },
+  "N06": {
+   "genre": "rock",
+   "fichiers": [
+    "N06.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "Creedence Clearwater Revival — Fortunate Son",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "Fortunate Son",
+    "artiste": "Creedence Clearwater Revival",
+    "genre": "rock",
+    "style": "riff sudiste de 1969, fierté américaine",
+    "fichier": "Creedence Clearwater Revival - Fortunate Son",
+    "debut_s": 0.0,
+    "debut_sur": true,
+    "note": "Fourni par Esteban : riff d'ouverture immédiat.",
+    "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+   }
+  },
+  "N04": {
+   "genre": "hiphop",
+   "fichiers": [
+    "N04.mp3",
+    "hiphop.mp3"
+   ],
+   "suggestions": [
+    "Peter Fox — Alles Neu",
+    "DMX — X Gon' Give It to Ya",
+    "Eminem — Lose Yourself"
+   ],
+   "morceau": {
+    "titre": "Alles Neu",
+    "artiste": "Peter Fox",
+    "genre": "hiphop",
+    "style": "cordes percutantes et flow berlinois",
+    "fichier": "Peter Fox - Alles Neu",
+    "debut_s": 0.0,
+    "debut_sur": true,
+    "note": "Fourni par Esteban : cordes percutantes et flow berlinois.",
+    "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+   }
+  },
+  "N02": {
+   "genre": "chiptune",
+   "fichiers": [
+    "N02.mp3",
+    "chiptune.mp3"
+   ],
+   "suggestions": [
+    "Shinobu Tanaka — Figure-8 Circuit (Mario Kart DS)",
+    "Korobeiniki (thème populaire russe, version 8 bits)",
+    "Anamanaguchi — Endless Fantasy"
+   ],
+   "morceau": {
+    "titre": "Figure-8 Circuit (Mario Kart DS)",
+    "artiste": "Shinobu Tanaka",
+    "genre": "chiptune",
+    "style": "musique de Mario Kart DS, demandée par Esteban",
+    "fichier": "Mario Kart DS - Figure-8 Circuit Theme",
+    "debut_s": 0.0,
+    "debut_sur": true,
+    "note": "Fourni par Esteban : la musique Mario Kart DS qu'il a demandée.",
+    "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+   }
+  },
+  "N11": {
+   "genre": "rock",
+   "fichiers": [
+    "N11.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "Hot Wheels AcceleRacers — AcceleRacers Theme (Drive to Survive)",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "AcceleRacers Theme (Drive to Survive)",
+    "artiste": "Hot Wheels AcceleRacers",
+    "genre": "rock",
+    "style": "thème officiel des AcceleRacers, guitares Metal Maniacs",
+    "fichier": "Hot Wheels AcceleRacers - Drive to Survive Theme",
+    "debut_s": 0.0,
+    "debut_sur": true,
+    "note": "Fourni par Esteban : thème officiel AcceleRacers.",
+    "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+   }
+  },
+  "N01": {
+   "genre": "punk",
+   "fichiers": [
+    "N01.mp3",
+    "punk.mp3"
+   ],
+   "suggestions": [
+    "The Prodigy — Breathe",
+    "The Offspring — The Kids Aren't Alright",
+    "Ramones — Blitzkrieg Bop"
+   ],
+   "morceau": {
+    "titre": "Breathe",
+    "artiste": "The Prodigy",
+    "genre": "punk",
+    "style": "big beat électro-punk, pouls survolté et basses lourdes",
+    "fichier": "The Prodigy - Breathe",
+    "debut_s": 0.0,
+    "debut_sur": true,
+    "note": "Fourni par Esteban : pulse électronique survolté et basses lourdes.",
+    "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-15)"
+   }
+  },
+  "N12": {
+   "genre": "swing",
+   "fichiers": [
+    "N12.mp3",
+    "swing.mp3"
+   ],
+   "suggestions": [
+    "Boots Randolph — Yakety Sax",
+    "Louis Prima — Jump, Jive an' Wail",
+    "Benny Goodman — Sing, Sing, Sing"
+   ],
+   "morceau": {
+    "titre": "Yakety Sax",
+    "artiste": "Boots Randolph",
+    "genre": "swing",
+    "style": "saxophone de poursuite burlesque, après la chute",
+    "fichier": "Boots Randolph - Yakety Sax",
+    "motsCles": [
+     "yakety sax"
+    ],
+    "debut_s": 0.0,
+    "debut_sur": true,
+    "note": "Morceau idéal à déposer dans Musique/10_Morceaux_Bolides : il démarre APRÈS la chute (mode drame).",
+    "repli": {
+     "fichier": "Matthew Pablo - Circus Dilemma",
+     "titre": "Circus Dilemma",
+     "artiste": "Matthew Pablo",
+     "licence": "CC BY 3.0",
+     "page_licence": "https://opengameart.org/content/circus-dilemma",
+     "attribution": "\"Circus Dilemma\" by Matthew Pablo (www.matthewpablo.com) — CC BY 3.0 (https://creativecommons.org/licenses/by/3.0/)",
+     "debut_s": 0.0,
+     "debut_sur": true,
+     "source": "bibliothèque libre d'Esteban (Musique/11_Musiques_Libres)",
+     "note": "Cirque désenchanté, en attendant le saxo burlesque."
+    },
+    "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-16)"
+   }
+  },
+  "N13": {
+   "genre": "rock",
+   "fichiers": [
+    "N13.mp3",
+    "rock.mp3"
+   ],
+   "suggestions": [
+    "Europe — The Final Countdown",
+    "AC/DC — Thunderstruck",
+    "Queen — Don't Stop Me Now"
+   ],
+   "morceau": {
+    "titre": "The Final Countdown",
+    "artiste": "Europe",
+    "genre": "rock",
+    "style": "fanfare de synthé triomphale, en décalage total avec l'épave",
+    "fichier": "Europe - The Final Countdown",
+    "motsCles": [
+     "final countdown"
+    ],
+    "debut_s": 0.0,
+    "debut_sur": true,
+    "note": "Morceau idéal à déposer dans Musique/10_Morceaux_Bolides : il démarre APRÈS le crash (mode drame).",
+    "repli": {
+     "fichier": "Kevin MacLeod - Aces High",
+     "titre": "Aces High",
+     "artiste": "Kevin MacLeod",
+     "licence": "CC BY 4.0",
+     "debut_s": 12.0,
+     "debut_sur": true,
+     "attribution": "\"Aces High\" Kevin MacLeod (incompetech.com) — CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+     "source": "bibliothèque libre d'Esteban (Musique/11_Musiques_Libres)",
+     "note": "Fanfare d'as de l'aviation (départ à 12 s : H11 l'utilise dès 0 s), en attendant le compte à rebours final."
+    },
+    "choisi_par": "Esteban & Chef d'Atelier V8 (2026-10-16)"
+   }
   }
  },
  "trailers": {
@@ -2107,6 +2435,83 @@
     "fichiers": [
      "TK06.mp3",
      "manga.mp3"
+    ]
+   },
+   "N07": {
+    "archetype": "gothique",
+    "fichiers": [
+     "N07.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "N08": {
+    "archetype": "gothique",
+    "fichiers": [
+     "N08.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "N09": {
+    "archetype": "gothique",
+    "fichiers": [
+     "N09.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "N10": {
+    "archetype": "gothique",
+    "fichiers": [
+     "N10.mp3",
+     "gothique.mp3"
+    ]
+   },
+   "N03": {
+    "archetype": "manga",
+    "fichiers": [
+     "N03.mp3",
+     "manga.mp3"
+    ]
+   },
+   "N05": {
+    "archetype": "manga",
+    "fichiers": [
+     "N05.mp3",
+     "manga.mp3"
+    ]
+   },
+   "N06": {
+    "archetype": "vintage",
+    "fichiers": [
+     "N06.mp3",
+     "vintage.mp3"
+    ]
+   },
+   "N04": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "N04.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "N02": {
+    "archetype": "pop",
+    "fichiers": [
+     "N02.mp3",
+     "pop.mp3"
+    ]
+   },
+   "N11": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "N11.mp3",
+     "blockbuster.mp3"
+    ]
+   },
+   "N01": {
+    "archetype": "blockbuster",
+    "fichiers": [
+     "N01.mp3",
+     "blockbuster.mp3"
     ]
    }
   }

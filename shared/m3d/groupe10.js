@@ -213,7 +213,7 @@ function b04(ctx) {
     a.boite(0.4, 0.3, 0.18, acier, -0.3, 0.8, sg * 1.04);
   }
   // dérives arrière en pointe (deux grandes + une centrale plus basse)
-  const derive = [[-1.2, 1.3], [-2.2, 1.6], [-2.9, 1.8], [-3.4, 2.04], [-3.3, 1.7], [-3.55, 1.46], [-3.5, 1.1], [-2.4, 1.58]];
+  const derive = [[-1.2, 1.32], [-2.2, 1.6], [-2.9, 1.8], [-3.4, 2.04], [-3.3, 1.7], [-3.55, 1.46], [-3.5, 1.1], [-2.4, 1.6]];   // arête basse relevée de 2 cm au-dessus du pneu arrière
   a.aileron(derive, 0.12, caisse, 0.8, 0.1);
   a.aileron([[-1.4, 1.38], [-2.6, 1.6], [-3.25, 1.86], [-3.2, 1.5], [-3.4, 1.12], [-2.2, 1.26]], 0.1, caisse, 0);
   // feux et tuyère

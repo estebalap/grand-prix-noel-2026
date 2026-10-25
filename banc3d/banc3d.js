@@ -79,12 +79,37 @@ function controler(code, m) {
   const ecartSol = pneus.length ? Math.max(...pneus.map((p) => Math.abs(p.sol))) : 0;
   if (ecartSol > 0.02) ko.push(`roue à ${ecartSol.toFixed(3)} du sol`);
   if (!pneus.length && m.fam !== 'helico') ko.push('aucune roue');
+  // PÉNÉTRATION : aucune pièce de carrosserie (tôle, barre, pare-buffle, marchepied) dans le volume d'un pneu.
+  // Chaque triangle du châssis est échantillonné (sommets, milieux, centre) ; un point compte s'il est à l'intérieur du
+  // ANNEAU DE GOMME du pneu (entre 0,74 r et r − 3 cm), MOITIÉ EXTÉRIEURE (côté visible, jusqu'au flanc − 3 cm) : freins et moyeux dans la jante sont permis,
+  // et les doublures de passage de roue cachées côté intérieur ne comptent pas. Les roues elles-mêmes (pivots) sont exclues.
+  const cyl = m.roues.map((w) => { const p = new THREE.Vector3(); w.pivot.getWorldPosition(p); return { p, sg: Math.sign(p.z) || 1, r: w.r - 0.03, ri: w.r * 0.74, e: Math.max(0.01, (w.ep || w.r * 0.7) / 2 - 0.03) }; });
+  const clip = new Map(); let nClip = 0;
+  { const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3(), q = new THREE.Vector3();
+    const dedans = (v) => { for (let i = 0; i < cyl.length; i++) { const C = cyl[i], dx = v.x - C.p.x, dy = v.y - C.p.y, dz = v.z - C.p.z; const d2 = dx * dx + dy * dy; if (dz * C.sg > -0.02 && dz * C.sg < C.e && d2 < C.r * C.r && d2 > C.ri * C.ri) return i; } return -1; };
+    m.chassis.updateMatrixWorld(true);
+    m.chassis.traverse((o) => {
+      if (!o.isMesh || !o.geometry || !o.geometry.attributes.position) return;
+      const ms = Array.isArray(o.material) ? o.material : [o.material];
+      if (ms.every((mt) => mt.transparent && mt.opacity < 0.3)) return;
+      const pos = o.geometry.attributes.position, idx = o.geometry.index, n = idx ? idx.count : pos.count, M = o.matrixWorld;
+      for (let t = 0; t + 2 < n; t += 3) {
+        const i0 = idx ? idx.getX(t) : t, i1 = idx ? idx.getX(t + 1) : t + 1, i2 = idx ? idx.getX(t + 2) : t + 2;
+        a.fromBufferAttribute(pos, i0).applyMatrix4(M); b.fromBufferAttribute(pos, i1).applyMatrix4(M); c.fromBufferAttribute(pos, i2).applyMatrix4(M);
+        for (const [u, v] of [[1, 0], [0, 1], [0, 0], [0.5, 0.5], [0.5, 0], [0, 0.5], [1 / 3, 1 / 3]]) {
+          q.set(0, 0, 0).addScaledVector(a, u).addScaledVector(b, v).addScaledVector(c, 1 - u - v);
+          const k = dedans(q); if (k >= 0) { nClip++; if (Q.get('debug') === code && (window.__bancClip = window.__bancClip || []).length < 40) window.__bancClip.push({ roue: k, x: +q.x.toFixed(3), y: +q.y.toFixed(3), z: +q.z.toFixed(3), c: [+cyl[k].p.x.toFixed(2), +cyl[k].p.y.toFixed(2), +cyl[k].p.z.toFixed(2), +cyl[k].r.toFixed(2), +cyl[k].e.toFixed(2)], mat: (ms[0].color ? ms[0].color.getHexString() : '?') }); const nom = o.name || (o.parent && o.parent.name) || o.geometry.type; clip.set(nom, (clip.get(nom) || 0) + 1); }
+        }
+      }
+    });
+  }
+  if (nClip > 0) ko.push(`pénétration : ${nClip} point(s) de carrosserie dans un pneu (${[...clip].slice(0, 4).map(([k, v]) => k + '×' + v).join(', ')})`);
   // laque vernie
   let vernies = 0;
   m.chassis.traverse((o) => { if (!o.isMesh) return; for (const mt of (Array.isArray(o.material) ? o.material : [o.material])) if (mt.isMeshPhysicalMaterial && mt.clearcoat >= 0.9 && !mt.transparent) vernies++; });
   if (!vernies) ko.push('aucune laque vernie');
   // proportions : pavillon (lancer de rayons, tiers central de l'empattement) / largeur hors tout — même mesure que bolides3d.js
-  const fp = familleProportion(code), fam = fp.nom, plafond = fp.plafond;
+  const fp = m.proportion && m.proportion.famille === 'réel' ? { nom: 'réel', plafond: m.proportion.plafond } : familleProportion(code), fam = fp.nom, plafond = fp.plafond;
   const pav = hauteurPavillon(THREE, m.chassis, m.essieuArriere, m.essieuAvant, m.largeur);
   const hw = pav / s.z;
   if (hw > plafond + 0.006) (m.proportion && m.proportion.k <= 0.551 ? ko : av).push(`H/W ${hw.toFixed(3)} > ${plafond} (${fam})`);
@@ -95,7 +120,7 @@ function controler(code, m) {
     L: +m.longueur.toFixed(2), largeur: +m.largeur.toFixed(2), hauteur: +m.hauteur.toFixed(2), pavillon: +pav.toFixed(2), hSurW: +hw.toFixed(3), kPavillon: m.proportion ? m.proportion.k : null,
     boite: [+s.x.toFixed(2), +s.y.toFixed(2), +s.z.toFixed(2)], roues: pneus.length,
     pneuMin: pneus.length ? +Math.min(...pneus.filter((p) => !p.fin).map((p) => p.rapport).concat([9])).toFixed(3) : null,
-    ecartSol: +ecartSol.toFixed(4), vernies, triangles: Math.round(tri),
+    ecartSol: +ecartSol.toFixed(4), vernies, triangles: Math.round(tri), penetration: nClip,
   };
 }
 

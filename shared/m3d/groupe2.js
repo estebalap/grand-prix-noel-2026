@@ -42,6 +42,33 @@ function texteFlanc(g, t, cx, cy, sg, trait) {
 }
 
 /* ---------------------------------------------------------------- B14 : longue GT bleu nuit à double dérive */
+/** Inspection des trains roulants (chantier V5) : retire des AUTOCOLLANTS (maillages texturés transparents enfants de `cible`)
+ *  les triangles qui tombent dans le volume d'un pneu (disque du pneu × largeur de bande de roulement, de chaque côté).
+ *  Ces zones sont déjà rendues transparentes par le « trouage » du canvas : l'aspect ne change pas, mais plus aucune pellicule
+ *  ne traverse la gomme. roues : [{ x, y?, RW | R, z (demi-voie au centre du pneu), ep }]. */
+function ajourerPneus(cible, roues) {
+  const disques = [];
+  for (const r of roues) {
+    const R = r.RW ?? r.R, y = r.y ?? R, a = r.z - r.ep / 2 - 0.04, b = r.z + r.ep / 2 + 0.04;
+    disques.push({ x: r.x, y, R2: R * R, z0: a, z1: b }, { x: r.x, y, R2: R * R, z0: -b, z1: -a });
+  }
+  const dans = (x, y, z) => disques.some((d) => z >= d.z0 && z <= d.z1 && (x - d.x) ** 2 + (y - d.y) ** 2 < d.R2);
+  const T = [[1, 0], [0, 1], [0, 0], [0.5, 0.5], [0.5, 0], [0, 0.5], [1 / 3, 1 / 3]];
+  const liste = [];
+  cible.traverse((me) => { if (me.isMesh && me.geometry && me.geometry.groups.length <= 1 && [].concat(me.material).every((m) => m.map && m.transparent)) liste.push(me); });
+  for (const me of liste) {
+    me.updateWorldMatrix(true, false);
+    const e = me.matrixWorld.elements, g = me.geometry, p = g.attributes.position;
+    const P = (i) => { const x = p.getX(i), y = p.getY(i), z = p.getZ(i); return [e[0] * x + e[4] * y + e[8] * z + e[12], e[1] * x + e[5] * y + e[9] * z + e[13], e[2] * x + e[6] * y + e[10] * z + e[14]]; };
+    const idx = g.index ? Array.from(g.index.array) : Array.from({ length: p.count }, (_, i) => i), reste = [];
+    for (let t = 0; t + 2 < idx.length; t += 3) {
+      const A = P(idx[t]), B = P(idx[t + 1]), C = P(idx[t + 2]);
+      if (!T.some(([u, v]) => { const w = 1 - u - v; return dans(A[0] * u + B[0] * v + C[0] * w, A[1] * u + B[1] * v + C[1] * w, A[2] * u + B[2] * v + C[2] * w); })) reste.push(idx[t], idx[t + 1], idx[t + 2]);
+    }
+    if (reste.length < idx.length) g.setIndex(reste);
+  }
+}
+
 function b14(ctx) {
   const { THREE, lumBlanche, lumRouge } = ctx, o = aide(ctx), a = o;
   const nuit = o.pein('#18214f', 0.2), bleuC = o.pein('#24346f', 0.25), mat = o.mate('#10121c', 0.7, 0.2);
@@ -89,6 +116,7 @@ function b14(ctx) {
   // barème « Tolérance zéro » (cat. A) : ailes et capot abaissés au-dessus des arches, caisse et voies élargies, pneus à fleur
   const sz = 1.1; a.rabaisser([[1.05, 1.05], [1.5, 1.47]], sz); a.voies(R, sz, -0.012);
   a.degager(R);                                                                                      // Brief 10 : arches recoupées, ailes au-dessus des pneus
+  ajourerPneus(ctx.chassis, R);                                                                      // inspection des trains : aucun autocollant dans la gomme
   return { L: 8.1, largeur: 2 * wMax(ST) * sz, hauteur: 3.2, xAvant: 4.05, xArriere: -4.0, roues: R };
 }
 
@@ -198,61 +226,74 @@ function b16(ctx) {
   return tumbler(ctx, { caisse: a.pein('#15161b', 0.42), armure: a.mate('#202229', 0.55, 0.25), verre: a.vitre('#2a5f80', 0.85), jante: '#14161c', rayons: 'six', flanc: '#1f78ff', RAr: 0.76, epAr: 0.85, hTour: 2.4, accent: a.mate('#1f78ff', 0.4, 0.2), sz: 1.08, chop: [[1.3, 1.3], [2.4, 1.98]] });
 }
 
-/* ---------------------------------------------------------------- B17 : coupé arlequin blanc/bleu à losanges rouges, profil agressif */
+/* ---------------------------------------------------------------- B17 : coupé arlequin épuré (refonte V6) */
 /**
- * Bicolore blanc (dessus) / bleu (jupe, lame avant). Silhouette sculptée : baignoire centrale basse à taille de guêpe,
- * capot plongeant entre deux ailes avant bombées, hanches arrière en nacelles hautes et détachées coiffant de gros pneus
- * arrière de dragster (jantes bleues), roues avant plus petites (jantes rouges). Proportions photo : L/H ≈ 4,3, Ø AR / Ø AV ≈ 1,33.
+ * Refonte V6 « moins de formes » : UNE carrosserie tendue au lieu de l'empilement baignoire + nacelles décollées + arches + bulle.
+ * Coupé musclé à la hot-rod : long capot large, taille marquée, hanches arrière puissantes intégrées au corps (elles coiffent les
+ * gros pneus arrière), poupe en canard. Une seule verrière bleu lagon, posée DANS la ligne de toit (fastback), sans arceau.
+ * Livrée de la miniature : dessus blanc, jupe et lame avant bleues, grands losanges arlequin rouges sur les flancs, damier de
+ * losanges sur le pont arrière, couleurs de cartes sur le capot ; jantes avant rouges, arrière bleues (Ø AR / Ø AV ≈ 1,3).
+ * Barème : sommet (verrière) 1,38 ≤ 0,58 × largeur ; pneus posés au ras des ailes, aucune tôle dans la gomme (degager).
  */
 function b17(ctx) {
-  const { THREE, lumBlanche, lumRouge } = ctx, o = aide(ctx), a = o;
-  const blanc = o.pein('#f4f4f6', 0.2), bleu = o.pein('#2a35c9', 0.25), noir = o.mate('#15171d', 0.5, 0.3), dark = o.mate('#0b0c10', 0.9, 0.1);
-  const R = [{ x: 2.35, RW: 0.6, ep: 0.56, z: 0.86, y: 0.6, avant: true, jante: '#e5483f', rayons: 'etoile', flanc: '#e5483f', bosse: 0.05 },
-             { x: -2.35, RW: 0.8, ep: 0.92, z: 1.0, y: 0.8, avant: false, jante: '#2a35c9', rayons: 'etoile', flanc: '#2a35c9', bosse: 0.04 }];
-  // baignoire centrale basse
-  const ST0 = [{ x: -3.8, w: 0.45, y0: 0.5, y1: 0.9 }, { x: -3.5, w: 0.78, y0: 0.36, y1: 1.08 }, { x: -2.35, w: 0.92, y0: 0.3, y1: 1.2 }, { x: -1.2, w: 0.92, y0: 0.28, y1: 1.14 },
-    { x: 0, w: 0.86, y0: 0.28, y1: 1.08 }, { x: 1.2, w: 0.86, y0: 0.28, y1: 0.98 }, { x: 2.35, w: 0.9, y0: 0.3, y1: 0.98 }, { x: 3.1, w: 0.8, y0: 0.32, y1: 0.8 },
-    { x: 3.6, w: 0.52, y0: 0.36, y1: 0.6 }, { x: 3.88, w: 0.22, y0: 0.4, y1: 0.48 }];
-  const ST = sculpter(a, ST0, R, { taille: 0.12, wt: 0.78 });
-  a.loft(ST, blanc, { arches: a.arches(R) }); a.puits(R, dark, ST);
-  // nacelles d'ailes (hanches AR hautes, ailes AV bombées) : lofts décalés en z, creusés en arche au-dessus du pneu
-  const nacelle = (st, zc, r) => { for (const sg of [-1, 1]) { const m = a.loft(st.map((q) => ({ nt: 2.6, nb: 2.2, ...q })), blanc, { arches: [{ x: r.x, R: r.RW * 1.1 + 0.03, y: r.RW, zin: -9 }], nx: 90, ns: 40 }); m.position.z = sg * zc; } };
-  // hanches abaissées (barème A : sommet 1,72 ≤ 0,58 W) et déportées : le pneu AR affleure l'aile
-  nacelle([{ x: -3.78, w: 0.08, y0: 0.78, y1: 0.98 }, { x: -3.45, w: 0.3, y0: 0.6, y1: 1.34 }, { x: -2.9, w: 0.4, y0: 0.55, y1: 1.63 }, { x: -2.35, w: 0.42, y0: 0.55, y1: 1.72 },
-    { x: -1.7, w: 0.38, y0: 0.55, y1: 1.54 }, { x: -1.1, w: 0.2, y0: 0.6, y1: 1.22 }, { x: -0.75, w: 0.05, y0: 0.7, y1: 1.04 }], 1.06, R[1]);
-  nacelle([{ x: 1.3, w: 0.05, y0: 0.62, y1: 0.92 }, { x: 1.75, w: 0.26, y0: 0.5, y1: 1.22 }, { x: 2.35, w: 0.32, y0: 0.5, y1: 1.4 }, { x: 2.95, w: 0.28, y0: 0.5, y1: 1.22 },
-    { x: 3.42, w: 0.07, y0: 0.55, y1: 0.8 }], 0.84, R[0]);
-  // dessus : fentes de capot, numéro et mot générique, losanges et couleurs de cartes sur le pont arrière
-  a.drapeDessus(ST, -3.4, 3.6, -0.6, 0.6, (g, w, h) => {
-    const X = (x) => (x + 3.4) / 7.0 * w, Z = (z) => (z + 0.6) / 1.2 * h;
-    g.fillStyle = '#1a2230'; for (const sg of [-1, 1]) { g.beginPath(); g.moveTo(X(1.5), Z(sg * 0.2)); g.lineTo(X(2.6), Z(sg * 0.3)); g.lineTo(X(2.6), Z(sg * 0.38)); g.lineTo(X(1.5), Z(sg * 0.28)); g.closePath(); g.fill(); }   // fentes de capot
-    g.save(); g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillStyle = '#e5483f'; g.font = 'italic 900 64px Arial'; g.fillText('21', X(2.95), Z(0)); g.restore();
-    g.fillStyle = '#e5483f'; for (let i = 0; i < 6; i++) { const cx = -3.05 + i * 0.36, cz = (i % 2 ? 0.1 : -0.1), s = 0.15; g.beginPath(); g.moveTo(X(cx - s * 1.2), Z(cz)); g.lineTo(X(cx), Z(cz - s * 1.4)); g.lineTo(X(cx + s * 1.2), Z(cz)); g.lineTo(X(cx), Z(cz + s * 1.4)); g.closePath(); g.fill(); }
-    g.fillStyle = '#15171d'; g.font = 'bold 56px Arial'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('♠', X(1.05), Z(0.3)); g.fillText('♣', X(1.05), Z(-0.3));
-  }, 1400, 240);
-  // flancs (positions exactes des deux côtés, textes lisibles) : jupe bleue, losanges rouges, mot générique
-  const x0 = -3.8, x1 = 3.88, yb = 0.28, yt = 1.2, cv = a.carte(x0, x1, yb, yt, 2048, 300);
+  const { THREE, lumBlanche, lumRouge } = ctx, a = aide(ctx), o = a;
+  const blanc = a.pein('#f4f4f6', 0.2), noir = a.mate('#15171d', 0.5, 0.3);
+  const R = [{ x: 2.4, RW: 0.48, ep: 0.5, avant: true, jante: '#e5483f', rayons: 'etoile', flanc: '#e5483f' },
+             { x: -2.3, RW: 0.64, ep: 0.78, avant: false, jante: '#2a35c9', rayons: 'etoile', flanc: '#2a35c9', bosse: 0.06, etal: 1.6 }];
+  // carrosserie unique : nez en lame → capot large → taille → hanches → poupe en canard (nt > 2 : dessus tendu, wt : épaules rentrantes)
+  const ST0 = [
+    { x: -3.8, w: 0.74, y0: 0.44, y1: 1.04, nt: 2.4, nb: 3.0 },
+    { x: -3.55, w: 1.04, y0: 0.32, y1: 1.3 },
+    { x: -3.0, w: 1.13, y0: 0.28, y1: 1.4 },
+    { x: -2.3, w: 1.15, y0: 0.28, y1: 1.44 },
+    { x: -1.6, w: 1.09, y0: 0.28, y1: 1.3 },
+    { x: -0.9, w: 1.01, y0: 0.28, y1: 1.08 },
+    { x: 0.0, w: 0.99, y0: 0.28, y1: 1.03 },
+    { x: 0.9, w: 0.99, y0: 0.28, y1: 1.03 },
+    { x: 1.7, w: 1.0, y0: 0.29, y1: 1.06 },
+    { x: 2.4, w: 1.01, y0: 0.3, y1: 1.12 },
+    { x: 3.1, w: 0.94, y0: 0.32, y1: 0.92 },
+    { x: 3.6, w: 0.7, y0: 0.35, y1: 0.66 },
+    { x: 3.9, w: 0.3, y0: 0.39, y1: 0.48 }].map((q) => ({ nt: 3.0, nb: 3.4, ...q }));
+  const ST = sculpter(a, ST0, R, { bosse: 0.03, taille: 0.05, wt: 0.8 }); poser(a, ST, R, 0.05);
+  a.loft(ST, blanc, { arches: a.arches(R) });
+  // verrière unique, noyée dans la ligne de toit (fastback) : bulle basse et longue, aucun arceau
+  const VER = [{ x: -1.45, w: 0.24, y0: 0.94, y1: 1.16 }, { x: -0.95, w: 0.54, y0: 0.92, y1: 1.32 }, { x: -0.15, w: 0.62, y0: 0.92, y1: 1.38 },
+    { x: 0.55, w: 0.56, y0: 0.92, y1: 1.3 }, { x: 1.05, w: 0.36, y0: 0.94, y1: 1.12 }, { x: 1.3, w: 0.12, y0: 0.96, y1: 1.0 }].map((q) => ({ nt: 2.2, nb: 4, wt: 0.92, ...q }));
+  a.loft(VER, a.vitre('#35bfd4', 0.8), { nx: 70, ns: 40 });
+  // dessus : couleurs de cartes sur le capot, numéro générique, damier de losanges sur le pont arrière, fines prises d'air
+  a.drapeDessus(ST, -3.7, 3.88, -1.0, 1.0, (g, w, h) => {
+    const X = (x) => (x + 3.7) / 7.58 * w, Z = (z) => (z + 1.0) / 2.0 * h;
+    // lame avant bleue peinte dans le décalque du dessus, découpée au contour réel du nez (aucun débord dans le vide)
+    g.fillStyle = '#2a35c9'; g.beginPath(); g.moveTo(X(3.3), Z(-(a.largeurAu(ST, 3.3) - 0.06)));
+    for (let x = 3.3; x <= 3.86; x += 0.04) g.lineTo(X(x), Z(-(a.largeurAu(ST, x) - 0.06)));
+    for (let x = 3.86; x >= 3.3; x -= 0.04) g.lineTo(X(x), Z(a.largeurAu(ST, x) - 0.06));
+    g.closePath(); g.fill();
+    const losange = (cx, cz, s, c) => { g.fillStyle = c; g.beginPath(); g.moveTo(X(cx - s), Z(cz)); g.lineTo(X(cx), Z(cz - s * 0.8)); g.lineTo(X(cx + s), Z(cz)); g.lineTo(X(cx), Z(cz + s * 0.8)); g.closePath(); g.fill(); };
+    for (let i = 0; i < 5; i++) for (let k = -1; k <= 1; k++) if ((i + k + 2) % 2 === 0) losange(-3.25 + i * 0.3, k * 0.34, 0.17, k === 0 ? '#e5483f' : '#15171d');   // damier arlequin du pont arrière
+    g.fillStyle = '#1a2230'; for (const sg of [-1, 1]) g.fillRect(X(1.75), Z(sg * 0.34 - 0.03), X(2.55) - X(1.75), Z(0.06) - Z(0));               // deux fines prises d'air
+    g.save(); g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillStyle = '#e5483f'; g.font = 'italic 900 70px Arial'; g.fillText('21', X(2.95), Z(0)); g.restore();
+    g.fillStyle = '#15171d'; g.font = 'bold 60px Arial'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('♠', X(1.95), Z(0)); g.fillStyle = '#e5483f'; g.fillText('♦', X(2.35), Z(0));
+  }, 1600, 420);
+  // flancs : jupe bleue continue (bicolore), trois grands losanges arlequin rouges sur la hanche et la portière, mot générique
+  const x0 = -3.8, x1 = 3.9, yb = 0.28, yt = 1.44, cv = a.carte(x0, x1, yb, yt, 2048, 380);
   a.drapeFlancs(ST, x0, x1, yb, yt, (g, w, h, sg) => {
-    g.fillStyle = '#2a35c9'; g.fillRect(cv.X(-3.6), cv.Y(0.5), cv.X(3.7) - cv.X(-3.6), cv.Y(0.28) - cv.Y(0.5));        // jupe bleue
+    g.fillStyle = '#2a35c9'; g.fillRect(cv.X(-3.75), cv.Y(0.5), cv.X(3.85) - cv.X(-3.75), cv.Y(0.28) - cv.Y(0.5));       // jupe bleue
+    g.fillStyle = '#ffffff'; g.fillRect(cv.X(-3.75), cv.Y(0.53), cv.X(3.85) - cv.X(-3.75), cv.Y(0.5) - cv.Y(0.53));     // filet blanc
     g.fillStyle = '#e5483f';
-    for (let i = 0; i < 4; i++) { const cx = -0.82 + i * 0.34, s = 0.16; g.beginPath(); g.moveTo(cv.X(cx - s * 1.05), cv.Y(0.8)); g.lineTo(cv.X(cx), cv.Y(0.8 + s * 1.5)); g.lineTo(cv.X(cx + s * 1.05), cv.Y(0.8)); g.lineTo(cv.X(cx), cv.Y(0.8 - s * 1.5)); g.closePath(); g.fill(); }
-    g.save(); g.translate(cv.X(0.86), cv.Y(0.82)); if (sg < 0) g.scale(-1, 1);                       // texte remis à l'endroit côté −z
-    g.font = 'italic 900 56px Arial'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.lineWidth = 8; g.strokeStyle = '#15171d'; g.strokeText('ATOUT', 0, 0); g.fillStyle = '#e5483f'; g.fillText('ATOUT', 0, 0); g.restore();
+    for (const [cx, cy, s] of [[-1.45, 0.86, 0.28], [-0.9, 0.82, 0.24], [-0.4, 0.78, 0.2]]) { g.beginPath(); g.moveTo(cv.X(cx - s * 0.9), cv.Y(cy)); g.lineTo(cv.X(cx), cv.Y(cy + s * 1.15)); g.lineTo(cv.X(cx + s * 0.9), cv.Y(cy)); g.lineTo(cv.X(cx), cv.Y(cy - s * 1.15)); g.closePath(); g.fill(); }
+    g.save(); g.translate(cv.X(1.05), cv.Y(0.76)); if (sg < 0) g.scale(-1, 1);                            // texte remis à l'endroit côté −z
+    g.font = 'italic 900 64px Arial'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.lineWidth = 8; g.strokeStyle = '#15171d'; g.strokeText('ATOUT', 0, 0); g.fillStyle = '#e5483f'; g.fillText('ATOUT', 0, 0); g.restore();
     cv.trouer(g, R);
-  }, 2048, 300, 0.022, true);
-  // verrière bulle bleu lagon élargie (≈ 0,8 × largeur de la baignoire centrale)
-  const cano = new THREE.Mesh(ctx.garde(new THREE.SphereGeometry(1, 30, 16)), a.vitre('#35bfd4', 0.78)); cano.scale.set(1.3, 0.42, 0.7); cano.position.set(0.05, 1.04, 0); o.ajouter(cano);
-  o.boite(0.08, 0.06, 1.2, blanc, -1.22, 1.16, 0);                                                    // arceau arrière de bulle
-  a.plaque([[3.0, -0.72], [3.95, -0.32], [3.95, 0.32], [3.0, 0.72]], 0.36, 0.07, bleu);                 // lame avant bleue
-  o.boite(0.3, 0.2, 0.86, noir, -3.72, 0.55, 0);                                                     // diffuseur
-  o.boite(0.5, 0.06, 1.5, blanc, -3.45, 1.12, 0).rotation.z = 0.18;                                 // becquet de pont entre les nacelles
-  for (const sg of [-1, 1]) {
-    const ph = o.boite(0.34, 0.05, 0.2, noir, 3.42, 0.66, sg * 0.36); ph.rotation.y = sg * 0.45; ph.rotation.z = -0.25;   // phares en lame
-    o.boite(0.05, 0.05, 0.18, lumBlanche, 3.56, 0.63, sg * 0.32).rotation.y = sg * 0.45;
-    o.boite(0.06, 0.1, 0.26, lumRouge, -3.76, 0.98, sg * 1.04);                                     // feux en bout de nacelles
-  }
-  a.degager(R);                                                                                      // Brief 10 : nacelles recoupées au-dessus des pneus
-  return { L: 7.7, largeur: 2 * (1.06 + 0.42), hauteur: 1.76, xAvant: 3.95, xArriere: -3.8, roues: R };
+  }, 2048, 380, 0.022, true);
+  // détails affleurants : phares en lame, feux en bandeau, diffuseur (aucun volume décollé)
+  for (const sg of [-1, 1]) { const ph = o.boite(0.3, 0.04, 0.22, lumBlanche, 3.42, 0.7, sg * 0.5); ph.rotation.y = sg * 0.5; ph.rotation.z = -0.3; }
+  o.boite(0.05, 0.07, 1.3, lumRouge, -3.79, 0.96, 0);
+  o.boite(0.24, 0.12, 1.0, noir, -3.7, 0.42, 0);
+  a.degager(R);                                                                                      // aucune tôle dans l'anneau visible des pneus
+  ajourerPneus(ctx.chassis, R);                                                                      // aucun autocollant dans la gomme
+  const largeur = 2 * Math.max(...R.map((r) => r.z + r.ep / 2));
+  return { L: 7.7, largeur, hauteur: 1.38, xAvant: 3.9, xArriere: -3.8, roues: R, plafond: 0.56 };   // sommet 1,38 / largeur ≈ 0,55–0,56 (≤ 0,58)
 }
 
 /* ---------------------------------------------------------------- E02 : hypercar barquette jaune ultra-basse en coin */
@@ -433,9 +474,10 @@ function e03(ctx) {
     aileron.add(o.boite(0.3, 0.04, 0.16, carbone, -2.98, yB + 0.02, sg * 0.48));                       // embase sur la malle
   }
   // barème « Tolérance zéro » (cat. A) : pavillon −30 % (chop top au-dessus de la ceinture), aileron translaté avec la malle
-  const f = a.rabaisser([[1.27, 1.27], [1.98, 2.15]], 1);   // Brief 10 : pavillon de GT remonté (H_toit/W ≈ 0,63, photo de face)
+  const f = a.rabaisser([[1.27, 1.27], [1.98, 2.04]], 1);   // pavillon de GT dessiné à sa hauteur réelle (H/W 1 250 / 2 050 ≈ 0,61) : plus aucun écrasement moteur
   a.degager(R);                                                                                      // Brief 10 : arches recoupées
-  return { L: 8.1, largeur: 2 * wMax(ST), hauteur: 2.6, xAvant: 4.12, xArriere: -3.95, roues: R };
+  ajourerPneus(ctx.chassis, R);                                                                      // inspection des trains : aucun autocollant dans la gomme
+  return { L: 8.1, largeur: 2 * wMax(ST), hauteur: 2.6, xAvant: 4.12, xArriere: -3.95, roues: R, plafond: 0.61 };   // Continental GT3 : ≈ 1 250 / 2 050 mm
 }
 
 /* ---------------------------------------------------------------- E05 : berline noire des années 60, rond blanc n°63 */
@@ -521,6 +563,7 @@ function e06(ctx) {
   // barème « Tolérance zéro » (cat. B) : pavillon plus bas (chop top) et plus large, caisse et voies élargies, roues sous les ailes
   const sz = 1.15; a.rabaisser([[1.3, 1.3], [2.08, 1.89]], sz); a.voies(R, sz, -0.01);   // Brief 10 : hatch, H_toit/W ≈ 0,70
   a.degager(R);                                                                                      // Brief 10 : arches recoupées
+  ajourerPneus(ctx.chassis, R);                                                                      // inspection des trains : aucun autocollant dans la gomme
   return { L: 6.5, largeur: 2 * wMax(ST) * sz, hauteur: 2.25, xAvant: 3.3, xArriere: -3.3, roues: R };
 }
 

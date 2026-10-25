@@ -404,6 +404,71 @@
       "style": "comics",
       "musique": "bubblegum",
       "accroche": "Partie de quilles à Gotham"
+    },
+    "N01": {
+      "style": "reel",
+      "musique": "punk",
+      "accroche": "Urgence vitale en direct"
+    },
+    "N02": {
+      "style": "cartoon",
+      "musique": "chiptune",
+      "accroche": "Grand Prix du goûter"
+    },
+    "N03": {
+      "style": "manga",
+      "musique": "eurobeat",
+      "accroche": "Descente du col à 3 h du matin"
+    },
+    "N04": {
+      "style": "reel",
+      "musique": "hiphop",
+      "accroche": "Essais libres à Stuttgart"
+    },
+    "N05": {
+      "style": "manga",
+      "musique": "disco",
+      "accroche": "Course de nuit en mode furtif"
+    },
+    "N06": {
+      "style": "reel",
+      "musique": "rock",
+      "accroche": "Route 66, 1964"
+    },
+    "N07": {
+      "style": "film_noir",
+      "musique": "rock",
+      "accroche": "Le parrain des quais de Gotham"
+    },
+    "N08": {
+      "style": "film_noir",
+      "musique": "punk",
+      "accroche": "Casse sur les toits de Gotham"
+    },
+    "N09": {
+      "style": "comics",
+      "musique": "symphonie",
+      "accroche": "Gotham dans le rétroviseur"
+    },
+    "N10": {
+      "style": "comics",
+      "musique": "rock",
+      "accroche": "Le compresseur de Gotham"
+    },
+    "N11": {
+      "style": "comics",
+      "musique": "rock",
+      "accroche": "Il sauve la manche, pas le budget"
+    },
+    "N12": {
+      "style": "cartoon",
+      "musique": "swing",
+      "accroche": "Le légendaire qui n'en était pas un"
+    },
+    "N13": {
+      "style": "reel",
+      "musique": "rock",
+      "accroche": "Abattu en plein vol devant le conteneur"
     }
   }
 }

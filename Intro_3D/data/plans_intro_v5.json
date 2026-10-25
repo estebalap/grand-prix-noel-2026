@@ -1,0 +1,3866 @@
+{
+ "_doc": "Découpage de l'animatic de l'intro v5 — généré par outils/generer_plans_v5.py depuis audio_v5/audio/rapport_v5.json. Ne pas éditer à la main : modifier le script.",
+ "duree": 148.209,
+ "fps": 60,
+ "decalage": 45.209,
+ "sort": 25.645,
+ "reperes": {
+  "arene": 9.16,
+  "quinze": 10.98,
+  "dizaines": 12.21,
+  "cinq": 13.635,
+  "une": 15.93,
+  "trone": 17.385,
+  "coin_rouge": 20.03,
+  "groupe_A": 21.075,
+  "groupe_B": 46.02,
+  "groupe_C": 70.6,
+  "ecuries": [
+   21.985,
+   28.135,
+   31.93,
+   36.2,
+   41.06,
+   46.93,
+   51.42,
+   55.185,
+   60.22,
+   65.17,
+   71.365,
+   76.34,
+   81.04,
+   85.675,
+   89.05
+  ],
+  "attention": 93.299,
+  "gotham": 97.179,
+  "voiture": 98.744,
+  "nuit": 100.714,
+  "rit": 103.204,
+  "formule": 106.109,
+  "box": [
+   106.614,
+   107.244,
+   107.724,
+   108.199
+  ],
+  "attaque": 109.739,
+  "brulees": 111.509,
+  "apocalypse": 113.364,
+  "temoins": 114.539,
+  "caisses": 117.104,
+  "uniques": 119.984,
+  "chante": 121.884,
+  "noir": 122.744,
+  "pieges": 124.084,
+  "trahisons": 124.834,
+  "paris": 125.814,
+  "telephone": 127.014,
+  "ancienne": 128.104,
+  "vainqueur": 129.654,
+  "gloire": 130.634,
+  "eternelle": 131.054,
+  "le": 133.519,
+  "grand": 134.324,
+  "prix": 134.624,
+  "de": 134.859,
+  "noel": 135.209,
+  "vingttrois": 135.994,
+  "decembre": 136.329,
+  "preparez": 138.099,
+  "vrombir": 139.204,
+  "spectacle": 140.609,
+  "commence": 141.144,
+  "DUR": 148.209,
+  "themes": [
+   [
+    23.345,
+    27.945
+   ],
+   [
+    29.87,
+    31.77
+   ],
+   [
+    33.035,
+    36.035
+   ],
+   [
+    37.73,
+    40.73
+   ],
+   [
+    42.495,
+    45.495
+   ],
+   [
+    48.135,
+    51.135
+   ],
+   [
+    52.605,
+    55.005
+   ],
+   [
+    57.05,
+    60.05
+   ],
+   [
+    61.905,
+    64.905
+   ],
+   [
+    67.01,
+    70.01
+   ],
+   [
+    73.09,
+    76.09
+   ],
+   [
+    77.755,
+    80.755
+   ],
+   [
+    82.505,
+    85.505
+   ],
+   [
+    87.01,
+    88.11
+   ],
+   [
+    90.875,
+    91.859
+   ]
+  ],
+  "punchs": [
+   2.554,
+   0.188,
+   0.231,
+   0.262,
+   0.16,
+   0.088,
+   0.158,
+   0.038,
+   0.323,
+   1.77,
+   0.097,
+   0.203,
+   0.058,
+   0.074,
+   0.053
+  ],
+  "appel_fin": 92.009
+ },
+ "hits": [
+  [
+   9.16,
+   1.0
+  ],
+  [
+   10.98,
+   0.45
+  ],
+  [
+   12.21,
+   0.45
+  ],
+  [
+   13.635,
+   0.5
+  ],
+  [
+   17.385,
+   0.7
+  ],
+  [
+   21.075,
+   0.6
+  ],
+  [
+   21.985,
+   0.22
+  ],
+  [
+   23.345,
+   0.5
+  ],
+  [
+   25.645,
+   1.0
+  ],
+  [
+   28.135,
+   0.22
+  ],
+  [
+   29.87,
+   0.5
+  ],
+  [
+   30.058,
+   0.45
+  ],
+  [
+   31.93,
+   0.22
+  ],
+  [
+   33.035,
+   0.5
+  ],
+  [
+   33.266,
+   0.7
+  ],
+  [
+   36.2,
+   0.22
+  ],
+  [
+   37.73,
+   0.5
+  ],
+  [
+   37.992,
+   0.45
+  ],
+  [
+   41.06,
+   0.22
+  ],
+  [
+   42.495,
+   0.5
+  ],
+  [
+   42.655,
+   0.7
+  ],
+  [
+   46.02,
+   0.6
+  ],
+  [
+   46.93,
+   0.22
+  ],
+  [
+   48.135,
+   0.5
+  ],
+  [
+   48.223,
+   0.45
+  ],
+  [
+   51.42,
+   0.22
+  ],
+  [
+   52.605,
+   0.5
+  ],
+  [
+   52.763,
+   0.45
+  ],
+  [
+   55.185,
+   0.22
+  ],
+  [
+   57.05,
+   0.5
+  ],
+  [
+   57.088,
+   0.45
+  ],
+  [
+   60.22,
+   0.22
+  ],
+  [
+   61.905,
+   0.5
+  ],
+  [
+   62.228,
+   0.7
+  ],
+  [
+   65.17,
+   0.22
+  ],
+  [
+   67.01,
+   0.5
+  ],
+  [
+   68.78,
+   0.45
+  ],
+  [
+   70.6,
+   0.6
+  ],
+  [
+   71.365,
+   0.22
+  ],
+  [
+   73.09,
+   0.5
+  ],
+  [
+   73.187,
+   0.45
+  ],
+  [
+   76.34,
+   0.22
+  ],
+  [
+   77.755,
+   0.5
+  ],
+  [
+   77.958,
+   0.45
+  ],
+  [
+   81.04,
+   0.22
+  ],
+  [
+   82.505,
+   0.5
+  ],
+  [
+   82.563,
+   0.45
+  ],
+  [
+   85.675,
+   0.22
+  ],
+  [
+   87.01,
+   0.5
+  ],
+  [
+   87.084,
+   0.7
+  ],
+  [
+   89.05,
+   0.22
+  ],
+  [
+   90.875,
+   0.5
+  ],
+  [
+   90.928,
+   0.7
+  ],
+  [
+   91.859,
+   0.8
+  ],
+  [
+   100.714,
+   0.7
+  ],
+  [
+   109.739,
+   0.6
+  ],
+  [
+   114.539,
+   1.0
+  ],
+  [
+   119.984,
+   0.5
+  ],
+  [
+   124.084,
+   0.55
+  ],
+  [
+   124.834,
+   0.6
+  ],
+  [
+   131.054,
+   0.6
+  ],
+  [
+   134.324,
+   0.9
+  ],
+  [
+   134.624,
+   0.7
+  ],
+  [
+   134.859,
+   0.5
+  ],
+  [
+   135.209,
+   1.0
+  ],
+  [
+   135.994,
+   0.4
+  ],
+  [
+   136.329,
+   0.4
+  ],
+  [
+   141.144,
+   1.0
+  ]
+ ],
+ "plans": [
+  {
+   "id": "S1",
+   "debut": 0.0,
+   "fin": 1.2,
+   "titre": "Noir. Une goutte d'huile tombe (A4 de Lulu)",
+   "decor": "salon",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "abs",
+    "p0": [
+     -92,
+     2.6,
+     124
+    ],
+    "p1": [
+     -95,
+     2.2,
+     121
+    ],
+    "c0": [
+     -108,
+     2.0,
+     108
+    ],
+    "c1": [
+     -108,
+     0.6,
+     108
+    ],
+    "mm0": 100,
+    "mm1": 120,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "titre"
+   },
+   "actions": [
+    "goutte"
+   ],
+   "tv": 0,
+   "lum": 0.12,
+   "lune": 1.2,
+   "epaule": 0.2,
+   "expo": 2.6
+  },
+  {
+   "id": "S2",
+   "debut": 1.2,
+   "fin": 3.4,
+   "titre": "Au ras du tapis : des silhouettes de voitures au clair de lune",
+   "decor": "salon",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "abs",
+    "p0": [
+     -74,
+     2.4,
+     92
+    ],
+    "p1": [
+     -50,
+     2.6,
+     84
+    ],
+    "c0": [
+     -22,
+     2.4,
+     66
+    ],
+    "c1": [
+     -14,
+     2.2,
+     64
+    ],
+    "mm0": 45,
+    "mm1": 50,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "titre"
+   },
+   "actions": [
+    "meute_garee"
+   ],
+   "tv": 0,
+   "lum": 0.14,
+   "lune": 1.3,
+   "epaule": 0.25,
+   "expo": 3.2
+  },
+  {
+   "id": "S3",
+   "debut": 3.4,
+   "fin": 4.6,
+   "titre": "La télé s'allume : un reflet bleu sur les carrosseries",
+   "decor": "salon",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "abs",
+    "p0": [
+     -30,
+     3.0,
+     84
+    ],
+    "p1": [
+     -28,
+     4.0,
+     76
+    ],
+    "c0": [
+     -10,
+     4.5,
+     50
+    ],
+    "c1": [
+     -10,
+     6,
+     40
+    ],
+    "mm0": 40,
+    "mm1": 45,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "titre"
+   },
+   "actions": [
+    "meute_garee",
+    "tv_allume"
+   ],
+   "lum": 0.16,
+   "lune": 1.0,
+   "epaule": 0.25,
+   "expo": 2.8
+  },
+  {
+   "id": "S4",
+   "debut": 4.6,
+   "fin": 7.6,
+   "titre": "Les lumières sautent : on devine le salon par éclats",
+   "decor": "salon",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "abs",
+    "p0": [
+     40,
+     14,
+     120
+    ],
+    "p1": [
+     10,
+     10,
+     100
+    ],
+    "c0": [
+     -20,
+     6,
+     60
+    ],
+    "c1": [
+     -22,
+     4,
+     62
+    ],
+    "mm0": 28,
+    "mm1": 32,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "titre"
+   },
+   "actions": [
+    "meute_garee",
+    "lumiere_saute"
+   ],
+   "lum": 0.25,
+   "lum1": 0.42,
+   "lune": 0.9,
+   "epaule": 0.35,
+   "expo": 2.3
+  },
+  {
+   "id": "S5",
+   "debut": 7.6,
+   "fin": 9.06,
+   "titre": "Le salon s'enfonce : le tapis devient le ring",
+   "decor": "transfo",
+   "univers": null,
+   "theme": "tapis",
+   "allume": 1.0,
+   "cam": {
+    "rep": "abs",
+    "p0": [
+     0,
+     150,
+     70
+    ],
+    "p1": [
+     0,
+     70,
+     75
+    ],
+    "c0": [
+     0,
+     0,
+     25
+    ],
+    "c1": [
+     0,
+     15,
+     25
+    ],
+    "mm0": 18,
+    "mm1": 24,
+    "courbe": "entree",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "titre"
+   },
+   "actions": [
+    "meute_garee",
+    "transformation"
+   ],
+   "lum": 0.42,
+   "lune": 0.8,
+   "epaule": 0.3
+  },
+  {
+   "id": "S6",
+   "debut": 9.06,
+   "fin": 9.16,
+   "titre": "Noir",
+   "decor": "noir",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "abs",
+    "p0": [
+     0,
+     70,
+     75
+    ],
+    "p1": [
+     0,
+     70,
+     75
+    ],
+    "c0": [
+     0,
+     15,
+     25
+    ],
+    "c1": [
+     0,
+     15,
+     25
+    ],
+    "mm0": 24,
+    "mm1": 24,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "titre"
+   },
+   "actions": []
+  },
+  {
+   "id": "A1",
+   "debut": 9.16,
+   "fin": 10.98,
+   "titre": "ARÈNE ! burnout dans la fumée, flammes, pyros",
+   "decor": "arene",
+   "univers": null,
+   "theme": "tapis",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     6,
+     3,
+     70
+    ],
+    "p1": [
+     4,
+     9,
+     100
+    ],
+    "c0": [
+     0,
+     5,
+     0
+    ],
+    "c1": [
+     0,
+     8,
+     0
+    ],
+    "mm0": 18,
+    "mm1": 22,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "titre"
+   },
+   "actions": [
+    "meute_burnout",
+    "pyros"
+   ],
+   "epaule": 1.0
+  },
+  {
+   "id": "A2",
+   "debut": 10.98,
+   "fin": 12.21,
+   "titre": "« Quinze écuries ! » : travelling au ras des 15 emblèmes",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     -150,
+     5,
+     142
+    ],
+    "p1": [
+     150,
+     5,
+     142
+    ],
+    "c0": [
+     -110,
+     4,
+     125
+    ],
+    "c1": [
+     190,
+     4,
+     125
+    ],
+    "mm0": 32,
+    "mm1": 32,
+    "courbe": "cine",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "15 ÉCURIES",
+    "couleur": "#ffe23d"
+   },
+   "actions": [
+    "emblemes_rangee"
+   ]
+  },
+  {
+   "id": "A3",
+   "debut": 12.21,
+   "fin": 13.635,
+   "titre": "« Des DIZAINES de bolides ! » : le parc fermé",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     -165,
+     6,
+     -150
+    ],
+    "p1": [
+     -165,
+     6,
+     150
+    ],
+    "c0": [
+     -250,
+     3,
+     -110
+    ],
+    "c1": [
+     -250,
+     3,
+     190
+    ],
+    "mm0": 35,
+    "mm1": 35,
+    "courbe": "cine",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "DES DIZAINES",
+    "ligne2": "DE BOLIDES",
+    "couleur": "#ff8a2a"
+   },
+   "actions": [
+    "parc"
+   ]
+  },
+  {
+   "id": "A4",
+   "debut": 13.635,
+   "fin": 15.81,
+   "titre": "« Cinq voies… » : passages au ras de la caméra",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     30,
+     1.4,
+     0
+    ],
+    "p1": [
+     28,
+     2.0,
+     6
+    ],
+    "c0": [
+     -10,
+     4,
+     0
+    ],
+    "c1": [
+     -10,
+     5,
+     6
+    ],
+    "mm0": 16,
+    "mm1": 16,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "5 VOIES",
+    "couleur": "#35e07a"
+   },
+   "actions": [
+    "voies",
+    "meute_passe"
+   ]
+  },
+  {
+   "id": "A5",
+   "debut": 15.81,
+   "fin": 17.385,
+   "titre": "« …une seule place… » : arrêt sur image",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 0.25,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     42,
+     10,
+     55
+    ],
+    "p1": [
+     32,
+     9,
+     45
+    ],
+    "c0": [
+     0,
+     10,
+     0
+    ],
+    "c1": [
+     0,
+     12,
+     0
+    ],
+    "mm0": 32,
+    "mm1": 38,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "UNE SEULE PLACE",
+    "couleur": "#ffffff"
+   },
+   "actions": [
+    "voies",
+    "meute_figee",
+    "podium"
+   ],
+   "epaule": 0.4
+  },
+  {
+   "id": "A6",
+   "debut": 17.385,
+   "fin": 19.13,
+   "titre": "« …sur le TRÔNE ! » : la couronne, pluie de confettis",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     0,
+     3,
+     40
+    ],
+    "p1": [
+     0,
+     5,
+     34
+    ],
+    "c0": [
+     0,
+     22,
+     0
+    ],
+    "c1": [
+     0,
+     27,
+     0
+    ],
+    "mm0": 22,
+    "mm1": 22,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "LE TRÔNE",
+    "couleur": "#ffc83d"
+   },
+   "actions": [
+    "podium",
+    "trone",
+    "couronne"
+   ]
+  },
+  {
+   "id": "R0",
+   "debut": 19.13,
+   "fin": 21.935,
+   "titre": "« Dans le coin rouge… le groupe A ! »",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     -40,
+     16,
+     95
+    ],
+    "p1": [
+     -70,
+     10,
+     70
+    ],
+    "c0": [
+     -128,
+     8,
+     0
+    ],
+    "c1": [
+     -128,
+     6,
+     -10
+    ],
+    "mm0": 22,
+    "mm1": 24,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "groupe",
+    "lettre": "A",
+    "index": 0
+   },
+   "actions": [
+    "cloche",
+    "emblemes_place"
+   ],
+   "epaule": 0.9
+  },
+  {
+   "id": "R01",
+   "debut": 21.935,
+   "fin": 23.345,
+   "titre": "Écurie 1 — entrée (ras du sol)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     0,
+     1.5,
+     20
+    ],
+    "p1": [
+     6,
+     1.5,
+     14
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3,
+     0
+    ],
+    "mm0": 24,
+    "mm1": 24,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 0
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 0
+   },
+   "actions": [
+    "emblemes_place",
+    "emblème_entre:0"
+   ],
+   "ecurie": 0
+  },
+  {
+   "id": "R01s",
+   "debut": 23.345,
+   "fin": 25.715,
+   "titre": "Écurie 1 — SIGNATURE (orbite, fumée et confettis à ses couleurs)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "place",
+    "p0": [
+     0,
+     6,
+     20
+    ],
+    "p1": [
+     0,
+     4,
+     14
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3.5,
+     0
+    ],
+    "mm0": 24,
+    "mm1": 28,
+    "courbe": "cine",
+    "roulis": 0.0,
+    "suit": 0,
+    "orbite": [
+     -0.9,
+     0.9
+    ]
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 0
+   },
+   "actions": [
+    "emblemes_place",
+    "signature"
+   ],
+   "ecurie": 0,
+   "epaule": 0.8
+  },
+  {
+   "id": "R01g",
+   "debut": 25.715,
+   "fin": 28.085,
+   "titre": "Écurie 1 — SIGNATURE (gros plan, la voix s'éteint)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "place",
+    "p0": [
+     7,
+     4,
+     17
+    ],
+    "p1": [
+     4.5,
+     3.5,
+     13
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3,
+     0
+    ],
+    "mm0": 40,
+    "mm1": 45,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 0
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 0
+   },
+   "actions": [
+    "emblemes_place",
+    "signature"
+   ],
+   "ecurie": 0,
+   "epaule": 0.5
+  },
+  {
+   "id": "R02",
+   "debut": 28.085,
+   "fin": 29.87,
+   "titre": "Écurie 2 — entrée (travelling latéral)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     -22,
+     4,
+     -10
+    ],
+    "p1": [
+     -22,
+     4,
+     12
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3,
+     6
+    ],
+    "mm0": 45,
+    "mm1": 45,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 1
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 1
+   },
+   "actions": [
+    "emblemes_place",
+    "emblème_entre:1"
+   ],
+   "ecurie": 1
+  },
+  {
+   "id": "R02s",
+   "debut": 29.87,
+   "fin": 31.88,
+   "titre": "Écurie 2 — SIGNATURE (orbite, fumée et confettis à ses couleurs)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "place",
+    "p0": [
+     0,
+     6,
+     20
+    ],
+    "p1": [
+     0,
+     4,
+     14
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3.5,
+     0
+    ],
+    "mm0": 24,
+    "mm1": 28,
+    "courbe": "cine",
+    "roulis": 0.0,
+    "suit": 1,
+    "orbite": [
+     0.8,
+     -0.8
+    ]
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 1
+   },
+   "actions": [
+    "emblemes_place",
+    "signature"
+   ],
+   "ecurie": 1,
+   "epaule": 0.8
+  },
+  {
+   "id": "R03",
+   "debut": 31.88,
+   "fin": 33.035,
+   "titre": "Écurie 3 — entrée (contre-plongée)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     9,
+     1.2,
+     11
+    ],
+    "p1": [
+     11,
+     1.2,
+     7
+    ],
+    "c0": [
+     0,
+     6,
+     0
+    ],
+    "c1": [
+     0,
+     8,
+     -2
+    ],
+    "mm0": 18,
+    "mm1": 18,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 2
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 2
+   },
+   "actions": [
+    "emblemes_place",
+    "emblème_entre:2"
+   ],
+   "ecurie": 2
+  },
+  {
+   "id": "R03s",
+   "debut": 33.035,
+   "fin": 36.15,
+   "titre": "Écurie 3 — SIGNATURE (orbite, fumée et confettis à ses couleurs)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "place",
+    "p0": [
+     0,
+     6,
+     20
+    ],
+    "p1": [
+     0,
+     4,
+     14
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3.5,
+     0
+    ],
+    "mm0": 24,
+    "mm1": 28,
+    "courbe": "cine",
+    "roulis": 0.0,
+    "suit": 2,
+    "orbite": [
+     -0.4,
+     1.4
+    ]
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 2
+   },
+   "actions": [
+    "emblemes_place",
+    "signature"
+   ],
+   "ecurie": 2,
+   "epaule": 0.8
+  },
+  {
+   "id": "R04",
+   "debut": 36.15,
+   "fin": 37.73,
+   "titre": "Écurie 4 — entrée (passage au ras de l'objectif)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     4,
+     3,
+     28
+    ],
+    "p1": [
+     3,
+     3,
+     7
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3,
+     -6
+    ],
+    "mm0": 28,
+    "mm1": 28,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 3
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 3
+   },
+   "actions": [
+    "emblemes_place",
+    "emblème_entre:3"
+   ],
+   "ecurie": 3
+  },
+  {
+   "id": "R04s",
+   "debut": 37.73,
+   "fin": 41.01,
+   "titre": "Écurie 4 — SIGNATURE (orbite, fumée et confettis à ses couleurs)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "place",
+    "p0": [
+     0,
+     6,
+     20
+    ],
+    "p1": [
+     0,
+     4,
+     14
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3.5,
+     0
+    ],
+    "mm0": 24,
+    "mm1": 28,
+    "courbe": "cine",
+    "roulis": 0.0,
+    "suit": 3,
+    "orbite": [
+     1.2,
+     -0.3
+    ]
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 3
+   },
+   "actions": [
+    "emblemes_place",
+    "signature"
+   ],
+   "ecurie": 3,
+   "epaule": 0.8
+  },
+  {
+   "id": "R05",
+   "debut": 41.01,
+   "fin": 42.495,
+   "titre": "Écurie 5 — entrée (plongée)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     0,
+     30,
+     16
+    ],
+    "p1": [
+     0,
+     20,
+     9
+    ],
+    "c0": [
+     0,
+     0,
+     0
+    ],
+    "c1": [
+     0,
+     0,
+     2
+    ],
+    "mm0": 32,
+    "mm1": 32,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 4
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 4
+   },
+   "actions": [
+    "emblemes_place",
+    "emblème_entre:4"
+   ],
+   "ecurie": 4
+  },
+  {
+   "id": "R05s",
+   "debut": 42.495,
+   "fin": 45.94,
+   "titre": "Écurie 5 — SIGNATURE (orbite, fumée et confettis à ses couleurs)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "place",
+    "p0": [
+     12,
+     8,
+     75
+    ],
+    "p1": [
+     9,
+     4,
+     42
+    ],
+    "c0": [
+     0,
+     30,
+     0
+    ],
+    "c1": [
+     0,
+     5,
+     0
+    ],
+    "mm0": 20,
+    "mm1": 22,
+    "courbe": "cine",
+    "roulis": 0.0,
+    "suit": 4,
+    "orbite": [
+     -0.52,
+     0.08000000000000002
+    ]
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 4
+   },
+   "actions": [
+    "emblemes_place",
+    "signature"
+   ],
+   "ecurie": 4,
+   "epaule": 0.8
+  },
+  {
+   "id": "RB",
+   "debut": 45.94,
+   "fin": 46.88,
+   "titre": "« Le groupe B ! »",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     0,
+     30,
+     60
+    ],
+    "p1": [
+     0,
+     22,
+     40
+    ],
+    "c0": [
+     0,
+     8,
+     128
+    ],
+    "c1": [
+     0,
+     8,
+     128
+    ],
+    "mm0": 22,
+    "mm1": 24,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "groupe",
+    "lettre": "B",
+    "index": 1
+   },
+   "actions": [
+    "emblemes_place"
+   ],
+   "epaule": 0.9
+  },
+  {
+   "id": "R06",
+   "debut": 46.88,
+   "fin": 48.135,
+   "titre": "Écurie 6 — entrée (ras du sol)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     0,
+     1.5,
+     20
+    ],
+    "p1": [
+     6,
+     1.5,
+     14
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3,
+     0
+    ],
+    "mm0": 24,
+    "mm1": 24,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 5
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 5
+   },
+   "actions": [
+    "emblemes_place",
+    "emblème_entre:5"
+   ],
+   "ecurie": 5
+  },
+  {
+   "id": "R06s",
+   "debut": 48.135,
+   "fin": 51.37,
+   "titre": "Écurie 6 — SIGNATURE (orbite, fumée et confettis à ses couleurs)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "place",
+    "p0": [
+     0,
+     6,
+     20
+    ],
+    "p1": [
+     0,
+     4,
+     14
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3.5,
+     0
+    ],
+    "mm0": 24,
+    "mm1": 28,
+    "courbe": "cine",
+    "roulis": 0.0,
+    "suit": 5,
+    "orbite": [
+     -0.9,
+     0.9
+    ]
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 5
+   },
+   "actions": [
+    "emblemes_place",
+    "signature"
+   ],
+   "ecurie": 5,
+   "epaule": 0.8
+  },
+  {
+   "id": "R07",
+   "debut": 51.37,
+   "fin": 52.605,
+   "titre": "Écurie 7 — entrée (travelling latéral)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     -22,
+     4,
+     -10
+    ],
+    "p1": [
+     -22,
+     4,
+     12
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3,
+     6
+    ],
+    "mm0": 45,
+    "mm1": 45,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 6
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 6
+   },
+   "actions": [
+    "emblemes_place",
+    "emblème_entre:6"
+   ],
+   "ecurie": 6
+  },
+  {
+   "id": "R07s",
+   "debut": 52.605,
+   "fin": 55.135,
+   "titre": "Écurie 7 — SIGNATURE (orbite, fumée et confettis à ses couleurs)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "place",
+    "p0": [
+     0,
+     1.5,
+     22
+    ],
+    "p1": [
+     0,
+     1.5,
+     18
+    ],
+    "c0": [
+     0,
+     14,
+     0
+    ],
+    "c1": [
+     0,
+     22,
+     0
+    ],
+    "mm0": 18,
+    "mm1": 16,
+    "courbe": "cine",
+    "roulis": 0.0,
+    "suit": 6,
+    "orbite": [
+     0.8,
+     -0.8
+    ]
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 6
+   },
+   "actions": [
+    "emblemes_place",
+    "signature"
+   ],
+   "ecurie": 6,
+   "epaule": 0.8
+  },
+  {
+   "id": "R08",
+   "debut": 55.135,
+   "fin": 57.05,
+   "titre": "Écurie 8 — entrée (contre-plongée)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     9,
+     1.2,
+     11
+    ],
+    "p1": [
+     11,
+     1.2,
+     7
+    ],
+    "c0": [
+     0,
+     6,
+     0
+    ],
+    "c1": [
+     0,
+     8,
+     -2
+    ],
+    "mm0": 18,
+    "mm1": 18,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 7
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 7
+   },
+   "actions": [
+    "emblemes_place",
+    "emblème_entre:7"
+   ],
+   "ecurie": 7
+  },
+  {
+   "id": "R08s",
+   "debut": 57.05,
+   "fin": 60.17,
+   "titre": "Écurie 8 — SIGNATURE (orbite, fumée et confettis à ses couleurs)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "place",
+    "p0": [
+     0,
+     6,
+     20
+    ],
+    "p1": [
+     0,
+     4,
+     14
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3.5,
+     0
+    ],
+    "mm0": 24,
+    "mm1": 28,
+    "courbe": "cine",
+    "roulis": 0.0,
+    "suit": 7,
+    "orbite": [
+     -0.4,
+     1.4
+    ]
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 7
+   },
+   "actions": [
+    "emblemes_place",
+    "signature"
+   ],
+   "ecurie": 7,
+   "epaule": 0.8
+  },
+  {
+   "id": "R09",
+   "debut": 60.17,
+   "fin": 61.905,
+   "titre": "Écurie 9 — entrée (passage au ras de l'objectif)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     4,
+     3,
+     28
+    ],
+    "p1": [
+     3,
+     3,
+     7
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3,
+     -6
+    ],
+    "mm0": 28,
+    "mm1": 28,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 8
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 8
+   },
+   "actions": [
+    "emblemes_place",
+    "emblème_entre:8"
+   ],
+   "ecurie": 8
+  },
+  {
+   "id": "R09s",
+   "debut": 61.905,
+   "fin": 65.12,
+   "titre": "Écurie 9 — SIGNATURE (orbite, fumée et confettis à ses couleurs)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "place",
+    "p0": [
+     14,
+     4,
+     40
+    ],
+    "p1": [
+     10,
+     3,
+     30
+    ],
+    "c0": [
+     -10,
+     30,
+     -10
+    ],
+    "c1": [
+     0,
+     4,
+     0
+    ],
+    "mm0": 18,
+    "mm1": 20,
+    "courbe": "cine",
+    "roulis": 0.0,
+    "suit": 8,
+    "orbite": [
+     0.6,
+     -0.15
+    ]
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 8
+   },
+   "actions": [
+    "emblemes_place",
+    "signature"
+   ],
+   "ecurie": 8,
+   "epaule": 0.8
+  },
+  {
+   "id": "R10",
+   "debut": 65.12,
+   "fin": 67.01,
+   "titre": "Écurie 10 — entrée (plongée)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     0,
+     30,
+     16
+    ],
+    "p1": [
+     0,
+     20,
+     9
+    ],
+    "c0": [
+     0,
+     0,
+     0
+    ],
+    "c1": [
+     0,
+     0,
+     2
+    ],
+    "mm0": 32,
+    "mm1": 32,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 9
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 9
+   },
+   "actions": [
+    "emblemes_place",
+    "emblème_entre:9"
+   ],
+   "ecurie": 9
+  },
+  {
+   "id": "R10s",
+   "debut": 67.01,
+   "fin": 70.52,
+   "titre": "Écurie 10 — SIGNATURE (orbite, fumée et confettis à ses couleurs)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "place",
+    "p0": [
+     0,
+     1.8,
+     24
+    ],
+    "p1": [
+     0,
+     1.6,
+     20
+    ],
+    "c0": [
+     0,
+     26,
+     -20
+    ],
+    "c1": [
+     0,
+     18,
+     -10
+    ],
+    "mm0": 16,
+    "mm1": 16,
+    "courbe": "cine",
+    "roulis": 0.0,
+    "suit": 9,
+    "orbite": [
+     -0.65,
+     0.1
+    ]
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 9
+   },
+   "actions": [
+    "emblemes_place",
+    "signature"
+   ],
+   "ecurie": 9,
+   "epaule": 0.8
+  },
+  {
+   "id": "RC",
+   "debut": 70.52,
+   "fin": 71.315,
+   "titre": "« Le groupe C ! »",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     0,
+     30,
+     60
+    ],
+    "p1": [
+     0,
+     22,
+     40
+    ],
+    "c0": [
+     128,
+     8,
+     0
+    ],
+    "c1": [
+     128,
+     8,
+     0
+    ],
+    "mm0": 22,
+    "mm1": 24,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "groupe",
+    "lettre": "C",
+    "index": 2
+   },
+   "actions": [
+    "emblemes_place"
+   ],
+   "epaule": 0.9
+  },
+  {
+   "id": "R11",
+   "debut": 71.315,
+   "fin": 73.09,
+   "titre": "Écurie 11 — entrée (ras du sol)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     0,
+     1.5,
+     20
+    ],
+    "p1": [
+     6,
+     1.5,
+     14
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3,
+     0
+    ],
+    "mm0": 24,
+    "mm1": 24,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 10
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 10
+   },
+   "actions": [
+    "emblemes_place",
+    "emblème_entre:10"
+   ],
+   "ecurie": 10
+  },
+  {
+   "id": "R11s",
+   "debut": 73.09,
+   "fin": 76.29,
+   "titre": "Écurie 11 — SIGNATURE (orbite, fumée et confettis à ses couleurs)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "place",
+    "p0": [
+     0,
+     2,
+     26
+    ],
+    "p1": [
+     0,
+     2,
+     20
+    ],
+    "c0": [
+     0,
+     16,
+     0
+    ],
+    "c1": [
+     0,
+     10,
+     0
+    ],
+    "mm0": 18,
+    "mm1": 18,
+    "courbe": "cine",
+    "roulis": 0.0,
+    "suit": 10,
+    "orbite": [
+     -0.9,
+     0.9
+    ]
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 10
+   },
+   "actions": [
+    "emblemes_place",
+    "signature"
+   ],
+   "ecurie": 10,
+   "epaule": 0.8
+  },
+  {
+   "id": "R12",
+   "debut": 76.29,
+   "fin": 77.755,
+   "titre": "Écurie 12 — entrée (travelling latéral)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     -22,
+     4,
+     -10
+    ],
+    "p1": [
+     -22,
+     4,
+     12
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3,
+     6
+    ],
+    "mm0": 45,
+    "mm1": 45,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 11
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 11
+   },
+   "actions": [
+    "emblemes_place",
+    "emblème_entre:11"
+   ],
+   "ecurie": 11
+  },
+  {
+   "id": "R12s",
+   "debut": 77.755,
+   "fin": 80.99,
+   "titre": "Écurie 12 — SIGNATURE (orbite, fumée et confettis à ses couleurs)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "place",
+    "p0": [
+     0,
+     6,
+     20
+    ],
+    "p1": [
+     0,
+     4,
+     14
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3.5,
+     0
+    ],
+    "mm0": 24,
+    "mm1": 28,
+    "courbe": "cine",
+    "roulis": 0.0,
+    "suit": 11,
+    "orbite": [
+     0.8,
+     -0.8
+    ]
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 11
+   },
+   "actions": [
+    "emblemes_place",
+    "signature"
+   ],
+   "ecurie": 11,
+   "epaule": 0.8
+  },
+  {
+   "id": "R13",
+   "debut": 80.99,
+   "fin": 82.505,
+   "titre": "Écurie 13 — entrée (contre-plongée)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     9,
+     1.2,
+     11
+    ],
+    "p1": [
+     11,
+     1.2,
+     7
+    ],
+    "c0": [
+     0,
+     6,
+     0
+    ],
+    "c1": [
+     0,
+     8,
+     -2
+    ],
+    "mm0": 18,
+    "mm1": 18,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 12
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 12
+   },
+   "actions": [
+    "emblemes_place",
+    "emblème_entre:12"
+   ],
+   "ecurie": 12
+  },
+  {
+   "id": "R13s",
+   "debut": 82.505,
+   "fin": 85.625,
+   "titre": "Écurie 13 — SIGNATURE (orbite, fumée et confettis à ses couleurs)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "place",
+    "p0": [
+     0,
+     6,
+     20
+    ],
+    "p1": [
+     0,
+     4,
+     14
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3.5,
+     0
+    ],
+    "mm0": 24,
+    "mm1": 28,
+    "courbe": "cine",
+    "roulis": 0.0,
+    "suit": 12,
+    "orbite": [
+     -0.4,
+     1.4
+    ]
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 12
+   },
+   "actions": [
+    "emblemes_place",
+    "signature"
+   ],
+   "ecurie": 12,
+   "epaule": 0.8
+  },
+  {
+   "id": "R14",
+   "debut": 85.625,
+   "fin": 87.01,
+   "titre": "Écurie 14 — entrée (passage au ras de l'objectif)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     4,
+     3,
+     28
+    ],
+    "p1": [
+     3,
+     3,
+     7
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3,
+     -6
+    ],
+    "mm0": 28,
+    "mm1": 28,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 13
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 13
+   },
+   "actions": [
+    "emblemes_place",
+    "emblème_entre:13"
+   ],
+   "ecurie": 13
+  },
+  {
+   "id": "R14s",
+   "debut": 87.01,
+   "fin": 89.0,
+   "titre": "Écurie 14 — SIGNATURE (orbite, fumée et confettis à ses couleurs)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "place",
+    "p0": [
+     0,
+     12,
+     40
+    ],
+    "p1": [
+     0,
+     9,
+     30
+    ],
+    "c0": [
+     0,
+     2,
+     0
+    ],
+    "c1": [
+     0,
+     3,
+     0
+    ],
+    "mm0": 20,
+    "mm1": 20,
+    "courbe": "cine",
+    "roulis": 0.0,
+    "suit": 13,
+    "orbite": [
+     1.2,
+     -0.3
+    ]
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 13
+   },
+   "actions": [
+    "emblemes_place",
+    "signature"
+   ],
+   "ecurie": 13,
+   "epaule": 0.8
+  },
+  {
+   "id": "R15",
+   "debut": 89.0,
+   "fin": 90.875,
+   "titre": "Écurie 15 — entrée (plongée)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     0,
+     30,
+     16
+    ],
+    "p1": [
+     0,
+     20,
+     9
+    ],
+    "c0": [
+     0,
+     0,
+     0
+    ],
+    "c1": [
+     0,
+     0,
+     2
+    ],
+    "mm0": 32,
+    "mm1": 32,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 14
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 14
+   },
+   "actions": [
+    "emblemes_place",
+    "emblème_entre:14"
+   ],
+   "ecurie": 14
+  },
+  {
+   "id": "R15s",
+   "debut": 90.875,
+   "fin": 91.859,
+   "titre": "Écurie 15 — SIGNATURE (orbite, fumée et confettis à ses couleurs)",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "place",
+    "p0": [
+     0,
+     6,
+     20
+    ],
+    "p1": [
+     0,
+     4,
+     14
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3.5,
+     0
+    ],
+    "mm0": 24,
+    "mm1": 28,
+    "courbe": "cine",
+    "roulis": 0.0,
+    "suit": 14,
+    "orbite": [
+     -1.3,
+     0.2
+    ]
+   },
+   "ecran": {
+    "mode": "ecurie",
+    "index": 14
+   },
+   "actions": [
+    "emblemes_place",
+    "signature"
+   ],
+   "ecurie": 14,
+   "epaule": 0.8
+  },
+  {
+   "id": "R16",
+   "debut": 91.859,
+   "fin": 93.269,
+   "titre": "Les 15 emblèmes : grue au-dessus du ring, déluge de confettis",
+   "decor": "arene",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     0,
+     10,
+     150
+    ],
+    "p1": [
+     0,
+     55,
+     200
+    ],
+    "c0": [
+     0,
+     10,
+     0
+    ],
+    "c1": [
+     0,
+     0,
+     10
+    ],
+    "mm0": 20,
+    "mm1": 20,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "titre"
+   },
+   "actions": [
+    "emblemes_place",
+    "pyros"
+   ],
+   "epaule": 0.6
+  },
+  {
+   "id": "U0",
+   "debut": 93.269,
+   "fin": 96.409,
+   "titre": "« Mais attention… ils ne viennent pas seuls ! »",
+   "decor": "arene",
+   "univers": null,
+   "theme": "sauvage",
+   "allume": 0.2,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     0,
+     14,
+     120
+    ],
+    "p1": [
+     0,
+     10,
+     80
+    ],
+    "c0": [
+     0,
+     8,
+     0
+    ],
+    "c1": [
+     0,
+     8,
+     0
+    ],
+    "mm0": 32,
+    "mm1": 40,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "?",
+    "taille": 300,
+    "couleur": "#ff2d55"
+   },
+   "actions": []
+  },
+  {
+   "id": "G1",
+   "debut": 96.409,
+   "fin": 100.714,
+   "titre": "GOTHAM : la Batmobile sort du brouillard",
+   "decor": "arene",
+   "univers": "gotham",
+   "theme": "sauvage",
+   "allume": 0.35,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     0,
+     2.5,
+     66
+    ],
+    "p1": [
+     0,
+     2.5,
+     48
+    ],
+    "c0": [
+     0,
+     4,
+     0
+    ],
+    "c1": [
+     0,
+     4,
+     -10
+    ],
+    "mm0": 35,
+    "mm1": 35,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "GOTHAM",
+    "couleur": "#c9d6ff"
+   },
+   "actions": [
+    "gotham",
+    "batmobile"
+   ]
+  },
+  {
+   "id": "G2",
+   "debut": 100.714,
+   "fin": 103.204,
+   "titre": "« …la NUIT. » : éclair, chauves-souris",
+   "decor": "arene",
+   "univers": "gotham",
+   "theme": "sauvage",
+   "allume": 0.35,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     -34,
+     5,
+     26
+    ],
+    "p1": [
+     -34,
+     5,
+     -10
+    ],
+    "c0": [
+     0,
+     4,
+     10
+    ],
+    "c1": [
+     0,
+     4,
+     -20
+    ],
+    "mm0": 45,
+    "mm1": 45,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "GOTHAM",
+    "couleur": "#c9d6ff"
+   },
+   "actions": [
+    "gotham",
+    "batmobile",
+    "eclair",
+    "chauves_souris"
+   ]
+  },
+  {
+   "id": "G3",
+   "debut": 103.204,
+   "fin": 105.209,
+   "titre": "« …quelqu'un rit. » : une ombre, rien de plus",
+   "decor": "arene",
+   "univers": "gotham",
+   "theme": "sauvage",
+   "allume": 0.15,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     0,
+     16,
+     100
+    ],
+    "p1": [
+     0,
+     14,
+     84
+    ],
+    "c0": [
+     0,
+     10,
+     0
+    ],
+    "c1": [
+     0,
+     10,
+     0
+    ],
+    "mm0": 28,
+    "mm1": 30,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "HA HA HA",
+    "couleur": "#8f4dff",
+    "cle": "rire"
+   },
+   "actions": [
+    "gotham",
+    "ombre_rire"
+   ]
+  },
+  {
+   "id": "F1",
+   "debut": 105.209,
+   "fin": 106.564,
+   "titre": "FORMULE 1 : la voie des stands",
+   "decor": "arene",
+   "univers": "f1",
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     55,
+     8,
+     -36
+    ],
+    "p1": [
+     46,
+     6,
+     -42
+    ],
+    "c0": [
+     0,
+     3,
+     -72
+    ],
+    "c1": [
+     0,
+     3,
+     -66
+    ],
+    "mm0": 30,
+    "mm1": 32,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "FORMULE 1",
+    "couleur": "#ff2d2d"
+   },
+   "actions": [
+    "f1_stands"
+   ]
+  },
+  {
+   "id": "F1b1",
+   "debut": 106.564,
+   "fin": 107.194,
+   "titre": "« Box, box » (1/4) : caméra embarquée",
+   "decor": "arene",
+   "univers": "f1",
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     0,
+     3.2,
+     -2.5
+    ],
+    "p1": [
+     0.3,
+     3.2,
+     -2.3
+    ],
+    "c0": [
+     0,
+     2.8,
+     30
+    ],
+    "c1": [
+     0,
+     2.8,
+     30
+    ],
+    "mm0": 16,
+    "mm1": 16,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 100
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "BOX · BOX",
+    "couleur": "#ffffff",
+    "cle": "box0"
+   },
+   "actions": [
+    "f1_stands",
+    "radio"
+   ],
+   "epaule": 0.3
+  },
+  {
+   "id": "F1b2",
+   "debut": 107.194,
+   "fin": 107.674,
+   "titre": "« Box, box » (2/4) : caméra embarquée",
+   "decor": "arene",
+   "univers": "f1",
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     0,
+     3.2,
+     -2.5
+    ],
+    "p1": [
+     0.3,
+     3.2,
+     -2.3
+    ],
+    "c0": [
+     0,
+     2.8,
+     30
+    ],
+    "c1": [
+     0,
+     2.8,
+     30
+    ],
+    "mm0": 16,
+    "mm1": 16,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 101
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "BOX · BOX",
+    "couleur": "#ffffff",
+    "cle": "box1"
+   },
+   "actions": [
+    "f1_stands",
+    "radio"
+   ],
+   "epaule": 0.3
+  },
+  {
+   "id": "F1b3",
+   "debut": 107.674,
+   "fin": 108.149,
+   "titre": "« Box, box » (3/4) : caméra embarquée",
+   "decor": "arene",
+   "univers": "f1",
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     0,
+     3.2,
+     -2.5
+    ],
+    "p1": [
+     0.3,
+     3.2,
+     -2.3
+    ],
+    "c0": [
+     0,
+     2.8,
+     30
+    ],
+    "c1": [
+     0,
+     2.8,
+     30
+    ],
+    "mm0": 16,
+    "mm1": 16,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 102
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "BOX · BOX",
+    "couleur": "#ffffff",
+    "cle": "box2"
+   },
+   "actions": [
+    "f1_stands",
+    "radio"
+   ],
+   "epaule": 0.3
+  },
+  {
+   "id": "F1b4",
+   "debut": 108.149,
+   "fin": 109.689,
+   "titre": "« Box, box » (4/4) : caméra embarquée",
+   "decor": "arene",
+   "univers": "f1",
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "voiture",
+    "p0": [
+     0,
+     3.2,
+     -2.5
+    ],
+    "p1": [
+     0.3,
+     3.2,
+     -2.3
+    ],
+    "c0": [
+     0,
+     2.8,
+     30
+    ],
+    "c1": [
+     0,
+     2.8,
+     30
+    ],
+    "mm0": 16,
+    "mm1": 16,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": 103
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "BOX · BOX",
+    "couleur": "#ffffff",
+    "cle": "box3"
+   },
+   "actions": [
+    "f1_stands",
+    "radio"
+   ],
+   "epaule": 0.3
+  },
+  {
+   "id": "F2",
+   "debut": 109.689,
+   "fin": 111.209,
+   "titre": "« Pneus tendres, on ATTAQUE ! »",
+   "decor": "arene",
+   "univers": "f1",
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     -14,
+     2,
+     -70
+    ],
+    "p1": [
+     -14,
+     2.5,
+     -60
+    ],
+    "c0": [
+     -14,
+     3,
+     40
+    ],
+    "c1": [
+     -14,
+     3,
+     60
+    ],
+    "mm0": 20,
+    "mm1": 22,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "ATTAQUE !",
+    "couleur": "#ff2d2d"
+   },
+   "actions": [
+    "f1_depart"
+   ]
+  },
+  {
+   "id": "AP1",
+   "debut": 111.209,
+   "fin": 114.539,
+   "titre": "APOCALYPSE : terres brûlées, épaves",
+   "decor": "arene",
+   "univers": "apoca",
+   "theme": "sauvage",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     -26,
+     5,
+     84
+    ],
+    "p1": [
+     -12,
+     4,
+     52
+    ],
+    "c0": [
+     0,
+     4,
+     0
+    ],
+    "c1": [
+     0,
+     4,
+     -20
+    ],
+    "mm0": 28,
+    "mm1": 28,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "APOCALYPSE",
+    "couleur": "#ff8a2a"
+   },
+   "actions": [
+    "apoca",
+    "epave_roule"
+   ]
+  },
+  {
+   "id": "AP2",
+   "debut": 114.539,
+   "fin": 116.609,
+   "titre": "« Soyez TÉMOINS ! » : saut, explosion, le luminaire tombe",
+   "decor": "arene",
+   "univers": "apoca",
+   "theme": "sauvage",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     60,
+     5,
+     0
+    ],
+    "p1": [
+     70,
+     9,
+     10
+    ],
+    "c0": [
+     0,
+     8,
+     0
+    ],
+    "c1": [
+     0,
+     10,
+     0
+    ],
+    "mm0": 22,
+    "mm1": 20,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "TÉMOINS !",
+    "couleur": "#ff8a2a"
+   },
+   "actions": [
+    "apoca",
+    "epave_saut",
+    "explosion",
+    "luminaire_casse"
+   ],
+   "epaule": 1.0
+  },
+  {
+   "id": "C1",
+   "debut": 116.609,
+   "fin": 119.984,
+   "titre": "« Ouvrez les caisses… découvrez vos bolides… »",
+   "decor": "arene",
+   "univers": "caisses",
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     45,
+     32,
+     85
+    ],
+    "p1": [
+     -45,
+     28,
+     85
+    ],
+    "c0": [
+     0,
+     5,
+     0
+    ],
+    "c1": [
+     0,
+     5,
+     0
+    ],
+    "mm0": 28,
+    "mm1": 28,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "OUVREZ",
+    "ligne2": "LES CAISSES",
+    "couleur": "#ffc83d"
+   },
+   "actions": [
+    "caisses",
+    "luminaire_casse_fixe"
+   ]
+  },
+  {
+   "id": "C2",
+   "debut": 119.984,
+   "fin": 121.784,
+   "titre": "« …les modèles UNIQUES ! » : faisceaux de rareté",
+   "decor": "arene",
+   "univers": "caisses",
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     0,
+     6,
+     80
+    ],
+    "p1": [
+     0,
+     4,
+     62
+    ],
+    "c0": [
+     0,
+     30,
+     0
+    ],
+    "c1": [
+     0,
+     40,
+     0
+    ],
+    "mm0": 20,
+    "mm1": 18,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "MODÈLES",
+    "ligne2": "UNIQUES",
+    "couleur": "#ffc83d"
+   },
+   "actions": [
+    "caisses",
+    "faisceaux",
+    "luminaire_casse_fixe"
+   ]
+  },
+  {
+   "id": "C3",
+   "debut": 121.784,
+   "fin": 123.809,
+   "titre": "« …chante dans le noir… » : silhouette dans l'ombre",
+   "decor": "arene",
+   "univers": "caisses",
+   "theme": "championnat",
+   "allume": 0.04,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     0,
+     9.5,
+     24
+    ],
+    "p1": [
+     0,
+     9,
+     18
+    ],
+    "c0": [
+     0,
+     4,
+     -3
+    ],
+    "c1": [
+     0,
+     4,
+     -3
+    ],
+    "mm0": 40,
+    "mm1": 45,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "…",
+    "couleur": "#2a3a3a",
+    "cle": "noir"
+   },
+   "actions": [
+    "caisses",
+    "silhouette",
+    "luminaire_casse_fixe"
+   ],
+   "epaule": 0.3
+  },
+  {
+   "id": "P1",
+   "debut": 123.809,
+   "fin": 124.784,
+   "titre": "« Des PIÈGES ! » : la peau de banane",
+   "decor": "arene",
+   "univers": "pieges",
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     26,
+     4,
+     16
+    ],
+    "p1": [
+     22,
+     4,
+     -2
+    ],
+    "c0": [
+     0,
+     2,
+     -10
+    ],
+    "c1": [
+     0,
+     2,
+     -20
+    ],
+    "mm0": 35,
+    "mm1": 35,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "PIÈGES !",
+    "couleur": "#ffe23d"
+   },
+   "actions": [
+    "banane"
+   ]
+  },
+  {
+   "id": "P2",
+   "debut": 124.784,
+   "fin": 125.764,
+   "titre": "« Des TRAHISONS ! » : la carapace",
+   "decor": "arene",
+   "univers": "pieges",
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     -26,
+     7,
+     26
+    ],
+    "p1": [
+     -22,
+     5,
+     16
+    ],
+    "c0": [
+     0,
+     3,
+     0
+    ],
+    "c1": [
+     0,
+     3,
+     -5
+    ],
+    "mm0": 30,
+    "mm1": 30,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "TRAHISONS !",
+    "couleur": "#3f8cff"
+   },
+   "actions": [
+    "carapace"
+   ]
+  },
+  {
+   "id": "P3",
+   "debut": 125.764,
+   "fin": 129.209,
+   "titre": "« …paris en direct… ou à l'ancienne ! »",
+   "decor": "arene",
+   "univers": "paris",
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     0,
+     30,
+     150
+    ],
+    "p1": [
+     0,
+     40,
+     125
+    ],
+    "c0": [
+     0,
+     60,
+     -60
+    ],
+    "c1": [
+     0,
+     70,
+     -60
+    ],
+    "mm0": 24,
+    "mm1": 26,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "PARIS",
+    "ligne2": "EN DIRECT",
+    "couleur": "#35e07a"
+   },
+   "actions": [
+    "telephone",
+    "pieces",
+    "carnet"
+   ]
+  },
+  {
+   "id": "GL",
+   "debut": 129.209,
+   "fin": 133.419,
+   "titre": "« …la gloire ÉTERNELLE ! » : la Coupe arc-en-ciel",
+   "decor": "arene",
+   "univers": "gloire",
+   "theme": "championnat",
+   "allume": 0.6,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     34,
+     4,
+     34
+    ],
+    "p1": [
+     -34,
+     4,
+     34
+    ],
+    "c0": [
+     0,
+     18,
+     0
+    ],
+    "c1": [
+     0,
+     22,
+     0
+    ],
+    "mm0": 24,
+    "mm1": 24,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "LA GLOIRE",
+    "ligne2": "ÉTERNELLE",
+    "couleur": "#ffc83d"
+   },
+   "actions": [
+    "coupe",
+    "rayons"
+   ]
+  },
+  {
+   "id": "T1",
+   "debut": 133.419,
+   "fin": 136.249,
+   "titre": "« Le GRAND PRIX… DE NOËL ! » : les mots slamment",
+   "decor": "arene",
+   "univers": "titre",
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     0,
+     3,
+     110
+    ],
+    "p1": [
+     0,
+     5,
+     135
+    ],
+    "c0": [
+     0,
+     30,
+     0
+    ],
+    "c1": [
+     0,
+     30,
+     0
+    ],
+    "mm0": 20,
+    "mm1": 22,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "titre"
+   },
+   "actions": [
+    "mots_titre",
+    "meute_grille"
+   ]
+  },
+  {
+   "id": "T2",
+   "debut": 136.249,
+   "fin": 137.999,
+   "titre": "« 23 décembre ! » : les 15 emblèmes derrière la meute",
+   "decor": "arene",
+   "univers": "titre",
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     0,
+     34,
+     190
+    ],
+    "p1": [
+     0,
+     26,
+     165
+    ],
+    "c0": [
+     0,
+     10,
+     40
+    ],
+    "c1": [
+     0,
+     10,
+     40
+    ],
+    "mm0": 24,
+    "mm1": 26,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "texte",
+    "ligne1": "23 DÉCEMBRE",
+    "couleur": "#ffc83d"
+   },
+   "actions": [
+    "meute_grille",
+    "emblemes_grille"
+   ]
+  },
+  {
+   "id": "T3",
+   "debut": 137.999,
+   "fin": 141.124,
+   "titre": "« Préparez-vous… à VROMBIR ! » : les 5 feux",
+   "decor": "arene",
+   "univers": "final",
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     0,
+     6,
+     106
+    ],
+    "p1": [
+     0,
+     4,
+     94
+    ],
+    "c0": [
+     0,
+     30,
+     -200
+    ],
+    "c1": [
+     0,
+     30,
+     -200
+    ],
+    "mm0": 28,
+    "mm1": 30,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "feux"
+   },
+   "actions": [
+    "meute_grille",
+    "emblemes_grille",
+    "feux"
+   ]
+  },
+  {
+   "id": "T4",
+   "debut": 141.124,
+   "fin": 142.744,
+   "titre": "« Que le spectacle… COMMENCE ! » : départ dans la fumée",
+   "decor": "arene",
+   "univers": "final",
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "ring",
+    "p0": [
+     0,
+     3,
+     -90
+    ],
+    "p1": [
+     0,
+     4,
+     -115
+    ],
+    "c0": [
+     0,
+     4,
+     0
+    ],
+    "c1": [
+     0,
+     4,
+     0
+    ],
+    "mm0": 20,
+    "mm1": 18,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "titre"
+   },
+   "actions": [
+    "meute_depart",
+    "emblemes_grille",
+    "pyros"
+   ],
+   "epaule": 1.0
+  },
+  {
+   "id": "SF",
+   "debut": 142.744,
+   "fin": 148.209,
+   "titre": "Retour au salon : la télé affiche le logo",
+   "decor": "salon",
+   "univers": null,
+   "theme": "championnat",
+   "allume": 1.0,
+   "cam": {
+    "rep": "abs",
+    "p0": [
+     0,
+     108,
+     195
+    ],
+    "p1": [
+     0,
+     104,
+     60
+    ],
+    "c0": [
+     0,
+     100,
+     -178
+    ],
+    "c1": [
+     0,
+     100,
+     -178
+    ],
+    "mm0": 22,
+    "mm1": 26,
+    "courbe": "doux",
+    "roulis": 0.0,
+    "suit": null
+   },
+   "ecran": {
+    "mode": "titre"
+   },
+   "actions": [
+    "meute_garee",
+    "tv_logo",
+    "fondu_fin"
+   ],
+   "lum": 0.5,
+   "lune": 0.6
+  }
+ ]
+}

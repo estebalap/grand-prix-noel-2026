@@ -26,6 +26,33 @@ function bosse(k, B, x, z, rx, ry, rz, mat) {
   let y = Infinity; for (let i = -4; i <= 4; i++) for (const dz of [-0.6, 0, 0.6]) y = Math.min(y, k.hautAu(B, x + rx * 0.85 * i / 4, z + rz * dz));
   for (const s of [-1, 1]) k.ellipsoide(rx, ry, rz, mat, x, y - ry * 0.3, s * z, 24);
 }
+/** Inspection des trains roulants (chantier V5) : retire des AUTOCOLLANTS (maillages texturés transparents enfants de `cible`)
+ *  les triangles qui tombent dans le volume d'un pneu (disque du pneu × largeur de bande de roulement, de chaque côté).
+ *  Ces zones sont déjà rendues transparentes par le « trouage » du canvas : l'aspect ne change pas, mais plus aucune pellicule
+ *  ne traverse la gomme. roues : [{ x, y?, RW | R, z (demi-voie au centre du pneu), ep }]. */
+function ajourerPneus(cible, roues) {
+  const disques = [];
+  for (const r of roues) {
+    const R = r.RW ?? r.R, y = r.y ?? R, a = r.z - r.ep / 2 - 0.04, b = r.z + r.ep / 2 + 0.04;
+    disques.push({ x: r.x, y, R2: R * R, z0: a, z1: b }, { x: r.x, y, R2: R * R, z0: -b, z1: -a });
+  }
+  const dans = (x, y, z) => disques.some((d) => z >= d.z0 && z <= d.z1 && (x - d.x) ** 2 + (y - d.y) ** 2 < d.R2);
+  const T = [[1, 0], [0, 1], [0, 0], [0.5, 0.5], [0.5, 0], [0, 0.5], [1 / 3, 1 / 3]];
+  const liste = [];
+  cible.traverse((me) => { if (me.isMesh && me.geometry && me.geometry.groups.length <= 1 && [].concat(me.material).every((m) => m.map && m.transparent)) liste.push(me); });
+  for (const me of liste) {
+    me.updateWorldMatrix(true, false);
+    const e = me.matrixWorld.elements, g = me.geometry, p = g.attributes.position;
+    const P = (i) => { const x = p.getX(i), y = p.getY(i), z = p.getZ(i); return [e[0] * x + e[4] * y + e[8] * z + e[12], e[1] * x + e[5] * y + e[9] * z + e[13], e[2] * x + e[6] * y + e[10] * z + e[14]]; };
+    const idx = g.index ? Array.from(g.index.array) : Array.from({ length: p.count }, (_, i) => i), reste = [];
+    for (let t = 0; t + 2 < idx.length; t += 3) {
+      const A = P(idx[t]), B = P(idx[t + 1]), C = P(idx[t + 2]);
+      if (!T.some(([u, v]) => { const w = 1 - u - v; return dans(A[0] * u + B[0] * v + C[0] * w, A[1] * u + B[1] * v + C[1] * w, A[2] * u + B[2] * v + C[2] * w); })) reste.push(idx[t], idx[t + 1], idx[t + 2]);
+    }
+    if (reste.length < idx.length) g.setIndex(reste);
+  }
+}
+
 /** Rétroviseurs : coque + glace, des deux côtés. */
 function retros(k, x, y, z, peint) {
   const { o } = k;
@@ -115,7 +142,17 @@ function wedgeNoir(ctx) {
   k.loft(B, peint, { arches: k.arches(rs) }); k.puits(rs);
   k.ailes(rs, peint, { t: 0.08, arrondi: 0.03 });                     // garde-boue : la tôle coiffe toute la largeur du pneu
   // crêtes d'ailes avant (bosses au-dessus des roues, capot plus bas entre elles)
-  bosse(k, B, 2.65, 0.76, 0.85, 0.12, 0.3, peint);
+  {
+    const n0 = ctx.chassis.children.length;
+    bosse(k, B, 2.65, 0.76, 0.85, 0.12, 0.3, peint);
+    // inspection des trains : la joue extérieure des crêtes (noyée dans l'aile) est arasée à |z| ≤ 0,93,
+    // juste avant la bande de roulement du pneu avant (|z| ≥ 0,95) qu'elle traversait sous le passage de roue
+    for (const m of ctx.chassis.children.slice(n0)) {
+      const p = m.geometry.attributes.position;
+      for (let i = 0; i < p.count; i++) { const wz = m.position.z + m.scale.z * p.getZ(i); if (Math.abs(wz) > 0.93) p.setZ(i, (Math.sign(wz) * 0.93 - m.position.z) / m.scale.z); }
+      p.needsUpdate = true; m.geometry.computeVertexNormals();
+    }
+  }
   // pavillon chopé : pare-brise très couché, toit court large et plat, puis une seule pente jusqu'à la poupe
   const G = [
     { x: -3.95, w: 1.07, y0: 0.95, y1: 1.4, nt: 4, wt: 0.9 }, { x: -2.4, w: 1.11, y0: 0.95, y1: 1.5, nt: 4.5, wt: 0.88 },
@@ -142,6 +179,7 @@ function wedgeNoir(ctx) {
     g.strokeStyle = '#3b3f49'; g.lineWidth = 3; g.beginPath(); g.moveTo(M.X(3.6), M.Y(0.75)); g.lineTo(M.X(-3.6), M.Y(0.86)); g.stroke();
     M.trouer(g, rs);
   }, 1024, 160, 0.024, rs);
+  ajourerPneus(ctx.chassis, rs);                                                                     // inspection des trains : aucun autocollant dans la gomme
   return { L: 8.9, largeur: 2.56, hauteur: 1.7, xAvant: 4.4, xArriere: -4.6,
     roues: rs.map((r) => ({ ...r, jante: '#2c2e34', rayons: 'plein', flanc: '#8d9199' })) };
 }

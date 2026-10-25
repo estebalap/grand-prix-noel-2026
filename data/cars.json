@@ -11,7 +11,7 @@
     "resistance_banane": 55,
     "facteur_chaos": 35,
     "intimidation": 90,
-    "citation": "Trois semaines de travaux, 4,62 millions à la revente : même l'immobilier parisien me jalouse.",
+    "citation": "Bricolée en trois semaines, revendue 4,62 millions. Ton plan épargne logement pleure en silence.",
     "lore": "Concept-car Lincoln reconverti en trois semaines : V8 d'époque, chaînes anti-poursuite, parachute de demi-tour. Aucune ceinture, aucun contrôle technique. Le seul véhicule dont la plus-value n'est pas taxée en Gotham.",
     "voie_preferee": "Voie 1 (Côté remparts)",
     "poids_estime": "34g",
@@ -56,6 +56,9 @@
     "anciens_alias": [
       "Holy Plus-Value !",
       "Batmobile 1966"
+    ],
+    "citations_precedentes": [
+      "Trois semaines de travaux, 4,62 millions à la revente : même l'immobilier parisien me jalouse."
     ]
   },
   {
@@ -70,7 +73,7 @@
     "resistance_banane": 72,
     "facteur_chaos": 30,
     "intimidation": 91,
-    "citation": "Mode Cocon enclenché : plus rien ne passe, même pas une carapace.",
+    "citation": "Mode cocon : blindée, fermée, injoignable. Comme un service client un vendredi à 17 h.",
     "lore": "Turbine d'avion, six mètres de carrosserie et mode cocon intégral : elle se ferme comme un gouvernement après une motion de censure. Rien n'entre, rien ne sort, la conférence de presse est annulée.",
     "voie_preferee": "Voie 2",
     "poids_estime": "32g",
@@ -117,6 +120,9 @@
     "anciens_alias": [
       "Cocon Matignon",
       "Le Bunker en Province"
+    ],
+    "citations_precedentes": [
+      "Mode Cocon enclenché : plus rien ne passe, même pas une carapace."
     ]
   },
   {
@@ -131,7 +137,7 @@
     "resistance_banane": 40,
     "facteur_chaos": 40,
     "intimidation": 90,
-    "citation": "Largeur réduite, allure doublée : en mode Batmissile, je passe où les autres rêvent.",
+    "citation": "Je me rétrécis pour passer partout. Les bouchons, c'est pour les gens qui pointent.",
     "lore": "Dans le film de 1992 elle larguait ses flancs pour passer dans un couloir étroit. Le trick marche aussi sur la piste : moins large, plus rapide, jamais invitée aux arbitrages budgétaires de l'été.",
     "voie_preferee": "Voie 3",
     "poids_estime": "33g",
@@ -178,6 +184,9 @@
     "anciens_alias": [
       "Batmissile Austérité",
       "Le Bouton Rouge"
+    ],
+    "citations_precedentes": [
+      "Largeur réduite, allure doublée : en mode Batmissile, je passe où les autres rêvent."
     ]
   },
   {
@@ -192,7 +201,7 @@
     "resistance_banane": 90,
     "facteur_chaos": 55,
     "intimidation": 70,
-    "citation": "Je traverse le mur peint, je rebondis sur la falaise. La physique, c'est une opinion.",
+    "citation": "Je traverse les murs peints. L'urbanisme, le cadastre et la gravité sont en option chez moi.",
     "lore": "Casting « Tooned » : yeux immenses, physique de cartoon. Écrasée par un Thwomp, elle se regonfle en deux secondes et repart en sifflotant. Le contrôle technique la déclare « élastique » et ferme les yeux.",
     "voie_preferee": "Voie 4",
     "poids_estime": "35g",
@@ -241,6 +250,9 @@
     "anciens_alias": [
       "Looney Chaîne",
       "La Carapace Bleue"
+    ],
+    "citations_precedentes": [
+      "Je traverse le mur peint, je rebondis sur la falaise. La physique, c'est une opinion."
     ]
   },
   {
@@ -255,7 +267,7 @@
     "resistance_banane": 52,
     "facteur_chaos": 30,
     "intimidation": 60,
-    "citation": "Pas d'effets spéciaux, pas de turbine : une berline noire et beaucoup de volonté.",
+    "citation": "Pas de gadget, pas de turbine : une berline noire et zéro remords. La sobriété avant que ce soit tendance.",
     "lore": "La toute première : une grosse berline noire de série B, sans gadget, sans bouclier, sans effets spéciaux. Elle gagne ses courses grâce à une conduite honnête, c'est-à-dire presque jamais.",
     "voie_preferee": "Voie 1",
     "poids_estime": "36g",
@@ -299,6 +311,9 @@
     "anciens_alias": [
       "Cadillac du Serial",
       "C'est du Brutal"
+    ],
+    "citations_precedentes": [
+      "Pas d'effets spéciaux, pas de turbine : une berline noire et beaucoup de volonté."
     ]
   },
   {
@@ -313,7 +328,7 @@
     "resistance_banane": 74,
     "facteur_chaos": 50,
     "intimidation": 96,
-    "citation": "Trois tonnes de blindage, zéro sourire. Je ne klaxonne pas, j'annonce.",
+    "citation": "Trois tonnes de blindage et pas un sourire. Je ne te double pas, je t'efface du classement.",
     "lore": "Version musclée du Tumbler, blindage lourd, mitrailleuses frontales et sourire absent. Le film a divisé le public, mais la poursuite est jugée le meilleur moment. La voiture a pris le parti d'en rester là.",
     "voie_preferee": "Voie 2",
     "poids_estime": "37g",
@@ -360,6 +375,9 @@
     "anciens_alias": [
       "Spleen d'Automne",
       "You Died"
+    ],
+    "citations_precedentes": [
+      "Trois tonnes de blindage, zéro sourire. Je ne klaxonne pas, j'annonce."
     ]
   },
   {
@@ -374,7 +392,7 @@
     "resistance_banane": 70,
     "facteur_chaos": 65,
     "intimidation": 94,
-    "citation": "Ni roues, ni contact, ni témoin : je survole la piste en mode surveillance. Souriez, vous êtes filmés.",
+    "citation": "Ni roues, ni plaque, ni radar qui tienne. Souriez : vous êtes filmés, archivés, revendus.",
     "lore": "Pas de roues motrices : des patins. Elle survole la piste en mode surveillance, ignore les bananes et file comme un drone de livraison sans pilote : léger, discret, sans adresse fixe.",
     "voie_preferee": "Voie 4 (Plein air)",
     "poids_estime": "29g",
@@ -426,7 +444,10 @@
     ],
     "rarete_custom": "drone",
     "base_rarete": "legendaire",
-    "badge_custom": "🚁 ESPACE AÉRIEN"
+    "badge_custom": "🚁 ESPACE AÉRIEN",
+    "citations_precedentes": [
+      "Ni roues, ni contact, ni témoin : je survole la piste en mode surveillance. Souriez, vous êtes filmés."
+    ]
   },
   {
     "category_folder": "01_Univers_Batman",
@@ -440,7 +461,7 @@
     "resistance_banane": 55,
     "facteur_chaos": 45,
     "intimidation": 97,
-    "citation": "Je brille en vert quand tu t'approches. Ne touche pas, ne respire pas, ne klaxonne pas.",
+    "citation": "Je brille vert fluo. Ce n'est pas écolo, c'est radioactif. Le service marketing a validé.",
     "lore": "Achetée à un homme en imperméable qui « déménageait ». Elle brille la nuit, chauffe le garage et fait crépiter les compteurs Geiger du lotissement. La notice est en alphabet inconnu, la garantie en cuillères à soupe.",
     "voie_preferee": "Voie 3",
     "poids_estime": "35g",
@@ -486,6 +507,9 @@
     "anciens_alias": [
       "Uranium d'Occasion",
       "Le Dîner de Cons"
+    ],
+    "citations_precedentes": [
+      "Je brille en vert quand tu t'approches. Ne touche pas, ne respire pas, ne klaxonne pas."
     ]
   },
   {
@@ -500,7 +524,7 @@
     "resistance_banane": 78,
     "facteur_chaos": 40,
     "intimidation": 96,
-    "citation": "Piège, banane, huile ? Je les écrase. Blindée, c'est mon prénom.",
+    "citation": "Banane, huile, carapace : j'encaisse tout. Ma franchise d'assurance, elle, ne s'en remet pas.",
     "lore": "Blindage, grilles, boucliers : tout y est, sauf la garantie constitutionnelle. Elle se défend en appel, se représente en cassation et sort sa candidature dans une chasuble blindée. L'armure, ça sert aussi à ça.",
     "voie_preferee": "Voie 1",
     "poids_estime": "38g",
@@ -546,6 +570,9 @@
     "anciens_alias": [
       "Député Radié",
       "Le Bouclier Fiscal"
+    ],
+    "citations_precedentes": [
+      "Piège, banane, huile ? Je les écrase. Blindée, c'est mon prénom."
     ]
   },
   {
@@ -560,7 +587,7 @@
     "resistance_banane": 58,
     "facteur_chaos": 55,
     "intimidation": 95,
-    "citation": "Justice sera rendue, avec une petite retenue au passage. C'est le prélèvement du super-héros.",
+    "citation": "Justice sera rendue. Les frais de dossier, eux, restent non remboursables.",
     "lore": "Armée jusqu'aux dents sur le papier, plombée par les charges en réalité. Ses réformes sont suspendues jusqu'en 2028 et elle reste dans la file de gauche en attendant : le temps de payer, d'abord.",
     "voie_preferee": "Voie 2",
     "poids_estime": "36g",
@@ -606,6 +633,9 @@
     "anciens_alias": [
       "Retraite Suspendue",
       "Je Traverse la Rue"
+    ],
+    "citations_precedentes": [
+      "Justice sera rendue, avec une petite retenue au passage. C'est le prélèvement du super-héros."
     ]
   },
   {
@@ -620,7 +650,7 @@
     "resistance_banane": 40,
     "facteur_chaos": 70,
     "intimidation": 72,
-    "citation": "Tout le monde dehors ! Alerte générale ! Et surtout, ne dites rien à la hiérarchie.",
+    "citation": "Alerte générale ! Effectifs en sous-nombre, heures sup' impayées, mais la sirène marche.",
     "lore": "Gotham Police Department : sirène neuve, pneus d'occasion, réservoir à sec. Le commissaire est parti en congé, le budget aussi. Elle arrive toujours après tout le monde, ce qui est le règlement.",
     "voie_preferee": "Voie 3",
     "poids_estime": "34g",
@@ -666,6 +696,9 @@
     "anciens_alias": [
       "Police Sous-Dotée",
       "Radar derrière le Platane"
+    ],
+    "citations_precedentes": [
+      "Tout le monde dehors ! Alerte générale ! Et surtout, ne dites rien à la hiérarchie."
     ]
   },
   {
@@ -680,7 +713,7 @@
     "resistance_banane": 85,
     "facteur_chaos": 99,
     "intimidation": 94,
-    "citation": "Pourquoi tant de sérieux ? Je prends la route, la ligne d'arrivée et ta carapace.",
+    "citation": "Pourquoi tant de sérieux ? J'ai piégé la piste, la ligne d'arrivée et ton contrat d'assurance.",
     "lore": "Fourgon de braquage, jouets piégés, rires enregistrés à tue-tête. Il fonce sans freiner, comme un gouvernement en fin de session : l'idée est de faire sauter la banque et le plan de vol dans la foulée.",
     "voie_preferee": "Voie 4 (Côté précipice)",
     "poids_estime": "33g",
@@ -727,6 +760,9 @@
     "anciens_alias": [
       "Le Rire Nerveux",
       "Cinq Étoiles de Recherche"
+    ],
+    "citations_precedentes": [
+      "Pourquoi tant de sérieux ? Je prends la route, la ligne d'arrivée et ta carapace."
     ]
   },
   {
@@ -741,7 +777,7 @@
     "resistance_banane": 35,
     "facteur_chaos": 55,
     "intimidation": 85,
-    "citation": "J'allume mes néons, je lâche mon aileron, et tout le monde crie à la fête foraine.",
+    "citation": "Néons, ailerons, zéro honte. J'ai coûté plus cher que le respect que ce film a rapporté.",
     "lore": "Schumacher a demandé du néon, on lui a livré du néon. Aileron de requin, phares bleus, pare-chocs en cathédrale : un manifeste du kitsch sur roues, jamais égalé et jamais pardonné.",
     "voie_preferee": "Voie 2",
     "poids_estime": "35g",
@@ -795,6 +831,9 @@
     "anciens_alias": [
       "Années Fluo",
       "Prenez un Chewing-gum"
+    ],
+    "citations_precedentes": [
+      "J'allume mes néons, je lâche mon aileron, et tout le monde crie à la fête foraine."
     ]
   },
   {
@@ -809,7 +848,7 @@
     "resistance_banane": 30,
     "facteur_chaos": 60,
     "intimidation": 93,
-    "citation": "Tout le monde déteste ce film. Personne ne résiste à mes jets de glace.",
+    "citation": "Tout le monde déteste ce film. Mes jets de glace ne te demandent pas ton avis.",
     "lore": "Double cockpit, flammes bleues, silhouette de dragster : un film mal-aimé et une voiture à l'avenant. Fiabilité nulle, appui aérodynamique inventé, popularité en hausse chaque année chez les cinéphiles ironiques.",
     "voie_preferee": "Voie 1",
     "poids_estime": "34g",
@@ -864,6 +903,9 @@
     "anciens_alias": [
       "Cryo-Nanar",
       "Youkounkoun"
+    ],
+    "citations_precedentes": [
+      "Tout le monde déteste ce film. Personne ne résiste à mes jets de glace."
     ]
   },
   {
@@ -878,7 +920,7 @@
     "resistance_banane": 95,
     "facteur_chaos": 75,
     "intimidation": 100,
-    "citation": "Je ne contourne pas, je traverse. Chaussée, chicane, voisin : tout ça, c'est du chantier.",
+    "citation": "Je ne contourne rien. Chicane, trottoir, voisin : pour moi, c'est de la voirie à refaire.",
     "lore": "Pare-chocs de char, pneus de tracteur, carrosserie de chantier. Son pilote lui demande une ZFE, elle répond « zone à fortes émissions ». Il passe partout, en démolissant d'abord le cadastre.",
     "voie_preferee": "Voie 3",
     "poids_estime": "42g",
@@ -937,6 +979,9 @@
     "anciens_alias": [
       "Le Tumbler ZFE",
       "The Dark Knight Tumbler"
+    ],
+    "citations_precedentes": [
+      "Je ne contourne pas, je traverse. Chaussée, chicane, voisin : tout ça, c'est du chantier."
     ]
   },
   {
@@ -951,7 +996,7 @@
     "resistance_banane": 50,
     "facteur_chaos": 40,
     "intimidation": 90,
-    "citation": "Je suis la vengeance. Je suis la nuit. Je suis surtout mouillée, et ça m'énerve.",
+    "citation": "Je suis la vengeance, je suis la nuit, et surtout je suis trempée. Personne n'a pensé au toit.",
     "lore": "Muscle car bricolée par un type qui n'a jamais lu le manuel de montage : V8 apparent, ligne de pickup massacrée, rage de dépressif. Sous la pluie elle freine mal, elle double mal, elle accélère très bien.",
     "voie_preferee": "Voie 4",
     "poids_estime": "32g",
@@ -1000,7 +1045,10 @@
     "enquete": "2026-10-08",
     "alias_long": "Le Prototype qui Fait la Gueule",
     "alias_precedent": "Fait la Gueule",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "Je suis la vengeance. Je suis la nuit. Je suis surtout mouillée, et ça m'énerve."
+    ]
   },
   {
     "category_folder": "01_Univers_Batman",
@@ -1014,7 +1062,7 @@
     "resistance_banane": 68,
     "facteur_chaos": 98,
     "intimidation": 84,
-    "citation": "Si tu me coupes la route, c'est le maillet. Si tu me doubles, c'est le maillet aussi.",
+    "citation": "Tu me coupes la route : maillet. Tu me doubles : maillet. Tu m'applaudis : on verra.",
     "lore": "Rouge, noire, folle : elle fait dix tours sur elle-même et en tire un trophée. Le contrôle technique a tenté de la verbaliser, le maillet a répondu à sa place. Les amis la qualifient de « spontanée ».",
     "voie_preferee": "Voie 4 (Côté précipice)",
     "poids_estime": "31g",
@@ -1067,7 +1115,267 @@
     "anciens_alias": [
       "Maillet de Rupture",
       "Rage Quit Day One"
+    ],
+    "citations_precedentes": [
+      "Si tu me coupes la route, c'est le maillet. Si tu me doubles, c'est le maillet aussi."
     ]
+  },
+  {
+    "category_folder": "01_Univers_Batman",
+    "car_folder": "Classic_Nomad_Pingouin",
+    "code": "N07",
+    "real_name": "Classic Nomad (livrée DC Pingouin)",
+    "alias": "Le Pingouin",
+    "ecurie": "Arkham Asylum Renegades",
+    "vitesse": 74,
+    "aerodynamisme": 70,
+    "resistance_banane": 85,
+    "facteur_chaos": 70,
+    "intimidation": 76,
+    "citation": "Un parapluie pour la pluie, un parapluie pour le fisc. Je ne sors jamais sans les deux.",
+    "lore": "Violet impérial, flancs barrés de blanc et un gentleman au monocle sur la portière : le break de 1955 transporte des parapluies, des poissons et des comptes offshore. Il se gare toujours en double file.",
+    "voie_preferee": "Voie 1",
+    "poids_estime": "35g",
+    "casting": "Classic Nomad (DC)",
+    "variante": "violet, bandes blanches, livrée Pingouin",
+    "couleurs": [
+      "#6a4fd0",
+      "#eeeeee"
+    ],
+    "verifie": "photo",
+    "rarete": "rare",
+    "essais": {
+      "chronos_s": [],
+      "cote_affinee": null,
+      "maj": null
+    },
+    "sous_titre": "Break de 1955 : plus de coffre que de scrupules",
+    "onomatopee": "WAK-WAK !",
+    "archetype": "gothique",
+    "pedigree": "Hot Wheels Classic Nomad (break Chevrolet 1955), livrée DC Pingouin violette ; palier Rare.",
+    "mecanique": {
+      "id": "parapluie",
+      "nom": "Parapluie déployé",
+      "effet": "Le parapluie encaisse ce qui tombe du ciel (Thwomp), mais freine la ligne droite ; l'huile le fait déraper.",
+      "mods": {
+        "ligne_droite": -6,
+        "masse": 10
+      },
+      "immunites": [
+        "thwomp"
+      ],
+      "vulnerabilites": {
+        "huile": 1.2
+      }
+    },
+    "easter_egg": "Une pluie de parapluies noirs s'ouvre au freeze.",
+    "satire": "évasion fiscale",
+    "musique": {
+      "titre": "Misirlou",
+      "artiste": "Dick Dale & His Del-Tones",
+      "genre": "rock",
+      "style": "surf rock 1962, guitare en trémolo"
+    },
+    "enquete": "2026-10-15-v8",
+    "alias_long": "Le Pingouin : Parapluie Fiscal Grand Format",
+    "photo_fichier": "N07.jpg",
+    "photo_resolution": "367x192",
+    "photo_taille_kb": 25,
+    "cote_initiale": 13.8,
+    "alias_historique": "Le Pingouin"
+  },
+  {
+    "category_folder": "01_Univers_Batman",
+    "car_folder": "The_Govner_Catwoman",
+    "code": "N08",
+    "real_name": "The Gov'ner (livrée DC Catwoman)",
+    "alias": "La Féline du Louvre",
+    "ecurie": "Arkham Asylum Renegades",
+    "vitesse": 90,
+    "aerodynamisme": 88,
+    "resistance_banane": 58,
+    "facteur_chaos": 80,
+    "intimidation": 84,
+    "citation": "Je ne vole rien : je redistribue les bijoux de la couronne vers des poches plus méritantes.",
+    "lore": "Noir laqué, liserés gris et jantes à bord doré : le Gouverneur ronronne au ralenti puis disparaît par les toits. Monte-charge, disqueuse et sept minutes chrono : la vitrine n'a rien vu venir.",
+    "voie_preferee": "Voie 4",
+    "poids_estime": "32g",
+    "casting": "The Gov'ner (DC)",
+    "variante": "noir, livrée Catwoman, jantes à bord doré",
+    "couleurs": [
+      "#141416",
+      "#d4a63a"
+    ],
+    "verifie": "photo",
+    "rarete": "epique",
+    "essais": {
+      "chronos_s": [],
+      "cote_affinee": null,
+      "maj": null
+    },
+    "sous_titre": "Coupé noir à jantes d'or : sept minutes pour vider la galerie",
+    "onomatopee": "MIAOU !",
+    "archetype": "gothique",
+    "pedigree": "Hot Wheels The Gov'ner (casting original 1990), noir, livrée DC Catwoman, jantes à bord doré ; palier Épique.",
+    "mecanique": {
+      "id": "neufvies",
+      "nom": "Neuf vies",
+      "effet": "Retombe toujours sur ses pattes : la banane ne la fait pas glisser, mais une pelote de laine la distrait.",
+      "mods": {
+        "esquive": 12,
+        "adherence": 6
+      },
+      "immunites": [
+        "banane"
+      ],
+      "vulnerabilites": {
+        "pelote": 1.5
+      }
+    },
+    "easter_egg": "Un diadème disparaît de sa vitrine au fond du reveal.",
+    "satire": "casse du Louvre",
+    "musique": {
+      "titre": "London Calling",
+      "artiste": "The Clash",
+      "genre": "punk",
+      "style": "hymne punk britannique, sirène sur la Tamise"
+    },
+    "enquete": "2026-10-15-v8",
+    "alias_long": "Le Gouverneur : Casse des Bijoux de la Couronne",
+    "photo_fichier": "N08.jpg",
+    "photo_resolution": "638x264",
+    "photo_taille_kb": 39,
+    "cote_initiale": 4.7,
+    "alias_historique": "La Féline du Louvre"
+  },
+  {
+    "category_folder": "01_Univers_Batman",
+    "car_folder": "Batmobile_Chrome_2013",
+    "code": "N09",
+    "real_name": "Batmobile (Hot Wheels 2013, chrome)",
+    "alias": "Le Miroir des 64 Ans",
+    "ecurie": "Wayne Enterprises Racing",
+    "vitesse": 92,
+    "aerodynamisme": 86,
+    "resistance_banane": 74,
+    "facteur_chaos": 52,
+    "intimidation": 92,
+    "citation": "Regardez-vous bien dans ma carrosserie : c'est votre tête au dernier trimestre de cotisation.",
+    "lore": "Chrome miroir intégral, filets rouges et jantes rouges à pales : la Batmobile reflète toute la grille, et chacun y voit sa date de départ reculer. Ailerons de chauve-souris, cockpit en retrait, aucune pitié.",
+    "voie_preferee": "Voie 2",
+    "poids_estime": "33g",
+    "casting": "Batmobile (2013)",
+    "variante": "chrome miroir, filets et jantes rouges",
+    "couleurs": [
+      "#c9ced6",
+      "#d4232f"
+    ],
+    "verifie": "photo",
+    "rarete": "epique",
+    "essais": {
+      "chronos_s": [],
+      "cote_affinee": null,
+      "maj": null
+    },
+    "sous_titre": "Batmobile chromée : chacun s'y voit travailler jusqu'à 64 ans",
+    "onomatopee": "SHIIING !",
+    "archetype": "gothique",
+    "pedigree": "Hot Wheels Batmobile (2013), chrome miroir, filets et jantes rouges ; palier Épique.",
+    "mecanique": {
+      "id": "miroir",
+      "nom": "Carrosserie miroir",
+      "effet": "Le chrome renvoie l'éclair et l'obus, mais la moindre tache d'huile le ralentit.",
+      "mods": {
+        "aura": 8
+      },
+      "immunites": [
+        "eclair",
+        "obus"
+      ],
+      "vulnerabilites": {
+        "huile": 1.3
+      }
+    },
+    "easter_egg": "Au freeze, le public se voit déformé dans la carrosserie.",
+    "satire": "réforme des retraites",
+    "musique": {
+      "titre": "Arkham City (Main Theme)",
+      "artiste": "Nick Arundel & Ron Fish",
+      "genre": "symphonie",
+      "style": "chœurs sombres et envolée symphonique"
+    },
+    "enquete": "2026-10-15-v8",
+    "alias_long": "Batmobile Chrome : Gotham se Regarde dans le Rétro",
+    "photo_fichier": "N09.jpg",
+    "photo_resolution": "1000x519",
+    "photo_taille_kb": 85,
+    "cote_initiale": 1.8,
+    "alias_historique": "Le Miroir des 64 Ans"
+  },
+  {
+    "category_folder": "01_Univers_Batman",
+    "car_folder": "Overbored_454_Dark_Knight",
+    "code": "N10",
+    "real_name": "Overbored 454 (livrée DC The Dark Knight)",
+    "alias": "Le Plein à 2 Euros",
+    "ecurie": "Wayne Tactical Defense",
+    "vitesse": 84,
+    "aerodynamisme": 70,
+    "resistance_banane": 66,
+    "facteur_chaos": 76,
+    "intimidation": 88,
+    "citation": "Mon compresseur boit plus que le budget de l'État. Et pourtant, c'est moi qu'on accuse du déficit.",
+    "lore": "Violet nuit, éclats de chauve-souris vert acide et compresseur chromé qui jaillit du capot : la 454 avale un plein à chaque tour et rend la monnaie en fumée noire. Gotham la tolère tant qu'elle paie la TICPE.",
+    "voie_preferee": "Voie 3",
+    "poids_estime": "36g",
+    "casting": "Overbored 454 (DC)",
+    "variante": "violet, éclats vert acide, compresseur chromé",
+    "couleurs": [
+      "#4a2a6e",
+      "#b8e04a"
+    ],
+    "verifie": "photo",
+    "rarete": "standard",
+    "essais": {
+      "chronos_s": [],
+      "cote_affinee": null,
+      "maj": null
+    },
+    "sous_titre": "Muscle car à compresseur : 454 pouces cubes, 0 euro sur le compte",
+    "onomatopee": "GLOU-GLOU !",
+    "archetype": "gothique",
+    "pedigree": "Hot Wheels Overbored 454 (casting original, ici en livrée DC The Dark Knight, 2016), violet, compresseur à nu ; palier Standard.",
+    "mecanique": {
+      "id": "compresseur",
+      "nom": "Compresseur gourmand",
+      "effet": "Énorme départ au compresseur, mais la soif lui coûte la fin de course.",
+      "mods": {
+        "depart": 15,
+        "endurance": -10,
+        "fiabilite": -5
+      },
+      "immunites": [
+        "dos_ane"
+      ],
+      "vulnerabilites": {
+        "huile": 1.2
+      }
+    },
+    "easter_egg": "Une pompe à essence affiche 2,19 € le litre au fond du reveal.",
+    "satire": "prix des carburants",
+    "musique": {
+      "titre": "Dragula",
+      "artiste": "Rob Zombie",
+      "genre": "rock",
+      "style": "métal industriel de dragster, moteur à nu"
+    },
+    "enquete": "2026-10-15-v8",
+    "alias_long": "Overbored 454 : le Plein à Deux Euros",
+    "photo_fichier": "N10.jpg",
+    "photo_resolution": "304x152",
+    "photo_taille_kb": 14,
+    "cote_initiale": 9.7,
+    "alias_historique": "Le Plein à 2 Euros"
   },
   {
     "category_folder": "02_JDM_et_Asiatiques",
@@ -1081,7 +1389,7 @@
     "resistance_banane": 45,
     "facteur_chaos": 35,
     "intimidation": 92,
-    "citation": "BMW dans le moteur, Toyota sur la carte grise. Mais c'est moi, la Supra.",
+    "citation": "Moteur allemand, badge japonais, prix suisse. Mais oui, je suis une vraie Supra. Chut.",
     "lore": "Usine autrichienne, six cylindres BMW, signature Toyota. Les puristes JDM n'ont pas encore digéré cette joint-venture, mais le compteur monte à 250 km/h limité. Le mème tient en quatre mots : « tu as acheté une BMW ».",
     "voie_preferee": "Voie 2",
     "poids_estime": "35g",
@@ -1133,6 +1441,9 @@
     "anciens_alias": [
       "Supra Z4",
       "Toyota GR Supra"
+    ],
+    "citations_precedentes": [
+      "BMW dans le moteur, Toyota sur la carte grise. Mais c'est moi, la Supra."
     ]
   },
   {
@@ -1147,7 +1458,7 @@
     "resistance_banane": 48,
     "facteur_chaos": 85,
     "intimidation": 78,
-    "citation": "Tofu livré à 4 h du matin, gobelet d'eau intact. La pente d'Akina m'appartient.",
+    "citation": "Tofu livré à 4 h du matin, gobelet d'eau intact. Ton GPS n'a jamais vu la pente d'Akina.",
     "lore": "Une propulsion de 900 kilos qui drifte sur la montagne pour livrer du tofu avant l'aube. Gobelet d'eau dans l'habitacle, pneus en fin de vie, statut d'indépendant : il livre, il glisse, il facture quand il peut.",
     "voie_preferee": "Voie 1 (Intérieur virage)",
     "poids_estime": "31g",
@@ -1201,6 +1512,9 @@
     "anciens_alias": [
       "Livreur de Tofu",
       "Toyota AE86 Trueno"
+    ],
+    "citations_precedentes": [
+      "Tofu livré à 4 h du matin, gobelet d'eau intact. La pente d'Akina m'appartient."
     ]
   },
   {
@@ -1215,7 +1529,7 @@
     "resistance_banane": 78,
     "facteur_chaos": 60,
     "intimidation": 52,
-    "citation": "Ce van est en retard pour cause de mouvement social. Merci de votre compréhension.",
+    "citation": "Ce van est en retard pour cause de restructuration. Votre poste aussi, d'ailleurs.",
     "lore": "Moteur sous les sièges, conducteur au-dessus de l'essieu avant : la seule voiture où l'on voit le crash avant de l'entendre. Increvable, lente, immortelle, elle porte le plan social et le tuyau d'échappement.",
     "voie_preferee": "Voie 4",
     "poids_estime": "37g",
@@ -1271,6 +1585,9 @@
       "Van du PSE",
       "Grève du 24 Décembre",
       "Grève SNCF"
+    ],
+    "citations_precedentes": [
+      "Ce van est en retard pour cause de mouvement social. Merci de votre compréhension."
     ]
   },
   {
@@ -1285,7 +1602,7 @@
     "resistance_banane": 42,
     "facteur_chaos": 65,
     "intimidation": 55,
-    "citation": "Je roulais propre avant que ce soit une opinion. Et sans le dire à personne.",
+    "citation": "Je consommais trois litres avant que ce soit une vertu. Personne ne m'a jamais remercié.",
     "lore": "Née pendant le premier choc pétrolier, elle revient pendant le dernier. Moteur CVCC, jantes à arches larges, une mini Civic radiocommandée dans le coffre : la sobriété du vendredi soir.",
     "voie_preferee": "Voie 2",
     "poids_estime": "32g",
@@ -1338,6 +1655,9 @@
     "anciens_alias": [
       "Choc Pétrolier",
       "Litre à 2,10 €"
+    ],
+    "citations_precedentes": [
+      "Je roulais propre avant que ce soit une opinion. Et sans le dire à personne."
     ]
   },
   {
@@ -1352,7 +1672,7 @@
     "resistance_banane": 58,
     "facteur_chaos": 40,
     "intimidation": 40,
-    "citation": "Jinba ittai : cheval et cavalier ne font qu'un. Et la réponse à toute question, c'est Miata.",
+    "citation": "Jinba ittai : cheval et cavalier ne font qu'un. Toi et ta crise de la quarantaine aussi.",
     "lore": "940 kilos, phares escamotables, propulsion, aucune ambition sauf d'aller virer. Les ingénieurs ont inventé le plaisir de conduire, le marché l'a transformé en mème : quelle que soit la question, répondez Miata.",
     "voie_preferee": "Voie 3",
     "poids_estime": "29g",
@@ -1404,6 +1724,9 @@
     "anciens_alias": [
       "Miata, la Réponse",
       "Mazda MX-5 NA"
+    ],
+    "citations_precedentes": [
+      "Jinba ittai : cheval et cavalier ne font qu'un. Et la réponse à toute question, c'est Miata."
     ]
   },
   {
@@ -1418,7 +1741,7 @@
     "resistance_banane": 45,
     "facteur_chaos": 70,
     "intimidation": 62,
-    "citation": "On croit voir un roadster sage. Je suis un kit turbo avec des phares rétractables.",
+    "citation": "Roadster sage dehors, turbo bricolé dedans. Le contrôle technique n'a rien vu, comme d'habitude.",
     "lore": "Roadster banal, kit turbo hors de prix, aileron acheté sur un forum. La dette a été rachetée par un fonds vautour, la voiture ne tient pas la ligne droite, mais l'aileron fait une impression certaine.",
     "voie_preferee": "Voie 4",
     "poids_estime": "30g",
@@ -1473,6 +1796,9 @@
     "anciens_alias": [
       "Miata Vautour",
       "Le Cabinet de Conseil"
+    ],
+    "citations_precedentes": [
+      "On croit voir un roadster sage. Je suis un kit turbo avec des phares rétractables."
     ]
   },
   {
@@ -1487,7 +1813,7 @@
     "resistance_banane": 58,
     "facteur_chaos": 40,
     "intimidation": 84,
-    "citation": "Couple instantané, zéro bruit. Avant que tu comprennes, je suis déjà dans le virage.",
+    "citation": "585 chevaux, zéro décibel. Tu m'entends quand je suis déjà au virage suivant.",
     "lore": "Plateforme 800 volts, deux moteurs, un pilote qui sourit au prix du Brent. Elle accélère sans bruit, recharge en un café et fait honte aux supercars thermiques. Seul défaut : elle n'a pas d'odeur de super.",
     "voie_preferee": "Voie 2",
     "poids_estime": "36g",
@@ -1540,6 +1866,9 @@
     "anciens_alias": [
       "Merci l'Iran",
       "La Start-Up Nation"
+    ],
+    "citations_precedentes": [
+      "Couple instantané, zéro bruit. Avant que tu comprennes, je suis déjà dans le virage."
     ]
   },
   {
@@ -1554,7 +1883,7 @@
     "resistance_banane": 70,
     "facteur_chaos": 45,
     "intimidation": 92,
-    "citation": "Six cylindres de course, silhouette de caisse à savon. Je gagne depuis 1969.",
+    "citation": "Cinquante victoires, carrée comme un tableur. Ici, la forme suit la victoire, pas la mode.",
     "lore": "L'ancêtre en forme de boîte : six cylindres de course, silhouette de caisse à savon, héritage immense. Elle gagne depuis 1969, ne comprend pas la réforme des retraites, et fait déraper le voisinage.",
     "voie_preferee": "Voie 1",
     "poids_estime": "34g",
@@ -1603,7 +1932,10 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "Hakosuka : 50 Victoires, Zéro Retraite",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "Six cylindres de course, silhouette de caisse à savon. Je gagne depuis 1969."
+    ]
   },
   {
     "category_folder": "02_JDM_et_Asiatiques",
@@ -1617,7 +1949,7 @@
     "resistance_banane": 52,
     "facteur_chaos": 55,
     "intimidation": 95,
-    "citation": "Officiellement 280 chevaux. Godzilla ne donne jamais ses vrais chiffres.",
+    "citation": "Officiellement 280 chevaux. Officiellement. Godzilla ne déclare jamais ses vrais revenus.",
     "lore": "Premier chrono de série sous les 8 minutes au Nürburgring, quatre roues motrices intelligentes et un moteur qui dépasse sans le dire son plafond officiel. Un accord entre messieurs, comme à l'OPEP+, en plus rapide.",
     "voie_preferee": "Voie 2 (Ligne droite du Wangan)",
     "poids_estime": "35g",
@@ -1671,6 +2003,9 @@
     "anciens_alias": [
       "Godzilla OPEP+",
       "Nissan Skyline GT-R R33"
+    ],
+    "citations_precedentes": [
+      "Officiellement 280 chevaux. Godzilla ne donne jamais ses vrais chiffres."
     ]
   },
   {
@@ -1685,7 +2020,7 @@
     "resistance_banane": 84,
     "facteur_chaos": 40,
     "intimidation": 97,
-    "citation": "Berline de directeur, âme de pirate. Je roule bas, je roule large, et je salue d'un klaxon.",
+    "citation": "Berline de directeur, posture de racaille. Je roule bas, comme les salaires de mes employés.",
     "lore": "Berline VIP abaissée, jantes larges, banquette de cuir. Elle arrive toujours en tête grâce à ses relations : promotion interne, tour extérieur, parachute doré. Ses adversaires, eux, ont passé le concours.",
     "voie_preferee": "Voie 1 (Intérieur virage)",
     "poids_estime": "36g",
@@ -1736,7 +2071,139 @@
     "anciens_alias": [
       "Parrain des Copains",
       "Les Tontons Flingueurs"
+    ],
+    "citations_precedentes": [
+      "Berline de directeur, âme de pirate. Je roule bas, je roule large, et je salue d'un klaxon."
     ]
+  },
+  {
+    "category_folder": "02_JDM_et_Asiatiques",
+    "car_folder": "Subaru_WRX_STI_Hatch",
+    "code": "N03",
+    "real_name": "Subaru WRX STI (hatchback GRB)",
+    "alias": "Retrait de Permis",
+    "ecurie": "Gunma Mountain Rally",
+    "vitesse": 90,
+    "aerodynamisme": 82,
+    "resistance_banane": 80,
+    "facteur_chaos": 58,
+    "intimidation": 80,
+    "citation": "Douze points sur le permis, quatre roues motrices : à la fin, c'est toujours moi qui ai le plus d'adhérence.",
+    "lore": "Bleu nuit pailleté, ligne de crêtes rose et bleue et écope de capot qui aspire la brume : elle descend les cols de nuit en glisse contrôlée et ne laisse aux radars qu'une photo floue.",
+    "voie_preferee": "Voie 1",
+    "poids_estime": "33g",
+    "casting": "Subaru WRX STI",
+    "variante": "bleu nuit pailleté, ligne de montagne rose et bleue",
+    "couleurs": [
+      "#1d2638",
+      "#e85fb4"
+    ],
+    "verifie": "photo",
+    "rarete": "rare",
+    "essais": {
+      "chronos_s": [],
+      "cote_affinee": null,
+      "maj": null
+    },
+    "sous_titre": "Hatchback de rallye : une ligne de crêtes néon sur les flancs",
+    "onomatopee": "BRAAAP !",
+    "archetype": "manga",
+    "pedigree": "Hot Wheels Subaru WRX STI (hatchback GRB 2008-2014), bleu nuit, livrée crêtes de montagne ; palier Rare.",
+    "mecanique": {
+      "id": "symetrique",
+      "nom": "Transmission intégrale",
+      "effet": "Quatre roues motrices : adhérence record en virage et sur l'huile, mais lourde au départ arrêté.",
+      "mods": {
+        "adherence": 12,
+        "chicane": 8,
+        "depart": -5
+      },
+      "immunites": [
+        "huile"
+      ],
+      "vulnerabilites": {
+        "eclair": 1.2
+      }
+    },
+    "easter_egg": "Un profil de col dessiné au néon s'allume derrière le bolide au freeze.",
+    "satire": "permis à points et radars",
+    "musique": {
+      "titre": "Gas Gas Gas (Initial D)",
+      "artiste": "Manuel",
+      "genre": "eurobeat",
+      "style": "eurobeat de descente de col, freinage tardif"
+    },
+    "enquete": "2026-10-15-v8",
+    "alias_long": "WRX STI : Retrait de Permis en Quatre Roues Motrices",
+    "photo_fichier": "N03.jpg",
+    "photo_resolution": "738x369",
+    "photo_taille_kb": 76,
+    "cote_initiale": 3.2,
+    "alias_historique": "Retrait de Permis"
+  },
+  {
+    "category_folder": "02_JDM_et_Asiatiques",
+    "car_folder": "Toyota_Prius_Custom",
+    "code": "N05",
+    "real_name": "Toyota Prius Custom (2026)",
+    "alias": "Le Chauffeur VTC",
+    "ecurie": "Aichi Eco Commando",
+    "vitesse": 82,
+    "aerodynamisme": 86,
+    "resistance_banane": 76,
+    "facteur_chaos": 60,
+    "intimidation": 70,
+    "citation": "Silence électrique, treillis kaki et coffre de toit : je vous dépose avant même que vous ayez commandé.",
+    "lore": "Vert militaire, coffre de toit noir et jantes à six branches : la Prius s'est engagée. Moteur thermique coupé à l'approche, elle arrive sans un bruit et facture la course au tarif de l'heure de pointe.",
+    "voie_preferee": "Voie 3",
+    "poids_estime": "32g",
+    "casting": "Toyota Prius Custom",
+    "variante": "vert militaire, coffre de toit noir",
+    "couleurs": [
+      "#6b7a2a",
+      "#1a1c1e"
+    ],
+    "verifie": "photo",
+    "rarete": "legendaire",
+    "essais": {
+      "chronos_s": [],
+      "cote_affinee": null,
+      "maj": null
+    },
+    "sous_titre": "Hybride kaki à coffre de toit : 4,9 étoiles, aucune pitié",
+    "onomatopee": "BIP-BIP !",
+    "archetype": "manga",
+    "pedigree": "Hot Wheels Toyota Prius Custom (2026, série HW J-Imports), vert militaire, coffre de toit ; palier Légendaire.",
+    "mecanique": {
+      "id": "furtif",
+      "nom": "Mode furtif",
+      "effet": "Arrive en tout électrique : les pièges lancés à l'oreille la ratent (fantôme), mais sa batterie craint l'éclair.",
+      "mods": {
+        "esquive": 10,
+        "ligne_droite": -5
+      },
+      "immunites": [
+        "fantome"
+      ],
+      "vulnerabilites": {
+        "eclair": 1.3
+      }
+    },
+    "easter_egg": "Une note « 4,9 ★ » s'affiche au-dessus du toit au freeze.",
+    "satire": "VTC et tarification dynamique",
+    "musique": {
+      "titre": "Electric Avenue",
+      "artiste": "Eddy Grant",
+      "genre": "disco",
+      "style": "synth-funk électrique pour une hybride en treillis"
+    },
+    "enquete": "2026-10-15-v8",
+    "alias_long": "Prius Custom : le VTC en Treillis",
+    "photo_fichier": "N05.jpg",
+    "photo_resolution": "186x97",
+    "photo_taille_kb": 11,
+    "cote_initiale": 8.7,
+    "alias_historique": "Le Chauffeur VTC"
   },
   {
     "category_folder": "03_Americaines_Muscle_et_Pickups",
@@ -1750,7 +2217,7 @@
     "resistance_banane": 58,
     "facteur_chaos": 75,
     "intimidation": 89,
-    "citation": "Sept moteurs, zéro V8. Tonton demande où est le bruit. Derrière toi.",
+    "citation": "Sept moteurs, 1 400 chevaux, zéro V8. Tonton cherche le bruit : il est déjà derrière lui.",
     "lore": "Un prototype électrique de drift : sept moteurs, aucune goutte d'essence, un public qui hurle à la trahison parce qu'« une vraie Mustang fait du bruit ». Sur piste, elle glisse en silence et fait trembler le ranch.",
     "voie_preferee": "Voie 2",
     "poids_estime": "37g",
@@ -1800,7 +2267,10 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "Mach-E 1400 : Sept Moteurs, Zéro V8",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "Sept moteurs, zéro V8. Tonton demande où est le bruit. Derrière toi."
+    ]
   },
   {
     "category_folder": "03_Americaines_Muscle_et_Pickups",
@@ -1814,7 +2284,7 @@
     "resistance_banane": 52,
     "facteur_chaos": 50,
     "intimidation": 62,
-    "citation": "Quatre cylindres sur une Mustang ! Oui, mais en turbo. Tonton ne me pardonnera jamais.",
+    "citation": "Une Mustang à quatre cylindres. Tonton a fait un malaise, le turbo a fait le reste.",
     "lore": "Le premier produit du service Special Vehicle Operations : 2,3 litres turbo, double aileron, boîte manuelle. Trop cher face au V8, trop en avance sur son temps, culte une fois retiré du catalogue.",
     "voie_preferee": "Voie 3",
     "poids_estime": "33g",
@@ -1866,6 +2336,9 @@
     "anciens_alias": [
       "Mustang Sacrilège",
       "Ford Mustang SVO"
+    ],
+    "citations_precedentes": [
+      "Quatre cylindres sur une Mustang ! Oui, mais en turbo. Tonton ne me pardonnera jamais."
     ]
   },
   {
@@ -1880,7 +2353,7 @@
     "resistance_banane": 60,
     "facteur_chaos": 70,
     "intimidation": 95,
-    "citation": "Un aigle sur le capot, un V8 sous le pied. Tu veux discuter ? Parle plus fort que moi.",
+    "citation": "Un aigle sur le capot, un V8 sous le pied, et un shérif dans le rétro depuis 1977.",
     "lore": "Un oiseau de feu sur le capot, 6,6 litres sous le pied, et un air de comeback permanent. Elle se fait retoquer, ressort, se présente à nouveau : le phénix de la Ve République ne prend jamais de congé.",
     "voie_preferee": "Voie 1",
     "poids_estime": "36g",
@@ -1929,7 +2402,10 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "Le Phénix de la Cohabitation",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "Un aigle sur le capot, un V8 sous le pied. Tu veux discuter ? Parle plus fort que moi."
+    ]
   },
   {
     "category_folder": "03_Americaines_Muscle_et_Pickups",
@@ -1943,7 +2419,7 @@
     "resistance_banane": 94,
     "facteur_chaos": 58,
     "intimidation": 95,
-    "citation": "Vignette Crit'Air 5 : interdit de centre-ville, alors je klaxonne sur le périphérique en attendant la prime.",
+    "citation": "Crit'Air 5, interdit en ville, taxé au litre. Je tourne sur le rond-point de ta mauvaise conscience.",
     "lore": "Pick-up carré des années 80, culte aux États-Unis : tôle épaisse, moteur increvable, controverse de télé qui a fini en règlement. Aujourd'hui rouillé, adoré, indestructible dans les récits de station-service.",
     "voie_preferee": "Voie 4",
     "poids_estime": "44g",
@@ -2001,7 +2477,10 @@
     ],
     "rarete_custom": "critair5",
     "base_rarete": "standard",
-    "badge_custom": "🏭 CRIT'AIR 5"
+    "badge_custom": "🏭 CRIT'AIR 5",
+    "citations_precedentes": [
+      "Vignette Crit'Air 5 : interdit de centre-ville, alors je klaxonne sur le périphérique en attendant la prime."
+    ]
   },
   {
     "category_folder": "03_Americaines_Muscle_et_Pickups",
@@ -2015,7 +2494,7 @@
     "resistance_banane": 52,
     "facteur_chaos": 68,
     "intimidation": 95,
-    "citation": "Transition énergétique ? Je ne connais que l'accélération. Et le bruit.",
+    "citation": "Transition énergétique ? Je brûle de l'essence et des préjugés, à 425 chevaux.",
     "lore": "426 Hemi sous le capot, or et noir, numéro 70. Elle consomme comme une conférence climat consomme du papier : beaucoup, sans conclusion. Le texte final est resté dans le coffre, avec le jerrican.",
     "voie_preferee": "Voie 2",
     "poids_estime": "38g",
@@ -2070,7 +2549,74 @@
     "anciens_alias": [
       "V8 de la COP",
       "Dodge Challenger Hemi"
+    ],
+    "citations_precedentes": [
+      "Transition énergétique ? Je ne connais que l'accélération. Et le bruit."
     ]
+  },
+  {
+    "category_folder": "03_Americaines_Muscle_et_Pickups",
+    "car_folder": "Corvette_Sting_Ray_1964",
+    "code": "N06",
+    "real_name": "'64 Corvette Sting Ray",
+    "alias": "Le Tarif Douanier",
+    "ecurie": "Route 66 Outlaws",
+    "vitesse": 86,
+    "aerodynamisme": 84,
+    "resistance_banane": 60,
+    "facteur_chaos": 50,
+    "intimidation": 90,
+    "citation": "Je suis née à Saint-Louis en 64. Pour me faire entrer ici, il a fallu payer 25 % de chrome en plus.",
+    "lore": "Vert anglais profond, bossages de raie manta et jantes chromées à flancs blancs : la Sting Ray sort de l'usine du Missouri avec son V8 327 et sa fierté. Chaque dépassement est une négociation commerciale.",
+    "voie_preferee": "Voie 2",
+    "poids_estime": "34g",
+    "casting": "'64 Corvette Sting Ray (HW Workshop)",
+    "variante": "vert foncé, jantes chromées à flancs blancs",
+    "couleurs": [
+      "#1f3b33",
+      "#d9dde0"
+    ],
+    "verifie": "photo",
+    "rarete": "legendaire",
+    "essais": {
+      "chronos_s": [],
+      "cote_affinee": null,
+      "maj": null
+    },
+    "sous_titre": "Coupé américain de 1964 : chromes, bossages de raie et taxe à l'import",
+    "onomatopee": "VROOOM !",
+    "archetype": "vintage",
+    "pedigree": "Hot Wheels '64 Corvette Sting Ray (HW Workshop, 2023), vert foncé, jantes à flancs blancs ; palier Légendaire.",
+    "mecanique": {
+      "id": "smallblock",
+      "nom": "Small-block 327",
+      "effet": "Couple de V8 à bas régime : excellente en ligne droite, lourde en chicane et fâchée avec les dos-d'âne.",
+      "mods": {
+        "ligne_droite": 12,
+        "chicane": -8
+      },
+      "immunites": [
+        "pelote"
+      ],
+      "vulnerabilites": {
+        "dos_ane": 1.3
+      }
+    },
+    "easter_egg": "Une carte postale « Route 66 » tamponnée « TAXÉ » s'envole au freeze.",
+    "satire": "droits de douane",
+    "musique": {
+      "titre": "Fortunate Son",
+      "artiste": "Creedence Clearwater Revival",
+      "genre": "rock",
+      "style": "riff sudiste de 1969, fierté américaine"
+    },
+    "enquete": "2026-10-15-v8",
+    "alias_long": "Sting Ray 64 : Tarif Douanier à 25 %",
+    "photo_fichier": "N06.jpg",
+    "photo_resolution": "394x177",
+    "photo_taille_kb": 20,
+    "cote_initiale": 6.4,
+    "alias_historique": "Le Tarif Douanier"
   },
   {
     "category_folder": "04_Europeennes_Sportives",
@@ -2084,7 +2630,7 @@
     "resistance_banane": 25,
     "facteur_chaos": 40,
     "intimidation": 99,
-    "citation": "Vingt exemplaires au monde. Le chauffeur, l'huissier et le vendeur se disputent la clé.",
+    "citation": "Vingt exemplaires, 2,5 millions pièce. L'huissier, le leasing et le fonds souverain se disputent ma clé.",
     "lore": "V12 de 770 chevaux, 350 km/h, 1,75 million d'euros. Elle n'a presque jamais roulé : son propriétaire est sous sanctions, ses clés au tribunal, son garage sous scellés. Elle brille pour les huissiers.",
     "voie_preferee": "Voie 1",
     "poids_estime": "34g",
@@ -2136,7 +2682,10 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "Le Taureau du Gel des Avoirs",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "Vingt exemplaires au monde. Le chauffeur, l'huissier et le vendeur se disputent la clé."
+    ]
   },
   {
     "category_folder": "04_Europeennes_Sportives",
@@ -2150,7 +2699,7 @@
     "resistance_banane": 72,
     "facteur_chaos": 30,
     "intimidation": 96,
-    "citation": "Gagnante à Bathurst en 2020, retraitée en 2021. Certaines carrières sont courtes mais élégantes.",
+    "citation": "Bathurst gagnée, carrière finie l'année suivante. Comme un ministre, mais en mieux habillée.",
     "lore": "GT3 de gentleman driver, victorieuse à Bathurst, financée par une holding qui n'a ni bureau ni salariés. Elle roule comme un montage fiscal : silencieuse, élégante, toujours en avance sur le contrôle.",
     "voie_preferee": "Voie 3",
     "poids_estime": "39g",
@@ -2203,6 +2752,9 @@
     "anciens_alias": [
       "Bentley Caïman",
       "Crédit d'Impôt Compétitivité"
+    ],
+    "citations_precedentes": [
+      "Gagnante à Bathurst en 2020, retraitée en 2021. Certaines carrières sont courtes mais élégantes."
     ]
   },
   {
@@ -2217,7 +2769,7 @@
     "resistance_banane": 20,
     "facteur_chaos": 60,
     "intimidation": 92,
-    "citation": "Le moteur porte la voiture. Tu m'enlèves le moteur, il ne reste que des regrets.",
+    "citation": "Le moteur porte la voiture. Enlève-le : il reste des regrets et une facture de 1967.",
     "lore": "Le moteur Cosworth fait partie du châssis : une révolution. 501 kilos, 12 victoires, deux titres de champion du monde. Elle gagne dès sa première course, ce qu'aucun gouvernement ne sait faire.",
     "voie_preferee": "Voie 2",
     "poids_estime": "27g",
@@ -2268,7 +2820,10 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "La 49 : Le Moteur Porte l'État",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "Le moteur porte la voiture. Tu m'enlèves le moteur, il ne reste que des regrets."
+    ]
   },
   {
     "category_folder": "04_Europeennes_Sportives",
@@ -2282,7 +2837,7 @@
     "resistance_banane": 58,
     "facteur_chaos": 60,
     "intimidation": 68,
-    "citation": "Je lève une roue dans chaque virage. C'est du style, pas un défaut.",
+    "citation": "Je lève une roue dans chaque virage. Ce n'est pas un défaut, c'est un doigt d'honneur.",
     "lore": "La berline Ford passée au régime Colin Chapman : légère, nerveuse, fragile. Elle lève une roue au virage, perd son différentiel, gagne quand même un championnat. La garantie, elle, a pris sa retraite.",
     "voie_preferee": "Voie 4",
     "poids_estime": "31g",
@@ -2336,6 +2891,9 @@
     "anciens_alias": [
       "Cortina Trois Roues",
       "Ford Lotus Cortina"
+    ],
+    "citations_precedentes": [
+      "Je lève une roue dans chaque virage. C'est du style, pas un défaut."
     ]
   },
   {
@@ -2350,7 +2908,7 @@
     "resistance_banane": 50,
     "facteur_chaos": 55,
     "intimidation": 78,
-    "citation": "Subventionnée, électrifiée, pressée de charger. Il me reste 40 km d'autonomie et un bonus à rembourser.",
+    "citation": "Subventionnée, rechargée au charbon, 40 km d'autonomie. Le bonus, lui, est déjà dépensé.",
     "lore": "Voiture de course électrique du championnat Pure ETCR : 500 kilos de batterie, 40 kilomètres de piste, un titre pilotes en 2021. La série n'a pas survécu à 2023, la voiture non plus à sa propre recharge.",
     "voie_preferee": "Voie 1",
     "poids_estime": "34g",
@@ -2393,7 +2951,10 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "Le e-Racer Dont on a Annulé la Série",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "Subventionnée, électrifiée, pressée de charger. Il me reste 40 km d'autonomie et un bonus à rembourser."
+    ]
   },
   {
     "category_folder": "04_Europeennes_Sportives",
@@ -2407,7 +2968,7 @@
     "resistance_banane": 98,
     "facteur_chaos": 75,
     "intimidation": 95,
-    "citation": "Indestructible, carrée, suédoise. Les autres freinent, moi je reste.",
+    "citation": "Carrée, suédoise, indestructible. Je survivrai à ta voiture, à ton crédit et à toi.",
     "lore": "Break de 1,3 tonne qui drifte en silence : la voiture la plus sûre au monde, adoptée par les pères de famille et les ferrailleurs. Livrée en kit de cinq cents pièces, notice en suédois.",
     "voie_preferee": "Voie 3",
     "poids_estime": "40g",
@@ -2458,7 +3019,10 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "Brique Suédoise, Notice Non Fournie",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "Indestructible, carrée, suédoise. Les autres freinent, moi je reste."
+    ]
   },
   {
     "category_folder": "04_Europeennes_Sportives",
@@ -2472,7 +3036,7 @@
     "resistance_banane": 65,
     "facteur_chaos": 55,
     "intimidation": 76,
-    "citation": "Je tourne et je ne sors pas. On m'a dit de rester au rond-point : j'y suis.",
+    "citation": "Je tourne depuis 2018. Je ne sors pas, je ne lâche rien, et le brasero est toujours chaud.",
     "lore": "Compacte sportive de 225 chevaux, déco « stickerbomb » turquoise. Elle tourne en rond comme les ronds-points de l'agglomération et sort quand l'inspiration lui prend. L'adhérence ne manque pas, l'itinéraire si.",
     "voie_preferee": "Voie 4",
     "poids_estime": "33g",
@@ -2520,7 +3084,140 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "La Focus Qui Bloque le Rond-Point",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "Je tourne et je ne sors pas. On m'a dit de rester au rond-point : j'y suis."
+    ]
+  },
+  {
+    "category_folder": "04_Europeennes_Sportives",
+    "car_folder": "Mercedes_Benz_CLA_HW",
+    "code": "N04",
+    "real_name": "Mercedes-Benz CLA (HW Euro 2026)",
+    "alias": "La Borne Hors Service",
+    "ecurie": "Affalterbach Customer Racing",
+    "vitesse": 92,
+    "aerodynamisme": 90,
+    "resistance_banane": 62,
+    "facteur_chaos": 55,
+    "intimidation": 82,
+    "citation": "J'ai 800 volts, un aileron et zéro bonus : l'État m'a lâchée au premier virage.",
+    "lore": "Bleu ciel, capot rose et numéro 68 : la berline électrique de Stuttgart a enfilé une livrée de circuit et un aileron de GT. Elle charge à 300 kW, à condition de trouver une borne qui marche.",
+    "voie_preferee": "Voie 2",
+    "poids_estime": "33g",
+    "casting": "Mercedes-Benz CLA (HW Euro)",
+    "variante": "bleu ciel, capot rose, n°68, aileron",
+    "couleurs": [
+      "#3d8fe0",
+      "#ff4fa3"
+    ],
+    "verifie": "photo",
+    "rarete": "epique",
+    "essais": {
+      "chronos_s": [],
+      "cote_affinee": null,
+      "maj": null
+    },
+    "sous_titre": "Berline électrique de course : le bonus a sauté avant l'arrivée",
+    "onomatopee": "VZIIIOU !",
+    "archetype": "blockbuster",
+    "pedigree": "Hot Wheels Mercedes-Benz CLA (2026, série HW Euro), livrée course bleue et rose n°68 ; palier Épique.",
+    "mecanique": {
+      "id": "regeneration",
+      "nom": "Freinage régénératif",
+      "effet": "Récupère de l'énergie à chaque freinage : redoutable en chicane, mais l'éclair la met en sécurité.",
+      "mods": {
+        "chicane": 10,
+        "freinage": 10
+      },
+      "immunites": [],
+      "vulnerabilites": {
+        "eclair": 1.4
+      }
+    },
+    "easter_egg": "Une borne de recharge « HORS SERVICE » clignote au fond du reveal.",
+    "satire": "bornes de recharge en panne",
+    "musique": {
+      "titre": "Alles Neu",
+      "artiste": "Peter Fox",
+      "genre": "hiphop",
+      "style": "cordes percutantes et flow berlinois"
+    },
+    "enquete": "2026-10-15-v8",
+    "alias_long": "CLA : 800 Volts et Pas une Borne qui Marche",
+    "photo_fichier": "N04.jpg",
+    "photo_resolution": "251x97",
+    "photo_taille_kb": 10,
+    "cote_initiale": 3.0,
+    "alias_historique": "La Borne Hors Service"
+  },
+  {
+    "category_folder": "04_Europeennes_Sportives",
+    "car_folder": "Mercedes_Benz_Classe_B_Majorette",
+    "code": "N12",
+    "real_name": "Mercedes-Benz Classe B (Majorette, épave)",
+    "alias": "Le Contrôle Technique Refusé",
+    "ecurie": "Fourrière Municipale Racing",
+    "vitesse": 62,
+    "aerodynamisme": 58,
+    "resistance_banane": 30,
+    "facteur_chaos": 85,
+    "intimidation": 15,
+    "citation": "J'ai été légendaire pendant douze secondes. C'était le plus beau jour de ma vie.",
+    "lore": "Vert bouteille verni, éclats de peinture sur chaque arête et un hayon parti on ne sait où : elle a survécu à trois déménagements, deux chiens et un bac à sable. Le contrôleur technique a pleuré en la voyant.",
+    "voie_preferee": "Voie 1",
+    "poids_estime": "28g",
+    "casting": "Mercedes-Benz Classe B (Majorette)",
+    "variante": "vert foncé brillant, éclats de peinture, hayon manquant",
+    "couleurs": [
+      "#1d2b26",
+      "#d8d8d0"
+    ],
+    "verifie": "photo",
+    "rarete": "standard",
+    "essais": {
+      "chronos_s": [],
+      "cote_affinee": null,
+      "maj": null
+    },
+    "sous_titre": "Monospace vert bouteille : trente éclats de peinture, zéro hayon",
+    "onomatopee": "CLONK !",
+    "archetype": "post_apo",
+    "pedigree": "Majorette Mercedes-Benz (monospace compact à silhouette de Classe A W168 / Classe B), vert foncé ; miniature d'enfance d'Esteban, hayon perdu ; rareté signature Épave (palier de base Standard).",
+    "mecanique": {
+      "id": "epave",
+      "nom": "Rien à perdre",
+      "effet": "Déjà cabossée de partout : banane, dos-d'âne et herse ne lui font plus rien, mais elle sème une pièce à chaque ligne droite.",
+      "mods": {
+        "ligne_droite": -12,
+        "fiabilite": -10
+      },
+      "immunites": [
+        "banane",
+        "dos_ane",
+        "herse"
+      ],
+      "vulnerabilites": {
+        "huile": 1.2
+      }
+    },
+    "easter_egg": "Au freeze, le hayon manquant traverse l'écran en roulant, seul, en sens inverse.",
+    "satire": "contrôle technique et prime à la casse",
+    "musique": {
+      "titre": "Yakety Sax",
+      "artiste": "Boots Randolph",
+      "genre": "swing",
+      "style": "saxophone de poursuite burlesque, après la chute"
+    },
+    "enquete": "2026-10-15-v8",
+    "alias_long": "Classe B : Contre-Visite Obligatoire",
+    "rarete_custom": "epave",
+    "badge_custom": "🔩 ÉPAVE · BON POUR LA CASSE",
+    "photo_fichier": "N12.jpg",
+    "photo_resolution": "480x320",
+    "photo_taille_kb": 54,
+    "cote_initiale": 19.5,
+    "alias_historique": "Le Contrôle Technique Refusé"
   },
   {
     "category_folder": "05_Pop_Culture_et_Fantaisie",
@@ -2534,7 +3231,7 @@
     "resistance_banane": 75,
     "facteur_chaos": 40,
     "intimidation": 97,
-    "citation": "Michael, ne te retourne pas. J'ai déjà tout vu. Et tout enregistré.",
+    "citation": "Michael, j'ai tout enregistré : tes trajets, tes appels, tes recherches. Tu as accepté les CGU.",
     "lore": "Inspiré de K.I.T.T. et d'un Dodge M4S de film : scanner rouge, voix de velours, Turbo Boost. Elle sait tout de vous, vos trajets, vos achats, vos cookies refusés : le seul assistant vocal qui connaît votre mot de passe.",
     "voie_preferee": "Voie 2",
     "poids_estime": "35g",
@@ -2586,7 +3283,10 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "K.I.T.T. a Lu Vos Mails",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "Michael, ne te retourne pas. J'ai déjà tout vu. Et tout enregistré."
+    ]
   },
   {
     "category_folder": "05_Pop_Culture_et_Fantaisie",
@@ -2600,7 +3300,7 @@
     "resistance_banane": 82,
     "facteur_chaos": 88,
     "intimidation": 91,
-    "citation": "Je suis morte, je suis jolie, et je passe à travers la paperasse.",
+    "citation": "Morte, jolie, et toujours plus vivante que ton compte épargne.",
     "lore": "Voiture de poupée gothique : toiles d'araignée roses, calandre en chauve-souris, filtre « soirée d'Halloween permanent ». Elle ne dort pas, ne rouille pas, ne paie pas d'impôts : fantôme administratif.",
     "voie_preferee": "Voie 4",
     "poids_estime": "34g",
@@ -2655,6 +3355,9 @@
     "anciens_alias": [
       "Ghoul Sponsorisée",
       "Cité de la Peur"
+    ],
+    "citations_precedentes": [
+      "Je suis morte, je suis jolie, et je passe à travers la paperasse."
     ]
   },
   {
@@ -2669,7 +3372,7 @@
     "resistance_banane": 60,
     "facteur_chaos": 78,
     "intimidation": 72,
-    "citation": "Plus rose, plus brillante, plus rapide : rien n'est jamais trop quand on est Extra.",
+    "citation": "Plus rose, plus brillante, plus chère. Le bon goût a démissionné, moi je reste.",
     "lore": "Voiture de sport rose à portes papillon, dressing sous le capot, piscine pour animaux au dos. Elle pèse bien plus que sa taille : normal, le jouet contient une garde-robe complète et un compte en banque rouge.",
     "voie_preferee": "Voie 3",
     "poids_estime": "30g",
@@ -2721,7 +3424,140 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "Barbie Extra : Tout en Trop",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "Plus rose, plus brillante, plus rapide : rien n'est jamais trop quand on est Extra."
+    ]
+  },
+  {
+    "category_folder": "05_Pop_Culture_et_Fantaisie",
+    "car_folder": "HW_Pedal_Driver",
+    "code": "N02",
+    "real_name": "Hot Wheels Pedal Driver",
+    "alias": "Zéro Émission",
+    "ecurie": "Club des Pédaleurs du Dimanche",
+    "vitesse": 78,
+    "aerodynamisme": 80,
+    "resistance_banane": 55,
+    "facteur_chaos": 90,
+    "intimidation": 60,
+    "citation": "Vignette Crit'Air zéro, consommation : deux tartines. Les ZFE, c'est pour les autres.",
+    "lore": "Argent métallisé, volant violet géant et jantes rose fluo : une voiture à pédales gonflée comme un dragster. Le moteur est un enfant de six ans sous sucre ; il ne cale jamais avant le goûter.",
+    "voie_preferee": "Voie 3",
+    "poids_estime": "29g",
+    "casting": "Pedal Driver",
+    "variante": "argent, volant violet géant, jantes roses",
+    "couleurs": [
+      "#c9ccd2",
+      "#8a3fd1"
+    ],
+    "verifie": "photo",
+    "rarete": "legendaire",
+    "essais": {
+      "chronos_s": [],
+      "cote_affinee": null,
+      "maj": null
+    },
+    "sous_titre": "Voiture à pédales : la seule vraiment autorisée en ZFE",
+    "onomatopee": "COUIC-COUIC !",
+    "archetype": "pop",
+    "pedigree": "Hot Wheels Pedal Driver (casting original, 2023), argent, volant violet géant, jantes roses ; palier Légendaire.",
+    "mecanique": {
+      "id": "pedales",
+      "nom": "Mollets d'acier",
+      "effet": "Aucun moteur à griller : l'éclair ne lui fait rien, mais les dos-d'âne lui cassent les jambes et la ligne droite l'essouffle.",
+      "mods": {
+        "depart": 8,
+        "ligne_droite": -10,
+        "fiabilite": 15
+      },
+      "immunites": [
+        "eclair"
+      ],
+      "vulnerabilites": {
+        "dos_ane": 1.3
+      }
+    },
+    "easter_egg": "Une sonnette de vélo « dring-dring » retentit au freeze.",
+    "satire": "ZFE et vignettes Crit'Air",
+    "musique": {
+      "titre": "Figure-8 Circuit (Mario Kart DS)",
+      "artiste": "Shinobu Tanaka",
+      "genre": "chiptune",
+      "style": "musique de Mario Kart DS, demandée par Esteban"
+    },
+    "enquete": "2026-10-15-v8",
+    "alias_long": "Pedal Driver : Zéro Émission, Zéro Cheval",
+    "photo_fichier": "N02.jpg",
+    "photo_resolution": "500x320",
+    "photo_taille_kb": 50,
+    "cote_initiale": 16.8,
+    "alias_historique": "Zéro Émission"
+  },
+  {
+    "category_folder": "05_Pop_Culture_et_Fantaisie",
+    "car_folder": "Riveted_Superman",
+    "code": "N11",
+    "real_name": "Riveted (livrée DC Superman)",
+    "alias": "L'Homme Providentiel",
+    "ecurie": "Metropolis Steel Works",
+    "vitesse": 88,
+    "aerodynamisme": 80,
+    "resistance_banane": 88,
+    "facteur_chaos": 45,
+    "intimidation": 86,
+    "citation": "Je suis venue de très loin pour vous sauver. Le programme ? On verra après l'élection.",
+    "lore": "Bleu acier, rivets apparents, moteur chromé hors du capot et aileron de dragster : la Riveted se présente en sauveuse à chaque manche. Elle soulève la voiture en panne, la repose, et file avant les questions.",
+    "voie_preferee": "Voie 4",
+    "poids_estime": "35g",
+    "casting": "Riveted (DC)",
+    "variante": "bleu, livrée Superman, moteur chromé à nu",
+    "couleurs": [
+      "#1f5fd6",
+      "#d6232a"
+    ],
+    "verifie": "photo",
+    "rarete": "rare",
+    "essais": {
+      "chronos_s": [],
+      "cote_affinee": null,
+      "maj": null
+    },
+    "sous_titre": "Muscle rivetée bleu acier : elle sauve tout le monde, sauf le budget",
+    "onomatopee": "WHOOOSH !",
+    "archetype": "blockbuster",
+    "pedigree": "Hot Wheels Riveted (casting original 2004), bleu, livrée DC Superman, moteur à nu ; palier Rare.",
+    "mecanique": {
+      "id": "acier",
+      "nom": "Homme d'acier",
+      "effet": "Rivetée comme un blindé : insensible au Thwomp et au boulet, mais l'éclair (sa kryptonite de foire) la sonne.",
+      "mods": {
+        "masse": 12,
+        "depart": -4
+      },
+      "immunites": [
+        "thwomp",
+        "boulet"
+      ],
+      "vulnerabilites": {
+        "eclair": 1.3
+      }
+    },
+    "easter_egg": "Une cape rouge flotte une seconde derrière l'aileron au freeze.",
+    "satire": "l'homme providentiel",
+    "musique": {
+      "titre": "AcceleRacers Theme (Drive to Survive)",
+      "artiste": "Hot Wheels AcceleRacers",
+      "genre": "rock",
+      "style": "thème officiel des AcceleRacers, guitares Metal Maniacs"
+    },
+    "enquete": "2026-10-15-v8",
+    "alias_long": "Riveted : l'Homme Providentiel en Cape de Tôle",
+    "photo_fichier": "N11.jpg",
+    "photo_resolution": "300x194",
+    "photo_taille_kb": 18,
+    "cote_initiale": 2.5,
+    "alias_historique": "L'Homme Providentiel"
   },
   {
     "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
@@ -2735,7 +3571,7 @@
     "resistance_banane": 85,
     "facteur_chaos": 95,
     "intimidation": 93,
-    "citation": "Je prends la piste en roue arrière. Cap sur les Caraïbes : la liste des invités reste sous scellés.",
+    "citation": "Le temps est relatif, la gravité négociable. Mon avance sur toi, elle, est absolue.",
     "lore": "Zéro cheval, 100 % cardio. En 2006, un congrès de physique à Saint-Thomas, financé par un mécène que plus personne ne cite : sous-marin à 30 m, fauteuil descendu au treuil. Les listes de passagers restent classées secret défense.",
     "voie_preferee": "Voie 1",
     "poids_estime": "26g",
@@ -2789,7 +3625,10 @@
     "renommage": "2026-10-09b",
     "rarete_custom": "handicap",
     "base_rarete": "relique_interdite",
-    "badge_custom": "♿ ACCÈS PRIORITAIRE"
+    "badge_custom": "♿ ACCÈS PRIORITAIRE",
+    "citations_precedentes": [
+      "Je prends la piste en roue arrière. Cap sur les Caraïbes : la liste des invités reste sous scellés."
+    ]
   },
   {
     "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
@@ -2803,7 +3642,7 @@
     "resistance_banane": 55,
     "facteur_chaos": 60,
     "intimidation": 88,
-    "citation": "Je crache du feu et je transporte les terres rares. Pour la licence d'export, voir mon dragon.",
+    "citation": "Je crache du feu et je transporte des terres rares. Les douanes ont préféré regarder ailleurs.",
     "lore": "Un break de dragon qui dort sur son tas de métaux rares. Les exportations passent par son bureau : licence, tampon, dénonciation officielle, hotline. Il n'a pas d'ennemis, juste des importateurs en retard de livraison.",
     "voie_preferee": "Voie 2",
     "poids_estime": "32g",
@@ -2858,6 +3697,9 @@
     "anciens_alias": [
       "Dragon Terres Rares",
       "Roulade Panique"
+    ],
+    "citations_precedentes": [
+      "Je crache du feu et je transporte les terres rares. Pour la licence d'export, voir mon dragon."
     ]
   },
   {
@@ -2872,7 +3714,7 @@
     "resistance_banane": 50,
     "facteur_chaos": 65,
     "intimidation": 89,
-    "citation": "Un souffle de feu et les chausse-trapes fondent. Mais l'huile, elle, me fait flamber.",
+    "citation": "Un souffle et les chausse-trapes fondent. L'huile ? Elle me rend juste plus inflammable.",
     "lore": "Châssis flammé, vitres jaunes, souffle brûlant : le dragon qui fait griller les barrières de péage mais pas les sanctions. Il garde un tonnage fantôme au large, immatriculé nulle part, assuré par personne.",
     "voie_preferee": "Voie 3",
     "poids_estime": "32g",
@@ -2927,6 +3769,9 @@
     "anciens_alias": [
       "Dragon Fantôme",
       "Fus Ro Dah"
+    ],
+    "citations_precedentes": [
+      "Un souffle de feu et les chausse-trapes fondent. Mais l'huile, elle, me fait flamber."
     ]
   },
   {
@@ -2934,15 +3779,15 @@
     "car_folder": "Ravenger",
     "code": "H04",
     "real_name": "HW Ravenger",
-    "alias": "Le Malus au Poids",
+    "alias": "Contrôle Technique au Black",
     "ecurie": "HW Velocity Squad",
     "vitesse": 88,
     "aerodynamisme": 84,
     "resistance_banane": 60,
     "facteur_chaos": 62,
     "intimidation": 84,
-    "citation": "Une tonne et demie de tôle, deux d'ego. Le Trésor adore mon poids : il me taxe au départ.",
-    "lore": "Corbeau mécanique en orange et noir : il vit des PV, du malus au poids dès 1 500 kilos et de la Crit'Air à 3,85 €. Les déchets du budget sont son buffet ; il laisse un reçu en échange.",
+    "citation": "Mon moteur n'est pas celui de la carte grise. Le tampon, si. Le garagiste a un cousin.",
+    "lore": "Coin orange au nez de corbeau : sous le capot, un moteur jamais déclaré ; sur la carte grise, un tampon authentique. Le garage a un cousin, le cousin a un tampon, et le corbeau picore les PV des autres.",
     "voie_preferee": "Voie 4",
     "poids_estime": "31g",
     "photo_fichier": "H04_HW_Ravenger.jpg",
@@ -2963,7 +3808,7 @@
       "maj": null
     },
     "alias_historique": "Le Prédateur Écarlate",
-    "sous_titre": "Ravenger, charognard de piste, taxé dès 1 500 kg",
+    "sous_titre": "Coin orange : un moteur qui n'est pas celui de la carte grise",
     "onomatopee": "CROAAAK !",
     "archetype": "post_apo",
     "alias_precedent": "Ravenger Malus",
@@ -2983,7 +3828,7 @@
       }
     },
     "easter_egg": "Un corbeau en plastique traverse l'écran du reveal sans raison.",
-    "satire": "fiscalité automobile",
+    "satire": "contrôle technique de complaisance",
     "musique": {
       "titre": "Killing in the Name",
       "artiste": "Rage Against the Machine",
@@ -2991,23 +3836,29 @@
       "style": "riff de fureur, refrain d'émeute"
     },
     "enquete": "2026-10-08",
-    "alias_long": "Ravenger, Charognard du Malus",
-    "renommage": "2026-10-09b"
+    "alias_long": "Ravenger : Tampon de Complaisance",
+    "renommage": "2026-10-13-v5",
+    "citations_precedentes": [
+      "Une tonne et demie de tôle, deux d'ego. Le Trésor adore mon poids : il me taxe au départ."
+    ],
+    "anciens_alias": [
+      "Le Malus au Poids"
+    ]
   },
   {
     "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
     "car_folder": "Kei_Swap",
     "code": "H05",
     "real_name": "Kei Swap Custom",
-    "alias": "Contrôle Technique au Black",
+    "alias": "Le Malus au Poids",
     "ecurie": "Shinjuku Pocket Racers",
     "vitesse": 86,
     "aerodynamisme": 74,
     "resistance_banane": 58,
     "facteur_chaos": 82,
     "intimidation": 70,
-    "citation": "Mon moteur n'est pas celui de la carte grise, mais le tampon, lui, est le bon.",
-    "lore": "Au Japon, une kei car est plafonnée à 660 cm³ et 64 chevaux. Celle-ci a un moteur de rechange déguisé en moteur d'origine : le plafond de prix du pétrole, version mécanique, passe sans que personne ne vérifie.",
+    "citation": "Deux tonnes et demie de tôle, des milliers d'euros de malus. Je ne roule pas, je cotise.",
+    "lore": "Gros fourgon blanc et noir, jantes dorées, aileron de course : une niche fiscale à l'envers. Malus au poids dès 1 500 kilos, Crit'Air à 3,85 € : il paie avant de démarrer, en roulant, et à l'arrêt.",
     "voie_preferee": "Voie 1",
     "poids_estime": "28g",
     "photo_fichier": "H05_Kei_Swap_Custom.jpg",
@@ -3021,8 +3872,8 @@
       "maj": null
     },
     "alias_historique": "Le Micro-Monstre Swap",
-    "sous_titre": "Kei swap : un moteur qui n'est pas celui de la carte grise",
-    "onomatopee": "VRRIIIIT !",
+    "sous_titre": "Fourgon de détailing : taxé au kilo dès 1 500 kg",
+    "onomatopee": "KA-CHING !",
     "archetype": "manga",
     "alias_precedent": "Kei Contourné",
     "pedigree": "Kei Swap Custom (Hot Wheels, casting à confirmer sous le jouet) ; règle kei car : ≤660 cm³, ≤64 ch, ≤3,4 m. Hook : plafond de prix, contournements.",
@@ -3040,7 +3891,7 @@
       }
     },
     "easter_egg": "Une plaque « Kei » japonaise s'efface pour laisser place à « Swap ».",
-    "satire": "plafond de prix contourné",
+    "satire": "fiscalité automobile (malus au poids)",
     "musique": {
       "titre": "Mute City (F-Zero)",
       "artiste": "Nintendo",
@@ -3048,8 +3899,14 @@
       "style": "rock électronique 16 bits"
     },
     "enquete": "2026-10-08",
-    "alias_long": "Kei Swap : Plafond Contourné",
-    "renommage": "2026-10-09b"
+    "alias_long": "Le Malus au Poids, Fourgon Contribuable",
+    "renommage": "2026-10-13-v5",
+    "citations_precedentes": [
+      "Mon moteur n'est pas celui de la carte grise, mais le tampon, lui, est le bon."
+    ],
+    "anciens_alias": [
+      "Contrôle Technique au Black"
+    ]
   },
   {
     "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
@@ -3063,7 +3920,7 @@
     "resistance_banane": 75,
     "facteur_chaos": 82,
     "intimidation": 70,
-    "citation": "Votre colis est en cours d'acheminement. Il l'est depuis le 3 novembre.",
+    "citation": "Votre colis est en cours d'acheminement. Depuis le 3 novembre. Ne quittez pas.",
     "lore": "Camion postal de série : un quatre cylindres de 90 chevaux, aucune climatisation, trente ans de service. Il livre toujours, avec trois semaines de retard, ce que la douane vient de requalifier en surtaxe de 10 %.",
     "voie_preferee": "Voie 2",
     "poids_estime": "35g",
@@ -3118,6 +3975,9 @@
       "Mailed It !",
       "Colis du 23 Décembre",
       "Grève de la Poste"
+    ],
+    "citations_precedentes": [
+      "Votre colis est en cours d'acheminement. Il l'est depuis le 3 novembre."
     ]
   },
   {
@@ -3132,7 +3992,7 @@
     "resistance_banane": 99,
     "facteur_chaos": 65,
     "intimidation": 99,
-    "citation": "Je bloque la route, je bloque la file, je bloque la discussion. Blocus total.",
+    "citation": "Grilles cadenassées, poubelles en feu, bac blanc annulé. La réforme passera sur mon pare-buffle.",
     "lore": "Camion transporteur gigantesque : il éjecte les petites citadines hors de la trajectoire, passe tous les barrages et se fait arrêter par le dernier : un douanier avec un tampon. Livraison estimée : plus tard.",
     "voie_preferee": "Voie 3",
     "poids_estime": "46g",
@@ -3186,6 +4046,9 @@
     "anciens_alias": [
       "Convoi Bloqué",
       "Blocage Filtrant"
+    ],
+    "citations_precedentes": [
+      "Je bloque la route, je bloque la file, je bloque la discussion. Blocus total."
     ]
   },
   {
@@ -3193,15 +4056,15 @@
     "car_folder": "Cockney_Cab_II",
     "code": "H08",
     "real_name": "Cockney Cab II",
-    "alias": "Black Cab",
+    "alias": "Le Brexit",
     "ecurie": "Piccadilly Taxi Racing",
     "vitesse": 78,
     "aerodynamisme": 72,
     "resistance_banane": 65,
     "facteur_chaos": 60,
     "intimidation": 81,
-    "citation": "Un taxi de Londres fait demi-tour partout. Une piste de Grand Prix est une rue comme les autres.",
-    "lore": "Taxi hot-rod à drapeau britannique : le rayon de braquage de la Knowledge, la politesse d'un gentleman, et un sens de l'itinéraire qui s'arrête à Dover. Il fait demi-tour partout, y compris sur les traités.",
+    "citation": "J'ai quitté le circuit en 2016. Je suis toujours coincé à Douvres, et c'est forcément ta faute.",
+    "lore": "Taxi londonien à drapeau britannique : braquage de 7,6 m, politesse impeccable, itinéraire qui s'arrête à la douane de Douvres. Sorti du circuit par référendum, il fait demi-tour partout, y compris sur les traités.",
     "voie_preferee": "Voie 4",
     "poids_estime": "36g",
     "photo_fichier": "H08_Cockney_Cab_II.jpg",
@@ -3222,7 +4085,7 @@
       "maj": null
     },
     "alias_historique": "Le Black Cab Déchaîné",
-    "sous_titre": "Rayon de braquage de 7,6 m : le demi-tour londonien",
+    "sous_titre": "Black cab : sorti en 2016, toujours bloqué à Douvres",
     "onomatopee": "HONK-HONK !",
     "archetype": "vintage",
     "alias_precedent": "Alerte Générale !",
@@ -3239,7 +4102,7 @@
       "vulnerabilites": {}
     },
     "easter_egg": "Le reveal se termine par un demi-tour impeccable sur la grille.",
-    "satire": "Brexit / Chagos",
+    "satire": "Brexit",
     "musique": {
       "titre": "London Calling",
       "artiste": "The Clash",
@@ -3247,11 +4110,15 @@
       "style": "punk-rock 1979"
     },
     "enquete": "2026-10-08",
-    "alias_long": "Black Cab : Demi-Tour sur Place",
-    "renommage": "2026-10-09b",
+    "alias_long": "Le Brexit : Demi-Tour sur Traité",
+    "renommage": "2026-10-13-v5",
     "anciens_alias": [
       "Black Cab Demi-Tour",
-      "Alerte Générale !"
+      "Alerte Générale !",
+      "Black Cab"
+    ],
+    "citations_precedentes": [
+      "Un taxi de Londres fait demi-tour partout. Une piste de Grand Prix est une rue comme les autres."
     ]
   },
   {
@@ -3266,7 +4133,7 @@
     "resistance_banane": 72,
     "facteur_chaos": 70,
     "intimidation": 62,
-    "citation": "Moins de 3,4 m, 660 cm³ et un skate dans la benne. Petit, mais mal élevé.",
+    "citation": "3,40 m, 660 cm³, un skate dans la benne. Petit gabarit, énorme collection de PV.",
     "lore": "Mini-camion japonais de rue, benne chargée d'un skate, d'outils et d'une roue de secours. Un hommage discret de Hot Wheels à un designer passionné. Conduite précise, charge utile minime, tenue de route exemplaire.",
     "voie_preferee": "Voie 1",
     "poids_estime": "30g",
@@ -3320,6 +4187,9 @@
     "anciens_alias": [
       "Mini-Truck Dérogation",
       "C'est Pas Faux"
+    ],
+    "citations_precedentes": [
+      "Moins de 3,4 m, 660 cm³ et un skate dans la benne. Petit, mais mal élevé."
     ]
   },
   {
@@ -3334,7 +4204,7 @@
     "resistance_banane": 58,
     "facteur_chaos": 52,
     "intimidation": 86,
-    "citation": "Pas de vote, pas d'amendement. Le moteur central passe, et ça passe en force.",
+    "citation": "Pas de vote, pas de débat, pas de frein. Je passe en force, et c'est constitutionnel.",
     "lore": "Inspirée des voitures de rallye italiennes des années 70 : moteur central, phares additionnels, tenue de route de chèvre. Elle prend chaque virage comme un budget : en force, en ordonnance, avec une motion de censure derrière.",
     "voie_preferee": "Voie 2",
     "poids_estime": "33g",
@@ -3384,22 +4254,25 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "Spéciale 49.3 : Départ Arrêté",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "Pas de vote, pas d'amendement. Le moteur central passe, et ça passe en force."
+    ]
   },
   {
     "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
     "car_folder": "Small_Bloc",
     "code": "H11",
     "real_name": "HW Small Bloc",
-    "alias": "Chevy Small Block",
+    "alias": "Le Tacos parisien",
     "ecurie": "HW Fantasy Lab",
     "vitesse": 88,
     "aerodynamisme": 62,
     "resistance_banane": 80,
     "facteur_chaos": 85,
     "intimidation": 85,
-    "citation": "Je suis le petit bloc. La dette, c'est le gros. On s'est partagé les rôles.",
-    "lore": "Petit bloc, grosse tension : il rappelle le small-block Chevy, 100 millions d'exemplaires depuis 1955. Plus modeste que la dette publique, plus utile que la plupart des rapports qui l'analysent. Jaune damier, ambition de taxi.",
+    "citation": "Trois viandes, sauce fromagère, frites dedans. Je suis lourd, je suis gras, je suis l'avenir.",
+    "lore": "Petit bloc V8 de 1955 et appétit de fin de soirée : viande, frites et sauce fromagère dans la même galette. Lourd, gras, inarrêtable en ligne droite, laborieux au freinage. Ça se prononce « tacosse ».",
     "voie_preferee": "Voie 3",
     "poids_estime": "37g",
     "photo_fichier": "H11_HW_Small_Bloc.jpg",
@@ -3420,8 +4293,8 @@
       "maj": null
     },
     "alias_historique": "Le Cube Atomique",
-    "sous_titre": "Petit bloc V8 de 1955 : la dette, elle, grossit",
-    "onomatopee": "BLAM !",
+    "sous_titre": "Petit bloc, gros tacos : trois viandes, frites dedans",
+    "onomatopee": "SCRONCH !",
     "archetype": "pop",
     "alias_precedent": "Big Dette",
     "pedigree": "Casting Hot Wheels Small Bloc (jaune/blanc damier) ; référence au Chevy small-block V8 (1955). Hook : dette publique française ~3 620 Md€ en 2026 (Cour des comptes, juin 2026).",
@@ -3440,7 +4313,7 @@
       "vulnerabilites": {}
     },
     "easter_egg": "Le compteur de dette de la TV affiche un chiffre qui ne cesse de monter.",
-    "satire": "dette publique",
+    "satire": "malbouffe nationale",
     "musique": {
       "titre": "Big Spender",
       "artiste": "Shirley Bassey",
@@ -3448,8 +4321,14 @@
       "style": "jazz big band, cuivres de casino"
     },
     "enquete": "2026-10-08",
-    "alias_long": "Small Bloc, Big Dette",
-    "renommage": "2026-10-09b"
+    "alias_long": "Le Tacos parisien, Sauce Fromagère",
+    "renommage": "2026-10-13-v5",
+    "citations_precedentes": [
+      "Je suis le petit bloc. La dette, c'est le gros. On s'est partagé les rôles."
+    ],
+    "anciens_alias": [
+      "Chevy Small Block"
+    ]
   },
   {
     "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
@@ -3463,7 +4342,7 @@
     "resistance_banane": 80,
     "facteur_chaos": 65,
     "intimidation": 88,
-    "citation": "Des feuilles mortes sur les voies : trafic interrompu. Je reste à quai, sirène éteinte, jusqu'à nouvel ordre.",
+    "citation": "Préavis déposé, chaudière froide, voyageurs prévenus trop tard. Prochain départ : jamais.",
     "lore": "Ambulance de fantaisie, gyrophare éteint : préavis déposé, reconductible chaque matin. Feuilles mortes sur la voie, service minimum au dépôt. Elle ne passe pas devant la file : elle fait la file.",
     "voie_preferee": "Voie 4",
     "poids_estime": "39g",
@@ -3523,7 +4402,141 @@
     ],
     "rarete_custom": "sncf",
     "base_rarete": "rare",
-    "badge_custom": "⚠️ PRÉAVIS RECONDUCTIBLE"
+    "badge_custom": "⚠️ PRÉAVIS RECONDUCTIBLE",
+    "citations_precedentes": [
+      "Des feuilles mortes sur les voies : trafic interrompu. Je reste à quai, sirène éteinte, jusqu'à nouvel ordre."
+    ]
+  },
+  {
+    "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
+    "car_folder": "HW_Rapid_Pulse_Paramedic",
+    "code": "N01",
+    "real_name": "Hot Wheels Rapid Pulse (Paramedic)",
+    "alias": "Urgences Saturées",
+    "ecurie": "Emergency Fast Response",
+    "vitesse": 86,
+    "aerodynamisme": 74,
+    "resistance_banane": 70,
+    "facteur_chaos": 62,
+    "intimidation": 66,
+    "citation": "Je fonce à 200 pour vous déposer dans un couloir. Prenez un ticket, on vous appellera.",
+    "lore": "Grise, bas de caisse bleu et livrée Paramedic : elle traverse la grille toutes sirènes hurlantes, double tout le monde, puis patiente devant les urgences avec les autres. Son aileron sert de brancard d'appoint.",
+    "voie_preferee": "Voie 1",
+    "poids_estime": "34g",
+    "casting": "Rapid Pulse",
+    "variante": "gris argent, bas de caisse bleu, livrée Paramedic",
+    "couleurs": [
+      "#b9bec6",
+      "#1f4fbf"
+    ],
+    "verifie": "photo",
+    "rarete": "rare",
+    "essais": {
+      "chronos_s": [],
+      "cote_affinee": null,
+      "maj": null
+    },
+    "sous_titre": "Ambulance turbo : arrivée en 8 minutes, prise en charge en 12 heures",
+    "onomatopee": "PIN-PON !",
+    "archetype": "blockbuster",
+    "pedigree": "Hot Wheels Rapid Pulse (casting original 2024, série HW Rescue), livrée Paramedic gris et bleu ; palier Rare.",
+    "mecanique": {
+      "id": "triage",
+      "nom": "Triage prioritaire",
+      "effet": "Part comme une urgence vitale, gyrophare allumé, mais s'essouffle en fin de garde.",
+      "mods": {
+        "depart": 12,
+        "endurance": -8
+      },
+      "immunites": [
+        "herse"
+      ],
+      "vulnerabilites": {
+        "peage": 1.2
+      }
+    },
+    "easter_egg": "Au freeze, un ticket « Votre numéro : 247 » sort d'une borne au fond du reveal.",
+    "satire": "urgences saturées",
+    "musique": {
+      "titre": "Breathe",
+      "artiste": "The Prodigy",
+      "genre": "punk",
+      "style": "big beat électro-punk, pouls survolté et basses lourdes"
+    },
+    "enquete": "2026-10-15-v8",
+    "alias_long": "Rapid Pulse : Douze Heures sur un Brancard",
+    "photo_fichier": "N01.jpg",
+    "photo_resolution": "216x113",
+    "photo_taille_kb": 11,
+    "cote_initiale": 10.6,
+    "alias_historique": "Urgences Saturées"
+  },
+  {
+    "category_folder": "06_Hot_Wheels_Originals_et_Utilitaires",
+    "car_folder": "HW_Jet_Threat_4_0",
+    "code": "N13",
+    "real_name": "Hot Wheels Jet Threat 4.0 (épave : ailes perdues)",
+    "alias": "Le Chasseur Abattu",
+    "ecurie": "Escadrille de la Grille",
+    "vitesse": 72,
+    "aerodynamisme": 50,
+    "resistance_banane": 40,
+    "facteur_chaos": 75,
+    "intimidation": 35,
+    "citation": "J'avais des ailes, un radar et un pilote. Il a suffi d'un drone en plastique à 300 euros.",
+    "lore": "Bleu acier, verrière bleue translucide et ailes de chasseur repliables : elle décollait de la grille avant le départ. Un drone kamikaze plus tard, il lui reste une dérive cassée, une tôle grise et beaucoup d'amertume.",
+    "voie_preferee": "Voie 4",
+    "poids_estime": "30g",
+    "casting": "Jet Threat 4.0",
+    "variante": "bleu acier grisé, plus d'ailes, dérive cassée",
+    "couleurs": [
+      "#9fb3c8",
+      "#2f6fd6"
+    ],
+    "verifie": "photo",
+    "rarete": "standard",
+    "essais": {
+      "chronos_s": [],
+      "cote_affinee": null,
+      "maj": null
+    },
+    "sous_titre": "Voiture-chasseur à ailes repliables : ailes perdues au premier drone",
+    "onomatopee": "KABOOM !",
+    "archetype": "blockbuster",
+    "pedigree": "Hot Wheels Jet Threat 4.0 (casting original à ailes déployables : la voiture devient un chasseur) ; miniature d'Esteban qui a perdu ses ailes et cassé sa dérive ; rareté signature Épave, scénario « abattu en vol » (palier de base Standard).",
+    "mecanique": {
+      "id": "ailes_perdues",
+      "nom": "Plus d'ailes",
+      "effet": "Les ailes sont restées en l'air : plus aucun vol plané au-dessus des pièges, et la dérive cassée la fait tirer en chicane.",
+      "mods": {
+        "chicane": -10,
+        "adherence": -5
+      },
+      "immunites": [
+        "dos_ane"
+      ],
+      "vulnerabilites": {
+        "eclair": 1.2
+      }
+    },
+    "easter_egg": "Au freeze, une aile bleue translucide redescend du ciel en feuille morte.",
+    "satire": "guerre des drones à bas coût",
+    "musique": {
+      "titre": "The Final Countdown",
+      "artiste": "Europe",
+      "genre": "rock",
+      "style": "fanfare de synthé triomphale, en décalage total avec l'épave"
+    },
+    "enquete": "2026-10-15-v8",
+    "alias_long": "Jet Threat 4.0 : Abattu par un Drone à 300 Euros",
+    "rarete_custom": "epave",
+    "badge_custom": "✈️ ABATTU EN VOL · ÉPAVE",
+    "drame_scenario": "crash",
+    "photo_fichier": "N13.jpg",
+    "photo_resolution": "983x807",
+    "photo_taille_kb": 251,
+    "cote_initiale": 19.5,
+    "alias_historique": "Le Chasseur Abattu"
   },
   {
     "category_folder": "07_Formule_1_2025",
@@ -3537,7 +4550,7 @@
     "resistance_banane": 15,
     "facteur_chaos": 20,
     "intimidation": 95,
-    "citation": "Le règlement dit 16:1. Je lis entre les lignes, les mesures à froid et les juristes de la FIA.",
+    "citation": "Huit titres constructeurs et une armée de juristes. Je ne lis pas le règlement, je l'annote.",
     "lore": "Deuxième du championnat 2025, dominante en 2026. Son moteur a fait polémique sur un taux de compression mesuré à froid, la FIA a durci le texte. Elle respecte le règlement, comme tout le monde : à sa manière.",
     "voie_preferee": "Voie 2",
     "poids_estime": "30g",
@@ -3591,6 +4604,9 @@
     "anciens_alias": [
       "Taux de Compression",
       "Mercedes-AMG W16"
+    ],
+    "citations_precedentes": [
+      "Le règlement dit 16:1. Je lis entre les lignes, les mesures à froid et les juristes de la FIA."
     ]
   },
   {
@@ -3605,7 +4621,7 @@
     "resistance_banane": 20,
     "facteur_chaos": 35,
     "intimidation": 99,
-    "citation": "Un pilote, huit victoires, quatre organigrammes. Le taureau charge, les cadres changent.",
+    "citation": "Tu tu tu du ! Le taureau charge, les cadres démissionnent, et le Néerlandais gagne quand même.",
     "lore": "Huit victoires, un pilote seul au monde, un directeur remercié en juillet, un concepteur parti. Le taureau charge toujours, mais l'organigramme ressemble à un gouvernement en fin de mandat : chaises musicales.",
     "voie_preferee": "Voie 1",
     "poids_estime": "31g",
@@ -3648,22 +4664,25 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "Le Taureau sans Patron",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "Un pilote, huit victoires, quatre organigrammes. Le taureau charge, les cadres changent."
+    ]
   },
   {
     "category_folder": "07_Formule_1_2025",
     "car_folder": "F1_Ferrari",
     "code": "F03",
     "real_name": "Scuderia Ferrari SF-25",
-    "alias": "Ferrari SF-25",
+    "alias": "Box-Box",
     "ecurie": "Scuderia Ferrari",
     "vitesse": 98,
     "aerodynamisme": 98,
     "resistance_banane": 18,
     "facteur_chaos": 45,
     "intimidation": 97,
-    "citation": "Deux disqualifications en Chine, zéro victoire. Mais ce soir, on a un plan.",
-    "lore": "Première saison blanche depuis 2021, double disqualification à Shanghai, développement arrêté en avril pour 2026. Elle se rattrape en 2026 avec deux victoires : le tifosi chante, le stratège calcule, le strapontin attend.",
+    "citation": "Box, box ! Non, reste dehors ! Si, rentre ! On a un plan : il change toutes les trente secondes.",
+    "lore": "La Rossa de 2025 : saison sans victoire, double disqualification à Shanghai, développement gelé dès avril. Le muret parle plus que les pilotes : « box, box », « stay out », « plan B », « plan F ». Le tifosi chante quand même.",
     "voie_preferee": "Voie 3",
     "poids_estime": "30g",
     "photo_fichier": "F03_Scuderia_Ferrari_SF25.jpg",
@@ -3677,8 +4696,8 @@
       "maj": null
     },
     "alias_historique": "La Rossa de Maranello",
-    "sous_titre": "Zéro victoire, une pole : la Rossa et son plan B",
-    "onomatopee": "FORZA !",
+    "sous_titre": "SF-25 : « Box, box ! » … « Non, reste dehors ! »",
+    "onomatopee": "BOX, BOX !",
     "archetype": "blockbuster",
     "alias_precedent": "Rossa Plan B",
     "pedigree": "Ferrari SF-25 : 4e constructeurs 2025 (398 pts, 0 victoire GP, 1 pole), double disqualification en Chine (poids/patin), développement stoppé début avril ; 2026 : 2e (405 pts), victoires de Hamilton (Barcelone) et Leclerc (Silverstone). Jouet : Hot Wheels F1 1/64 (ajoutée fin 2025).",
@@ -3704,8 +4723,14 @@
       "style": "hymne de l'été 1990, guitare et chœur"
     },
     "enquete": "2026-10-08",
-    "alias_long": "La Rossa et son Plan de Secours",
-    "renommage": "2026-10-09b"
+    "alias_long": "Box-Box : le Plan qui Change d'Avis",
+    "renommage": "2026-10-13-v5",
+    "citations_precedentes": [
+      "Deux disqualifications en Chine, zéro victoire. Mais ce soir, on a un plan."
+    ],
+    "anciens_alias": [
+      "Ferrari SF-25"
+    ]
   },
   {
     "category_folder": "07_Formule_1_2025",
@@ -3719,7 +4744,7 @@
     "resistance_banane": 22,
     "facteur_chaos": 25,
     "intimidation": 96,
-    "citation": "Tout le monde est libre de gagner, dans l'ordre. Merci de respecter la papaya.",
+    "citation": "Papaya rules : tout le monde est libre de gagner, tant que c'est dans le bon ordre.",
     "lore": "Titre constructeurs 2025 avec 833 points, 14 victoires, pilote champion à deux points près. À Monza, un arrêt lent et une place rendue au coéquipier : la règle de la papaya a ses 49.3 comme les autres.",
     "voie_preferee": "Voie 4",
     "poids_estime": "29g",
@@ -3765,6 +4790,9 @@
     "anciens_alias": [
       "Papaya Rule : Article 49.3",
       "Papaya Rule"
+    ],
+    "citations_precedentes": [
+      "Tout le monde est libre de gagner, dans l'ordre. Merci de respecter la papaya."
     ]
   },
   {
@@ -3779,7 +4807,7 @@
     "resistance_banane": 35,
     "facteur_chaos": 40,
     "intimidation": 80,
-    "citation": "J'ai un génie de l'aéro et un moteur qui secoue les mains. Le couple, c'est fragile.",
+    "citation": "Un génie de l'aéro, un budget de pays pétrolier, et un podium toujours en option.",
     "lore": "Septième en 2025 sans podium, avant-dernière en 2026 avec un moteur qui vibre et un directeur-concepteur fraîchement nommé. Elle s'élance, rate son départ et se rattrape sur la piste du lendemain.",
     "voie_preferee": "Voie 2",
     "poids_estime": "31g",
@@ -3822,7 +4850,10 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "Un Génie, Pas de Moteur",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "J'ai un génie de l'aéro et un moteur qui secoue les mains. Le couple, c'est fragile."
+    ]
   },
   {
     "category_folder": "07_Formule_1_2025",
@@ -3836,7 +4867,7 @@
     "resistance_banane": 28,
     "facteur_chaos": 58,
     "intimidation": 84,
-    "citation": "Remaniement ce matin, remaniement ce soir. Un nouveau patron arrive pour féliciter le précédent.",
+    "citation": "Nouveau patron le lundi, nouveau pilote le jeudi. La seule constante ici, c'est le rose.",
     "lore": "Dernière du championnat 2025, dernière F1 à moteur Renault, un directeur remplacé en mai, un pilote en milieu de saison. En 2026, moteur Mercedes et triple des points : le remaniement se paie en tours de piste.",
     "voie_preferee": "Voie 1",
     "poids_estime": "30g",
@@ -3878,7 +4909,10 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "Alpine : Rose, Bleue, Remaniée",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "Remaniement ce matin, remaniement ce soir. Un nouveau patron arrive pour féliciter le précédent."
+    ]
   },
   {
     "category_folder": "07_Formule_1_2025",
@@ -3892,7 +4926,7 @@
     "resistance_banane": 30,
     "facteur_chaos": 38,
     "intimidation": 89,
-    "citation": "J'ai flashé à 364 km/h. Le radar m'a salué. La balance a dit « poids plume ».",
+    "citation": "Neuf titres constructeurs, le dernier en 1997. Les photos sont dans la vitrine, la poussière aussi.",
     "lore": "364 km/h à Monza en 2025, deux podiums, meilleure saison depuis 2017. En 2026 : voiture en surpoids, mise à jour attendue pour demain. La légende reste debout, comme un monument classé aux monuments historiques.",
     "voie_preferee": "Voie 3",
     "poids_estime": "30g",
@@ -3935,7 +4969,10 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "Williams : 364 km/h, Zéro Poids",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "J'ai flashé à 364 km/h. Le radar m'a salué. La balance a dit « poids plume »."
+    ]
   },
   {
     "category_folder": "07_Formule_1_2025",
@@ -3949,7 +4986,7 @@
     "resistance_banane": 40,
     "facteur_chaos": 48,
     "intimidation": 70,
-    "citation": "Petit frère, grande ambition : je suis cinquième et je n'ai pas fini de monter.",
+    "citation": "Petite sœur du taureau : je forme les pilotes, la grande me les pique. Merci pour le stage.",
     "lore": "Sixième en 2025 avec un podium aux Pays-Bas, cinquième en 2026 : le meilleur résultat de l'histoire de l'équipe, sous toutes ses identités. Le stagiaire a été titularisé, mais le bureau est toujours dans le couloir.",
     "voie_preferee": "Voie 4",
     "poids_estime": "29g",
@@ -3993,6 +5030,9 @@
     "anciens_alias": [
       "Stagiaire en CDI",
       "Racing Bulls VCARB 02"
+    ],
+    "citations_precedentes": [
+      "Petit frère, grande ambition : je suis cinquième et je n'ai pas fini de monter."
     ]
   },
   {
@@ -4007,7 +5047,7 @@
     "resistance_banane": 35,
     "facteur_chaos": 55,
     "intimidation": 70,
-    "citation": "Mon nom a changé quatre fois. Le vert fluo, non. Au moins, on me voit venir.",
+    "citation": "Quatre noms en cinq ans, un vert fluo indémodable. On me voit arriver, surtout en dernier.",
     "lore": "Troisième à Silverstone pour son pilote, après 239 départs, puis rebaptisée Audi en 2026. Son sponsor de 2025 vend des paris et du streaming selon le pays : un seul logo, deux modèles économiques, trois fuseaux horaires.",
     "voie_preferee": "Voie 2",
     "poids_estime": "30g",
@@ -4050,7 +5090,10 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "Sauber : Un Podium, Deux Noms",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "Mon nom a changé quatre fois. Le vert fluo, non. Au moins, on me voit venir."
+    ]
   },
   {
     "category_folder": "07_Formule_1_2025",
@@ -4064,7 +5107,7 @@
     "resistance_banane": 38,
     "facteur_chaos": 52,
     "intimidation": 68,
-    "citation": "Petit budget, grande envie. Mon meilleur résultat : cinquième en Chine, avec sponsor et sourire.",
+    "citation": "Budget de PME, ambition de multinationale. Cinquième en Chine : chez nous, c'est un titre.",
     "lore": "Huitième en 2025 avec 79 points, meilleur résultat 5e en Chine. Sponsor-titre remplacé par un constructeur en 2026, nom d'équipe changé, accident à 50 g sans gravité. Le budget est petit, la valise est grande.",
     "voie_preferee": "Voie 1",
     "poids_estime": "31g",
@@ -4106,7 +5149,10 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "Haas : Petit Budget, Gros Virement",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "Petit budget, grande envie. Mon meilleur résultat : cinquième en Chine, avec sponsor et sourire."
+    ]
   },
   {
     "category_folder": "08_Pack_France_Majorette",
@@ -4120,7 +5166,7 @@
     "resistance_banane": 82,
     "facteur_chaos": 30,
     "intimidation": 94,
-    "citation": "Je descends les Champs-Élysées, et le budget de l'Élysée m'accompagne : 122 M€ cette année.",
+    "citation": "Je descends les Champs à 30 km/h sous escorte. Le budget de l'Élysée, lui, roule à fond.",
     "lore": "Le DS 7 Crossback présidentiel de 2017 : cabriolet officiel, cortège, escorte. Le budget de l'Élysée tourne autour de 122 M€, avec un A330 aménagé à 176 M€. Elle est discrète, comme l'État : on ne la voit qu'à ses factures.",
     "voie_preferee": "Voie 2",
     "poids_estime": "42g",
@@ -4167,6 +5213,9 @@
     "anciens_alias": [
       "Décapotable Élysée",
       "DS 7 Crossback Élysée"
+    ],
+    "citations_precedentes": [
+      "Je descends les Champs-Élysées, et le budget de l'Élysée m'accompagne : 122 M€ cette année."
     ]
   },
   {
@@ -4181,7 +5230,7 @@
     "resistance_banane": 55,
     "facteur_chaos": 40,
     "intimidation": 91,
-    "citation": "300 chevaux devant, rien derrière. Sur la départementale : 80, et tonton compte.",
+    "citation": "300 chevaux, quatre roues directrices, et la départementale bridée à 80. Tonton compte les flashs.",
     "lore": "Traction à deux cents chevaux de plus que le bon sens, record en Allemagne, limitation à 80 sur la nationale. Elle bat un record qu'on ne peut pas reproduire, comme les promesses de déficit.",
     "voie_preferee": "Voie 1",
     "poids_estime": "36g",
@@ -4227,6 +5276,9 @@
     "anciens_alias": [
       "Mégane à 80",
       "Renault Mégane RS Trophy"
+    ],
+    "citations_precedentes": [
+      "300 chevaux devant, rien derrière. Sur la départementale : 80, et tonton compte."
     ]
   },
   {
@@ -4241,7 +5293,7 @@
     "resistance_banane": 92,
     "facteur_chaos": 35,
     "intimidation": 96,
-    "citation": "Je me lève avant de rouler, comme les grands. Les nids-de-poule me saluent.",
+    "citation": "Je me lève avant de rouler, comme les grands. Les nids-de-poule de la départementale me saluent.",
     "lore": "Sa grande sœur DS 19 a roulé sur ses jantes en 1962 et sauvé son passager. Suspension hydropneumatique, silhouette de cathédrale, poche de fantômes dans le rétroviseur : la voiture la plus calme des Trente Glorieuses.",
     "voie_preferee": "Voie 3",
     "poids_estime": "38g",
@@ -4290,6 +5342,9 @@
     "anciens_alias": [
       "Déesse Crevée",
       "Citroën DS 21 Pallas"
+    ],
+    "citations_precedentes": [
+      "Je me lève avant de rouler, comme les grands. Les nids-de-poule me saluent."
     ]
   },
   {
@@ -4304,7 +5359,7 @@
     "resistance_banane": 75,
     "facteur_chaos": 70,
     "intimidation": 95,
-    "citation": "Moteur central, 160 ch, 970 kg. En ville, la ZFE m'interdit. Au rallye, c'est moi le patron.",
+    "citation": "Moteur central, 160 chevaux, 970 kilos. La ZFE m'interdit la ville, le rallye me la rend.",
     "lore": "Citadine à moteur central, dessinée par Bertone et lâchée dans les rallyes du Groupe B. Elle gagne Monte-Carlo en 1981 et se fait bannir ensuite : une carrière en dents de scie, entre victoire et ZFE.",
     "voie_preferee": "Voie 4",
     "poids_estime": "33g",
@@ -4347,22 +5402,25 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "La Puce Interdite de Centre-Ville",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "Moteur central, 160 ch, 970 kg. En ville, la ZFE m'interdit. Au rallye, c'est moi le patron."
+    ]
   },
   {
     "category_folder": "08_Pack_France_Majorette",
     "car_folder": "DS_4",
     "code": "FR05",
     "real_name": "Majorette DS 4 E-Tense",
-    "alias": "La Start-Up Nation",
+    "alias": "1.2L PureTech",
     "ecurie": "Parisian Elegance Sport",
     "vitesse": 89,
     "aerodynamisme": 85,
     "resistance_banane": 70,
     "facteur_chaos": 35,
     "intimidation": 87,
-    "citation": "Moitié électrique, moitié essence, 100 % pitch. Je lève des fonds avant de lever le pied.",
-    "lore": "Hybride rechargeable de 225 chevaux : le crossover chic de la démission de salon. Autonomie électrique de cinquante kilomètres, comme la durée du mandat du gouvernement Lecornu I : très courte et riche en cérémonie.",
+    "citation": "Ma courroie baigne dans l'huile et se désagrège. Le garage, lui, baigne dans les rendez-vous.",
+    "lore": "Trois cylindres turbo, 1,2 litre, et une courroie de distribution qui baigne dans l'huile : elle se délite, ses miettes bouchent la crépine, le voyant s'allume. Elle arrive sur le plateau de la dépanneuse, capot levé, triangle posé.",
     "voie_preferee": "Voie 2",
     "poids_estime": "39g",
     "photo_fichier": "FR05_Majorette_DS4_E_Tense.jpg",
@@ -4376,8 +5434,8 @@
       "maj": null
     },
     "alias_historique": "Le Crossover Haute Couture",
-    "sous_titre": "DS 4 E-Tense : 50 km électriques, 100 % bonne figure",
-    "onomatopee": "BZZZ-VROOM !",
+    "sous_titre": "DS 4 : trois cylindres, courroie à bain d'huile, rendez-vous garage",
+    "onomatopee": "TAC-TAC-CLONK",
     "archetype": "pop",
     "alias_precedent": "Ministre de 14 Heures",
     "pedigree": "DS 4 E-Tense 225 : 1,6 L essence + 81 kW électrique, batterie 12,4 kWh, ~50 km d'autonomie électrique ; DS Automobiles, double champion de Formule E 2019 et 2020. Hook : ministres du gouvernement Lecornu I restés ~14 heures (octobre 2025).",
@@ -4395,7 +5453,7 @@
       }
     },
     "easter_egg": "Un compteur « 14 : 00 » apparaît puis se fige sur la fiche.",
-    "satire": "gouvernements éphémères",
+    "satire": "moteur PureTech et courroie de distribution humide",
     "musique": {
       "titre": "Voyage, Voyage",
       "artiste": "Desireless",
@@ -4403,15 +5461,19 @@
       "style": "synth-pop française 1986"
     },
     "enquete": "2026-10-08",
-    "alias_long": "Le Crossover du Ministre de 14 Heures",
-    "renommage": "2026-10-09b",
+    "alias_long": "1.2L PureTech : la Courroie qui Boit",
+    "renommage": "2026-10-13-v5",
     "anciens_alias": [
       "Le Crossover du Ministre de 14 Heures",
-      "Ministre de 14 Heures"
+      "Ministre de 14 Heures",
+      "La Start-Up Nation"
     ],
-    "rarete_custom": "startup",
+    "rarete_custom": null,
     "base_rarete": "standard",
-    "badge_custom": "🚀 LEVÉE DE FONDS"
+    "badge_custom": null,
+    "citations_precedentes": [
+      "Moitié électrique, moitié essence, 100 % pitch. Je lève des fonds avant de lever le pied."
+    ]
   },
   {
     "category_folder": "09_Pack_Japon_Tomica",
@@ -4425,7 +5487,7 @@
     "resistance_banane": 62,
     "facteur_chaos": 48,
     "intimidation": 80,
-    "citation": "Je prends mon temps pour réfléchir, puis tout arrive d'un coup. C'est ça, le turbo-lag.",
+    "citation": "Je réfléchis longtemps, puis tout arrive d'un coup. Le turbo-lag, c'est ma politique RH.",
     "lore": "Mitsubishi, Chrysler, Dodge, Plymouth : la même voiture sous quatre badges, comme un montage fiscal. Turbo-lag magistral, mais elle a gagné les 24 Heures de Nelson Ledges et participé à Cannonball Run II.",
     "voie_preferee": "Voie 1",
     "poids_estime": "41g",
@@ -4466,7 +5528,10 @@
     },
     "enquete": "2026-10-08",
     "alias_long": "Le Starion du Rachat de Crédits",
-    "renommage": "2026-10-09b"
+    "renommage": "2026-10-09b",
+    "citations_precedentes": [
+      "Je prends mon temps pour réfléchir, puis tout arrive d'un coup. C'est ça, le turbo-lag."
+    ]
   },
   {
     "category_folder": "09_Pack_Japon_Tomica",
@@ -4480,7 +5545,7 @@
     "resistance_banane": 68,
     "facteur_chaos": 45,
     "intimidation": 96,
-    "citation": "Mon masque de fer n'a jamais bougé. Ma calandre non plus : personne ne passe.",
+    "citation": "Masque de fer, pas de calandre, pas d'émotions. Je suis le DRH des années 80.",
     "lore": "Le Masque de Fer des années 80 : phares fins comme un regard de ministre, six pans, turbo de 190 chevaux. Elle a tout vu, tout explosé, tout oublié. Les commissions d'enquête parlementaires peuvent encore la convoquer.",
     "voie_preferee": "Voie 2",
     "poids_estime": "43g",
@@ -4527,6 +5592,9 @@
     "anciens_alias": [
       "Tekkamen Sans Suite",
       "Skyline R30 Tekkamen"
+    ],
+    "citations_precedentes": [
+      "Mon masque de fer n'a jamais bougé. Ma calandre non plus : personne ne passe."
     ]
   },
   {
@@ -4541,7 +5609,7 @@
     "resistance_banane": 62,
     "facteur_chaos": 28,
     "intimidation": 98,
-    "citation": "Austère, parfait, ponctuel. Si tu as une anomalie, je la trouve. Et je la tarife.",
+    "citation": "Austère, ponctuelle, allemande. Une anomalie ? Je la trouve, je la tamponne, je la majore de 10 %.",
     "lore": "Cosworth sous le capot, aileron réglable aux mains du directeur général. DTM, titres, accélération de berline. Les 502 exemplaires étaient vendus avant l'inauguration : un passe-droit en série limitée.",
     "voie_preferee": "Voie 3",
     "poids_estime": "45g",
@@ -4588,6 +5656,9 @@
     "anciens_alias": [
       "Evo II Actionnaire",
       "Mercedes 190E Evo II"
+    ],
+    "citations_precedentes": [
+      "Austère, parfait, ponctuel. Si tu as une anomalie, je la trouve. Et je la tarife."
     ]
   },
   {
@@ -4595,15 +5666,15 @@
     "car_folder": "Pontiac_Firebird_Tomica",
     "code": "TK04",
     "real_name": "Tomica Pontiac Firebird Trans Am",
-    "alias": "Le Bandit",
+    "alias": "Néon Bandit NC-77",
     "ecurie": "Yokohama Muscle Imports",
     "vitesse": 89,
     "aerodynamisme": 78,
     "resistance_banane": 66,
     "facteur_chaos": 62,
     "intimidation": 90,
-    "citation": "Je roule vite, je ris fort, et la police derrière moi s'ennuie.",
-    "lore": "Trans Am noire, 1977 : convoi de contrebande par-delà les frontières d'États, shérifs distraits, camionneur bavard. Chaque barrage routier est un embargo contourné ; chaque shérif, une commission d'enquête.",
+    "citation": "Données volées, plaques clonées, néons à fond. À Néo-Paris, la police paie un abonnement pour me suivre.",
+    "lore": "Trans Am de 1977 tirée d'une casse de Néo-Paris : blindée, raccourcie, recâblée de néons cyan et magenta. Volets à la place des vitres, plaques qui changent à chaque portique. La police la suit sur abonnement.",
     "voie_preferee": "Voie 4",
     "poids_estime": "44g",
     "photo_fichier": "TK04_Tomica_Pontiac_Firebird_Trans_Am.jpg",
@@ -4617,8 +5688,8 @@
       "maj": null
     },
     "alias_historique": "L'Américaine Façon Ginza",
-    "sous_titre": "Trans Am de 1977 : Smokey and the Bandit, cargaison interdite",
-    "onomatopee": "VROOM ! BANG !",
+    "sous_titre": "Trans Am 1977 recâblée : blindage, néons, plaques clonées",
+    "onomatopee": "BZZT ! VROOM !",
     "archetype": "manga",
     "alias_precedent": "Smokey et le Bandit",
     "pedigree": "Pontiac Firebird Trans Am 1977 (V8 Pontiac 6,6 L, 200 ch) ; Smokey and the Bandit (1977). Jouet : Tomica Pontiac Firebird Trans Am ; version K.I.T.T. possible selon la livrée.",
@@ -4635,7 +5706,7 @@
       }
     },
     "easter_egg": "Un pneu de camion au loin fait un clin d'œil, puis disparaît.",
-    "satire": "embargos contournés / flotte fantôme",
+    "satire": "surveillance de masse et données volées",
     "musique": {
       "titre": "East Bound and Down",
       "artiste": "Jerry Reed",
@@ -4643,11 +5714,15 @@
       "style": "country-rock 1977 de poursuite"
     },
     "enquete": "2026-10-08",
-    "alias_long": "Le Bandit des Embargos",
-    "renommage": "2026-10-09b",
+    "alias_long": "Néon Bandit NC-77, Hors-la-Loi de Néo-Paris",
+    "renommage": "2026-10-13-v5",
     "anciens_alias": [
       "Bandit des Embargos",
-      "Smokey et le Bandit"
+      "Smokey et le Bandit",
+      "Le Bandit"
+    ],
+    "citations_precedentes": [
+      "Je roule vite, je ris fort, et la police derrière moi s'ennuie."
     ]
   },
   {
@@ -4662,7 +5737,7 @@
     "resistance_banane": 90,
     "facteur_chaos": 92,
     "intimidation": 82,
-    "citation": "Pika ! La foudre ne me touche pas : je la dirige. Avec le sourire.",
+    "citation": "La foudre ne me touche pas : je la revends en cartes à collectionner. Avec le sourire.",
     "lore": "Un bus à l'effigie de Pikachu qui parcourt le Japon pour une émission télé. Lent, mignon, intouchable : l'éclair le renforce plutôt que de le toucher. Il convoie des familles, des peluches, un public éperdu.",
     "voie_preferee": "Voie 1 (Côté tribune enfants)",
     "poids_estime": "39g",
@@ -4708,6 +5783,9 @@
     "anciens_alias": [
       "Pika-Taxe",
       "Pikachu, Tarif Réglementé"
+    ],
+    "citations_precedentes": [
+      "Pika ! La foudre ne me touche pas : je la dirige. Avec le sourire."
     ]
   },
   {
@@ -4722,7 +5800,7 @@
     "resistance_banane": 45,
     "facteur_chaos": 45,
     "intimidation": 97,
-    "citation": "Mes fans chantent plus fort que mon moteur, et ils ne s'arrêtent jamais.",
+    "citation": "Mes fans chantent plus fort que mon moteur. Je n'existe pas, et je vends quand même plus que toi.",
     "lore": "Une AMG GT3 couverte d'illustrations, pilotée par Good Smile Racing, titrée en 2011, 2014 et 2017. En 2025 : pole à Okayama, 5e au championnat. La voiture n'a pas besoin de mise à jour, ses fans non plus.",
     "voie_preferee": "Voie 3",
     "poids_estime": "42g",
@@ -4772,6 +5850,9 @@
     ],
     "rarete_custom": "vocaloid",
     "base_rarete": "legendaire",
-    "badge_custom": "🎵 VOCALOID 39"
+    "badge_custom": "🎵 LÉGENDAIRE · VOCALOID 39",
+    "citations_precedentes": [
+      "Mes fans chantent plus fort que mon moteur, et ils ne s'arrêtent jamais."
+    ]
   }
 ]

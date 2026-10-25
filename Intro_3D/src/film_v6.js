@@ -1,0 +1,531 @@
+/* FILM de l'INTRO V6 « L'Hybride Ultime » (dérivé de film_v5.js, qui reste intact) : l'image est une FONCTION PURE DU
+   TEMPS, rendreTemps(t). Aucune Math.random(), aucune horloge, aucun état qui dépend de l'image précédente.
+
+   V6 = énergie 3D de la Version 1 + lisibilité broadcast de la Version 2 :
+     - les 15 écuries roulent dans leurs CONCEPT-CARS du Showroom (buildConceptCar 1→15, tick(t), vraies jantes qui
+       tournent) ; meute, F1, Batmobile, Épave N12 et PARC FERMÉ = modèles m3d sculptés à jour ; plus aucune boîte grise ;
+     - salon LISIBLE : la carte d'environnement n'est plus coupée dans la pénombre, éclairage d'appoint chaud, vignette 0,38 ;
+     - caméra « SWOOP-AND-HOLD » (swoop d'entrée, hold de lecture à −88 % horizon verrouillé et cadrage 2/3 – 1/3, whip
+       de sortie), UN impact par écurie, coup de focale ≤ 8 %, secousse = ressort critique (ζ = 1) à 8 Hz, plus de tremblement
+       aléatoire à 60 Hz ni de double secousse / double flash ;
+     - invocations décongestionnées (plus de 320 confettis + 120 fumées + 6 colonnes de flammes + disque opaque par écurie),
+       fumée plafonnée à 75 px (à 1080p), une seule foule ;
+     - post-traitement propre (grain 0,018, balayage 0,005, aberration et flou radial limités aux 120 ms d'un impact) ;
+     - HUD BROADCAST (hud_v6.js) rendu APRÈS le post-traitement : fiches d'écuries, groupes, stats, univers, paris.
+
+   creerFilm({ renderer, equipes, logos, montage, qualite, parcMax }) → { scene, camera, rendreTemps(t), planA(t), duree, post, hud, inventaire }
+*/
+import { construireSalon, environnementSalon, graineur, toile } from './decors/salon.js';
+import { construireArene, COULEURS_VOIES } from './decors/arene.js';
+import { construireHabillage, reglerResolutionPoints } from './decors/habillage_v6.js';
+import { creerPost } from './post_v6.js';
+import { chargerBolides, rouesReelles, animerConcept, conceptInfo } from './bolides_reels_v6.js';
+import { construireInvocations, marioPose } from './invocations_v6.js';
+import { creerHUD } from './hud_v6.js';
+
+const T = () => window.THREE;
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const doux = (u) => u * u * (3 - 2 * u);
+const COURBES = { lin: (u) => u, doux, entree: (u) => u * u * u, sortie: (u) => 1 - (1 - u) ** 3, cine: (u) => u * u * u * (u * (u * 6 - 15) + 10) };   // cine = smootherstep (accélération et freinage sans à-coup)
+const hash = (n) => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+const fovDeFocale = (mm) => 2 * Math.atan(24 / (2 * mm)) * 180 / Math.PI;
+
+export async function creerFilm({ renderer, equipes, logos, montage, qualite = 'apercu', parcMax = 52 }) {
+  const THREE = T(), rnd = graineur(4242), { plans, hits, reperes: R, duree } = montage;
+  const DEC = montage.decalage ?? 0, S = (x) => x + DEC;                           // instants v4 situés après l'appel → v5
+  const THEMES_T = R.themes || [];                                                 // [[début, fin]] de la signature sonore de chaque écurie
+  const IMPACTS = montage.impacts || R.impacts || [], DEPARTS = montage.departs || [];   // l'unique impact (son + image) et l'ouverture du hold de chaque écurie
+  const scene = new THREE.Scene(); scene.background = new THREE.Color(0x000000);
+  const envSalon = environnementSalon(renderer); scene.environment = envSalon;
+  const camera = new THREE.PerspectiveCamera(40, 16 / 9, 0.3, 6000);
+  renderer.shadowMap.enabled = qualite !== 'brouillon';
+
+  /* ------------------------------------------------------------ décors */
+  const salon = construireSalon({ graine: 2312 }); scene.add(salon.groupe);
+  const arene = construireArene({ equipes, logos }); scene.add(arene.groupe);
+  const habillage = construireHabillage({ arene, equipes, logos }); scene.add(habillage.arene, habillage.salon);
+  const invocations = construireInvocations({ equipes }); scene.add(invocations.groupe);
+  const taille = renderer.getSize(new THREE.Vector2()), post = creerPost(renderer, taille.x, taille.y);
+  reglerResolutionPoints(habillage.arene, taille.y); reglerResolutionPoints(habillage.salon, taille.y);   // 75 px à 1080p
+  const concepts = {}; for (const e of equipes) concepts[e.id] = conceptInfo(e.id) || {};
+  const hud = creerHUD(renderer, taille.x, taille.y, { equipes, logos, concepts });
+  // UNE SEULE FOULE : celle d'habillage (proche, animée). La foule et les gradins d'arene.js (900 silhouettes) sont masqués.
+  let fouleMasquee = 0;
+  arene.groupe.children.forEach((o) => {
+    const geo = o.geometry, prm = geo && geo.parameters;
+    const fouleArene = o.isInstancedMesh && (o.count === 900 || o.count === 260 || o.count === 60);
+    const gradinArene = o.isMesh && !o.isInstancedMesh && geo && geo.type === 'CylinderGeometry' && prm.openEnded && prm.radiusTop >= 330 && prm.radiusTop <= 520;
+    if (fouleArene || gradinArene) { o.visible = false; o.userData.masqueV6 = true; fouleMasquee++; }
+  });
+  const C = arene.ancres.ring.centre.clone(), TOP = C.y;                 // centre du ring au niveau du tapis
+  const rel = (x, y, z) => new THREE.Vector3(C.x + x, TOP + y, C.z + z);
+  const brouillards = { gotham: new THREE.FogExp2(0x0b1430, 0.0045), apoca: new THREE.FogExp2(0x3a1606, 0.0035), arene: arene.ancres.brouillard };
+
+  /* ------------------------------------------------------------ (v5 : fabrique de maquettes « voiture() » SUPPRIMÉE en V6) */
+  /** Pose une voiture : position monde, cap (rad, 0 = vers +z), distance parcourue (rotation absolue des roues), roulis. */
+  function poser(v, p, cap, distance = 0, roulis = 0, tangage = 0) {
+    v.position.copy(p); v.rotation.set(tangage, cap, roulis, 'YXZ');
+    rouesReelles(v, distance);
+  }
+
+  /* ------------------------------------------------------------ la piste arc-en-ciel sur le ring (5 voies de 8 cm) */
+  const VOIE_X = [-16, -8, 0, 8, 16], LONG_PISTE = 146;
+  const matsVoies = COULEURS_VOIES.map((c) => new THREE.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: 0, roughness: 0.25, transparent: true, opacity: 0.9 }));
+  const piste = new THREE.Group(); scene.add(piste);
+  VOIE_X.forEach((x, j) => { const m = new THREE.Mesh(new THREE.BoxGeometry(7.6, 0.4, LONG_PISTE), matsVoies[j]); m.position.copy(rel(x, 0.2, 0)); m.receiveShadow = true; piste.add(m); });
+  for (const s of [-1, 1]) { const b = new THREE.Mesh(new THREE.BoxGeometry(0.6, 1.4, LONG_PISTE), new THREE.MeshStandardMaterial({ color: 0xe8f2ff, transparent: true, opacity: 0.5 })); b.position.copy(rel(s * 20.3, 0.7, 0)); piste.add(b); }
+  const surPiste = (j, s) => rel(VOIE_X[j], 0.4, -LONG_PISTE / 2 + s);               // s = distance depuis le bout nord (cm)
+
+  /* ------------------------------------------------------------ distribution */
+  /* les VRAIS bolides sculptés du projet (shared/bolides3d.js + m3d/) — construits une fois, posés à chaque image */
+  const garage = chargerBolides(THREE, envSalon);
+  const meute = await Promise.all(garage.MEUTE.map((code) => garage.creer(code))); meute.forEach((v) => scene.add(v));
+  // les 15 CONCEPT-CARS du Showroom (ordre de teams.json : id 1 → 15), hors du pool des caisses mystère
+  const emblemes = equipes.map((e) => garage.creerConceptShowroom(e.id)); emblemes.forEach((v) => scene.add(v));
+  // logo de l'écurie en SPRITE (toujours de face : plus jamais de logo à l'envers) — seulement sur le plan large final
+  const disques = equipes.map((e) => {
+    const cv = toile(256, 256, (g, L, H) => {
+      g.fillStyle = e.colors[0]; g.beginPath(); g.arc(L / 2, H / 2, 120, 0, 7); g.fill();
+      const im = logos[e.id]; g.save(); g.beginPath(); g.arc(L / 2, H / 2, 104, 0, 7); g.clip();
+      if (im) { const s = Math.max(208 / im.naturalWidth, 208 / im.naturalHeight); g.drawImage(im, L / 2 - im.naturalWidth * s / 2, H / 2 - im.naturalHeight * s / 2, im.naturalWidth * s, im.naturalHeight * s); }
+      g.restore(); g.lineWidth = 10; g.strokeStyle = e.colors[1]; g.beginPath(); g.arc(L / 2, H / 2, 118, 0, 7); g.stroke();
+    });
+    const tex = new THREE.CanvasTexture(cv); tex.encoding = THREE.sRGBEncoding;
+    const m = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, opacity: 0.9, toneMapped: false, depthWrite: false })); m.scale.set(6, 6, 1);
+    scene.add(m); return m;
+  });
+  // PARC FERMÉ : de VRAIS bolides m3d à jour, tous différents (plus de « voiture('citadine') » en carton)
+  const codesParc = garage.codesParc(Math.min(52, parcMax));
+  const modelesParc = await Promise.all(codesParc.map((code) => garage.creer(code)));
+  const PARC = [];
+  for (let r = 0; r < 4; r++) for (let k = 0; k < 13; k++) {
+    const n = r * 13 + k; if (!modelesParc.length || n >= Math.min(52, parcMax)) continue;
+    const src = modelesParc[n % modelesParc.length], v = n < modelesParc.length ? src : src.clone(true);
+    if (v !== src) v.userData = { ...src.userData, roues: [] };
+    scene.add(v);
+    const rar = hash(r * 31 + k * 7); const c = rar > 0.9 ? '#ffc83d' : rar > 0.7 ? '#b06bff' : rar > 0.4 ? '#3fa9ff' : '#9aa6c4';
+    const glow = new THREE.Mesh(new THREE.PlaneGeometry(6, 10), new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: 0.55, toneMapped: false, depthWrite: false })); glow.rotation.x = -Math.PI / 2; scene.add(glow);
+    PARC.push({ v, glow, p: new THREE.Vector3(C.x - 190 - r * 25, 0, C.z - 160 + k * 30) });
+  }
+  // éclairage du parc fermé (hors des projecteurs du ring) : on doit LIRE les carrosseries, comme dans la Version 2
+  const lumParc = [0, 1, 2].map((j) => { const l = new THREE.PointLight(0xfff0dc, 0, 260, 1.2); l.position.set(C.x - 228, 70, C.z - 110 + j * 110); scene.add(l); return l; });
+  const f1s = await Promise.all(garage.F1.map((code) => garage.creer(code))); f1s.forEach((v) => scene.add(v));
+  const batmobile = await garage.creer(garage.SECRETS.batmobile); scene.add(batmobile);
+  const epave = await garage.creer(garage.SECRETS.epave); scene.add(epave);
+  const silhouette = await garage.creer(garage.SECRETS.silhouette, { noircir: true }); scene.add(silhouette);
+  const liseré = new THREE.Mesh(new THREE.BoxGeometry(3.6, 2.8, 9.0), new THREE.MeshBasicMaterial({ color: 0x2fd6c8, transparent: true, opacity: 0.0, side: THREE.BackSide, toneMapped: false })); scene.add(liseré);
+
+  /* ------------------------------------------------------------ accessoires */
+  const lampeFlash = new THREE.PointLight(0xffffff, 0, 2000, 0); lampeFlash.position.copy(rel(0, 300, 0)); scene.add(lampeFlash);
+  const goutte = new THREE.Mesh(new THREE.SphereGeometry(0.35, 16, 12), new THREE.MeshPhysicalMaterial({ color: 0x120a02, roughness: 0.05, metalness: 0.3, clearcoat: 1 })); scene.add(goutte);
+  const refletGoutte = new THREE.PointLight(0x9fc0ff, 0, 45, 0); refletGoutte.position.set(-98, 9, 120); scene.add(refletGoutte);   // un rai de lune accroche la goutte
+  // l'A4 de Lulu = l'A4 remorquée par la dépanneuse de l'écurie 8 : on pose l'attelage pour que SA fuite tombe sur le repère du plan S1
+  const GOUTTE = new THREE.Vector3(-108, 0, 108), CAP_A4 = Math.PI * 0.8, gl8 = emblemes[7].userData.goutteLocale || new THREE.Vector3(0, 1.15, 0);
+  const POSE_A4 = GOUTTE.clone().sub(gl8.clone().setY(0).applyAxisAngle(new THREE.Vector3(0, 1, 0), CAP_A4)); POSE_A4.y = 0;
+  const Y_GOUTTE = Math.max(0.6, gl8.y);
+  // éclairage d'appoint CHAUD du salon (tapis, télé, miniatures) : la clarté de la Version 2
+  const appointSalon = new THREE.PointLight(0xffd2a0, 0, 520, 1.6); appointSalon.position.set(-30, 150, 120); scene.add(appointSalon);
+  const appointTapis = new THREE.SpotLight(0xffe0bc, 0, 600, Math.PI / 4.5, 0.7, 1.4); appointTapis.position.set(-40, 230, 160); appointTapis.target.position.set(-20, 0, 60); scene.add(appointTapis, appointTapis.target);
+  const eclabous = new THREE.Mesh(new THREE.TorusGeometry(1, 0.08, 6, 24), goutte.material); eclabous.rotation.x = Math.PI / 2; scene.add(eclabous);
+  // podium, trône, couronne
+  const podium = new THREE.Group(); scene.add(podium);
+  const or = new THREE.MeshStandardMaterial({ color: 0xd9a92a, roughness: 0.25, metalness: 1 }), rouge = new THREE.MeshStandardMaterial({ color: 0xa50d18, roughness: 0.4 });
+  for (const [x, h, c] of [[-12, 6, 0xc0c0c8], [0, 10, 0xd9a92a], [12, 4, 0xb87333]]) { const b = new THREE.Mesh(new THREE.BoxGeometry(11, h, 11), new THREE.MeshStandardMaterial({ color: c, roughness: 0.3, metalness: 0.7 })); b.position.set(x, h / 2, 0); b.castShadow = true; podium.add(b); }
+  const trone = new THREE.Group(); trone.position.set(0, 10, 0); podium.add(trone);
+  const assise = new THREE.Mesh(new THREE.BoxGeometry(7, 2.5, 6), rouge); assise.position.y = 2; trone.add(assise);
+  const dossier = new THREE.Mesh(new THREE.BoxGeometry(7, 11, 1.4), rouge); dossier.position.set(0, 7, -2.6); trone.add(dossier);
+  for (const s of [-1, 1]) { const a = new THREE.Mesh(new THREE.BoxGeometry(1, 4, 6), or); a.position.set(s * 3.9, 3, 0); trone.add(a); }
+  const couronne = new THREE.Group(); scene.add(couronne);
+  const anneau = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 2.4, 1.6, 24, 1, true), or); anneau.material.side = THREE.DoubleSide; couronne.add(anneau);
+  for (let k = 0; k < 6; k++) { const p = new THREE.Mesh(new THREE.ConeGeometry(0.6, 2, 6), or); const a = k / 6 * Math.PI * 2; p.position.set(Math.cos(a) * 2.3, 1.6, Math.sin(a) * 2.3); couronne.add(p); }
+  // étincelles (pyros, explosion, contacts) : InstancedMesh balistique semé
+  const NE = 600, etincelles = new THREE.InstancedMesh(new THREE.BoxGeometry(0.25, 0.25, 1.4), new THREE.MeshBasicMaterial({ color: 0xffc46b, toneMapped: false }), NE); scene.add(etincelles);
+  // Gotham : tours, pluie, chauves-souris, ombre
+  const gotham = new THREE.Group(); scene.add(gotham);
+  const cvTour = toile(128, 512, (g, L, H) => { g.fillStyle = '#05070d'; g.fillRect(0, 0, L, H); for (let y = 8; y < H; y += 16) for (let x = 6; x < L; x += 14) if (hash(x * 13 + y) > 0.72) { g.fillStyle = hash(x + y * 7) > 0.5 ? '#ffd27a' : '#9fc3ff'; g.fillRect(x, y, 7, 9); } });
+  const texTour = new THREE.CanvasTexture(cvTour); texTour.encoding = THREE.sRGBEncoding;
+  for (let k = 0; k < 22; k++) {
+    const a = (0.62 + k / 21 * 0.76) * Math.PI, R0 = 260 + hash(k) * 140, h = 120 + hash(k * 3) * 260, l = 30 + hash(k * 5) * 40;
+    const tour = new THREE.Mesh(new THREE.BoxGeometry(l, h, l), new THREE.MeshStandardMaterial({ map: texTour, emissive: 0xffffff, emissiveMap: texTour, emissiveIntensity: 0.6, roughness: 0.6 }));
+    tour.position.set(C.x + Math.sin(a) * R0, h / 2, C.z + Math.cos(a) * R0); gotham.add(tour);
+  }
+  const NP = 700, posPluie = new Float32Array(NP * 6), geoPluie = new THREE.BufferGeometry(); geoPluie.setAttribute('position', new THREE.BufferAttribute(posPluie, 3));
+  const pluie = new THREE.LineSegments(geoPluie, new THREE.LineBasicMaterial({ color: 0x9fb4d8, transparent: true, opacity: 0.55 })); gotham.add(pluie);
+  const signal = new THREE.Mesh(new THREE.CircleGeometry(60, 40), new THREE.MeshBasicMaterial({ color: 0xffe9a0, transparent: true, opacity: 0.35, toneMapped: false })); signal.position.copy(rel(-120, 420, -420)); signal.lookAt(rel(0, 0, 200)); gotham.add(signal);
+  const chauves = new THREE.InstancedMesh(new THREE.ConeGeometry(1.4, 0.4, 3), new THREE.MeshBasicMaterial({ color: 0x050507 }), 24); scene.add(chauves);
+  const ombre = new THREE.Mesh(new THREE.PlaneGeometry(14, 40), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.85 })); scene.add(ombre);
+  const lueursRire = [new THREE.PointLight(0x8f4dff, 0, 400, 1), new THREE.PointLight(0x35e07a, 0, 400, 1)]; lueursRire.forEach((l) => scene.add(l));
+  // F1 : garages
+  const stands = new THREE.Group(); scene.add(stands);
+  for (let k = 0; k < 5; k++) { const gar = new THREE.Mesh(new THREE.BoxGeometry(24, 18, 16), new THREE.MeshStandardMaterial({ color: 0x1c1f2a, emissive: 0x223355, emissiveIntensity: 0.4 })); gar.position.set(C.x - 48 + k * 24, 9, C.z - 125); stands.add(gar); }
+  // Apocalypse : épaves dispersées, boule de feu
+  const desert = new THREE.Group(); scene.add(desert);
+  for (let k = 0; k < 12; k++) { const a = k / 12 * Math.PI * 2 + 0.2, R0 = 110 + hash(k * 9) * 80; const v = new THREE.Group(); v.add(epave.children[0].clone(true)); v.position.set(C.x + Math.sin(a) * R0, 0, C.z + Math.cos(a) * R0); v.rotation.set(hash(k * 2) * 0.5, a, hash(k * 4) * 0.6); desert.add(v); }
+  const boule = new THREE.Mesh(new THREE.SphereGeometry(1, 24, 16), new THREE.MeshBasicMaterial({ color: 0xff7a1a, transparent: true, toneMapped: false })); scene.add(boule);
+  const lumBoule = new THREE.PointLight(0xff7a1a, 0, 900, 1); scene.add(lumBoule);
+  // caisses mystère (conteneurs imprimés, couleurs mates variées)
+  const TEINTES = ['#e07a5f', '#3d405b', '#81b29a', '#f2cc8f', '#9b5de5', '#00bbf9', '#f15bb5', '#fee440', '#6d6875'];
+  const caisses = TEINTES.map((c, i) => {
+    const g = new THREE.Group(); scene.add(g);
+    const mat = new THREE.MeshStandardMaterial({ color: c, roughness: 0.85 });
+    const ouvert = new THREE.MeshBasicMaterial({ visible: false }), parois = new THREE.MeshStandardMaterial({ color: c, roughness: 0.85, side: THREE.DoubleSide });
+    const corps = new THREE.Mesh(new THREE.BoxGeometry(11, 7, 11), [parois, parois, ouvert, parois, parois, parois]); corps.position.y = 3.5;   // caisse ouverte sur le dessus
+    corps.castShadow = true; g.add(corps);
+    const charniere = new THREE.Group(); charniere.position.set(0, 7, -5.5); g.add(charniere);
+    const couvercle = new THREE.Mesh(new THREE.BoxGeometry(11.4, 1.4, 11.4), mat); couvercle.position.set(0, 0.7, 5.5); charniere.add(couvercle);
+    const rar = i === 4 ? '#2fd6c8' : ['#ffc83d', '#b06bff', '#3fa9ff', '#9aa6c4'][i % 4];
+    const faisceau = new THREE.Mesh(new THREE.CylinderGeometry(3.5, 5, 1, 20, 1, true), new THREE.MeshBasicMaterial({ color: rar, transparent: true, opacity: 0.45, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide, toneMapped: false }));
+    scene.add(faisceau);
+    return { g, charniere, faisceau, haut: i === 0 ? 220 : 60 + hash(i * 3) * 90, x: (i % 3 - 1) * 40, z: (Math.floor(i / 3) - 1) * 40 };
+  });
+  // pièges
+  const banane = new THREE.Mesh(new THREE.TorusGeometry(2.4, 0.7, 8, 16, Math.PI * 0.9), new THREE.MeshStandardMaterial({ color: 0xffe23d, roughness: 0.4 })); banane.rotation.x = -Math.PI / 2; scene.add(banane);
+  const carapace = new THREE.Mesh(new THREE.DodecahedronGeometry(2.4), new THREE.MeshStandardMaterial({ color: 0x2f6bff, emissive: 0x1030a0, emissiveIntensity: 0.6, roughness: 0.3 })); scene.add(carapace);
+  // paris : téléphone géant, pièces, carnet papier
+  const cvTel = toile(512, 1024, (g, L, H) => {
+    g.fillStyle = '#0a0d1e'; g.fillRect(0, 0, L, H); g.fillStyle = '#ffc83d'; g.font = '900 54px sans-serif'; g.textAlign = 'center'; g.fillText('PARIS EN DIRECT', L / 2, 110);
+    COULEURS_VOIES.forEach((c, j) => { g.fillStyle = 'rgba(255,255,255,.06)'; g.fillRect(30, 180 + j * 150, L - 60, 120); g.fillStyle = c; g.fillRect(30, 180 + j * 150, 18, 120);
+      g.fillStyle = '#fff'; g.textAlign = 'left'; g.font = '700 40px sans-serif'; g.fillText(`VOIE ${j + 1}`, 70, 250 + j * 150); g.textAlign = 'right'; g.fillStyle = '#35e07a'; g.font = '900 54px sans-serif'; g.fillText((1.6 + hash(j) * 6).toFixed(2), L - 60, 258 + j * 150); });
+  });
+  const texTel = new THREE.CanvasTexture(cvTel); texTel.encoding = THREE.sRGBEncoding;
+  const telephone = new THREE.Group(); scene.add(telephone);
+  const coque = new THREE.Mesh(new THREE.BoxGeometry(64, 128, 6), new THREE.MeshPhysicalMaterial({ color: 0x15151c, roughness: 0.2, metalness: 0.6, clearcoat: 1 })); telephone.add(coque);
+  const ecranTel = new THREE.Mesh(new THREE.PlaneGeometry(58, 116), new THREE.MeshBasicMaterial({ map: texTel, toneMapped: false })); ecranTel.position.z = 3.1; telephone.add(ecranTel);
+  const NPi = 40, pieces = new THREE.InstancedMesh(new THREE.CylinderGeometry(1.4, 1.4, 0.3, 18), new THREE.MeshStandardMaterial({ color: 0xffc83d, roughness: 0.2, metalness: 1 }), NPi); scene.add(pieces);
+  const carnet = new THREE.Mesh(new THREE.BoxGeometry(12, 1, 16), new THREE.MeshStandardMaterial({ color: 0xf4efe2, roughness: 0.9 })); scene.add(carnet);
+  // la Coupe arc-en-ciel et ses rayons
+  const coupe = new THREE.Group(); scene.add(coupe);
+  const profil = [[0, 0], [5, 0], [5, 1], [1.6, 2], [1.2, 7], [2, 8], [6, 11], [7, 17], [6.6, 17.5], [5.6, 12], [0, 9]].map(([a, b]) => new THREE.Vector2(a, b));
+  coupe.add(new THREE.Mesh(new THREE.LatheGeometry(profil, 40), or));
+  COULEURS_VOIES.forEach((c, k) => { const b = new THREE.Mesh(new THREE.TorusGeometry(6.15 + k * 0.17, 0.32, 8, 40), new THREE.MeshBasicMaterial({ color: c, toneMapped: false })); b.rotation.x = Math.PI / 2; b.position.y = 11.6 + k * 1.1; coupe.add(b); });
+  const rayons = new THREE.Group(); scene.add(rayons);
+  for (let k = 0; k < 12; k++) { const r = new THREE.Mesh(new THREE.ConeGeometry(14, 260, 16, 1, true), new THREE.MeshBasicMaterial({ color: 0xffe6a0, transparent: true, opacity: 0.12, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide, toneMapped: false })); r.rotation.z = Math.PI / 2 + (k / 12) * Math.PI * 2; r.position.x = Math.cos(r.rotation.z - Math.PI / 2) * 130; r.position.y = Math.sin(r.rotation.z - Math.PI / 2) * 130; rayons.add(r); }
+  // les mots du titre (chrome irisé)
+  const MOTS = [['GRAND', R.grand], ['PRIX', R.prix], ['DE', R.de], ['NOËL', R.noel]];
+  const mots = MOTS.map(([txt, t0], k) => {
+    const cv = toile(1024, 256, (g, L, H) => {
+      const gr = g.createLinearGradient(0, 30, 0, 220); gr.addColorStop(0, '#ffffff'); gr.addColorStop(0.45, '#9fd8ff'); gr.addColorStop(0.5, '#3a4a6a'); gr.addColorStop(0.75, '#ff9fd8'); gr.addColorStop(1, '#ffe7a0');
+      g.font = '900 200px sans-serif'; g.textAlign = 'center'; g.lineWidth = 14; g.strokeStyle = '#ff4fb8'; g.strokeText(txt, L / 2, 205); g.fillStyle = gr; g.fillText(txt, L / 2, 205);
+    });
+    const tex = new THREE.CanvasTexture(cv); tex.encoding = THREE.sRGBEncoding;
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(64, 16), new THREE.MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false, side: THREE.DoubleSide })); scene.add(m);
+    return { m, t0, pos: [[-34, 52], [30, 52], [-40, 34], [22, 34]][k] };
+  });
+
+  /* ------------------------------------------------------------ effets planifiés (fonctions pures de R) */
+  const couleurEquipe = (i, k = 0) => new THREE.Color(equipes[i].colors[k] || '#ffffff');
+  const placeFinale = (i) => placeEmbleme(i).p;
+  // V6 : les colonnes de flammes ne partent plus à chaque signature (seulement sur les grands temps forts et les groupes)
+  const FLAMMES = [R.arene, R.trone, R.groupe_A, R.groupe_B, R.groupe_C, R.temoins, R.eternelle, R.noel, R.commence].filter((x) => Number.isFinite(x));
+  const CONFETTIS = [], FUMEES = [];   // V6 : plus de 320 confettis + 120 fumées génériques par écurie : seule l'invocation signature brille
+  const pluieConfettis = (t0, n = 700) => ({ t0, p: rel(0, 160, 0), n, couleurs: [...COULEURS_VOIES, '#ffffff', '#ffc83d'], v: 340 });
+  if (THEMES_T.length) CONFETTIS.push(pluieConfettis(THEMES_T[14][1], 800));
+  CONFETTIS.push(pluieConfettis(R.trone, 500), pluieConfettis(R.noel, 900), pluieConfettis(R.commence, 900), pluieConfettis(R.eternelle, 500));
+  for (let j = 0; j < 5; j++) FUMEES.push({ p: surPiste(j, LONG_PISTE / 2 + 14), t0: R.arene - 0.3, duree: R.quinze - R.arene + 0.3, n: 40, couleur: new THREE.Color(0.6, 0.62, 0.68), vent: { x: 0, z: 10 }, taille: 6, opacite: 0.1 });
+  for (let j = 0; j < 5; j++) FUMEES.push({ p: surPiste(j, LONG_PISTE - 14), t0: R.commence - 0.1, duree: 1.4, n: 80, couleur: new THREE.Color(0.9, 0.9, 0.92), vent: { x: 0, z: 20 }, taille: 7, opacite: 0.32 });
+  FUMEES.push({ p: rel(0, 8, -20), t0: R.temoins + 0.15, duree: 1.6, n: 180, couleur: new THREE.Color(0.22, 0.17, 0.14), vent: { x: 8, z: -4 }, taille: 18, opacite: 0.55 });
+  FUMEES.push({ p: rel(0, 0, 0), t0: R.preparez - 0.3, duree: R.commence - R.preparez + 0.3, n: 90, couleur: new THREE.Color(0.75, 0.78, 0.9), vent: { x: 0, z: 4 }, taille: 12, opacite: 0.25 });
+  const actifs = (liste, t, vie) => liste.filter((e) => t >= e.t0 - 0.05 && t <= e.t0 + (e.duree || 0) + vie);
+
+  /* ------------------------------------------------------------ trajectoires (fonctions pures) */
+  const E = R.ecuries;
+  // places finales des 15 emblèmes autour du ring : groupe A à l'ouest, B au sud, C à l'est (tournés vers le ring)
+  function placeEmbleme(i) {
+    const g = Math.floor(i / 5), k = i % 5, d = -60 + k * 30;
+    if (g === 0) return { p: rel(-128, -TOP, d), cap: Math.PI / 2 };
+    if (g === 1) return { p: rel(d, -TOP, 128), cap: Math.PI };
+    return { p: rel(128, -TOP, -d), cap: -Math.PI / 2 };
+  }
+  const ENTREE = rel(0, -TOP, 430);
+  const PLACES = Array.from({ length: 15 }, (_, i) => placeEmbleme(i));
+  const SANS_BURNOUT = new Set([4, 7, 12]);                                                  // Mario (en l'air), A4 (téléportation), Jojo (dérive) : la voiture joue déjà la scène
+  function etatEmbleme(i, t) {                                                              // entrée par l'allée sud, 1,1 s de trajet
+    const { p, cap } = placeEmbleme(i), u = clamp((t - E[i]) / 1.1);
+    if (t < E[i]) return null;
+    const k = COURBES.sortie(u), pos = ENTREE.clone().lerp(p, k);
+    const capTrajet = Math.atan2(p.x - ENTREE.x, p.z - ENTREE.z), c = lerp(capTrajet, cap, clamp((u - 0.75) / 0.25));
+    return { pos, cap: c, dist: ENTREE.distanceTo(p) * k };
+  }
+  function etatMeuteGaree(j) { return { pos: new THREE.Vector3(-22, 1.0, 52 + j * 9), cap: Math.PI / 2, dist: 0 }; }
+  function etatMeutePasse(j, t) {                                                           // « cinq voies » : passages sud → nord, synchro avec les Doppler du son
+    const tCroise = R.cinq + 0.25 + j * 0.12 + 0.6, v = 160, z = (tCroise - t) * v;
+    return { pos: rel(VOIE_X[j], 0.4, clamp(z, -LONG_PISTE / 2 - 400, LONG_PISTE / 2 + 400)), cap: Math.PI, dist: -z };
+  }
+  const tFige = R.une - 0.12;
+  function etatMeuteGrille(j) { return { pos: surPiste(j, LONG_PISTE - 12), cap: Math.PI, dist: 0 }; }
+  function etatMeuteDepart(j, t) { const dt = Math.max(0, t - R.commence - j * 0.04), s = 0.5 * 1500 * dt * dt; const p = surPiste(j, LONG_PISTE - 12 - s); return { pos: p, cap: Math.PI, dist: s }; }
+
+  /* ------------------------------------------------------------ rendu d'un instant */
+  const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), v3 = new THREE.Vector3(), un = new THREE.Vector3(1, 1, 1), axeY = new THREE.Vector3(0, 1, 0);
+  const cacher = (o) => { o.visible = false; };
+  const tous = [...meute, ...emblemes, ...disques, ...f1s, batmobile, epave, silhouette, liseré, goutte, eclabous, podium, couronne, gotham, chauves, ombre, stands, desert, boule, banane, carapace, telephone, pieces, carnet, coupe, rayons, piste, etincelles, ...PARC.flatMap((x) => [x.v, x.glow]), ...caisses.flatMap((c) => [c.g, c.faisceau]), ...mots.map((m) => m.m)];
+
+  /** SWOOP-AND-HOLD (fonction pure de t) : trois segments P0→P1 (swoop, décélération constante jusqu'à la vitesse de hold),
+      P1→P2 (hold, vitesse constante = 12 % du swoop), P2→P3 (whip, accélération constante). Vitesse continue aux jonctions.
+      Renvoie { pos, cib (repère de la place), mm, wHold (0 → 1 → 0 : poids du cadrage 2/3 – 1/3 et de la stabilisation) }. */
+  function evaluerSwoop(c, t) {
+    const [t0, ta, tb, t1] = c.temps, P = c.pts.map((x) => new THREE.Vector3(...x)), Cc = c.cibles.map((x) => new THREE.Vector3(...x));
+    const Ta = ta - t0, Th = tb - ta, Tw = t1 - tb, d1 = P[0].distanceTo(P[1]), d2 = P[1].distanceTo(P[2]), d3 = P[2].distanceTo(P[3]);
+    const vh = Th > 1e-6 ? d2 / Th : 0;
+    const f1 = (() => { if (Ta <= 1e-6) return 1; const tau = clamp(t - t0, 0, Ta), v0 = Math.max(vh, 2 * d1 / Ta - vh), acc = (v0 - vh) / Ta; return d1 > 1e-6 ? clamp((v0 * tau - 0.5 * acc * tau * tau) / d1) : clamp(tau / Ta); })();
+    const f2 = Th > 1e-6 ? clamp((t - ta) / Th) : (t >= tb ? 1 : 0);
+    const f3 = (() => { if (Tw <= 1e-6) return 0; const tau = clamp(t - tb, 0, Tw), v1 = Math.max(vh, 2 * d3 / Tw - vh), acc = (v1 - vh) / Tw; return d3 > 1e-6 ? clamp((vh * tau + 0.5 * acc * tau * tau) / d3) : clamp(tau / Tw); })();
+    const pos = P[0].clone().addScaledVector(v3.copy(P[1]).sub(P[0]), f1).addScaledVector(v3.copy(P[2]).sub(P[1]), f2).addScaledVector(v3.copy(P[3]).sub(P[2]), f3);
+    const cib = Cc[0].clone().addScaledVector(v3.copy(Cc[1]).sub(Cc[0]), f1).addScaledVector(v3.copy(Cc[2]).sub(Cc[1]), f2).addScaledVector(v3.copy(Cc[3]).sub(Cc[2]), f3);
+    const mm = c.mm[0] + (c.mm[1] - c.mm[0]) * f1 + (c.mm[2] - c.mm[1]) * f2 + (c.mm[3] - c.mm[2]) * f3;
+    const entree = Ta > 1e-6 ? doux(clamp((t - t0) / Ta)) : 1, sortieW = Tw > 1e-6 ? 1 - doux(clamp((t - tb) / Tw)) : 1;
+    return { pos, cib, mm, wHold: entree * sortieW };
+  }
+
+  function planA(t) { let lo = 0, hi = plans.length - 1; while (lo < hi) { const mid = (lo + hi + 1) >> 1; if (plans[mid].debut <= t) lo = mid; else hi = mid - 1; } return plans[lo]; }
+
+  function etincellesDe(sources, t) {                                                          // sources : [{t0, p, n, v, graine, dir}]
+    let i = 0;
+    for (const s of sources) for (let k = 0; k < s.n && i < NE; k++, i++) {
+      const dt = t - s.t0, vie = 0.6 + hash(s.graine + k) * 0.9;
+      if (dt < 0 || dt > vie) { m4.makeScale(0, 0, 0); etincelles.setMatrixAt(i, m4); continue; }
+      const a = hash(s.graine + k * 3) * Math.PI * 2, el = (s.dir ?? 0.9) + hash(s.graine + k * 5) * 0.6, v = s.v * (0.5 + hash(s.graine + k * 7) * 0.7);
+      const vx = Math.cos(a) * Math.cos(el) * v, vy = Math.sin(el) * v, vz = Math.sin(a) * Math.cos(el) * v;
+      v3.set(s.p.x + vx * dt, s.p.y + vy * dt - 490 * dt * dt, s.p.z + vz * dt); if (v3.y < 0) v3.y = 0;
+      q.setFromUnitVectors(new THREE.Vector3(0, 0, 1), new THREE.Vector3(vx, vy - 980 * dt, vz).normalize());
+      m4.compose(v3, q, un.set(1, 1, 1 - dt / vie)); etincelles.setMatrixAt(i, m4);
+    }
+    for (; i < NE; i++) { m4.makeScale(0, 0, 0); etincelles.setMatrixAt(i, m4); }
+    etincelles.instanceMatrix.needsUpdate = true; etincelles.visible = true;
+  }
+
+  function rendreTemps(t) {
+    const p = planA(t), u = clamp((t - p.debut) / Math.max(1e-6, p.fin - p.debut)), a = new Set(p.actions.map((x) => x.split(':')[0]));
+    tous.forEach(cacher);
+    salon.groupe.visible = p.decor === 'salon' || p.decor === 'transfo';
+    arene.groupe.visible = p.decor === 'arene' || p.decor === 'transfo';
+    salon.groupe.position.y = 0; arene.groupe.position.y = 0;
+    scene.fog = null; scene.background.setHex(0x000000); scene.environment = p.allume < 0.1 ? null : envSalon;   // noir réel quand l'arène est éteinte
+    appointSalon.intensity = 0; appointTapis.intensity = 0;
+
+    habillage.maj(t, { zone: 'aucune' });                                                         // remis à zéro, puis rallumé par le décor visible
+    /* --- salon */
+    if (salon.groupe.visible) {
+      let lum = p.lum ?? 1, tv = p.tv === 0 ? 0 : 1;
+      if (p.lum1 !== undefined) lum = lerp(p.lum ?? 1, p.lum1, doux(u));
+      if (a.has('tv_allume')) tv = clamp(u * 4);
+      if (a.has('lumiere_saute')) { const d = t - p.debut; if ((d > 1.2 && d < 1.28) || (d > 1.5 && d < 1.62)) lum *= 0.05; }
+      if (a.has('transformation')) { const k = doux(u); lum *= 1 - k; salon.groupe.position.y = -k * k * 260; }
+      salon.maj(t, { intensiteSalon: lum, tvAllumee: tv });
+      // V6 : scene.environment = envSalon reste actif dans tout le salon (v5 : coupé sous lum 0,45 → laques et cuir noirs)
+      appointSalon.intensity = 2.2 * lum * (salon.groupe.position.y < -1 ? Math.max(0, 1 + salon.groupe.position.y / 120) : 1);
+      appointTapis.intensity = 3.0 * lum * (salon.groupe.position.y < -1 ? Math.max(0, 1 + salon.groupe.position.y / 120) : 1);
+      habillage.salon.position.y = salon.groupe.position.y;
+      habillage.maj(t, { zone: 'salon', lune: p.lune ?? 1 });
+    }
+    /* --- arène */
+    let etatHabArene = null;
+    const etatArene = { theme: p.theme, allume: p.allume, rebond: [], casse: 0, foule: p.univers ? 0.6 : 1 };
+    if (arene.groupe.visible) {
+      if (a.has('transformation')) { const k = doux(u); arene.groupe.position.y = (k - 1) * 40; etatArene.allume = k * 0.3; }
+      etatArene.rebond.push({ t0: R.arene, force: 7, cote: -1 }, { t0: R.trone, force: 3, cote: -1 }, { t0: R.temoins, force: 8, cote: -1 }, { t0: R.trahisons, force: 5, cote: 1 }, { t0: R.noel, force: 6, cote: -1 }, { t0: R.commence, force: 7, cote: -1 });
+      for (const t0 of IMPACTS) etatArene.rebond.push({ t0, force: 3, cote: -1 });
+      if (a.has('luminaire_casse')) etatArene.casse = clamp((t - R.temoins) / 2);
+      if (a.has('luminaire_casse_fixe')) etatArene.casse = 1;
+      arene.maj(t, etatArene);
+      const ec = p.ecran || { mode: 'titre' };
+      if (ec.mode === 'ecurie') arene.ecran.afficher('ecurie', { equipe: equipes[ec.index], cle: 'e' + ec.index });
+      else if (ec.mode === 'groupe') arene.ecran.afficher('groupe', { lettre: ec.lettre, index: ec.index, equipes: equipes.slice(ec.index * 5, ec.index * 5 + 5), cle: 'g' + ec.lettre });
+      else if (ec.mode === 'feux') { const n = Math.min(5, 1 + Math.floor(u * 5)); arene.ecran.afficher('feux', { n, cle: 'f' + n }); }
+      else if (ec.mode === 'texte') arene.ecran.afficher('texte', { ...ec, cle: ec.cle || ec.ligne1 + (ec.ligne2 || '') });
+      else arene.ecran.afficher('titre', { cle: 'titre' });
+      scene.fog = brouillards.arene; scene.background.setHex(0x05040a);
+      piste.visible = true;
+      const sig = THEMES_T.findIndex(([a0, a1]) => t >= a0 && t < a1);
+      habillage.arene.position.y = arene.groupe.position.y;
+      etatHabArene = {
+        zone: 'arene', allume: etatArene.allume, excitation: p.univers ? 0.5 : (sig >= 0 ? 1.3 : 1), foule: !a.has('parc'), balayage: a.has('pyros') ? 1 : sig >= 0 ? 0.4 : 0,
+        fumees: actifs(FUMEES, t, 4), confettis: actifs(CONFETTIS, t, 6), flammes: FLAMMES.filter((x) => t >= x && t < x + 2.2),
+      };
+      matsVoies.forEach((m, j) => { m.emissiveIntensity = a.has('voies') ? clamp((t - (R.cinq + j * 0.09)) / 0.2) * 0.9 : 0.25 * etatArene.allume; });
+    }
+
+    /* --- la meute */
+    if (a.has('meute_garee')) meute.forEach((v, j) => { const e = etatMeuteGaree(j); v.visible = true; poser(v, e.pos, e.cap); if (a.has('transformation')) v.position.y = lerp(1.0, TOP + 0.4, doux(u)); });
+    if (a.has('meute_burnout')) meute.forEach((v, j) => { v.visible = true; const p0 = surPiste(j, LONG_PISTE / 2 + 10); poser(v, p0, Math.PI + Math.sin(t * 9 + j) * 0.06, t * 160); });
+    if (a.has('meute_passe')) meute.forEach((v, j) => { v.visible = true; const e = etatMeutePasse(j, t); poser(v, e.pos, e.cap, e.dist); });
+    if (a.has('meute_figee')) meute.forEach((v, j) => { v.visible = true; const e = etatMeutePasse(j, tFige); poser(v, e.pos, e.cap, e.dist); });
+    if (a.has('meute_grille')) meute.forEach((v, j) => { v.visible = true; const e = etatMeuteGrille(j); poser(v, e.pos, e.cap, t * 40, Math.sin(t * 30 + j) * 0.01); });
+    if (a.has('meute_depart')) meute.forEach((v, j) => { v.visible = true; const e = etatMeuteDepart(j, t); poser(v, e.pos, e.cap, e.dist); });
+
+    /* --- les 15 voitures-emblèmes */
+    const montrerEmbleme = (i, pos, cap, dist) => {
+      const v = emblemes[i]; v.visible = true; v.scale.set(1, 1, 1); poser(v, pos, cap, dist); animerConcept(v, t);
+      if (a.has('disques')) { const d = disques[i]; d.visible = true; d.position.copy(pos).add(v3.set(0, 16, 0)); }   // logo au-dessus, seulement sur le plan large final
+    };
+    if (a.has('goutte') || p.id === 'S2' || p.id === 'S3' || p.id === 'S4') {                // l'A4 de Lulu (remorquée, écurie 8), au bord du tapis
+      montrerEmbleme(7, POSE_A4, CAP_A4, 0);
+    }
+    refletGoutte.intensity = a.has('goutte') ? 0.9 : 0;
+    if (a.has('goutte')) {
+      const d = t - p.debut, forme = clamp(d / 0.55), chute = Math.max(0, d - 0.55), y = Y_GOUTTE - 0.5 * 980 * 0.06 * chute * chute;
+      goutte.visible = y > 0.05; goutte.position.set(GOUTTE.x, Math.max(0.3, y), GOUTTE.z); goutte.scale.set(forme, forme * (1 + chute * 2), forme);
+      if (y <= 0.05) { const k = clamp((d - 0.55 - Math.sqrt(Y_GOUTTE / (0.5 * 980 * 0.06))) / 0.4); eclabous.visible = true; eclabous.position.set(GOUTTE.x, 0.05, GOUTTE.z); eclabous.scale.setScalar(0.4 + k * 2.4); }
+    }
+    if (a.has('emblemes_rangee')) for (let i = 0; i < 15; i++) montrerEmbleme(i, rel(-140 + i * 20, -TOP, 125), Math.PI, 0);
+    if (a.has('emblemes_place')) for (let i = 0; i < 15; i++) {
+      const e = etatEmbleme(i, t); if (!e) continue;
+      const th = THEMES_T[i];
+      if (th && t >= th[0] && t < th[1] && !SANS_BURNOUT.has(i)) {                             // SIGNATURE : burnout AU SOL (roues qui patinent), sans roulis
+        const d = t - th[0], w = Math.min(1, d * 4) * Math.min(1, (th[1] - t) * 3);
+        montrerEmbleme(i, e.pos, e.cap + Math.sin(d * 7) * 0.025 * w, e.dist + d * 220 * w);
+      } else montrerEmbleme(i, e.pos, e.cap, e.dist);
+    }
+    if (a.has('emblemes_grille')) for (let i = 0; i < 15; i++) montrerEmbleme(i, rel(-40 + (i % 5) * 20, -TOP, 130 + Math.floor(i / 5) * 22), Math.PI, 0);
+
+    /* --- parc fermé */
+    lumParc.forEach((l) => { l.intensity = a.has('parc') ? 90 : 0; });
+    if (a.has('parc')) PARC.forEach(({ v, glow, p: pp }, k) => { v.visible = glow.visible = true; poser(v, pp, Math.PI / 2, 0); glow.position.set(pp.x, 0.15, pp.z); glow.rotation.z = Math.PI / 2; glow.material.opacity = 0.25 + 0.25 * clamp((t - R.dizaines - (k % 13) * 0.05) / 0.2); });
+
+    /* --- trône */
+    if (a.has('podium')) { podium.visible = true; podium.position.copy(rel(0, 0, 0)); trone.visible = a.has('trone'); }
+    if (a.has('couronne')) { couronne.visible = true; const k = COURBES.sortie(clamp((t - R.trone) / 0.9)); couronne.position.copy(rel(0, 10 + 15.5 + (1 - k) * 40, 0)); couronne.rotation.y = t * 0.8; }
+
+    /* --- étincelles */
+    const sources = [];
+    if (a.has('pyros')) arene.ancres.ring.coins.forEach((c, k) => sources.push({ t0: p.debut + 0.05, p: c.clone().setY(TOP + 44), n: 70, v: 160, graine: k * 101, dir: 1.0 }));
+    if (a.has('explosion')) sources.push({ t0: R.temoins + 0.1, p: rel(0, 6, 0), n: 220, v: 260, graine: 777, dir: 0.4 });
+    if (a.has('carapace')) sources.push({ t0: R.trahisons + 0.35, p: rel(VOIE_X[1], 2, -5), n: 120, v: 120, graine: 555, dir: 0.5 });
+    if (sources.length) etincellesDe(sources, t);
+
+    /* --- univers */
+    if (p.univers === 'gotham') {
+      gotham.visible = true; scene.fog = brouillards.gotham; scene.background.setHex(0x05080f);
+      for (let k = 0; k < NP; k++) { const x = C.x + (hash(k) - 0.5) * 500, z = C.z + (hash(k * 3) - 0.5) * 500, y = 300 - ((t * 420 + hash(k * 7) * 300) % 300); posPluie.set([x, y, z, x - 1, y - 12, z], k * 6); }
+      geoPluie.attributes.position.needsUpdate = true;
+    }
+    if (a.has('batmobile')) { batmobile.visible = true; const s = lerp(0, 95, clamp((t - S(51.2)) / (R.rit - S(51.2)))); poser(batmobile, surPiste(2, s), 0, s); }
+    if (a.has('eclair')) { const d = t - R.nuit; lampeFlash.intensity = d > 0 && d < 0.12 ? 6 : d > 0.2 && d < 0.26 ? 3 : 0; }
+    else lampeFlash.intensity = 0;
+    if (a.has('chauves_souris')) { chauves.visible = true; for (let k = 0; k < 24; k++) { const d = Math.max(0, t - R.nuit - 0.3), a2 = hash(k) * Math.PI * 2; v3.copy(batmobile.position).add(new THREE.Vector3(Math.cos(a2) * d * 60, 8 + d * 50 + hash(k * 2) * 10, Math.sin(a2) * d * 60)); q.setFromAxisAngle(axeY, a2); m4.compose(v3, q, un.set(1, 0.4 + 0.6 * Math.abs(Math.sin(t * 20 + k)), 1)); chauves.setMatrixAt(k, m4); } chauves.instanceMatrix.needsUpdate = true; }
+    if (a.has('ombre_rire')) { ombre.visible = true; const k = clamp((t - R.rit) / 1.8); ombre.position.copy(rel(lerp(-90, 90, k), 20, -40)); lueursRire.forEach((l, i) => { l.intensity = (0.6 + 0.4 * Math.sin(t * 9 + i * 2)) * 1.4; l.position.copy(rel(i ? 60 : -60, 30, -60)); }); }
+    else lueursRire.forEach((l) => { l.intensity = 0; });
+    if (p.univers === 'f1') { stands.visible = true; }
+    if (a.has('f1_stands') || a.has('radio')) f1s.forEach((v, k) => { v.visible = true; poser(v, surPiste(k, 12), 0, 0); });
+    if (a.has('f1_depart')) f1s.forEach((v, k) => { v.visible = true; const dt = Math.max(0, t - R.attaque - k * 0.06), s = 12 + 0.5 * 1800 * dt * dt; poser(v, surPiste(k, s), 0, s); });
+    if (p.univers === 'apoca') { desert.visible = true; scene.fog = brouillards.apoca; scene.background.setHex(0x1a0904); }
+    if (a.has('epave_roule')) { epave.visible = true; const s = lerp(0, 105, clamp((t - S(66.0)) / (R.temoins - S(66.0)))); poser(epave, surPiste(2, s), 0, s, Math.sin(t * 14) * 0.03); }
+    if (a.has('epave_saut')) {
+      epave.visible = true; const d = t - R.temoins, ralenti = d < 0.6 ? d * 0.15 : 0.09 + (d - 0.6), k = clamp(ralenti / 0.9);
+      const s = 105 + k * 40, y = Math.sin(Math.PI * k) * 26; const pp = surPiste(2, s); pp.y += y; poser(epave, pp, 0, s, 0, -0.25 * Math.cos(Math.PI * k));
+    }
+    if (a.has('explosion')) { const d = t - R.temoins - 0.1, k = clamp(d / 0.6); boule.visible = d > 0 && d < 1.4; boule.position.copy(rel(0, 8, -20)); boule.scale.setScalar(2 + k * 55); boule.material.opacity = 1 - clamp((d - 0.4) / 1.0); lumBoule.position.copy(boule.position); lumBoule.intensity = boule.visible ? 5 * (1 - clamp(d / 1.4)) : 0; }
+    else lumBoule.intensity = 0;
+    if (a.has('caisses')) caisses.forEach((c, i) => {
+      c.g.visible = true; const tAtt = S(71.6) + i * 0.15, d = t - tAtt + 0.45, y = d < 0.45 ? 150 * (1 - (d / 0.45) ** 2) : 0;
+      c.g.position.copy(rel(c.x, Math.max(0, y), c.z)); const tOuv = tAtt + 0.6 + i * 0.2;
+      let ouv = clamp((t - tOuv) / 0.35); if (i === 4) ouv = a.has('silhouette') ? 0.55 * COURBES.sortie(clamp((t - p.debut) / 0.8)) : 0; c.charniere.rotation.x = -ouv * 1.9;
+      if (a.has('faisceaux') && i !== 4) { c.faisceau.visible = true; const h = c.haut * COURBES.sortie(clamp((t - R.uniques - i * 0.05) / 0.4)); c.faisceau.scale.set(1, Math.max(0.01, h), 1); c.faisceau.position.copy(rel(c.x, 7 + h / 2, c.z)); }
+    });
+    if (a.has('silhouette')) { silhouette.visible = true; poser(silhouette, rel(caisses[4].x, 3.2, caisses[4].z), Math.PI * 0.85, 0); liseré.visible = true; liseré.position.copy(silhouette.position).add(v3.set(0, 1.3, 0)); liseré.rotation.y = silhouette.rotation.y; liseré.material.opacity = 0.14 + 0.05 * Math.sin(t * 3); }
+    if (a.has('banane')) { banane.visible = true; banane.position.copy(surPiste(2, 70)); const v = meute[2]; v.visible = true; const d = t - p.debut, s = Math.min(70, d * 90), apres = Math.max(0, d * 90 - 70); poser(v, surPiste(2, s + apres * 0.4), apres > 0 ? apres * 0.25 : 0, s); }
+    if (a.has('carapace')) { const v = meute[1]; v.visible = true; poser(v, surPiste(1, 60), 0, 0, Math.sin(Math.max(0, t - R.trahisons - 0.35) * 18) * 0.3 * Math.exp(-Math.max(0, t - R.trahisons - 0.35) * 3)); carapace.visible = t < R.trahisons + 0.38; const k = clamp((t - R.trahisons) / 0.35); carapace.position.copy(surPiste(1, 60)).add(v3.set(0, 60 * (1 - k) + 2, -40 * (1 - k))); carapace.rotation.set(t * 6, t * 4, 0); }
+    if (a.has('telephone')) { telephone.visible = true; const k = COURBES.sortie(clamp((t - p.debut) / 0.8)); telephone.position.copy(rel(0, lerp(-140, 70, k), -125)); telephone.rotation.set(-0.1, 0, 0); }
+    if (a.has('pieces')) { pieces.visible = true; for (let k = 0; k < NPi; k++) { const t0 = R.paris + 0.05 + (k % 6) * 0.17 + Math.floor(k / 6) * 0.05, d = Math.max(0, t - t0), y = Math.max(0.15, 120 - 490 * d * d); v3.copy(rel((hash(k) - 0.5) * 120, y, (hash(k * 3) - 0.5) * 120)); q.setFromEuler(new THREE.Euler(t * 5 + k, 0, y > 0.2 ? t * 3 : Math.PI / 2)); m4.compose(v3, q, un.set(1, 1, 1)); if (t < t0) m4.makeScale(0, 0, 0); pieces.setMatrixAt(k, m4); } pieces.instanceMatrix.needsUpdate = true; }
+    if (a.has('carnet')) { carnet.visible = t > R.ancienne; const d = Math.max(0, t - R.ancienne); carnet.position.copy(rel(55, Math.max(0.5, 90 - 490 * d * d), 40)); carnet.rotation.set(0, 0.4, 0); }
+    if (a.has('coupe')) { coupe.visible = true; const k = COURBES.sortie(clamp((t - p.debut) / 1.4)); coupe.position.copy(rel(0, lerp(-20, 0, k), 0)); coupe.rotation.y = t * 0.6; }
+    if (a.has('rayons')) { rayons.visible = true; rayons.position.copy(rel(0, 12, -30)); rayons.rotation.z = t * 0.2; rayons.children.forEach((r) => { r.material.opacity = 0.1 * clamp((t - R.gloire) / 0.6); }); }
+    if (a.has('mots_titre')) mots.forEach(({ m, t0, pos }) => { if (t < t0) return; m.visible = true; const k = COURBES.sortie(clamp((t - t0) / 0.18)); m.scale.setScalar(lerp(3.2, 1, k)); m.position.copy(rel(pos[0], pos[1], -10)); m.material.opacity = k; });
+
+    /* --- caméra */
+    const c = p.cam; let pos, cib, wHold = 0, distLecture = 0;
+    let fov;
+    if (c.mode === 'swoop') {                                                                   // V6 : SWOOP-AND-HOLD dans le repère de la place
+      const sw = evaluerSwoop(c, t); wHold = sw.wHold;
+      const { p: base, cap: yaw } = placeEmbleme(c.suit);
+      pos = sw.pos.applyAxisAngle(axeY, yaw).add(base); cib = sw.cib.applyAxisAngle(axeY, yaw).add(base);
+      if (c.suitHauteur && THEMES_T[c.suit]) {                                                  // Mario : la caméra accompagne le bond (même pose que l'invocation)
+        const th0 = THEMES_T[c.suit][0], dy = marioPose(t - th0, (IMPACTS[c.suit] ?? th0 + 2) - th0).dy;
+        cib.y += dy; pos.y += dy * 0.25;                                                        // caméra basse : la voiture se détache sur les cintres sombres
+      }
+      fov = fovDeFocale(sw.mm);
+      // cadrage 2/3 – 1/3 : la cible glisse le long de l'axe horizontal de la caméra ; la voiture tombe sur la ligne des tiers
+      distLecture = pos.distanceTo(cib);
+      const avant = v3.copy(cib).sub(pos).normalize(), droite = new THREE.Vector3().crossVectors(avant, axeY).normalize();
+      const demiH = Math.tan(THREE.MathUtils.degToRad(fov) / 2) * camera.aspect;
+      cib.addScaledVector(droite, -(c.tiers || 0) * distLecture * demiH / 3 * wHold);
+    } else {
+      const cu = (COURBES[c.courbe] || doux)(u), p0 = new THREE.Vector3(...c.p0).lerp(new THREE.Vector3(...c.p1), cu), c0 = new THREE.Vector3(...c.c0).lerp(new THREE.Vector3(...c.c1), cu);
+      if (c.rep === 'abs') { pos = p0; cib = c0; }
+      else if (c.rep === 'ring') { pos = rel(p0.x, p0.y, p0.z); cib = rel(c0.x, c0.y, c0.z); }
+      else if (c.rep === 'place') {
+        const { p: base, cap: yaw } = placeEmbleme(c.suit);
+        if (c.orbite) { const ang = lerp(c.orbite[0], c.orbite[1], cu); p0.applyAxisAngle(axeY, ang); }
+        pos = p0.clone().applyAxisAngle(axeY, yaw).add(base); cib = c0.clone().applyAxisAngle(axeY, yaw).add(base);
+      }
+      else {
+        let base, yaw;
+        if (c.suit >= 100) { const v = f1s[c.suit - 100]; base = v.position; yaw = v.rotation.y; }
+        else { const e = etatEmbleme(c.suit, Math.max(t, E[c.suit])); base = e.pos; yaw = e.cap; }
+        pos = p0.clone().applyAxisAngle(axeY, yaw).add(base); cib = c0.clone().applyAxisAngle(axeY, yaw).add(base);
+      }
+      fov = fovDeFocale(lerp(c.mm0, c.mm1, cu));
+    }
+    // impacts : coup de focale ≤ 8 %, secousse = ressort CRITIQUE (ζ = 1) à 8 Hz sur une direction semée, flash discret ;
+    // aberration et flou radial seulement pendant les 120 ms qui suivent l'impact (plus de tremblement aléatoire à 60 Hz)
+    const dist = pos.distanceTo(cib), W8 = 2 * Math.PI * 8;
+    let flash = 0, impact = 0;
+    hits.forEach(([th, f], n) => {
+      const d = t - th; if (d < 0 || d > 0.9) return;
+      fov *= 1 + 0.08 * f * Math.exp(-d / 0.12);
+      const x = W8 * d * Math.exp(1 - W8 * d);                                                  // réponse critique normalisée (pic = 1 à 20 ms)
+      pos.add(v3.set((hash(n * 3 + 1) - 0.5) * 0.6, -0.8 - hash(n * 3 + 2) * 0.4, (hash(n * 3 + 3) - 0.5) * 0.6).multiplyScalar(f * x * Math.max(4, dist) * 0.012));
+      if (d < 0.12) impact = Math.max(impact, f * (1 - d / 0.12));
+      if (f >= 0.8) flash = Math.max(flash, 0.28 * f * Math.exp(-d / 0.05));
+    });
+    // caméra portée : dérive lente (sinus incommensurables), presque nulle pendant le hold de lecture, roulis nul au hold
+    const ep = (p.epaule ?? (p.decor === 'arene' ? 0.5 : 0.25)) * Math.max(4, dist) * 0.006 * (1 - 0.85 * wHold);
+    pos.x += ep * (Math.sin(t * 1.31) * 0.6 + Math.sin(t * 2.97 + 1.7) * 0.3 + Math.sin(t * 7.3 + 0.3) * 0.1);
+    pos.y += ep * (Math.sin(t * 1.07 + 2.1) * 0.5 + Math.sin(t * 3.41 + 0.4) * 0.35 + Math.sin(t * 8.9) * 0.15);
+    cib.x += ep * 0.5 * Math.sin(t * 0.83 + 0.9); cib.y += ep * 0.4 * Math.sin(t * 1.19 + 2.6);
+    camera.position.copy(pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.up.set(0, 1, 0); camera.lookAt(cib);
+    if (c.roulis && c.mode !== 'swoop') camera.rotateZ(c.roulis * (COURBES[c.courbe] || doux)(u));
+    camera.rotateZ((p.epaule ?? (p.decor === 'arene' ? 0.5 : 0.25)) * 0.006 * Math.sin(t * 0.91 + 0.5) * (1 - wHold));   // horizon verrouillé (0°) au hold
+
+    /* --- INVOCATIONS des écuries (après la caméra : les étoiles et les notes se tournent vers elle) */
+    let fx = { fumees: [], flash: 0, sec: 0, teinte: null, voitures: {} };
+    invocations.groupe.visible = !!etatHabArene && a.has('emblemes_place');
+    if (invocations.groupe.visible) {
+      camera.updateMatrixWorld();
+      fx = invocations.maj(t, { themes: THEMES_T, impacts: IMPACTS, departs: DEPARTS, punchs: R.punchs || [], places: PLACES, camera });
+      for (const k in fx.voitures) {                                                             // la voiture joue la scène (bond de Mario, dérapage…)
+        const o = fx.voitures[k], v = emblemes[k]; if (!v || !v.visible) continue;
+        if (o.dy) v.position.y += o.dy;
+        if (o.dcap) v.rotation.y += o.dcap;
+        if (o.roulis) v.rotation.z += o.roulis;
+        if (o.tangage) v.rotation.x += o.tangage;
+        if (o.echelle) v.scale.set(o.echelle[0], o.echelle[1], o.echelle[2]);                   // squash & stretch
+        if (o.scintille === 0) v.visible = false;
+      }
+      // V6 : fx.sec et fx.flash ne sont PLUS ajoutés (v5 : double secousse aléatoire + double flash) : l'impact est unique
+    }
+    if (etatHabArene) { etatHabArene.fumees = etatHabArene.fumees.concat(fx.fumees); habillage.maj(t, etatHabArene); }
+
+    /* --- rendu HDR + post-traitement (bloom, aberration, flou radial, grain, voiles) */
+    let noir = p.decor === 'noir' ? 1 : 0;
+    noir = Math.max(noir, 1 - clamp(t / 0.25), a.has('fondu_fin') ? clamp((t - (duree - 1.6)) / 1.6) : 0);
+    const salon_ = p.decor === 'salon' || p.decor === 'transfo';
+    post.rendre(scene, camera, {
+      exposition: p.expo ?? (salon_ ? 1.25 : 1.0), bloom: p.bloom ?? (salon_ ? 0.55 : 0.7),
+      aberration: 0.006 * impact, flouRadial: 0.45 * impact, vignette: salon_ ? 0.38 : 0.45,
+      grain: salon_ ? 0.022 : 0.018, balayage: 0.005, noir, flash: noir < 0.99 ? Math.min(0.35, flash) : 0, image: Math.floor(t * 60),
+      teinte: (() => {                                                                            // éclair vert du sort de Petite Mimine (sur l'impact de l'écurie 1)
+        const b0 = p.teinte || [1, 1, 1], base = fx.teinte ? b0.map((x, j) => x * fx.teinte[j]) : b0, d = t - (montage.sort ?? IMPACTS[0] ?? -99);
+        if (d < 0 || d > 1.2) return base; const k = Math.exp(-d / 0.22);
+        return [base[0] * (1 - 0.45 * k), base[1] * (1 + 1.6 * k), base[2] * (1 - 0.35 * k)];
+      })(),
+    });
+    hud.maj(t, p); hud.rendre();                                                                 // HUD broadcast : jamais post-traité
+    return p;
+  }
+
+  const inventaire = { concepts: emblemes.map((v) => ({ ecurie: v.userData.teamId, nom: v.userData.info?.nom, longueur_cm: +v.userData.L.toFixed(2), roues: v.userData.roues.length })),
+    parc: PARC.length, parcUniques: codesParc.length, foule_arene_masquee: fouleMasquee, boites: 0 };
+  return { scene, camera, rendreTemps, planA, duree, post, hud, inventaire };
+}

@@ -5,13 +5,16 @@
    Fin de séquence : l'écran final reste affiché (musique en boucle) jusqu'à Espace / Entrée / clic. ?tenue=N le fait passer
    seul après N secondes ; ?boucle=1 (1,5 s par défaut) et le défilé (3 s) passent seuls. ?enregistrer=1 (ou le bouton ⏺) télécharge la séquence en vidéo (WebM, ou MP4 si le navigateur sait).
    ?boucle=1 rejoue le bolide sans fin (mesure de fluidité : outils/mesurer_perf.py --pages reveal).
-   Écurie propriétaire (bandeau et couleurs) : ?ecurie=N. Le thème vient du bolide (data/themes_bolides.json). */
+   Écurie propriétaire (bandeau et couleurs) : ?ecurie=N. Le thème vient du bolide (data/themes_bolides.json).
+   ?drame=crash (DÉBOGAGE) : le scénario « abattu en vol » de N13 (contrat 3D du modèle, sinon un leurre d'ailes en plaques).
+   ?drame=1 (DÉBOGAGE) : joue le MODE DRAME (« le légendaire qui n'en était pas un », rareté signature Épave) sur n'importe quel bolide,
+   le temps de la page ; rien n'est écrit, la TV et les autres pages l'ignorent (essai de la chute sur un bolide déjà sculpté). */
 import { $, DATA, loadData, findRelay, team, esc } from '../shared/core.js';
 import * as snd from '../shared/audio.js';
 import { chargerReveal, photosDisponibles, revealCinematique, ficheBolide, themeDe, jingle } from '../shared/reveal.js';
 import { revealFret, revealFretDisponible, NOMS_EFFETS } from '../shared/reveal_fret.js';
 import { medal } from '../shared/ui.js';
-import { RARETES, rareteDe, infoRarete } from '../shared/rarete.js';
+import { RARETES, CUSTOM, rareteDe, infoRarete } from '../shared/rarete.js';
 import { ARCHETYPES, archetypeDe } from '../shared/archetypes.js';
 
 const Q = new URLSearchParams(location.search);
@@ -22,6 +25,8 @@ const tenueUrl = Q.has('tenue') ? Number(Q.get('tenue')) : null;
 async function jouer(code, { enregistrer = false, tenue = tenueUrl } = {}) {
   let c = DATA.cars[code]; if (!c) return false;
   if (ARCHETYPES[Q.get('arche')]) c = { ...c, archetype: Q.get('arche') };
+  if (Q.get('drame') === '1' && !(CUSTOM[c.rarete_custom] && CUSTOM[c.rarete_custom].drame)) c = { ...c, rarete_custom: 'epave', badge_custom: CUSTOM.epave.court + ' · ESSAI' };   // débogage du MODE DRAME
+  if (Q.get('drame') === 'crash') c = { ...c, rarete_custom: 'epave', badge_custom: c.badge_custom || CUSTOM.epave.court + ' · ESSAI', drame_scenario: 'crash' };   // débogage du scénario « crash »
   const tid = Q.get('ecurie') ? Number(Q.get('ecurie')) : null, t = tid ? team(tid) : null;
   const r = infoRarete(c);
   $('#etat').textContent = moteur === 'trailer'

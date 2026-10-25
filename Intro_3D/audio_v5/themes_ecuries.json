@@ -1,0 +1,344 @@
+{
+ "_doc": "Signature sonore de chaque écurie, jouée juste après son nom dans l'appel. Deux sources : (1) TON extrait (OST, mème, réplique…) déposé dans themes_ecuries/ sous le nom NN_quelquechose.mp3 (ou .m4a, .wav, .ogg, .flac) : il est joué tel quel, sans retouche (seulement coupé à [debut_s, debut_s + duree_s] avec des fondus de 20 ms et mis au niveau) ; (2) sinon, les vrais enregistrements BBC listés dans 'bbc' (couches superposées, non retouchées). 'souhait' = ce que tu m'as demandé ou ce que je propose : c'est l'extrait à déposer pour remplacer le son BBC. Après un dépôt : relancer LANCER_V5.bat, la durée de la présentation s'adapte toute seule. Chaque signature est plafonnée à 'duree_max_s' (rythme de l'appel) : ce qui dépasse est coupé avec un fondu de 80 ms.",
+ "ecuries": {
+  "1": {
+   "nom": "Petite Mimine Racing",
+   "souhait": "Ta voix « Petite mimine » : « Viens ici petite MI- » d'un trait, puis la voix se casse sur un « MEEEINE ! » étranglé et une quinte de toux (FAIT, version retenue)",
+   "voix": {
+    "fichier": "voix/mimine_voix_cassee.mp3",
+    "debut_s": 0.0,
+    "duree_s": 4.6,
+    "decalage_s": 0.0,
+    "gain_db": 0,
+    "eclat_s": 2.3
+   },
+   "bbc": [],
+   "perso": {
+    "debut_s": 1.0,
+    "duree_s": 4.6,
+    "gain_db": -7
+   }
+  },
+  "2": {
+   "nom": "Twingo Oasis V16",
+   "souhait": "Vraie musique country (FAIT : Jimmie Rodgers, « Blue Yodel No. 3 », 1928 — le père de la country, guitare et yodel ; 78 tours du domaine public, archive.org)",
+   "bbc": [
+    {
+     "son": "IA_rodgers_blue_yodel_3",
+     "source": "archive.org",
+     "url": "https://archive.org/download/78_blue-yodel-no-3_jimmie-rodgers-rodgers_gbia0264496a/BLUE%20YODEL%20No.%203%20-%20JIMMIE%20RODGERS%20-%20RODGERS.mp3",
+     "debut_s": 88.0,
+     "duree_s": 2.2,
+     "decalage_s": 0.0,
+     "gain_db": 0,
+     "quoi": "Jimmie Rodgers : yodel et guitare"
+    }
+   ],
+   "perso": {
+    "debut_s": 0.0,
+    "duree_s": 1.9,
+    "gain_db": 0
+   }
+  },
+  "3": {
+   "nom": "Optic-Breuillet",
+   "souhait": "Juste un cri à la Nadal. Le vrai cri de Nadal : dépose 03_nadal.mp3 (je ne peux pas le récupérer). En attendant : une frappe de Wimbledon + un vrai cri d'effort (kiai, BBC)",
+   "bbc": [
+    {
+     "son": "07012114",
+     "debut_s": 297.74,
+     "duree_s": 0.45,
+     "decalage_s": 0.0,
+     "gain_db": -4,
+     "quoi": "Wimbledon : une frappe de balle"
+    },
+    {
+     "son": "07044072",
+     "debut_s": 0.7,
+     "duree_s": 0.9,
+     "decalage_s": 0.0,
+     "gain_db": 0,
+     "quoi": "cri d'effort (kiai)"
+    }
+   ],
+   "perso": {
+    "debut_s": 14.3,
+    "duree_s": 3.0,
+    "gain_db": 0
+   }
+  },
+  "4": {
+   "nom": "Tata Freddy Motorsport",
+   "souhait": "Disque vinyle rayé qui saute (FAIT : vrai 78 tours de 1924, Cliff Edwards « Feeling The Way I Do » — un tour de sillon rejoué 4 fois, puis l'aiguille arrachée)",
+   "bbc": [
+    {
+     "son": "IA_cliff_edwards_1924",
+     "source": "archive.org",
+     "url": "https://archive.org/download/78_feeling-the-way-i-do_cliff-edwards-ukelele-ike-desylva-donaldson_gbia0005190a/Feeling%20The%20Way%20I%20Do%20-%20Cliff%20Edwards%20%28Ukelele%20Ike%29.mp3",
+     "debut_s": 12.0,
+     "duree_s": 0.769,
+     "repete": 2,
+     "decalage_s": 0.0,
+     "gain_db": 0,
+     "quoi": "78 tours rayé : un tour de sillon (0,77 s à 78 tr/min) qui se répète"
+    },
+    {
+     "son": "07058170",
+     "debut_s": 0.3,
+     "duree_s": 0.7,
+     "decalage_s": 1.5,
+     "gain_db": 0,
+     "quoi": "aiguille arrachée du disque"
+    }
+   ],
+   "perso": {
+    "debut_s": 0.0,
+    "duree_s": 3.0,
+    "gain_db": 0
+   }
+  },
+  "5": {
+   "nom": "Super Mario Pression",
+   "souhait": "Le cri de chute de Mario « Wooouuaaahhh ! » (FAIT : cri de chute de dessin animé, voix ElevenLabs « Stevie – Living Cartoon » ; pour le vrai son du jeu, dépose 05_*.mp3)",
+   "bbc": [],
+   "perso": {
+    "debut_s": 0.0,
+    "duree_s": 3.2,
+    "gain_db": 0
+   }
+  },
+  "6": {
+   "nom": "Scuderia Symphonie E-Tech",
+   "souhait": "Un coup d'orchestre (FAIT : Beethoven, 5e symphonie, « pom-pom-pom-POM », Royal Albert Hall Orchestra, 78 tours de 1927 — domaine public, archive.org)",
+   "bbc": [
+    {
+     "son": "IA_beethoven_5_1927",
+     "source": "archive.org",
+     "url": "https://archive.org/download/78_symphony-no-5-in-c-minor-1st-movement-first-record_royal-albert-hall-orchestra-sir-_gbia7042548a/SYMPHONY%20No.%205%20IN%20C%20MINOR%20%281%20-%20ROYAL%20ALBERT%20HALL%20ORCHESTRA.mp3",
+     "debut_s": 4.55,
+     "duree_s": 2.2,
+     "decalage_s": 0.0,
+     "gain_db": 0,
+     "quoi": "Beethoven, 5e symphonie : le motif d'ouverture"
+    }
+   ],
+   "perso": {
+    "debut_s": 11.4,
+    "duree_s": 3.0,
+    "gain_db": 0
+   }
+  },
+  "7": {
+   "nom": "Yaris 2 Invincible",
+   "souhait": "Zelda : jingle « objet obtenu » (Triforce)",
+   "bbc": [
+    {
+     "son": "07042240",
+     "debut_s": 0.35,
+     "duree_s": 2.0,
+     "decalage_s": 0.0,
+     "gain_db": -2,
+     "quoi": "carillon ding-dong"
+    }
+   ],
+   "perso": {
+    "debut_s": 0.25,
+    "duree_s": 2.4,
+    "gain_db": 0
+   }
+  },
+  "8": {
+   "nom": "A4 Oil Leaking",
+   "souhait": "A4 Oil Leaking : le moteur qui pétarade (FAIT : deux vraies pétarades de Ford T, BBC). Metroid : dépose 08_*.mp3",
+   "bbc": [
+    {
+     "son": "07011171",
+     "debut_s": 5.95,
+     "duree_s": 0.9,
+     "decalage_s": 0.0,
+     "gain_db": 0,
+     "quoi": "Ford T : pétarade"
+    },
+    {
+     "son": "07011171",
+     "debut_s": 13.7,
+     "duree_s": 1.1,
+     "decalage_s": 0.85,
+     "gain_db": 0,
+     "quoi": "Ford T : deuxième pétarade"
+    }
+   ],
+   "perso": {
+    "debut_s": 0.1,
+    "duree_s": 3.0,
+    "gain_db": 0
+   }
+  },
+  "9": {
+   "nom": "Titou Wyvern SRT",
+   "souhait": "Monster Hunter : thème de Valstrax",
+   "bbc": [
+    {
+     "son": "07000117",
+     "debut_s": 0.2,
+     "duree_s": 2.4,
+     "decalage_s": 0.0,
+     "gain_db": 0,
+     "quoi": "avion de chasse au ras"
+    },
+    {
+     "son": "NHU9708426",
+     "debut_s": 2.0,
+     "duree_s": 1.1,
+     "decalage_s": 0.9,
+     "gain_db": 0,
+     "quoi": "rugissement"
+    }
+   ],
+   "perso": {
+    "debut_s": 0.2,
+    "duree_s": 3.0,
+    "gain_db": 0
+   }
+  },
+  "10": {
+   "nom": "Doom Slayer Issue GP",
+   "souhait": "Berserk : extrait de l'OST (ex. « Forces » / thème de Guts)",
+   "bbc": [
+    {
+     "son": "07019153",
+     "debut_s": 84.8,
+     "duree_s": 2.4,
+     "decalage_s": 0.0,
+     "gain_db": 0,
+     "quoi": "bataille à l'épée et à la hache"
+    }
+   ],
+   "perso": {
+    "debut_s": 1.7,
+    "duree_s": 3.0,
+    "gain_db": 0
+   }
+  },
+  "11": {
+   "nom": "Milo's Princess Vroom Vroom",
+   "souhait": "Peach : « Yahoo! » / le miaou de Milo",
+   "bbc": [
+    {
+     "son": "07042100",
+     "debut_s": 41.0,
+     "duree_s": 1.8,
+     "decalage_s": 0.0,
+     "gain_db": 2,
+     "quoi": "chat qui miaule"
+    }
+   ],
+   "perso": {
+    "debut_s": 0.0,
+    "duree_s": 3.0,
+    "gain_db": 0
+   }
+  },
+  "12": {
+   "nom": "Bob's Bizarre Racing",
+   "souhait": "JoJo, Kakyoin : « rero rero » (FAIT : dit par la voix du commentateur, ElevenLabs) + gong",
+   "bbc": [
+    {
+     "son": "07011230",
+     "debut_s": 10.4,
+     "duree_s": 0.8,
+     "decalage_s": 1.5,
+     "gain_db": -4,
+     "quoi": "gong"
+    }
+   ],
+   "perso": {
+    "debut_s": 0.1,
+    "duree_s": 3.0,
+    "gain_db": 0
+   }
+  },
+  "13": {
+   "nom": "Jojo la Sirène Veloce",
+   "souhait": "Solo de batterie double pédale",
+   "bbc": [
+    {
+     "son": "07011243",
+     "debut_s": 7.0,
+     "duree_s": 2.6,
+     "decalage_s": 0.0,
+     "gain_db": 0,
+     "quoi": "roulement de tambour et cymbale"
+    },
+    {
+     "son": "NHU05039039",
+     "debut_s": 25.2,
+     "duree_s": 2.0,
+     "decalage_s": 0.3,
+     "gain_db": -8,
+     "quoi": "vagues"
+    }
+   ],
+   "perso": {
+    "debut_s": 0.0,
+    "duree_s": 3.0,
+    "gain_db": 0
+   }
+  },
+  "14": {
+   "nom": "Ninja-Nissan Street Racing",
+   "souhait": "Splatoon : « Booyah! » / tir d'encre",
+   "bbc": [
+    {
+     "son": "07045143",
+     "debut_s": 3.0,
+     "duree_s": 1.3,
+     "decalage_s": 0.0,
+     "gain_db": 0,
+     "quoi": "bombe de peinture secouée"
+    },
+    {
+     "son": "07045144",
+     "debut_s": 28.8,
+     "duree_s": 1.2,
+     "decalage_s": 0.8,
+     "gain_db": 0,
+     "quoi": "jet de peinture"
+    }
+   ],
+   "perso": {
+    "debut_s": 0.45,
+    "duree_s": 1.1,
+    "gain_db": 0
+   }
+  },
+  "15": {
+   "nom": "Princess Blooming Speed",
+   "souhait": "Daisy : l'explosion de fleur",
+   "bbc": [
+    {
+     "son": "07005099",
+     "debut_s": 2.6,
+     "duree_s": 2.0,
+     "decalage_s": 0.0,
+     "gain_db": 0,
+     "quoi": "« explosion musicale »"
+    },
+    {
+     "son": "07047041",
+     "debut_s": 6.0,
+     "duree_s": 1.6,
+     "decalage_s": 0.9,
+     "gain_db": -3,
+     "quoi": "applaudissements d'un concert"
+    }
+   ],
+   "perso": {
+    "debut_s": 0.0,
+    "duree_s": 1.0,
+    "gain_db": 0
+   }
+  }
+ },
+ "duree_max_s": 3.0
+}

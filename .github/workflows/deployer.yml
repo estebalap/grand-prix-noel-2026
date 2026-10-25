@@ -17,7 +17,8 @@ jobs:
           mkdir /tmp/site
           for z in _deploiement/*.zip; do unzip -o -q "$z" -d /tmp/site; done
           test -f /tmp/site/index.html
-          find . -mindepth 1 -maxdepth 1 ! -name .git ! -name .github ! -name README.md -exec rm -rf {} +
+          # Intro_3D, docs_claude, CLAUDE.md, RESTAURER_AUDIO_REEL.py et .gitignore ne viennent pas de pages_build : on les garde
+          find . -mindepth 1 -maxdepth 1 ! -name .git ! -name .github ! -name README.md ! -name CLAUDE.md ! -name .gitignore ! -name Intro_3D ! -name docs_claude ! -name RESTAURER_AUDIO_REEL.py -exec rm -rf {} +
           cp -a /tmp/site/. .
           git config user.name "github-actions[bot]"
           git config user.email "41898599+github-actions[bot]@users.noreply.github.com"

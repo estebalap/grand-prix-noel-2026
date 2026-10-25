@@ -16,11 +16,23 @@
                   voies, locomotive à l'arrêt, panneau « GRÈVE », horloge, vapeur épaisse au ras du quai
      blockbuster  avant-première : skyline, projecteurs qui balaient le ciel, écran LED géant, tours de lumière, bokeh anamorphique
 
+     + V6 : AMBIANCES (ambiances_v6.js) — les bolides qui partagent un univers reçoivent leur propre étalonnage (gélatines des
+       projecteurs, brouillard, ciel, halos, pluie, façades, reflets du sol) sur la MÊME géométrie : Gotham toxique vert/violet pour
+       B12, rose néon/cyan pour B17, sodium, neige, cryo… Aucune géométrie ajoutée.
+     + V5 : DÉCORS UNIQUES par bolide (decors_v5.js) — U04, E06, P03, P04, H07, H08, TK03, TK05, F01–F10, FR01–FR05 ont leur propre
+       plateau (Paris barricadé, utopie verte, gothique rose, maison de poupée, lycée bloqué, île qui dérive, enfer administratif,
+       arène cel-shading, box d'écurie et trophées, Élysée, quais de Seine, garage) ; les autres gardent le décor de leur univers.
+
    Tout est généré par le code (formes, canvas, GLSL) : aucune image, aucun logo, aucun personnage reconnaissable.
    Les décors sont déterministes (graine = code du bolide) : deux captures donnent la même image.
 
-   API : creerDecor(THREE, cle, { code, env }) → { groupe, lumieres, solMat, miroir, brouillard, activer(), maj(t, dt, camera, hPx), dispose() }
+   API : creerDecor(THREE, cle, { code, env }) → { groupe, lumieres, solMat, miroir, brouillard, activer(), maj(t, dt, camera, hPx), dispose(), cle, unique }
+         (unique = code du bolide quand un décor unique V5 a été construit, null sinon ; ambiance = étalonnage V6 appliqué, ou null)
          creerMiroirModele(THREE, voiture) → { racine, sync() }   reflet du bolide sur le sol laqué */
+
+import { decorUnique, CODES_DECORS_UNIQUES } from './decors_v5.js';
+import { ambianceDe, etalonner } from './ambiances_v6.js';
+export { CODES_DECORS_UNIQUES };
 
 const hash = (s) => { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
 const mulberry = (a) => () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
@@ -56,6 +68,7 @@ export function creerDecor(THREE, cle, { code = '', env = null } = {}) {
   const basic = (o = {}) => garde(new THREE.MeshBasicMaterial({ fog: true, ...o }));
   const regarde = (m, x = CX, y = null, z = 0) => { m.lookAt(x, y == null ? m.position.y : y, z); return m; };
 
+  let dernierCiel = null;                              // uniforms du dôme (étalonnage V6)
   /** Dôme du ciel : dégradé, nuages fbm, éclair, soleil. */
   const ciel = ({ haut, milieu, bas, nuages = 0.5, soleil = 0, couleurSoleil = '#ffffff', dirSoleil = [0, 0.1, -1] }) => {
     const u = { cTop: { value: COL(haut) }, cMid: { value: COL(milieu) }, cBas: { value: COL(bas) }, t: { value: 0 }, flash: { value: 0 }, nuage: { value: nuages },
@@ -73,6 +86,7 @@ export function creerDecor(THREE, cle, { code = '', env = null } = {}) {
           gl_FragColor = vec4(c, 1.0); }` }));
     const s = new THREE.Mesh(garde(new THREE.SphereGeometry(320, 36, 18)), m); s.renderOrder = -10; s.frustumCulled = false; noMir(s); ajouter(s);
     anim.push((t) => { u.t.value = t; });
+    dernierCiel = u;
     return { u, mesh: s };
   };
 
@@ -283,8 +297,8 @@ export function creerDecor(THREE, cle, { code = '', env = null } = {}) {
     const sig = new THREE.Mesh(garde(new THREE.PlaneGeometry(34, 34)), basic({ map: disque, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false, color: 0xffffff }));
     sig.position.set(sx + 14, 38, sz - 30); regarde(sig, CX, 38, 0); noMir(sig); ajouter(sig);
     const faisceau = new THREE.Mesh(garde(new THREE.CylinderGeometry(15, 1.4, 70, 28, 1, true)), garde(new THREE.ShaderMaterial({ transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, fog: false,
-      uniforms: { k: { value: 1 } }, vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
-      fragmentShader: 'uniform float k; varying vec2 vUv; void main(){ float a = pow(vUv.y, 1.2) * 0.35 * k; gl_FragColor = vec4(1.0, 0.93, 0.6, a); }' })));
+      uniforms: { k: { value: 1 }, col: { value: COL('#ffed99') } }, vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+      fragmentShader: 'uniform float k; uniform vec3 col; varying vec2 vUv; void main(){ float a = pow(vUv.y, 1.2) * 0.35 * k; gl_FragColor = vec4(col, a); }' })));
     faisceau.position.set(sx + 7, 20, sz - 12); faisceau.lookAt(sx + 14, 38, sz - 30); faisceau.rotateX(Math.PI / 2); noMir(faisceau); ajouter(faisceau);
     anim.push((t) => { faisceau.material.uniforms.k.value = 0.85 + 0.15 * Math.sin(t * 2.3); });
     // averse violente + éclairs
@@ -485,7 +499,18 @@ export function creerDecor(THREE, cle, { code = '', env = null } = {}) {
     lumiere('#ffcf6a', 1.7, -14, 8, -18); lumiere('#8fdcff', 1.5, 26, 6, -14);
   };
 
-  ({ manga: tokyo, gothique: gotham, post_apo: canyon, pop: popStudio, vintage: gare, blockbuster: premiere }[variante] || premiere)();
+  /* ---------------------------------------------------------------- V5 : décor unique du bolide, sinon décor de son univers */
+  const unique = decorUnique(code);
+  if (unique) {
+    groupe.name = 'decor-' + variante + '-' + code;
+    const r = unique({ THREE, CX, R, rnd, COL, pol, garde, ajouter, noMir, anim, tex, basic, regarde, ciel, precip, champ, halo, texHalo, sol, lumiere, ptLumiere,
+      immeuble, matToit, enseigne, estActif: () => actif, env });
+    solMat = r.solMat; if (r.brouillard) brouillard = r.brouillard; miroirActif = !!r.miroir;
+  } else ({ manga: tokyo, gothique: gotham, post_apo: canyon, pop: popStudio, vintage: gare, blockbuster: premiere }[variante] || premiere)();
+
+  /* ---------------------------------------------------------------- V6 : étalonnage propre au bolide (même géométrie, autres gélatines) */
+  const ambiance = unique ? null : ambianceDe(code);
+  if (ambiance) { brouillard = etalonner(THREE, { groupe, lumieres, solMat, ciel: dernierCiel }, ambiance); groupe.name += '-' + code; }
 
   /* ---------------------------------------------------------------- reflets : copie renversée du décor sous le sol semi-transparent */
   let miroir = null;
@@ -499,7 +524,7 @@ export function creerDecor(THREE, cle, { code = '', env = null } = {}) {
   /* ---------------------------------------------------------------- vie du décor */
   const dir = lumieres.children.filter((l) => l.isLight);
   const api = {
-    cle: variante, groupe, lumieres, solMat, miroir, brouillard, eclair,
+    cle: variante, unique: unique ? code : null, ambiance, groupe, lumieres, solMat, miroir, brouillard, eclair,
     get textures() { return jet.filter((x) => x && x.isTexture); },
     activer() { actif = true; groupe.visible = true; if (miroir) miroir.visible = true; for (const l of dir) l.intensity = l.userData.base || 0; },
     desactiver() { actif = false; groupe.visible = false; if (miroir) miroir.visible = false; for (const l of dir) l.intensity = 0; },
