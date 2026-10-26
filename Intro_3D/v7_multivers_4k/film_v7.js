@@ -192,7 +192,7 @@ export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, s
       }
     } else if (acte === 'III') {
       ring.groupe.visible = true; piste.groupe.visible = true; actIII.groupe.visible = true; fog({ couleur: '#05040c', densite: 0.0022 });
-      ring.maj(t, etat.pouls, 15, 3); concepts.forEach((c) => (c.visible = true)); actIII.maj(t, ctx); cam = actIII.camera(t); info = actIII.info(t);
+      ring.maj(t, etat.pouls, 15, 3); concepts.forEach((c) => { c.visible = true; animer(c, t); }); actIII.maj(t, ctx); cam = actIII.camera(t); info = actIII.info(t);
       portes.forEach((p) => { p.groupe.visible = true; p.maj(t, 0, 0, 0.5); });
       cleMonde.intensity = 0.7;
     } else if (acte === 'IV') {
