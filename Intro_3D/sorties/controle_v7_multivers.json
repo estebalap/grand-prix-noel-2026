@@ -1,8 +1,8 @@
 {
- "version": "v7",
+ "version": "v7.1",
  "qualite": "apercu_cloud",
  "sous_expositions": 1,
- "date": "2026-10-26T13:02:17",
+ "date": "2026-10-26T18:48:40",
  "reperes": [
   {
    "t": 1.2,
@@ -135,7 +135,7 @@
    "groupe": "III"
   },
   {
-   "t": 70.6,
+   "t": 71.3,
    "label": "Gotham · Batmobile",
    "groupe": "IV"
   },
@@ -150,13 +150,13 @@
    "groupe": "IV"
   },
   {
-   "t": 91,
-   "label": "Piège 2",
+   "t": 90.8,
+   "label": "Piège 2 · La Bascule",
    "groupe": "V"
   },
   {
-   "t": 96.6,
-   "label": "Piège 7",
+   "t": 96.8,
+   "label": "Piège 7 · La Pelote",
    "groupe": "V"
   },
   {
@@ -175,7 +175,7 @@
    "groupe": "VI"
   },
   {
-   "t": 111.3,
+   "t": 112.2,
    "label": "FAITES VOS JEUX !",
    "groupe": "VI"
   },
@@ -186,46 +186,769 @@
   }
  ],
  "temps_rendu_s": [
-  4.181,
-  1.179,
-  3.525,
-  2.512,
-  1.971,
-  3.319,
-  4.806,
-  0.553,
-  4.288,
-  1.116,
-  0.963,
-  6.043,
-  1.503,
-  0.757,
-  5.86,
-  2.855,
-  0.921,
-  7.739,
-  3.341,
-  0.588,
-  2.181,
-  10.15,
-  2.859,
-  2.668,
-  2.421,
-  0.423,
-  2.502,
-  2.237,
-  3.176,
-  2.005,
-  0.408,
-  0.892,
-  4.509,
-  16.698,
-  5.227,
-  4.362
+  9.192,
+  3.17,
+  5.705,
+  4.236,
+  3.454,
+  6.284,
+  7.003,
+  1.43,
+  9.185,
+  2.12,
+  2.091,
+  12.68,
+  3.485,
+  1.577,
+  11.322,
+  3.206,
+  1.244,
+  13.652,
+  5.958,
+  1.426,
+  4.731,
+  20.371,
+  5.623,
+  4.468,
+  4.885,
+  1.064,
+  5.37,
+  6.167,
+  5.536,
+  4.778,
+  1.261,
+  1.395,
+  9.797,
+  28.741,
+  9.727,
+  9.168
  ],
  "determinisme": {
-  "1.20": "différent"
+  "verdict": "identique",
+  "cles_verifiees": 49,
+  "ordre": "inverse, apres la planche complete",
+  "differences": []
  },
  "erreurs_console": [],
- "sortie_video": "/home/user/grand-prix-noel-2026/Intro_3D/sorties/extrait_v7.mp4"
+ "sortie_video": null,
+ "planche_exhaustive": {
+  "fichier": "sorties/planche_v7_15_ecuries_et_pieges.png",
+  "cles": [
+   {
+    "t": 11.866,
+    "label": "1a · Route 66 · monde natif",
+    "groupe": "II",
+    "luminance": 0.1979,
+    "pixels_clairs": 0.0529
+   },
+   {
+    "t": 13.825,
+    "label": "1b · Petite Mimine Racing · Ring",
+    "groupe": "II",
+    "luminance": 0.2609,
+    "pixels_clairs": 0.0773
+   },
+   {
+    "t": 15.366,
+    "label": "2a · Vallée sucrée · monde natif",
+    "groupe": "II",
+    "luminance": 0.1504,
+    "pixels_clairs": 0.0496
+   },
+   {
+    "t": 17.325,
+    "label": "2b · Twingo Oasis V16 Racing · Ring",
+    "groupe": "II",
+    "luminance": 0.2669,
+    "pixels_clairs": 0.0913
+   },
+   {
+    "t": 18.866,
+    "label": "3a · Stroboscope · monde natif",
+    "groupe": "II",
+    "luminance": 0.1792,
+    "pixels_clairs": 0.0885
+   },
+   {
+    "t": 20.825,
+    "label": "3b · Optic-Breuillet Racing · Ring",
+    "groupe": "II",
+    "luminance": 0.2819,
+    "pixels_clairs": 0.0995
+   },
+   {
+    "t": 22.366,
+    "label": "4a · Tapis de cartes · monde natif",
+    "groupe": "II",
+    "luminance": 0.1731,
+    "pixels_clairs": 0.0973
+   },
+   {
+    "t": 24.325,
+    "label": "4b · Tata Freddy Motorsport · Ring",
+    "groupe": "II",
+    "luminance": 0.2411,
+    "pixels_clairs": 0.0814
+   },
+   {
+    "t": 25.668,
+    "label": "5a · Saut du château · monde natif",
+    "groupe": "II",
+    "luminance": 0.222,
+    "pixels_clairs": 0.045
+   },
+   {
+    "t": 27.335,
+    "label": "5b · Super Mario Pression · Ring",
+    "groupe": "II",
+    "luminance": 0.2787,
+    "pixels_clairs": 0.1136
+   },
+   {
+    "t": 28.368,
+    "label": "6a · Scène symphonique · monde natif",
+    "groupe": "II",
+    "luminance": 0.0797,
+    "pixels_clairs": 0.0159
+   },
+   {
+    "t": 30.035,
+    "label": "6b · Scuderia Symphonie E-Tech · Ring",
+    "groupe": "II",
+    "luminance": 0.2844,
+    "pixels_clairs": 0.1186
+   },
+   {
+    "t": 31.068,
+    "label": "7a · Forêt ancienne · monde natif",
+    "groupe": "II",
+    "luminance": 0.2085,
+    "pixels_clairs": 0.0944
+   },
+   {
+    "t": 32.736,
+    "label": "7b · Yaris 2 Invincible · Ring",
+    "groupe": "II",
+    "luminance": 0.3095,
+    "pixels_clairs": 0.131
+   },
+   {
+    "t": 33.768,
+    "label": "8a · Autoroute sous la pluie · monde natif",
+    "groupe": "II",
+    "luminance": 0.1861,
+    "pixels_clairs": 0.0891
+   },
+   {
+    "t": 35.436,
+    "label": "8b · A4 Oil Leaking · Ring",
+    "groupe": "II",
+    "luminance": 0.2767,
+    "pixels_clairs": 0.0949
+   },
+   {
+    "t": 36.468,
+    "label": "9a · Piqué stratosphérique · monde natif",
+    "groupe": "II",
+    "luminance": 0.1407,
+    "pixels_clairs": 0.0627
+   },
+   {
+    "t": 38.136,
+    "label": "9b · Titou Wyvern SRT · Ring",
+    "groupe": "II",
+    "luminance": 0.3075,
+    "pixels_clairs": 0.1094
+   },
+   {
+    "t": 39.168,
+    "label": "10a · Éclipse rouge · monde natif",
+    "groupe": "II",
+    "luminance": 0.1255,
+    "pixels_clairs": 0.0237
+   },
+   {
+    "t": 40.836,
+    "label": "10b · Doom Slayer Issue GP · Ring",
+    "groupe": "II",
+    "luminance": 0.2853,
+    "pixels_clairs": 0.0739
+   },
+   {
+    "t": 41.72,
+    "label": "11a · Observatoire stellaire · monde natif",
+    "groupe": "II",
+    "luminance": 0.2774,
+    "pixels_clairs": 0.0835
+   },
+   {
+    "t": 43.017,
+    "label": "11b · Milo's princess Vroom Vroom · Ring",
+    "groupe": "II",
+    "luminance": 0.4026,
+    "pixels_clairs": 0.2232
+   },
+   {
+    "t": 43.82,
+    "label": "12a · Caire crépusculaire · monde natif",
+    "groupe": "II",
+    "luminance": 0.1129,
+    "pixels_clairs": 0.0346
+   },
+   {
+    "t": 45.117,
+    "label": "12b · Bob's Bizarre Racing · Ring",
+    "groupe": "II",
+    "luminance": 0.3623,
+    "pixels_clairs": 0.1954
+   },
+   {
+    "t": 45.92,
+    "label": "13a · Col de montagne · monde natif",
+    "groupe": "II",
+    "luminance": 0.1855,
+    "pixels_clairs": 0.0998
+   },
+   {
+    "t": 47.217,
+    "label": "13b · Jojo la Sirène Veloce · Ring",
+    "groupe": "II",
+    "luminance": 0.3634,
+    "pixels_clairs": 0.2048
+   },
+   {
+    "t": 48.02,
+    "label": "14a · Grille néon · monde natif",
+    "groupe": "II",
+    "luminance": 0.0444,
+    "pixels_clairs": 0.005
+   },
+   {
+    "t": 49.317,
+    "label": "14b · Ninja-Nissan Street Racing · Ring",
+    "groupe": "II",
+    "luminance": 0.3639,
+    "pixels_clairs": 0.1943
+   },
+   {
+    "t": 50.12,
+    "label": "15a · Jardin impérial · monde natif",
+    "groupe": "II",
+    "luminance": 0.1707,
+    "pixels_clairs": 0.0895
+   },
+   {
+    "t": 51.417,
+    "label": "15b · Princess Blooming Speed · Ring",
+    "groupe": "II",
+    "luminance": 0.3936,
+    "pixels_clairs": 0.2166
+   },
+   {
+    "t": 1.2,
+    "label": "Rainbow Road · grille",
+    "groupe": "I",
+    "luminance": 0.1724,
+    "pixels_clairs": 0.0319
+   },
+   {
+    "t": 5.2,
+    "label": "La meute à 290 km/h",
+    "groupe": "I",
+    "luminance": 0.3585,
+    "pixels_clairs": 0.1161
+   },
+   {
+    "t": 9.8,
+    "label": "Ouverture sur l'Arène",
+    "groupe": "I",
+    "luminance": 0.1742,
+    "pixels_clairs": 0.0322
+   },
+   {
+    "t": 53.6,
+    "label": "Grille de la meute",
+    "groupe": "III",
+    "luminance": 0.216,
+    "pixels_clairs": 0.0324
+   },
+   {
+    "t": 63,
+    "label": "Caisses mystères",
+    "groupe": "III",
+    "luminance": 0.3961,
+    "pixels_clairs": 0.1328
+   },
+   {
+    "t": 67.6,
+    "label": "Silhouette noire",
+    "groupe": "III",
+    "luminance": 0.3677,
+    "pixels_clairs": 0.1598
+   },
+   {
+    "t": 71.3,
+    "label": "Gotham · nuit bleue · Batmobile",
+    "groupe": "IV",
+    "luminance": 0.1205,
+    "pixels_clairs": 0.0032
+   },
+   {
+    "t": 78.5,
+    "label": "Formule 1 en flèche",
+    "groupe": "IV",
+    "luminance": 0.1742,
+    "pixels_clairs": 0.0112
+   },
+   {
+    "t": 84.5,
+    "label": "Apocalypse · N12 vs N13",
+    "groupe": "IV",
+    "luminance": 0.1143,
+    "pixels_clairs": 0.0029
+   },
+   {
+    "t": 89.6,
+    "label": "Piège 1 · La Herse",
+    "groupe": "V",
+    "luminance": 0.3596,
+    "pixels_clairs": 0.0692
+   },
+   {
+    "t": 90.8,
+    "label": "Piège 2 · La Bascule",
+    "groupe": "V",
+    "luminance": 0.3493,
+    "pixels_clairs": 0.0715
+   },
+   {
+    "t": 96.8,
+    "label": "Piège 7 · La Pelote",
+    "groupe": "V",
+    "luminance": 0.3519,
+    "pixels_clairs": 0.0681
+   },
+   {
+    "t": 94.4,
+    "label": "Piège 5 · Le Balancier",
+    "groupe": "V",
+    "luminance": 0.3544,
+    "pixels_clairs": 0.0727
+   },
+   {
+    "t": 99.2,
+    "label": "Piège 9 · Le Bowling",
+    "groupe": "V",
+    "luminance": 0.3439,
+    "pixels_clairs": 0.0477
+   },
+   {
+    "t": 102,
+    "label": "Règle sacrée des 41 mm",
+    "groupe": "V",
+    "luminance": 0.2121,
+    "pixels_clairs": 0.031
+   },
+   {
+    "t": 105.5,
+    "label": "Tableau des paris",
+    "groupe": "V",
+    "luminance": 0.1927,
+    "pixels_clairs": 0.0316
+   },
+   {
+    "t": 110,
+    "label": "Le parc réuni",
+    "groupe": "VI",
+    "luminance": 0.2698,
+    "pixels_clairs": 0.0521
+   },
+   {
+    "t": 112.2,
+    "label": "Trophée d'or · FAITES VOS JEUX !",
+    "groupe": "VI",
+    "luminance": 0.2885,
+    "pixels_clairs": 0.0943
+   }
+  ],
+  "plans_delaves": []
+ },
+ "ecuries": [
+  {
+   "ecurie": 1,
+   "monde": "1a · Route 66 · monde natif",
+   "t_monde": 11.866,
+   "t_ring": 13.825,
+   "luminance_monde": 0.1979,
+   "luminance_ring": 0.2609
+  },
+  {
+   "ecurie": 2,
+   "monde": "2a · Vallée sucrée · monde natif",
+   "t_monde": 15.366,
+   "t_ring": 17.325,
+   "luminance_monde": 0.1504,
+   "luminance_ring": 0.2669
+  },
+  {
+   "ecurie": 3,
+   "monde": "3a · Stroboscope · monde natif",
+   "t_monde": 18.866,
+   "t_ring": 20.825,
+   "luminance_monde": 0.1792,
+   "luminance_ring": 0.2819
+  },
+  {
+   "ecurie": 4,
+   "monde": "4a · Tapis de cartes · monde natif",
+   "t_monde": 22.366,
+   "t_ring": 24.325,
+   "luminance_monde": 0.1731,
+   "luminance_ring": 0.2411
+  },
+  {
+   "ecurie": 5,
+   "monde": "5a · Saut du château · monde natif",
+   "t_monde": 25.668,
+   "t_ring": 27.335,
+   "luminance_monde": 0.222,
+   "luminance_ring": 0.2787
+  },
+  {
+   "ecurie": 6,
+   "monde": "6a · Scène symphonique · monde natif",
+   "t_monde": 28.368,
+   "t_ring": 30.035,
+   "luminance_monde": 0.0797,
+   "luminance_ring": 0.2844
+  },
+  {
+   "ecurie": 7,
+   "monde": "7a · Forêt ancienne · monde natif",
+   "t_monde": 31.068,
+   "t_ring": 32.736,
+   "luminance_monde": 0.2085,
+   "luminance_ring": 0.3095
+  },
+  {
+   "ecurie": 8,
+   "monde": "8a · Autoroute sous la pluie · monde natif",
+   "t_monde": 33.768,
+   "t_ring": 35.436,
+   "luminance_monde": 0.1861,
+   "luminance_ring": 0.2767
+  },
+  {
+   "ecurie": 9,
+   "monde": "9a · Piqué stratosphérique · monde natif",
+   "t_monde": 36.468,
+   "t_ring": 38.136,
+   "luminance_monde": 0.1407,
+   "luminance_ring": 0.3075
+  },
+  {
+   "ecurie": 10,
+   "monde": "10a · Éclipse rouge · monde natif",
+   "t_monde": 39.168,
+   "t_ring": 40.836,
+   "luminance_monde": 0.1255,
+   "luminance_ring": 0.2853
+  },
+  {
+   "ecurie": 11,
+   "monde": "11a · Observatoire stellaire · monde natif",
+   "t_monde": 41.72,
+   "t_ring": 43.017,
+   "luminance_monde": 0.2774,
+   "luminance_ring": 0.4026
+  },
+  {
+   "ecurie": 12,
+   "monde": "12a · Caire crépusculaire · monde natif",
+   "t_monde": 43.82,
+   "t_ring": 45.117,
+   "luminance_monde": 0.1129,
+   "luminance_ring": 0.3623
+  },
+  {
+   "ecurie": 13,
+   "monde": "13a · Col de montagne · monde natif",
+   "t_monde": 45.92,
+   "t_ring": 47.217,
+   "luminance_monde": 0.1855,
+   "luminance_ring": 0.3634
+  },
+  {
+   "ecurie": 14,
+   "monde": "14a · Grille néon · monde natif",
+   "t_monde": 48.02,
+   "t_ring": 49.317,
+   "luminance_monde": 0.0444,
+   "luminance_ring": 0.3639
+  },
+  {
+   "ecurie": 15,
+   "monde": "15a · Jardin impérial · monde natif",
+   "t_monde": 50.12,
+   "t_ring": 51.417,
+   "luminance_monde": 0.1707,
+   "luminance_ring": 0.3936
+  }
+ ],
+ "son": {
+  "mix": {
+   "fichier": "audio/mix_v7.wav",
+   "frequence_hz": 44100,
+   "canaux": 2,
+   "lufs_approx": -16.0,
+   "crete_dbfs": -4.5,
+   "methode_lufs": "pondération K approchée par FFT (passe-haut 38 Hz + étagère +4 dB à 1,7 kHz), blocs 400 ms, portes -70 LUFS / -10 LU",
+   "saut_max_echantillon": 0.56934
+  },
+  "bilan": {
+   "ecuries_reelles": 15,
+   "ecuries_synthetisees": 0,
+   "phrases_voix_off": 14
+  },
+  "voix_off": [
+   {
+    "phrase": "mesdames",
+    "texte": "Mesdames et messieurs.",
+    "attaque": 0.12,
+    "fin_dernier_mot": 1.483,
+    "voix_sur_mix_db": 19.6
+   },
+   {
+    "phrase": "salon",
+    "texte": "Ce soir, le salon se transforme en arène.",
+    "attaque": 1.623,
+    "fin_dernier_mot": 4.984,
+    "voix_sur_mix_db": 20.6
+   },
+   {
+    "phrase": "stats_trone",
+    "texte": "Quinze écuries, des dix saines de bolides, cinq voies et une seule place sur le trône.",
+    "attaque": 5.144,
+    "fin_dernier_mot": 10.148,
+    "voix_sur_mix_db": 20.1
+   },
+   {
+    "phrase": "caisses",
+    "texte": "ouvrez les caisses, découvrez vos bolides et traquez les modèles uniques. On raconte que l 'un d 'eux chante dans le noir.",
+    "attaque": 61.4,
+    "fin_dernier_mot": 67.725,
+    "voix_sur_mix_db": 12.1
+   },
+   {
+    "phrase": "attention",
+    "texte": "Mais attention, ils ne viennent pas seul.",
+    "attaque": 68.2,
+    "fin_dernier_mot": 70.14,
+    "voix_sur_mix_db": 13.1
+   },
+   {
+    "phrase": "gotham",
+    "texte": "Des ruelles de Gotham.",
+    "attaque": 70.3,
+    "fin_dernier_mot": 71.53,
+    "voix_sur_mix_db": 12.7
+   },
+   {
+    "phrase": "nuit",
+    "texte": "Je ne suis pas une voiture. Je suis la nuit",
+    "attaque": 72.1,
+    "fin_dernier_mot": 75.165,
+    "voix_sur_mix_db": 12.5
+   },
+   {
+    "phrase": "f1",
+    "texte": "Destembe de la formule 1. Box, box, box, box. Ne tendre, on attaque.",
+    "attaque": 75.6,
+    "fin_dernier_mot": 80.795,
+    "voix_sur_mix_db": 10.6
+   },
+   {
+    "phrase": "apoca",
+    "texte": "Et des terres brûlées, des survivants de l 'apocalypse.",
+    "attaque": 82.5,
+    "fin_dernier_mot": 85.195,
+    "voix_sur_mix_db": 7.5
+   },
+   {
+    "phrase": "pieges",
+    "texte": "Des pièges, des trahisons",
+    "attaque": 89.35,
+    "fin_dernier_mot": 90.71,
+    "voix_sur_mix_db": 13.5
+   },
+   {
+    "phrase": "paris",
+    "texte": "et des paris en direct depuis votre téléphone ou à l 'ancienne.",
+    "attaque": 104.0,
+    "fin_dernier_mot": 107.285,
+    "voix_sur_mix_db": 10.2
+   },
+   {
+    "phrase": "gloire",
+    "texte": "Et pour le vainqueur, la gloire éternelle.",
+    "attaque": 107.9,
+    "fin_dernier_mot": 110.645,
+    "voix_sur_mix_db": 10.9
+   },
+   {
+    "phrase": "titre",
+    "texte": "Le grand prix de Noël, 23 décembre.",
+    "attaque": 111.6,
+    "fin_dernier_mot": 115.145,
+    "voix_sur_mix_db": 10.3
+   },
+   {
+    "phrase": "final",
+    "texte": "Préparez -vous à vrombir que le spectacle commence.",
+    "attaque": 115.3,
+    "fin_dernier_mot": 119.0,
+    "voix_sur_mix_db": 9.4
+   }
+  ],
+  "signatures": [
+   {
+    "ecurie": 1,
+    "source": "reel",
+    "impact": 12.925,
+    "eclat": 12.925,
+    "fichiers": [
+     "voix/mimine_voix_cassee.mp3",
+     "themes_ecuries/01_jerry_reed_country.mp3"
+    ]
+   },
+   {
+    "ecurie": 2,
+    "source": "reel",
+    "impact": 16.425,
+    "eclat": 16.425,
+    "fichiers": [
+     "themes_ecuries/02_candy_crush_sweet.mp3"
+    ]
+   },
+   {
+    "ecurie": 3,
+    "source": "reel",
+    "impact": 19.925,
+    "eclat": 19.925,
+    "fichiers": [
+     "themes_ecuries/03_blur_song_2_woohoo.mp3"
+    ]
+   },
+   {
+    "ecurie": 4,
+    "source": "reel",
+    "impact": 23.425,
+    "eclat": 23.425,
+    "fichiers": [
+     "themes_ecuries/04_balatro_theme.mp3"
+    ]
+   },
+   {
+    "ecurie": 5,
+    "source": "reel",
+    "impact": 26.485,
+    "eclat": 26.485,
+    "fichiers": [
+     "themes_ecuries/05_mario_fall_waaah.mp3",
+     "voix/mario_chute_B.mp3"
+    ]
+   },
+   {
+    "ecurie": 6,
+    "source": "reel",
+    "impact": 29.185,
+    "eclat": 29.185,
+    "fichiers": [
+     "themes_ecuries/06_peter_fox_alles_neu_symphonie.mp3"
+    ]
+   },
+   {
+    "ecurie": 7,
+    "source": "reel",
+    "impact": 31.885,
+    "eclat": 31.885,
+    "fichiers": [
+     "themes_ecuries/07_zelda_item_get.mp3"
+    ]
+   },
+   {
+    "ecurie": 8,
+    "source": "reel",
+    "impact": 34.585,
+    "eclat": 34.585,
+    "fichiers": [
+     "themes_ecuries/08_metroid_item_acquisition.mp3"
+    ]
+   },
+   {
+    "ecurie": 9,
+    "source": "reel",
+    "impact": 37.285,
+    "eclat": 37.285,
+    "fichiers": [
+     "themes_ecuries/09_mh_valstrax_roar.mp3"
+    ]
+   },
+   {
+    "ecurie": 10,
+    "source": "reel",
+    "impact": 39.985,
+    "eclat": 39.985,
+    "fichiers": [
+     "themes_ecuries/10_berserk_guts_theme.mp3"
+    ]
+   },
+   {
+    "ecurie": 11,
+    "source": "reel",
+    "impact": 42.355,
+    "eclat": 42.355,
+    "fichiers": [
+     "themes_ecuries/11_rosalina_harmonie_victory.mp3"
+    ]
+   },
+   {
+    "ecurie": 12,
+    "source": "reel",
+    "impact": 44.455,
+    "eclat": 44.455,
+    "fichiers": [
+     "themes_ecuries/12_jojo_kakyoin_rero.mp3"
+    ]
+   },
+   {
+    "ecurie": 13,
+    "source": "reel",
+    "impact": 46.555,
+    "eclat": 46.555,
+    "fichiers": [
+     "themes_ecuries/13_tokyo_drift_drumroll.mp3"
+    ]
+   },
+   {
+    "ecurie": 14,
+    "source": "reel",
+    "impact": 48.655,
+    "eclat": 48.655,
+    "fichiers": [
+     "themes_ecuries/14_splatoon_booyah.mp3"
+    ]
+   },
+   {
+    "ecurie": 15,
+    "source": "reel",
+    "impact": 50.755,
+    "eclat": 50.755,
+    "fichiers": [
+     "themes_ecuries/15_daisy_hi_im_daisy.mp3"
+    ]
+   }
+  ],
+  "mix_present": true
+ }
 }

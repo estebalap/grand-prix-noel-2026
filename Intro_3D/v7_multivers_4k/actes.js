@@ -9,8 +9,8 @@
    Chaque acte expose { groupe, maj(t), camera(t, ratio), info(t) } ; tout est fonction pure de t. */
 import { splineCR, profilVitesse, creerCascadeur, graineur, clamp, lerp, smoother, DEG } from './physique_cgi.js';
 import { chemin, tremblement } from './camera_crescendo.js';
-import { RING, angleEcurie, CX } from './mondes_et_portails.js';
-import { poser, avecAlea } from './voitures.js';
+import { RING, angleEcurie, CX, assombrirCiel, plafonnerSurfaces } from './mondes_et_portails.js';
+import { poser, avecAlea, neutraliserRoues } from './voitures.js';
 import { creerFumee, creerEtincelles, creerPostCombustion } from './effets_cgi.js';
 
 export const MEUTE = ['J01', 'E02', 'U02', 'FR02', 'N03'];
@@ -18,6 +18,8 @@ export const F1 = ['F01', 'F02', 'F03', 'F04', 'F05'];
 export const SECRETS = { batmobile: 'B16', epave: 'N12', jet: 'N13', silhouette: 'TK06' };
 const VOIES = ['#ff3b3b', '#ff9a1a', '#ffe23d', '#35e07a', '#3fa9ff'];
 const PAS_VOIE = 4.84;
+/** Côté de caméra (±1 en z) retenu par piège après contrôle sur image (V7.1) : celui où aucun montant ne masque le piège. */
+const COTE_PIEGE = { herse: 1, bascule: 1, peage: 1, boulet: 1, balancier: 1, oeuf_wyverne: 1, pelote: 1, obus: 1, bowling: 1, chausse_trapes: 1 };
 const TITRES_PIEGES = { herse: 'La Herse', bascule: 'La Bascule', peage: 'Le Péage', boulet: 'Le Boulet', balancier: 'Le Balancier', oeuf_wyverne: "L'Œuf de Wyverne", pelote: 'La Pelote', obus: "L'Obus", bowling: 'Le Bowling', chausse_trapes: 'Les Chausse-trappes', curling: 'Le Curling' };
 
 const sub3 = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
@@ -194,13 +196,17 @@ export function creerActeIV({ THREE, decors, envMap, cars, garage, bolides, plan
   const groupe = new THREE.Group(); const [G0, G1] = [plan.univers_boss[0], plan.univers_boss[1]], AP = plan.univers_boss[2];
   const mk = (cle, code) => { const d = avecAlea('boss' + code, () => decors.creerDecor(THREE, cle, { code, env: envMap })); d.eclair && (d.eclair.prochain = 1e9); const g = new THREE.Group(); g.add(d.groupe, d.lumieres); g.visible = false; groupe.add(g); return { d, g }; };
   const gotham = mk('gothique', 'B16'), f1 = mk('blockbuster', 'F01'), apoca = mk('post_apo', 'N12');
+  // V7.1 : l'Apocalypse passe en nuit de cendres (ciel sable et brume orange du canyon assombris : plus de plan beige délavé)
+  assombrirCiel(THREE, apoca.d.groupe, '#140603'); plafonnerSurfaces(THREE, apoca.d.groupe, 0.1);
   for (const b of [gotham, f1, apoca]) b.d.activer();
-  if (gotham.d.solMat) { gotham.d.solMat.color.multiplyScalar(0.22); if (gotham.d.solMat.emissive) gotham.d.solMat.emissiveIntensity = 0; }      // asphalte noir détrempé (pas de sol sodium orange)
-  // ── Gotham : la Batmobile surgit du brouillard, éclairs au tempo
+  // ── Gotham : la Batmobile surgit du brouillard, éclairs au tempo — V7.1 : nuit bleue d'orage, asphalte mouillé, réverbères, pluie
   const bat = bolides.batmobile;
   const spG = splineCR([[CX - 90, 0, 4], [CX - 40, 0, 3.2], [CX + 4, 0, 4.6], [CX + 50, 0, 3]]);
   const profG = profilVitesse([[G0.debut, 120], [G0.debut + 2.2, 70], [G0.fin - 0.4, 14], [G0.fin + 5, 14]], 0);
   const cG = creerCascadeur({ spline: spG, profil: profG, vibration: 71, tSusp0: G0.debut - 1, susp: {}, atterrissage: null, derive: { t0: G0.debut + 1.6, montee: 0.2, maintien: 1.2, descente: 0.9, betaMax: 20 * DEG, signe: 1 }, ralenti: 0.01 });
+  // réverbères posés là où la Batmobile passe VRAIMENT pendant le plan (au-delà de la spline, la trajectoire est prolongée en ligne droite)
+  const xsReverberes = [0.15, 0.4, 0.62, 0.85].map((f) => cG.pose(G0.debut + f * (G0.fin - G0.debut), { sansSuspension: true }).pos[0] + 6);
+  const nuit = nuitDeGotham(THREE, gotham, xsReverberes);
   const eclairsT = [69.4, 70.35, 71.6, 72.9, 74.1]; const eclair = (t) => { let v = 0; for (const e of eclairsT) { const d = t - e; if (d >= 0 && d < 0.34) v = Math.max(v, (d < 0.06 ? 1 : d < 0.12 ? 0.15 : d < 0.2 ? 0.8 : 0.3 * (1 - d / 0.34))); } return v; };
   // ── Formule 1 : flèche à 320 km/h
   const f1v = bolides.f1s, offs = [[0, 0], [-9.5, -10], [9.5, -10], [-19, -20], [19, -20]];
@@ -226,11 +232,12 @@ export function creerActeIV({ THREE, decors, envMap, cars, garage, bolides, plan
       gotham.g.visible = sel === 'g'; f1.g.visible = sel === 'f'; apoca.g.visible = sel === 'a';
       bat.visible = sel === 'g'; f1v.forEach((v) => (v.visible = sel === 'f')); epave.visible = jet.visible = sel === 'a'; carcasses.forEach((c) => (c.visible = sel === 'a'));
       fumeeA.objet.visible = etinc.objet.visible = sel === 'a';
-      ctx.brouillard(sel === 'g' ? { couleur: '#0b1430', densite: 0.0042 } : sel === 'f' ? { couleur: '#10131c', densite: 0.0012 } : { couleur: '#3a1606', densite: 0.0034 });
+      ctx.brouillard(sel === 'g' ? { couleur: '#070d1c', densite: 0.0036 } : sel === 'f' ? { couleur: '#10131c', densite: 0.0012 } : { couleur: '#1a0804', densite: 0.0016 });
       if (sel === 'g') {
+        ctx.fond(0x040814); nuit.maj(t);
         const e = cG.pose(t); poser(bat, e);
         const ev = eclair(t); ctx.apres(() => { gotham.d.maj(t, 0, ctx.camera, ctx.hPx); if (gotham.d.eclair) { gotham.d.eclair.u.value = ev * 0.85; gotham.d.eclair.lum.intensity = gotham.d.eclair.base * (1 + ev * 3.2); } });
-        ctx.extraFlash = ev * 0.5;
+        ctx.extraFlash = ev * 0.1;                                                     // l'éclair éclaire le décor (lumière de l'orage) ; le voile plein écran reste bref et léger
       } else if (sel === 'f') {
         f1v.forEach((v, i) => { const e = cF[i].pose(t); e.pos = [e.pos[0], e.pos[1], e.pos[2]]; poser(v, e, { lateral: offs[i][0] }); }); ctx.apres(() => f1.d.maj(t, 0, ctx.camera, ctx.hPx));
       } else {
@@ -255,6 +262,73 @@ export function creerActeIV({ THREE, decors, envMap, cars, garage, bolides, plan
   };
 }
 
+
+/* ═══════════════════════════ V7.1 — GOTHAM DE NUIT (asphalte mouillé, clair de lune bleu, réverbères, pluie) ═══════════════════════════
+   Le décor « gothique » de shared/decors3d.js étalonné par l'ambiance de B16 garde des sols et des lumières sodium (ambre / orange) :
+   on convertit ICI (sans toucher à shared/) tout ce qui est sol / trottoir / berge (mesh plat et bas, ou plat et de teinte chaude)
+   en asphalte gothique détrempé, toutes les lumières chaudes en clair de lune d'orage, le dôme en nuit bleue, et on ajoute
+   4 réverbères bleu-cyan le long de la trajectoire de la Batmobile, leurs flaques de reflets et un rideau de pluie argentée. */
+function nuitDeGotham(THREE, b, xsReverberes) {
+  // asphalte mouillé SANS carte d'environnement : vue au ras du sol (caméra à 2 m), la réflexion de Fresnel de l'environnement néon
+  // blanchissait toute la chaussée ; ici seuls les réverbères, la lune et les éclairs s'y reflètent (vraies flaques de lumière)
+  const asphalte = new THREE.MeshStandardMaterial({ color: 0x060a14, roughness: 0.14, metalness: 0.45, emissive: 0x000000, envMap: null, envMapIntensity: 0 });
+  const boite = new THREE.Box3(), taille = new THREE.Vector3();
+  let sols = 0, lums = 0;
+  b.d.groupe.updateMatrixWorld(true);
+  b.d.groupe.traverse((o) => {
+    if (!o.isMesh || o.isInstancedMesh || !o.material || o.material.isShaderMaterial || Array.isArray(o.material)) return;
+    boite.setFromObject(o); boite.getSize(taille);
+    const c = o.material.color, chaud = !!c && c.r > c.b * 1.2;
+    const plat = taille.y < 0.8 && Math.max(taille.x, taille.z) > 3;
+    if (plat && (boite.max.y <= 0.5 || (chaud && boite.max.y <= 3))) { o.material = asphalte; sols++; }
+  });
+  if (b.d.solMat) b.d.solMat = asphalte;
+  b.d.lumieres.traverse((l) => { if (l.isLight && l.color && l.color.r > l.color.b * 1.2) { l.color.set(0x5b8cff); lums++; } });
+  // les deux directionnelles du décor arrivaient de derrière la scène à ~20° au-dessus de l'horizon, face caméra : sur chaussée
+  // mouillée vue au ras du sol, leur reflet miroir tombait DANS le cadre (tache blanche devant la Batmobile). Relevées à ~70° :
+  // le reflet passe sous le cadre, il ne reste que le contre-jour lunaire sur les carrosseries et les façades
+  b.d.lumieres.traverse((l) => { if (l.isDirectionalLight) { l.position.y = 70; l.intensity *= 0.7; } });
+  // la pluie du décor (teintée « pluie rouge » par l'ambiance de B16) redevient une pluie d'orage argentée, plus discrète
+  b.d.groupe.traverse((o) => { const u = o.material && o.material.uniforms; if (u && u.col && u.alpha && u.vel) { u.col.value.set('#9fb4ff'); u.alpha.value *= 0.55; } });
+  assombrirCiel(THREE, b.d.groupe, '#040814', { melange: 0.85, plafonds: { cTop: 0.003, cMid: 0.008, cBas: 0.012 } });
+  const g = new THREE.Group(); g.name = 'gotham-nuit-v71'; b.g.add(g);
+  // le décor n'a pas de chaussée propre (le bas du dôme fait office de sol lointain) : vraie chaussée mouillée qui reflète les réverbères
+  const chaussee = new THREE.Mesh(new THREE.PlaneGeometry(420, 260), asphalte); chaussee.rotation.x = -Math.PI / 2; chaussee.position.set(CX - 20, 0.01, -40); g.add(chaussee);
+  const lune = new THREE.DirectionalLight(0x5b8cff, 0.4); lune.position.set(CX - 40, 90, -70); lune.target.position.set(CX, 0, 4); g.add(lune, lune.target);
+  // 4 réverbères bleu-cyan le long de la trajectoire : mât, lanterne incandescente, cône de lumière, spot rasant, flaque de reflet
+  const matMat = new THREE.MeshStandardMaterial({ color: 0x0b0f18, metalness: 0.8, roughness: 0.35 });
+  const matLampe = new THREE.MeshBasicMaterial({ color: new THREE.Color('#9fe6ff').multiplyScalar(3.2), toneMapped: false });
+  const matCone = new THREE.MeshBasicMaterial({ color: new THREE.Color('#5fc8ff').multiplyScalar(1.3), transparent: true, opacity: 0.09, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide, toneMapped: false });
+  const matFlaque = new THREE.MeshBasicMaterial({ color: new THREE.Color('#6fd6ff').multiplyScalar(1.4), transparent: true, opacity: 0.1, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false });
+  for (let i = 0; i < xsReverberes.length; i++) {
+    const x = xsReverberes[i], z = -6.5;
+    const mat = new THREE.Mesh(new THREE.BoxGeometry(0.45, 13, 0.45), matMat); mat.position.set(x, 6.5, z);
+    const bras = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.3, 4.2), matMat); bras.position.set(x, 12.8, z + 2);
+    const lampe = new THREE.Mesh(new THREE.SphereGeometry(0.55, 14, 10), matLampe); lampe.position.set(x, 12.4, z + 4);
+    const cone = new THREE.Mesh(new THREE.ConeGeometry(4.2, 12.2, 24, 1, true), matCone); cone.position.set(x, 6.3, z + 4);
+    const spot = new THREE.SpotLight(0x7fd8ff, 0.75, 60, 0.55, 0.7, 2); spot.position.set(x, 12.3, z + 4); spot.target.position.set(x + 1.5, 0, 4);
+    const flaque = new THREE.Mesh(new THREE.PlaneGeometry(5.5, 13), matFlaque); flaque.rotation.x = -Math.PI / 2; flaque.position.set(x + 0.8, 0.03, 6);
+    g.add(mat, bras, lampe, cone, spot, spot.target, flaque);
+  }
+  // rideau de pluie fine argentée : traits inclinés, position = fonction pure de t
+  const N = 700, H = 42, rnd = graineur(1609), P = new Float32Array(N * 6), base = [];
+  const xc = xsReverberes.reduce((a, v) => a + v, 0) / xsReverberes.length;   // centrée sur le trajet filmé
+  for (let i = 0; i < N; i++) base.push([xc - 90 + rnd() * 180, rnd() * H, -34 + rnd() * 64, 34 + rnd() * 14]);
+  const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(P, 3));
+  const pluie = new THREE.LineSegments(geo, new THREE.LineBasicMaterial({ color: new THREE.Color('#c8d6ff'), transparent: true, opacity: 0.12, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false }));
+  pluie.frustumCulled = false; g.add(pluie);
+  return {
+    groupe: g, sols, lumieres: lums,
+    maj(t) {
+      for (let i = 0; i < N; i++) {
+        const [x, y0, z, v] = base[i], y = H - (((y0 + v * t) % H) + H) % H, dx = -0.07, dy = -1.5;
+        P.set([x - 0.07 * (H - y), y, z, x - 0.07 * (H - y) + dx, y + dy, z], i * 6);
+      }
+      geo.attributes.position.needsUpdate = true;
+    },
+  };
+}
+
 /* ═══════════════════════════ ACTE V — PIÈGES, RÈGLE DES 41 mm, PARIS ═══════════════════════════ */
 export function creerActeV({ THREE, arsenal, voituresLab, plan, ringCamera }) {
   const A = plan.actes.find((a) => a.id === 'V'), t0 = A.debut;
@@ -262,8 +336,31 @@ export function creerActeV({ THREE, arsenal, voituresLab, plan, ringCamera }) {
   const SEG = 1.2, T_PIEGES = noms.length * SEG, T_REGLE = 3.2;
   const labo = new THREE.Group(); labo.name = 'labo-arsenal';
   const lane = arsenal.buildLane(THREE, 96); lane.position.x = -22; labo.add(lane);
-  const sol = new THREE.Mesh(new THREE.PlaneGeometry(400, 400), new THREE.MeshStandardMaterial({ color: 0x07080f, roughness: 0.35, metalness: 0.6 })); sol.rotation.x = -Math.PI / 2; sol.position.y = -0.08; labo.add(sol);
+  // V7.1 : les parois de verre et les fonds de voie émissifs de la notice, vus en plongée à travers plusieurs cloisons,
+  // formaient un voile blanc : verre presque invisible, voies moins lumineuses (matériaux propres à cette instance de piste)
+  lane.traverse((o) => { const m = o.material; if (!m || !m.isMeshStandardMaterial) return; if (m.opacity < 0.5) { m.opacity = 0.08; m.emissiveIntensity = 0.02; m.depthWrite = false; } else { m.emissiveIntensity *= 0.5; m.opacity = 0.9; m.roughness = 0.85; m.metalness = 0; m.color.multiplyScalar(0.32); } });
+  const sol = new THREE.Mesh(new THREE.PlaneGeometry(400, 400), new THREE.MeshStandardMaterial({ color: 0x05060c, roughness: 0.92, metalness: 0.1 })); sol.rotation.x = -Math.PI / 2; sol.position.y = -0.08; labo.add(sol);   // mat : le projecteur placé derrière le piège ne s'y reflète plus en voile blanc
   const grille = new THREE.GridHelper(300, 120, 0x2a3a7a, 0x141a38); grille.position.y = -0.05; labo.add(grille);
+  // V7.1 : laboratoire cyber-mécanique — tunnel d'arches lumineuses autour de la piste d'essai (la caméra est DANS le tunnel :
+  // aucune arche ne passe jamais entre elle et le piège) + 3 lumières dédiées qui font briller l'acier, le cuivre et le bois
+  const archeMat = new THREE.MeshStandardMaterial({ color: 0x0c1020, metalness: 0.85, roughness: 0.3 });
+  const lisere = [new THREE.MeshBasicMaterial({ color: new THREE.Color('#38e1ff').multiplyScalar(0.9), toneMapped: false }), new THREE.MeshBasicMaterial({ color: new THREE.Color('#b06bff').multiplyScalar(0.9), toneMapped: false })];
+  for (let k = 0; k < 10; k++) {
+    // arches à x = −72 + 16 k : aucune ne frôle la caméra (x ∈ [−15 ; −9]) : elles encadrent le plan au lieu de le traverser
+    const x = -72 + k * 16, a = new THREE.Group(); a.position.x = x; a.rotation.y = Math.PI / 2;
+    a.add(new THREE.Mesh(new THREE.TorusGeometry(30, 1.1, 10, 48, Math.PI), archeMat));
+    a.add(new THREE.Mesh(new THREE.TorusGeometry(28.8, 0.16, 6, 64, Math.PI), lisere[k % 2]));
+    labo.add(a);
+  }
+  const fondLabo = new THREE.Mesh(new THREE.PlaneGeometry(400, 90), new THREE.MeshBasicMaterial({ color: 0x050712 })); fondLabo.position.set(0, 40, -60); labo.add(fondLabo);
+  const cleLabo = new THREE.SpotLight(0xfff1dc, 0.85, 120, 0.3, 0.6, 2); cleLabo.position.set(0, 34, -8); cleLabo.target.position.set(0, 1, 0);   // en surplomb, côté opposé à la caméra : aucun reflet du projecteur dans l'objectif
+  const contreLabo = new THREE.DirectionalLight(0x5fd3ff, 0.55); contreLabo.position.set(16, 12, -22); contreLabo.target.position.set(0, 1, 0);
+  const remplissage = new THREE.PointLight(0xb06bff, 0.7, 60, 2); remplissage.position.set(-8, 7, -12);
+  labo.add(cleLabo, cleLabo.target, contreLabo, contreLabo.target, remplissage);
+  const eclairContact = new THREE.PointLight(0xffd9a0, 0, 16, 2); labo.add(eclairContact);   // lueur d'impact bolide-piège (pilotée par maj)
+  // l'environnement néon de la scène (scene.environment) blanchissait le sol métallique, la piste et les arches vus en plongée :
+  // reflets d'environnement réduits sur le décor du labo (les pièges gardent leur éclat d'acier, de cuivre et de bois)
+  labo.traverse((o) => { const m = o.material; if (m && m.isMeshStandardMaterial) m.envMapIntensity = 0.12; });
   const rigs = noms.map((n) => { const r = arsenal.RIGS[n], b = r.build(THREE, M); b.group.visible = false; labo.add(b.group); return { n, r, b }; });
   // portique de la règle sacrée : deux montants + barre à 41 mm, réglette graduée
   const regle = new THREE.Group(); regle.visible = false; labo.add(regle);
@@ -274,7 +371,7 @@ export function creerActeV({ THREE, arsenal, voituresLab, plan, ringCamera }) {
   for (let i = 0; i <= 10; i++) { const g = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.06, i % 5 === 0 ? 1.4 : 0.8), new THREE.MeshBasicMaterial({ color: i === 4 ? new THREE.Color('#ffe23d').multiplyScalar(3) : new THREE.Color('#9fd8ff').multiplyScalar(1.8), toneMapped: false })); g.position.set(0, i * 0.5 + 0.0, 4.9); regle.add(g); }
   const gar = voituresLab;
   const tTrig = (r) => (r.declencheX - arsenal.X0) / arsenal.VCAR;
-  const dureeAvant = 0.9;
+  const IMPACT_U = 0.48;
   function indexPiege(t) { return clamp(Math.floor((t - t0) / SEG), 0, noms.length - 1); }
   return {
     groupe: labo, noms, SEG, T_PIEGES, T_REGLE, titres: TITRES_PIEGES,
@@ -286,22 +383,30 @@ export function creerActeV({ THREE, arsenal, voituresLab, plan, ringCamera }) {
       regle.visible = ph === 'regle';
       const car = gar[i % gar.length]; gar.forEach((c) => (c.visible = false));
       if (ph === 'pieges') {
-        const rg = rigs[i], hit = (rg.r.impactX - arsenal.X0) / arsenal.VCAR, tl = hit - dureeAvant + u * (2.5), tt = tTrig(rg.r);
+        // V7.1 : le contact bolide-piège (tl = hit) tombe à u = IMPACT_U, au cœur du plan de 1,2 s
+        const rg = rigs[i], hit = (rg.r.impactX - arsenal.X0) / arsenal.VCAR, tl = hit + (u - IMPACT_U) * 2.5, tt = tTrig(rg.r);
         rg.b.pose(tl - tt);
         const cp = arsenal.carPose(rg.r, tl, tt);
-        car.visible = true; car.position.set(cp.x, cp.y, cp.z); car.rotation.set(cp.rx, Math.PI / 2 + cp.ry, cp.rz, 'YXZ');
+        car.visible = true; neutraliserRoues(car); car.position.set(cp.x, cp.y, cp.z); car.rotation.set(cp.rx, Math.PI / 2 + cp.ry, cp.rz, 'YXZ');
         const d = arsenal.X0 + arsenal.VCAR * tl; for (const w of car.v7.roues) { if (w.type === 'm3d') w.w.tourne.rotation.z = -(cp.x - arsenal.X0) / w.r; }
-        ctx.flashPiege = Math.exp(-Math.pow((tl - hit) / 0.12, 2)) * 0.5;
+        // V7.1 : plus AUCUN flash plein écran (le flash du post s'ajoute en HDR à tout le cadre : 0,05 suffisait à voiler le labo
+        // en gris-beige). Le contact est une lueur LOCALE : une lampe ponctuelle chaude au nez du bolide, impulsion gaussienne
+        const pulse = Math.exp(-Math.pow((tl - hit) / 0.08, 2));
+        eclairContact.position.set(cp.x + 3.2, cp.y + 2.2, cp.z); eclairContact.intensity = 5.5 * pulse; ctx.flashPiege = 0;
       } else if (ph === 'regle') {
-        const u2 = (t - t0 - T_PIEGES) / T_REGLE, c = gar[0]; c.visible = true; const x = lerp(36, -30, smoother(u2));
+        const u2 = (t - t0 - T_PIEGES) / T_REGLE, c = gar[0]; c.visible = true; neutraliserRoues(c); const x = lerp(36, -30, smoother(u2));
         c.position.set(x, 0, 0); c.rotation.set(0, -Math.PI / 2, 0);
         for (const w of c.v7.roues) if (w.type === 'm3d') w.w.tourne.rotation.z = (x - 36) / w.r;
-        laser.visible = Math.floor(t * 8) % 2 === 0 || u2 > 0.4; ctx.flashPiege = 0;
+        laser.visible = Math.floor(t * 8) % 2 === 0 || u2 > 0.4; ctx.flashPiege = 0; eclairContact.intensity = 0;
       }
     },
     camera(t) {
       const ph = this.phase(t), i = indexPiege(t), u = (t - t0 - i * SEG) / SEG;
-      if (ph === 'pieges') { const rg = rigs[i], cote = i % 2 ? -1 : 1, hx = rg.r.impactX; return { p: [hx - 8 + 8 * u, 6.0 + 0.8 * u, 27 * cote], c: [hx + 0.6, 3.0, 0], fov: 36 - 3 * u, roll: 0.03 * cote }; }
+      if (ph === 'pieges') {
+        // V7.1 : 3/4 avant en plongée, DANS le couloir de vue (aucun montant de portique entre la caméra et le piège)
+        const rg = rigs[i], hx = rg.r.impactX, cote = COTE_PIEGE[rg.n] || (i % 2 ? -1 : 1);
+        return { p: [hx - 14 + 5 * u, 9.5 - 1.2 * u, 13.5 * cote], c: [hx + 1.0, 2.4, 0], fov: 32, roll: 0.02 * cote };
+      }
       if (ph === 'regle') { const u2 = (t - t0 - T_PIEGES) / T_REGLE; return chemin([{ t: t0 + T_PIEGES, p: [-30, 3.4, 5], c: [0, 3.2, 0], fov: 30, roll: 0.02 }, { t: t0 + T_PIEGES + T_REGLE, p: [-17, 2.6, 4], c: [0, 3.0, 0], fov: 26, roll: 0 }], t); }
       return ringCamera(t);
     },

@@ -94,6 +94,15 @@ export function poser(env, p, { dist = null, lateral = 0 } = {}) {
   }
 }
 
+/** V7.1 : roues remises au neutre (braquage nul, suspension au repos). Un bolide réutilisé par un autre acte (la meute des
+    actes I et III roule dans le labo de l'acte V) ne doit garder AUCUN braquage ni débattement de l'image précédente (règle 5). */
+export function neutraliserRoues(env) {
+  for (const w of env.v7.roues) {
+    if (w.type === 'concept') { w.noeud.rotation.y = w.baseRY; w.noeud.position.y = w.baseY; if (w.etrier) w.etrier.rotation.z = -w.noeud.rotation.z; }
+    else { if (w.avant) w.noeud.rotation.y = 0; w.noeud.position.y = w.baseY; }
+  }
+}
+
 /** Animation propre au concept-car (flammes, gyrophares, kanjis…) : fonction pure de t. */
 export function animer(env, t) {
   const c = env.v7.concept; if (c && c.userData.tick) c.userData.tick(t, 1 / 60);

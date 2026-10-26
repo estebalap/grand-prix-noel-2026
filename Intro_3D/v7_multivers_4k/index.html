@@ -54,9 +54,10 @@ window.addEventListener('error', (ev) => err(ev.error || ev.message)); window.ad
     const renderer = new THREE.WebGLRenderer({ antialias: false, preserveDrawingBuffer: true, powerPreference: 'high-performance' });
     renderer.setPixelRatio(1); renderer.setSize(L, H, false);
     const sortie = document.getElementById('sortie'); sortie.width = L; sortie.height = H;
+    if (capture) sortie.getContext('2d', { willReadFrequently: true });   // V7.1 : relecture image par image (toDataURL) sans aller-retour GPU
     const info = document.getElementById('info'), charge = document.getElementById('charge');
-    const film = await creerFilm({ renderer, equipes, logos, regles, plan, sortie, qualite, parcMax: parseInt(q.get('parc') || (qualite === 'master' ? '60' : '24'), 10), progression: (m) => { charge.textContent = m; } });
-    window.filmV7 = film; window.dureeFilm = film.duree; window.fpsFilm = film.fps; window.reperesPlanche = film.reperesPlanche; window.inventaireFilm = film.inventaire;
+    const film = await creerFilm({ renderer, equipes, logos, regles, plan, sortie, qualite, parcMax: parseInt(q.get('parc') || (qualite === 'master' ? '60' : '24'), 10), progression: (m) => { charge.textContent = m; }, capture });
+    window.filmV7 = film; window.dureeFilm = film.duree; window.fpsFilm = film.fps; window.reperesPlanche = film.reperesPlanche; window.reperesPlanche48 = film.reperesPlanche48; window.inventaireFilm = film.inventaire;
     window.rendreTemps = (t, o = {}) => film.rendreTemps(t, { sub: o.sub ?? SUB });
     window.imageBase64 = (format = 'png', qual = 0.97) => sortie.toDataURL(format === 'jpeg' ? 'image/jpeg' : 'image/png', qual).split(',')[1];
     window.sondePhysique = (k, t) => film.sondePhysique(k, t);

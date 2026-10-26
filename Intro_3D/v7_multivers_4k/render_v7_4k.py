@@ -7,10 +7,12 @@ Aucun enregistrement d'écran : chaque image est calculée à son temps exact pa
 
   py -3 render_v7_4k.py --qualite 4k            -> sorties\\trailer_v7_4k.mp4   3840x2160, 60 i/s, flou 3 sous-expositions
   py -3 render_v7_4k.py --qualite 1080p         -> sorties\\trailer_v7_1080p.mp4  1920x1080, 60 i/s
-  py -3 render_v7_4k.py --qualite apercu_cloud  -> planche contact 6x6 (36 reperes) + controle JSON, SwiftShader (sans GPU)
+  py -3 render_v7_4k.py --qualite apercu_cloud  -> planche contact 6x6 (36 reperes) + planche EXHAUSTIVE 6x8 (48 cles : les 15 ecuries
+                                                   monde natif + Ring, actes I, III, IV, V, VI) + controle JSON, SwiftShader (sans GPU)
   py -3 render_v7_4k.py --qualite apercu_cloud --extrait 20 32 --fps 12   -> + sorties\\extrait_v7.mp4 (démonstration)
 
 Options communes : --debut/--fin (s)  --fps  --largeur  --sortie  --port (8791)  --gpu  --cloud  --format png|jpeg
+                   --controle-complet (apercu : les 48 cles re-rendues en ordre inverse et comparees octet a octet)
                    --subframes M (défaut 3 en 4k, 1 sinon)  --reprendre (avec --images DOSSIER)  --tolerer-son
 Encodage 4k/1080p : NVENC (hevc_nvenc puis h264_nvenc, -cq 16) si une carte NVIDIA est réellement utilisable,
 sinon libx264 -crf 16 -preset slow ; yuv420p, +faststart, tag hvc1 en HEVC ; son audio\\mix_v7.wav en AAC 320k s'il existe.
@@ -107,10 +109,18 @@ def police(taille):
     return ImageFont.load_default()
 
 
-def planche_contact(vignettes, reperes, chemin):
-    """Grille 6x6 : vignettes 16:9, légende (label + t) sous chaque image, fond sombre."""
+def mesure_vignette(raw):
+    """Luminance moyenne (0-1) et part de pixels clairs (luma > 0,7) d'une image : repère objectif d'un plan délavé."""
+    from PIL import Image
+    im = Image.open(io.BytesIO(raw)).convert('L').resize((240, 135))
+    px = im.tobytes(); n = len(px)                             # 1 octet par pixel (mode L), sans API dépréciée
+    return round(sum(px) / n / 255, 4), round(sum(1 for v in px if v > 178) / n, 4)
+
+
+def planche_contact(vignettes, reperes, chemin, col=6):
+    """Grille col colonnes : vignettes 16:9, légende (label + t) sous chaque image, fond sombre."""
     from PIL import Image, ImageDraw
-    col, lv, hv, bandeau, marge = 6, 384, 216, 30, 8
+    lv, hv, bandeau, marge = 384, 216, 30, 8
     lignes = (len(vignettes) + col - 1) // col
     W = marge + col * (lv + marge); H = marge + lignes * (hv + bandeau + marge)
     img = Image.new('RGB', (W, H), (10, 10, 16)); d = ImageDraw.Draw(img); f1, f2 = police(14), police(12)
@@ -137,6 +147,7 @@ async def main():
     ap.add_argument('--images', default=None, help='dossier de travail : écrit les images (reprise possible) au lieu du tube stdin')
     ap.add_argument('--extrait', nargs='*', type=float, default=None, metavar='T', help='[DEBUT FIN] : court MP4 de démonstration (défaut 0 12) en apercu_cloud')
     ap.add_argument('--sans-planche', action='store_true'); ap.add_argument('--tolerer-son', action='store_true')
+    ap.add_argument('--controle-complet', action='store_true', help='déterminisme : les 48 clés re-rendues en ordre inverse')
     ap.add_argument('--racine-test', default=None, help=argparse.SUPPRESS); ap.add_argument('--page', default=None, help=argparse.SUPPRESS)
     a = ap.parse_args()
 
@@ -153,8 +164,9 @@ async def main():
     srv = serveur(racine, a.port); port = srv.server_address[1]
     audio = MIX if os.path.exists(MIX) else None
     fmt = 'jpeg' if a.format == 'jpeg' else 'png'; qj = 0.97
-    rapport = {'version': VERSION, 'qualite': a.qualite, 'sous_expositions': sub, 'date': datetime.datetime.now().isoformat(timespec='seconds'),
-               'reperes': [], 'temps_rendu_s': [], 'determinisme': None, 'erreurs_console': [], 'sortie_video': None}
+    rapport = {'version': VERSION + '.1', 'qualite': a.qualite, 'sous_expositions': sub, 'date': datetime.datetime.now().isoformat(timespec='seconds'),
+               'reperes': [], 'temps_rendu_s': [], 'determinisme': None, 'erreurs_console': [], 'sortie_video': None,
+               'planche_exhaustive': None, 'ecuries': [], 'son': None}
     erreurs = []; a.encodeur = None                              # extrait de démonstration : toujours libx264
 
     def filtre(msg):
@@ -242,10 +254,31 @@ async def main():
                         rapport['temps_rendu_s'].append(round(time.time() - t0, 3)); print(f'\r  repère {k + 1}/{len(reperes)}   ', end='', flush=True)
                     print(flush=True)
                     rapport['reperes'] = reperes
-                    # déterminisme : même temps rendu à nouveau, après d'autres temps -> mêmes pixels
-                    t_ref = float(reperes[0]['t']); rapport['determinisme'] = {f'{t_ref:.2f}': 'identique' if (await image(page, t_ref, 'png')) == vign[0] else 'différent'}
                     chemin = os.path.join(SORTIES, 'planche_v7_multivers.png'); planche_contact(vign, reperes, chemin)
                     print('Planche contact :', chemin, flush=True)
+                    # 1 bis. planche EXHAUSTIVE 6 x 8 : les 15 écuries sans exception (monde natif + Ring), puis les actes I, III à VI
+                    r48 = json.loads(await page.evaluate('JSON.stringify(window.reperesPlanche48 || [])'))
+                    if len(r48) != 48: raise RuntimeError(f'window.reperesPlanche48 : 48 repères attendus, {len(r48)} trouvés')
+                    v48 = []
+                    for k, r in enumerate(r48):
+                        v48.append(await image(page, float(r['t']), 'png')); verifier_console(); print(f'\r  clé {k + 1}/48   ', end='', flush=True)
+                    print(flush=True)
+                    chemin48 = os.path.join(SORTIES, 'planche_v7_15_ecuries_et_pieges.png'); planche_contact(v48, r48, chemin48)
+                    print('Planche exhaustive :', chemin48, flush=True)
+                    mesures = [mesure_vignette(b) for b in v48]
+                    rapport['planche_exhaustive'] = {'fichier': os.path.relpath(chemin48, INTRO).replace(os.sep, '/'),
+                        'cles': [{**r, 'luminance': m[0], 'pixels_clairs': m[1]} for r, m in zip(r48, mesures)],
+                        'plans_delaves': [r['label'] for r, m in zip(r48, mesures) if m[0] > 0.42 or m[1] > 0.25]}
+                    rapport['ecuries'] = [{'ecurie': k + 1, 'monde': r48[2 * k]['label'], 't_monde': r48[2 * k]['t'], 't_ring': r48[2 * k + 1]['t'],
+                                           'luminance_monde': mesures[2 * k][0], 'luminance_ring': mesures[2 * k + 1][0]} for k in range(15)]
+                    # déterminisme : les clés re-rendues dans l'ORDRE INVERSE (état précédent différent) -> mêmes octets PNG
+                    ordre = list(range(47, -1, -1)) if a.controle_complet else [47, 40, 33, 30, 29, 24, 17, 12, 5, 0]
+                    diff = []
+                    for k in ordre:
+                        if (await image(page, float(r48[k]['t']), 'png')) != v48[k]: diff.append(r48[k]['label'] + f" (t = {r48[k]['t']})")
+                    t_ref = float(reperes[0]['t']); same36 = (await image(page, t_ref, 'png')) == vign[0]
+                    rapport['determinisme'] = {'verdict': 'identique' if not diff and same36 else 'différent', 'cles_verifiees': len(ordre) + 1,
+                                               'ordre': 'inverse, apres la planche complete', 'differences': diff}
                 # 2. extrait de démonstration
                 if a.extrait is not None:
                     if len(a.extrait) >= 2: deb, fin = a.extrait[0], a.extrait[1]
@@ -273,10 +306,20 @@ async def main():
             try: await nav.close()
             except Exception: pass
     srv.shutdown()
+    tl_son = os.path.join(ICI, 'data', 'timeline_v7.json')
+    if os.path.exists(tl_son):
+        try:
+            ts = json.load(open(tl_son, encoding='utf-8'))
+            rapport['son'] = {'mix': ts.get('mix'), 'bilan': ts.get('bilan'), 'voix_off': [{k: v for k, v in r.items() if k != 'debit'} for r in ts.get('voix_off', [])],
+                              'signatures': [{'ecurie': e['id'], 'source': e.get('source'), 'impact': e['impact'], **({'eclat': e['signature']['t_eclat'], 'fichiers': e['signature']['sources']} if e.get('signature') else {})} for e in ts.get('ecuries', [])],
+                              'mix_present': os.path.exists(MIX)}
+        except (OSError, ValueError, KeyError) as ex:
+            rapport['son'] = {'erreur': str(ex)}
     if apercu and rapport['reperes']:
         chemin = os.path.join(SORTIES, 'controle_v7_multivers.json')
         json.dump(rapport, open(chemin, 'w', encoding='utf-8'), ensure_ascii=False, indent=1); print('Contrôle :', chemin)
     if rapport['determinisme']: print('Déterminisme :', rapport['determinisme'])
+    if rapport.get('planche_exhaustive'): print('Plans délavés (luminance > 0,42 ou > 25 % de pixels clairs) :', rapport['planche_exhaustive']['plans_delaves'] or 'aucun')
     print('Erreurs / alertes console :', len(erreurs))
     if erreurs:
         print('\n'.join(erreurs[:20])); code = code or 2

@@ -4,8 +4,10 @@
 Bande-son V7 « Multivers -> Ring » : crescendo de 120 s calé sur data/plan_v7.json.
 
 Entrée maîtresse : data/plan_v7.json (actes, vagues, fraction_monde, tempo, univers_boss, voix optionnelle).
-Entrées facultatives (sous droits, absentes du dépôt public) : ../audio_v5/themes_ecuries.json et
-../audio_v5/themes_ecuries/NN_*.mp3 (décodés par ffmpeg).
+Entrées réelles (V7.1) : ../audio_v5/themes_ecuries.json (calage), ../audio_v5/themes_ecuries/NN_*.mp3 (extraits sous droits,
+absents du dépôt public : AUDIO_REEL_INTRO_3D.zip), ../audio_v5/voix/*.mp3 (voix enregistrées : Petite Mimine, Mario) et la voix off
+du commentateur ../audio_v5/voix/vo_v4_prise_A.mp3 découpée aux mots par ../audio_v5/voix/mots_prise_A.json. Sans les extraits,
+chaque écurie retombe sur un stinger de travail synthétique (le rapport l'indique : « N réelles, M synthétisées »).
 Sorties : audio/mix_v7.wav (stéréo 44,1 kHz 16 bit, ~ -16 LUFS, crête <= -2 dBFS) et data/timeline_v7.json.
 
 Dépendances : numpy + bibliothèque standard + ffmpeg (sous-processus, uniquement pour décoder des MP3 réels).
@@ -28,6 +30,7 @@ ICI = os.path.dirname(os.path.abspath(__file__))
 RACINE_DEPOT = os.path.abspath(os.path.join(ICI, '..', '..'))
 DUREE = 120.0
 CIBLE_LUFS = -16.0
+GAIN_VOIX = 1.5          # bus voix off dans le mix (+3,5 dB : la voix passe devant les nappes et l'habillage)
 PLAFOND_DBFS = -2.0
 EXT_AUDIO = ('.mp3', '.m4a', '.wav', '.ogg', '.flac', '.aac')
 
@@ -285,16 +288,29 @@ def stinger_synthese(e, couleurs, sr, longueur_s):
 
 
 # ----------------------------------------------------------------------------------------------
-# Thème réel (si présent)
+# Signatures RÉELLES des écuries (V7.1) : extraits MP3 + voix enregistrées, temps fort calé sur le portail
 # ----------------------------------------------------------------------------------------------
-def decoder_ffmpeg(chemin, sr, debut_s, duree_s):
-    cmd = ['ffmpeg', '-v', 'error', '-ss', '%.3f' % max(debut_s, 0.0), '-t', '%.3f' % duree_s, '-i', chemin,
-           '-f', 'f32le', '-ac', '2', '-ar', str(sr), '-']
+ANTICIPATION = 0.12      # s : l'extrait peut commencer jusqu'à 120 ms avant le début du créneau (il « respire »)
+FONDU_ENTREE = 0.18      # s : sin(θ)
+FONDU_SORTIE = 0.28      # s : cos(θ)
+BASS_SWAP = 0.20         # s : passe-haut 150 Hz fondu sur la fin (aucun choc de basses avec l'écurie suivante)
+HPF_SORTIE = 150.0       # Hz
+WASHOUT = 0.25           # s : queue de réverbération stéréo après la fin de l'extrait
+CIBLE_THEME_DB = -16.0   # dBFS RMS de la partie active de chaque couche (avant gain_db du fichier de configuration)
+CHUTE = {5}              # Super Mario Pression : le temps fort est l'ATTERRISSAGE, à la fin du cri de chute
+
+
+def decoder_ffmpeg(chemin, sr, debut_s=0.0, duree_s=None, filtre=None, canaux=2):
+    """Décode un fichier audio (n, canaux) en float64, rééchantillonné à sr. filtre : chaîne -af facultative."""
+    cmd = ['ffmpeg', '-v', 'error', '-ss', '%.3f' % max(debut_s, 0.0)]
+    if duree_s is not None:
+        cmd += ['-t', '%.3f' % duree_s]
+    cmd += ['-i', chemin] + (['-af', filtre] if filtre else []) + ['-f', 'f32le', '-ac', str(canaux), '-ar', str(sr), '-']
     r = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if r.returncode != 0:
         raise RuntimeError(r.stderr.decode('utf-8', 'replace')[:300])
     a = np.frombuffer(r.stdout, dtype='<f4').astype(float)
-    return a.reshape(-1, 2)
+    return a.reshape(-1, canaux)
 
 
 def trouver_theme(dossier, eid):
@@ -307,39 +323,224 @@ def trouver_theme(dossier, eid):
     return None
 
 
-def theme_reel(fichier, cfg, e, sr):
-    """Décode, coupe, cale le temps fort sur l'impact. Retourne (segment (n,2), t_debut_absolu_s, decalage_theme_s)."""
-    p = (cfg or {}).get('perso') or {}
-    v = (cfg or {}).get('voix') or {}
-    debut_s = float(p.get('debut_s', v.get('debut_s', 0.0)))
-    duree_s = float(p.get('duree_s', v.get('duree_s', 3.0)))
-    eclat = p.get('eclat_s', v.get('eclat_s'))
-    seg = decoder_ffmpeg(fichier, sr, debut_s, duree_s)
-    if seg.shape[0] < int(0.2 * sr):
-        raise RuntimeError('extrait vide')
-    mono = seg.mean(axis=1)
+def enveloppe_rms(mono, sr, fen=0.05):
+    w = max(1, int(fen * sr))
+    return np.sqrt(np.convolve(mono ** 2, np.ones(w) / w, 'same'))
+
+
+def couche_audio(chemin, debut_s, duree_s, gain_db, sr):
+    """Une couche de signature : extrait [debut_s, debut_s + duree_s] décodé AVEC jusqu'à ANTICIPATION s de matière avant
+    (amorce, si le fichier en a). Mise au niveau sur le corps seul (RMS de la partie active = CIBLE_THEME_DB), puis gain_db.
+    Retourne (signal (n,2), amorce en s, durée du corps en s)."""
+    amorce = min(ANTICIPATION, max(debut_s, 0.0))
+    seg = decoder_ffmpeg(chemin, sr, debut_s - amorce, None if duree_s is None else duree_s + amorce)
+    if seg.shape[0] <= int(amorce * sr) + int(0.1 * sr):
+        raise RuntimeError('extrait vide : ' + os.path.basename(chemin))
+    corps = seg[int(round(amorce * sr)):].mean(axis=1)
+    e = enveloppe_rms(corps, sr)
+    actif = corps[e > 0.1 * (e.max() + 1e-12)]
+    rms = math.sqrt(float(np.mean(actif ** 2))) if actif.size else 1.0
+    g = 10 ** (CIBLE_THEME_DB / 20.0) / max(rms, 1e-6) * 10 ** (float(gain_db) / 20.0)
+    return seg * g, amorce, corps.shape[0] / sr
+
+
+def premier_temps_fort(mono, sr):
+    """Premier vrai front d'attaque : premier instant où l'enveloppe RMS (50 ms) atteint 60 % de son maximum (comme sound_v6.py)."""
+    e = enveloppe_rms(mono, sr)
+    return float(np.argmax(e >= 0.6 * e.max())) / sr
+
+
+def ir_stereo(sr, rt60=1.1, pre=0.008, graine=0):
+    """Réponse impulsionnelle courte et sombre, deux canaux décorrélés, semée (déterministe)."""
+    rng = np.random.default_rng(9000 + graine)
+    n = int((rt60 + pre) * sr)
+    t = np.arange(n) / sr
+    env = np.where(t < pre, 0.0, np.exp(-6.91 * (t - pre) / rt60))
+    l = filtre_bande(rng.standard_normal(n) * env, sr, None, 5200.0, ordre=1)
+    r = filtre_bande(rng.standard_normal(n) * env, sr, None, 5200.0, ordre=1)
+    return l / (np.sqrt(np.sum(l ** 2)) + 1e-9), r / (np.sqrt(np.sum(r ** 2)) + 1e-9)
+
+
+def convolution(x, h):
+    n = x.shape[0] + h.shape[0] - 1
+    m = 1 << (n - 1).bit_length()
+    return np.fft.irfft(np.fft.rfft(x, m) * np.fft.rfft(h, m), m)[:n]
+
+
+def habiller(sig, sr, fondu_entree, graine):
+    """Fondu d'entrée sin(θ), bass-swap (passe-haut 150 Hz zéro-phase fondu sur la fin), fondu de sortie cos(θ),
+    puis washout : queue de réverbération stéréo de WASHOUT s ajoutée APRÈS la fin. Retourne le signal (n + washout, 2)."""
+    n = sig.shape[0]
+    fi = max(int(0.005 * sr), min(int(fondu_entree * sr), n // 2))
+    sig[:fi] *= np.sin(0.5 * np.pi * np.arange(fi) / fi)[:, None]
+    nh = min(int(BASS_SWAP * sr), n // 3)
+    if nh > 16:
+        a0 = max(0, n - nh - int(0.06 * sr))                               # 60 ms de marge : le filtre est établi au fondu
+        w = np.zeros(n - a0)
+        w[-nh:] = 0.5 - 0.5 * np.cos(np.pi * np.arange(nh) / nh)
+        for c in range(2):
+            filtre = filtre_bande(sig[a0:, c], sr, HPF_SORTIE, None, ordre=2)
+            sig[a0:, c] = sig[a0:, c] * (1 - w) + filtre * w
+    fo = min(int(FONDU_SORTIE * sr), int(0.4 * n))
+    if fo > 0:
+        sig[-fo:] *= np.cos(0.5 * np.pi * np.arange(fo) / fo)[:, None]
+    queue = sig[-int(0.45 * sr):].mean(axis=1)
+    il, ir = ir_stereo(sr, graine=graine)
+    nw = int(WASHOUT * sr)
+    env = np.cos(0.5 * np.pi * np.arange(nw) / nw)
+    wl = filtre_bande(convolution(queue, il)[queue.shape[0]:queue.shape[0] + nw], sr, HPF_SORTIE, None)
+    wr = filtre_bande(convolution(queue, ir)[queue.shape[0]:queue.shape[0] + nw], sr, HPF_SORTIE, None)
+    wl, wr = np.pad(wl, (0, nw - wl.shape[0])), np.pad(wr, (0, nw - wr.shape[0]))
+    return np.concatenate([sig, np.stack([wl * env * 0.55, wr * env * 0.55], axis=1)])
+
+
+def signature_ecurie(e, cfg, suivant, sr, dossier_v5, dossier_themes):
+    """Signature réelle d'une écurie : couches superposées (extrait MP3 + voix enregistrée), temps fort calé à la milliseconde
+    sur e['impact'] (franchissement du portail). Retourne (signal (n,2), t_debut_absolu, infos) ou lève RuntimeError."""
+    n = e['id']
+    cfg = cfg or {}
+    couches, sources, eclat = [], [], None              # couche : (décalage du corps en s, signal, amorce en s)
+    v = cfg.get('voix')
+    if v:
+        x, am, _ = couche_audio(os.path.join(dossier_v5, v['fichier']), float(v.get('debut_s', 0.0)), v.get('duree_s'), v.get('gain_db', 0), sr)
+        couches.append((float(v.get('decalage_s', 0.0)), x, am))
+        sources.append(v['fichier'])
+        # le cri « MEEEINE ! » de Petite Mimine : eclat_s du calage, affiné sur le vrai front d'attaque de la voix
+        # (premier instant où l'enveloppe atteint 60 % du maximum local dans [eclat_s − 0,15 ; eclat_s + 0,6])
+        e0 = float(v.get('eclat_s', 0.0)); vm = x[int(round(am * sr)):].mean(axis=1); env = enveloppe_rms(vm, sr)
+        i0, i1 = max(0, int((e0 - 0.15) * sr)), min(env.shape[0], int((e0 + 0.6) * sr))
+        if i1 - i0 > int(0.05 * sr):
+            w = env[i0:i1]; e0 = (i0 + int(np.argmax(w >= 0.6 * w.max()))) / sr
+        eclat = float(v.get('decalage_s', 0.0)) + e0
+    perso = trouver_theme(dossier_themes, n)
+    if not perso:
+        raise RuntimeError('extrait %02d_*.mp3 absent de %s' % (n, dossier_themes))
+    pp = cfg.get('perso') or {}
+    x, am, l_perso = couche_audio(perso, float(pp.get('debut_s', 0.0)), float(pp.get('duree_s', 3.0)), pp.get('gain_db', 0), sr)
+    couches.append((0.0, x, am))
+    sources.append('themes_ecuries/' + os.path.basename(perso))
+    if n in CHUTE:
+        # Super Mario Pression : la voix « chute » enregistrée doublée sous le cri du jeu, les deux fins (l'atterrissage) alignées
+        fic = os.path.join(dossier_v5, 'voix', 'mario_chute_B.mp3')
+        if os.path.isfile(fic):
+            xm, amm, l_m = couche_audio(fic, 0.0, None, -6.0, sr)
+            couches.append((max(0.0, l_perso - l_m), xm, amm))
+            sources.append('voix/mario_chute_B.mp3')
+    # assemblage : amorce commune PRE (s) avant le corps de la couche de référence (décalage 0)
+    pre = max(0.0, max(am - d for d, _, am in couches))
+    L = max(int(round((pre + d - am) * sr)) + x.shape[0] for d, x, am in couches)
+    sig = np.zeros((L, 2))
+    for d, x, am in couches:
+        i = int(round((pre + d - am) * sr))
+        sig[i:i + x.shape[0]] += x
+    corps = sig[int(round(pre * sr)):].mean(axis=1)
     if eclat is None:
-        w = int(0.05 * sr)
-        cs = np.concatenate([[0.0], np.cumsum(mono ** 2)])
-        rms = (cs[w:] - cs[:-w]) / w
-        eclat = (int(np.argmax(rms)) + w / 2) / sr
-    eclat = float(np.clip(eclat, 0.0, seg.shape[0] / sr))   # temps fort, relatif au début de l'extrait coupé
-    # niveau homogène : RMS cible -18 dBFS sur la partie active, crête bornée
-    act = mono[np.abs(mono) > 0.05 * (np.max(np.abs(mono)) + 1e-9)]
-    rms_act = math.sqrt(float(np.mean(act ** 2))) if act.size else 1.0
-    g = 10 ** (-18.0 / 20) / max(rms_act, 1e-6)
-    seg = seg * g
-    pic = np.max(np.abs(seg))
-    if pic > 0.9:
-        seg = seg * (0.9 / pic)
-    t0 = e['impact'] - eclat
-    # on borne l'extrait au créneau de l'écurie (rien avant son début, rien après sa fin + 0,3 s)
-    lo = max(0.0, e['debut'] - t0)
-    hi = min(seg.shape[0] / sr, e['fin'] + 0.3 - t0)
-    seg = seg[int(lo * sr):int(hi * sr)]
-    t0 = t0 + lo
-    seg = seg * fenetre(seg.shape[0], 0.06, 0.25, sr)[:, None]
-    return seg, t0, t0 - e['debut']
+        if n in CHUTE:
+            eclat = max(1.4, min(l_perso - 0.6, 2.2))                                  # l'atterrissage, juste avant la fin du cri
+        elif pp.get('eclat_s') is not None:
+            eclat = float(pp['eclat_s'])
+        else:
+            eclat = premier_temps_fort(corps, sr)
+    # placement : le temps fort tombe exactement sur l'impact du portail
+    t0 = e['impact'] - eclat - pre
+    au_plus_tot = e['debut'] - (0.6 if v else ANTICIPATION)                             # une réplique enregistrée n'est pas coupée
+    if t0 < au_plus_tot:
+        sig = sig[int(round((au_plus_tot - t0) * sr)):]
+        t0 = au_plus_tot
+    au_plus_tard = e['fin'] + (0.35 if v else 0.10) if suivant else e['fin'] + 1.0
+    if t0 + sig.shape[0] / sr > au_plus_tard:
+        sig = sig[:int(round((au_plus_tard - t0) * sr))]
+    avance = e['impact'] - t0                                                          # durée disponible avant l'éclat
+    sig = habiller(sig.copy(), sr, min(FONDU_ENTREE, 0.5 * avance), n)
+    pic = np.max(np.abs(sig))
+    if pic > 0.95:
+        sig *= 0.95 / pic
+    return sig, t0, {'sources': sources, 'eclat_dans_extrait_s': round(eclat, 4), 't_debut': round(t0, 4),
+                     't_eclat': round(e['impact'], 4), 't_fin': round(t0 + sig.shape[0] / sr, 4)}
+
+
+# ----------------------------------------------------------------------------------------------
+# Voix off du commentateur (V7.1) : prise A de la v4, découpée aux mots (mots_prise_A.json), coupes dans les silences
+# ----------------------------------------------------------------------------------------------
+FILTRE_VOIX = ('highpass=f=85,equalizer=f=250:t=q:w=1:g=1.8,equalizer=f=3400:t=q:w=1.1:g=2.8,'
+               'acompressor=threshold=-22dB:ratio=3.2:attack=6:release=90:makeup=4,alimiter=limit=0.89:attack=3:release=40')
+TEMPO_ACTE_I = 1.12      # la phrase d'ouverture (11,9 s à l'enregistrement) doit tenir dans le prologue de 11 s : +12 % de débit
+# (nom, premier mot, dernier mot, attaque du premier mot dans le film (s) ou None = enchaîné, écart après la phrase précédente, prise)
+PHRASES_V7 = [
+    ('mesdames', 0, 2, 0.12, None, 'I'),            # Mesdames et messieurs…
+    ('salon', 3, 10, None, 0.14, 'I'),              # Ce soir, le salon se transforme en ARÈNE !
+    ('stats_trone', 11, 26, None, 0.16, 'I'),       # Quinze écuries, des dizaines de bolides, cinq voies, et une seule place sur le TRÔNE !
+    ('caisses', 140, 161, 61.4, None, 'n'),         # Ouvrez les caisses… modèles uniques… l'un d'eux chante dans le noir…
+    ('attention', 89, 95, 68.2, None, 'n'),         # Mais attention, ils ne viennent pas seuls !
+    ('gotham', 96, 99, 70.3, None, 'n'),            # Des ruelles de Gotham…
+    ('nuit', 100, 109, 72.1, None, 'n'),            # Je ne suis pas une voiture. Je suis la nuit.
+    ('f1', 116, 128, 75.6, None, 'n'),              # Des stands de la Formule 1… Box, box, box, box… Pneus tendres, on attaque !
+    ('apoca', 129, 137, 82.5, None, 'n'),           # Et des terres brûlées, des survivants de l'Apocalypse !
+    ('pieges', 162, 165, 89.35, None, 'n'),         # Des pièges ! Des trahisons !
+    ('paris', 166, 177, 104.0, None, 'n'),          # … et des paris en direct depuis votre téléphone… ou à l'ancienne !
+    ('gloire', 178, 184, 107.9, None, 'n'),         # Et pour le vainqueur, la gloire éternelle !
+    ('titre', 185, 191, 111.6, None, 'n'),          # Le Grand Prix de Noël, 23 décembre !
+    ('final', 192, 199, 115.3, None, 'n'),          # Préparez-vous à vrombir, que le spectacle commence !
+]
+
+
+def energie_min(x, a, b, sr):
+    """Instant (s) de plus faible énergie (fenêtres de 10 ms) dans [a, b] secondes."""
+    h = max(2, sr // 100)
+    i0, i1 = max(0, int(a * sr)), min(x.shape[0], int(b * sr))
+    if i1 - i0 < 2 * h:
+        return 0.5 * (a + b)
+    e = np.array([np.sum(x[i:i + h] ** 2) for i in range(i0, i1 - h, h // 2)])
+    return (i0 + int(np.argmin(e)) * (h // 2) + h // 2) / sr
+
+
+def attaque_mot(x, t, sr, fen=0.08):
+    """Début réel d'un mot : montée d'énergie la plus forte autour du minutage de la transcription."""
+    h = max(2, sr // 200)
+    a, b = max(0, int((t - fen) * sr)), min(x.shape[0], int((t + fen) * sr))
+    e = np.array([np.sqrt(np.mean(x[i:i + h] ** 2)) for i in range(a, b - h, h)])
+    if len(e) < 3:
+        return t
+    return (a + (int(np.argmax(np.diff(np.log(e + 1e-5)))) + 1) * h) / sr
+
+
+def voix_off(dossier_v5, sr):
+    """Pose les phrases de la voix off aux instants de PHRASES_V7. Retourne (piste mono (N,), intervalles parlés, rapport)."""
+    mp3 = os.path.join(dossier_v5, 'voix', 'vo_v4_prise_A.mp3')
+    with open(os.path.join(dossier_v5, 'voix', 'mots_prise_A.json'), encoding='utf-8') as f:
+        mots = json.load(f)
+    prises = {'n': (decoder_ffmpeg(mp3, sr, filtre=FILTRE_VOIX, canaux=1)[:, 0], 1.0),
+              'I': (decoder_ffmpeg(mp3, sr, filtre=FILTRE_VOIX + ',atempo=%.4f' % TEMPO_ACTE_I, canaux=1)[:, 0], TEMPO_ACTE_I)}
+    N = int(DUREE * sr)
+    piste = np.zeros(N)
+    intervalles, rapport, fin_prec = [], [], None
+    for nom, i0, i1, t_att, ecart, prise in PHRASES_V7:
+        x, k = prises[prise]
+        s = lambda j: mots[j]['s'] / k
+        en = lambda j: mots[j]['e'] / k
+        a0 = attaque_mot(x, s(i0), sr)
+        # coupes dans le silence : avant le premier mot (après la fin du mot précédent), après le dernier mot (avant le suivant)
+        c0 = energie_min(x, max(en(i0 - 1) + 0.02 if i0 > 0 else 0.0, a0 - 0.35), a0 - 0.03, sr) if i0 > 0 else max(0.0, a0 - 0.07)
+        suiv = s(i1 + 1) if i1 + 1 < len(mots) else x.shape[0] / sr
+        c1 = energie_min(x, en(i1) + 0.02, max(en(i1) + 0.06, min(suiv - 0.03, en(i1) + 0.40)), sr)
+        if t_att is None:
+            t_att = fin_prec + ecart
+        t_deb = t_att - (a0 - c0)
+        seg = x[int(c0 * sr):int(c1 * sr)].copy()
+        nf = min(int(0.035 * sr), seg.shape[0] // 4)
+        seg[:nf] *= 0.5 - 0.5 * np.cos(np.pi * np.arange(nf) / nf)
+        seg[-nf:] *= 0.5 + 0.5 * np.cos(np.pi * np.arange(nf) / nf)
+        i = int(round(t_deb * sr))
+        piste[i:i + seg.shape[0]] += seg[:max(0, N - i)]
+        fin_mot = t_att + (en(i1) - a0)
+        intervalles.append((t_att, fin_mot))
+        rapport.append({'phrase': nom, 'texte': ' '.join(m['w'] for m in mots[i0:i1 + 1]), 'attaque': round(t_att, 3),
+                        'fin_dernier_mot': round(fin_mot, 3), 'debit': k})
+        fin_prec = fin_mot
+    for a, b in zip(intervalles, intervalles[1:]):
+        assert b[0] > a[1], 'phrases de voix off qui se chevauchent : %s' % ((a, b),)
+    assert intervalles[-1][1] < 119.35, 'la dernière phrase doit finir avant le fondu final (119,35 s)'
+    return piste, intervalles, rapport
 
 
 # ----------------------------------------------------------------------------------------------
@@ -634,15 +835,16 @@ def intervalles_voix(plan):
     return out
 
 
-def courbe_sidechain(intervalles, N, sr, reduction_db=-6.0, att=0.040, rel=0.300):
-    """Gain linéaire par échantillon : -6 dB sous les intervalles de voix, attaque 40 ms / relâchement 300 ms."""
+def courbe_sidechain(intervalles, N, sr, reduction_db=-6.0, att=0.040, rel=0.420, maintien=0.250, anticipation=0.040):
+    """Gain linéaire par échantillon, sidechain doux asymétrique sous la voix : reduction_db pendant chaque intervalle,
+    anticipé de 40 ms, MAINTENU 250 ms après chaque mot (aucune remontée dans les respirations), attaque 40 ms / relâchement 420 ms."""
     if not intervalles:
         return np.ones(N)
     fc = 1000.0
     nc = int(math.ceil(N / sr * fc)) + 2
     cible = np.ones(nc)
     for a, b in intervalles:
-        cible[int(a * fc):int(b * fc) + 1] = 10 ** (reduction_db / 20.0)
+        cible[max(0, int((a - anticipation) * fc)):int((b + maintien) * fc) + 1] = 10 ** (reduction_db / 20.0)
     ca, cr = math.exp(-1.0 / (att * fc)), math.exp(-1.0 / (rel * fc))
     g = np.ones(nc)
     cur = 1.0
@@ -667,15 +869,38 @@ def ecrire_wav(chemin, sig, sr):
     return pcm
 
 
+def a_jour(args):
+    """Vrai si audio/mix_v7.wav et data/timeline_v7.json sont plus récents que ce script et le plan, avec toutes les écuries
+    réelles disponibles (autant que de NN_*.mp3 présents) et la voix off."""
+    wav, tl = os.path.join(ICI, 'audio', 'mix_v7.wav'), os.path.join(ICI, 'data', 'timeline_v7.json')
+    if not (os.path.isfile(wav) and os.path.isfile(tl)):
+        return False
+    ref = max(os.path.getmtime(os.path.abspath(__file__)), os.path.getmtime(args.plan))
+    if min(os.path.getmtime(wav), os.path.getmtime(tl)) < ref:
+        return False
+    try:
+        bilan = json.load(open(tl, encoding='utf-8')).get('bilan') or {}
+    except (OSError, ValueError):
+        return False
+    dispo = sum(1 for n in range(1, 16) if trouver_theme(args.dossier_themes, n))
+    return bilan.get('ecuries_reelles', 0) >= dispo and bilan.get('phrases_voix_off', 0) > 0
+
+
 def main():
     ap = argparse.ArgumentParser(description='Bande-son V7 « Multivers -> Ring » (120 s).')
     ap.add_argument('--rapide', action='store_true', help='rend à 22,05 kHz mono pour test')
     ap.add_argument('--sortie', default=None, help='chemin du WAV (défaut : audio/mix_v7.wav)')
     ap.add_argument('--sans-reel', action='store_true', help='ignore les extraits MP3 même s\'ils existent')
+    ap.add_argument('--sans-voix', action='store_true', help='mix sans la voix off du commentateur')
     ap.add_argument('--plan', default=os.path.join(ICI, 'data', 'plan_v7.json'))
     ap.add_argument('--dossier-themes', default=os.path.join(ICI, '..', 'audio_v5', 'themes_ecuries'),
                     help='dossier des extraits NN_*.mp3 (défaut : ../audio_v5/themes_ecuries)')
+    ap.add_argument('--si-perime', action='store_true',
+                    help='ne recalcule que si le mix manque, est plus ancien que ce script ou le plan, ou a été fait sans les vrais extraits')
     args = ap.parse_args()
+    if args.si_perime and not args.rapide and not args.sortie and a_jour(args):
+        print('Mix V7 à jour (écuries réelles et voix off) : audio/mix_v7.wav')
+        return 0
 
     t_calc = time.time()
     sr = 22050 if args.rapide else 44100
@@ -707,19 +932,21 @@ def main():
     bed, battements, bpm_s = lit_de_basses(plan, N, sr)
     bus_bed += bed
 
-    # 1. thèmes des écuries (réel ou stinger de travail) + 2. macros portail
+    # 1. signatures RÉELLES des écuries (extrait MP3 + voix enregistrées, temps fort sur le portail), sinon stinger de travail
+    #    + 2. macros portail
     macros = []
+    dossier_v5 = os.path.abspath(os.path.join(ICI, '..', 'audio_v5'))
     for k, e in enumerate(ecuries):
-        fichier = None if args.sans_reel else trouver_theme(args.dossier_themes, e['id'])
         source, decalage = 'synthese', None
-        if fichier:
+        if not args.sans_reel:
             try:
-                seg, t0, decalage = theme_reel(fichier, cfg_themes.get(str(e['id'])), e, sr)
-                poser(bus_theme, seg, t0, sr, gain=0.9)
-                source = 'reel'
-            except Exception as ex:                       # extrait illisible : on retombe sur la synthèse
-                print('  [avertissement] écurie %d : extrait inutilisable (%s) -> synthèse' % (e['id'], ex))
-                fichier = None
+                sig, t0, infos = signature_ecurie(e, cfg_themes.get(str(e['id'])), ecuries[k + 1] if k + 1 < len(ecuries) else None,
+                                                  sr, dossier_v5, args.dossier_themes)
+                poser(bus_theme, sig, t0, sr)
+                source, decalage = 'reel', t0 - e['debut']
+                e['signature'] = infos
+            except Exception as ex:                       # extrait absent ou illisible : on retombe sur la synthèse
+                print('  [avertissement] écurie %d : signature réelle impossible (%s) -> synthèse' % (e['id'], ex))
         if source == 'synthese':
             st = stinger_synthese(e, equipes[e['id']]['colors'], sr, e['fin'] - e['debut'])
             poser(bus_theme, st, e['debut'], sr, gain=0.8)
@@ -727,6 +954,17 @@ def main():
         e['source'] = source
         e['decalage_theme_s'] = round(float(decalage), 4)
         macros.append(macro_portail(bus_macro, e, k, len(ecuries), plan, sr))
+
+    # 1 bis. voix off du commentateur (prise A, découpée aux mots) sur les actes I, III, IV, V et VI
+    bus_voix = np.zeros((N, 2))
+    iv_voix, rapport_voix = [], []
+    if not args.sans_voix:
+        try:
+            vo, iv_voix, rapport_voix = voix_off(dossier_v5, sr)
+            bus_voix[:, 0] += vo
+            bus_voix[:, 1] += vo
+        except Exception as ex:
+            print('  [avertissement] voix off impossible (%s) : mix sans commentateur' % ex)
 
     # 4. habillage des actes
     actes = {a['id']: a for a in plan['actes']}
@@ -743,11 +981,19 @@ def main():
     clics_mecaniques(bus_hab, actes['V']['debut'] + 2.0, sr)
     finale(bus_hab, plan, sr)
 
-    # 5. sidechain du lit de basses sous la piste voix (optionnelle)
-    iv = intervalles_voix(plan)
-    bus_bed *= courbe_sidechain(iv, N, sr)[:, None]
+    # 5. sidechain doux asymétrique sous la voix off : lit musical, habillage et macros -8 dB
+    iv = intervalles_voix(plan) + list(iv_voix)
+    bus_bed *= courbe_sidechain(iv, N, sr, reduction_db=-8.0)[:, None]
+    sc_fx = courbe_sidechain(iv, N, sr, reduction_db=-8.0)[:, None]
+    bus_hab *= sc_fx
+    bus_macro *= sc_fx
 
-    mix = bus_bed * 0.85 + bus_theme * 0.8 + bus_macro * 0.9 + bus_hab * 0.8
+    reste = bus_bed * 0.85 + bus_theme * 0.8 + bus_macro * 0.9 + bus_hab * 0.8
+    mix = reste + bus_voix * GAIN_VOIX
+    # intelligibilité : écart (dB) entre la voix et tout le reste du mix pendant chaque phrase (visé : ≥ +8 dB)
+    rms_db = lambda b, a, z: 20 * math.log10(math.sqrt(float(np.mean(b[int(a * sr):int(z * sr)] ** 2))) + 1e-9)
+    for r in rapport_voix:
+        r['voix_sur_mix_db'] = round(rms_db(bus_voix * GAIN_VOIX, r['attaque'], r['fin_dernier_mot']) - rms_db(reste, r['attaque'], r['fin_dernier_mot']), 1)
     mix *= fenetre(N, 0.02, 0.0, sr)[:, None]            # départ et fin à zéro : aucune coupure sèche
     mix[-int(0.05 * sr):] *= np.cos(0.5 * np.pi * np.linspace(0, 1, int(0.05 * sr)))[:, None]
 
@@ -792,7 +1038,8 @@ def main():
         'bpm_pas_s': 1,
         'macros_portail': macros,
         'univers_boss': plan['univers_boss'],
-        'voix': [list(x) for x in iv],
+        'voix': [[round(a, 3), round(b, 3)] for a, b in iv],
+        'voix_off': rapport_voix,
         'mix': {'fichier': os.path.relpath(wav, ICI).replace(os.sep, '/') if wav.startswith(ICI) else wav,
                 'frequence_hz': sr, 'canaux': int(final.shape[1]),
                 'lufs_approx': round(lufs_mesure, 2), 'crete_dbfs': round(crete, 2),
@@ -806,11 +1053,19 @@ def main():
         json.dump(timeline, f, ensure_ascii=False, indent=1)
 
     nb_reel = sum(1 for e in ecuries if e['source'] == 'reel')
+    timeline['bilan'] = {'ecuries_reelles': nb_reel, 'ecuries_synthetisees': len(ecuries) - nb_reel, 'phrases_voix_off': len(rapport_voix)}
+    with open(chemin_tl, 'w', encoding='utf-8') as f:
+        json.dump(timeline, f, ensure_ascii=False, indent=1)
     print('Mix V7 : %s' % wav)
     print('  durée %.3f s | %d Hz | %d canal(aux) | NaN : aucun' % (final.shape[0] / sr, sr, final.shape[1]))
     print('  LUFS approx %.2f | crête %.2f dBFS | saut max entre échantillons %.4f' % (lufs_mesure, crete, saut))
-    print('  écuries : %d réelles, %d synthétisées | %d battements | timeline : %s' %
-          (nb_reel, len(ecuries) - nb_reel, len(battements), chemin_tl))
+    print('  écuries : %d réelles, %d synthétisées | voix off : %d phrases | %d battements | timeline : %s' %
+          (nb_reel, len(ecuries) - nb_reel, len(rapport_voix), len(battements), chemin_tl))
+    for e in ecuries:
+        s = e.get('signature')
+        print('   %2d %-30s %s' % (e['id'], e['nom'][:30], ('éclat %.3f s = impact | ' % s['t_eclat'] + ' + '.join(s['sources'])) if s else 'SYNTHÈSE'))
+    for r in rapport_voix:
+        print('   voix %-12s %7.2f -> %7.2f s  %+5.1f dB  « %s »' % (r['phrase'], r['attaque'], r['fin_dernier_mot'], r['voix_sur_mix_db'], r['texte'][:60]))
     print('  calcul : %.1f s' % (time.time() - t_calc))
 
 

@@ -15,9 +15,13 @@ import { creerHUD } from './hud_broadcast_4k.js';
 import { creerFumee, creerEtincelles, creerGomme, creerPostCombustion } from './effets_cgi.js';
 import { clamp, lerp, smoother, hashTexte, DEG } from './physique_cgi.js';
 
+const FOND_NUIT = 0x04050c;
+/** V7.1 : brouillard d'un monde natif plafonné (les densités de shared/decors3d.js sont calibrées pour une caméra à 15 unités,
+    pas pour un décor à 60–120 unités) et teinté de la nuit propre au monde. */
+const brouillardMonde = (dc, m) => ({ couleur: m.ciel, densite: Math.min(0.0016, ((dc.brouillard && dc.brouillard.densite) || 0.002) * 0.32) });
 const hash01 = (n) => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 
-export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, sortie = null, qualite = 'apercu', parcMax = 40, progression = () => {} }) {
+export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, sortie = null, qualite = 'apercu', parcMax = 40, progression = () => {}, capture = false }) {
   const THREE = window.THREE;
   const L = renderer.domElement.width, H = renderer.domElement.height;
   const tl = construireTimeline(plan);
@@ -47,7 +51,9 @@ export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, s
   const portes = MONDES.map((m, k) => { const p = creerPortail(THREE, m.accent, m.acc2, { graine: 100 + m.id, rayon: 9 }); const sc = scenarios[k]; p.groupe.position.set(...sc.porteRing.pos); p.groupe.position.y = 9 + 0.6; p.groupe.rotation.y = sc.porteRing.yaw; p.groupe.visible = false; ring.groupe.add(p.groupe); return p; });
   const miroirs = concepts.map((c) => { const m = decors.creerMiroirModele(THREE, c); scene.add(m.racine); return m; });
   const mirAil = ailiers.map((c) => { const m = decors.creerMiroirModele(THREE, c); scene.add(m.racine); return m; });
-  const gestion = creerGestionnaireMondes({ THREE, renderer, envMap, decors, avecAlea, cars });
+  const gestion = creerGestionnaireMondes({ THREE, renderer, envMap, decors, avecAlea, cars, max: MONDES.length });
+  // V7.1 : les 15 mondes sont construits une fois, dans l'ordre, au chargement -> rendu indépendant de l'ordre des images (déterminisme)
+  gestion.prechauffer(scenarios, scene, (k) => progression(`Monde natif ${k + 1}/${MONDES.length}…`));
 
   /* ───────── piste Rainbow Road, meute, boss, labo, parc, trophée ───────── */
   progression('Rainbow Road 3D…');
@@ -116,6 +122,10 @@ export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, s
   const post = creerPostCGI(THREE, renderer, L, H, { msaa: qualite !== 'brouillon' });
   const hud = await creerHUD({ equipes, logos, regles, plan, tl, scenarios, MONDES, concepts, cars });
   const sortieCtx = sortie ? sortie.getContext('2d') : null;
+  // V7.1 (capture) : le HUD est rastérisé sur une toile LOGICIELLE dédiée puis collé tel quel (copie de pixels, sans
+  // anti-crénelage) : tracé directement sur la toile de sortie, le coin d'un cartel variait d'un pixel selon l'historique
+  const hudToile = capture && sortie ? document.createElement('canvas') : null;
+  const hudCtx = hudToile ? hudToile.getContext('2d', { willReadFrequently: true }) : null;
 
   /* ───────── mise en scène à l'instant t ───────── */
   const mondesVisibles = new Set();
@@ -134,6 +144,8 @@ export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, s
     fumeeM.objet.visible = etincM.objet.visible = false; hemi.visible = true; cleMonde.visible = true;
     pcs.forEach((p) => p.maj(0, 0));                                                   // post-combustion éteinte (rallumée par l'acte II)
     hemi.intensity = 0.42; cleMonde.intensity = 0.95;                                  // rétablis à chaque image : aucun état ne fuit d'un acte à l'autre
+    scene.background.set(FOND_NUIT);                                                   // V7.1 : fond rétabli à chaque image (nuit profonde)
+    portes.forEach((p) => (p.groupe.visible = false));                                // portes du Ring : rallumées explicitement par chaque acte
   }
   function parquer(t, ctx, { sauf = -1, mirroirs = true } = {}) {
     // les écuries déjà arrivées sont GARÉES dans le Ring, vivantes : phares allumés, ralenti qui vibre, ailier derrière
@@ -150,7 +162,7 @@ export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, s
   function placer(t, spec = {}) {
     masquer();
     const etat = tl.etat(t), acte = etat.acte.id, apres = [];   // les mises à jour qui lisent camera.fov passent APRÈS le placement de la caméra : aucune dépendance à l'image précédente
-    const ctx = { ...ctxBase, pouls: etat.pouls, brouillard: fog, extraFlash: 0, flashPiege: 0, apres: (fn) => apres.push(fn) };
+    const ctx = { ...ctxBase, pouls: etat.pouls, brouillard: fog, fond: (c) => scene.background.set(c), extraFlash: 0, flashPiege: 0, apres: (fn) => apres.push(fn) };
     let cam, info = {}, ringVisible = false;
     const sc = etat.slot ? scenarios[etat.slot.k] : null;
     if (acte === 'I') {
@@ -162,7 +174,8 @@ export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, s
       if (sc) {
         const e = gestion.obtenir(sc.k, sc, scene), m = MONDES[sc.k], dc = e.decor;
         if (etat.phase === 'A') {
-          e.groupe.visible = true; fog(dc.brouillard ? { couleur: dc.brouillard.couleur, densite: dc.brouillard.densite } : { couleur: '#101018', densite: 0.002 });
+          e.groupe.visible = true; fog(brouillardMonde(dc, m)); scene.background.set(m.ciel);
+          hemi.intensity = 0.14; cleMonde.intensity = 0.20;                            // V7.1 : les lumières du monde et du portail sculptent les volumes
           apres.push(() => { dc.maj(t, 0, camera, H); if (dc.eclair) { const ev = eclairMonde(t, m.id); dc.eclair.u.value = ev * 0.85; dc.eclair.lum.intensity = dc.eclair.base * (1 + ev * 3.2); } e.fx.forEach((f) => f.maj(t, camera, H)); });
           e.portail.maj(t, smoother((etat.u - 0.18) / 0.45), etat.u > 0.7 ? (etat.u - 0.7) / 0.3 : 0);
           const cc = concepts[sc.k], aa = ailiers[sc.k]; cc.visible = aa.visible = true;
@@ -196,11 +209,12 @@ export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, s
       portes.forEach((p) => { p.groupe.visible = true; p.maj(t, 0, 0, 0.5); });
       cleMonde.intensity = 0.7;
     } else if (acte === 'IV') {
-      actIV.groupe.visible = true; hemi.intensity = 0.25; actIV.maj(t, ctx); cam = actIV.camera(t); info = actIV.info(t);
+      // V7.1 : lumières globales au minimum, les décors boss s'éclairent eux-mêmes
+      actIV.groupe.visible = true; hemi.intensity = 0.14; cleMonde.intensity = 0.20; actIV.maj(t, ctx); cam = actIV.camera(t); info = actIV.info(t);
     } else if (acte === 'V') {
       const ph = actV.phase(t);
       if (ph === 'paris') { ring.groupe.visible = true; ring.maj(t, etat.pouls, 15, 3); fog(ring.brouillard); parquer(t, ctx); portes.forEach((p) => { p.groupe.visible = true; p.maj(t, 0, 0, 0.6); }); cam = actV.camera(t); }
-      else { actV.groupe.visible = true; fog({ couleur: '#05060c', densite: 0.0016 }); cam = actV.camera(t); }
+      else { actV.groupe.visible = true; fog({ couleur: '#05060c', densite: 0.0016 }); scene.background.set(0x050712); hemi.intensity = 0.03; cleMonde.intensity = 0.06; /* V7.1 : en linéaire, 0,12 d'hémisphère grisait tout le labo (≈ 0,27 sRGB) */ cam = actV.camera(t); }
       actV.maj(t, ctx); info = actV.info(t);
     } else {
       ring.groupe.visible = true; actVI.groupe.visible = true; ring.maj(t, etat.pouls, 15, 3); fog(ring.brouillard); parquer(t, ctx); portes.forEach((p) => { p.groupe.visible = true; p.maj(t, 0, 0, 0.7); });
@@ -224,6 +238,7 @@ export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, s
     const u = post.u, etat = r.etat, sc = r.sc;
     u.temps.value = t; u.flash.value = 0; u.dechirure.value = 0; u.ondeForce.value = 0; u.flou.value = 0; u.aberration.value = 0.0006; u.gelForce.value = 0; u.fondu.value = 0;
     u.exposition.value = 0.84; u.vignette.value = 0.6; u.saturation.value = 1.0;
+    u.centreFlou.value.set(0.5, 0.5); u.onde.value.set(0.5, 0.5, 0); u.flashCouleur.value.setRGB(1, 0.92, 0.8);                                         // V7.1 : rétablie à chaque image (l'acte II la teinte ; elle fuyait vers l'acte IV)
     if (sc && etat.acte.id === 'II') {
       const f = impactEcurie(sc, t);
       u.flash.value = f.flash * 0.9; u.dechirure.value = f.dechirure > 0.001 ? f.dechirure : 0;
@@ -235,11 +250,12 @@ export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, s
       if (t < sc.slot.impact) { u.gelForce.value = 0.0; }
     }
     if (etat.acte.id === 'I') { u.flou.value = clamp((t - 4.4) / 1.5, 0, 1) * (t < 7.9 ? 0.45 : 0.45 * (1 - clamp((t - 7.9) / 0.8))); u.centreFlou.value.set(0.5, 0.45); u.fondu.value = 1 - smoother(t / 0.9); }
-    if (etat.acte.id === 'IV') { u.vignette.value = 0.7; u.exposition.value = 1.05; u.saturation.value = etat.univers && etat.univers.id === 'apoca' ? 0.9 : 1.0; }
+    if (etat.acte.id === 'IV') { u.vignette.value = 0.7; u.exposition.value = 1.05; u.saturation.value = etat.univers && etat.univers.id === 'apoca' ? 0.9 : 1.0; if (etat.univers && etat.univers.id === 'gotham') u.flashCouleur.value.setRGB(0.62, 0.74, 1.0); }   // éclair d'orage : blanc bleuté
     if (r.ctx.extraFlash) u.flash.value += r.ctx.extraFlash * 0.6;
     if (r.ctx.flashPiege) u.flash.value += r.ctx.flashPiege * 0.3;
     if (etat.acte.id === 'VI') { const d = t - actVI.tBoom; if (d >= 0 && d < 0.6) { u.flash.value += Math.exp(-d * 9) * 1.2; u.flou.value = Math.max(u.flou.value, Math.exp(-d * 7)); u.centreFlou.value.set(0.5, 0.5); u.onde.value.set(0.5, 0.5, d * 1.2); u.ondeForce.value = 1 - d / 0.6; } u.fondu.value = smoother((t - 119.35) / 0.65); }
-    if (etat.acte.id === 'III' && t > 64.4) { u.exposition.value = 0.8; u.vignette.value = 0.8; }
+    if (etat.acte.id === 'V' && actV.phase(t) !== 'paris') { u.exposition.value = 0.74; u.vignette.value = 0.78; u.saturation.value = 1.08; }   // V7.1 : labo nocturne
+    if (etat.acte.id === 'III' && t > 60.5) { u.exposition.value = t > 64.4 ? 0.8 : 0.74; u.vignette.value = 0.8; }   // V7.1 : caisses mystères (arches blanches) moins laiteuses
     if (etat.acte.id === 'III' && t < 53.8) u.fondu.value = 0;
     u.bloomForce.value = qualite === 'brouillon' ? 0.22 : 0.3;
   }
@@ -257,23 +273,38 @@ export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, s
     reglerPost(tc, rc);
     post.composer();
     const etatHUD = hud.preparer(tc, rc);
-    if (sortieCtx) { if (sortie.width !== L || sortie.height !== H) { sortie.width = L; sortie.height = H; } sortieCtx.drawImage(renderer.domElement, 0, 0, L, H); hud.dessiner(sortieCtx, L, H, etatHUD); }
+    if (sortieCtx) { if (sortie.width !== L || sortie.height !== H) { sortie.width = L; sortie.height = H; } sortieCtx.drawImage(renderer.domElement, 0, 0, L, H);
+      if (hudCtx) { if (hudToile.width !== L || hudToile.height !== H) { hudToile.width = L; hudToile.height = H; } if (hudCtx.reset) hudCtx.reset(); else { hudCtx.setTransform(1, 0, 0, 1, 0, 0); hudCtx.clearRect(0, 0, L, H); }   /* état 2D ET pixels remis à neuf */ hud.dessiner(hudCtx, L, H, etatHUD); sortieCtx.drawImage(hudToile, 0, 0); }
+      else hud.dessiner(sortieCtx, L, H, etatHUD); }
     return rc.etat;
   }
 
   // 36 clés de la planche contact : pour les écuries (échantillon) Monde → Portail → Drift, puis les autres actes
   const repere = (t, label, groupe) => ({ t: +t.toFixed(3), label, groupe });
+  const tPiege = (i) => plan.actes.find((a) => a.id === 'V').debut + (i + 0.5) * actV.SEG;              // u = 0,5 : en plein contact (impact à u = 0,48)
+  const nomPiege = (i) => actV.titres[actV.noms[i]] || actV.noms[i];
   const ecr = (k, quoi) => { const s = tl.ecuries[k]; return quoi === 'monde' ? s.debut + 0.45 * s.dureeA : quoi === 'portail' ? s.impact - 0.11 : s.impact + Math.min(0.9, 0.7 * s.dureeB); };
   const reperesPlanche = [
     repere(1.2, 'Rainbow Road · grille', 'I'), repere(5.2, 'La meute à 290 km/h', 'I'), repere(9.8, 'Ouverture sur l\'Arène', 'I'),
     ...[0, 3, 6, 9, 12, 14].flatMap((k) => ['monde', 'portail', 'ring'].map((q) => repere(ecr(k, q), `${MONDES[k].nom} · ${q === 'monde' ? '1 monde natif' : q === 'portail' ? '2 portail' : '3 drift dans le Ring'}`, 'II'))),
     repere(tl.finEcuries + 0.7, 'Le Ring se remplit', 'II'), repere(53.6, 'Grille de la meute', 'III'), repere(58.0, 'Lâcher sur 5 voies', 'III'),
     repere(63.0, 'Caisses mystères', 'III'), repere(67.6, 'Silhouette noire', 'III'),
-    repere(70.6, 'Gotham · Batmobile', 'IV'), repere(78.5, 'Formule 1 en flèche', 'IV'), repere(84.5, 'Apocalypse · N12 vs N13', 'IV'),
-    repere(91.0, 'Piège 2', 'V'), repere(96.6, 'Piège 7', 'V'), repere(102.0, 'Règle sacrée', 'V'), repere(105.5, 'Tableau des paris', 'V'),
-    repere(110.0, 'Le parc réuni', 'VI'), repere(111.3, 'FAITES VOS JEUX !', 'VI'), repere(115.0, 'Trophée d\'or', 'VI'),
+    repere(71.3, 'Gotham · Batmobile', 'IV'), repere(78.5, 'Formule 1 en flèche', 'IV'), repere(84.5, 'Apocalypse · N12 vs N13', 'IV'),
+    repere(tPiege(1), 'Piège 2 · ' + nomPiege(1), 'V'), repere(tPiege(6), 'Piège 7 · ' + nomPiege(6), 'V'), repere(102.0, 'Règle sacrée', 'V'), repere(105.5, 'Tableau des paris', 'V'),
+    repere(110.0, 'Le parc réuni', 'VI'), repere(112.2, 'FAITES VOS JEUX !', 'VI'), repere(115.0, 'Trophée d\'or', 'VI'),
   ];
   if (reperesPlanche.length !== 36) throw new Error('planche : 36 repères attendus, ' + reperesPlanche.length);
+  // V7.1 : planche EXHAUSTIVE 6 × 8 = 48 clés — les 15 écuries sans exception (monde natif + drift dans le Ring), puis les actes
+  const reperesPlanche48 = [
+    ...MONDES.flatMap((m, k) => [repere(ecr(k, 'monde'), `${k + 1}a · ${m.nom} · monde natif`, 'II'), repere(ecr(k, 'ring'), `${k + 1}b · ${equipes[k].name} · Ring`, 'II')]),
+    repere(1.2, 'Rainbow Road · grille', 'I'), repere(5.2, 'La meute à 290 km/h', 'I'), repere(9.8, 'Ouverture sur l\'Arène', 'I'),
+    repere(53.6, 'Grille de la meute', 'III'), repere(63.0, 'Caisses mystères', 'III'), repere(67.6, 'Silhouette noire', 'III'),
+    repere(71.3, 'Gotham · nuit bleue · Batmobile', 'IV'), repere(78.5, 'Formule 1 en flèche', 'IV'), repere(84.5, 'Apocalypse · N12 vs N13', 'IV'),
+    repere(tPiege(0), 'Piège 1 · ' + nomPiege(0), 'V'), repere(tPiege(1), 'Piège 2 · ' + nomPiege(1), 'V'), repere(tPiege(6), 'Piège 7 · ' + nomPiege(6), 'V'),
+    repere(tPiege(4), 'Piège 5 · ' + nomPiege(4), 'V'), repere(tPiege(8), 'Piège 9 · ' + nomPiege(8), 'V'), repere(102.0, 'Règle sacrée des 41 mm', 'V'),
+    repere(105.5, 'Tableau des paris', 'V'), repere(110.0, 'Le parc réuni', 'VI'), repere(112.2, 'Trophée d\'or · FAITES VOS JEUX !', 'VI'),
+  ];
+  if (reperesPlanche48.length !== 48) throw new Error('planche exhaustive : 48 repères attendus, ' + reperesPlanche48.length);
 
   const inventaire = {
     conceptCars: concepts.length, ailiersM3d: ailiers.length, bolidesM3dTotal: codesSurMesure().length, mondesNatifs: MONDES.length, portails: portes.length + 15,
@@ -281,5 +312,5 @@ export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, s
   };
   /** Contrôle physique pour la QA : β, braquage, tangage, roulis à un instant de drift. */
   function sondePhysique(k, t) { const sc = scenarios[k], p = (t < sc.slot.impact ? sc.A : sc.B).pose(t); return { beta: p.beta / DEG, braquage: p.braquage / DEG, tangage: p.tangage / DEG, roulis: p.roulis / DEG, heave: p.heave, ecrasement: p.ecrasement, kmh: p.kmh, aLat: p.aLat, aPar: p.aPar, derive: p.derive }; }
-  return { scene, camera, renderer, rendreTemps, duree: plan.duree, fps: plan.fps, tl, scenarios, inventaire, reperesPlanche, sondePhysique, post, hud, placer, concepts, ailiers, portes, parc, bolides, ring, actes: { actI, actIII, actIV, actV, actVI } };
+  return { scene, camera, renderer, rendreTemps, duree: plan.duree, fps: plan.fps, tl, scenarios, inventaire, reperesPlanche, reperesPlanche48, sondePhysique, post, hud, placer, concepts, ailiers, portes, parc, bolides, ring, actes: { actI, actIII, actIV, actV, actVI } };
 }

@@ -48,8 +48,18 @@
    "impact": 12.925,
    "fin": 14.5,
    "vague": 1,
-   "source": "synthese",
-   "decalage_theme_s": 0.0
+   "signature": {
+    "sources": [
+     "voix/mimine_voix_cassee.mp3",
+     "themes_ecuries/01_jerry_reed_country.mp3"
+    ],
+    "eclat_dans_extrait_s": 2.5376,
+    "t_debut": 10.4,
+    "t_eclat": 12.925,
+    "t_fin": 15.1
+   },
+   "source": "reel",
+   "decalage_theme_s": -0.6
   },
   {
    "id": 2,
@@ -58,8 +68,17 @@
    "impact": 16.425,
    "fin": 18.0,
    "vague": 1,
-   "source": "synthese",
-   "decalage_theme_s": 0.0
+   "signature": {
+    "sources": [
+     "themes_ecuries/02_candy_crush_sweet.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.1882,
+    "t_debut": 16.2368,
+    "t_eclat": 16.425,
+    "t_fin": 18.35
+   },
+   "source": "reel",
+   "decalage_theme_s": 1.7368
   },
   {
    "id": 3,
@@ -68,8 +87,17 @@
    "impact": 19.925,
    "fin": 21.5,
    "vague": 1,
-   "source": "synthese",
-   "decalage_theme_s": 0.0
+   "signature": {
+    "sources": [
+     "themes_ecuries/03_blur_song_2_woohoo.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.2315,
+    "t_debut": 19.5735,
+    "t_eclat": 19.925,
+    "t_fin": 21.85
+   },
+   "source": "reel",
+   "decalage_theme_s": 1.5735
   },
   {
    "id": 4,
@@ -78,8 +106,17 @@
    "impact": 23.425,
    "fin": 25.0,
    "vague": 1,
-   "source": "synthese",
-   "decalage_theme_s": 0.0
+   "signature": {
+    "sources": [
+     "themes_ecuries/04_balatro_theme.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.2624,
+    "t_debut": 23.1626,
+    "t_eclat": 23.425,
+    "t_fin": 25.35
+   },
+   "source": "reel",
+   "decalage_theme_s": 1.6626
   },
   {
    "id": 5,
@@ -88,8 +125,18 @@
    "impact": 26.485,
    "fin": 27.7,
    "vague": 2,
-   "source": "synthese",
-   "decalage_theme_s": 0.0
+   "signature": {
+    "sources": [
+     "themes_ecuries/05_mario_fall_waaah.mp3",
+     "voix/mario_chute_B.mp3"
+    ],
+    "eclat_dans_extrait_s": 2.2,
+    "t_debut": 24.88,
+    "t_eclat": 26.485,
+    "t_fin": 27.735
+   },
+   "source": "reel",
+   "decalage_theme_s": -0.12
   },
   {
    "id": 6,
@@ -98,8 +145,17 @@
    "impact": 29.185,
    "fin": 30.4,
    "vague": 2,
-   "source": "synthese",
-   "decalage_theme_s": 0.0
+   "signature": {
+    "sources": [
+     "themes_ecuries/06_peter_fox_alles_neu_symphonie.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.0881,
+    "t_debut": 28.9769,
+    "t_eclat": 29.185,
+    "t_fin": 30.75
+   },
+   "source": "reel",
+   "decalage_theme_s": 1.2769
   },
   {
    "id": 7,
@@ -108,8 +164,17 @@
    "impact": 31.885,
    "fin": 33.1,
    "vague": 2,
-   "source": "synthese",
-   "decalage_theme_s": 0.0
+   "signature": {
+    "sources": [
+     "themes_ecuries/07_zelda_item_get.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.1576,
+    "t_debut": 31.6074,
+    "t_eclat": 31.885,
+    "t_fin": 33.45
+   },
+   "source": "reel",
+   "decalage_theme_s": 1.2074
   },
   {
    "id": 8,
@@ -118,8 +183,17 @@
    "impact": 34.585,
    "fin": 35.8,
    "vague": 2,
-   "source": "synthese",
-   "decalage_theme_s": 0.0
+   "signature": {
+    "sources": [
+     "themes_ecuries/08_metroid_item_acquisition.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.038,
+    "t_debut": 34.447,
+    "t_eclat": 34.585,
+    "t_fin": 36.15
+   },
+   "source": "reel",
+   "decalage_theme_s": 1.347
   },
   {
    "id": 9,
@@ -128,8 +202,17 @@
    "impact": 37.285,
    "fin": 38.5,
    "vague": 2,
-   "source": "synthese",
-   "decalage_theme_s": 0.0
+   "signature": {
+    "sources": [
+     "themes_ecuries/09_mh_valstrax_roar.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.3233,
+    "t_debut": 36.8417,
+    "t_eclat": 37.285,
+    "t_fin": 38.85
+   },
+   "source": "reel",
+   "decalage_theme_s": 1.0417
   },
   {
    "id": 10,
@@ -138,8 +221,17 @@
    "impact": 39.985,
    "fin": 41.2,
    "vague": 2,
-   "source": "synthese",
-   "decalage_theme_s": 0.0
+   "signature": {
+    "sources": [
+     "themes_ecuries/10_berserk_guts_theme.mp3"
+    ],
+    "eclat_dans_extrait_s": 1.7699,
+    "t_debut": 38.38,
+    "t_eclat": 39.985,
+    "t_fin": 41.4651
+   },
+   "source": "reel",
+   "decalage_theme_s": -0.12
   },
   {
    "id": 11,
@@ -148,8 +240,17 @@
    "impact": 42.355,
    "fin": 43.3,
    "vague": 3,
-   "source": "synthese",
-   "decalage_theme_s": 0.0
+   "signature": {
+    "sources": [
+     "themes_ecuries/11_rosalina_harmonie_victory.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.0974,
+    "t_debut": 42.2576,
+    "t_eclat": 42.355,
+    "t_fin": 43.65
+   },
+   "source": "reel",
+   "decalage_theme_s": 1.0576
   },
   {
    "id": 12,
@@ -158,8 +259,17 @@
    "impact": 44.455,
    "fin": 45.4,
    "vague": 3,
-   "source": "synthese",
-   "decalage_theme_s": 0.0
+   "signature": {
+    "sources": [
+     "themes_ecuries/12_jojo_kakyoin_rero.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.2026,
+    "t_debut": 44.1524,
+    "t_eclat": 44.455,
+    "t_fin": 45.75
+   },
+   "source": "reel",
+   "decalage_theme_s": 0.8524
   },
   {
    "id": 13,
@@ -168,8 +278,17 @@
    "impact": 46.555,
    "fin": 47.5,
    "vague": 3,
-   "source": "synthese",
-   "decalage_theme_s": 0.0
+   "signature": {
+    "sources": [
+     "themes_ecuries/13_tokyo_drift_drumroll.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.0577,
+    "t_debut": 46.4973,
+    "t_eclat": 46.555,
+    "t_fin": 47.85
+   },
+   "source": "reel",
+   "decalage_theme_s": 1.0973
   },
   {
    "id": 14,
@@ -178,8 +297,17 @@
    "impact": 48.655,
    "fin": 49.6,
    "vague": 3,
-   "source": "synthese",
-   "decalage_theme_s": 0.0
+   "signature": {
+    "sources": [
+     "themes_ecuries/14_splatoon_booyah.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.0744,
+    "t_debut": 48.4606,
+    "t_eclat": 48.655,
+    "t_fin": 49.9306
+   },
+   "source": "reel",
+   "decalage_theme_s": 0.9606
   },
   {
    "id": 15,
@@ -188,8 +316,17 @@
    "impact": 50.755,
    "fin": 51.7,
    "vague": 3,
-   "source": "synthese",
-   "decalage_theme_s": 0.0
+   "signature": {
+    "sources": [
+     "themes_ecuries/15_daisy_hi_im_daisy.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.053,
+    "t_debut": 50.702,
+    "t_eclat": 50.755,
+    "t_fin": 51.936
+   },
+   "source": "reel",
+   "decalage_theme_s": 1.102
   }
  ],
  "battements": [
@@ -699,14 +836,190 @@
    ]
   }
  ],
- "voix": [],
+ "voix": [
+  [
+   0.12,
+   1.483
+  ],
+  [
+   1.623,
+   4.984
+  ],
+  [
+   5.144,
+   10.148
+  ],
+  [
+   61.4,
+   67.725
+  ],
+  [
+   68.2,
+   70.14
+  ],
+  [
+   70.3,
+   71.53
+  ],
+  [
+   72.1,
+   75.165
+  ],
+  [
+   75.6,
+   80.795
+  ],
+  [
+   82.5,
+   85.195
+  ],
+  [
+   89.35,
+   90.71
+  ],
+  [
+   104.0,
+   107.285
+  ],
+  [
+   107.9,
+   110.645
+  ],
+  [
+   111.6,
+   115.145
+  ],
+  [
+   115.3,
+   119.0
+  ]
+ ],
+ "voix_off": [
+  {
+   "phrase": "mesdames",
+   "texte": "Mesdames et messieurs.",
+   "attaque": 0.12,
+   "fin_dernier_mot": 1.483,
+   "debit": 1.12,
+   "voix_sur_mix_db": 19.6
+  },
+  {
+   "phrase": "salon",
+   "texte": "Ce soir, le salon se transforme en arène.",
+   "attaque": 1.623,
+   "fin_dernier_mot": 4.984,
+   "debit": 1.12,
+   "voix_sur_mix_db": 20.6
+  },
+  {
+   "phrase": "stats_trone",
+   "texte": "Quinze écuries, des dix saines de bolides, cinq voies et une seule place sur le trône.",
+   "attaque": 5.144,
+   "fin_dernier_mot": 10.148,
+   "debit": 1.12,
+   "voix_sur_mix_db": 20.1
+  },
+  {
+   "phrase": "caisses",
+   "texte": "ouvrez les caisses, découvrez vos bolides et traquez les modèles uniques. On raconte que l 'un d 'eux chante dans le noir.",
+   "attaque": 61.4,
+   "fin_dernier_mot": 67.725,
+   "debit": 1.0,
+   "voix_sur_mix_db": 12.1
+  },
+  {
+   "phrase": "attention",
+   "texte": "Mais attention, ils ne viennent pas seul.",
+   "attaque": 68.2,
+   "fin_dernier_mot": 70.14,
+   "debit": 1.0,
+   "voix_sur_mix_db": 13.1
+  },
+  {
+   "phrase": "gotham",
+   "texte": "Des ruelles de Gotham.",
+   "attaque": 70.3,
+   "fin_dernier_mot": 71.53,
+   "debit": 1.0,
+   "voix_sur_mix_db": 12.7
+  },
+  {
+   "phrase": "nuit",
+   "texte": "Je ne suis pas une voiture. Je suis la nuit",
+   "attaque": 72.1,
+   "fin_dernier_mot": 75.165,
+   "debit": 1.0,
+   "voix_sur_mix_db": 12.5
+  },
+  {
+   "phrase": "f1",
+   "texte": "Destembe de la formule 1. Box, box, box, box. Ne tendre, on attaque.",
+   "attaque": 75.6,
+   "fin_dernier_mot": 80.795,
+   "debit": 1.0,
+   "voix_sur_mix_db": 10.6
+  },
+  {
+   "phrase": "apoca",
+   "texte": "Et des terres brûlées, des survivants de l 'apocalypse.",
+   "attaque": 82.5,
+   "fin_dernier_mot": 85.195,
+   "debit": 1.0,
+   "voix_sur_mix_db": 7.5
+  },
+  {
+   "phrase": "pieges",
+   "texte": "Des pièges, des trahisons",
+   "attaque": 89.35,
+   "fin_dernier_mot": 90.71,
+   "debit": 1.0,
+   "voix_sur_mix_db": 13.5
+  },
+  {
+   "phrase": "paris",
+   "texte": "et des paris en direct depuis votre téléphone ou à l 'ancienne.",
+   "attaque": 104.0,
+   "fin_dernier_mot": 107.285,
+   "debit": 1.0,
+   "voix_sur_mix_db": 10.2
+  },
+  {
+   "phrase": "gloire",
+   "texte": "Et pour le vainqueur, la gloire éternelle.",
+   "attaque": 107.9,
+   "fin_dernier_mot": 110.645,
+   "debit": 1.0,
+   "voix_sur_mix_db": 10.9
+  },
+  {
+   "phrase": "titre",
+   "texte": "Le grand prix de Noël, 23 décembre.",
+   "attaque": 111.6,
+   "fin_dernier_mot": 115.145,
+   "debit": 1.0,
+   "voix_sur_mix_db": 10.3
+  },
+  {
+   "phrase": "final",
+   "texte": "Préparez -vous à vrombir que le spectacle commence.",
+   "attaque": 115.3,
+   "fin_dernier_mot": 119.0,
+   "debit": 1.0,
+   "voix_sur_mix_db": 9.4
+  }
+ ],
  "mix": {
   "fichier": "audio/mix_v7.wav",
   "frequence_hz": 44100,
   "canaux": 2,
   "lufs_approx": -16.0,
-  "crete_dbfs": -3.23,
+  "crete_dbfs": -4.5,
   "methode_lufs": "pondération K approchée par FFT (passe-haut 38 Hz + étagère +4 dB à 1,7 kHz), blocs 400 ms, portes -70 LUFS / -10 LU",
-  "saut_max_echantillon": 0.85709
+  "saut_max_echantillon": 0.56934
+ },
+ "bilan": {
+  "ecuries_reelles": 15,
+  "ecuries_synthetisees": 0,
+  "phrases_voix_off": 14
  }
 }

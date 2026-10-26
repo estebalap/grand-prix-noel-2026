@@ -19,35 +19,52 @@ Tout aléa passe par `np.random.default_rng(graine fixe)` : deux exécutions don
 
 | Fichier | Rôle | Obligatoire |
 |---|---|---|
-| `data/plan_v7.json` | actes, vagues, `fraction_monde`, `tempo`, `univers_boss`, clé `voix` (liste d'intervalles `[début, fin]`) | oui |
+| `data/plan_v7.json` | actes, vagues, `fraction_monde`, `tempo`, `univers_boss`, clé `voix` (intervalles supplémentaires) | oui |
 | `../../data/teams.json` | noms et couleurs des 15 écuries | oui |
-| `../audio_v5/themes_ecuries.json` + `../audio_v5/themes_ecuries/NN_*.mp3` | extraits réels (sous droits, absents du dépôt public) | non |
+| `../audio_v5/themes_ecuries.json` | calage des extraits (`perso` : début, durée, gain ; `voix` : réplique enregistrée + `eclat_s`) | oui (dans le dépôt) |
+| `../audio_v5/themes_ecuries/NN_*.mp3` | les 15 extraits réels (sous droits : **absents du dépôt public**, pack `AUDIO_REEL_INTRO_3D.zip`) | pour le vrai son |
+| `../audio_v5/voix/*.mp3` | répliques enregistrées (Petite Mimine, Mario) | pour le vrai son |
+| `../audio_v5/voix/vo_v4_prise_A.mp3` + `mots_prise_A.json` | voix off du commentateur et minutage de chaque mot | pour la voix off |
 
 Créneaux des écuries : enchaînées dès 11,0 s dans l'ordre des vagues ; `impact = debut + fraction_monde × duree_plan`.
 Phase A (monde natif) = [debut, impact], phase B (arrivée en drift) = [impact, fin]. Fin de l'acte II = 53,0 s (vérifiée).
 
 ## Sorties
 
-- `audio/mix_v7.wav` : stéréo 44,1 kHz 16 bit, ≈ −16 LUFS, crête ≈ −3 dBFS (plafond −2 dBFS). Ignoré par git (`*.wav`).
-- `data/timeline_v7.json` : `version, duree, fps, actes, ecuries[{id, nom, debut, impact, fin, vague, source, decalage_theme_s}],
-  battements` (secondes de chaque coup de grosse caisse), `bpm_instantane` (un bpm par seconde, index = seconde, 0..120),
-  `macros_portail[{ecurie, t_riser_debut, t_impact, t_drop_fin, t_crissement}]`, `univers_boss`, `voix`,
-  `mix{fichier, lufs_approx, crete_dbfs, …}`.
+- `audio/mix_v7.wav` : stéréo 44,1 kHz 16 bit, ≈ −16 LUFS, crête ≤ −2 dBFS. Ignoré par git (`*.wav`).
+- `data/timeline_v7.json` : actes, `ecuries[{id, nom, debut, impact, fin, vague, source, decalage_theme_s, signature{sources,
+  eclat_dans_extrait_s, t_debut, t_eclat, t_fin}}]`, `battements`, `bpm_instantane`, `macros_portail`, `univers_boss`,
+  `voix` (intervalles du sidechain), `voix_off[{phrase, texte, attaque, fin_dernier_mot, voix_sur_mix_db}]`, `mix{…}`,
+  `bilan{ecuries_reelles, ecuries_synthetisees, phrases_voix_off}`.
+- Le rapport console affiche `N réelles, M synthétisées` : sur le PC d'Esteban (pack audio restauré) il doit afficher
+  **15 réelles, 0 synthétisées** et 14 phrases de voix off.
 
-## Synthétisé ou réel
+## V7.1 : le vrai son
 
-- **Tout est synthétisé** par défaut : lit de basses (grosses caisses 55 Hz en accelerando, phase du tempo intégrée, temps 1
-  accentué, « lub-dub » dans le prologue), macros portail ×15 (riser spectral stéréo → craquement → sub-drop 105→32 Hz à phase
-  continue → crissement de pneus 1,5–5 kHz), whoosh de changement d'acte, tonnerre et pluie (gotham), moteur F1 (f1),
-  grondement et métal tordu (apoca), rafale de 10 clics (acte V), riser puis sub-boom à 111 s, accord final.
-- **Stinger de travail** par écurie (`source: "synthese"`) : gamme, timbre et tonique dérivés de l'id et de la couleur de l'écurie ;
-  arpège accélérant et pic d'accord exactement sur l'impact.
-- **Extrait réel** (`source: "reel"`), si `NN_*.mp3` existe : coupé à `[debut_s, debut_s+duree_s]` (bloc `perso`, sinon `voix`),
-  temps fort `eclat_s` (relatif au début de l'extrait coupé) ou, à défaut, pic d'énergie RMS (fenêtre 50 ms), calé sur `impact`.
-  Niveau homogène (RMS actif −18 dBFS), fondus sin/cos. `decalage_theme_s` = début de l'extrait − début du créneau.
-  Un extrait illisible ou vide retombe sur la synthèse avec un avertissement. Ne jamais committer ces MP3.
-- **Voix** : structure prête (sidechain −6 dB, attaque 40 ms / relâchement 300 ms sur le lit de basses sous les intervalles de
-  `plan_v7.json.voix`) ; la liste est vide par défaut, rien n'est généré.
+- **15 signatures réelles** (`signature_ecurie`) : l'extrait `NN_*.mp3` coupé selon `perso`, mis au niveau (RMS actif −16 dBFS
+  puis `gain_db`), en couches avec les voix enregistrées :
+  - écurie 1 *Petite Mimine* : `voix/mimine_voix_cassee.mp3` (0 dB) **et** `01_jerry_reed_country.mp3` (−7 dB) ; le cri
+    « MEEEINE ! » (`eclat_s` = 2,3 s) tombe sur le franchissement du portail ;
+  - écurie 5 *Super Mario Pression* : `05_mario_fall_waaah.mp3` doublé de `voix/mario_chute_B.mp3` (−6 dB), les deux fins
+    alignées : le temps fort est l'ATTERRISSAGE (fin du cri), comme dans `sound_v6.py` ;
+  - les autres : temps fort = `eclat_s` s'il est donné, sinon le premier vrai front d'attaque (enveloppe RMS 50 ms ≥ 60 % du max).
+  Le temps fort est posé **à l'échantillon près sur `impact`** (portail). Une réplique enregistrée n'est jamais coupée au début.
+- **Fondus et enchaînements** : amorce jusqu'à 120 ms avant le début du créneau, fondu d'entrée sin(θ) 180 ms (raccourci si le
+  temps fort est tout proche, pour ne pas manger l'attaque), bass-swap (passe-haut 150 Hz zéro-phase fondu sur les 200 dernières
+  ms), fondu de sortie cos(θ) 280 ms, washout : queue de réverbération stéréo semée de 250 ms après la fin.
+- **Voix off du commentateur** (`voix_off`) : la prise A de la v4, traitée comme en v6 (passe-haut, égaliseur, compresseur,
+  limiteur), découpée aux mots de `mots_prise_A.json`, coupes cherchées dans les silences (jamais dans un mot), fondus 35 ms.
+  Phrases (`PHRASES_V7`) : acte I « Mesdames et messieurs… le TRÔNE ! » (débit +12 % pour tenir dans les 11 s du prologue),
+  acte III « Ouvrez les caisses… chante dans le noir », acte IV « Mais attention… Gotham… Je suis la nuit… Formule 1… Box box…
+  Apocalypse », acte V « Des pièges, des trahisons » puis « …des paris en direct… ou à l'ancienne », acte VI « la gloire
+  éternelle… Le Grand Prix de Noël, 23 décembre… que le spectacle commence ». Le script vérifie qu'aucune phrase n'en chevauche
+  une autre et que la dernière finit avant le fondu final (119,35 s).
+- **Sidechain** doux asymétrique sous la voix : lit musical, habillage et macros −8 dB, anticipation 40 ms, maintien 250 ms,
+  attaque 40 ms, relâchement 420 ms. L'écart voix / reste du mix est mesuré pour chaque phrase (`voix_sur_mix_db`).
+- Sans les extraits, chaque écurie retombe sur un **stinger de travail** synthétique (le rapport l'indique) ; sans la prise de
+  voix, le mix est fait sans commentateur (avertissement). `--sans-reel` / `--sans-voix` forcent ces cas.
+- `--si-perime` (utilisé par `LANCER_TRAILER_V7_4K.bat`) : ne recalcule que si le mix manque, est plus ancien que le script ou
+  le plan, ou a été fait avec moins d'écuries réelles que d'extraits disponibles.
 
 ## Mastering
 

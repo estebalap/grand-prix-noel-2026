@@ -15,21 +15,21 @@ export const RING = { R: 100, RS: 50, RG: 92, ECART: 0.55 };
 
 /** Les 15 mondes : archétype / décor unique pris sur le bolide-ailier (m3d), effets propres à l'écurie. */
 export const MONDES = [
-  { id: 1,  ailier: 'U03',  fx: ['poteaux', 'braises'],            accent: '#84cc16', acc2: '#ffb347', nom: 'Route 66' },
-  { id: 2,  ailier: 'N02',  fx: ['bonbons'],                       accent: '#ff7ad9', acc2: '#7ff0ff', nom: 'Vallée sucrée' },
-  { id: 3,  ailier: 'E02',  fx: ['strobo', 'arcs'],                accent: '#ffe23d', acc2: '#7fd3ff', nom: 'Stroboscope' },
-  { id: 4,  ailier: 'B12',  fx: ['cartes'],                        accent: '#b06bff', acc2: '#f97316', nom: 'Tapis de cartes' },
-  { id: 5,  ailier: 'TK05', fx: ['chateau'],                       accent: '#ff4a3a', acc2: '#ffffff', nom: 'Saut du château', saut: 16 },
-  { id: 6,  ailier: 'FR01', fx: ['portees'],                       accent: '#facc15', acc2: '#ffffff', nom: 'Scène symphonique' },
-  { id: 7,  ailier: 'E06',  fx: ['triforce'],                      accent: '#ffd23d', acc2: '#9dff8a', nom: 'Forêt ancienne' },
-  { id: 8,  ailier: 'J09',  fx: ['bandes_pluie'],                  accent: '#ea580c', acc2: '#8ab4ff', nom: 'Autoroute sous la pluie' },
-  { id: 9,  ailier: 'N11',  fx: ['comete', 'etoiles'],             accent: '#a855f7', acc2: '#ff4a6a', nom: 'Piqué stratosphérique', saut: 10 },
-  { id: 10, ailier: 'H04',  fx: ['monolithes'],                    accent: '#dc2626', acc2: '#ffb347', nom: 'Éclipse rouge' },
-  { id: 11, ailier: 'P01',  fx: ['etoiles', 'lumas'],              accent: '#f472b6', acc2: '#7ff0ff', nom: 'Observatoire stellaire' },
-  { id: 12, ailier: 'E07',  fx: ['pyramides', 'kanji', 'emeraudes'], accent: '#8b5cf6', acc2: '#34d399', nom: 'Caire crépusculaire' },
-  { id: 13, ailier: 'J02',  fx: ['neon_bords'],                    accent: '#06b6d4', acc2: '#ff4fd8', nom: 'Col de montagne', derive: true },
-  { id: 14, ailier: 'J10',  fx: ['encre'],                         accent: '#e11d48', acc2: '#ffffff', nom: 'Grille néon' },
-  { id: 15, ailier: 'H11',  fx: ['petales'],                       accent: '#f97316', acc2: '#fde047', nom: 'Jardin impérial' },
+  { id: 1,  ailier: 'U03',  fx: ['poteaux', 'braises'],            accent: '#84cc16', acc2: '#ffb347', nom: 'Route 66', ciel: '#180b05' },
+  { id: 2,  ailier: 'N02',  fx: ['bonbons'],                       accent: '#ff7ad9', acc2: '#7ff0ff', nom: 'Vallée sucrée', ciel: '#1a0826' },
+  { id: 3,  ailier: 'E02',  fx: ['strobo', 'arcs'],                accent: '#ffe23d', acc2: '#7fd3ff', nom: 'Stroboscope', ciel: '#050712' },
+  { id: 4,  ailier: 'B12',  fx: ['cartes'],                        accent: '#b06bff', acc2: '#f97316', nom: 'Tapis de cartes', ciel: '#120624' },
+  { id: 5,  ailier: 'TK05', fx: ['chateau'],                       accent: '#ff4a3a', acc2: '#ffffff', nom: 'Saut du château', ciel: '#0b071e', surfaces: 0.05, saut: 16 },
+  { id: 6,  ailier: 'FR01', fx: ['portees'],                       accent: '#facc15', acc2: '#ffffff', nom: 'Scène symphonique', ciel: '#080b1f', surfaces: 0.05 },
+  { id: 7,  ailier: 'E06',  fx: ['triforce'],                      accent: '#ffd23d', acc2: '#9dff8a', nom: 'Forêt ancienne', ciel: '#05160e' },
+  { id: 8,  ailier: 'J09',  fx: ['bandes_pluie'],                  accent: '#ea580c', acc2: '#8ab4ff', nom: 'Autoroute sous la pluie', ciel: '#060d1a' },
+  { id: 9,  ailier: 'N11',  fx: ['comete', 'etoiles'],             accent: '#a855f7', acc2: '#ff4a6a', nom: 'Piqué stratosphérique', ciel: '#090418', saut: 10 },
+  { id: 10, ailier: 'H04',  fx: ['monolithes'],                    accent: '#dc2626', acc2: '#ffb347', nom: 'Éclipse rouge', ciel: '#120204' },
+  { id: 11, ailier: 'P01',  fx: ['etoiles', 'lumas'],              accent: '#f472b6', acc2: '#7ff0ff', nom: 'Observatoire stellaire', ciel: '#030614' },
+  { id: 12, ailier: 'E07',  fx: ['pyramides', 'kanji', 'emeraudes'], accent: '#8b5cf6', acc2: '#34d399', nom: 'Caire crépusculaire', ciel: '#180a24' },
+  { id: 13, ailier: 'J02',  fx: ['neon_bords'],                    accent: '#06b6d4', acc2: '#ff4fd8', nom: 'Col de montagne', ciel: '#050b1c', derive: true },
+  { id: 14, ailier: 'J10',  fx: ['encre'],                         accent: '#e11d48', acc2: '#ffffff', nom: 'Grille néon', ciel: '#080414' },
+  { id: 15, ailier: 'H11',  fx: ['petales'],                       accent: '#f97316', acc2: '#fde047', nom: 'Jardin impérial', ciel: '#1a0916' },
 ];
 
 /* ───────────────────────── outils ───────────────────────── */
@@ -375,9 +375,63 @@ export function creerRing(THREE, { envMap = null, equipes = [] } = {}) {
   };
 }
 
+/* ═════════════════════════ ÉTALONNAGE NOCTURNE DES MONDES (V7.1) ═════════════════════════
+   Les décors de shared/ sont réglés pour le Showroom (caméra à ~15 unités) : leurs ciels pastel ou sable et leur brouillard
+   dense délavent un plan V7 où le décor est à 60–120 unités. On ne touche pas à shared/ : on assombrit ICI les dômes de ciel
+   (uniformes cTop / cMid / cBas du shader de decors3d.js) en les tirant vers la couleur de nuit propre au monde (MONDES[k].ciel),
+   luminance plafonnée par bande (haut le plus sombre, horizon un peu plus clair pour garder la ligne d'horizon lisible). */
+const LUMA = (c) => 0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b;
+// plafonds en luminance LINÉAIRE (le rendu encode en sRGB : 0,03 linéaire ≈ 0,19 à l'écran) ; cBas = le sol lointain des décors
+const PLAFONDS_CIEL = { cTop: 0.006, cMid: 0.016, cBas: 0.035 };
+export function assombrirCiel(THREE, groupe, cielHex, { melange = 0.45, plafonds = PLAFONDS_CIEL } = {}) {
+  const nuit = new THREE.Color(cielHex).convertSRGBToLinear(); let n = 0;
+  groupe.traverse((o) => {
+    const u = o.isMesh && o.material && o.material.uniforms;
+    if (!u || !u.cTop || !u.cMid || !u.cBas) return;
+    // IDEMPOTENT (règle 5) : un monde libéré du cache puis reconstruit peut retrouver un matériau partagé par shared/ ;
+    // on repart donc toujours des couleurs d'origine mémorisées, jamais de la valeur déjà assombrie
+    const ud = o.material.userData, orig = ud.cielOrigineV71 || (ud.cielOrigineV71 = {});
+    for (const [cle, lmax] of Object.entries(plafonds)) {
+      const c = u[cle].value; if (!orig[cle]) orig[cle] = c.clone();
+      c.copy(orig[cle]).lerp(nuit, melange);
+      const l = LUMA(c); if (l > lmax) c.multiplyScalar(lmax / l);
+    }
+    n++;
+  });
+  return n;
+}
+
+/** V7.1 : plafond de luminance des SURFACES d'un décor de jour (stade, cyclorama pastel, façades blanches, canyon ocre) : elles
+    passent « de nuit ». Sont visés les matériaux éclairés ou peints (couleur × texture) ET les grands panneaux non éclairés
+    (toneMapped: false, plus de 18 unités : façades, tribunes, murs de fond). Restent intacts les petits éléments lumineux
+    (néons, enseignes, halos), le mélange additif et les shaders : ce sont eux qui doivent ressortir sur la nuit. */
+export function plafonnerSurfaces(THREE, groupe, lmax = 0.12, { facteurShader = 0.3 } = {}) {
+  const vus = new Set(), boite = new THREE.Box3(), taille = new THREE.Vector3(); let n = 0;
+  groupe.updateMatrixWorld(true);
+  groupe.traverse((o) => {
+    if (!(o.isMesh || o.isSprite) || !o.material) return;
+    let grand = null;
+    const mesurer = () => { if (grand === null) { boite.setFromObject(o); boite.getSize(taille); grand = Math.max(taille.x, taille.y, taille.z) > 18; } return grand; };
+    for (const m of Array.isArray(o.material) ? o.material : [o.material]) {
+      // grands panneaux en shader opaque (cyclorama pailleté, murs animés) : on assombrit leur sortie, jamais le dôme de ciel
+      if (!vus.has(m) && m.isShaderMaterial && !(m.uniforms && m.uniforms.cTop) && m.blending !== THREE.AdditiveBlending && !m.transparent && mesurer()) {
+        vus.add(m); if (m.userData.plafondV71) continue;                  // déjà assombri (matériau partagé, monde reconstruit) : jamais deux fois
+        m.userData.plafondV71 = true; m.fragmentShader = m.fragmentShader.replace(/\}\s*$/, `  gl_FragColor.rgb *= ${facteurShader.toFixed(3)};\n}`); m.needsUpdate = true; n++; continue;
+      }
+      if (vus.has(m) || m.isShaderMaterial || m.blending === THREE.AdditiveBlending || !m.color) continue;
+      if (m.toneMapped === false && !mesurer()) continue;
+      vus.add(m); const l = LUMA(m.color); if (l > lmax) { m.color.multiplyScalar(lmax / l); n++; }
+    }
+  });
+  return n;
+}
+
 /* ═════════════════════════ GESTIONNAIRE DES MONDES (construction paresseuse, cache LRU) ═════════════════════════ */
-export function creerGestionnaireMondes({ THREE, renderer, envMap, decors, avecAlea, cars }) {
-  const cache = new Map(), MAX = 4;
+export function creerGestionnaireMondes({ THREE, renderer, envMap, decors, avecAlea, cars, max = 4 }) {
+  // max = MONDES.length (film V7.1) : aucun monde n'est jamais libéré. Un monde reconstruit après éviction recevait de nouveaux
+  // identifiants d'objets et de matériaux : l'ordre de tri du rendu (et donc les surfaces coplanaires, les transparences à égalité
+  // de profondeur) dépendait de l'HISTORIQUE des images rendues — contraire à la règle 5 (image = fonction pure de t).
+  const cache = new Map(), MAX = max;
   function construire(k, sc) {
     const m = MONDES[k], car = cars.find((c) => c.code === m.ailier);
     const arche = car ? car.archetype : 'blockbuster';
@@ -385,6 +439,8 @@ export function creerGestionnaireMondes({ THREE, renderer, envMap, decors, avecA
     const decor = avecAlea('decor' + m.id, () => decors.creerDecor(THREE, arche, { code: m.ailier, env: envMap }));
     decor.eclair && (decor.eclair.prochain = 1e9);                               // l'orage est piloté par éclair(t), pas par l'horloge
     decor.activer();
+    const ciels = assombrirCiel(THREE, decor.groupe, m.ciel);                    // V7.1 : plus aucun ciel pastel / sable délavé
+    const surfaces = plafonnerSurfaces(THREE, decor.groupe, m.surfaces || 0.12);  // V7.1 : décors de jour passés de nuit (luminance linéaire)
     groupe.add(decor.groupe, decor.lumieres);
     const ctx = { spline: sc.spA, longueur: sc.spA.longueur, dir: sc.dir, accent: m.accent, acc2: m.acc2 };
     const fx = ['bandes', ...m.fx].map((nom) => avecAlea('fx' + m.id + nom, () => FX[nom](THREE, ctx)));
@@ -392,7 +448,7 @@ export function creerGestionnaireMondes({ THREE, renderer, envMap, decors, avecA
     const portail = creerPortail(THREE, m.accent, m.acc2, { graine: m.id });
     portail.groupe.position.set(...sc.portailMonde.pos); portail.groupe.rotation.y = sc.portailMonde.yaw; groupe.add(portail.groupe);
     groupe.visible = false;
-    return { k, groupe, decor, fx, portail, arche };
+    return { k, groupe, decor, fx, portail, arche, ciels, surfaces };
   }
   function liberer(entree) { entree.groupe.parent && entree.groupe.parent.remove(entree.groupe); entree.decor.dispose && entree.decor.dispose(); entree.portail.dispose(); cache.delete(entree.k); }
   return {
@@ -407,5 +463,10 @@ export function creerGestionnaireMondes({ THREE, renderer, envMap, decors, avecA
       return e;
     },
     liberer,
+    /** construit tous les mondes dans l'ordre canonique 0..n-1 (identifiants stables, aucun coût au premier passage d'un portail) */
+    prechauffer(scenarios, scene, surChaque = () => {}) {
+      scenarios.forEach((sc, k) => { const e = this.obtenir(sc.k, sc, scene); e.groupe.visible = false; surChaque(k); });
+      return cache.size;
+    },
   };
 }

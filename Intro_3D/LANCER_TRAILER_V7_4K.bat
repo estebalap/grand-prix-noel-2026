@@ -4,12 +4,12 @@ rem Sert la racine du depot OU 00_Lab_Vision_2.0 (dossier parent d'Intro_3D) : l
 setlocal
 cd /d "%~dp0"
 set "V7=%~dp0v7_multivers_4k"
-if not exist "%V7%\audio\mix_v7.wav" (
-  echo Bande-son V7 absente : generation de audio\mix_v7.wav ...
-  pushd "%V7%"
-  py -3 sound_v7_crescendo.py
-  popd
-)
+rem V7.1 : la bande-son est (re)calculee si elle manque, si elle est plus ancienne que le script ou le plan, ou si elle a ete
+rem faite sans les vrais extraits (restaurer AUDIO_REEL_INTRO_3D*.zip avec RESTAURER_AUDIO_REEL.py) ; sinon rien n'est refait.
+if not exist "%~dp0audio_v5\themes_ecuries\01_*.mp3" echo ATTENTION : extraits reels absents (audio_v5\themes_ecuries) - restaurer le pack audio pour le vrai son.
+pushd "%V7%"
+py -3 sound_v7_crescendo.py --si-perime
+popd
 cd /d "%~dp0.."
 start "Serveur trailer V7 (fermer pour arreter)" /min py -3 -m http.server 8767 --bind 127.0.0.1
 timeout /t 2 >nul
