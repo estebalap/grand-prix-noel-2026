@@ -183,6 +183,8 @@ async def main():
             page = await nav.new_page(viewport={'width': L, 'height': H})
             page.on('pageerror', lambda e: filtre('pageerror : ' + str(e)))
             page.on('console', lambda m: filtre(f'{m.type} : {m.text}') if m.type in ('error', 'warning') else None)
+            # V7.1 : toute ressource en échec est nommée (URL + statut) : « Failed to load resource » seul ne dit pas laquelle
+            page.on('response', lambda r: erreurs.append(f'ressource {r.status} : {r.url}') if r.status >= 400 else None)
             await page.goto(f'http://127.0.0.1:{port}/{page_url}?capture=1&l={L}&sub={sub}&qualite={qualite_page}')
             print(f'Chargement de la page ({L}x{H}, sous-expositions {sub}, qualité {qualite_page}) ...', flush=True)
             await page.wait_for_function('window.pret === true || !!window.erreurFilm', timeout=900000)
