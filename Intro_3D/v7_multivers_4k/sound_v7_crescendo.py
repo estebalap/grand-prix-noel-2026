@@ -28,6 +28,20 @@ import numpy as np
 
 ICI = os.path.dirname(os.path.abspath(__file__))
 RACINE_DEPOT = os.path.abspath(os.path.join(ICI, '..', '..'))
+
+
+def fichier_web(*chemin):
+    """Fichier de l'application web dans les DEUX dispositions (comme shared_bridge.js) :
+    dépôt GitHub (<racine>/data/…) ou PC d'Esteban (00_Lab_Vision_2.0/Edition_23_Decembre/3_Application/web/data/…).
+    Forçable par la variable d'environnement GP_WEB_ROOT."""
+    racines = [os.environ.get('GP_WEB_ROOT') or '', RACINE_DEPOT,
+               os.path.join(RACINE_DEPOT, 'Edition_23_Decembre', '3_Application', 'web')]
+    essais = [os.path.join(r, *chemin) for r in racines if r]
+    for c in essais:
+        if os.path.isfile(c):
+            return c
+    raise FileNotFoundError('application web introuvable, essayé : ' + ' | '.join(essais) +
+                            ' (définir GP_WEB_ROOT vers le dossier web qui contient data/)')
 DUREE = 120.0
 CIBLE_LUFS = -16.0
 GAIN_VOIX = 1.5          # bus voix off dans le mix (+3,5 dB : la voix passe devant les nappes et l'habillage)
@@ -909,7 +923,7 @@ def main():
     assert abs(float(plan.get('duree', DUREE)) - DUREE) < 1e-6, 'le plan doit durer 120 s'
 
     # équipes (nom, couleurs) et thèmes réels
-    with open(os.path.join(RACINE_DEPOT, 'data', 'teams.json'), encoding='utf-8') as f:
+    with open(fichier_web('data', 'teams.json'), encoding='utf-8') as f:
         equipes = {int(t['id']): t for t in json.load(f)}
     noms = {i: t['name'] for i, t in equipes.items()}
     cfg_themes = {}
