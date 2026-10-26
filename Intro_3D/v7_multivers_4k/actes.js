@@ -331,7 +331,7 @@ export function creerActeVI({ THREE, trophee, parc, plan }) {
     maj(t, ctx) {
       const up = smoother((t - t0) / 3.2);
       trophee.position.y = -24 + 24 * up; trophee.rotation.y = (t - t0) * 0.7; trophee.traverse((n) => { if (n.name === 'spin') n.rotation.y = t * 2; });
-      faisceau.visible = lumTrophee.intensity > 0.1; lumTrophee.intensity = 7 * up * (1 + 0.5 * Math.exp(-(t - tBoom) * 3) * (t > tBoom ? 1 : 0)); faisceau.material.opacity = 0.06 + 0.06 * up + (t > tBoom ? 0.1 * Math.exp(-(t - tBoom) * 2) : 0);
+      lumTrophee.intensity = 7 * up * (1 + 0.5 * Math.exp(-(t - tBoom) * 3) * (t > tBoom ? 1 : 0)); faisceau.visible = lumTrophee.intensity > 0.1; faisceau.material.opacity = 0.06 + 0.06 * up + (t > tBoom ? 0.1 * Math.exp(-(t - tBoom) * 2) : 0);
       ctx.apres(() => etinc.maj(t, ctx.camera, ctx.hPx));
       const on = t > tBoom - 0.05; conf.visible = on; if (on) {
         for (let i = 0; i < N; i++) { const p = P[i], age = t - tBoom - p.d * 1.5; if (age < 0) { o.scale.setScalar(0.0001); } else { const fall = 90 - age * (16 + 10 * p.a) + 40 * p.b; o.position.set((p.a - 0.5) * 150 + Math.sin(age * 2 + p.c * 9) * 4, Math.max(0.2, fall), (p.c - 0.5) * 150); o.rotation.set(age * 5 * p.a, age * 3 * p.b, age * 4 * p.c); o.scale.setScalar(1); } o.updateMatrix(); conf.setMatrixAt(i, o.matrix); }
