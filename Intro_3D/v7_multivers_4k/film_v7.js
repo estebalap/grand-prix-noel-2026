@@ -132,6 +132,7 @@ export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, s
     miroirs.forEach((m) => (m.racine.visible = false)); mirAil.forEach((m) => (m.racine.visible = false));
     for (const e of gestion.cache.values()) e.groupe.visible = false;
     fumeeM.objet.visible = etincM.objet.visible = false; hemi.visible = true; cleMonde.visible = true;
+    pcs.forEach((p) => p.maj(0, 0));                                                   // post-combustion éteinte (rallumée par l'acte II)
     hemi.intensity = 0.42; cleMonde.intensity = 0.95;                                  // rétablis à chaque image : aucun état ne fuit d'un acte à l'autre
   }
   function parquer(t, ctx, { sauf = -1, mirroirs = true } = {}) {
