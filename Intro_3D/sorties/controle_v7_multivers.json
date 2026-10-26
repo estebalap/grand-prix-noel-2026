@@ -1,0 +1,231 @@
+{
+ "version": "v7",
+ "qualite": "apercu_cloud",
+ "sous_expositions": 1,
+ "date": "2026-10-26T13:02:17",
+ "reperes": [
+  {
+   "t": 1.2,
+   "label": "Rainbow Road · grille",
+   "groupe": "I"
+  },
+  {
+   "t": 5.2,
+   "label": "La meute à 290 km/h",
+   "groupe": "I"
+  },
+  {
+   "t": 9.8,
+   "label": "Ouverture sur l'Arène",
+   "groupe": "I"
+  },
+  {
+   "t": 11.866,
+   "label": "Route 66 · 1 monde natif",
+   "groupe": "II"
+  },
+  {
+   "t": 12.815,
+   "label": "Route 66 · 2 portail",
+   "groupe": "II"
+  },
+  {
+   "t": 13.825,
+   "label": "Route 66 · 3 drift dans le Ring",
+   "groupe": "II"
+  },
+  {
+   "t": 22.366,
+   "label": "Tapis de cartes · 1 monde natif",
+   "groupe": "II"
+  },
+  {
+   "t": 23.315,
+   "label": "Tapis de cartes · 2 portail",
+   "groupe": "II"
+  },
+  {
+   "t": 24.325,
+   "label": "Tapis de cartes · 3 drift dans le Ring",
+   "groupe": "II"
+  },
+  {
+   "t": 31.068,
+   "label": "Forêt ancienne · 1 monde natif",
+   "groupe": "II"
+  },
+  {
+   "t": 31.775,
+   "label": "Forêt ancienne · 2 portail",
+   "groupe": "II"
+  },
+  {
+   "t": 32.736,
+   "label": "Forêt ancienne · 3 drift dans le Ring",
+   "groupe": "II"
+  },
+  {
+   "t": 39.168,
+   "label": "Éclipse rouge · 1 monde natif",
+   "groupe": "II"
+  },
+  {
+   "t": 39.875,
+   "label": "Éclipse rouge · 2 portail",
+   "groupe": "II"
+  },
+  {
+   "t": 40.836,
+   "label": "Éclipse rouge · 3 drift dans le Ring",
+   "groupe": "II"
+  },
+  {
+   "t": 45.92,
+   "label": "Col de montagne · 1 monde natif",
+   "groupe": "II"
+  },
+  {
+   "t": 46.445,
+   "label": "Col de montagne · 2 portail",
+   "groupe": "II"
+  },
+  {
+   "t": 47.217,
+   "label": "Col de montagne · 3 drift dans le Ring",
+   "groupe": "II"
+  },
+  {
+   "t": 50.12,
+   "label": "Jardin impérial · 1 monde natif",
+   "groupe": "II"
+  },
+  {
+   "t": 50.645,
+   "label": "Jardin impérial · 2 portail",
+   "groupe": "II"
+  },
+  {
+   "t": 51.417,
+   "label": "Jardin impérial · 3 drift dans le Ring",
+   "groupe": "II"
+  },
+  {
+   "t": 52.4,
+   "label": "Le Ring se remplit",
+   "groupe": "II"
+  },
+  {
+   "t": 53.6,
+   "label": "Grille de la meute",
+   "groupe": "III"
+  },
+  {
+   "t": 58,
+   "label": "Lâcher sur 5 voies",
+   "groupe": "III"
+  },
+  {
+   "t": 63,
+   "label": "Caisses mystères",
+   "groupe": "III"
+  },
+  {
+   "t": 67.6,
+   "label": "Silhouette noire",
+   "groupe": "III"
+  },
+  {
+   "t": 70.6,
+   "label": "Gotham · Batmobile",
+   "groupe": "IV"
+  },
+  {
+   "t": 78.5,
+   "label": "Formule 1 en flèche",
+   "groupe": "IV"
+  },
+  {
+   "t": 84.5,
+   "label": "Apocalypse · N12 vs N13",
+   "groupe": "IV"
+  },
+  {
+   "t": 91,
+   "label": "Piège 2",
+   "groupe": "V"
+  },
+  {
+   "t": 96.6,
+   "label": "Piège 7",
+   "groupe": "V"
+  },
+  {
+   "t": 102,
+   "label": "Règle sacrée",
+   "groupe": "V"
+  },
+  {
+   "t": 105.5,
+   "label": "Tableau des paris",
+   "groupe": "V"
+  },
+  {
+   "t": 110,
+   "label": "Le parc réuni",
+   "groupe": "VI"
+  },
+  {
+   "t": 111.3,
+   "label": "FAITES VOS JEUX !",
+   "groupe": "VI"
+  },
+  {
+   "t": 115,
+   "label": "Trophée d'or",
+   "groupe": "VI"
+  }
+ ],
+ "temps_rendu_s": [
+  4.181,
+  1.179,
+  3.525,
+  2.512,
+  1.971,
+  3.319,
+  4.806,
+  0.553,
+  4.288,
+  1.116,
+  0.963,
+  6.043,
+  1.503,
+  0.757,
+  5.86,
+  2.855,
+  0.921,
+  7.739,
+  3.341,
+  0.588,
+  2.181,
+  10.15,
+  2.859,
+  2.668,
+  2.421,
+  0.423,
+  2.502,
+  2.237,
+  3.176,
+  2.005,
+  0.408,
+  0.892,
+  4.509,
+  16.698,
+  5.227,
+  4.362
+ ],
+ "determinisme": {
+  "1.20": "différent"
+ },
+ "erreurs_console": [],
+ "sortie_video": "/home/user/grand-prix-noel-2026/Intro_3D/sorties/extrait_v7.mp4"
+}
