@@ -1,0 +1,35 @@
+{
+  "_doc": "Contrat de montage du trailer V7 « Multivers → Ring » : SOURCE UNIQUE lue par camera_crescendo.js (image) et sound_v7_crescendo.py (son). Les instants des 15 écuries sont DÉDUITS (cumul des durées de vague) : ne jamais les écrire à la main.",
+  "version": "v7",
+  "duree": 120.0,
+  "fps": 60,
+  "actes": [
+    { "id": "I",   "debut": 0.0,   "fin": 11.0,  "titre": "Prologue cosmique — Rainbow Road" },
+    { "id": "II",  "debut": 11.0,  "fin": 53.0,  "titre": "Le Multivers des 15 écuries" },
+    { "id": "III", "debut": 53.0,  "fin": 69.0,  "titre": "Lâcher de la meute — caisses mystères" },
+    { "id": "IV",  "debut": 69.0,  "fin": 89.0,  "titre": "Les trois univers boss" },
+    { "id": "V",   "debut": 89.0,  "fin": 107.0, "titre": "Les pièges, la règle sacrée, les paris" },
+    { "id": "VI",  "debut": 107.0, "fin": 120.0, "titre": "Climax — Faites vos jeux" }
+  ],
+  "vagues": [
+    { "id": 1, "ecuries": [1, 2, 3, 4],                "duree_plan": 3.5, "nom": "Installer : Monde → Portail → Ring" },
+    { "id": 2, "ecuries": [5, 6, 7, 8, 9, 10],         "duree_plan": 2.7, "nom": "Nerveux : caméras rases" },
+    { "id": 3, "ecuries": [11, 12, 13, 14, 15],        "duree_plan": 2.1, "nom": "Rafale : les portails crépitent autour du Ring" }
+  ],
+  "fraction_monde": 0.55,
+  "fin_acte_II_ring_complet": 1.3,
+  "univers_boss": [
+    { "id": "gotham", "debut": 69.0, "fin": 75.0, "bolides": ["B16"] },
+    { "id": "f1",     "debut": 75.0, "fin": 82.0, "bolides": ["F01", "F02", "F03", "F04", "F05"] },
+    { "id": "apoca",  "debut": 82.0, "fin": 89.0, "bolides": ["N12", "N13"] }
+  ],
+  "tempo": [[0, 66], [11, 78], [25, 98], [41.2, 124], [53, 132], [69, 128], [89, 136], [107, 150], [120, 150]],
+  "_tempo_doc": "Pouls / lit de basses en accelerando : [temps_s, bpm], interpolation linéaire entre points. Vague 1 → 98 bpm, vague 2 → 124, vague 3 → 132.",
+  "monde_par_ecurie": {
+    "1": "Route 66 country, étincelles",  "2": "Vallée sucrée, pluie de bonbons",  "3": "Stroboscope, arcs électriques",
+    "4": "Tapis de cartes en lévitation", "5": "Saut parabolique, château",       "6": "Scène symphonique, portées lumineuses",
+    "7": "Forêt ancienne, rayon sacré",   "8": "Autoroute sous la pluie, dépanneuse", "9": "Piqué stratosphérique, comète pourpre",
+    "10": "Éclipse rouge sang, monolithes", "11": "Observatoire stellaire",          "12": "Caire crépusculaire, kanjis",
+    "13": "Col de montagne, drift néon",   "14": "Grille néon, encre 360°",          "15": "Jardin impérial, pétales"
+  }
+}
