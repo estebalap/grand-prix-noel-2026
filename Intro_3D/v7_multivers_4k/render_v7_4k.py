@@ -144,6 +144,7 @@ async def main():
     ap.add_argument('--gpu', action='store_true', help='ANGLE matériel (d3d11), fenêtre visible : PC d\'Esteban')
     ap.add_argument('--cloud', action='store_true', help='Chromium headless SwiftShader (sans GPU)')
     ap.add_argument('--format', choices=['png', 'jpeg'], default='png'); ap.add_argument('--reprendre', action='store_true')
+    ap.add_argument('--parc', type=int, default=None, help='nombre de bolides du parc de l\'acte VI (défaut : 60 en master, 24 en aperçu) ; 24 divise le temps de rendu de l\'acte VI')
     ap.add_argument('--images', default=None, help='dossier de travail : écrit les images (reprise possible) au lieu du tube stdin')
     ap.add_argument('--extrait', nargs='*', type=float, default=None, metavar='T', help='[DEBUT FIN] : court MP4 de démonstration (défaut 0 12) en apercu_cloud')
     ap.add_argument('--sans-planche', action='store_true'); ap.add_argument('--tolerer-son', action='store_true')
@@ -185,7 +186,7 @@ async def main():
             page.on('console', lambda m: filtre(f'{m.type} : {m.text}') if m.type in ('error', 'warning') else None)
             # V7.1 : toute ressource en échec est nommée (URL + statut) : « Failed to load resource » seul ne dit pas laquelle
             page.on('response', lambda r: erreurs.append(f'ressource {r.status} : {r.url}') if r.status >= 400 else None)
-            await page.goto(f'http://127.0.0.1:{port}/{page_url}?capture=1&l={L}&sub={sub}&qualite={qualite_page}')
+            await page.goto(f'http://127.0.0.1:{port}/{page_url}?capture=1&l={L}&sub={sub}&qualite={qualite_page}' + (f'&parc={a.parc}' if a.parc else ''))
             print(f'Chargement de la page ({L}x{H}, sous-expositions {sub}, qualité {qualite_page}) ...', flush=True)
             await page.wait_for_function('window.pret === true || !!window.erreurFilm', timeout=900000)
             e = await page.evaluate('window.erreurFilm || null')
