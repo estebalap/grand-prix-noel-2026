@@ -196,7 +196,7 @@
    "impact": 15.5,
    "fin": 17.0,
    "source": "reel",
-   "fin_nom_annonce": 15.87,
+   "fin_nom_annonce": 15.9,
    "signature": {
     "sources": [
      "themes_ecuries/01_jerry_reed_country.mp3"
@@ -205,16 +205,16 @@
      "voix/mimine_voix_cassee.mp3"
     ],
     "eclat_dans_extrait_s": 0.0,
-    "t_debut": 14.97,
-    "t_eclat": 15.97,
+    "t_debut": 15.0,
+    "t_eclat": 16.0,
     "remontee": [
-     15.87,
-     15.96
+     15.9,
+     15.99
     ],
     "t_fin": 17.85,
     "fondu_entree": [
-     14.97,
-     15.27
+     15.0,
+     15.3
     ],
     "fondu_sortie": [
      16.9,
@@ -230,18 +230,18 @@
    "impact": 18.5,
    "fin": 20.0,
    "source": "reel",
-   "fin_nom_annonce": 19.54,
+   "fin_nom_annonce": 19.57,
    "signature": {
     "sources": [
      "themes_ecuries/02_candy_crush_sweet.mp3"
     ],
     "voix_speciales_retirees": [],
     "eclat_dans_extrait_s": 0.1882,
-    "t_debut": 19.4518,
-    "t_eclat": 19.64,
+    "t_debut": 19.4818,
+    "t_eclat": 19.67,
     "remontee": [
-     19.54,
-     19.63
+     19.57,
+     19.66
     ],
     "t_fin": 20.85,
     "fondu_entree": [
@@ -262,18 +262,18 @@
    "impact": 21.5,
    "fin": 23.0,
    "source": "reel",
-   "fin_nom_annonce": 21.97,
+   "fin_nom_annonce": 21.86,
    "signature": {
     "sources": [
      "themes_ecuries/03_blur_song_2_woohoo.mp3"
     ],
     "voix_speciales_retirees": [],
     "eclat_dans_extrait_s": 0.2315,
-    "t_debut": 20.8385,
-    "t_eclat": 22.07,
+    "t_debut": 20.7285,
+    "t_eclat": 21.96,
     "remontee": [
-     21.97,
-     22.06
+     21.86,
+     21.95
     ],
     "t_fin": 23.85,
     "fondu_entree": [
@@ -294,18 +294,18 @@
    "impact": 24.5,
    "fin": 26.0,
    "source": "reel",
-   "fin_nom_annonce": 24.96,
+   "fin_nom_annonce": 24.9,
    "signature": {
     "sources": [
      "themes_ecuries/04_balatro_theme.mp3"
     ],
     "voix_speciales_retirees": [],
     "eclat_dans_extrait_s": 0.2624,
-    "t_debut": 24.7976,
-    "t_eclat": 25.06,
+    "t_debut": 24.7376,
+    "t_eclat": 25.0,
     "remontee": [
-     24.96,
-     25.05
+     24.9,
+     24.99
     ],
     "t_fin": 26.85,
     "fondu_entree": [
@@ -326,7 +326,7 @@
    "impact": 27.5,
    "fin": 29.0,
    "source": "reel",
-   "fin_nom_annonce": 27.88,
+   "fin_nom_annonce": 27.89,
    "signature": {
     "sources": [
      "themes_ecuries/05_mario_fall_waaah.mp3"
@@ -336,12 +336,12 @@
     ],
     "eclat_dans_extrait_s": 2.2,
     "t_debut": 25.9,
-    "t_eclat": 27.98,
+    "t_eclat": 27.99,
     "remontee": [
-     27.88,
-     27.97
+     27.89,
+     27.98
     ],
-    "t_fin": 29.23,
+    "t_fin": 29.24,
     "fondu_entree": [
      25.9,
      26.6
@@ -360,18 +360,18 @@
    "impact": 30.5,
    "fin": 32.0,
    "source": "reel",
-   "fin_nom_annonce": 31.28,
+   "fin_nom_annonce": 31.14,
    "signature": {
     "sources": [
      "themes_ecuries/06_peter_fox_alles_neu_symphonie.mp3"
     ],
     "voix_speciales_retirees": [],
     "eclat_dans_extrait_s": 0.0881,
-    "t_debut": 30.2919,
-    "t_eclat": 31.38,
+    "t_debut": 30.1519,
+    "t_eclat": 31.24,
     "remontee": [
-     31.28,
-     31.37
+     31.14,
+     31.23
     ],
     "t_fin": 32.85,
     "fondu_entree": [
@@ -424,18 +424,18 @@
    "impact": 36.5,
    "fin": 38.0,
    "source": "reel",
-   "fin_nom_annonce": 36.82,
+   "fin_nom_annonce": 36.86,
    "signature": {
     "sources": [
      "themes_ecuries/08_metroid_item_acquisition.mp3"
     ],
     "voix_speciales_retirees": [],
     "eclat_dans_extrait_s": 0.038,
-    "t_debut": 36.782,
-    "t_eclat": 36.92,
+    "t_debut": 36.822,
+    "t_eclat": 36.96,
     "remontee": [
-     36.82,
-     36.91
+     36.86,
+     36.95
     ],
     "t_fin": 38.85,
     "fondu_entree": [
@@ -456,18 +456,18 @@
    "impact": 39.5,
    "fin": 41.0,
    "source": "reel",
-   "fin_nom_annonce": 40.0,
+   "fin_nom_annonce": 40.06,
    "signature": {
     "sources": [
      "themes_ecuries/09_mh_valstrax_roar.mp3"
     ],
     "voix_speciales_retirees": [],
     "eclat_dans_extrait_s": 0.3233,
-    "t_debut": 39.5767,
-    "t_eclat": 40.1,
+    "t_debut": 39.6367,
+    "t_eclat": 40.16,
     "remontee": [
-     40.0,
-     40.09
+     40.06,
+     40.15
     ],
     "t_fin": 41.85,
     "fondu_entree": [
@@ -488,7 +488,7 @@
    "impact": 42.5,
    "fin": 44.0,
    "source": "reel",
-   "fin_nom_annonce": 43.08,
+   "fin_nom_annonce": 43.07,
    "signature": {
     "sources": [
      "themes_ecuries/10_berserk_guts_theme.mp3"
@@ -496,12 +496,12 @@
     "voix_speciales_retirees": [],
     "eclat_dans_extrait_s": 1.7699,
     "t_debut": 40.9,
-    "t_eclat": 43.18,
+    "t_eclat": 43.17,
     "remontee": [
-     43.08,
-     43.17
+     43.07,
+     43.16
     ],
-    "t_fin": 44.6601,
+    "t_fin": 44.6501,
     "fondu_entree": [
      40.9,
      41.6
@@ -520,18 +520,18 @@
    "impact": 45.5,
    "fin": 47.0,
    "source": "reel",
-   "fin_nom_annonce": 46.17,
+   "fin_nom_annonce": 46.08,
    "signature": {
     "sources": [
      "themes_ecuries/11_rosalina_harmonie_victory.mp3"
     ],
     "voix_speciales_retirees": [],
     "eclat_dans_extrait_s": 0.0974,
-    "t_debut": 46.1726,
-    "t_eclat": 46.27,
+    "t_debut": 46.0826,
+    "t_eclat": 46.18,
     "remontee": [
-     46.17,
-     46.26
+     46.08,
+     46.17
     ],
     "t_fin": 47.85,
     "fondu_entree": [
@@ -552,18 +552,18 @@
    "impact": 48.5,
    "fin": 50.0,
    "source": "reel",
-   "fin_nom_annonce": 48.88,
+   "fin_nom_annonce": 48.87,
    "signature": {
     "sources": [
      "themes_ecuries/12_jojo_kakyoin_rero.mp3"
     ],
     "voix_speciales_retirees": [],
     "eclat_dans_extrait_s": 0.2026,
-    "t_debut": 48.6774,
-    "t_eclat": 48.98,
+    "t_debut": 48.6674,
+    "t_eclat": 48.97,
     "remontee": [
-     48.88,
-     48.97
+     48.87,
+     48.96
     ],
     "t_fin": 50.85,
     "fondu_entree": [
@@ -584,18 +584,18 @@
    "impact": 51.5,
    "fin": 53.0,
    "source": "reel",
-   "fin_nom_annonce": 51.95,
+   "fin_nom_annonce": 51.88,
    "signature": {
     "sources": [
      "themes_ecuries/13_tokyo_drift_drumroll.mp3"
     ],
     "voix_speciales_retirees": [],
     "eclat_dans_extrait_s": 0.0577,
-    "t_debut": 51.9923,
-    "t_eclat": 52.05,
+    "t_debut": 51.9223,
+    "t_eclat": 51.98,
     "remontee": [
-     51.95,
-     52.04
+     51.88,
+     51.97
     ],
     "t_fin": 53.85,
     "fondu_entree": [
@@ -616,20 +616,20 @@
    "impact": 54.5,
    "fin": 56.0,
    "source": "reel",
-   "fin_nom_annonce": 55.23,
+   "fin_nom_annonce": 55.17,
    "signature": {
     "sources": [
      "themes_ecuries/14_splatoon_booyah.mp3"
     ],
     "voix_speciales_retirees": [],
     "eclat_dans_extrait_s": 0.0744,
-    "t_debut": 54.8056,
-    "t_eclat": 55.33,
+    "t_debut": 54.7456,
+    "t_eclat": 55.27,
     "remontee": [
-     55.23,
-     55.32
+     55.17,
+     55.26
     ],
-    "t_fin": 56.6056,
+    "t_fin": 56.5456,
     "fondu_entree": [
      52.9,
      53.6
@@ -648,20 +648,20 @@
    "impact": 57.5,
    "fin": 59.0,
    "source": "reel",
-   "fin_nom_annonce": 57.78,
+   "fin_nom_annonce": 57.85,
    "signature": {
     "sources": [
      "themes_ecuries/15_daisy_hi_im_daisy.mp3"
     ],
     "voix_speciales_retirees": [],
     "eclat_dans_extrait_s": 0.053,
-    "t_debut": 57.827,
-    "t_eclat": 57.88,
+    "t_debut": 57.897,
+    "t_eclat": 57.95,
     "remontee": [
-     57.78,
-     57.87
+     57.85,
+     57.94
     ],
-    "t_fin": 59.061,
+    "t_fin": 59.131,
     "fondu_entree": [
      55.9,
      56.6
@@ -736,26 +736,26 @@
    "texte": "Mesdames et messieurs… bienvenue dans le salon le plus festif de France !",
    "fichier": "voix_off/L01.mp3",
    "src": [
-    0.07,
-    4.9
+    0.01,
+    4.75
    ],
    "attaque": 1.2,
-   "fin": 6.03,
+   "fin": 5.94,
    "marge_db": 8.8,
-   "reduction_sidechain_db": -17.8
+   "reduction_sidechain_db": -16.4
   },
   {
    "id": "salon_arene",
-   "texte": "Mais ce soir… le salon se transforme… en ARÈNE !  (« arène » sur la plongée, 10,9 s)",
+   "texte": "Mais ce soir… le salon se transforme… en ARÈNE !  (« arène » ≈ 10,9 s, sur la plongée)",
    "fichier": "voix_off/L02.mp3",
    "src": [
     0,
-    3.92
+    4.18
    ],
-   "attaque": 7.93,
-   "fin": 11.85,
-   "marge_db": 8.7,
-   "reduction_sidechain_db": -14.3
+   "attaque": 7.7,
+   "fin": 11.88,
+   "marge_db": 8.9,
+   "reduction_sidechain_db": -11.4
   },
   {
    "id": "ecuries_intro",
@@ -763,24 +763,24 @@
    "fichier": "voix_off/L03.mp3",
    "src": [
     0.07,
-    1.53
+    1.81
    ],
    "attaque": 12.05,
-   "fin": 13.51,
-   "marge_db": 10.0,
-   "reduction_sidechain_db": -9.0
+   "fin": 13.79,
+   "marge_db": 9.1,
+   "reduction_sidechain_db": -11.2
   },
   {
    "id": "ecurie_01",
    "texte": "Petite Mimine Racing !",
    "fichier": "voix_off/L04.mp3",
    "src": [
-    0.09,
-    1.84
+    0.11,
+    1.89
    ],
    "attaque": 14.12,
-   "fin": 15.87,
-   "marge_db": 10.5,
+   "fin": 15.9,
+   "marge_db": 13.1,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -788,12 +788,12 @@
    "texte": "Twingo Oasis V16 Racing !",
    "fichier": "voix_off/L04.mp3",
    "src": [
-    2.29,
-    4.71
+    2.28,
+    4.73
    ],
    "attaque": 17.12,
-   "fin": 19.54,
-   "marge_db": 22.9,
+   "fin": 19.57,
+   "marge_db": 24.0,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -801,12 +801,12 @@
    "texte": "Optic-Breuillet Racing !",
    "fichier": "voix_off/L04.mp3",
    "src": [
-    5.14,
-    6.99
+    5.06,
+    6.8
    ],
    "attaque": 20.12,
-   "fin": 21.97,
-   "marge_db": 21.6,
+   "fin": 21.86,
+   "marge_db": 20.7,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -814,12 +814,12 @@
    "texte": "Tata Freddy Motorsport !",
    "fichier": "voix_off/L04.mp3",
    "src": [
-    7.38,
-    9.22
+    7.18,
+    8.96
    ],
    "attaque": 23.12,
-   "fin": 24.96,
-   "marge_db": 18.3,
+   "fin": 24.9,
+   "marge_db": 18.2,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -827,12 +827,12 @@
    "texte": "Super Mario Pression !",
    "fichier": "voix_off/L04.mp3",
    "src": [
-    9.55,
-    11.31
+    9.18,
+    10.95
    ],
    "attaque": 26.12,
-   "fin": 27.88,
-   "marge_db": 20.1,
+   "fin": 27.89,
+   "marge_db": 19.6,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -840,12 +840,12 @@
    "texte": "Scuderia Symphonie E-Tech !",
    "fichier": "voix_off/L04.mp3",
    "src": [
-    11.7,
-    13.86
+    11.26,
+    13.28
    ],
    "attaque": 29.12,
-   "fin": 31.28,
-   "marge_db": 24.4,
+   "fin": 31.14,
+   "marge_db": 24.1,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -853,12 +853,12 @@
    "texte": "Yaris 2 Invincible !",
    "fichier": "voix_off/L04.mp3",
    "src": [
-    14.19,
-    15.91
+    13.55,
+    15.27
    ],
    "attaque": 32.12,
    "fin": 33.84,
-   "marge_db": 16.8,
+   "marge_db": 17.1,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -866,12 +866,12 @@
    "texte": "A4 Oil Leaking !",
    "fichier": "voix_off/L04.mp3",
    "src": [
-    16.25,
-    17.95
+    15.61,
+    17.35
    ],
    "attaque": 35.12,
-   "fin": 36.82,
-   "marge_db": 16.2,
+   "fin": 36.86,
+   "marge_db": 16.4,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -879,12 +879,12 @@
    "texte": "Titou Wyvern SRT !",
    "fichier": "voix_off/L04.mp3",
    "src": [
-    18.26,
-    20.14
+    17.62,
+    19.56
    ],
    "attaque": 38.12,
-   "fin": 40.0,
-   "marge_db": 18.3,
+   "fin": 40.06,
+   "marge_db": 18.1,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -892,12 +892,12 @@
    "texte": "Doom Slayer Issue GP !",
    "fichier": "voix_off/L04.mp3",
    "src": [
-    20.43,
-    22.39
+    19.87,
+    21.82
    ],
    "attaque": 41.12,
-   "fin": 43.08,
-   "marge_db": 19.8,
+   "fin": 43.07,
+   "marge_db": 18.8,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -905,12 +905,12 @@
    "texte": "Milo's princess Vroom Vroom !",
    "fichier": "voix_off/L04.mp3",
    "src": [
-    22.69,
-    24.74
+    22.1,
+    24.06
    ],
    "attaque": 44.12,
-   "fin": 46.17,
-   "marge_db": 16.6,
+   "fin": 46.08,
+   "marge_db": 16.4,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -918,12 +918,12 @@
    "texte": "Bob's Bizarre Racing !",
    "fichier": "voix_off/L04.mp3",
    "src": [
-    24.94,
-    26.7
+    24.32,
+    26.07
    ],
    "attaque": 47.12,
-   "fin": 48.88,
-   "marge_db": 18.4,
+   "fin": 48.87,
+   "marge_db": 18.7,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -931,11 +931,11 @@
    "texte": "Jojo la Sirène Veloce !",
    "fichier": "voix_off/L04.mp3",
    "src": [
-    26.92,
-    28.75
+    26.3,
+    28.06
    ],
    "attaque": 50.12,
-   "fin": 51.95,
+   "fin": 51.88,
    "marge_db": 19.4,
    "reduction_sidechain_db": -8.0
   },
@@ -944,12 +944,12 @@
    "texte": "Ninja-Nissan Street Racing !",
    "fichier": "voix_off/L04.mp3",
    "src": [
-    29.03,
-    31.14
+    28.36,
+    30.41
    ],
    "attaque": 53.12,
-   "fin": 55.23,
-   "marge_db": 21.3,
+   "fin": 55.17,
+   "marge_db": 23.2,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -957,12 +957,12 @@
    "texte": "Princess Blooming Speed !",
    "fichier": "voix_off/L04.mp3",
    "src": [
-    31.34,
-    33.0
+    30.66,
+    32.39
    ],
    "attaque": 56.12,
-   "fin": 57.78,
-   "marge_db": 23.3,
+   "fin": 57.85,
+   "marge_db": 24.1,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -970,12 +970,12 @@
    "texte": "Et maintenant, à vous de jouer ! Sortez vos téléphones… qui va gagner ?",
    "fichier": "voix_off/L05.mp3",
    "src": [
-    0,
-    3.85
+    0.01,
+    3.75
    ],
    "attaque": 59.6,
-   "fin": 63.45,
-   "marge_db": 9.0,
+   "fin": 63.34,
+   "marge_db": 10.1,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -984,12 +984,12 @@
    "fichier": "voix_off/L06.mp3",
    "src": [
     0,
-    4.51
+    4.15
    ],
    "attaque": 65.8,
-   "fin": 70.31,
-   "marge_db": 8.9,
-   "reduction_sidechain_db": -9.7
+   "fin": 69.95,
+   "marge_db": 9.9,
+   "reduction_sidechain_db": -8.0
   },
   {
    "id": "meute",
@@ -997,63 +997,63 @@
    "fichier": "voix_off/L07.mp3",
    "src": [
     0.01,
-    2.23
+    2.26
    ],
    "attaque": 70.35,
-   "fin": 72.57,
-   "marge_db": 9.0,
-   "reduction_sidechain_db": -10.2
+   "fin": 72.6,
+   "marge_db": 9.2,
+   "reduction_sidechain_db": -8.0
   },
   {
    "id": "caisses",
    "texte": "Les caisses mystères s'ouvrent !",
    "fichier": "voix_off/L08.mp3",
    "src": [
-    0.01,
-    2.25
+    0.05,
+    2.2
    ],
-   "attaque": 74.45,
-   "fin": 76.69,
-   "marge_db": 9.0,
-   "reduction_sidechain_db": -13.6
+   "attaque": 74.25,
+   "fin": 76.4,
+   "marge_db": 8.7,
+   "reduction_sidechain_db": -8.0
   },
   {
    "id": "boss",
    "texte": "Attention… les boss débarquent !",
    "fichier": "voix_off/L09.mp3",
    "src": [
-    0.05,
-    2.72
+    0.08,
+    2.61
    ],
-   "attaque": 76.85,
-   "fin": 79.52,
+   "attaque": 76.45,
+   "fin": 78.98,
    "marge_db": 9.0,
-   "reduction_sidechain_db": -13.5
+   "reduction_sidechain_db": -9.3
   },
   {
    "id": "batmobile",
-   "texte": "… la Batmobile !",
+   "texte": "Et… la Batmobile !",
    "fichier": "voix_off/L09.mp3",
    "src": [
-    3.92,
-    5.29
+    3.0,
+    5.1
    ],
-   "attaque": 79.55,
-   "fin": 80.92,
-   "marge_db": 9.7,
-   "reduction_sidechain_db": -12.2
+   "attaque": 79.05,
+   "fin": 81.15,
+   "marge_db": 9.1,
+   "reduction_sidechain_db": -9.2
   },
   {
    "id": "piege_bascule",
    "texte": "La bascule !",
    "fichier": "voix_off/L10.mp3",
    "src": [
-    0,
-    1.03
+    0.05,
+    1.1
    ],
-   "attaque": 81.14,
-   "fin": 82.17,
-   "marge_db": 15.8,
+   "attaque": 81.24,
+   "fin": 82.29,
+   "marge_db": 17.4,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -1061,12 +1061,12 @@
    "texte": "La pelote !",
    "fichier": "voix_off/L10.mp3",
    "src": [
-    1.3,
-    2.39
+    1.29,
+    2.33
    ],
-   "attaque": 82.473,
-   "fin": 83.563,
-   "marge_db": 13.2,
+   "attaque": 82.573,
+   "fin": 83.613,
+   "marge_db": 15.8,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -1074,25 +1074,25 @@
    "texte": "L'obus !",
    "fichier": "voix_off/L10.mp3",
    "src": [
-    2.65,
-    3.34
+    2.53,
+    3.33
    ],
-   "attaque": 83.807,
-   "fin": 84.497,
+   "attaque": 83.907,
+   "fin": 84.707,
    "marge_db": 9.0,
-   "reduction_sidechain_db": -8.6
+   "reduction_sidechain_db": -9.3
   },
   {
    "id": "piege_curling",
    "texte": "Le curling !",
    "fichier": "voix_off/L10.mp3",
    "src": [
-    3.7,
-    4.78
+    3.59,
+    4.7
    ],
-   "attaque": 85.14,
-   "fin": 86.22,
-   "marge_db": 13.9,
+   "attaque": 85.24,
+   "fin": 86.35,
+   "marge_db": 17.6,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -1100,25 +1100,25 @@
    "texte": "Le boulet !",
    "fichier": "voix_off/L10.mp3",
    "src": [
-    5.0,
-    5.88
+    4.87,
+    5.74
    ],
-   "attaque": 86.473,
-   "fin": 87.353,
+   "attaque": 86.573,
+   "fin": 87.443,
    "marge_db": 9.0,
-   "reduction_sidechain_db": -11.6
+   "reduction_sidechain_db": -11.0
   },
   {
    "id": "piege_bowling",
    "texte": "Le bowling !",
    "fichier": "voix_off/L10.mp3",
    "src": [
-    6.19,
-    7.31
+    5.98,
+    7.04
    ],
-   "attaque": 87.807,
-   "fin": 88.927,
-   "marge_db": 10.0,
+   "attaque": 87.907,
+   "fin": 88.967,
+   "marge_db": 11.3,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -1126,12 +1126,12 @@
    "texte": "Quarante et un millimètres…",
    "fichier": "voix_off/L11.mp3",
    "src": [
-    0.05,
-    1.61
+    0.07,
+    1.59
    ],
-   "attaque": 88.95,
-   "fin": 90.51,
-   "marge_db": 11.7,
+   "attaque": 89.02,
+   "fin": 90.54,
+   "marge_db": 12.9,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -1139,12 +1139,12 @@
    "texte": "sinon :",
    "fichier": "voix_off/L11.mp3",
    "src": [
-    1.77,
-    2.34
+    1.69,
+    2.19
    ],
-   "attaque": 90.52,
+   "attaque": 90.59,
    "fin": 91.09,
-   "marge_db": 10.4,
+   "marge_db": 14.2,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -1152,12 +1152,12 @@
    "texte": "éjection !  (sur l'éjection, 91,2 s)",
    "fichier": "voix_off/L11.mp3",
    "src": [
-    2.63,
-    3.35
+    2.48,
+    3.17
    ],
-   "attaque": 91.15,
-   "fin": 91.87,
-   "marge_db": 9.2,
+   "attaque": 91.14,
+   "fin": 91.83,
+   "marge_db": 10.5,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -1165,12 +1165,12 @@
    "texte": "Dernier sprint ! Tout le monde fonce vers la ligne…",
    "fichier": "voix_off/L12.mp3",
    "src": [
-    0.02,
-    3.05
+    0.08,
+    3.08
    ],
    "attaque": 93.3,
-   "fin": 96.33,
-   "marge_db": 10.2,
+   "fin": 96.3,
+   "marge_db": 11.1,
    "reduction_sidechain_db": -8.0
   },
   {
@@ -1178,77 +1178,77 @@
    "texte": "… et c'est la photo-finish !",
    "fichier": "voix_off/L13.mp3",
    "src": [
-    0,
-    2.14
+    0.01,
+    2.11
    ],
-   "attaque": 99.05,
-   "fin": 101.19,
+   "attaque": 99.03,
+   "fin": 101.13,
    "marge_db": 8.9,
-   "reduction_sidechain_db": -11.0
+   "reduction_sidechain_db": -9.4
   },
   {
    "id": "final_titre",
    "texte": "Le Grand Prix de Noël… le vingt-trois décembre…",
    "fichier": "voix_off/L14.mp3",
    "src": [
-    0,
-    3.37
+    0.07,
+    3.31
    ],
-   "attaque": 102.75,
-   "fin": 106.12,
-   "marge_db": 9.0,
-   "reduction_sidechain_db": -11.0
+   "attaque": 102.65,
+   "fin": 105.89,
+   "marge_db": 8.9,
+   "reduction_sidechain_db": -10.9
   },
   {
    "id": "final_paris",
    "texte": "À vos paris !",
    "fichier": "voix_off/L14.mp3",
    "src": [
-    3.6,
-    4.38
+    3.54,
+    4.41
    ],
-   "attaque": 106.18,
-   "fin": 106.96,
-   "marge_db": 16.5,
+   "attaque": 106.01,
+   "fin": 106.88,
+   "marge_db": 15.3,
    "reduction_sidechain_db": -8.0
   }
  ],
  "voix": [
   [
    1.2,
-   6.03
+   5.94
   ],
   [
-   7.93,
-   11.85
+   7.7,
+   11.88
   ],
   [
    12.05,
-   13.51
+   13.79
   ],
   [
    14.12,
-   15.87
+   15.9
   ],
   [
    17.12,
-   19.54
+   19.57
   ],
   [
    20.12,
-   21.97
+   21.86
   ],
   [
    23.12,
-   24.96
+   24.9
   ],
   [
    26.12,
-   27.88
+   27.89
   ],
   [
    29.12,
-   31.28
+   31.14
   ],
   [
    32.12,
@@ -1256,121 +1256,121 @@
   ],
   [
    35.12,
-   36.82
+   36.86
   ],
   [
    38.12,
-   40.0
+   40.06
   ],
   [
    41.12,
-   43.08
+   43.07
   ],
   [
    44.12,
-   46.17
+   46.08
   ],
   [
    47.12,
-   48.88
+   48.87
   ],
   [
    50.12,
-   51.95
+   51.88
   ],
   [
    53.12,
-   55.23
+   55.17
   ],
   [
    56.12,
-   57.78
+   57.85
   ],
   [
    59.6,
-   63.45
+   63.34
   ],
   [
    65.8,
-   70.31
+   69.95
   ],
   [
    70.35,
-   72.57
+   72.6
   ],
   [
-   74.45,
-   76.69
+   74.25,
+   76.4
   ],
   [
-   76.85,
-   79.52
+   76.45,
+   78.98
   ],
   [
-   79.55,
-   80.92
+   79.05,
+   81.15
   ],
   [
-   81.14,
-   82.17
+   81.24,
+   82.29
   ],
   [
-   82.473,
-   83.563
+   82.573,
+   83.613
   ],
   [
-   83.807,
-   84.497
+   83.907,
+   84.707
   ],
   [
-   85.14,
-   86.22
+   85.24,
+   86.35
   ],
   [
-   86.473,
-   87.353
+   86.573,
+   87.443
   ],
   [
-   87.807,
-   88.927
+   87.907,
+   88.967
   ],
   [
-   88.95,
-   90.51
+   89.02,
+   90.54
   ],
   [
-   90.52,
+   90.59,
    91.09
   ],
   [
-   91.15,
-   91.87
+   91.14,
+   91.83
   ],
   [
    93.3,
-   96.33
+   96.3
   ],
   [
-   99.05,
-   101.19
+   99.03,
+   101.13
   ],
   [
-   102.75,
-   106.12
+   102.65,
+   105.89
   ],
   [
-   106.18,
-   106.96
+   106.01,
+   106.88
   ]
  ],
  "mix": {
   "fichier": "audio/mix_v8.wav",
   "frequence_hz": 44100,
   "canaux": 2,
-  "gain_master_db": -3.61,
+  "gain_master_db": -5.77,
   "lufs_approx": -16.0,
-  "crete_dbfs": -2.66,
-  "niveau_50_dernieres_ms_dbfs": -35.8,
+  "crete_dbfs": -3.91,
+  "niveau_50_dernieres_ms_dbfs": -180.0,
   "methode_lufs": "V7 : pondération K approchée par FFT (passe-haut 38 Hz + étagère +4 dB à 1,7 kHz), blocs 400 ms, portes -70 LUFS / -10 LU"
  },
  "bilan": {
