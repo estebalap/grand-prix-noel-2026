@@ -1,0 +1,338 @@
+{
+ "voix": "ElevenLabs « Alexx-V » (eleven_v4), générée le 31 oct. 2026 pour la V8",
+ "pieces": [
+  {
+   "id": "salon_accueil",
+   "fichier": "voix_off/L01.mp3",
+   "src_debut": 0.07,
+   "src_fin": 4.9,
+   "t_film": 1.2,
+   "fin_film": 5.97,
+   "texte": "Mesdames et messieurs… bienvenue dans le salon le plus festif de France !"
+  },
+  {
+   "id": "salon_arene",
+   "fichier": "voix_off/L02.mp3",
+   "src_debut": 0,
+   "src_fin": 3.92,
+   "t_film": 7.93,
+   "fin_film": 11.79,
+   "texte": "Mais ce soir… le salon se transforme… en ARÈNE !  (« arène » sur la plongée, 10,9 s)"
+  },
+  {
+   "id": "ecuries_intro",
+   "fichier": "voix_off/L03.mp3",
+   "src_debut": 0.07,
+   "src_fin": 1.53,
+   "t_film": 12.05,
+   "fin_film": 13.45,
+   "texte": "Place aux quinze écuries !"
+  },
+  {
+   "id": "ecurie_01",
+   "fichier": "voix_off/L04.mp3",
+   "src_debut": 0.09,
+   "src_fin": 1.84,
+   "t_film": 14.12,
+   "fin_film": 15.81,
+   "texte": "Petite Mimine Racing !"
+  },
+  {
+   "id": "ecurie_02",
+   "fichier": "voix_off/L04.mp3",
+   "src_debut": 2.29,
+   "src_fin": 4.71,
+   "t_film": 17.12,
+   "fin_film": 19.48,
+   "texte": "Twingo Oasis V16 Racing !"
+  },
+  {
+   "id": "ecurie_03",
+   "fichier": "voix_off/L04.mp3",
+   "src_debut": 5.14,
+   "src_fin": 6.99,
+   "t_film": 20.12,
+   "fin_film": 21.91,
+   "texte": "Optic-Breuillet Racing !"
+  },
+  {
+   "id": "ecurie_04",
+   "fichier": "voix_off/L04.mp3",
+   "src_debut": 7.38,
+   "src_fin": 9.22,
+   "t_film": 23.12,
+   "fin_film": 24.9,
+   "texte": "Tata Freddy Motorsport !"
+  },
+  {
+   "id": "ecurie_05",
+   "fichier": "voix_off/L04.mp3",
+   "src_debut": 9.55,
+   "src_fin": 11.31,
+   "t_film": 26.12,
+   "fin_film": 27.82,
+   "texte": "Super Mario Pression !"
+  },
+  {
+   "id": "ecurie_06",
+   "fichier": "voix_off/L04.mp3",
+   "src_debut": 11.7,
+   "src_fin": 13.86,
+   "t_film": 29.12,
+   "fin_film": 31.22,
+   "texte": "Scuderia Symphonie E-Tech !"
+  },
+  {
+   "id": "ecurie_07",
+   "fichier": "voix_off/L04.mp3",
+   "src_debut": 14.19,
+   "src_fin": 15.91,
+   "t_film": 32.12,
+   "fin_film": 33.78,
+   "texte": "Yaris 2 Invincible !"
+  },
+  {
+   "id": "ecurie_08",
+   "fichier": "voix_off/L04.mp3",
+   "src_debut": 16.25,
+   "src_fin": 17.95,
+   "t_film": 35.12,
+   "fin_film": 36.76,
+   "texte": "A4 Oil Leaking !"
+  },
+  {
+   "id": "ecurie_09",
+   "fichier": "voix_off/L04.mp3",
+   "src_debut": 18.26,
+   "src_fin": 20.14,
+   "t_film": 38.12,
+   "fin_film": 39.94,
+   "texte": "Titou Wyvern SRT !"
+  },
+  {
+   "id": "ecurie_10",
+   "fichier": "voix_off/L04.mp3",
+   "src_debut": 20.43,
+   "src_fin": 22.39,
+   "t_film": 41.12,
+   "fin_film": 43.02,
+   "texte": "Doom Slayer Issue GP !"
+  },
+  {
+   "id": "ecurie_11",
+   "fichier": "voix_off/L04.mp3",
+   "src_debut": 22.69,
+   "src_fin": 24.74,
+   "t_film": 44.12,
+   "fin_film": 46.11,
+   "texte": "Milo's princess Vroom Vroom !"
+  },
+  {
+   "id": "ecurie_12",
+   "fichier": "voix_off/L04.mp3",
+   "src_debut": 24.94,
+   "src_fin": 26.7,
+   "t_film": 47.12,
+   "fin_film": 48.82,
+   "texte": "Bob's Bizarre Racing !"
+  },
+  {
+   "id": "ecurie_13",
+   "fichier": "voix_off/L04.mp3",
+   "src_debut": 26.92,
+   "src_fin": 28.75,
+   "t_film": 50.12,
+   "fin_film": 51.89,
+   "texte": "Jojo la Sirène Veloce !"
+  },
+  {
+   "id": "ecurie_14",
+   "fichier": "voix_off/L04.mp3",
+   "src_debut": 29.03,
+   "src_fin": 31.14,
+   "t_film": 53.12,
+   "fin_film": 55.17,
+   "texte": "Ninja-Nissan Street Racing !"
+  },
+  {
+   "id": "ecurie_15",
+   "fichier": "voix_off/L04.mp3",
+   "src_debut": 31.34,
+   "src_fin": 33.0,
+   "t_film": 56.12,
+   "fin_film": 57.72,
+   "texte": "Princess Blooming Speed !"
+  },
+  {
+   "id": "paris_telephone",
+   "fichier": "voix_off/L05.mp3",
+   "src_debut": 0,
+   "src_fin": 3.85,
+   "t_film": 59.6,
+   "fin_film": 63.39,
+   "texte": "Et maintenant, à vous de jouer ! Sortez vos téléphones… qui va gagner ?"
+  },
+  {
+   "id": "paris_carnet",
+   "fichier": "voix_off/L06.mp3",
+   "src_debut": 0,
+   "src_fin": 4.51,
+   "t_film": 65.8,
+   "fin_film": 70.25,
+   "texte": "Pas de téléphone ? Pas de panique : on parie au carnet, à l'ancienne !"
+  },
+  {
+   "id": "meute",
+   "fichier": "voix_off/L07.mp3",
+   "src_debut": 0.01,
+   "src_fin": 2.23,
+   "t_film": 70.35,
+   "fin_film": 72.51,
+   "texte": "Cinq voies… et c'est parti !"
+  },
+  {
+   "id": "caisses",
+   "fichier": "voix_off/L08.mp3",
+   "src_debut": 0.01,
+   "src_fin": 2.25,
+   "t_film": 74.45,
+   "fin_film": 76.63,
+   "texte": "Les caisses mystères s'ouvrent !"
+  },
+  {
+   "id": "boss",
+   "fichier": "voix_off/L09.mp3",
+   "src_debut": 0.05,
+   "src_fin": 2.72,
+   "t_film": 76.85,
+   "fin_film": 79.46,
+   "texte": "Attention… les boss débarquent !"
+  },
+  {
+   "id": "batmobile",
+   "fichier": "voix_off/L09.mp3",
+   "src_debut": 3.92,
+   "src_fin": 5.29,
+   "t_film": 79.55,
+   "fin_film": 80.86,
+   "texte": "… la Batmobile !"
+  },
+  {
+   "id": "piege_bascule",
+   "fichier": "voix_off/L10.mp3",
+   "src_debut": 0,
+   "src_fin": 1.03,
+   "t_film": 81.14,
+   "fin_film": 82.11,
+   "texte": "La bascule !"
+  },
+  {
+   "id": "piege_pelote",
+   "fichier": "voix_off/L10.mp3",
+   "src_debut": 1.3,
+   "src_fin": 2.39,
+   "t_film": 82.473,
+   "fin_film": 83.503,
+   "texte": "La pelote !"
+  },
+  {
+   "id": "piege_obus",
+   "fichier": "voix_off/L10.mp3",
+   "src_debut": 2.65,
+   "src_fin": 3.34,
+   "t_film": 83.807,
+   "fin_film": 84.437,
+   "texte": "L'obus !"
+  },
+  {
+   "id": "piege_curling",
+   "fichier": "voix_off/L10.mp3",
+   "src_debut": 3.7,
+   "src_fin": 4.78,
+   "t_film": 85.14,
+   "fin_film": 86.16,
+   "texte": "Le curling !"
+  },
+  {
+   "id": "piege_boulet",
+   "fichier": "voix_off/L10.mp3",
+   "src_debut": 5.0,
+   "src_fin": 5.88,
+   "t_film": 86.473,
+   "fin_film": 87.293,
+   "texte": "Le boulet !"
+  },
+  {
+   "id": "piege_bowling",
+   "fichier": "voix_off/L10.mp3",
+   "src_debut": 6.19,
+   "src_fin": 7.31,
+   "t_film": 87.807,
+   "fin_film": 88.867,
+   "texte": "Le bowling !"
+  },
+  {
+   "id": "regle_41",
+   "fichier": "voix_off/L11.mp3",
+   "src_debut": 0.05,
+   "src_fin": 1.61,
+   "t_film": 88.95,
+   "fin_film": 90.45,
+   "texte": "Quarante et un millimètres…"
+  },
+  {
+   "id": "regle_sinon",
+   "fichier": "voix_off/L11.mp3",
+   "src_debut": 1.77,
+   "src_fin": 2.34,
+   "t_film": 90.52,
+   "fin_film": 91.03,
+   "texte": "sinon :"
+  },
+  {
+   "id": "regle_ejection",
+   "fichier": "voix_off/L11.mp3",
+   "src_debut": 2.63,
+   "src_fin": 3.35,
+   "t_film": 91.15,
+   "fin_film": 91.81,
+   "texte": "éjection !  (sur l'éjection, 91,2 s)"
+  },
+  {
+   "id": "sprint",
+   "fichier": "voix_off/L12.mp3",
+   "src_debut": 0.02,
+   "src_fin": 3.05,
+   "t_film": 93.3,
+   "fin_film": 96.27,
+   "texte": "Dernier sprint ! Tout le monde fonce vers la ligne…"
+  },
+  {
+   "id": "photo_finish",
+   "fichier": "voix_off/L13.mp3",
+   "src_debut": 0,
+   "src_fin": 2.14,
+   "t_film": 99.05,
+   "fin_film": 101.13,
+   "texte": "… et c'est la photo-finish !"
+  },
+  {
+   "id": "final_titre",
+   "fichier": "voix_off/L14.mp3",
+   "src_debut": 0,
+   "src_fin": 3.37,
+   "t_film": 102.75,
+   "fin_film": 106.06,
+   "texte": "Le Grand Prix de Noël… le vingt-trois décembre…"
+  },
+  {
+   "id": "final_paris",
+   "fichier": "voix_off/L14.mp3",
+   "src_debut": 3.6,
+   "src_fin": 4.38,
+   "t_film": 106.18,
+   "fin_film": 106.9,
+   "texte": "À vos paris !"
+  }
+ ]
+}

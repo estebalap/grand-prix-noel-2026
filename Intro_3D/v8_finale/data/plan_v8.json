@@ -1,7 +1,7 @@
 {
  "version": "v8",
  "titre": "Grand Prix de Noël — V8 Finale",
- "duree": 92.0,
+ "duree": 107.0,
  "fps": 60,
  "regles_ui": {
   "surface_max": 0.2,
@@ -36,13 +36,13 @@
    "id": "ecuries",
    "module": "seg_ecuries.js",
    "debut": 14.0,
-   "fin": 44.0
+   "fin": 59.0
   },
   {
    "id": "folie",
    "module": "seg_folie.js",
-   "debut": 44.0,
-   "fin": 92.0,
+   "debut": 59.0,
+   "fin": 107.0,
    "sous": [
     {
      "id": "paris",
@@ -84,7 +84,9 @@
      "debut": 88.0,
      "fin": 92.0
     }
-   ]
+   ],
+   "origine": 44.0,
+   "note": "sous-parties et pièges en temps INTERNE (origine 44) ; temps film = interne + 15 s"
   }
  ],
  "ecuries": [
@@ -93,120 +95,120 @@
    "id": 1,
    "nom": "Petite Mimine Racing",
    "debut": 14.0,
-   "impact": 14.8,
-   "fin": 16.0
+   "impact": 15.5,
+   "fin": 17.0
   },
   {
    "k": 1,
    "id": 2,
    "nom": "Twingo Oasis V16 Racing",
-   "debut": 16.0,
-   "impact": 16.8,
-   "fin": 18.0
+   "debut": 17.0,
+   "impact": 18.5,
+   "fin": 20.0
   },
   {
    "k": 2,
    "id": 3,
    "nom": "Optic-Breuillet Racing",
-   "debut": 18.0,
-   "impact": 18.8,
-   "fin": 20.0
+   "debut": 20.0,
+   "impact": 21.5,
+   "fin": 23.0
   },
   {
    "k": 3,
    "id": 4,
    "nom": "Tata Freddy Motorsport",
-   "debut": 20.0,
-   "impact": 20.8,
-   "fin": 22.0
+   "debut": 23.0,
+   "impact": 24.5,
+   "fin": 26.0
   },
   {
    "k": 4,
    "id": 5,
    "nom": "Super Mario Pression",
-   "debut": 22.0,
-   "impact": 22.8,
-   "fin": 24.0
+   "debut": 26.0,
+   "impact": 27.5,
+   "fin": 29.0
   },
   {
    "k": 5,
    "id": 6,
    "nom": "Scuderia Symphonie E-Tech",
-   "debut": 24.0,
-   "impact": 24.8,
-   "fin": 26.0
+   "debut": 29.0,
+   "impact": 30.5,
+   "fin": 32.0
   },
   {
    "k": 6,
    "id": 7,
    "nom": "Yaris 2 Invincible",
-   "debut": 26.0,
-   "impact": 26.8,
-   "fin": 28.0
+   "debut": 32.0,
+   "impact": 33.5,
+   "fin": 35.0
   },
   {
    "k": 7,
    "id": 8,
    "nom": "A4 Oil Leaking",
-   "debut": 28.0,
-   "impact": 28.8,
-   "fin": 30.0
+   "debut": 35.0,
+   "impact": 36.5,
+   "fin": 38.0
   },
   {
    "k": 8,
    "id": 9,
    "nom": "Titou Wyvern SRT",
-   "debut": 30.0,
-   "impact": 30.8,
-   "fin": 32.0
+   "debut": 38.0,
+   "impact": 39.5,
+   "fin": 41.0
   },
   {
    "k": 9,
    "id": 10,
    "nom": "Doom Slayer Issue GP",
-   "debut": 32.0,
-   "impact": 32.8,
-   "fin": 34.0
+   "debut": 41.0,
+   "impact": 42.5,
+   "fin": 44.0
   },
   {
    "k": 10,
    "id": 11,
    "nom": "Milo's princess Vroom Vroom",
-   "debut": 34.0,
-   "impact": 34.8,
-   "fin": 36.0
+   "debut": 44.0,
+   "impact": 45.5,
+   "fin": 47.0
   },
   {
    "k": 11,
    "id": 12,
    "nom": "Bob's Bizarre Racing",
-   "debut": 36.0,
-   "impact": 36.8,
-   "fin": 38.0
+   "debut": 47.0,
+   "impact": 48.5,
+   "fin": 50.0
   },
   {
    "k": 12,
    "id": 13,
    "nom": "Jojo la Sirène Veloce",
-   "debut": 38.0,
-   "impact": 38.8,
-   "fin": 40.0
+   "debut": 50.0,
+   "impact": 51.5,
+   "fin": 53.0
   },
   {
    "k": 13,
    "id": 14,
    "nom": "Ninja-Nissan Street Racing",
-   "debut": 40.0,
-   "impact": 40.8,
-   "fin": 42.0
+   "debut": 53.0,
+   "impact": 54.5,
+   "fin": 56.0
   },
   {
    "k": 14,
    "id": 15,
    "nom": "Princess Blooming Speed",
-   "debut": 42.0,
-   "impact": 42.8,
-   "fin": 44.0
+   "debut": 56.0,
+   "impact": 57.5,
+   "fin": 59.0
   }
  ],
  "pieges": [
@@ -214,37 +216,43 @@
    "rig": "bascule",
    "debut": 66.0,
    "contact": 66.64,
-   "fin": 67.3333
+   "fin": 67.3333,
+   "contact_film": 81.64
   },
   {
    "rig": "pelote",
    "debut": 67.3333,
    "contact": 67.9733,
-   "fin": 68.6667
+   "fin": 68.6667,
+   "contact_film": 82.9733
   },
   {
    "rig": "obus",
    "debut": 68.6667,
    "contact": 69.3067,
-   "fin": 70.0
+   "fin": 70.0,
+   "contact_film": 84.3067
   },
   {
    "rig": "curling",
    "debut": 70.0,
    "contact": 70.64,
-   "fin": 71.3333
+   "fin": 71.3333,
+   "contact_film": 85.64
   },
   {
    "rig": "boulet",
    "debut": 71.3333,
    "contact": 71.9733,
-   "fin": 72.6667
+   "fin": 72.6667,
+   "contact_film": 86.9733
   },
   {
    "rig": "bowling",
    "debut": 72.6667,
    "contact": 73.3067,
-   "fin": 74.0
+   "fin": 74.0,
+   "contact_film": 88.3067
   }
  ],
  "reperes_son": {
@@ -255,13 +263,14 @@
   "tapis_ouverture": 8.6,
   "plongee_arene": 11.0,
   "arrivee_ring": 13.6,
-  "paris_pluie_pieces": 46.5,
-  "paris_bouton": 51.0,
-  "meute_depart": 55.0,
-  "caisses_ouverture": 60.2,
-  "boss_passage": 63.6,
-  "regle_ejection": 76.2,
-  "photo_finish": 86.0,
-  "carte_finale": 88.0
- }
+  "paris_pluie_pieces": 61.5,
+  "paris_bouton": 66.0,
+  "meute_depart": 70.0,
+  "caisses_ouverture": 75.2,
+  "boss_passage": 78.6,
+  "regle_ejection": 91.2,
+  "photo_finish": 101.0,
+  "carte_finale": 103.0
+ },
+ "decalage_folie": 15.0
 }

@@ -7,18 +7,18 @@
    Exactement 3 textes. Tout est tracé dans un repère virtuel 1920 × 1080 (g.scale(W / 1920)), entièrement sous la ligne
    y = 790 (la zone sacrée s'arrête à y = 756) : surface ≈ 7 % de l'écran.
 
-   Animation à chaque changement d'écurie (τ = t − début du créneau, créneau de 2,0 s) :
-     0,00 → 0,26 s  le badge jaillit (échelle « back-out », rotation −30° → −6°)
-     0,06 → 0,38 s  la plaque du nom glisse depuis la gauche avec un léger rebond
-     0,14 → 0,46 s  la ligne pilote · bolide suit
-     impact (0,8 s) le badge cogne au temps fort musical (coup d'échelle amorti)
-     1,88 → 2,00 s  sortie éclair vers le bas-gauche (la bannière suivante pop aussitôt) */
+   Animation DOUCE à chaque changement d'écurie (τ = t − début du créneau, durée D du créneau lue dans le plan) :
+     0,10 → 0,60 s  le badge s'ouvre (échelle 0,7 → 1, léger dépassement, rotation −14° → −6°) en fondu
+     0,18 → 0,70 s  la plaque du nom glisse depuis la gauche (easeOutCubic, sans rebond)
+     0,26 → 0,78 s  la ligne pilote · bolide suit
+     D − 0,45 → D − 0,15 s  sortie en fondu, glissement vers la gauche */
 
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 const C1 = 1.70158, C3 = C1 + 1;
 /** easeOutBack : dépasse légèrement 1 puis revient (rebond « pop ») */
 const backOut = (u) => { const k = clamp(u) - 1; return 1 + C3 * k * k * k + C1 * k * k; };
-const easeIn = (u) => { const k = clamp(u); return k * k * k; };
+const easeOut = (u) => { const k = 1 - clamp(u); return 1 - k * k * k; };
+const doux = (u) => { const k = clamp(u); return k * k * (3 - 2 * k); };
 
 /** Luminance relative approximative d'une couleur « #rrggbb » (choix du texte clair ou foncé sur la plaque) */
 function luminance(hex) {
@@ -54,19 +54,20 @@ export function creerBandeau({ equipes, infoConcept, logos = {} }) {
     };
   });
 
-  /** Dessine la bannière de l'écurie k ; τ = temps local du créneau, tImpact = instant du temps fort (local), duree = longueur du créneau */
-  function dessiner(g, W, H, k, tau, tImpact = 0.8, duree = 2.0) {
+  /** Dessine la bannière de l'écurie k ; τ = temps local du créneau, duree = longueur du créneau (plan_v8.json) */
+  function dessiner(g, W, H, k, tau, duree = 3.0) {
     const f = fiches[k]; if (!f) return;
     const s = W / 1920;
     g.save(); g.scale(s, s);
-    // sortie éclair commune (fin de créneau)
-    const sortie = easeIn((tau - (duree - 0.12)) / 0.12);
-    g.translate(-520 * sortie, 120 * sortie); g.globalAlpha = 1 - sortie;
+    if (tau < 0.1 || tau > duree - 0.15) { g.restore(); return; }
+    // sortie douce commune (fin de créneau)
+    const sortie = doux((tau - (duree - 0.45)) / 0.3);
+    g.translate(-160 * sortie, 0); g.globalAlpha = 1 - sortie;
 
     /* ── (3) ligne pilote · bolide ── */
-    const uL = backOut((tau - 0.14) / 0.32), dxL = -820 * (1 - uL);
-    if (tau > 0.14) {
-      g.save(); g.translate(dxL, 0);
+    const uL = easeOut((tau - 0.26) / 0.52), dxL = -420 * (1 - uL);
+    if (tau > 0.26) {
+      g.save(); g.translate(dxL, 0); g.globalAlpha *= doux(uL * 1.6);
       const fl = ajuster(g, f.ligne, 'Nunito', 900, 34, 600, 22);
       const wl = fl.largeur + 70, xl = 250, yl = 944, hl = 52;
       g.shadowColor = 'rgba(0,0,0,.55)'; g.shadowBlur = 14; g.shadowOffsetY = 4;
@@ -79,9 +80,9 @@ export function creerBandeau({ equipes, infoConcept, logos = {} }) {
     }
 
     /* ── (2) plaque du nom ── */
-    const uN = backOut((tau - 0.06) / 0.32), dxN = -900 * (1 - uN);
-    if (tau > 0.06) {
-      g.save(); g.translate(dxN, 0);
+    const uN = easeOut((tau - 0.18) / 0.52), dxN = -460 * (1 - uN);
+    if (tau > 0.18) {
+      g.save(); g.translate(dxN, 0); g.globalAlpha *= doux(uN * 1.6);
       const fn = ajuster(g, f.nom, 'Fredoka', 700, 66, 640, 34);
       const wn = fn.largeur + 96, xn = 236, yn = 846, hn = 92;
       g.shadowColor = 'rgba(0,0,0,.6)'; g.shadowBlur = 18; g.shadowOffsetY = 5;
@@ -98,11 +99,10 @@ export function creerBandeau({ equipes, infoConcept, logos = {} }) {
     }
 
     /* ── (1) badge #numéro (au premier plan) ── */
-    const uB = backOut(tau / 0.26), dI = tau - tImpact;
-    const coup = dI >= 0 ? 0.12 * Math.exp(-dI * 9) * Math.cos(dI * 30) : 0;     // coup amorti au temps fort
-    const echelle = Math.max(0.001, uB * (1 + coup)), rot = (-30 + 24 * clamp(tau / 0.26)) * Math.PI / 180;
-    if (tau > 0) {
-      g.save(); g.translate(150, 912); g.rotate(rot); g.scale(echelle, echelle);
+    const uB = clamp((tau - 0.1) / 0.5), sB = 0.7 + 0.3 * (1 + (backOut(uB) - 1) * 0.35);          // dépassement adouci (≈ 3 %)
+    const echelle = Math.max(0.001, sB), rot = (-14 + 8 * easeOut(uB)) * Math.PI / 180;
+    {
+      g.save(); g.translate(150, 912); g.rotate(rot); g.scale(echelle, echelle); g.globalAlpha *= doux(uB * 2);
       g.shadowColor = 'rgba(0,0,0,.6)'; g.shadowBlur = 22; g.shadowOffsetY = 6;
       carre(g, 104, 30); g.fillStyle = f.fonce; g.fill(); g.shadowColor = 'transparent';
       // fond : logo de l'écurie voilé de sa couleur (remplace l'aplat, n'ajoute aucun texte)

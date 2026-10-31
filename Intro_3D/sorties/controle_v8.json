@@ -1,6 +1,6 @@
 {
  "version": "v8",
- "date": "2026-10-31T16:05:46",
+ "date": "2026-10-31T21:03:25",
  "cles": [
   {
    "t": 4,
@@ -25,7 +25,7 @@
    "rejet": []
   },
   {
-   "t": 14.55,
+   "t": 14.99,
    "label": "Écurie #01 · Petite Mimine Racing",
    "groupe": "ecuries",
    "surface": 0.0787,
@@ -39,7 +39,7 @@
    "rejet": []
   },
   {
-   "t": 16.5,
+   "t": 17.99,
    "label": "Écurie #02 · Twingo Oasis V16 Racing",
    "groupe": "ecuries",
    "surface": 0.0774,
@@ -53,7 +53,7 @@
    "rejet": []
   },
   {
-   "t": 22.6,
+   "t": 26.99,
    "label": "Écurie #05 · Super Mario Pression",
    "groupe": "ecuries",
    "surface": 0.0757,
@@ -67,7 +67,7 @@
    "rejet": []
   },
   {
-   "t": 28.55,
+   "t": 35.99,
    "label": "Écurie #08 · A4 Oil Leaking",
    "groupe": "ecuries",
    "surface": 0.0709,
@@ -81,7 +81,7 @@
    "rejet": []
   },
   {
-   "t": 34.5,
+   "t": 46.55,
    "label": "Écurie #11 · Milo's princess Vroom Vroom",
    "groupe": "ecuries",
    "surface": 0.0765,
@@ -95,7 +95,7 @@
    "rejet": []
   },
   {
-   "t": 42.55,
+   "t": 58.55,
    "label": "Écurie #15 · Princess Blooming Speed",
    "groupe": "ecuries",
    "surface": 0.0759,
@@ -109,7 +109,7 @@
    "rejet": []
   },
   {
-   "t": 48.5,
+   "t": 63.5,
    "label": "Paris : smartphone + pluie de pièces",
    "groupe": "folie",
    "surface": 0,
@@ -119,7 +119,7 @@
    "rejet": []
   },
   {
-   "t": 57,
+   "t": 72,
    "label": "La meute sur les 5 voies",
    "groupe": "folie",
    "surface": 0,
@@ -129,7 +129,7 @@
    "rejet": []
   },
   {
-   "t": 60.8,
+   "t": 75.8,
    "label": "Caisses mystères",
    "groupe": "folie",
    "surface": 0.0242,
@@ -141,7 +141,7 @@
    "rejet": []
   },
   {
-   "t": 63.3,
+   "t": 78.3,
    "label": "Boss : F1 en flèche + Batmobile",
    "groupe": "folie",
    "surface": 0.0115,
@@ -153,7 +153,7 @@
    "rejet": []
   },
   {
-   "t": 66.78,
+   "t": 81.78,
    "label": "Piège : La bascule",
    "groupe": "folie",
    "surface": 0.0147,
@@ -165,7 +165,7 @@
    "rejet": []
   },
   {
-   "t": 68.113,
+   "t": 83.113,
    "label": "Piège : La pelote",
    "groupe": "folie",
    "surface": 0.013,
@@ -177,7 +177,7 @@
    "rejet": []
   },
   {
-   "t": 69.447,
+   "t": 84.447,
    "label": "Piège : L'obus",
    "groupe": "folie",
    "surface": 0.0087,
@@ -189,7 +189,7 @@
    "rejet": []
   },
   {
-   "t": 70.78,
+   "t": 85.78,
    "label": "Piège : Le curling",
    "groupe": "folie",
    "surface": 0.0143,
@@ -201,7 +201,7 @@
    "rejet": []
   },
   {
-   "t": 76.5,
+   "t": 91.5,
    "label": "Règle des 41 mm",
    "groupe": "folie",
    "surface": 0.0135,
@@ -214,7 +214,7 @@
    "rejet": []
   },
   {
-   "t": 82,
+   "t": 97,
    "label": "Sprint final",
    "groupe": "folie",
    "surface": 0,
@@ -224,7 +224,7 @@
    "rejet": []
   },
   {
-   "t": 86.2,
+   "t": 101.2,
    "label": "Photo-finish",
    "groupe": "folie",
    "surface": 0.0219,
@@ -236,7 +236,7 @@
    "rejet": []
   },
   {
-   "t": 90,
+   "t": 105,
    "label": "Carte finale",
    "groupe": "folie",
    "surface": 0.112,
@@ -259,138 +259,484 @@
  "son": {
   "voix_off": [
    {
-    "phrase": "mesdames",
-    "texte": "Mesdames et messieurs.",
-    "attaque": 3.4,
-    "fin": 5.05,
-    "mot_ancre": "Mesdames",
-    "t_mot_ancre": 3.4,
-    "intention": "salon : accueil sur la boîte à musique",
-    "coupe_prise_s": [
-     0.0,
-     1.78
+    "id": "salon_accueil",
+    "texte": "Mesdames et messieurs… bienvenue dans le salon le plus festif de France !",
+    "fichier": "voix_off/L01.mp3",
+    "src": [
+     0.07,
+     4.9
     ],
-    "marge_db": 8.2,
-    "reduction_sidechain_db": -14.0
+    "attaque": 1.2,
+    "fin": 6.03,
+    "marge_db": 8.8,
+    "reduction_sidechain_db": -17.8
    },
    {
-    "phrase": "salon",
-    "texte": "Ce soir, le salon se transforme en arène.",
-    "attaque": 7.68,
-    "fin": 11.73,
-    "mot_ancre": "arène.",
-    "t_mot_ancre": 10.72,
-    "intention": "« arène » attaque juste avant la plongée (11,0 s)",
-    "coupe_prise_s": [
-     2.0,
-     6.18
+    "id": "salon_arene",
+    "texte": "Mais ce soir… le salon se transforme… en ARÈNE !  (« arène » sur la plongée, 10,9 s)",
+    "fichier": "voix_off/L02.mp3",
+    "src": [
+     0,
+     3.92
     ],
-    "marge_db": 9.6,
+    "attaque": 7.93,
+    "fin": 11.85,
+    "marge_db": 8.7,
+    "reduction_sidechain_db": -14.3
+   },
+   {
+    "id": "ecuries_intro",
+    "texte": "Place aux quinze écuries !",
+    "fichier": "voix_off/L03.mp3",
+    "src": [
+     0.07,
+     1.53
+    ],
+    "attaque": 12.05,
+    "fin": 13.51,
+    "marge_db": 10.0,
+    "reduction_sidechain_db": -9.0
+   },
+   {
+    "id": "ecurie_01",
+    "texte": "Petite Mimine Racing !",
+    "fichier": "voix_off/L04.mp3",
+    "src": [
+     0.09,
+     1.84
+    ],
+    "attaque": 14.12,
+    "fin": 15.87,
+    "marge_db": 10.5,
     "reduction_sidechain_db": -8.0
    },
    {
-    "phrase": "paris",
-    "texte": "et des paris en direct depuis votre téléphone ou à l'ancienne.",
-    "attaque": 47.0,
-    "fin": 50.22,
-    "mot_ancre": "et",
-    "t_mot_ancre": 47.0,
-    "intention": "paris : après la pluie de pièces (46,5 s), fini avant le clic (51,0 s)",
-    "coupe_prise_s": [
-     68.14,
-     71.41
+    "id": "ecurie_02",
+    "texte": "Twingo Oasis V16 Racing !",
+    "fichier": "voix_off/L04.mp3",
+    "src": [
+     2.29,
+     4.71
     ],
-    "marge_db": 14.2,
+    "attaque": 17.12,
+    "fin": 19.54,
+    "marge_db": 22.9,
     "reduction_sidechain_db": -8.0
    },
    {
-    "phrase": "caisses",
-    "texte": "ouvrez les caisses,",
-    "attaque": 59.1,
-    "fin": 60.14,
-    "mot_ancre": "ouvrez",
-    "t_mot_ancre": 59.1,
-    "intention": "« Ouvrez les caisses » : la caisse s'ouvre juste après (60,2 s)",
-    "coupe_prise_s": [
-     59.75,
-     60.91
+    "id": "ecurie_03",
+    "texte": "Optic-Breuillet Racing !",
+    "fichier": "voix_off/L04.mp3",
+    "src": [
+     5.14,
+     6.99
     ],
-    "marge_db": 17.2,
+    "attaque": 20.12,
+    "fin": 21.97,
+    "marge_db": 21.6,
     "reduction_sidechain_db": -8.0
    },
    {
-    "phrase": "attention",
-    "texte": "Mais attention, ils ne viennent pas seul.",
-    "attaque": 61.3,
-    "fin": 63.5,
-    "mot_ancre": "Mais",
-    "t_mot_ancre": 61.3,
-    "intention": "les boss arrivent (62 s), fini avant leur passage (63,6 s)",
-    "coupe_prise_s": [
-     39.41,
-     41.72
+    "id": "ecurie_04",
+    "texte": "Tata Freddy Motorsport !",
+    "fichier": "voix_off/L04.mp3",
+    "src": [
+     7.38,
+     9.22
     ],
-    "marge_db": 12.7,
+    "attaque": 23.12,
+    "fin": 24.96,
+    "marge_db": 18.3,
     "reduction_sidechain_db": -8.0
    },
    {
-    "phrase": "pieges",
-    "texte": "Des pièges, des trahisons",
-    "attaque": 64.45,
-    "fin": 65.94,
-    "mot_ancre": "Des",
-    "t_mot_ancre": 64.45,
-    "intention": "juste avant les pièges (66 s)",
-    "coupe_prise_s": [
-     66.55,
-     68.16
+    "id": "ecurie_05",
+    "texte": "Super Mario Pression !",
+    "fichier": "voix_off/L04.mp3",
+    "src": [
+     9.55,
+     11.31
     ],
-    "marge_db": 13.4,
+    "attaque": 26.12,
+    "fin": 27.88,
+    "marge_db": 20.1,
     "reduction_sidechain_db": -8.0
    },
    {
-    "phrase": "gloire",
-    "texte": "Et pour le vainqueur, la gloire éternelle.",
-    "attaque": 78.15,
-    "fin": 81.35,
-    "mot_ancre": "Et",
-    "t_mot_ancre": 78.15,
-    "intention": "climax",
-    "coupe_prise_s": [
-     71.39,
-     74.72
+    "id": "ecurie_06",
+    "texte": "Scuderia Symphonie E-Tech !",
+    "fichier": "voix_off/L04.mp3",
+    "src": [
+     11.7,
+     13.86
     ],
-    "marge_db": 14.7,
+    "attaque": 29.12,
+    "fin": 31.28,
+    "marge_db": 24.4,
     "reduction_sidechain_db": -8.0
    },
    {
-    "phrase": "final",
-    "texte": "Préparez -vous à vrombir que le spectacle commence.",
-    "attaque": 81.55,
-    "fin": 85.79,
-    "mot_ancre": "Préparez",
-    "t_mot_ancre": 81.55,
-    "intention": "climax, fini avant le photo-finish (86 s)",
-    "coupe_prise_s": [
-     77.94,
-     82.32
+    "id": "ecurie_07",
+    "texte": "Yaris 2 Invincible !",
+    "fichier": "voix_off/L04.mp3",
+    "src": [
+     14.19,
+     15.91
     ],
-    "marge_db": 12.6,
+    "attaque": 32.12,
+    "fin": 33.84,
+    "marge_db": 16.8,
     "reduction_sidechain_db": -8.0
    },
    {
-    "phrase": "titre",
-    "texte": "Le grand prix de Noël, 23 décembre.",
-    "attaque": 88.15,
-    "fin": 91.19,
-    "mot_ancre": "Le",
-    "t_mot_ancre": 88.15,
-    "intention": "carte finale (88 s), fini avant 92 s",
-    "coupe_prise_s": [
-     74.71,
-     77.88
+    "id": "ecurie_08",
+    "texte": "A4 Oil Leaking !",
+    "fichier": "voix_off/L04.mp3",
+    "src": [
+     16.25,
+     17.95
     ],
-    "marge_db": 12.0,
+    "attaque": 35.12,
+    "fin": 36.82,
+    "marge_db": 16.2,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "id": "ecurie_09",
+    "texte": "Titou Wyvern SRT !",
+    "fichier": "voix_off/L04.mp3",
+    "src": [
+     18.26,
+     20.14
+    ],
+    "attaque": 38.12,
+    "fin": 40.0,
+    "marge_db": 18.3,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "id": "ecurie_10",
+    "texte": "Doom Slayer Issue GP !",
+    "fichier": "voix_off/L04.mp3",
+    "src": [
+     20.43,
+     22.39
+    ],
+    "attaque": 41.12,
+    "fin": 43.08,
+    "marge_db": 19.8,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "id": "ecurie_11",
+    "texte": "Milo's princess Vroom Vroom !",
+    "fichier": "voix_off/L04.mp3",
+    "src": [
+     22.69,
+     24.74
+    ],
+    "attaque": 44.12,
+    "fin": 46.17,
+    "marge_db": 16.6,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "id": "ecurie_12",
+    "texte": "Bob's Bizarre Racing !",
+    "fichier": "voix_off/L04.mp3",
+    "src": [
+     24.94,
+     26.7
+    ],
+    "attaque": 47.12,
+    "fin": 48.88,
+    "marge_db": 18.4,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "id": "ecurie_13",
+    "texte": "Jojo la Sirène Veloce !",
+    "fichier": "voix_off/L04.mp3",
+    "src": [
+     26.92,
+     28.75
+    ],
+    "attaque": 50.12,
+    "fin": 51.95,
+    "marge_db": 19.4,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "id": "ecurie_14",
+    "texte": "Ninja-Nissan Street Racing !",
+    "fichier": "voix_off/L04.mp3",
+    "src": [
+     29.03,
+     31.14
+    ],
+    "attaque": 53.12,
+    "fin": 55.23,
+    "marge_db": 21.3,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "id": "ecurie_15",
+    "texte": "Princess Blooming Speed !",
+    "fichier": "voix_off/L04.mp3",
+    "src": [
+     31.34,
+     33.0
+    ],
+    "attaque": 56.12,
+    "fin": 57.78,
+    "marge_db": 23.3,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "id": "paris_telephone",
+    "texte": "Et maintenant, à vous de jouer ! Sortez vos téléphones… qui va gagner ?",
+    "fichier": "voix_off/L05.mp3",
+    "src": [
+     0,
+     3.85
+    ],
+    "attaque": 59.6,
+    "fin": 63.45,
+    "marge_db": 9.0,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "id": "paris_carnet",
+    "texte": "Pas de téléphone ? Pas de panique : on parie au carnet, à l'ancienne !",
+    "fichier": "voix_off/L06.mp3",
+    "src": [
+     0,
+     4.51
+    ],
+    "attaque": 65.8,
+    "fin": 70.31,
+    "marge_db": 8.9,
+    "reduction_sidechain_db": -9.7
+   },
+   {
+    "id": "meute",
+    "texte": "Cinq voies… et c'est parti !",
+    "fichier": "voix_off/L07.mp3",
+    "src": [
+     0.01,
+     2.23
+    ],
+    "attaque": 70.35,
+    "fin": 72.57,
+    "marge_db": 9.0,
+    "reduction_sidechain_db": -10.2
+   },
+   {
+    "id": "caisses",
+    "texte": "Les caisses mystères s'ouvrent !",
+    "fichier": "voix_off/L08.mp3",
+    "src": [
+     0.01,
+     2.25
+    ],
+    "attaque": 74.45,
+    "fin": 76.69,
+    "marge_db": 9.0,
+    "reduction_sidechain_db": -13.6
+   },
+   {
+    "id": "boss",
+    "texte": "Attention… les boss débarquent !",
+    "fichier": "voix_off/L09.mp3",
+    "src": [
+     0.05,
+     2.72
+    ],
+    "attaque": 76.85,
+    "fin": 79.52,
+    "marge_db": 9.0,
+    "reduction_sidechain_db": -13.5
+   },
+   {
+    "id": "batmobile",
+    "texte": "… la Batmobile !",
+    "fichier": "voix_off/L09.mp3",
+    "src": [
+     3.92,
+     5.29
+    ],
+    "attaque": 79.55,
+    "fin": 80.92,
+    "marge_db": 9.7,
+    "reduction_sidechain_db": -12.2
+   },
+   {
+    "id": "piege_bascule",
+    "texte": "La bascule !",
+    "fichier": "voix_off/L10.mp3",
+    "src": [
+     0,
+     1.03
+    ],
+    "attaque": 81.14,
+    "fin": 82.17,
+    "marge_db": 15.8,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "id": "piege_pelote",
+    "texte": "La pelote !",
+    "fichier": "voix_off/L10.mp3",
+    "src": [
+     1.3,
+     2.39
+    ],
+    "attaque": 82.473,
+    "fin": 83.563,
+    "marge_db": 13.2,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "id": "piege_obus",
+    "texte": "L'obus !",
+    "fichier": "voix_off/L10.mp3",
+    "src": [
+     2.65,
+     3.34
+    ],
+    "attaque": 83.807,
+    "fin": 84.497,
+    "marge_db": 9.0,
+    "reduction_sidechain_db": -8.6
+   },
+   {
+    "id": "piege_curling",
+    "texte": "Le curling !",
+    "fichier": "voix_off/L10.mp3",
+    "src": [
+     3.7,
+     4.78
+    ],
+    "attaque": 85.14,
+    "fin": 86.22,
+    "marge_db": 13.9,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "id": "piege_boulet",
+    "texte": "Le boulet !",
+    "fichier": "voix_off/L10.mp3",
+    "src": [
+     5.0,
+     5.88
+    ],
+    "attaque": 86.473,
+    "fin": 87.353,
+    "marge_db": 9.0,
+    "reduction_sidechain_db": -11.6
+   },
+   {
+    "id": "piege_bowling",
+    "texte": "Le bowling !",
+    "fichier": "voix_off/L10.mp3",
+    "src": [
+     6.19,
+     7.31
+    ],
+    "attaque": 87.807,
+    "fin": 88.927,
+    "marge_db": 10.0,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "id": "regle_41",
+    "texte": "Quarante et un millimètres…",
+    "fichier": "voix_off/L11.mp3",
+    "src": [
+     0.05,
+     1.61
+    ],
+    "attaque": 88.95,
+    "fin": 90.51,
+    "marge_db": 11.7,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "id": "regle_sinon",
+    "texte": "sinon :",
+    "fichier": "voix_off/L11.mp3",
+    "src": [
+     1.77,
+     2.34
+    ],
+    "attaque": 90.52,
+    "fin": 91.09,
+    "marge_db": 10.4,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "id": "regle_ejection",
+    "texte": "éjection !  (sur l'éjection, 91,2 s)",
+    "fichier": "voix_off/L11.mp3",
+    "src": [
+     2.63,
+     3.35
+    ],
+    "attaque": 91.15,
+    "fin": 91.87,
+    "marge_db": 9.2,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "id": "sprint",
+    "texte": "Dernier sprint ! Tout le monde fonce vers la ligne…",
+    "fichier": "voix_off/L12.mp3",
+    "src": [
+     0.02,
+     3.05
+    ],
+    "attaque": 93.3,
+    "fin": 96.33,
+    "marge_db": 10.2,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "id": "photo_finish",
+    "texte": "… et c'est la photo-finish !",
+    "fichier": "voix_off/L13.mp3",
+    "src": [
+     0,
+     2.14
+    ],
+    "attaque": 99.05,
+    "fin": 101.19,
+    "marge_db": 8.9,
+    "reduction_sidechain_db": -11.0
+   },
+   {
+    "id": "final_titre",
+    "texte": "Le Grand Prix de Noël… le vingt-trois décembre…",
+    "fichier": "voix_off/L14.mp3",
+    "src": [
+     0,
+     3.37
+    ],
+    "attaque": 102.75,
+    "fin": 106.12,
+    "marge_db": 9.0,
+    "reduction_sidechain_db": -11.0
+   },
+   {
+    "id": "final_paris",
+    "texte": "À vos paris !",
+    "fichier": "voix_off/L14.mp3",
+    "src": [
+     3.6,
+     4.38
+    ],
+    "attaque": 106.18,
+    "fin": 106.96,
+    "marge_db": 16.5,
     "reduction_sidechain_db": -8.0
    }
   ],
@@ -398,18 +744,18 @@
    "fichier": "audio/mix_v8.wav",
    "frequence_hz": 44100,
    "canaux": 2,
-   "gain_master_db": -7.4,
+   "gain_master_db": -3.61,
    "lufs_approx": -16.0,
-   "crete_dbfs": -4.34,
-   "niveau_50_dernieres_ms_dbfs": -180.0,
+   "crete_dbfs": -2.66,
+   "niveau_50_dernieres_ms_dbfs": -35.8,
    "methode_lufs": "V7 : pondération K approchée par FFT (passe-haut 38 Hz + étagère +4 dB à 1,7 kHz), blocs 400 ms, portes -70 LUFS / -10 LU"
   },
   "bilan": {
    "ecuries_reelles": 15,
    "ecuries_synthetisees": 0,
-   "phrases_voix_off": 9,
+   "phrases_voix_off": 37,
    "chevauchement_voix": false,
-   "marge_voix_min_db": 8.2
+   "marge_voix_min_db": 8.7
   }
  }
 }

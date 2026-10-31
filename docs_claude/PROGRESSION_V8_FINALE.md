@@ -36,3 +36,13 @@ python3 Intro_3D/v8_finale/render_v8.py --controle        # planche stricte + co
 python3 Intro_3D/v8_finale/render_v8.py --video --largeur 960 --fps 24 --images /tmp/v8   # vidéo (reprise possible)
 py -3 Intro_3D\v8_finale\render_v8.py --video --gpu --largeur 1920 --fps 60               # PC : 1080p60 avec la carte graphique
 ```
+
+## V8.1 (31 oct.) — nouvelle voix off, écuries calmes (107 s)
+- **Voix off refaite** : 14 prises ElevenLabs (voix « Alexx-V », eleven_v4) dans `v8_finale/voix_off/`, découpées en 37 pièces
+  placées image par image (`data/voix_v8.json`) : accueil dans le salon, « … en ARÈNE ! » sur la plongée (10,9 s), le nom de
+  chaque écurie au début de son plan, paris, meute, caisses, boss, nom de chaque piège juste avant son carambolage,
+  « éjection ! » sur l'éjection (91,2 s), photo-finish, carte finale. L'ancienne prise vo_v4 n'est plus utilisée.
+- **Écuries** : 3,0 s par écurie (14 → 59 s), une seule voiture à l'écran (le Concept-Car de l'écurie), caméras lentes,
+  portail doux, pose dans le Ring ; l'éclat musical tombe juste après le nom annoncé.
+- **Noyau** : horloge interne par segment (`origine` dans plan_v8.json) — le segment folie, écrit en 44 → 92, est joué en 59 → 107.
+- Contrôle strict : 20/20 conformes, déterminisme identique, console 0 erreur.

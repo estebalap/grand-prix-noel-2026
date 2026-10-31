@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rendu de la V8 FINALE (92 s) : planche de contrôle stricte et vidéo MP4, image par image (window.rendreTemps).
+"""Rendu de la V8 FINALE (107 s) : planche de contrôle stricte et vidéo MP4, image par image (window.rendreTemps).
 
   python3 render_v8.py --controle                 -> sorties/planche_v8_controle_strict.png (20 clés en 1920x1080)
                                                      + sorties/controle_v8.json (stats UI par clé, verdict « zéro surcharge »,
@@ -62,8 +62,9 @@ def planche(vignettes, reperes, stats, verdicts, chemin, col=5):
 
 def verdict(r, s, plan):
     """Critères automatiques du protocole (le contrôle visuel du Chef de régie reste obligatoire en plus)."""
-    R = plan['regles_ui']; fin = next(x for x in plan['segments'] if x['id'] == 'folie')['sous'][-1]
-    carte_finale = fin['debut'] <= r['t'] < fin['fin']
+    R = plan['regles_ui']; folie = next(x for x in plan['segments'] if x['id'] == 'folie'); fin = folie['sous'][-1]
+    dec = folie['debut'] - folie.get('origine', folie['debut'])                       # sous-parties en temps interne du segment
+    carte_finale = fin['debut'] + dec <= r['t'] < fin['fin'] + dec
     v = []
     if s['surface'] > R['surface_max']: v.append(f"UI {100 * s['surface']:.0f}% > {100 * R['surface_max']:.0f}%")
     if s['nb_textes'] > R['textes_max']: v.append(f"{s['nb_textes']} textes")

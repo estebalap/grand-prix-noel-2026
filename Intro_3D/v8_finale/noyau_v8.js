@@ -71,7 +71,9 @@ export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, s
     const mod = await import('./' + def.module);
     const seg = await mod.creerSegment({ ...ctxBase, seg: def });
     if (!seg || !seg.groupe || typeof seg.maj !== 'function') throw new Error(`segment ${def.id} : contrat non respecté (groupe + maj attendus)`);
-    seg.def = def; seg.groupe.visible = false; scene.add(seg.groupe); segments.push(seg);
+    // horloge interne : un segment peut être écrit dans son propre temps (def.origine) puis déplacé dans le film sans rien réécrire
+    seg.def = def; seg.decalage = def.debut - (def.origine ?? def.debut);
+    seg.groupe.visible = false; scene.add(seg.groupe); segments.push(seg);
   }
 
   /* post-traitement et toile HUD (logicielle en capture : pixels identiques d'une image à l'autre) */
@@ -89,7 +91,7 @@ export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, s
     const seg = segmentA(t);
     if (!seg) { camera.position.set(0, 0, 10); camera.lookAt(0, 0, 0); camera.updateMatrixWorld(true); return { seg: null, etat: { post: { fondu: 1 } } }; }
     seg.groupe.visible = true;
-    const etat = seg.maj(t) || {};
+    const etat = seg.maj(t - seg.decalage) || {};
     if (etat.fond !== undefined) scene.background.set(etat.fond);
     if (etat.brouillard) { brouillard.color.set(etat.brouillard.couleur); brouillard.density = etat.brouillard.densite; scene.fog = brouillard; }
     if (etat.lumieres) { if (etat.lumieres.hemi !== undefined) hemi.intensity = etat.lumieres.hemi; if (etat.lumieres.cle !== undefined) cle.intensity = etat.lumieres.cle; }
@@ -145,7 +147,7 @@ export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, s
     return { surface: +(couverts / n).toFixed(4), zone_sacree: +(zone / Math.max(1, nz)).toFixed(4), textes: [...dernierTextes], nb_textes: dernierTextes.size };
   }
 
-  const cles = segments.flatMap((s) => (s.cles || []).map((k) => ({ t: +(+k.t).toFixed(3), label: k.label, groupe: s.def.id })));
+  const cles = segments.flatMap((s) => (s.cles || []).map((k) => ({ t: +(+k.t + s.decalage).toFixed(3), label: k.label, groupe: s.def.id })));
   return { scene, camera, renderer, rendreTemps, statsHUD, duree: plan.duree, fps: plan.fps, segments, reperesPlanche: cles, post, placer,
     inventaire: { segments: segments.map((s) => s.def.id), cles: cles.length, duree: plan.duree, fps: plan.fps } };
 }

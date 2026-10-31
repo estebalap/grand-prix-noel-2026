@@ -1,26 +1,29 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Bande-son V8 « Grand Prix de Noël — Finale » : médley punchy de 92,0 s calé sur data/plan_v8.json.
+Bande-son V8 « Grand Prix de Noël — Finale » : médley de 107,0 s calé sur data/plan_v8.json et data/voix_v8.json.
 
-Structure (tous les instants viennent du plan : segments, sous-parties, écuries, pièges, reperes_son) :
-  0 → 8,6 s   salon : boîte à musique (« Vive le vent », J. Pierpont 1857, domaine public, synthétisée), feu de cheminée
-              procédural, nappe chaude, grelots ; voix off « Mesdames et messieurs… » puis « Ce soir, le salon se transforme
-              en ARÈNE ! » (« arène » posé sur la plongée) ;
-  8,6 s       ouverture du tapis : la boîte à musique se « dévide » (arrêt de bande), sub-drop + grondement ;
-  11,0 s      plongée dans l'arène (whoosh), montée de tension, impact d'arrivée sur le ring (13,6 s) + foule ;
-  14 → 44 s   les 15 écuries (2,0 s chacune) : les 15 VRAIS extraits, temps fort posé à l'échantillon près sur `impact`,
-              fondus enchaînés à puissance égale (sin/cos) centrés sur chaque changement de créneau, bass-swap, washout,
-              son de validation arcade « Select ! » original à chaque `debut` ;
-  44 → 92 s   la folie : groove des paris + pièces d'or, meute de moteurs (enregistrements CC0 du dépôt), caisses, boss,
-              6 pièges (explosions / boings cartoon sur chaque `contact`), règle des 41 mm (buzzer + éjection), crescendo
-              vers le photo-finish (coupure nette + flash sonore), carte finale (accord + reprise boîte à musique qui
-              s'éteint avant 92,0 s).
+Structure (tous les instants viennent du plan : segments, sous-parties, écuries, pieges[].contact_film, reperes_son) :
+  0 → 8,6 s    salon : boîte à musique (« Vive le vent », J. Pierpont 1857, domaine public, synthétisée), feu de cheminée
+               procédural, nappe chaude, grelots ;
+  8,6 s        ouverture du tapis : la boîte à musique se « dévide » (arrêt de bande), sub-drop + grondement ;
+  11,0 s       plongée dans l'arène (whoosh), montée de tension, impact d'arrivée sur le ring (13,6 s) + foule ;
+  14 → 59 s    les 15 écuries (3,0 s chacune), version calme : la voix annonce le nom, l'extrait reste très bas (−20 dB)
+               dessous, puis son ÉCLAT tombe 0,1 s après la fin du nom (et jamais avant `impact`) ; fondus enchaînés à
+               puissance égale de 0,7 s, bass-swap, washout ; « Select ! » feutré à `debut`, whoosh feutré au portail (`impact`) ;
+               voix spéciales (Petite Mimine, chute de Mario) retirées si elles chevauchent le nom ;
+  59 → 107 s   la folie (sous-parties du plan en temps interne + decalage_folie) : paris + pièces d'or, meute de moteurs
+               (enregistrements CC0 du dépôt), caisses, boss, 6 pièges (explosions / boings cartoon sur chaque `contact_film`),
+               règle des 41 mm (buzzer + éjection), crescendo vers le photo-finish (coupure nette + flash sonore), carte finale
+               (accord + reprise boîte à musique qui s'éteint avant 107,0 s).
+Voix off : voix « Alexx-V » (voix_off/L01..L14.mp3), chaque pièce de voix_v8.json découpée [src_debut, src_fin] (fondus 5 ms) et
+posée à t_film ; traitement léger (passe-haut 80 Hz, compression douce, présence +2 dB) ; sidechain doux asymétrique réglé pièce
+par pièce pour que la voix reste ≥ +8 dB au-dessus du reste.
 
 Réutilise par IMPORT la bande-son V7 (../v7_multivers_4k/sound_v7_crescendo.py, non modifiée ; son main() n'est exécuté que
-si on la lance directement) : décodage ffmpeg, mise au niveau des extraits, réverbe, sidechain, loudness, stinger de secours.
+si on la lance directement) : décodage ffmpeg, mise au niveau des extraits, réverbe, loudness, stinger de secours.
 
-Sorties : audio/mix_v8.wav (44,1 kHz stéréo 16 bit, 92,0 s exactement, −16 LUFS, crête ≤ −1 dBFS) et data/timeline_v8.json.
+Sorties : audio/mix_v8.wav (44,1 kHz stéréo 16 bit, 107,0 s exactement, −16 LUFS, crête ≤ −1 dBFS) et data/timeline_v8.json.
 Les extraits sous droits (../audio_v5/themes_ecuries/*.mp3, ../audio_v5/voix/*.mp3) sont LUS, jamais copiés ; le .wav produit
 est ignoré par git (Intro_3D/**/*.wav).
 Dépendances : numpy + bibliothèque standard + ffmpeg. Déterminisme : toutes les graines sont fixes.
@@ -47,13 +50,15 @@ if DOSSIER_V7 not in sys.path:
     sys.path.insert(0, DOSSIER_V7)
 import sound_v7_crescendo as v7  # noqa: E402
 
-DUREE = 92.0
+DUREE = 107.0                  # relu et vérifié dans le plan
 CIBLE_LUFS = -16.0
 PLAFOND_DBFS = -1.0            # crête visée ≤ −1 dBFS (limiteur tanh réglé 0,2 dB sous ce plafond)
 GAIN_VOIX = 1.5                # bus voix off
-MARGE_VOIX_DB = 8.0            # écart voix / reste visé pendant chaque phrase (exigé : ≥ +7 dB)
+MARGE_VOIX_DB = 8.5            # écart voix / reste visé pendant chaque pièce vocale (exigé : ≥ +8 dB)
 FONDU_MIN = 0.005              # tout raccord a un fondu d'au moins 5 ms
-XF = 0.24                      # fondu enchaîné à puissance égale entre écuries (s), centré sur le début du créneau
+XF = 0.70                      # fondu enchaîné à puissance égale entre écuries (s), de debut − 0,1 à debut + 0,6
+ECART_NOM = 0.10               # l'éclat de l'extrait tombe au plus tôt 0,1 s après la fin du nom annoncé
+DUCK_NOM_DB = -20.0            # niveau de l'extrait pendant que la voix dit le nom
 AMORCE_MAX = 1.0               # s de matière prise AVANT le point de coupe du calage (si le fichier en a) : nourrit le fondu
 CHUTE = {5}                    # Super Mario Pression : le temps fort est l'ATTERRISSAGE (fin du cri de chute)
 
@@ -506,56 +511,66 @@ def couche_v8(chemin, debut_s, duree_s, gain_db, sr, amorce_max):
     return seg * g, amorce, corps.shape[0] / sr
 
 
-def signature_brute(e, cfg, sr, dossier_themes):
-    """Couches superposées d'une écurie (logique de signature_ecurie V7) SANS fondus : retourne (signal (n,2), t0 absolu tel que
-    le temps fort tombe exactement sur e['impact'], t0 au plus tôt du corps (pas d'amorce), éclat dans l'extrait, sources)."""
+def signature_brute(e, cfg, sr, dossier_themes, fin_nom):
+    """Couches d'une écurie (logique de signature_ecurie V7) SANS fondus. Le temps fort est posé à
+    t_eclat = max(impact, fin du nom annoncé + ECART_NOM) : juste après que la voix off a dit le nom.
+    Les voix spéciales (cri de Petite Mimine, chute de Mario) ne sont gardées que si elles commencent APRÈS la fin du nom ;
+    sinon la signature est refaite sans elles. Retourne (signal (n,2), t0 absolu, t_eclat, éclat dans l'extrait, sources, retirées)."""
     n = e['id']
     cfg = cfg or {}
-    couches, sources, eclat = [], [], None
-    v = cfg.get('voix')
-    if v:
-        x, am, _ = couche_v8(os.path.join(DOSSIER_V5, v['fichier']), float(v.get('debut_s', 0.0)), v.get('duree_s'),
-                             v.get('gain_db', 0), sr, AMORCE_MAX)
-        couches.append((float(v.get('decalage_s', 0.0)), x, am))
-        sources.append(v['fichier'])
-        e0 = float(v.get('eclat_s', 0.0))
-        vm = x[int(round(am * sr)):].mean(axis=1)
-        env = v7.enveloppe_rms(vm, sr)
-        i0, i1 = max(0, int((e0 - 0.15) * sr)), min(env.shape[0], int((e0 + 0.6) * sr))
-        if i1 - i0 > int(0.05 * sr):
-            w = env[i0:i1]
-            e0 = (i0 + int(np.argmax(w >= 0.6 * w.max()))) / sr
-        eclat = float(v.get('decalage_s', 0.0)) + e0
     perso = v7.trouver_theme(dossier_themes, n)
     if not perso:
         raise RuntimeError('extrait %02d_*.mp3 absent de %s' % (n, dossier_themes))
     pp = cfg.get('perso') or {}
-    x, am, l_perso = couche_v8(perso, float(pp.get('debut_s', 0.0)), float(pp.get('duree_s', 3.0)), pp.get('gain_db', 0), sr,
-                               AMORCE_MAX)
-    couches.append((0.0, x, am))
-    sources.append('themes_ecuries/' + os.path.basename(perso))
+    t_eclat = max(e['impact'], fin_nom + ECART_NOM)
+    xp, amp, l_perso = couche_v8(perso, float(pp.get('debut_s', 0.0)), float(pp.get('duree_s', 3.0)), pp.get('gain_db', 0), sr,
+                                 AMORCE_MAX)
+    speciales = []                                       # (nom, décalage du corps / corps de l'extrait, signal, amorce, éclat ou None)
+    v = cfg.get('voix')
+    if v:
+        x, am, _ = couche_v8(os.path.join(DOSSIER_V5, v['fichier']), float(v.get('debut_s', 0.0)), v.get('duree_s'),
+                             v.get('gain_db', 0), sr, AMORCE_MAX)
+        e0 = float(v.get('eclat_s', 0.0))
+        env = v7.enveloppe_rms(x[int(round(am * sr)):].mean(axis=1), sr)
+        i0, i1 = max(0, int((e0 - 0.15) * sr)), min(env.shape[0], int((e0 + 0.6) * sr))
+        if i1 - i0 > int(0.05 * sr):
+            w = env[i0:i1]
+            e0 = (i0 + int(np.argmax(w >= 0.6 * w.max()))) / sr
+        speciales.append((v['fichier'], float(v.get('decalage_s', 0.0)), x, am, float(v.get('decalage_s', 0.0)) + e0))
     if n in CHUTE:
         fic = os.path.join(DOSSIER_V5, 'voix', 'mario_chute_B.mp3')
         if os.path.isfile(fic):
             xm, amm, l_m = couche_v8(fic, 0.0, None, -6.0, sr, 0.0)
-            couches.append((max(0.0, l_perso - l_m), xm, amm))
-            sources.append('voix/mario_chute_B.mp3')
+            speciales.append(('voix/mario_chute_B.mp3', max(0.0, l_perso - l_m), xm, amm, None))
+
+    def eclat_de(garder):
+        for _, _, _, _, ec in garder:
+            if ec is not None:
+                return ec
+        if n in CHUTE:
+            return max(1.4, min(l_perso - 0.6, 2.2))
+        if pp.get('eclat_s') is not None:
+            return float(pp['eclat_s'])
+        return v7.premier_temps_fort(xp[int(round(amp * sr)):].mean(axis=1), sr)
+
+    garder, retirees = list(speciales), []
+    while True:
+        eclat = eclat_de(garder)
+        trop_tot = [s for s in garder if t_eclat - eclat + s[1] < fin_nom + 0.02]
+        if not trop_tot:
+            break
+        for s in trop_tot:
+            garder.remove(s)
+            retirees.append(s[0])
+    couches = [(0.0, xp, amp)] + [(d, x, a) for _, d, x, a, _ in garder]
     pre = max(0.0, max(a - d for d, _, a in couches))
     L = max(int(round((pre + d - a) * sr)) + xx.shape[0] for d, xx, a in couches)
     sig = np.zeros((L, 2))
     for d, xx, a in couches:
         i = int(round((pre + d - a) * sr))
         sig[i:i + xx.shape[0]] += xx
-    corps = sig[int(round(pre * sr)):].mean(axis=1)
-    if eclat is None:
-        if n in CHUTE:
-            eclat = max(1.4, min(l_perso - 0.6, 2.2))
-        elif pp.get('eclat_s') is not None:
-            eclat = float(pp['eclat_s'])
-        else:
-            eclat = v7.premier_temps_fort(corps, sr)
-    t0 = e['impact'] - eclat - pre
-    return sig, t0, t0 + pre, eclat, sources
+    sources = ['themes_ecuries/' + os.path.basename(perso)] + [s[0] for s in garder]
+    return sig, t_eclat - eclat - pre, t_eclat, eclat, sources, retirees
 
 
 def washout(queue_mono, sr, graine):
@@ -572,203 +587,146 @@ def washout(queue_mono, sr, graine):
     return np.stack([wl * env * 0.55, wr * env * 0.55], axis=1)
 
 
-def medley_ecuries(bus, ecuries, cfg_themes, sr, dossier_themes, sans_reel, equipes, t_fin_segment, t_plus_tot_premiere):
-    """Pose les 15 signatures. Fondu enchaîné à puissance égale entre écuries consécutives : sur [x0, x0 + w], la suivante
-    monte en sin(θ), la précédente descend en cos(θ) (sin² + cos² = 1), x0 = début de la matière de la suivante, au plus tôt
-    debut − XF/2 ; w = XF (raccourci si l'éclat est tout proche). Bass-swap (passe-haut 150 Hz) sur les 200 dernières ms de
-    la sortante, washout de 250 ms après. Écurie absente ou illisible → stinger de synthèse V7 (le rapport le dit)."""
+def medley_ecuries(bus, ecuries, fins_nom, cfg_themes, sr, dossier_themes, sans_reel, equipes, t_fin_segment, t_plus_tot_premiere):
+    """Pose les 15 signatures, version calme (3,0 s par écurie).
+    - Le temps fort tombe juste après le nom annoncé (t_eclat = max(impact, fin du nom + 0,1 s)).
+    - Avant, l'extrait reste TRÈS bas (−20 dB) sous la voix, puis remonte en sin sur [max(fin du nom, t_eclat − 0,25), t_eclat].
+    - Fondu enchaîné à puissance égale (sin² + cos² = 1) de XF s entre écuries consécutives, sur
+      [debut suivant − 0,1 ; debut suivant − 0,1 + XF] ; bass-swap 150 Hz sur les 200 dernières ms de la sortante ; washout.
+    Écurie absente ou illisible → stinger de synthèse V7 (le rapport le dit)."""
+    duck = 10 ** (DUCK_NOM_DB / 20.0)
     brutes = []
     for k, e in enumerate(ecuries):
+        fin_nom = fins_nom[k]
         entree = None
         if not sans_reel:
             try:
-                sig, t0, t_corps, eclat, sources = signature_brute(e, cfg_themes.get(str(e['id'])), sr, dossier_themes)
-                plus_tot = (max(t_plus_tot_premiere, t_corps - 0.25) if k == 0 else e['debut'] - XF / 2)
-                if t0 < plus_tot:
-                    sig = sig[int(round((plus_tot - t0) * sr)):]
-                    t0 = plus_tot
-                plus_tard = (ecuries[k + 1]['impact'] - 0.02) if k + 1 < len(ecuries) else t_fin_segment + 0.3
-                if t0 + sig.shape[0] / sr > plus_tard:
-                    sig = sig[:int(round((plus_tard - t0) * sr))]
-                entree = {'sig': sig, 't0': t0, 'eclat': eclat, 'sources': sources, 'source': 'reel'}
+                sig, t0, t_e, eclat, sources, retirees = signature_brute(e, cfg_themes.get(str(e['id'])), sr, dossier_themes, fin_nom)
+                entree = {'sig': sig, 't0': t0, 't_eclat': t_e, 'eclat': eclat, 'sources': sources, 'retirees': retirees,
+                          'source': 'reel'}
             except Exception as ex:
                 print('  [avertissement] écurie %d : signature réelle impossible (%s) -> synthèse' % (e['id'], ex))
         if entree is None:
-            st = v7.stinger_synthese(e, equipes[e['id']]['colors'], sr, e['fin'] - e['debut']) * 0.8
-            entree = {'sig': st, 't0': e['debut'], 'eclat': e['impact'] - e['debut'], 'sources': ['synthese'], 'source': 'synthese'}
+            t_e = max(e['impact'], fin_nom + ECART_NOM)
+            st = v7.stinger_synthese(dict(e, impact=t_e), equipes[e['id']]['colors'], sr, e['fin'] - e['debut']) * 0.8
+            entree = {'sig': st, 't0': e['debut'], 't_eclat': t_e, 'eclat': t_e - e['debut'], 'sources': ['synthese'],
+                      'retirees': [], 'source': 'synthese'}
+        entree['fin_nom'] = fin_nom
         brutes.append(entree)
 
-    # fenêtres de fondu enchaîné (x0, w) par frontière k-1 | k
-    fen = [None] * len(brutes)
-    for k in range(1, len(brutes)):
-        x0 = max(brutes[k]['t0'], ecuries[k]['debut'] - XF / 2)
-        w = min(XF, max(0.01, 0.6 * (ecuries[k]['impact'] - x0)))
-        fen[k] = (x0, w)
+    def fenetre_xf(k):                                   # fondu enchaîné entre k − 1 et k
+        if k < len(ecuries):
+            x0 = ecuries[k]['debut'] - 0.1
+        else:
+            x0 = t_fin_segment - 0.1
+        return x0, XF
+
     lignes = []
     for k, (e, b) in enumerate(zip(ecuries, brutes)):
-        sig = b['sig'].copy()
-        t0 = b['t0']
+        sig, t0 = b['sig'], b['t0']
+        # bornes de la matière utile
+        if k == 0:
+            debut_mat = max(t0, t_plus_tot_premiere)
+            w_in = 0.3
+        else:
+            debut_mat, w_in = fenetre_xf(k)
+            debut_mat = max(debut_mat, t0)
+        x0, w = fenetre_xf(k + 1)
+        x1 = x0 + w
+        i_a, i_b = max(0, int(round((debut_mat - t0) * sr))), min(sig.shape[0], int(round((x1 - t0) * sr)))
+        sig = sig[i_a:i_b].copy()
+        t0 = t0 + i_a / sr
         n = sig.shape[0]
         tt = t0 + np.arange(n) / sr
         g = np.ones(n)
-        # entrée
-        if k == 0 or fen[k] is None:
-            fi = max(int(FONDU_MIN * sr), int(0.03 * sr))
-            g[:fi] *= np.sin(0.5 * np.pi * np.arange(fi) / fi)
-            f_entree = [round(t0, 4), round(t0 + fi / sr, 4)]
+        # entrée : sin sur la fenêtre de fondu enchaîné (même fenêtre que le cos de la sortante)
+        if k == 0:
+            xa, wa = debut_mat, w_in
         else:
-            x0, w = fen[k]
-            m = (tt >= x0) & (tt < x0 + w)
-            g[tt < x0] = 0.0
-            g[m] *= np.sin(0.5 * np.pi * (tt[m] - x0) / w)
-            f_entree = [round(x0, 4), round(x0 + w, 4)]
-        # sortie : fondu enchaîné avec la suivante, ou fin du segment
-        if k + 1 < len(brutes):
-            x0, w = fen[k + 1]
-        else:
-            x0, w = t_fin_segment - XF / 2, XF
-        x1 = x0 + w
-        # bass-swap : passe-haut 150 Hz zéro-phase fondu sur les 200 ms qui précèdent la fin du fondu
-        i_a = max(0, int((x1 - v7.BASS_SWAP - 0.06 - t0) * sr))
-        i_b = min(n, int((x1 - t0) * sr))
-        if i_b - i_a > int(0.1 * sr):
-            nh = min(int(v7.BASS_SWAP * sr), i_b - i_a)
-            wv = np.zeros(i_b - i_a)
+            xa, wa = fenetre_xf(k)
+        m = (tt >= xa) & (tt < xa + wa)
+        g[tt < xa] = 0.0
+        g[m] *= np.sin(0.5 * np.pi * (tt[m] - xa) / wa)
+        fi = int(FONDU_MIN * sr)                          # la matière qui démarre au milieu du fondu : 5 ms minimum
+        g[:fi] *= np.sin(0.5 * np.pi * np.arange(fi) / fi)
+        # très bas sous le nom, remontée juste avant l'éclat
+        r0 = max(b['fin_nom'], b['t_eclat'] - 0.25)
+        r1 = max(r0 + FONDU_MIN, b['t_eclat'] - 0.01)
+        d = np.where(tt < r0, duck, np.where(tt >= r1, 1.0, duck + (1 - duck) * np.sin(0.5 * np.pi * (tt - r0) / (r1 - r0))))
+        g *= d
+        # bass-swap sur la sortie
+        j_a = max(0, int((x1 - v7.BASS_SWAP - 0.06 - t0) * sr))
+        j_b = min(n, int((x1 - t0) * sr))
+        if j_b - j_a > int(0.1 * sr):
+            nh = min(int(v7.BASS_SWAP * sr), j_b - j_a)
+            wv = np.zeros(j_b - j_a)
             wv[-nh:] = 0.5 - 0.5 * np.cos(np.pi * np.arange(nh) / nh)
             for c in range(2):
-                hp = filtre_bande(sig[i_a:i_b, c], sr, v7.HPF_SORTIE, None, ordre=2)
-                sig[i_a:i_b, c] = sig[i_a:i_b, c] * (1 - wv) + hp * wv
+                hp = filtre_bande(sig[j_a:j_b, c], sr, v7.HPF_SORTIE, None, ordre=2)
+                sig[j_a:j_b, c] = sig[j_a:j_b, c] * (1 - wv) + hp * wv
         m = (tt >= x0) & (tt < x1)
         g[m] *= np.cos(0.5 * np.pi * (tt[m] - x0) / w)
         g[tt >= x1] = 0.0
-        # fin de matière avant la fin du fondu : fondu cos propre de 30 ms sur ses derniers échantillons
         fo = int(0.03 * sr)
         if n > fo:
             g[-fo:] *= np.cos(0.5 * np.pi * np.arange(fo) / fo)
-        sortie = sig * g[:, None]
-        poser(bus, sortie, t0, sr)
-        # washout après la fin effective
+        poser(bus, sig * g[:, None], t0, sr)
         fin_eff = min(x1, t0 + n / sr)
         iq = int((fin_eff - t0) * sr)
-        queue = sig[max(0, iq - int(0.45 * sr)):iq].mean(axis=1) * g[max(0, iq - int(0.45 * sr)):iq].max(initial=0.0)
+        q0 = max(0, iq - int(0.45 * sr))
+        queue = sig[q0:iq].mean(axis=1) * g[q0:iq].max(initial=0.0)
         if queue.shape[0] > int(0.05 * sr):
             poser(bus, washout(queue, sr, e['id']), fin_eff, sr)
         lignes.append({'k': e['k'], 'id': e['id'], 'nom': e['nom'], 'debut': e['debut'], 'impact': e['impact'], 'fin': e['fin'],
-                       'source': b['source'],
-                       'signature': {'sources': b['sources'], 'eclat_dans_extrait_s': round(float(b['eclat']), 4),
-                                     't_debut': round(t0, 4), 't_eclat': round(e['impact'], 4),
-                                     't_fin': round(fin_eff + v7.WASHOUT, 4), 'fondu_entree': f_entree,
+                       'source': b['source'], 'fin_nom_annonce': round(b['fin_nom'], 3),
+                       'signature': {'sources': b['sources'], 'voix_speciales_retirees': b['retirees'],
+                                     'eclat_dans_extrait_s': round(float(b['eclat']), 4), 't_debut': round(t0, 4),
+                                     't_eclat': round(b['t_eclat'], 4), 'remontee': [round(r0, 3), round(r1, 3)],
+                                     't_fin': round(fin_eff + v7.WASHOUT, 4), 'fondu_entree': [round(xa, 4), round(xa + wa, 4)],
                                      'fondu_sortie': [round(x0, 4), round(x1, 4)]}})
     return lignes
 
 
 # ----------------------------------------------------------------------------------------------
-# Voix off : prise A découpée aux mots, coupes cherchées dans les silences réels (enveloppe 10 ms)
+# Voix off V8 : voix « Alexx-V » (voix_off/L01..L14.mp3), placement exact lu dans data/voix_v8.json
 # ----------------------------------------------------------------------------------------------
-# (nom, premier mot, dernier mot, mot d'ancrage, instant (s) de l'attaque du mot d'ancrage dans le film, intention)
-PHRASES_V8 = [
-    ('mesdames', 0, 2, 0, 3.40, 'salon : accueil sur la boîte à musique'),
-    ('salon', 3, 10, 10, 10.72, '« arène » attaque juste avant la plongée (11,0 s)'),
-    ('paris', 166, 177, 166, 47.00, 'paris : après la pluie de pièces (46,5 s), fini avant le clic (51,0 s)'),
-    ('caisses', 140, 142, 140, 59.10, '« Ouvrez les caisses » : la caisse s\'ouvre juste après (60,2 s)'),
-    ('attention', 89, 95, 89, 61.30, 'les boss arrivent (62 s), fini avant leur passage (63,6 s)'),
-    ('pieges', 162, 165, 162, 64.45, 'juste avant les pièges (66 s)'),
-    ('gloire', 178, 184, 178, 78.15, 'climax'),
-    ('final', 192, 199, 192, 81.55, 'climax, fini avant le photo-finish (86 s)'),
-    ('titre', 185, 191, 185, 88.15, 'carte finale (88 s), fini avant 92 s'),
-]
-FIN_VOIX_MAX = 91.80
+FILTRE_VOIX_V8 = ('highpass=f=80,acompressor=threshold=-20dB:ratio=2.5:attack=8:release=120:makeup=2,'
+                  'equalizer=f=3000:t=q:w=1:g=2')
 
 
-def profil_db(x, sr, pas=0.01):
-    h = max(1, int(pas * sr))
-    nb = x.shape[0] // h
-    e = np.sqrt(np.mean(x[:nb * h].reshape(nb, h) ** 2, axis=1))
-    return 20 * np.log10(e + 1e-9), h
+def charger_voix(chemin):
+    with open(chemin, encoding='utf-8') as f:
+        return json.load(f)['pieces']
 
 
-def decoupe_phrase(x, sr, mots, i0, i1, prof, h, ref):
-    """Coupes (c0, c1), attaque réelle a0 et fin réelle f1 (secondes dans la prise) d'une phrase mots[i0..i1].
-    Silence = trame 10 ms < ref − 42 dB ; parole = trame > ref − 24 dB (ref : niveau de parole, 95e centile)."""
-    sil, parle = ref - 42.0, ref - 24.0
-    T = lambda s: int(s * sr / h)
-    S = lambda i: i * h / sr
-    s0, e1 = mots[i0]['s'], mots[i1]['e']
-    # début : premier silence (trames consécutives) dans [s0 − 0,45 ; s0 + 0,6] suivi d'une attaque ≥ s0 − 0,15
-    a0 = c0 = None
-    j = max(0, T(s0 - 0.45))
-    jmax = min(prof.shape[0] - 1, T(s0 + 0.6))
-    while j <= jmax:
-        if prof[j] < sil:
-            k = j
-            while k < prof.shape[0] and prof[k] < parle:
-                k += 1
-            if S(k) >= s0 - 0.15 and k < prof.shape[0]:
-                a0 = S(k)
-                c0 = max(S(j), a0 - 0.10)
-                break
-            j = k
-        j += 1
-    if a0 is None:                                       # pas de vrai silence : creux d'énergie le plus profond
-        lo = (mots[i0 - 1]['e'] - 0.05) if i0 > 0 else 0.0
-        jj = T(lo) + int(np.argmin(prof[T(lo):max(T(lo) + 1, T(s0 + 0.25))]))
-        c0 = S(jj)
-        k = jj
-        while k < prof.shape[0] and prof[k] < parle:
-            k += 1
-        a0 = S(k)
-    # fin : premier vrai silence dans [e1 − 0,05 ; e1 + 0,6], sinon creux le plus profond avant le mot suivant
-    j0, j1 = T(e1 - 0.05), min(prof.shape[0], T(e1 + 0.6))
-    js = [j for j in range(j0, j1) if prof[j] < sil]
-    if js:
-        jc = js[0]
-    else:
-        lim = e1 + 0.25
-        if i1 + 1 < len(mots):
-            lim = min(lim, mots[i1 + 1]['s'] + 0.25)
-        jc = j0 + int(np.argmin(prof[j0:max(j0 + 1, T(lim))]))
-    c1 = S(jc) + 0.02
-    jf = jc
-    while jf > T(a0) and prof[jf - 1] < sil + 6.0:
-        jf -= 1
-    f1 = S(jf)
-    return c0, a0, c1, f1
-
-
-def voix_off_v8(sr, N):
-    """Pose les phrases de PHRASES_V8. Retourne (piste mono (N,), intervalles [(attaque, fin)], rapport)."""
-    mp3 = os.path.join(DOSSIER_V5, 'voix', 'vo_v4_prise_A.mp3')
-    with open(os.path.join(DOSSIER_V5, 'voix', 'mots_prise_A.json'), encoding='utf-8') as f:
-        mots = json.load(f)
-    x = v7.decoder_ffmpeg(mp3, sr, filtre=v7.FILTRE_VOIX, canaux=1)[:, 0]
-    prof, h = profil_db(x, sr)
-    ref = float(np.percentile(prof, 95))
+def voix_off_v8(sr, N, pieces, duree):
+    """Pour chaque pièce : découpe `fichier` de src_debut à src_fin (fondus 5 ms), traitement léger, posée à t_film.
+    Retourne (piste mono (N,), intervalles [(t_film, fin)], rapport)."""
+    cache = {}
     piste = np.zeros(N)
     intervalles, rapport = [], []
-    for nom, i0, i1, ia, t_ancre, intention in PHRASES_V8:
-        c0, a0, c1, f1 = decoupe_phrase(x, sr, mots, i0, i1, prof, h, ref)
-        a_ancre = a0 if ia == i0 else v7.attaque_mot(x, mots[ia]['s'], sr, fen=0.15)
-        t_att = t_ancre - (a_ancre - a0)
-        fin = t_att + (f1 - a0)
-        if nom == 'titre' and fin > FIN_VOIX_MAX:          # la dernière phrase doit finir avant le silence final
-            t_att -= fin - FIN_VOIX_MAX
-            fin = FIN_VOIX_MAX
-        seg = x[int(c0 * sr):int(c1 * sr)].copy()
-        nf = min(int(0.035 * sr), seg.shape[0] // 4)
-        seg[:nf] *= 0.5 - 0.5 * np.cos(np.pi * np.arange(nf) / nf)
-        seg[-nf:] *= 0.5 + 0.5 * np.cos(np.pi * np.arange(nf) / nf)
-        i = int(round((t_att - (a0 - c0)) * sr))
+    nf = int(FONDU_MIN * sr)
+    for p in pieces:
+        fic = os.path.join(ICI, p['fichier'])
+        if fic not in cache:
+            cache[fic] = v7.decoder_ffmpeg(fic, sr, filtre=FILTRE_VOIX_V8, canaux=1)[:, 0]
+        x = cache[fic]
+        seg = x[int(round(p['src_debut'] * sr)):int(round(p['src_fin'] * sr))].copy()
+        if seg.shape[0] < 4 * nf:
+            raise ValueError('pièce vocale trop courte : %s' % p['id'])
+        seg[:nf] *= np.sin(0.5 * np.pi * np.arange(nf) / nf)
+        seg[-nf:] *= np.cos(0.5 * np.pi * np.arange(nf) / nf)
+        i = int(round(p['t_film'] * sr))
         piste[i:i + seg.shape[0]] += seg[:max(0, N - i)]
-        intervalles.append((t_att, fin))
-        rapport.append({'phrase': nom, 'texte': ' '.join(m['w'] for m in mots[i0:i1 + 1]).replace(" '", "'"),
-                        'attaque': round(t_att, 3), 'fin': round(fin, 3),
-                        'mot_ancre': mots[ia]['w'], 't_mot_ancre': round(t_ancre, 3), 'intention': intention,
-                        'coupe_prise_s': [round(c0, 3), round(c1, 3)]})
+        fin = p['t_film'] + seg.shape[0] / sr
+        intervalles.append((p['t_film'], fin))
+        rapport.append({'id': p['id'], 'texte': p['texte'], 'fichier': p['fichier'],
+                        'src': [p['src_debut'], p['src_fin']], 'attaque': round(p['t_film'], 3), 'fin': round(fin, 3)})
     ordre = sorted(range(len(intervalles)), key=lambda j: intervalles[j][0])
     for a, b in zip(ordre, ordre[1:]):
-        assert intervalles[b][0] > intervalles[a][1] + 0.15, 'phrases de voix off qui se chevauchent : %s / %s' % (
-            rapport[a]['phrase'], rapport[b]['phrase'])
-    assert max(b for _, b in intervalles) <= FIN_VOIX_MAX + 1e-6, 'la voix off doit finir avant %.2f s' % FIN_VOIX_MAX
+        assert intervalles[b][0] >= intervalles[a][1] - 1e-6, 'pièces vocales qui se chevauchent : %s / %s' % (
+            rapport[a]['id'], rapport[b]['id'])
+    assert max(b for _, b in intervalles) <= duree - 0.03, 'la voix off doit finir avant %.2f s' % (duree - 0.03)
     return piste, intervalles, rapport
 
 
@@ -900,8 +858,9 @@ def construire_kit(sr):
 # ----------------------------------------------------------------------------------------------
 def sources_a_surveiller(args):
     fic = [os.path.abspath(__file__), args.plan, os.path.join(DOSSIER_V7, 'sound_v7_crescendo.py'),
-           os.path.join(DOSSIER_V5, 'themes_ecuries.json'), os.path.join(DOSSIER_V5, 'voix', 'mots_prise_A.json')]
-    fic += sorted(glob.glob(os.path.join(DOSSIER_V5, 'voix', '*.mp3')))
+           os.path.join(DOSSIER_V5, 'themes_ecuries.json'), os.path.join(ICI, 'data', 'voix_v8.json')]
+    fic += sorted(glob.glob(os.path.join(ICI, 'voix_off', '*.mp3')))
+    fic += [os.path.join(DOSSIER_V5, 'voix', 'mimine_voix_cassee.mp3'), os.path.join(DOSSIER_V5, 'voix', 'mario_chute_B.mp3')]
     fic += [p for p in (v7.trouver_theme(args.dossier_themes, n) for n in range(1, 16)) if p]
     return [f for f in fic if os.path.isfile(f)]
 
@@ -924,7 +883,7 @@ def a_jour(args, wav, tl):
 
 
 def main():
-    ap = argparse.ArgumentParser(description='Bande-son V8 « Grand Prix de Noël — Finale » (92,0 s).')
+    ap = argparse.ArgumentParser(description='Bande-son V8 « Grand Prix de Noël — Finale » (107,0 s).')
     ap.add_argument('--rapide', action='store_true', help='rend à 22,05 kHz mono pour test (audio/mix_v8_rapide.wav)')
     ap.add_argument('--sortie', default=None, help='chemin du WAV (défaut : audio/mix_v8.wav)')
     ap.add_argument('--sans-reel', action='store_true', help='ignore les extraits MP3 même s\'ils existent')
@@ -946,10 +905,15 @@ def main():
     N = int(round(DUREE * sr))
     with open(args.plan, encoding='utf-8') as f:
         plan = json.load(f)
-    assert abs(float(plan['duree']) - DUREE) < 1e-9, 'le plan doit durer 92,0 s'
+    assert abs(float(plan['duree']) - DUREE) < 1e-9, 'le plan doit durer %.1f s' % DUREE
     R = plan['reperes_son']
     seg = {s['id']: s for s in plan['segments']}
-    sous = {x['id']: (x['debut'], x['fin']) for s in plan['segments'] for x in s.get('sous', [])}
+    # sous-parties : celles de la folie sont en temps INTERNE (origine 44) -> temps film = interne + decalage_folie
+    dec = float(plan.get('decalage_folie', 0.0))
+    sous = {x['id']: (x['debut'] + (dec if s['id'] == 'folie' else 0.0), x['fin'] + (dec if s['id'] == 'folie' else 0.0))
+            for s in plan['segments'] for x in s.get('sous', [])}
+    pieces_voix = charger_voix(os.path.join(ICI, 'data', 'voix_v8.json'))
+    par_id = {p['id']: p for p in pieces_voix}
     ecuries = [dict(e) for e in plan['ecuries']]
     pieges = plan['pieges']
     assert len(ecuries) == 15, '15 écuries attendues'
@@ -1036,26 +1000,33 @@ def main():
     poser(bus_fx, cuivres([45, 52, 57, 61, 64], 1.2, sr, 1.2), t_ring, sr, gain=0.35)
     ev(t_ring, 'impact d\'arrivée sur le ring (sub, cymbale, foule, cuivres)')
 
-    # ================================ 2. ÉCURIES (14 → 44 s) ================================
+    # ================================ 2. ÉCURIES (14 → 59 s) ================================
     t_fin_ec = seg['ecuries']['fin']
-    lignes_ec = medley_ecuries(bus_theme, ecuries, cfg_themes, sr, args.dossier_themes, args.sans_reel, equipes, t_fin_ec,
-                               t_plongee + 1.0)
+    fins_nom = []
+    for e in ecuries:
+        p = par_id.get('ecurie_%02d' % e['id'])
+        fins_nom.append(p['t_film'] + (p['src_fin'] - p['src_debut']) if p else e['debut'] + 2.4)
+    lignes_ec = medley_ecuries(bus_theme, ecuries, fins_nom, cfg_themes, sr, args.dossier_themes, args.sans_reel, equipes,
+                               t_fin_ec, t_ring + 0.15)
+    # « Select ! » feutré (passe-bas 3,5 kHz) au changement de voiture, whoosh feutré au portail, petit sub sur l'éclat
     sel = select_arcade(sr, np.random.default_rng(80500))
-    rs = np.random.default_rng(80510)
-    for k, e in enumerate(ecuries):
-        poser(bus_fx, stereo(sel, 0.15 if k % 2 else -0.15), e['debut'], sr, gain=0.30)
-        poser(bus_bed, kit['k'], e['debut'], sr, gain=0.55)
-        poser(bus_bed, sub_drop(sr, 0.6, 70.0, 40.0, 0.18), e['impact'], sr, gain=0.35)
-        if k > 0:
-            v7.whoosh(bus_fx, e['debut'], sr, long=0.45, gain=0.30, seed=80520 + k, sens=1 if k % 2 else -1)
-    ev(ecuries[0]['debut'], '15 sons « Select ! » arcade (un par changement de voiture)')
+    sel = norme(filtre_bande(sel, sr, None, 3500.0)) * fenetre(sel.shape[0], 0.004, 0.08, sr)
+    for k, (e, l) in enumerate(zip(ecuries, lignes_ec)):
+        poser(bus_fx, stereo(sel, 0.15 if k % 2 else -0.15), e['debut'], sr, gain=0.10)
+        poser(bus_bed, kit['k'], e['debut'], sr, gain=0.25)
+        ww = np.zeros((int(1.0 * sr), 2))
+        v7.whoosh(ww, 0.5, sr, long=0.9, gain=1.0, seed=80520 + k, sens=1 if k % 2 else -1)
+        ww = np.stack([filtre_bande(ww[:, c], sr, None, 1800.0) for c in range(2)], axis=1)
+        poser(bus_fx, ww, e['impact'] - 0.5, sr, gain=0.22)
+        poser(bus_bed, sub_drop(sr, 0.7, 70.0, 40.0, 0.2), l['signature']['t_eclat'], sr, gain=0.30)
+    ev(ecuries[0]['debut'], '15 « Select ! » feutrés (debut) + 15 whooshs feutrés au portail (impact)')
     # nappe sub très discrète sous le défilé
     n_ec = int((t_fin_ec - ecuries[0]['debut'] + 0.5) * sr)
     tn = temps(n_ec, sr)
     sub_ec = (np.sin(2 * np.pi * 55.0 * tn) + 0.3 * np.sin(2 * np.pi * 110.3 * tn)) * fenetre(n_ec, 0.6, 0.5, sr)
     poser(bus_bed, sub_ec, ecuries[0]['debut'], sr, gain=0.05)
 
-    # ================================ 3. LA FOLIE (44 → 92 s) ================================
+    # ================================ 3. LA FOLIE (59 → 107 s) ================================
     p0, p1 = sous['paris']
     m0, m1 = sous['meute']
     c0_, c1_ = sous['caisses']
@@ -1184,7 +1155,7 @@ def main():
     racines = [45, 48, 50, 52, 53, 55]
     batterie_motif(bus_bed, kit, q0, q1, 90.0, {'h': 'x.o.x.o.x.o.x.o.'}, {'h': 0.13}, sr)
     for i, pg in enumerate(pieges):
-        d, c = pg['debut'], pg['contact']
+        d, c = pg['debut'] + dec, pg['contact_film']
         rig = pg['rig']
         poser(bus_bed, kit['k'], d, sr, gain=0.75)
         poser(bus_bed, basse(midi_hz(racines[i] - 12), 0.6, sr), d, sr, gain=0.30)
@@ -1284,7 +1255,7 @@ def main():
     poser(bus_fx, stereo(charge), t_photo - 1.2, sr, gain=0.06)
     ev(x0_, 'crescendo : accelerando 120 → 190 BPM, riser, moteurs, roulement')
 
-    # ================================ CARTE FINALE (88 → 92 s) ================================
+    # ================================ CARTE FINALE (103 → 107 s) ================================
     rfi = np.random.default_rng(80700)
     bus_post = np.zeros((N, 2))       # après la coupure : flash, suspension, carte finale (non soumis au masque de coupure)
     fl = flash_photo(sr, rfi)
@@ -1297,7 +1268,7 @@ def main():
     poser(bus_post, stereo(susp), t_photo + 0.3, sr, gain=0.08)
     rv = cymbale(sr, rfi, 1.2, 0.5)[::-1].copy() * fenetre(int(1.2 * sr), 0.3, 0.006, sr)
     poser(bus_post, stereo(rv), t_carte - 1.2, sr, gain=0.25)
-    # accord final (do majeur, cuivres + lames de boîte à musique) : tout s'éteint avant 92,0 s
+    # accord final (do majeur, cuivres + lames de boîte à musique) : tout s'éteint avant la fin du film
     t_fin_son = DUREE - 0.08
     d_fin = t_fin_son - t_carte
     acc_fin = cuivres([36, 43, 48, 52, 55, 60, 64], d_fin, sr, 1.6, attaque=0.01)
@@ -1326,18 +1297,9 @@ def main():
     bus_voix = np.zeros((N, 2))
     iv_voix, rapport_voix = [], []
     if not args.sans_voix:
-        try:
-            vo, iv_voix, rapport_voix = voix_off_v8(sr, N)
-            bus_voix[:, 0] += vo
-            bus_voix[:, 1] += vo
-        except (OSError, RuntimeError, ValueError, KeyError) as ex:
-            print('  [avertissement] voix off impossible (%s) : mix sans commentateur' % ex)
-    # garde-fous de calage : chaque phrase doit finir avant le repère qu'elle annonce
-    limites = {'mesdames': t_tapis - 1.0, 'paris': t_bouton, 'caisses': t_caisse, 'attention': t_boss, 'pieges': q0,
-               'gloire': t_photo, 'final': t_photo - 0.05, 'titre': FIN_VOIX_MAX + 1e-6}
-    for r in rapport_voix:
-        lim = limites.get(r['phrase'])
-        assert lim is None or r['fin'] < lim, 'phrase « %s » trop longue : finit à %.2f s (limite %.2f s)' % (r['phrase'], r['fin'], lim)
+        vo, iv_voix, rapport_voix = voix_off_v8(sr, N, pieces_voix, DUREE)
+        bus_voix[:, 0] += vo
+        bus_voix[:, 1] += vo
 
     # coupure nette au photo-finish : tout ce qui précède s'arrête en 6 ms (le flash et la carte finale sont à part)
     masque = np.ones(N)
@@ -1348,27 +1310,30 @@ def main():
     G = {'salon': 1.0, 'bed': 0.85, 'fx': 0.8, 'theme': 0.8, 'post': 0.9}
 
     def reste_avec(sc):
-        return ((bus_salon * G['salon'] + bus_bed * G['bed'] + bus_fx * G['fx'] + bus_theme * G['theme']) * masque[:, None]
-                + bus_post * G['post']) * sc[:, None]
+        # les signatures d'écuries ont leur propre sidechain, sans maintien et à relâche rapide : l'éclat qui tombe 0,1 s
+        # après le nom n'est pas étouffé par la queue du sidechain
+        sc_th = courbe_sidechain_var(iv_voix, reductions, N, sr, maintien=0.02, rel=0.08) if iv_voix else np.ones(N)
+        return ((bus_salon * G['salon'] + bus_bed * G['bed'] + bus_fx * G['fx']) * sc[:, None]
+                + bus_theme * G['theme'] * sc_th[:, None]) * masque[:, None] + bus_post * G['post'] * sc[:, None]
 
     rms_db = lambda b, a, z: 20 * math.log10(math.sqrt(float(np.mean(b[int(a * sr):int(z * sr)] ** 2))) + 1e-9)
     reductions = [-8.0] * len(iv_voix)
     sc = np.ones(N)
-    for it in range(6):
+    for it in range(10):
         sc = courbe_sidechain_var(iv_voix, reductions, N, sr) if iv_voix else np.ones(N)
         reste = reste_avec(sc)
         ok = True
         for j, r in enumerate(rapport_voix):
             r['marge_db'] = round(rms_db(bus_voix * GAIN_VOIX, r['attaque'], r['fin']) - rms_db(reste, r['attaque'], r['fin']), 1)
-            if r['marge_db'] < MARGE_VOIX_DB and reductions[j] > -20.0:
-                reductions[j] = max(-20.0, reductions[j] - (MARGE_VOIX_DB - r['marge_db']) - 0.5)
+            if r['marge_db'] < MARGE_VOIX_DB and reductions[j] > -26.0:
+                reductions[j] = max(-26.0, reductions[j] - (MARGE_VOIX_DB - r['marge_db']) - 0.5)
                 ok = False
         if ok:
             break
     for j, r in enumerate(rapport_voix):
         r['reduction_sidechain_db'] = round(reductions[j], 1)
     mix = reste + bus_voix * GAIN_VOIX
-    mix *= fenetre(N, 0.02, 0.05, sr)[:, None]           # départ et fin à zéro
+    mix *= fenetre(N, 0.02, 0.03, sr)[:, None]           # départ et fin à zéro (fondu final de 30 ms)
     if args.rapide:
         mix = mix.mean(axis=1, keepdims=True)
 
@@ -1424,15 +1389,15 @@ def main():
     print('Mix V8 : %s' % wav)
     print('  durée %.4f s (%d échantillons) | %d Hz | %d canal(aux)' % (final.shape[0] / sr, final.shape[0], sr, final.shape[1]))
     print('  LUFS approx %.2f | crête %.2f dBFS | 50 dernières ms %.1f dBFS' % (lufs_mesure, crete, queue_db))
-    print('  %d écuries réelles, %d synthétisées | voix off : %d phrases | timeline : %s' %
+    print('  %d écuries réelles, %d synthétisées | voix off : %d pièces | timeline : %s' %
           (nb_reel, len(lignes_ec) - nb_reel, len(rapport_voix), chemin_tl))
     for e in lignes_ec:
         s = e['signature']
-        print('   %2d %-28s éclat %.3f s = impact | fondu %s -> %s | %s' % (e['id'], e['nom'][:28], s['t_eclat'], s['fondu_entree'],
+        print('   %2d %-28s éclat %.3f s (après le nom) | fondu %s -> %s | %s' % (e['id'], e['nom'][:28], s['t_eclat'], s['fondu_entree'],
                                                                        s['fondu_sortie'], ' + '.join(s['sources'])))
     for r in rapport_voix:
         print('   voix %-10s %6.2f -> %6.2f s  marge %+5.1f dB (sidechain %5.1f dB)  « %s »' % (
-            r['phrase'], r['attaque'], r['fin'], r['marge_db'], r['reduction_sidechain_db'], r['texte'][:60]))
+            r['id'], r['attaque'], r['fin'], r['marge_db'], r['reduction_sidechain_db'], r['texte'][:60]))
     print('  calcul : %.1f s' % (time.time() - t_calc))
     return 0
 

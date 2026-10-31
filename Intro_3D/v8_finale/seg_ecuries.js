@@ -1,23 +1,20 @@
-/* SEGMENT « ECURIES » de la V8 Finale — 14 → 44 s : les 15 écuries, 2,0 s de gloire chacune, « écran de sélection ».
+/* SEGMENT « ECURIES » de la V8 Finale — les 15 écuries, présentation CALME et lisible façon « écran de sélection ».
 
-   Pour chaque écurie k (créneau [debut, impact = debut + 0,8, fin = debut + 2,0] lu dans plan_v8.json → ecuries) :
-     PHASE A (debut → impact, 0,8 s) : le Concept-Car de l'écurie (Showroom) et son bolide m3d ailier foncent dans leur MONDE
-        NATIF (décors V7 : Vallée sucrée sous les bonbons, Observatoire stellaire, Jardin impérial…) vers le portail dimensionnel.
-        Caméra de poursuite RAPPROCHÉE en orbite autour du bolide (distance calculée sur sa taille réelle : il occupe ~45 % de la
-        largeur de l'image), aucun tremblement ; le portail entre dans le champ et avale le bolide pile à l'impact.
-     IMPACT (debut + 0,8 s, éclat musical de l'écurie) : flash franc teinté de la couleur du monde + coupe sèche.
-     PHASE B (impact → fin, 1,2 s) : le bolide JAILLIT de la porte jumelle du Ring et part en drift lourd jusqu'à son
-        emplacement (trajectoires physiques V7 scenarioEcurie) ; caméra de face-trois-quarts qui l'accompagne et resserre.
-   Habillage : UNE bannière pop en bas à gauche (ecuries_bandeau.js) — #numéro, NOM DE L'ÉCURIE, pilote · bolide. Rien d'autre.
+   Tous les temps viennent de plan_v8.json → ecuries[k] = { debut, impact, fin } (aujourd'hui 3,0 s par écurie, impact à mi-créneau).
+   Pour chaque écurie k, UNE SEULE voiture à l'écran : le Concept-Car du Showroom de l'écurie.
+     PHASE A (debut → impact) : le Concept-Car roule à allure tranquille et constante dans son MONDE NATIF (décors V7 :
+        Vallée sucrée sous les bonbons, Observatoire stellaire, Jardin impérial…) sur la trajectoire du monde, à plat.
+        Travelling latéral lent qui tourne doucement autour de lui (distance calculée sur sa taille réelle : ~45 % de la largeur
+        de l'image), aucun coup de zoom, aucun tremblement. Le portail dimensionnel l'attend au bout de la route.
+     IMPACT : il franchit le portail en douceur — fondu lumineux court teinté de la couleur du monde (pas de flash blanc).
+     PHASE B (impact → fin) : il ressort de la porte jumelle du Ring et vient se poser, en décélérant régulièrement, devant sa
+        place (aucun dérapage) ; la caméra l'accompagne en orbite lente puis le tient en pose héroïque. Seule sa pastille s'allume.
+   Habillage : UNE bannière douce en bas à gauche (ecuries_bandeau.js) — #numéro, NOM DE L'ÉCURIE, pilote · bolide. Rien d'autre.
 
-   Entrée à 14 s : coupe sèche depuis la vue d'arène du salon vers le monde natif de l'écurie #01 (le badge pop au même instant).
-
-   Déterminisme (règle 5) : maj(t) est une fonction pure de t. Tout ce qui est touché (visibilités, poses, roues, portails,
-   uniforms, pastilles, post-combustion, reflets) est remis à chaque image. Les 15 mondes sont construits UNE fois, dans
-   l'ordre 0..14, au chargement (gestion.prechauffer de la V7, cache sans éviction) : aucun ordre de rendu ne dépend de
-   l'historique des images. Aucun Math.random() hors ctx.avecAlea. */
-import { scenarioEcurie, MONDES, creerPortail, creerRing, creerGestionnaireMondes } from '../v7_multivers_4k/mondes_et_portails.js';
-import { creerFumee, creerGomme } from '../v7_multivers_4k/effets_cgi.js';
+   Déterminisme (règle 5) : maj(t) est une fonction pure de t ; tout ce qui est touché est remis à chaque image. Les 15 mondes
+   sont construits UNE fois, dans l'ordre 0..14 (gestion.prechauffer de la V7, cache sans éviction). Aucun Math.random() hors
+   ctx.avecAlea. */
+import { scenarioEcurie, MONDES, creerPortail, creerRing, creerGestionnaireMondes, angleEcurie, RING } from '../v7_multivers_4k/mondes_et_portails.js';
 import { creerBandeau } from './ecuries_bandeau.js';
 
 const FOND_RING = 0x04050c;
@@ -26,31 +23,34 @@ const brouillardMonde = (dc, m) => ({ couleur: m.ciel, densite: Math.min(0.0016,
 const hash01 = (n) => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 /** Éclairs d'orage pilotés par t (mondes à orage) — même loi que la V7 */
 const eclairMonde = (t, seed) => { let v = 0; for (let i = 0; i < 6; i++) { const te = i * 1.31 + hash01(seed + i) * 0.9, d = (t % 7.9) - te; if (d >= 0 && d < 0.3) v = Math.max(v, d < 0.05 ? 1 : d < 0.11 ? 0.15 : d < 0.18 ? 0.8 : 0.3 * (1 - d / 0.3)); } return v; };
+const gauss = (x) => Math.exp(-x * x);
 
-/* ───────── réalisation : un plan-type de poursuite par écurie (angles en degrés depuis l'AVANT du bolide) ─────────
-   a0 → a1 : orbite pendant la phase A (≥ 95° en fin de phase : le portail entre dans le champ devant le bolide)
-   h0 → h1 : hauteur de caméra (cm au-dessus du bolide) ; fov : focale verticale ; frac : part de la largeur occupée par le bolide
-   b0 → b1 : orbite de la phase B dans le Ring (face-trois-quarts → trois-quarts), hb : hauteur, cote : côté de la caméra (±1),
-   fracB : part de la largeur occupée dans le Ring (0,44 par défaut) ; avance : visée en avant du bolide, en longueurs (0,18 par défaut) */
+/* ───────── réalisation : un plan par écurie (angles en degrés depuis l'AVANT du bolide) ─────────
+   a0 → a1 : orbite LENTE de la phase A (vitesse angulaire constante) ; h0 → h1 : hauteur de caméra (cm au-dessus du sol) ;
+   fov : focale verticale ; frac : part de la largeur de l'image occupée par le bolide ; avance : visée en avant du bolide
+   (en longueurs) ; v : allure dans le monde (cm/s) ;
+   b0 → b1 : orbite de la phase B dans le Ring (face-trois-quarts → trois-quarts) ; hb : hauteur ; cote : côté (±1) ;
+   fracB : part de la largeur occupée dans le Ring ; recul : le portail du monde est avancé de `recul` cm sur la route (relief). */
+const DEFAUT = { recul: 0, h0: 4.0, h1: 4.4, fov: 38, frac: 0.46, avance: 0.15, v: 22, b0: 28, b1: 50, hb: 3.6, cote: 1, fracB: 0.46 };
 const PLANS = [
-  { a0: 40, a1: 105, h0: 3.0, h1: 4.2, fov: 40, frac: 0.46, b0: 28, b1: 70, hb: 3.4, cote: 1 },     // #01 Route 66 : 3/4 avant bas → profil
-  { a0: 70, a1: 120, h0: 6.5, h1: 4.5, fov: 40, frac: 0.44, b0: 34, b1: 78, hb: 4.0, cote: -1 },    // #02 Vallée sucrée : sous les bonbons
-  { a0: 25, a1: 100, h0: 2.0, h1: 3.2, fov: 38, frac: 0.46, b0: 24, b1: 64, hb: 2.8, cote: 1 },     // #03 Stroboscope : rase-bitume
-  { a0: 95, a1: 140, h0: 5.0, h1: 5.5, fov: 40, frac: 0.44, b0: 30, b1: 72, hb: 4.2, cote: -1 },    // #04 Tapis de cartes : poursuite
-  { a0: 72, a1: 108, h0: 4.0, h1: 6.0, fov: 27, frac: 0.46, b0: 36, b1: 80, hb: 3.6, cote: 1, avance: 0.42 },     // #05 Saut du château : le saut de profil (panneau « COMBAT ! » hors du bord du cadre)
-  { a0: 45, a1: 110, h0: 3.6, h1: 4.4, fov: 40, frac: 0.46, b0: 26, b1: 68, hb: 3.2, cote: -1 },    // #06 Scène symphonique
-  { a0: 60, a1: 125, h0: 8.0, h1: 5.0, fov: 40, frac: 0.44, b0: 32, b1: 74, hb: 4.4, cote: 1 },     // #07 Forêt ancienne : légère plongée
-  { a0: 32, a1: 58, h0: 5.0, h1: 4.4, fov: 36, frac: 0.64, b0: 30, b1: 58, hb: 3.6, cote: -1, fracB: 0.62 },     // #08 Autoroute sous la pluie : 3/4 avant serré, dépanneuse + A4 remorquée lisibles
-  { a0: 85, a1: 120, h0: 4.0, h1: 7.5, fov: 44, frac: 0.42, b0: 34, b1: 78, hb: 3.8, cote: 1 },     // #09 Piqué stratosphérique : saut
-  { a0: 110, a1: 145, h0: 4.5, h1: 4.0, fov: 40, frac: 0.44, b0: 28, b1: 70, hb: 3.4, cote: -1 },   // #10 Éclipse rouge : poursuite
-  { a0: 50, a1: 112, h0: 5.0, h1: 4.0, fov: 40, frac: 0.46, b0: 30, b1: 72, hb: 3.6, cote: 1 },     // #11 Observatoire stellaire
-  { a0: 35, a1: 105, h0: 3.0, h1: 4.0, fov: 40, frac: 0.46, b0: 26, b1: 68, hb: 3.2, cote: -1 },    // #12 Caire crépusculaire
-  { a0: 70, a1: 118, h0: 3.6, h1: 4.4, fov: 40, frac: 0.44, b0: 30, b1: 74, hb: 3.6, cote: 1 },     // #13 Col de montagne : drift
-  { a0: 40, a1: 108, h0: 2.4, h1: 3.4, fov: 38, frac: 0.46, b0: 24, b1: 66, hb: 3.0, cote: -1 },    // #14 Grille néon
-  { a0: 55, a1: 115, h0: 5.5, h1: 4.4, fov: 40, frac: 0.46, b0: 32, b1: 76, hb: 3.8, cote: 1 },     // #15 Jardin impérial
-];
-/** Instant de la planche de contrôle (temps local dans le créneau) pour les 6 écuries imposées */
-const CLES = { 0: 0.55, 1: 0.5, 4: 0.6, 7: 0.55, 10: 0.5, 14: 0.55 };
+  { a0: 62, a1: 84 },                                         // #01 Route 66 : profil 3/4 avant, braises au loin
+  { a0: 74, a1: 96, h0: 5.5, h1: 5.0, cote: -1 },            // #02 Vallée sucrée : sous les bonbons
+  { a0: 56, a1: 80, h0: 2.8, h1: 3.2 },                      // #03 Stroboscope : caméra basse
+  { a0: 80, a1: 102, h0: 5.0, h1: 5.4, cote: -1 },           // #04 Tapis de cartes
+  { a0: 72, a1: 92, fov: 30, avance: 0.32 },                 // #05 Saut du château : panneau « COMBAT ! » hors du cadre
+  { a0: 58, a1: 82, h0: 3.6, h1: 4.2, cote: -1 },            // #06 Scène symphonique
+  { a0: 66, a1: 90, h0: 6.5, h1: 5.4, recul: 26 },          // #07 Forêt ancienne : légère plongée, arrivée avant la butte
+  { a0: 36, a1: 54, h0: 5.0, h1: 4.6, fov: 36, frac: 0.64, cote: -1, fracB: 0.62, b0: 30, b1: 48 },   // #08 Autoroute : 3/4 avant serré, A4 remorquée lisible
+  { a0: 70, a1: 92, h0: 4.6, h1: 5.2 },                      // #09 Piqué stratosphérique
+  { a0: 84, a1: 106, h0: 4.5, h1: 4.2, cote: -1 },           // #10 Éclipse rouge
+  { a0: 60, a1: 84, h0: 4.8, h1: 4.2 },                      // #11 Observatoire stellaire
+  { a0: 56, a1: 80, h0: 3.4, h1: 4.0, cote: -1 },            // #12 Caire crépusculaire
+  { a0: 70, a1: 92, h0: 3.8, h1: 4.4 },                      // #13 Col de montagne
+  { a0: 58, a1: 82, h0: 3.0, h1: 3.6, cote: -1 },            // #14 Grille néon
+  { a0: 64, a1: 88, h0: 5.0, h1: 4.4 },                      // #15 Jardin impérial
+].map((p) => ({ ...DEFAUT, ...p }));
+/** Instant de la planche de contrôle (temps local dans le créneau, en fraction du créneau) pour les 6 écuries imposées */
+const CLES = { 0: 0.33, 1: 0.33, 4: 0.33, 7: 0.33, 10: 0.85, 14: 0.85 };
 
 export async function creerSegment(ctx) {
   const { THREE, garage, poser, animer, avecAlea, outils, plan, equipes } = ctx;
@@ -60,23 +60,17 @@ export async function creerSegment(ctx) {
   if (slots.length !== 15) throw new Error('seg_ecuries : 15 créneaux attendus dans plan_v8.json → ecuries');
   const N = slots.length;
 
-  /* ═════════════ scénarios physiques (V7) : monde → portail → Ring ═════════════ */
+  /* ═════════════ scénarios V7 : servent au tracé de la route du monde natif et à l'emplacement du portail ═════════════ */
   const scenarios = slots.map((s) => scenarioEcurie(s.k, s));
-  const T_PARK = (sc) => sc.slot.impact + 5.0;
-  const poseRing = (sc, t, ailier = false) => (ailier ? sc.B2 : sc.B).pose(Math.min(t, T_PARK(sc)));
-  const poseMonde = (sc, t, ailier = false) => (ailier ? sc.A2 : sc.A).pose(t);
 
-  /* ═════════════ les 15 binômes : Concept-Car du Showroom + bolide m3d ailier ═════════════ */
+  /* ═════════════ les 15 Concept-Cars du Showroom (la seule voiture de chaque plan) ═════════════ */
   ctx.progression('Écuries : concept-cars…');
   const concepts = equipes.slice(0, N).map((e) => garage.concept(e.id));
-  const ailiers = [];
-  for (let k = 0; k < N; k++) { ctx.progression(`Écuries : bolide ${k + 1}/${N}…`); ailiers.push(await garage.m3d(MONDES[k].ailier)); }
-  for (const v of [...concepts, ...ailiers]) { v.visible = false; groupe.add(v); }
-  // reflets sur le sol d'obsidienne du Ring : seulement pour le binôme courant (les garés restent sans reflet : économie)
+  for (const v of concepts) { v.visible = false; groupe.add(v); }
+  // reflet sur le sol d'obsidienne du Ring (copie du seul Concept-Car courant)
   const miroirs = concepts.map((c) => { const m = ctx.decors.creerMiroirModele(THREE, c); m.racine.visible = false; groupe.add(m.racine); return m; });
-  const mirAil = ailiers.map((c) => { const m = ctx.decors.creerMiroirModele(THREE, c); m.racine.visible = false; groupe.add(m.racine); return m; });
 
-  /* ═════════════ Ring commun + portes jumelles (une par écurie) ═════════════ */
+  /* ═════════════ Ring commun + portes jumelles ═════════════ */
   const ring = avecAlea('ecuries-ring', () => creerRing(THREE, { envMap: ctx.envMap, equipes }));
   groupe.add(ring.groupe);
   const portes = MONDES.map((m, k) => {
@@ -85,31 +79,18 @@ export async function creerSegment(ctx) {
     p.groupe.visible = false; ring.groupe.add(p.groupe); return p;
   });
 
-  /* ═════════════ sillage du drift dans le Ring : fumée de pneus + rubans de gomme (précalculés, évalués dans les shaders) ═════════════ */
-  const fumee = creerFumee(THREE, '#d3d6e4'), gomme = creerGomme(THREE);
-  scenarios.forEach((sc, k) => {
-    const recul = concepts[k].v7.L * 0.42;
-    const rf = (t) => { const p = sc.B.pose(t, { sansSuspension: true }), c = Math.cos(p.cap), s = Math.sin(p.cap); return { p: [p.pos[0] - s * recul, 0, p.pos[2] - c * recul], gauche: [c, -s], pos: p.pos }; };
-    const t0 = sc.slot.impact + 0.06, t1 = sc.slot.impact + 1.1;
-    fumee.emettre({ poseFn: (t) => rf(t).p, t0, t1, pas: 0.035, vie: 1.0, taille: 2.0, deriveVent: [0.5, 0, 0.3], graine: k * 7 + 1 });
-    for (const dec of [-1.4, 1.4]) gomme.tracer({ poseFn: rf, t0, t1, pas: 0.03, decalage: dec, largeur: 0.9 });
-  });
-  fumee.figer(); gomme.figer(); ring.groupe.add(fumee.objet, gomme.objet);
-
   /* ═════════════ les 15 mondes natifs : construits une fois, dans l'ordre, jamais libérés ═════════════ */
   const gestion = creerGestionnaireMondes({ THREE, renderer: ctx.renderer, envMap: ctx.envMap, decors: ctx.decors, avecAlea, cars: ctx.cars, max: MONDES.length });
   gestion.prechauffer(scenarios, groupe, (k) => ctx.progression(`Écuries : monde natif ${k + 1}/${N}…`));
   const mondes = scenarios.map((sc) => gestion.cache.get(sc.k));
   /* #08 (Autoroute sous la pluie) : le tube néon du bord de route côté caméra (+z) passait entre l'objectif et la dépanneuse
-     + A4 remorquée ; on le retire une fois pour toutes (réglage constant, construit avant la première image : déterministe).
-     Le tube du bord opposé reste : il garde l'identité « autoroute ». */
+     + A4 remorquée ; on le retire une fois pour toutes (réglage constant, avant la première image : déterministe). */
   {
     const k8 = MONDES.findIndex((m) => m.id === 8), e8 = mondes[k8], i8 = ['bandes', ...MONDES[k8].fx].indexOf('bandes_pluie');
     const g8 = i8 >= 0 ? e8.fx[i8].groupe : null, b = new THREE.Box3(), c = new THREE.Vector3();
     if (g8 && g8.children.length) {
       const zc = (o) => { b.setFromObject(o); return b.getCenter(c).z; };
-      const proche = g8.children.reduce((x, y) => (zc(y) > zc(x) ? y : x));
-      proche.visible = false;
+      g8.children.reduce((x, y) => (zc(y) > zc(x) ? y : x)).visible = false;
     }
   }
 
@@ -117,104 +98,106 @@ export async function creerSegment(ctx) {
   const cc = await ctx.importerShared('concept_cars.js');
   const bandeau = creerBandeau({ equipes, infoConcept: (id) => cc.conceptInfo(id), logos: ctx.logos });
 
-  /* ═════════════ caméras ═════════════ */
+  /* ═════════════ trajectoires calmes (fonctions pures de t) ═════════════ */
+  const pose = (pos, cap, dist, heave = 0) => ({ pos, cap, capVitesse: cap, heave, tangage: 0, pente: 0, roulis: 0, dist, braquage: 0, coins: {} });
+  /** Phase A : allure constante sur la route du monde (tracé V7 à plat), arrivée au portail pile à l'impact */
+  function poseMonde(k, t) {
+    const sc = scenarios[k], slot = slots[k], v = PLANS[k].v;
+    const s = sc.sPortail - PLANS[k].recul - v * (slot.impact - t), p = sc.spA.point(s), T = sc.spA.tangente(s);
+    return pose([p[0], 0, p[2]], Math.atan2(T[0], T[2]), s, 0.04 * Math.sin(t * 9 + k));
+  }
+  /** Phase B : sortie de la porte du Ring, décélération régulière (quadratique) jusqu'à l'arrêt devant la place, puis immobile */
+  const R0 = RING.RG - 9, R1 = RING.RS + 14, T_ROULE = (k) => Math.min(1.25, (slots[k].fin - slots[k].impact) * 0.85);
+  function poseRing(k, t) {
+    const th = angleEcurie(k), x = clamp((t - slots[k].impact) / T_ROULE(k)), d = (R0 - R1) * (1 - (1 - x) * (1 - x));
+    const r = R0 - d;
+    return pose([Math.cos(th) * r, 0, Math.sin(th) * r], Math.atan2(-Math.cos(th), -Math.sin(th)), d, x < 1 ? 0.03 * Math.sin(t * 8 + k) : 0);
+  }
+
+  /* ═════════════ caméras lentes ═════════════ */
   const aspect = ctx.L / ctx.H;
   /** distance pour que le bolide (longueur L, largeur W vues sous l'angle a) occupe `frac` de la largeur de l'image */
   const distance = (v, aDeg, fov, frac) => {
     const a = aDeg * Math.PI / 180, eff = Math.abs(Math.sin(a)) * v.L + Math.abs(Math.cos(a)) * v.largeur;
-    const demiL = Math.tan(fov * Math.PI / 360) * aspect;
-    return Math.max(10, eff / (frac * 2 * demiL));
+    return Math.max(10, eff / (frac * 2 * Math.tan(fov * Math.PI / 360) * aspect));
   };
-  /** Phase A : orbite de poursuite dans le repère du monde (avant = +x·dir, la caméra reste côté +z, face au décor) */
-  function cameraMonde(sc, t) {
-    const P = PLANS[sc.k], u = clamp((t - sc.slot.debut) / sc.TA), e = smoother(u);
-    const h = sc.A.pose(t, { sansSuspension: true }).pos, c = concepts[sc.k].v7;
-    const a = lerp(P.a0, P.a1, e), ar = a * Math.PI / 180, fov = P.fov;
-    const D = distance(c, a, fov, P.frac) * lerp(1.0, 0.93, e);
-    const F = [sc.dir, 0, 0], Z = [0, 0, 1];
-    const p = [h[0] + F[0] * D * Math.cos(ar), h[1] * 0.6 + lerp(P.h0, P.h1, e), h[2] + Z[2] * D * Math.sin(ar)];
-    const vise = [h[0] + F[0] * c.L * (P.avance ?? 0.18), h[1] * 0.85 + c.hauteur * 0.45, h[2]];
-    return { p, c: vise, fov, roll: 0.02 * (sc.k % 2 ? 1 : -1) * e };
+  /** Phase A : travelling latéral (axes fixes du monde : avant = +x·dir, caméra côté +z), orbite à vitesse angulaire constante */
+  function cameraMonde(k, t) {
+    const sc = scenarios[k], P = PLANS[k], u = clamp((t - slots[k].debut) / (slots[k].impact - slots[k].debut));
+    const h = poseMonde(k, t).pos, c = concepts[k].v7, a = lerp(P.a0, P.a1, u), ar = a * Math.PI / 180;
+    const D = distance(c, a, P.fov, P.frac);
+    const p = [h[0] + sc.dir * D * Math.cos(ar), lerp(P.h0, P.h1, u), h[2] + D * Math.sin(ar)];
+    return { p, c: [h[0] + sc.dir * c.L * P.avance, c.hauteur * 0.45, h[2]], fov: P.fov };
   }
-  /** Phase B : la caméra accompagne le drift, face-trois-quarts → trois-quarts, dans le repère radial de l'emplacement */
-  function cameraRing(sc, t) {
-    const P = PLANS[sc.k], u = clamp((t - sc.slot.impact) / (sc.slot.fin - sc.slot.impact)), e = smoother(u);
-    const h = sc.B.pose(t, { sansSuspension: true }).pos, c = concepts[sc.k].v7, th = sc.emplacement.theta;
+  /** Phase B : orbite lente autour du bolide qui se pose (repère radial de sa place) */
+  function cameraRing(k, t) {
+    const P = PLANS[k], u = clamp((t - slots[k].impact) / (slots[k].fin - slots[k].impact)), e = smoother(u * 0.5 + 0.5) * 2 - 1;  // vitesse non nulle à la coupe, s'amortit
+    const h = poseRing(k, t).pos, c = concepts[k].v7, th = angleEcurie(k);
     const F = [-Math.cos(th), 0, -Math.sin(th)], T = [-Math.sin(th) * P.cote, 0, Math.cos(th) * P.cote];
-    const a = lerp(P.b0, P.b1, e), ar = a * Math.PI / 180, fov = 36;
-    const D = distance(c, a, fov, P.fracB || 0.44) * lerp(1.08, 0.9, e);
-    const p = [h[0] + (F[0] * Math.cos(ar) + T[0] * Math.sin(ar)) * D, P.hb + 0.8 * e, h[2] + (F[2] * Math.cos(ar) + T[2] * Math.sin(ar)) * D];
-    return { p, c: [h[0], c.hauteur * 0.45, h[2]], fov, roll: 0 };
+    const a = lerp(P.b0, P.b1, e), ar = a * Math.PI / 180, fov = 36, D = distance(c, a, fov, P.fracB);
+    const p = [h[0] + (F[0] * Math.cos(ar) + T[0] * Math.sin(ar)) * D, P.hb, h[2] + (F[2] * Math.cos(ar) + T[2] * Math.sin(ar)) * D];
+    return { p, c: [h[0], c.hauteur * 0.45, h[2]], fov };
   }
 
   /* ═════════════ état « tout éteint » remis à chaque image ═════════════ */
   function masquer() {
     for (let j = 0; j < N; j++) {
-      concepts[j].visible = false; ailiers[j].visible = false; miroirs[j].racine.visible = false; mirAil[j].racine.visible = false;
-      portes[j].groupe.visible = false; mondes[j].groupe.visible = false;
+      concepts[j].visible = false; miroirs[j].racine.visible = false; portes[j].groupe.visible = false; mondes[j].groupe.visible = false;
       ring.pastilles[j].material.opacity = 0;
     }
-    ring.groupe.visible = false; fumee.objet.visible = false; gomme.objet.visible = false;
+    ring.groupe.visible = false;
   }
   const slotA = (t) => { for (let k = 0; k < N; k++) if (t < slots[k].fin) return k; return N - 1; };
 
-  const cles = Object.entries(CLES).map(([k, d]) => ({ t: +(slots[k].debut + d).toFixed(3), label: `Écurie ${bandeau.fiches[k].numero} · ${equipes[k].name}` }));
+  const cles = Object.entries(CLES).map(([k, f]) => ({ t: +(slots[k].debut + f * (slots[k].fin - slots[k].debut)).toFixed(3), label: `Écurie ${bandeau.fiches[k].numero} · ${equipes[k].name}` }));
 
   return {
     id: 'ecuries', groupe, cles,
     maj(t) {
       masquer();
-      const k = slotA(t), sc = scenarios[k], slot = sc.slot, m = MONDES[k], hero = concepts[k], ail = ailiers[k];
+      const k = slotA(t), slot = slots[k], m = MONDES[k], hero = concepts[k];
       const tau = t - slot.debut, dI = t - slot.impact, apres = [];
       let cam, fond, brouillard, lumieres;
-      hero.visible = ail.visible = true;
+      hero.visible = true;
       if (t < slot.impact) {
         /* ── PHASE A : monde natif ── */
-        const e = mondes[k], dc = e.decor, uA = clamp(tau / sc.TA);
+        const e = mondes[k], dc = e.decor, uA = clamp(tau / (slot.impact - slot.debut));
         e.groupe.visible = true;
-        poser(hero, poseMonde(sc, t)); poser(ail, poseMonde(sc, t, true), { lateral: 5.5 }); animer(hero, t);
-        e.portail.maj(t, smoother((uA - 0.05) / 0.45), uA > 0.7 ? (uA - 0.7) / 0.3 : 0);
+        poser(hero, poseMonde(k, t)); animer(hero, t);
+        // portail du monde : replacé au bout de la course (recul), réduit, iris entrouvert juste assez pour avaler le bolide
+        const sc = scenarios[k], sP = sc.sPortail - PLANS[k].recul, pP = sc.spA.point(sP), tP = sc.spA.tangente(sP);
+        e.portail.groupe.position.set(pP[0], 0, pP[2]); e.portail.groupe.rotation.set(0, Math.atan2(-tP[0], -tP[2]), 0); e.portail.groupe.scale.setScalar(0.6);
+        e.portail.maj(t, 0.5 * smoother((uA - 0.1) / 0.4), 0, 0);
         apres.push((camera) => {
           dc.maj(t, 0, camera, ctx.H);
           if (dc.eclair) { const ev = eclairMonde(t, m.id); dc.eclair.u.value = ev * 0.85; dc.eclair.lum.intensity = dc.eclair.base * (1 + ev * 3.2); }
           for (const f of e.fx) f.maj(t, camera, ctx.H);
         });
-        cam = cameraMonde(sc, t); fond = m.ciel; brouillard = brouillardMonde(dc, m); lumieres = { hemi: 0.16, cle: 0.24 };
+        cam = cameraMonde(k, t); fond = m.ciel; brouillard = brouillardMonde(dc, m); lumieres = { hemi: 0.16, cle: 0.24 };
       } else {
-        /* ── PHASE B : jaillissement dans le Ring + drift jusqu'à l'emplacement ── */
-        ring.groupe.visible = true;
-        ring.maj(t, Math.exp(-Math.max(0, dI) * 5) * 0.8, k + 1, 0);
-        for (let j = 0; j < k; j++) {                                     // les écuries déjà présentées attendent, garées
-          const s2 = scenarios[j]; concepts[j].visible = ailiers[j].visible = true;
-          poser(concepts[j], poseRing(s2, t)); poser(ailiers[j], poseRing(s2, t, true)); animer(concepts[j], t);
-          ring.pastilles[j].material.opacity = 0.9;
-        }
-        ring.pastilles[k].material.opacity = 0.9 * smoother((dI - 0.9) / 0.3);
-        poser(hero, poseRing(sc, t)); poser(ail, poseRing(sc, t, true)); animer(hero, t);
-        miroirs[k].racine.visible = true; miroirs[k].sync(); mirAil[k].racine.visible = true; mirAil[k].sync();
-        const ouv = 0.8 * smoother((dI + 0.04) / 0.1) * (1 - smoother((dI - 0.06) / 0.24));   // la porte se referme derrière le bolide : elle ne brûle pas le fond
-        portes[k].groupe.visible = true; portes[k].maj(t, ouv, ouv * 0.4, 0);
-        fumee.objet.visible = gomme.objet.visible = true;
-        apres.push((camera) => { fumee.maj(t, camera, ctx.H); gomme.maj(t); });
-        cam = cameraRing(sc, t); fond = FOND_RING; brouillard = ring.brouillard; lumieres = { hemi: 0.42, cle: 0.6 };
+        /* ── PHASE B : sortie de la porte du Ring, pose héroïque ── */
+        ring.groupe.visible = true; ring.maj(t, 0.25 * gauss(dI / 0.4), k + 1, 0);
+        poser(hero, poseRing(k, t)); animer(hero, t);
+        miroirs[k].racine.visible = true; miroirs[k].sync();
+        ring.pastilles[k].material.opacity = 0.9 * smoother((dI - 0.9) / 0.4);
+        const ouv = 0.45 * smoother((dI + 0.05) / 0.12) * (1 - smoother((dI - 0.15) / 0.35));
+        portes[k].groupe.visible = true; portes[k].groupe.scale.setScalar(0.75); portes[k].maj(t, ouv, 0, 0);
+        cam = cameraRing(k, t); fond = FOND_RING; brouillard = ring.brouillard; lumieres = { hemi: 0.42, cle: 0.6 };
       }
 
-      /* ── post : flash franc au temps fort (teinté de la couleur du monde), léger flou radial à la sortie du portail ── */
-      const flash = 0.6 * Math.exp(-Math.pow(dI / 0.05, 2)) + (dI >= 0 ? 0.15 * Math.exp(-dI * 14) : 0);
-      const teinte = new THREE.Color(m.accent).lerp(new THREE.Color(1, 0.94, 0.84), 0.6);
+      /* ── post : fondu lumineux court et doux au passage du portail (teinté de la couleur du monde) ── */
+      const teinte = new THREE.Color(m.accent).lerp(new THREE.Color(1, 0.94, 0.84), 0.5);
+      const voile = gauss(dI / 0.1);
       const post = {
-        exposition: dI < 0 ? 0.9 - 0.32 * smoother((dI + 0.28) / 0.22) : 0.88 - 0.3 * Math.exp(-dI * 7),   // l'iris du portail ne brûle pas l'image vignette: 0.5, saturation: 1.06, bloomForce: 0.3 - 0.16 * Math.exp(-Math.pow(dI / 0.2, 2)),
-        flash, flashCouleur: [teinte.r, teinte.g, teinte.b],
-        flou: dI >= 0 ? 0.35 * Math.exp(-dI * 9) : 0, centreFlou: [0.5, 0.5], aberration: 0.0006 + (dI >= 0 ? 0.003 * Math.exp(-dI * 8) : 0),
+        exposition: 0.9 - 0.12 * gauss(dI / 0.22), vignette: 0.5, saturation: 1.05, bloomForce: 0.3 - 0.12 * gauss(dI / 0.3),
+        // le shader ajoute 3 × flash en HDR sur toute l'image : 0,035 = lueur colorée brève, jamais de voile blanc
+        flash: 0.035 * voile, flashCouleur: [teinte.r, teinte.g, teinte.b], flou: 0, aberration: 0.0006,
       };
-      // petit coup de focale au jaillissement (sans tremblement)
-      const fov = cam.fov * (dI >= 0 ? 1 + 0.06 * Math.exp(-dI * 8) : 1);
-
       return {
-        camera: { p: cam.p, c: cam.c, fov, roll: cam.roll, near: 0.5, far: 4000 },
+        camera: { p: cam.p, c: cam.c, fov: cam.fov, roll: 0, near: 0.5, far: 4000 },
         fond, brouillard, lumieres, post,
         apres: (camera) => { for (const fn of apres) fn(camera); },
-        hud: (g, W, H) => bandeau.dessiner(g, W, H, k, tau, slot.impact - slot.debut, slot.fin - slot.debut),
+        hud: (g, W, H) => bandeau.dessiner(g, W, H, k, tau, slot.fin - slot.debut),
       };
     },
   };
