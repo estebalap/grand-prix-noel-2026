@@ -1,0 +1,415 @@
+{
+ "version": "v8",
+ "date": "2026-10-31T16:05:46",
+ "cles": [
+  {
+   "t": 4,
+   "label": "Salon de Noël",
+   "groupe": "salon",
+   "surface": 0.0069,
+   "zone_sacree": 0,
+   "textes": [
+    "23 DÉCEMBRE · ÉDITION NOËL"
+   ],
+   "nb_textes": 1,
+   "rejet": []
+  },
+  {
+   "t": 10.8,
+   "label": "Bascule · le tapis s'ouvre",
+   "groupe": "salon",
+   "surface": 0,
+   "zone_sacree": 0,
+   "textes": [],
+   "nb_textes": 0,
+   "rejet": []
+  },
+  {
+   "t": 14.55,
+   "label": "Écurie #01 · Petite Mimine Racing",
+   "groupe": "ecuries",
+   "surface": 0.0787,
+   "zone_sacree": 0,
+   "textes": [
+    "Laurent · Intercepteur furtif MK-Mimine",
+    "PETITE MIMINE RACING",
+    "#01"
+   ],
+   "nb_textes": 3,
+   "rejet": []
+  },
+  {
+   "t": 16.5,
+   "label": "Écurie #02 · Twingo Oasis V16 Racing",
+   "groupe": "ecuries",
+   "surface": 0.0774,
+   "zone_sacree": 0,
+   "textes": [
+    "Nadine · Micro-Fusée Oasis V16",
+    "TWINGO OASIS V16 RACING",
+    "#02"
+   ],
+   "nb_textes": 3,
+   "rejet": []
+  },
+  {
+   "t": 22.6,
+   "label": "Écurie #05 · Super Mario Pression",
+   "groupe": "ecuries",
+   "surface": 0.0757,
+   "zone_sacree": 0,
+   "textes": [
+    "Mario · Pression V8 Hot-Rod",
+    "SUPER MARIO PRESSION",
+    "#05"
+   ],
+   "nb_textes": 3,
+   "rejet": []
+  },
+  {
+   "t": 28.55,
+   "label": "Écurie #08 · A4 Oil Leaking",
+   "groupe": "ecuries",
+   "surface": 0.0709,
+   "zone_sacree": 0,
+   "textes": [
+    "Ludwig · Oil-Leak Recovery Mk.II",
+    "A4 OIL LEAKING",
+    "#08"
+   ],
+   "nb_textes": 3,
+   "rejet": []
+  },
+  {
+   "t": 34.5,
+   "label": "Écurie #11 · Milo's princess Vroom Vroom",
+   "groupe": "ecuries",
+   "surface": 0.0765,
+   "zone_sacree": 0,
+   "textes": [
+    "Gabrielle · Milo Princess Coupé",
+    "MILO'S PRINCESS VROOM VROOM",
+    "#11"
+   ],
+   "nb_textes": 3,
+   "rejet": []
+  },
+  {
+   "t": 42.55,
+   "label": "Écurie #15 · Princess Blooming Speed",
+   "groupe": "ecuries",
+   "surface": 0.0759,
+   "zone_sacree": 0,
+   "textes": [
+    "Élie · Daisy Streamliner 37-X",
+    "PRINCESS BLOOMING SPEED",
+    "#15"
+   ],
+   "nb_textes": 3,
+   "rejet": []
+  },
+  {
+   "t": 48.5,
+   "label": "Paris : smartphone + pluie de pièces",
+   "groupe": "folie",
+   "surface": 0,
+   "zone_sacree": 0,
+   "textes": [],
+   "nb_textes": 0,
+   "rejet": []
+  },
+  {
+   "t": 57,
+   "label": "La meute sur les 5 voies",
+   "groupe": "folie",
+   "surface": 0,
+   "zone_sacree": 0,
+   "textes": [],
+   "nb_textes": 0,
+   "rejet": []
+  },
+  {
+   "t": 60.8,
+   "label": "Caisses mystères",
+   "groupe": "folie",
+   "surface": 0.0242,
+   "zone_sacree": 0,
+   "textes": [
+    "CAISSES MYSTÈRES"
+   ],
+   "nb_textes": 1,
+   "rejet": []
+  },
+  {
+   "t": 63.3,
+   "label": "Boss : F1 en flèche + Batmobile",
+   "groupe": "folie",
+   "surface": 0.0115,
+   "zone_sacree": 0,
+   "textes": [
+    "LES BOSS"
+   ],
+   "nb_textes": 1,
+   "rejet": []
+  },
+  {
+   "t": 66.78,
+   "label": "Piège : La bascule",
+   "groupe": "folie",
+   "surface": 0.0147,
+   "zone_sacree": 0,
+   "textes": [
+    "LA BASCULE"
+   ],
+   "nb_textes": 1,
+   "rejet": []
+  },
+  {
+   "t": 68.113,
+   "label": "Piège : La pelote",
+   "groupe": "folie",
+   "surface": 0.013,
+   "zone_sacree": 0,
+   "textes": [
+    "LA PELOTE"
+   ],
+   "nb_textes": 1,
+   "rejet": []
+  },
+  {
+   "t": 69.447,
+   "label": "Piège : L'obus",
+   "groupe": "folie",
+   "surface": 0.0087,
+   "zone_sacree": 0,
+   "textes": [
+    "L'OBUS"
+   ],
+   "nb_textes": 1,
+   "rejet": []
+  },
+  {
+   "t": 70.78,
+   "label": "Piège : Le curling",
+   "groupe": "folie",
+   "surface": 0.0143,
+   "zone_sacree": 0,
+   "textes": [
+    "LE CURLING"
+   ],
+   "nb_textes": 1,
+   "rejet": []
+  },
+  {
+   "t": 76.5,
+   "label": "Règle des 41 mm",
+   "groupe": "folie",
+   "surface": 0.0135,
+   "zone_sacree": 0,
+   "textes": [
+    "41,0 mm",
+    "40,9 mm"
+   ],
+   "nb_textes": 2,
+   "rejet": []
+  },
+  {
+   "t": 82,
+   "label": "Sprint final",
+   "groupe": "folie",
+   "surface": 0,
+   "zone_sacree": 0,
+   "textes": [],
+   "nb_textes": 0,
+   "rejet": []
+  },
+  {
+   "t": 86.2,
+   "label": "Photo-finish",
+   "groupe": "folie",
+   "surface": 0.0219,
+   "zone_sacree": 0,
+   "textes": [
+    "PHOTO-FINISH !"
+   ],
+   "nb_textes": 1,
+   "rejet": []
+  },
+  {
+   "t": 90,
+   "label": "Carte finale",
+   "groupe": "folie",
+   "surface": 0.112,
+   "zone_sacree": 0.5446,
+   "textes": [
+    "GRAND PRIX DE NOËL",
+    "23 DÉCEMBRE",
+    "À VOS PARIS !"
+   ],
+   "nb_textes": 3,
+   "rejet": []
+  }
+ ],
+ "rejets": 0,
+ "determinisme": {
+  "verdict": "identique",
+  "differences": []
+ },
+ "erreurs_console": [],
+ "son": {
+  "voix_off": [
+   {
+    "phrase": "mesdames",
+    "texte": "Mesdames et messieurs.",
+    "attaque": 3.4,
+    "fin": 5.05,
+    "mot_ancre": "Mesdames",
+    "t_mot_ancre": 3.4,
+    "intention": "salon : accueil sur la boîte à musique",
+    "coupe_prise_s": [
+     0.0,
+     1.78
+    ],
+    "marge_db": 8.2,
+    "reduction_sidechain_db": -14.0
+   },
+   {
+    "phrase": "salon",
+    "texte": "Ce soir, le salon se transforme en arène.",
+    "attaque": 7.68,
+    "fin": 11.73,
+    "mot_ancre": "arène.",
+    "t_mot_ancre": 10.72,
+    "intention": "« arène » attaque juste avant la plongée (11,0 s)",
+    "coupe_prise_s": [
+     2.0,
+     6.18
+    ],
+    "marge_db": 9.6,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "phrase": "paris",
+    "texte": "et des paris en direct depuis votre téléphone ou à l'ancienne.",
+    "attaque": 47.0,
+    "fin": 50.22,
+    "mot_ancre": "et",
+    "t_mot_ancre": 47.0,
+    "intention": "paris : après la pluie de pièces (46,5 s), fini avant le clic (51,0 s)",
+    "coupe_prise_s": [
+     68.14,
+     71.41
+    ],
+    "marge_db": 14.2,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "phrase": "caisses",
+    "texte": "ouvrez les caisses,",
+    "attaque": 59.1,
+    "fin": 60.14,
+    "mot_ancre": "ouvrez",
+    "t_mot_ancre": 59.1,
+    "intention": "« Ouvrez les caisses » : la caisse s'ouvre juste après (60,2 s)",
+    "coupe_prise_s": [
+     59.75,
+     60.91
+    ],
+    "marge_db": 17.2,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "phrase": "attention",
+    "texte": "Mais attention, ils ne viennent pas seul.",
+    "attaque": 61.3,
+    "fin": 63.5,
+    "mot_ancre": "Mais",
+    "t_mot_ancre": 61.3,
+    "intention": "les boss arrivent (62 s), fini avant leur passage (63,6 s)",
+    "coupe_prise_s": [
+     39.41,
+     41.72
+    ],
+    "marge_db": 12.7,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "phrase": "pieges",
+    "texte": "Des pièges, des trahisons",
+    "attaque": 64.45,
+    "fin": 65.94,
+    "mot_ancre": "Des",
+    "t_mot_ancre": 64.45,
+    "intention": "juste avant les pièges (66 s)",
+    "coupe_prise_s": [
+     66.55,
+     68.16
+    ],
+    "marge_db": 13.4,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "phrase": "gloire",
+    "texte": "Et pour le vainqueur, la gloire éternelle.",
+    "attaque": 78.15,
+    "fin": 81.35,
+    "mot_ancre": "Et",
+    "t_mot_ancre": 78.15,
+    "intention": "climax",
+    "coupe_prise_s": [
+     71.39,
+     74.72
+    ],
+    "marge_db": 14.7,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "phrase": "final",
+    "texte": "Préparez -vous à vrombir que le spectacle commence.",
+    "attaque": 81.55,
+    "fin": 85.79,
+    "mot_ancre": "Préparez",
+    "t_mot_ancre": 81.55,
+    "intention": "climax, fini avant le photo-finish (86 s)",
+    "coupe_prise_s": [
+     77.94,
+     82.32
+    ],
+    "marge_db": 12.6,
+    "reduction_sidechain_db": -8.0
+   },
+   {
+    "phrase": "titre",
+    "texte": "Le grand prix de Noël, 23 décembre.",
+    "attaque": 88.15,
+    "fin": 91.19,
+    "mot_ancre": "Le",
+    "t_mot_ancre": 88.15,
+    "intention": "carte finale (88 s), fini avant 92 s",
+    "coupe_prise_s": [
+     74.71,
+     77.88
+    ],
+    "marge_db": 12.0,
+    "reduction_sidechain_db": -8.0
+   }
+  ],
+  "mix": {
+   "fichier": "audio/mix_v8.wav",
+   "frequence_hz": 44100,
+   "canaux": 2,
+   "gain_master_db": -7.4,
+   "lufs_approx": -16.0,
+   "crete_dbfs": -4.34,
+   "niveau_50_dernieres_ms_dbfs": -180.0,
+   "methode_lufs": "V7 : pondération K approchée par FFT (passe-haut 38 Hz + étagère +4 dB à 1,7 kHz), blocs 400 ms, portes -70 LUFS / -10 LU"
+  },
+  "bilan": {
+   "ecuries_reelles": 15,
+   "ecuries_synthetisees": 0,
+   "phrases_voix_off": 9,
+   "chevauchement_voix": false,
+   "marge_voix_min_db": 8.2
+  }
+ }
+}

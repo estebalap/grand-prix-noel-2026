@@ -1,0 +1,831 @@
+{
+ "version": "v8",
+ "duree": 92.0,
+ "echantillons": 4057200,
+ "fps": 60,
+ "plan": "data/plan_v8.json",
+ "segments": [
+  {
+   "id": "salon",
+   "module": "seg_salon.js",
+   "debut": 0.0,
+   "fin": 14.0,
+   "sous": [
+    {
+     "id": "travelling",
+     "debut": 0.0,
+     "fin": 8.0
+    },
+    {
+     "id": "bascule",
+     "debut": 8.0,
+     "fin": 14.0
+    }
+   ]
+  },
+  {
+   "id": "ecuries",
+   "module": "seg_ecuries.js",
+   "debut": 14.0,
+   "fin": 44.0
+  },
+  {
+   "id": "folie",
+   "module": "seg_folie.js",
+   "debut": 44.0,
+   "fin": 92.0,
+   "sous": [
+    {
+     "id": "paris",
+     "debut": 44.0,
+     "fin": 55.0
+    },
+    {
+     "id": "meute",
+     "debut": 55.0,
+     "fin": 59.5
+    },
+    {
+     "id": "caisses",
+     "debut": 59.5,
+     "fin": 62.0
+    },
+    {
+     "id": "boss",
+     "debut": 62.0,
+     "fin": 66.0
+    },
+    {
+     "id": "pieges",
+     "debut": 66.0,
+     "fin": 74.0
+    },
+    {
+     "id": "regle",
+     "debut": 74.0,
+     "fin": 78.0
+    },
+    {
+     "id": "climax",
+     "debut": 78.0,
+     "fin": 88.0
+    },
+    {
+     "id": "final",
+     "debut": 88.0,
+     "fin": 92.0
+    }
+   ]
+  }
+ ],
+ "reperes_son": {
+  "salon_ambiance": [
+   0.0,
+   8.0
+  ],
+  "tapis_ouverture": 8.6,
+  "plongee_arene": 11.0,
+  "arrivee_ring": 13.6,
+  "paris_pluie_pieces": 46.5,
+  "paris_bouton": 51.0,
+  "meute_depart": 55.0,
+  "caisses_ouverture": 60.2,
+  "boss_passage": 63.6,
+  "regle_ejection": 76.2,
+  "photo_finish": 86.0,
+  "carte_finale": 88.0
+ },
+ "evenements": [
+  {
+   "t": 0.0,
+   "quoi": "feu de cheminée procédural (crépitements, pops de sève)"
+  },
+  {
+   "t": 0.3,
+   "quoi": "boîte à musique « Vive le vent » (domaine public, synthèse)"
+  },
+  {
+   "t": 8.6,
+   "quoi": "arrêt de bande de la boîte à musique + sub-drop d'ouverture du tapis"
+  },
+  {
+   "t": 11.0,
+   "quoi": "whoosh de plongée dans l'arène"
+  },
+  {
+   "t": 13.6,
+   "quoi": "impact d'arrivée sur le ring (sub, cymbale, foule, cuivres)"
+  },
+  {
+   "t": 14.0,
+   "quoi": "15 sons « Select ! » arcade (un par changement de voiture)"
+  },
+  {
+   "t": 46.5,
+   "quoi": "pluie de 52 pièces d'or"
+  },
+  {
+   "t": 51.0,
+   "quoi": "clic du gros bouton + « ka-ching »"
+  },
+  {
+   "t": 55.0,
+   "quoi": "meute : 6 moteurs réels CC0 + moteur de synthèse"
+  },
+  {
+   "t": 60.2,
+   "quoi": "ouverture des caisses (craquement, cymbale, étincelles)"
+  },
+  {
+   "t": 63.6,
+   "quoi": "passage des boss (whoosh, rugissement, sub)"
+  },
+  {
+   "t": 66.64,
+   "quoi": "piège bascule : grincement + boing de catapulte"
+  },
+  {
+   "t": 67.973,
+   "quoi": "piège pelote : triple boing (rebonds)"
+  },
+  {
+   "t": 69.307,
+   "quoi": "piège obus : sifflement d'obus + explosion"
+  },
+  {
+   "t": 70.64,
+   "quoi": "piège curling : glissade de pierre + choc + boing"
+  },
+  {
+   "t": 71.973,
+   "quoi": "piège boulet : coup de canon + grosse explosion"
+  },
+  {
+   "t": 73.307,
+   "quoi": "piège bowling : roulement + strike (quilles) + explosion"
+  },
+  {
+   "t": 75.52,
+   "quoi": "buzzer « hors gabarit » (règle des 41 mm)"
+  },
+  {
+   "t": 76.2,
+   "quoi": "éjection : boing + sifflet à coulisse + whoosh"
+  },
+  {
+   "t": 78.0,
+   "quoi": "crescendo : accelerando 120 → 190 BPM, riser, moteurs, roulement"
+  },
+  {
+   "t": 86.0,
+   "quoi": "COUPURE NETTE + flash sonore (photo-finish)"
+  },
+  {
+   "t": 88.0,
+   "quoi": "carte finale : accord + reprise boîte à musique, extinction avant 91.92 s"
+  }
+ ],
+ "ecuries": [
+  {
+   "k": 0,
+   "id": 1,
+   "nom": "Petite Mimine Racing",
+   "debut": 14.0,
+   "impact": 14.8,
+   "fin": 16.0,
+   "source": "reel",
+   "signature": {
+    "sources": [
+     "voix/mimine_voix_cassee.mp3",
+     "themes_ecuries/01_jerry_reed_country.mp3"
+    ],
+    "eclat_dans_extrait_s": 2.5376,
+    "t_debut": 12.0124,
+    "t_eclat": 14.8,
+    "t_fin": 16.9747,
+    "fondu_entree": [
+     12.0124,
+     12.0424
+    ],
+    "fondu_sortie": [
+     16.6118,
+     16.7247
+    ]
+   }
+  },
+  {
+   "k": 1,
+   "id": 2,
+   "nom": "Twingo Oasis V16 Racing",
+   "debut": 16.0,
+   "impact": 16.8,
+   "fin": 18.0,
+   "source": "reel",
+   "signature": {
+    "sources": [
+     "themes_ecuries/02_candy_crush_sweet.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.1882,
+    "t_debut": 16.6118,
+    "t_eclat": 16.8,
+    "t_fin": 18.37,
+    "fondu_entree": [
+     16.6118,
+     16.7247
+    ],
+    "fondu_sortie": [
+     17.88,
+     18.12
+    ]
+   }
+  },
+  {
+   "k": 2,
+   "id": 3,
+   "nom": "Optic-Breuillet Racing",
+   "debut": 18.0,
+   "impact": 18.8,
+   "fin": 20.0,
+   "source": "reel",
+   "signature": {
+    "sources": [
+     "themes_ecuries/03_blur_song_2_woohoo.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.2315,
+    "t_debut": 17.88,
+    "t_eclat": 18.8,
+    "t_fin": 20.945,
+    "fondu_entree": [
+     17.88,
+     18.12
+    ],
+    "fondu_sortie": [
+     20.5376,
+     20.695
+    ]
+   }
+  },
+  {
+   "k": 3,
+   "id": 4,
+   "nom": "Tata Freddy Motorsport",
+   "debut": 20.0,
+   "impact": 20.8,
+   "fin": 22.0,
+   "source": "reel",
+   "signature": {
+    "sources": [
+     "themes_ecuries/04_balatro_theme.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.2624,
+    "t_debut": 20.5376,
+    "t_eclat": 20.8,
+    "t_fin": 22.37,
+    "fondu_entree": [
+     20.5376,
+     20.695
+    ],
+    "fondu_sortie": [
+     21.88,
+     22.12
+    ]
+   }
+  },
+  {
+   "k": 4,
+   "id": 5,
+   "nom": "Super Mario Pression",
+   "debut": 22.0,
+   "impact": 22.8,
+   "fin": 24.0,
+   "source": "reel",
+   "signature": {
+    "sources": [
+     "themes_ecuries/05_mario_fall_waaah.mp3",
+     "voix/mario_chute_B.mp3"
+    ],
+    "eclat_dans_extrait_s": 2.2,
+    "t_debut": 21.88,
+    "t_eclat": 22.8,
+    "t_fin": 24.05,
+    "fondu_entree": [
+     21.88,
+     22.12
+    ],
+    "fondu_sortie": [
+     23.88,
+     24.12
+    ]
+   }
+  },
+  {
+   "k": 5,
+   "id": 6,
+   "nom": "Scuderia Symphonie E-Tech",
+   "debut": 24.0,
+   "impact": 24.8,
+   "fin": 26.0,
+   "source": "reel",
+   "signature": {
+    "sources": [
+     "themes_ecuries/06_peter_fox_alles_neu_symphonie.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.0881,
+    "t_debut": 23.88,
+    "t_eclat": 24.8,
+    "t_fin": 26.8824,
+    "fondu_entree": [
+     23.88,
+     24.12
+    ],
+    "fondu_sortie": [
+     26.3924,
+     26.6324
+    ]
+   }
+  },
+  {
+   "k": 6,
+   "id": 7,
+   "nom": "Yaris 2 Invincible",
+   "debut": 26.0,
+   "impact": 26.8,
+   "fin": 28.0,
+   "source": "reel",
+   "signature": {
+    "sources": [
+     "themes_ecuries/07_zelda_item_get.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.1576,
+    "t_debut": 26.3924,
+    "t_eclat": 26.8,
+    "t_fin": 28.9948,
+    "fondu_entree": [
+     26.3924,
+     26.6324
+    ],
+    "fondu_sortie": [
+     28.662,
+     28.7448
+    ]
+   }
+  },
+  {
+   "k": 7,
+   "id": 8,
+   "nom": "A4 Oil Leaking",
+   "debut": 28.0,
+   "impact": 28.8,
+   "fin": 30.0,
+   "source": "reel",
+   "signature": {
+    "sources": [
+     "themes_ecuries/08_metroid_item_acquisition.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.038,
+    "t_debut": 28.662,
+    "t_eclat": 28.8,
+    "t_fin": 30.7667,
+    "fondu_entree": [
+     28.662,
+     28.7448
+    ],
+    "fondu_sortie": [
+     30.2767,
+     30.5167
+    ]
+   }
+  },
+  {
+   "k": 8,
+   "id": 9,
+   "nom": "Titou Wyvern SRT",
+   "debut": 30.0,
+   "impact": 30.8,
+   "fin": 32.0,
+   "source": "reel",
+   "signature": {
+    "sources": [
+     "themes_ecuries/09_mh_valstrax_roar.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.3233,
+    "t_debut": 30.2767,
+    "t_eclat": 30.8,
+    "t_fin": 32.37,
+    "fondu_entree": [
+     30.2767,
+     30.5167
+    ],
+    "fondu_sortie": [
+     31.88,
+     32.12
+    ]
+   }
+  },
+  {
+   "k": 9,
+   "id": 10,
+   "nom": "Doom Slayer Issue GP",
+   "debut": 32.0,
+   "impact": 32.8,
+   "fin": 34.0,
+   "source": "reel",
+   "signature": {
+    "sources": [
+     "themes_ecuries/10_berserk_guts_theme.mp3"
+    ],
+    "eclat_dans_extrait_s": 1.7699,
+    "t_debut": 31.88,
+    "t_eclat": 32.8,
+    "t_fin": 34.2801,
+    "fondu_entree": [
+     31.88,
+     32.12
+    ],
+    "fondu_sortie": [
+     34.7026,
+     34.7611
+    ]
+   }
+  },
+  {
+   "k": 10,
+   "id": 11,
+   "nom": "Milo's princess Vroom Vroom",
+   "debut": 34.0,
+   "impact": 34.8,
+   "fin": 36.0,
+   "source": "reel",
+   "signature": {
+    "sources": [
+     "themes_ecuries/11_rosalina_harmonie_victory.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.0974,
+    "t_debut": 34.7026,
+    "t_eclat": 34.8,
+    "t_fin": 36.929,
+    "fondu_entree": [
+     34.7026,
+     34.7611
+    ],
+    "fondu_sortie": [
+     36.4974,
+     36.679
+    ]
+   }
+  },
+  {
+   "k": 11,
+   "id": 12,
+   "nom": "Bob's Bizarre Racing",
+   "debut": 36.0,
+   "impact": 36.8,
+   "fin": 38.0,
+   "source": "reel",
+   "signature": {
+    "sources": [
+     "themes_ecuries/12_jojo_kakyoin_rero.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.2026,
+    "t_debut": 36.4974,
+    "t_eclat": 36.8,
+    "t_fin": 39.0269,
+    "fondu_entree": [
+     36.4974,
+     36.679
+    ],
+    "fondu_sortie": [
+     38.7423,
+     38.7769
+    ]
+   }
+  },
+  {
+   "k": 12,
+   "id": 13,
+   "nom": "Jojo la Sirène Veloce",
+   "debut": 38.0,
+   "impact": 38.8,
+   "fin": 40.0,
+   "source": "reel",
+   "signature": {
+    "sources": [
+     "themes_ecuries/13_tokyo_drift_drumroll.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.0577,
+    "t_debut": 38.7423,
+    "t_eclat": 38.8,
+    "t_fin": 40.7656,
+    "fondu_entree": [
+     38.7423,
+     38.7769
+    ],
+    "fondu_sortie": [
+     40.2756,
+     40.5156
+    ]
+   }
+  },
+  {
+   "k": 13,
+   "id": 14,
+   "nom": "Ninja-Nissan Street Racing",
+   "debut": 40.0,
+   "impact": 40.8,
+   "fin": 42.0,
+   "source": "reel",
+   "signature": {
+    "sources": [
+     "themes_ecuries/14_splatoon_booyah.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.0744,
+    "t_debut": 40.2756,
+    "t_eclat": 40.8,
+    "t_fin": 42.0756,
+    "fondu_entree": [
+     40.2756,
+     40.5156
+    ],
+    "fondu_sortie": [
+     42.747,
+     42.7788
+    ]
+   }
+  },
+  {
+   "k": 14,
+   "id": 15,
+   "nom": "Princess Blooming Speed",
+   "debut": 42.0,
+   "impact": 42.8,
+   "fin": 44.0,
+   "source": "reel",
+   "signature": {
+    "sources": [
+     "themes_ecuries/15_daisy_hi_im_daisy.mp3"
+    ],
+    "eclat_dans_extrait_s": 0.053,
+    "t_debut": 42.747,
+    "t_eclat": 42.8,
+    "t_fin": 43.981,
+    "fondu_entree": [
+     42.747,
+     42.7788
+    ],
+    "fondu_sortie": [
+     43.88,
+     44.12
+    ]
+   }
+  }
+ ],
+ "selects": [
+  14.0,
+  16.0,
+  18.0,
+  20.0,
+  22.0,
+  24.0,
+  26.0,
+  28.0,
+  30.0,
+  32.0,
+  34.0,
+  36.0,
+  38.0,
+  40.0,
+  42.0
+ ],
+ "pieges": [
+  {
+   "rig": "bascule",
+   "contact": 66.64,
+   "effet": "grincement + boing de catapulte"
+  },
+  {
+   "rig": "pelote",
+   "contact": 67.9733,
+   "effet": "triple boing (rebonds)"
+  },
+  {
+   "rig": "obus",
+   "contact": 69.3067,
+   "effet": "sifflement d'obus + explosion"
+  },
+  {
+   "rig": "curling",
+   "contact": 70.64,
+   "effet": "glissade de pierre + choc + boing"
+  },
+  {
+   "rig": "boulet",
+   "contact": 71.9733,
+   "effet": "coup de canon + grosse explosion"
+  },
+  {
+   "rig": "bowling",
+   "contact": 73.3067,
+   "effet": "roulement + strike (quilles) + explosion"
+  }
+ ],
+ "moteurs_cc0": [
+  "sounds/moteurs_reels/05/gaz1.wav",
+  "sounds/moteurs_reels/12/gaz1.wav",
+  "sounds/moteurs_reels/14/gaz1.wav",
+  "sounds/moteurs_reels/10/gaz2.wav",
+  "sounds/moteurs_reels/04/gaz1.wav",
+  "sounds/moteurs_reels/15/gaz3.wav"
+ ],
+ "voix_off": [
+  {
+   "phrase": "mesdames",
+   "texte": "Mesdames et messieurs.",
+   "attaque": 3.4,
+   "fin": 5.05,
+   "mot_ancre": "Mesdames",
+   "t_mot_ancre": 3.4,
+   "intention": "salon : accueil sur la boîte à musique",
+   "coupe_prise_s": [
+    0.0,
+    1.78
+   ],
+   "marge_db": 8.2,
+   "reduction_sidechain_db": -14.0
+  },
+  {
+   "phrase": "salon",
+   "texte": "Ce soir, le salon se transforme en arène.",
+   "attaque": 7.68,
+   "fin": 11.73,
+   "mot_ancre": "arène.",
+   "t_mot_ancre": 10.72,
+   "intention": "« arène » attaque juste avant la plongée (11,0 s)",
+   "coupe_prise_s": [
+    2.0,
+    6.18
+   ],
+   "marge_db": 9.6,
+   "reduction_sidechain_db": -8.0
+  },
+  {
+   "phrase": "paris",
+   "texte": "et des paris en direct depuis votre téléphone ou à l'ancienne.",
+   "attaque": 47.0,
+   "fin": 50.22,
+   "mot_ancre": "et",
+   "t_mot_ancre": 47.0,
+   "intention": "paris : après la pluie de pièces (46,5 s), fini avant le clic (51,0 s)",
+   "coupe_prise_s": [
+    68.14,
+    71.41
+   ],
+   "marge_db": 14.2,
+   "reduction_sidechain_db": -8.0
+  },
+  {
+   "phrase": "caisses",
+   "texte": "ouvrez les caisses,",
+   "attaque": 59.1,
+   "fin": 60.14,
+   "mot_ancre": "ouvrez",
+   "t_mot_ancre": 59.1,
+   "intention": "« Ouvrez les caisses » : la caisse s'ouvre juste après (60,2 s)",
+   "coupe_prise_s": [
+    59.75,
+    60.91
+   ],
+   "marge_db": 17.2,
+   "reduction_sidechain_db": -8.0
+  },
+  {
+   "phrase": "attention",
+   "texte": "Mais attention, ils ne viennent pas seul.",
+   "attaque": 61.3,
+   "fin": 63.5,
+   "mot_ancre": "Mais",
+   "t_mot_ancre": 61.3,
+   "intention": "les boss arrivent (62 s), fini avant leur passage (63,6 s)",
+   "coupe_prise_s": [
+    39.41,
+    41.72
+   ],
+   "marge_db": 12.7,
+   "reduction_sidechain_db": -8.0
+  },
+  {
+   "phrase": "pieges",
+   "texte": "Des pièges, des trahisons",
+   "attaque": 64.45,
+   "fin": 65.94,
+   "mot_ancre": "Des",
+   "t_mot_ancre": 64.45,
+   "intention": "juste avant les pièges (66 s)",
+   "coupe_prise_s": [
+    66.55,
+    68.16
+   ],
+   "marge_db": 13.4,
+   "reduction_sidechain_db": -8.0
+  },
+  {
+   "phrase": "gloire",
+   "texte": "Et pour le vainqueur, la gloire éternelle.",
+   "attaque": 78.15,
+   "fin": 81.35,
+   "mot_ancre": "Et",
+   "t_mot_ancre": 78.15,
+   "intention": "climax",
+   "coupe_prise_s": [
+    71.39,
+    74.72
+   ],
+   "marge_db": 14.7,
+   "reduction_sidechain_db": -8.0
+  },
+  {
+   "phrase": "final",
+   "texte": "Préparez -vous à vrombir que le spectacle commence.",
+   "attaque": 81.55,
+   "fin": 85.79,
+   "mot_ancre": "Préparez",
+   "t_mot_ancre": 81.55,
+   "intention": "climax, fini avant le photo-finish (86 s)",
+   "coupe_prise_s": [
+    77.94,
+    82.32
+   ],
+   "marge_db": 12.6,
+   "reduction_sidechain_db": -8.0
+  },
+  {
+   "phrase": "titre",
+   "texte": "Le grand prix de Noël, 23 décembre.",
+   "attaque": 88.15,
+   "fin": 91.19,
+   "mot_ancre": "Le",
+   "t_mot_ancre": 88.15,
+   "intention": "carte finale (88 s), fini avant 92 s",
+   "coupe_prise_s": [
+    74.71,
+    77.88
+   ],
+   "marge_db": 12.0,
+   "reduction_sidechain_db": -8.0
+  }
+ ],
+ "voix": [
+  [
+   3.4,
+   5.05
+  ],
+  [
+   7.68,
+   11.73
+  ],
+  [
+   47.0,
+   50.22
+  ],
+  [
+   59.1,
+   60.14
+  ],
+  [
+   61.3,
+   63.5
+  ],
+  [
+   64.45,
+   65.94
+  ],
+  [
+   78.15,
+   81.35
+  ],
+  [
+   81.55,
+   85.79
+  ],
+  [
+   88.15,
+   91.19
+  ]
+ ],
+ "mix": {
+  "fichier": "audio/mix_v8.wav",
+  "frequence_hz": 44100,
+  "canaux": 2,
+  "gain_master_db": -7.4,
+  "lufs_approx": -16.0,
+  "crete_dbfs": -4.34,
+  "niveau_50_dernieres_ms_dbfs": -180.0,
+  "methode_lufs": "V7 : pondération K approchée par FFT (passe-haut 38 Hz + étagère +4 dB à 1,7 kHz), blocs 400 ms, portes -70 LUFS / -10 LU"
+ },
+ "bilan": {
+  "ecuries_reelles": 15,
+  "ecuries_synthetisees": 0,
+  "phrases_voix_off": 9,
+  "chevauchement_voix": false,
+  "marge_voix_min_db": 8.2
+ }
+}
