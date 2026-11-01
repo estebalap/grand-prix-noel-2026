@@ -1,0 +1,2479 @@
+{
+ "version": "v9",
+ "duree": 120.5,
+ "echantillons": 5784000,
+ "frequence_hz": 48000,
+ "canaux": 2,
+ "plan": "data/plan_v9.json",
+ "voix": "data/voix_v9.json",
+ "reperes_son": {
+  "crepitement": [
+   0.0,
+   8.8
+  ],
+  "etincelle": 7.0,
+  "logo_choc": 8.8,
+  "tapis_ouverture": 11.6,
+  "plongee": 14.0,
+  "arrivee_arene": 15.5,
+  "ring_music": [
+   15.5,
+   75.0
+  ],
+  "telephone": 75.0,
+  "familles": 84.5,
+  "lootbox_verrous": 102.5,
+  "gloire": 109.4,
+  "depart_moteurs": 113.5,
+  "logo_final": 118.0
+ },
+ "evenements": [
+  {
+   "t": 0.0,
+   "bloc": "ouverture",
+   "quoi": "crépitement de feu de cheminée (télé, bande 180 Hz–7 kHz)",
+   "source": "synthèse",
+   "fin": 9.2,
+   "rms_mix_db": -34.9,
+   "rms_bruitages_db": -31.9,
+   "rms_avant_db": -120.0
+  },
+  {
+   "t": 0.0,
+   "bloc": "ouverture",
+   "quoi": "souffle de pièce (ton de salon)",
+   "source": "synthèse",
+   "fin": 14.5,
+   "rms_mix_db": -34.9,
+   "rms_bruitages_db": -31.9,
+   "rms_avant_db": -120.0
+  },
+  {
+   "t": 0.5,
+   "bloc": "ouverture",
+   "quoi": "horloge discrète (9 tic-tac, 1 Hz)",
+   "source": "synthèse",
+   "fin": 8.5,
+   "rms_mix_db": -28.3,
+   "rms_bruitages_db": -28.1,
+   "rms_avant_db": -34.9
+  },
+  {
+   "t": 7.0,
+   "bloc": "ouverture",
+   "quoi": "étincelle : « tsk » + scintillement",
+   "source": "synthèse",
+   "rms_mix_db": -27.3,
+   "rms_bruitages_db": -26.4,
+   "rms_avant_db": -27.4
+  },
+  {
+   "t": 7.2,
+   "bloc": "ouverture",
+   "quoi": "guirlandes qui s'allument : 11 tics cristallins montants",
+   "source": "synthèse",
+   "fin": 8.6,
+   "rms_mix_db": -26.4,
+   "rms_bruitages_db": -25.4,
+   "rms_avant_db": -28.2
+  },
+  {
+   "t": 8.8,
+   "bloc": "ouverture",
+   "quoi": "CHOC DORÉ du logo : sub-boom, cymbale, accord de cuivres, cloches, shimmer",
+   "source": "synthèse",
+   "rms_mix_db": -14.7,
+   "rms_bruitages_db": -15.0,
+   "rms_avant_db": -23.7
+  },
+  {
+   "t": 11.25,
+   "bloc": "ouverture",
+   "quoi": "fente du tapis (fibres qui cèdent, feutré)",
+   "source": "synthèse",
+   "rms_mix_db": -21.0,
+   "rms_bruitages_db": -35.1,
+   "rms_avant_db": -38.9
+  },
+  {
+   "t": 11.6,
+   "bloc": "ouverture",
+   "quoi": "ouverture du tapis : whoosh + grincement doux + sub",
+   "source": "synthèse",
+   "fin": 13.0,
+   "rms_mix_db": -19.4,
+   "rms_bruitages_db": -30.3,
+   "rms_avant_db": -40.5
+  },
+  {
+   "t": 11.6,
+   "bloc": "ouverture",
+   "quoi": "tension sous le tapis : grondement + bourdon qui enflent",
+   "source": "synthèse",
+   "fin": 15.5,
+   "rms_mix_db": -19.4,
+   "rms_bruitages_db": -30.3,
+   "rms_avant_db": -40.5
+  },
+  {
+   "t": 14.0,
+   "bloc": "ouverture",
+   "quoi": "plongée : whoosh montant (riser + whoosh)",
+   "source": "synthèse",
+   "fin": 15.5,
+   "rms_mix_db": -21.7,
+   "rms_bruitages_db": -20.3,
+   "rms_avant_db": -30.7
+  },
+  {
+   "t": 15.5,
+   "bloc": "ouverture",
+   "quoi": "ARRIVÉE DANS L'ARÈNE : explosion de foule + pyro + boom",
+   "source": "synthèse",
+   "rms_mix_db": -19.7,
+   "rms_bruitages_db": -23.7,
+   "rms_avant_db": -23.7
+  },
+  {
+   "t": 15.5,
+   "bloc": "ecuries",
+   "quoi": "musique ring du client (section 153.7–185.7 s, 12 mesures, 90.0 BPM), boucle sur le premier temps",
+   "source": "audio/sources/ring_music.mp3 (extrait client, lu)",
+   "fin": 75.5,
+   "rms_mix_db": -19.7,
+   "rms_bruitages_db": -23.7,
+   "rms_avant_db": -23.7
+  },
+  {
+   "t": 16.0,
+   "bloc": "ecuries",
+   "quoi": "rumeur de foule continue",
+   "source": "synthèse",
+   "fin": 76.5,
+   "rms_mix_db": -20.4,
+   "rms_bruitages_db": -28.6,
+   "rms_avant_db": -23.5
+  },
+  {
+   "t": 18.0,
+   "bloc": "ecuries",
+   "quoi": "écurie 1 : sortie du tunnel (jet de flammes + moteur qui monte)",
+   "source": "synthèse + sounds/moteurs_reels/01/0_85.wav (CC0)",
+   "fin": 20.5,
+   "rms_mix_db": -23.6,
+   "rms_bruitages_db": -31.3,
+   "rms_avant_db": -36.6
+  },
+  {
+   "t": 19.5,
+   "bloc": "ecuries",
+   "quoi": "écurie 1 : saut (whoosh)",
+   "source": "synthèse",
+   "rms_mix_db": -20.4,
+   "rms_bruitages_db": -30.5,
+   "rms_avant_db": -30.9
+  },
+  {
+   "t": 20.3,
+   "bloc": "ecuries",
+   "quoi": "écurie 1 : atterrissage (impact amorti + crissement)",
+   "source": "synthèse",
+   "rms_mix_db": -20.0,
+   "rms_bruitages_db": -30.7,
+   "rms_avant_db": -30.5
+  },
+  {
+   "t": 20.32,
+   "bloc": "ecuries",
+   "quoi": "écurie 1 : dérapage (crissement de pneus)",
+   "source": "synthèse",
+   "fin": 21.75,
+   "rms_mix_db": -20.1,
+   "rms_bruitages_db": -30.8,
+   "rms_avant_db": -30.5
+  },
+  {
+   "t": 21.6,
+   "bloc": "ecuries",
+   "quoi": "écurie 1 : son d'écurie (après la voix)",
+   "source": "../audio_v5/themes_ecuries/01_jerry_reed_country.mp3 (extrait, lu)",
+   "fin": 24.05,
+   "rms_mix_db": -24.7,
+   "rms_bruitages_db": -25.6,
+   "rms_avant_db": -34.3
+  },
+  {
+   "t": 21.8,
+   "bloc": "ecuries",
+   "quoi": "écurie 2 : sortie du tunnel (jet de flammes + moteur qui monte)",
+   "source": "synthèse + sounds/moteurs_reels/02/gaz1.wav (CC0)",
+   "fin": 24.3,
+   "rms_mix_db": -23.4,
+   "rms_bruitages_db": -26.8,
+   "rms_avant_db": -34.7
+  },
+  {
+   "t": 23.3,
+   "bloc": "ecuries",
+   "quoi": "écurie 2 : saut (whoosh)",
+   "source": "synthèse",
+   "rms_mix_db": -19.9,
+   "rms_bruitages_db": -30.7,
+   "rms_avant_db": -31.6
+  },
+  {
+   "t": 24.1,
+   "bloc": "ecuries",
+   "quoi": "écurie 2 : atterrissage (impact amorti + crissement)",
+   "source": "synthèse",
+   "rms_mix_db": -20.8,
+   "rms_bruitages_db": -30.0,
+   "rms_avant_db": -30.7
+  },
+  {
+   "t": 24.1,
+   "bloc": "ecuries",
+   "quoi": "écurie 2 : son d'écurie (sur l'atterrissage (voix en cours, −6 dB))",
+   "source": "../audio_v5/themes_ecuries/02_candy_crush_sweet.mp3 (extrait, lu)",
+   "fin": 26.0,
+   "rms_mix_db": -20.8,
+   "rms_bruitages_db": -30.0,
+   "rms_avant_db": -30.7
+  },
+  {
+   "t": 24.12,
+   "bloc": "ecuries",
+   "quoi": "écurie 2 : dérapage (crissement de pneus)",
+   "source": "synthèse",
+   "fin": 25.55,
+   "rms_mix_db": -21.2,
+   "rms_bruitages_db": -29.9,
+   "rms_avant_db": -30.6
+  },
+  {
+   "t": 25.6,
+   "bloc": "ecuries",
+   "quoi": "écurie 3 : sortie du tunnel (jet de flammes + moteur qui monte)",
+   "source": "synthèse + sounds/moteurs_reels/03/4040.wav (CC0)",
+   "fin": 28.1,
+   "rms_mix_db": -21.8,
+   "rms_bruitages_db": -31.2,
+   "rms_avant_db": -33.6
+  },
+  {
+   "t": 27.1,
+   "bloc": "ecuries",
+   "quoi": "écurie 3 : saut (whoosh)",
+   "source": "synthèse",
+   "rms_mix_db": -19.1,
+   "rms_bruitages_db": -34.9,
+   "rms_avant_db": -32.3
+  },
+  {
+   "t": 27.9,
+   "bloc": "ecuries",
+   "quoi": "écurie 3 : atterrissage (impact amorti + crissement)",
+   "source": "synthèse",
+   "rms_mix_db": -21.4,
+   "rms_bruitages_db": -30.8,
+   "rms_avant_db": -34.6
+  },
+  {
+   "t": 27.92,
+   "bloc": "ecuries",
+   "quoi": "écurie 3 : dérapage (crissement de pneus)",
+   "source": "synthèse",
+   "fin": 29.35,
+   "rms_mix_db": -21.5,
+   "rms_bruitages_db": -30.8,
+   "rms_avant_db": -34.6
+  },
+  {
+   "t": 29.02,
+   "bloc": "ecuries",
+   "quoi": "écurie 3 : son d'écurie (après la voix)",
+   "source": "../audio_v5/themes_ecuries/03_blur_song_2_woohoo.mp3 (extrait, lu)",
+   "fin": 31.65,
+   "rms_mix_db": -22.8,
+   "rms_bruitages_db": -20.4,
+   "rms_avant_db": -34.8
+  },
+  {
+   "t": 29.4,
+   "bloc": "ecuries",
+   "quoi": "écurie 4 : sortie du tunnel (jet de flammes + moteur qui monte)",
+   "source": "synthèse + sounds/moteurs_reels/04/gaz1.wav (CC0)",
+   "fin": 31.9,
+   "rms_mix_db": -19.7,
+   "rms_bruitages_db": -22.1,
+   "rms_avant_db": -30.3
+  },
+  {
+   "t": 30.9,
+   "bloc": "ecuries",
+   "quoi": "écurie 4 : saut (whoosh)",
+   "source": "synthèse",
+   "rms_mix_db": -19.4,
+   "rms_bruitages_db": -28.1,
+   "rms_avant_db": -28.9
+  },
+  {
+   "t": 31.7,
+   "bloc": "ecuries",
+   "quoi": "écurie 4 : atterrissage (impact amorti + crissement)",
+   "source": "synthèse",
+   "rms_mix_db": -21.5,
+   "rms_bruitages_db": -29.4,
+   "rms_avant_db": -28.2
+  },
+  {
+   "t": 31.7,
+   "bloc": "ecuries",
+   "quoi": "écurie 4 : son d'écurie (sur l'atterrissage (voix en cours, −6 dB))",
+   "source": "../audio_v5/themes_ecuries/04_balatro_theme.mp3 (extrait, lu)",
+   "fin": 34.7,
+   "rms_mix_db": -21.5,
+   "rms_bruitages_db": -29.4,
+   "rms_avant_db": -28.2
+  },
+  {
+   "t": 31.72,
+   "bloc": "ecuries",
+   "quoi": "écurie 4 : dérapage (crissement de pneus)",
+   "source": "synthèse",
+   "fin": 33.15,
+   "rms_mix_db": -21.5,
+   "rms_bruitages_db": -29.4,
+   "rms_avant_db": -28.3
+  },
+  {
+   "t": 33.2,
+   "bloc": "ecuries",
+   "quoi": "écurie 5 : sortie du tunnel (jet de flammes + moteur qui monte)",
+   "source": "synthèse + sounds/moteurs_reels/05/gaz1.wav (CC0)",
+   "fin": 35.7,
+   "rms_mix_db": -21.7,
+   "rms_bruitages_db": -25.7,
+   "rms_avant_db": -31.1
+  },
+  {
+   "t": 34.7,
+   "bloc": "ecuries",
+   "quoi": "écurie 5 : saut (whoosh)",
+   "source": "synthèse",
+   "rms_mix_db": -20.5,
+   "rms_bruitages_db": -32.8,
+   "rms_avant_db": -32.0
+  },
+  {
+   "t": 35.5,
+   "bloc": "ecuries",
+   "quoi": "écurie 5 : atterrissage (impact amorti + crissement)",
+   "source": "synthèse",
+   "rms_mix_db": -23.0,
+   "rms_bruitages_db": -30.2,
+   "rms_avant_db": -32.8
+  },
+  {
+   "t": 35.52,
+   "bloc": "ecuries",
+   "quoi": "écurie 5 : dérapage (crissement de pneus)",
+   "source": "synthèse",
+   "fin": 36.95,
+   "rms_mix_db": -22.7,
+   "rms_bruitages_db": -30.2,
+   "rms_avant_db": -32.8
+  },
+  {
+   "t": 36.36,
+   "bloc": "ecuries",
+   "quoi": "écurie 5 : son d'écurie (après la voix)",
+   "source": "../audio_v5/themes_ecuries/05_mario_fall_waaah.mp3 (extrait, lu)",
+   "fin": 39.25,
+   "rms_mix_db": -21.2,
+   "rms_bruitages_db": -19.2,
+   "rms_avant_db": -32.5
+  },
+  {
+   "t": 37.0,
+   "bloc": "ecuries",
+   "quoi": "écurie 6 : sortie du tunnel (jet de flammes + moteur qui monte)",
+   "source": "synthèse + sounds/moteurs_reels/06/gaz1.wav (CC0)",
+   "fin": 39.5,
+   "rms_mix_db": -19.2,
+   "rms_bruitages_db": -23.3,
+   "rms_avant_db": -20.0
+  },
+  {
+   "t": 38.5,
+   "bloc": "ecuries",
+   "quoi": "écurie 6 : saut (whoosh)",
+   "source": "synthèse",
+   "rms_mix_db": -20.1,
+   "rms_bruitages_db": -29.3,
+   "rms_avant_db": -28.6
+  },
+  {
+   "t": 39.3,
+   "bloc": "ecuries",
+   "quoi": "écurie 6 : atterrissage (impact amorti + crissement)",
+   "source": "synthèse",
+   "rms_mix_db": -21.2,
+   "rms_bruitages_db": -29.1,
+   "rms_avant_db": -30.3
+  },
+  {
+   "t": 39.3,
+   "bloc": "ecuries",
+   "quoi": "écurie 6 : son d'écurie (sur l'atterrissage (voix en cours, −6 dB))",
+   "source": "../audio_v5/themes_ecuries/06_peter_fox_alles_neu_symphonie.mp3 (extrait, lu)",
+   "fin": 42.3,
+   "rms_mix_db": -21.2,
+   "rms_bruitages_db": -29.1,
+   "rms_avant_db": -30.3
+  },
+  {
+   "t": 39.32,
+   "bloc": "ecuries",
+   "quoi": "écurie 6 : dérapage (crissement de pneus)",
+   "source": "synthèse",
+   "fin": 40.75,
+   "rms_mix_db": -21.0,
+   "rms_bruitages_db": -29.1,
+   "rms_avant_db": -30.5
+  },
+  {
+   "t": 40.8,
+   "bloc": "ecuries",
+   "quoi": "écurie 7 : sortie du tunnel (jet de flammes + moteur qui monte)",
+   "source": "synthèse + sounds/moteurs_reels/07/gaz1.wav (CC0)",
+   "fin": 43.3,
+   "rms_mix_db": -19.6,
+   "rms_bruitages_db": -30.6,
+   "rms_avant_db": -30.4
+  },
+  {
+   "t": 42.3,
+   "bloc": "ecuries",
+   "quoi": "écurie 7 : saut (whoosh)",
+   "source": "synthèse",
+   "rms_mix_db": -20.2,
+   "rms_bruitages_db": -33.2,
+   "rms_avant_db": -30.7
+  },
+  {
+   "t": 43.1,
+   "bloc": "ecuries",
+   "quoi": "écurie 7 : atterrissage (impact amorti + crissement)",
+   "source": "synthèse",
+   "rms_mix_db": -21.6,
+   "rms_bruitages_db": -29.6,
+   "rms_avant_db": -33.2
+  },
+  {
+   "t": 43.1,
+   "bloc": "ecuries",
+   "quoi": "écurie 7 : son d'écurie (sur l'atterrissage (voix en cours, −6 dB))",
+   "source": "../audio_v5/themes_ecuries/07_zelda_item_get.mp3 (extrait, lu)",
+   "fin": 45.5,
+   "rms_mix_db": -21.6,
+   "rms_bruitages_db": -29.6,
+   "rms_avant_db": -33.2
+  },
+  {
+   "t": 43.12,
+   "bloc": "ecuries",
+   "quoi": "écurie 7 : dérapage (crissement de pneus)",
+   "source": "synthèse",
+   "fin": 44.55,
+   "rms_mix_db": -21.6,
+   "rms_bruitages_db": -29.5,
+   "rms_avant_db": -33.2
+  },
+  {
+   "t": 44.6,
+   "bloc": "ecuries",
+   "quoi": "écurie 8 : sortie du tunnel (jet de flammes + moteur qui monte)",
+   "source": "synthèse + sounds/moteurs_reels/08/gaz1.wav (CC0)",
+   "fin": 47.1,
+   "rms_mix_db": -21.6,
+   "rms_bruitages_db": -29.6,
+   "rms_avant_db": -30.4
+  },
+  {
+   "t": 46.1,
+   "bloc": "ecuries",
+   "quoi": "écurie 8 : saut (whoosh)",
+   "source": "synthèse",
+   "rms_mix_db": -20.0,
+   "rms_bruitages_db": -32.4,
+   "rms_avant_db": -32.5
+  },
+  {
+   "t": 46.9,
+   "bloc": "ecuries",
+   "quoi": "écurie 8 : atterrissage (impact amorti + crissement)",
+   "source": "synthèse",
+   "rms_mix_db": -20.1,
+   "rms_bruitages_db": -28.1,
+   "rms_avant_db": -32.4
+  },
+  {
+   "t": 46.9,
+   "bloc": "ecuries",
+   "quoi": "écurie 8 : son d'écurie (sur l'atterrissage (voix en cours, −6 dB))",
+   "source": "audio/sources/audi_chime.mp3 (extrait, lu)",
+   "fin": 49.9,
+   "rms_mix_db": -20.1,
+   "rms_bruitages_db": -28.1,
+   "rms_avant_db": -32.4
+  },
+  {
+   "t": 46.92,
+   "bloc": "ecuries",
+   "quoi": "écurie 8 : dérapage (crissement de pneus)",
+   "source": "synthèse",
+   "fin": 48.35,
+   "rms_mix_db": -20.0,
+   "rms_bruitages_db": -28.0,
+   "rms_avant_db": -32.5
+  },
+  {
+   "t": 48.4,
+   "bloc": "ecuries",
+   "quoi": "écurie 9 : sortie du tunnel (jet de flammes + moteur qui monte)",
+   "source": "synthèse + sounds/moteurs_reels/09/gaz1.wav (CC BY)",
+   "fin": 50.9,
+   "rms_mix_db": -21.1,
+   "rms_bruitages_db": -32.7,
+   "rms_avant_db": -32.8
+  },
+  {
+   "t": 49.9,
+   "bloc": "ecuries",
+   "quoi": "écurie 9 : saut (whoosh)",
+   "source": "synthèse",
+   "rms_mix_db": -18.5,
+   "rms_bruitages_db": -33.8,
+   "rms_avant_db": -34.1
+  },
+  {
+   "t": 50.7,
+   "bloc": "ecuries",
+   "quoi": "écurie 9 : atterrissage (impact amorti + crissement)",
+   "source": "synthèse",
+   "rms_mix_db": -22.3,
+   "rms_bruitages_db": -29.8,
+   "rms_avant_db": -34.0
+  },
+  {
+   "t": 50.7,
+   "bloc": "ecuries",
+   "quoi": "écurie 9 : son d'écurie (sur l'atterrissage (voix en cours, −6 dB))",
+   "source": "../audio_v5/themes_ecuries/09_mh_valstrax_roar.mp3 (extrait, lu)",
+   "fin": 53.7,
+   "rms_mix_db": -22.3,
+   "rms_bruitages_db": -29.8,
+   "rms_avant_db": -34.0
+  },
+  {
+   "t": 50.72,
+   "bloc": "ecuries",
+   "quoi": "écurie 9 : dérapage (crissement de pneus)",
+   "source": "synthèse",
+   "fin": 52.15,
+   "rms_mix_db": -22.1,
+   "rms_bruitages_db": -29.7,
+   "rms_avant_db": -34.2
+  },
+  {
+   "t": 52.2,
+   "bloc": "ecuries",
+   "quoi": "écurie 10 : sortie du tunnel (jet de flammes + moteur qui monte)",
+   "source": "synthèse + sounds/moteurs_reels/10/gaz1.wav (CC0)",
+   "fin": 54.7,
+   "rms_mix_db": -20.1,
+   "rms_bruitages_db": -31.7,
+   "rms_avant_db": -31.5
+  },
+  {
+   "t": 53.7,
+   "bloc": "ecuries",
+   "quoi": "écurie 10 : saut (whoosh)",
+   "source": "synthèse",
+   "rms_mix_db": -19.2,
+   "rms_bruitages_db": -33.0,
+   "rms_avant_db": -32.8
+  },
+  {
+   "t": 54.5,
+   "bloc": "ecuries",
+   "quoi": "écurie 10 : atterrissage (impact amorti + crissement)",
+   "source": "synthèse",
+   "rms_mix_db": -19.7,
+   "rms_bruitages_db": -29.7,
+   "rms_avant_db": -32.9
+  },
+  {
+   "t": 54.5,
+   "bloc": "ecuries",
+   "quoi": "écurie 10 : son d'écurie (sur l'atterrissage (voix en cours, −6 dB))",
+   "source": "../audio_v5/themes_ecuries/10_berserk_guts_theme.mp3 (extrait, lu)",
+   "fin": 57.5,
+   "rms_mix_db": -19.7,
+   "rms_bruitages_db": -29.7,
+   "rms_avant_db": -32.9
+  },
+  {
+   "t": 54.52,
+   "bloc": "ecuries",
+   "quoi": "écurie 10 : dérapage (crissement de pneus)",
+   "source": "synthèse",
+   "fin": 55.95,
+   "rms_mix_db": -19.9,
+   "rms_bruitages_db": -29.6,
+   "rms_avant_db": -33.0
+  },
+  {
+   "t": 56.0,
+   "bloc": "ecuries",
+   "quoi": "écurie 11 : sortie du tunnel (jet de flammes + moteur qui monte)",
+   "source": "synthèse + sounds/moteurs_reels/11/gaz1.wav (CC0)",
+   "fin": 58.5,
+   "rms_mix_db": -20.9,
+   "rms_bruitages_db": -29.9,
+   "rms_avant_db": -32.7
+  },
+  {
+   "t": 57.5,
+   "bloc": "ecuries",
+   "quoi": "écurie 11 : saut (whoosh)",
+   "source": "synthèse",
+   "rms_mix_db": -21.3,
+   "rms_bruitages_db": -32.8,
+   "rms_avant_db": -29.4
+  },
+  {
+   "t": 58.3,
+   "bloc": "ecuries",
+   "quoi": "écurie 11 : atterrissage (impact amorti + crissement)",
+   "source": "synthèse",
+   "rms_mix_db": -18.8,
+   "rms_bruitages_db": -28.2,
+   "rms_avant_db": -32.7
+  },
+  {
+   "t": 58.3,
+   "bloc": "ecuries",
+   "quoi": "écurie 11 : son d'écurie (sur l'atterrissage (voix en cours, −6 dB))",
+   "source": "../audio_v5/themes_ecuries/11_rosalina_harmonie_victory.mp3 (extrait, lu)",
+   "fin": 61.3,
+   "rms_mix_db": -18.8,
+   "rms_bruitages_db": -28.2,
+   "rms_avant_db": -32.7
+  },
+  {
+   "t": 58.32,
+   "bloc": "ecuries",
+   "quoi": "écurie 11 : dérapage (crissement de pneus)",
+   "source": "synthèse",
+   "fin": 59.75,
+   "rms_mix_db": -18.6,
+   "rms_bruitages_db": -28.1,
+   "rms_avant_db": -32.7
+  },
+  {
+   "t": 59.8,
+   "bloc": "ecuries",
+   "quoi": "écurie 12 : sortie du tunnel (jet de flammes + moteur qui monte)",
+   "source": "synthèse + sounds/moteurs_reels/12/gaz1.wav (CC0)",
+   "fin": 62.3,
+   "rms_mix_db": -21.2,
+   "rms_bruitages_db": -30.6,
+   "rms_avant_db": -32.6
+  },
+  {
+   "t": 61.3,
+   "bloc": "ecuries",
+   "quoi": "écurie 12 : saut (whoosh)",
+   "source": "synthèse",
+   "rms_mix_db": -19.0,
+   "rms_bruitages_db": -33.6,
+   "rms_avant_db": -31.9
+  },
+  {
+   "t": 62.1,
+   "bloc": "ecuries",
+   "quoi": "écurie 12 : atterrissage (impact amorti + crissement)",
+   "source": "synthèse",
+   "rms_mix_db": -21.0,
+   "rms_bruitages_db": -30.7,
+   "rms_avant_db": -33.7
+  },
+  {
+   "t": 62.12,
+   "bloc": "ecuries",
+   "quoi": "écurie 12 : dérapage (crissement de pneus)",
+   "source": "synthèse",
+   "fin": 63.55,
+   "rms_mix_db": -21.1,
+   "rms_bruitages_db": -30.7,
+   "rms_avant_db": -33.7
+  },
+  {
+   "t": 63.0,
+   "bloc": "ecuries",
+   "quoi": "écurie 12 : son d'écurie (après la voix)",
+   "source": "../audio_v5/themes_ecuries/12_jojo_kakyoin_rero.mp3 (extrait, lu)",
+   "fin": 65.85,
+   "rms_mix_db": -22.8,
+   "rms_bruitages_db": -21.6,
+   "rms_avant_db": -33.5
+  },
+  {
+   "t": 63.6,
+   "bloc": "ecuries",
+   "quoi": "écurie 13 : sortie du tunnel (jet de flammes + moteur qui monte)",
+   "source": "synthèse + sounds/moteurs_reels/13/gaz1.wav (CC0)",
+   "fin": 66.1,
+   "rms_mix_db": -20.6,
+   "rms_bruitages_db": -23.8,
+   "rms_avant_db": -22.7
+  },
+  {
+   "t": 65.1,
+   "bloc": "ecuries",
+   "quoi": "écurie 13 : saut (whoosh)",
+   "source": "synthèse",
+   "rms_mix_db": -19.4,
+   "rms_bruitages_db": -26.9,
+   "rms_avant_db": -28.8
+  },
+  {
+   "t": 65.9,
+   "bloc": "ecuries",
+   "quoi": "écurie 13 : atterrissage (impact amorti + crissement)",
+   "source": "synthèse",
+   "rms_mix_db": -21.6,
+   "rms_bruitages_db": -31.0,
+   "rms_avant_db": -27.1
+  },
+  {
+   "t": 65.92,
+   "bloc": "ecuries",
+   "quoi": "écurie 13 : dérapage (crissement de pneus)",
+   "source": "synthèse",
+   "fin": 67.35,
+   "rms_mix_db": -21.6,
+   "rms_bruitages_db": -31.0,
+   "rms_avant_db": -27.2
+  },
+  {
+   "t": 67.0,
+   "bloc": "ecuries",
+   "quoi": "écurie 13 : son d'écurie (après la voix)",
+   "source": "../audio_v5/themes_ecuries/13_tokyo_drift_drumroll.mp3 (extrait, lu)",
+   "fin": 69.65,
+   "rms_mix_db": -20.3,
+   "rms_bruitages_db": -20.9,
+   "rms_avant_db": -34.2
+  },
+  {
+   "t": 67.4,
+   "bloc": "ecuries",
+   "quoi": "écurie 14 : sortie du tunnel (jet de flammes + moteur qui monte)",
+   "source": "synthèse + sounds/moteurs_reels/14/gaz1.wav (CC0)",
+   "fin": 69.9,
+   "rms_mix_db": -21.2,
+   "rms_bruitages_db": -26.1,
+   "rms_avant_db": -24.5
+  },
+  {
+   "t": 68.9,
+   "bloc": "ecuries",
+   "quoi": "écurie 14 : saut (whoosh)",
+   "source": "synthèse",
+   "rms_mix_db": -20.2,
+   "rms_bruitages_db": -27.3,
+   "rms_avant_db": -30.2
+  },
+  {
+   "t": 69.7,
+   "bloc": "ecuries",
+   "quoi": "écurie 14 : atterrissage (impact amorti + crissement)",
+   "source": "synthèse",
+   "rms_mix_db": -18.9,
+   "rms_bruitages_db": -29.7,
+   "rms_avant_db": -26.8
+  },
+  {
+   "t": 69.7,
+   "bloc": "ecuries",
+   "quoi": "écurie 14 : son d'écurie (sur l'atterrissage (voix en cours, −6 dB))",
+   "source": "../audio_v5/themes_ecuries/14_splatoon_booyah.mp3 (extrait, lu)",
+   "fin": 70.8,
+   "rms_mix_db": -18.9,
+   "rms_bruitages_db": -29.7,
+   "rms_avant_db": -26.8
+  },
+  {
+   "t": 69.72,
+   "bloc": "ecuries",
+   "quoi": "écurie 14 : dérapage (crissement de pneus)",
+   "source": "synthèse",
+   "fin": 71.15,
+   "rms_mix_db": -18.8,
+   "rms_bruitages_db": -29.7,
+   "rms_avant_db": -26.9
+  },
+  {
+   "t": 71.2,
+   "bloc": "ecuries",
+   "quoi": "écurie 15 : sortie du tunnel (jet de flammes + moteur qui monte)",
+   "source": "synthèse + sounds/moteurs_reels/15/gaz1.wav (CC0)",
+   "fin": 73.7,
+   "rms_mix_db": -20.4,
+   "rms_bruitages_db": -32.7,
+   "rms_avant_db": -33.9
+  },
+  {
+   "t": 72.7,
+   "bloc": "ecuries",
+   "quoi": "écurie 15 : saut (whoosh)",
+   "source": "synthèse",
+   "rms_mix_db": -20.9,
+   "rms_bruitages_db": -30.7,
+   "rms_avant_db": -30.6
+  },
+  {
+   "t": 73.5,
+   "bloc": "ecuries",
+   "quoi": "écurie 15 : atterrissage (impact amorti + crissement)",
+   "source": "synthèse",
+   "rms_mix_db": -21.5,
+   "rms_bruitages_db": -30.6,
+   "rms_avant_db": -30.7
+  },
+  {
+   "t": 73.52,
+   "bloc": "ecuries",
+   "quoi": "écurie 15 : dérapage (crissement de pneus)",
+   "source": "synthèse",
+   "fin": 74.95,
+   "rms_mix_db": -21.2,
+   "rms_bruitages_db": -30.7,
+   "rms_avant_db": -30.8
+  },
+  {
+   "t": 74.56,
+   "bloc": "ecuries",
+   "quoi": "écurie 15 : son d'écurie (après la voix)",
+   "source": "../audio_v5/themes_ecuries/15_daisy_hi_im_daisy.mp3 (extrait, lu)",
+   "fin": 75.5,
+   "rms_mix_db": -22.9,
+   "rms_bruitages_db": -21.4,
+   "rms_avant_db": -34.8
+  },
+  {
+   "t": 75.0,
+   "bloc": "telephone",
+   "quoi": "nappe tech de l'interface téléphone",
+   "source": "synthèse",
+   "fin": 84.5,
+   "rms_mix_db": -20.7,
+   "rms_bruitages_db": -23.1,
+   "rms_avant_db": -24.8
+  },
+  {
+   "t": 75.15,
+   "bloc": "telephone",
+   "quoi": "arrivée sur l'écran du téléphone (whoosh + « select »)",
+   "source": "synthèse",
+   "rms_mix_db": -21.1,
+   "rms_bruitages_db": -24.7,
+   "rms_avant_db": -21.9
+  },
+  {
+   "t": 77.4,
+   "bloc": "telephone",
+   "quoi": "pari : tap + « ka-ching »",
+   "source": "synthèse",
+   "rms_mix_db": -19.8,
+   "rms_bruitages_db": -33.3,
+   "rms_avant_db": -39.4
+  },
+  {
+   "t": 78.9,
+   "bloc": "telephone",
+   "quoi": "points : compteur de pièces + ding",
+   "source": "synthèse",
+   "fin": 80.0,
+   "rms_mix_db": -19.9,
+   "rms_bruitages_db": -37.5,
+   "rms_avant_db": -39.4
+  },
+  {
+   "t": 80.5,
+   "bloc": "telephone",
+   "quoi": "lootbox : roulette qui ralentit + carillon",
+   "source": "synthèse",
+   "fin": 81.7,
+   "rms_mix_db": -21.5,
+   "rms_bruitages_db": -37.8,
+   "rms_avant_db": -30.2
+  },
+  {
+   "t": 81.6,
+   "bloc": "telephone",
+   "quoi": "bonus : jingle doré",
+   "source": "synthèse",
+   "fin": 82.8,
+   "rms_mix_db": -19.4,
+   "rms_bruitages_db": -26.6,
+   "rms_avant_db": -38.5
+  },
+  {
+   "t": 82.9,
+   "bloc": "telephone",
+   "quoi": "piège : swoosh rouge menaçant (cluster grave + sub)",
+   "source": "synthèse",
+   "fin": 83.9,
+   "rms_mix_db": -20.4,
+   "rms_bruitages_db": -29.0,
+   "rms_avant_db": -35.2
+  },
+  {
+   "t": 84.5,
+   "bloc": "familles",
+   "quoi": "Gotham : moteur grave de Batmobile",
+   "source": "synthèse",
+   "fin": 89.5,
+   "rms_mix_db": -20.4,
+   "rms_bruitages_db": -18.4,
+   "rms_avant_db": -38.6
+  },
+  {
+   "t": 84.5,
+   "bloc": "familles",
+   "quoi": "Gotham : nappe sombre héroïque (ré mineur, timbales, cuivres)",
+   "source": "synthèse",
+   "fin": 89.5,
+   "rms_mix_db": -20.4,
+   "rms_bruitages_db": -18.4,
+   "rms_avant_db": -38.6
+  },
+  {
+   "t": 84.5,
+   "bloc": "familles",
+   "quoi": "Gotham : pluie",
+   "source": "synthèse",
+   "fin": 89.5,
+   "rms_mix_db": -20.4,
+   "rms_bruitages_db": -18.4,
+   "rms_avant_db": -38.6
+  },
+  {
+   "t": 84.5,
+   "bloc": "familles",
+   "quoi": "entrée dans les familles : coupe franche + « zap »",
+   "source": "synthèse",
+   "rms_mix_db": -20.4,
+   "rms_bruitages_db": -18.4,
+   "rms_avant_db": -38.6
+  },
+  {
+   "t": 85.1,
+   "bloc": "familles",
+   "quoi": "Gotham : tonnerre lointain",
+   "source": "synthèse",
+   "fin": 88.1,
+   "rms_mix_db": -19.3,
+   "rms_bruitages_db": -28.4,
+   "rms_avant_db": -19.6
+  },
+  {
+   "t": 87.6,
+   "bloc": "familles",
+   "quoi": "Gotham : tonnerre lointain",
+   "source": "synthèse",
+   "fin": 90.6,
+   "rms_mix_db": -17.9,
+   "rms_bruitages_db": -17.8,
+   "rms_avant_db": -16.9
+  },
+  {
+   "t": 89.5,
+   "bloc": "familles",
+   "quoi": "F1 : monoplaces au ralenti sur la grille (3 moteurs, coups de gaz)",
+   "source": "synthèse",
+   "fin": 93.65,
+   "rms_mix_db": -20.0,
+   "rms_bruitages_db": -24.3,
+   "rms_avant_db": -17.9
+  },
+  {
+   "t": 89.5,
+   "bloc": "familles",
+   "quoi": "coupe franche + « zap » de transition",
+   "source": "synthèse",
+   "rms_mix_db": -20.0,
+   "rms_bruitages_db": -24.3,
+   "rms_avant_db": -17.9
+  },
+  {
+   "t": 90.1,
+   "bloc": "familles",
+   "quoi": "F1 : bip du feu rouge 1/5",
+   "source": "synthèse",
+   "rms_mix_db": -20.1,
+   "rms_bruitages_db": -28.0,
+   "rms_avant_db": -21.9
+  },
+  {
+   "t": 90.9,
+   "bloc": "familles",
+   "quoi": "F1 : bip du feu rouge 2/5",
+   "source": "synthèse",
+   "rms_mix_db": -18.5,
+   "rms_bruitages_db": -28.0,
+   "rms_avant_db": -29.0
+  },
+  {
+   "t": 91.7,
+   "bloc": "familles",
+   "quoi": "F1 : bip du feu rouge 3/5",
+   "source": "synthèse",
+   "rms_mix_db": -18.6,
+   "rms_bruitages_db": -20.9,
+   "rms_avant_db": -29.0
+  },
+  {
+   "t": 92.5,
+   "bloc": "familles",
+   "quoi": "F1 : bip du feu rouge 4/5",
+   "source": "synthèse",
+   "rms_mix_db": -19.0,
+   "rms_bruitages_db": -19.0,
+   "rms_avant_db": -21.0
+  },
+  {
+   "t": 93.3,
+   "bloc": "familles",
+   "quoi": "F1 : bip du feu rouge 5/5",
+   "source": "synthèse",
+   "rms_mix_db": -19.0,
+   "rms_bruitages_db": -18.4,
+   "rms_avant_db": -20.0
+  },
+  {
+   "t": 93.6,
+   "bloc": "familles",
+   "quoi": "F1 : rugissement V6 hybride au ralenti (extinction des feux)",
+   "source": "synthèse",
+   "fin": 94.5,
+   "rms_mix_db": -17.9,
+   "rms_bruitages_db": -16.9,
+   "rms_avant_db": -24.3
+  },
+  {
+   "t": 94.5,
+   "bloc": "familles",
+   "quoi": "Tokyo : pluie urbaine",
+   "source": "synthèse",
+   "fin": 99.5,
+   "rms_mix_db": -16.0,
+   "rms_bruitages_db": -20.8,
+   "rms_avant_db": -14.8
+  },
+  {
+   "t": 94.5,
+   "bloc": "familles",
+   "quoi": "Tokyo : synthwave néon (100 BPM) + bourdonnement des enseignes",
+   "source": "synthèse",
+   "fin": 99.5,
+   "rms_mix_db": -16.0,
+   "rms_bruitages_db": -20.8,
+   "rms_avant_db": -14.8
+  },
+  {
+   "t": 94.5,
+   "bloc": "familles",
+   "quoi": "coupe franche + « zap » de transition",
+   "source": "synthèse",
+   "rms_mix_db": -16.0,
+   "rms_bruitages_db": -20.8,
+   "rms_avant_db": -14.8
+  },
+  {
+   "t": 95.5,
+   "bloc": "familles",
+   "quoi": "Tokyo : moteur turbo qui passe (Doppler + soupape)",
+   "source": "synthèse",
+   "fin": 96.3,
+   "rms_mix_db": -20.1,
+   "rms_bruitages_db": -30.9,
+   "rms_avant_db": -30.7
+  },
+  {
+   "t": 97.5,
+   "bloc": "familles",
+   "quoi": "Tokyo : moteur turbo qui passe (Doppler + soupape)",
+   "source": "synthèse",
+   "fin": 98.3,
+   "rms_mix_db": -21.7,
+   "rms_bruitages_db": -22.1,
+   "rms_avant_db": -24.6
+  },
+  {
+   "t": 99.5,
+   "bloc": "lootbox",
+   "quoi": "retour dans l'arène : coupe franche + « zap »",
+   "source": "synthèse",
+   "rms_mix_db": -25.0,
+   "rms_bruitages_db": -27.6,
+   "rms_avant_db": -25.3
+  },
+  {
+   "t": 99.5,
+   "bloc": "lootbox",
+   "quoi": "rumeur de l'arène (basse)",
+   "source": "synthèse",
+   "fin": 106.5,
+   "rms_mix_db": -25.0,
+   "rms_bruitages_db": -27.6,
+   "rms_avant_db": -25.3
+  },
+  {
+   "t": 99.8,
+   "bloc": "lootbox",
+   "quoi": "lootbox : descente (sifflement)",
+   "source": "synthèse",
+   "fin": 100.6,
+   "rms_mix_db": -29.8,
+   "rms_bruitages_db": -28.2,
+   "rms_avant_db": -24.5
+  },
+  {
+   "t": 100.6,
+   "bloc": "lootbox",
+   "quoi": "lootbox : IMPACT MÉTALLIQUE LOURD au sol",
+   "source": "synthèse",
+   "rms_mix_db": -19.0,
+   "rms_bruitages_db": -20.6,
+   "rms_avant_db": -26.6
+  },
+  {
+   "t": 102.5,
+   "bloc": "lootbox",
+   "quoi": "lootbox : nappe dorée qui monte",
+   "source": "synthèse",
+   "fin": 106.5,
+   "rms_mix_db": -19.3,
+   "rms_bruitages_db": -32.4,
+   "rms_avant_db": -38.0
+  },
+  {
+   "t": 102.5,
+   "bloc": "lootbox",
+   "quoi": "lootbox : verrou 1/4 qui saute (clac métallique)",
+   "source": "synthèse",
+   "rms_mix_db": -19.3,
+   "rms_bruitages_db": -32.4,
+   "rms_avant_db": -38.0
+  },
+  {
+   "t": 102.72,
+   "bloc": "lootbox",
+   "quoi": "lootbox : verrou 2/4 qui saute (clac métallique)",
+   "source": "synthèse",
+   "rms_mix_db": -20.3,
+   "rms_bruitages_db": -33.1,
+   "rms_avant_db": -39.9
+  },
+  {
+   "t": 102.91,
+   "bloc": "lootbox",
+   "quoi": "lootbox : verrou 3/4 qui saute (clac métallique)",
+   "source": "synthèse",
+   "rms_mix_db": -20.6,
+   "rms_bruitages_db": -34.2,
+   "rms_avant_db": -36.3
+  },
+  {
+   "t": 103.16,
+   "bloc": "lootbox",
+   "quoi": "lootbox : verrou 4/4 qui saute (clac métallique)",
+   "source": "synthèse",
+   "rms_mix_db": -20.7,
+   "rms_bruitages_db": -35.2,
+   "rms_avant_db": -33.6
+  },
+  {
+   "t": 104.1,
+   "bloc": "lootbox",
+   "quoi": "lootbox : rideau qui commence à s'enrouler (cliquetis)",
+   "source": "synthèse",
+   "fin": 106.4,
+   "rms_mix_db": -32.1,
+   "rms_bruitages_db": -30.6,
+   "rms_avant_db": -35.6
+  },
+  {
+   "t": 106.5,
+   "bloc": "gloire",
+   "quoi": "silence relatif (air seul)",
+   "source": "synthèse",
+   "fin": 107.5,
+   "rms_mix_db": -23.5,
+   "rms_bruitages_db": -18.6,
+   "rms_avant_db": -25.9
+  },
+  {
+   "t": 106.9,
+   "bloc": "gloire",
+   "quoi": "fanfare orchestrale : timbales, appel de cuivres, accord majeur plein",
+   "source": "synthèse",
+   "fin": 111.5,
+   "rms_mix_db": -17.9,
+   "rms_bruitages_db": -22.1,
+   "rms_avant_db": -26.0
+  },
+  {
+   "t": 107.6,
+   "bloc": "gloire",
+   "quoi": "cloches de Noël + grelots",
+   "source": "synthèse",
+   "fin": 110.8,
+   "rms_mix_db": -19.1,
+   "rms_bruitages_db": -26.5,
+   "rms_avant_db": -22.1
+  },
+  {
+   "t": 109.4,
+   "bloc": "gloire",
+   "quoi": "foule qui exulte + canons à confettis",
+   "source": "synthèse",
+   "fin": 112.4,
+   "rms_mix_db": -20.7,
+   "rms_bruitages_db": -29.2,
+   "rms_avant_db": -32.4
+  },
+  {
+   "t": 112.8,
+   "bloc": "depart",
+   "quoi": "cordes du ring qui claquent",
+   "source": "synthèse",
+   "rms_mix_db": -25.6,
+   "rms_bruitages_db": -28.1,
+   "rms_avant_db": -33.5
+  },
+  {
+   "t": 113.5,
+   "bloc": "depart",
+   "quoi": "15 moteurs qui démarrent (démarreur + moteurs réels des écuries)",
+   "source": "synthèse + sounds/moteurs_reels (CC0 / CC BY)",
+   "fin": 115.9,
+   "rms_mix_db": -20.8,
+   "rms_bruitages_db": -37.4,
+   "rms_avant_db": -28.1
+  },
+  {
+   "t": 115.5,
+   "bloc": "depart",
+   "quoi": "passage en trombe (4 bolides Doppler + whoosh)",
+   "source": "synthèse",
+   "fin": 116.5,
+   "rms_mix_db": -18.4,
+   "rms_bruitages_db": -18.1,
+   "rms_avant_db": -21.0
+  },
+  {
+   "t": 115.8,
+   "bloc": "depart",
+   "quoi": "crescendo final (riser, roulement qui accélère, cuivres qui enflent, foule)",
+   "source": "synthèse",
+   "fin": 118.0,
+   "rms_mix_db": -18.6,
+   "rms_bruitages_db": -19.1,
+   "rms_avant_db": -18.9
+  },
+  {
+   "t": 118.0,
+   "bloc": "depart",
+   "quoi": "IMPACT + jingle sur le logo final, résonance jusqu'à la fin",
+   "source": "synthèse",
+   "fin": 120.44,
+   "rms_mix_db": -12.6,
+   "rms_bruitages_db": -13.4,
+   "rms_avant_db": -15.4
+  }
+ ],
+ "ecuries": [
+  {
+   "k": 0,
+   "id": 1,
+   "nom": "Petite Mimine Racing",
+   "sortie": 18.0,
+   "saut": 19.5,
+   "atterrissage": 20.3,
+   "place": 21.6,
+   "fin_voix": 21.55,
+   "moteur": "sounds/moteurs_reels/01/0_85.wav (CC0)",
+   "son_ecurie": {
+    "fichier": "../audio_v5/themes_ecuries/01_jerry_reed_country.mp3",
+    "debut_dans_fichier_s": 1.0,
+    "duree_s": 2.45,
+    "gain_db_fichier": -7.0,
+    "t_film": 21.6,
+    "fin": 24.05,
+    "mode": "après la voix",
+    "attenuation_db": 0.0
+   }
+  },
+  {
+   "k": 1,
+   "id": 2,
+   "nom": "Twingo Oasis V16 Racing",
+   "sortie": 21.8,
+   "saut": 23.3,
+   "atterrissage": 24.1,
+   "place": 25.4,
+   "fin_voix": 25.59,
+   "moteur": "sounds/moteurs_reels/02/gaz1.wav (CC0)",
+   "son_ecurie": {
+    "fichier": "../audio_v5/themes_ecuries/02_candy_crush_sweet.mp3",
+    "debut_dans_fichier_s": 0.0,
+    "duree_s": 1.9,
+    "gain_db_fichier": 0.0,
+    "t_film": 24.1,
+    "fin": 26.0,
+    "mode": "sur l'atterrissage (voix en cours, −6 dB)",
+    "attenuation_db": -6.0
+   }
+  },
+  {
+   "k": 2,
+   "id": 3,
+   "nom": "Optic-Breuillet Racing",
+   "sortie": 25.6,
+   "saut": 27.1,
+   "atterrissage": 27.9,
+   "place": 29.2,
+   "fin_voix": 28.97,
+   "moteur": "sounds/moteurs_reels/03/4040.wav (CC0)",
+   "son_ecurie": {
+    "fichier": "../audio_v5/themes_ecuries/03_blur_song_2_woohoo.mp3",
+    "debut_dans_fichier_s": 14.3,
+    "duree_s": 2.63,
+    "gain_db_fichier": 0.0,
+    "t_film": 29.02,
+    "fin": 31.65,
+    "mode": "après la voix",
+    "attenuation_db": 0.0
+   }
+  },
+  {
+   "k": 3,
+   "id": 4,
+   "nom": "Tata Freddy Motorsport",
+   "sortie": 29.4,
+   "saut": 30.9,
+   "atterrissage": 31.7,
+   "place": 33.0,
+   "fin_voix": 32.97,
+   "moteur": "sounds/moteurs_reels/04/gaz1.wav (CC0)",
+   "son_ecurie": {
+    "fichier": "../audio_v5/themes_ecuries/04_balatro_theme.mp3",
+    "debut_dans_fichier_s": 0.0,
+    "duree_s": 3.0,
+    "gain_db_fichier": 0.0,
+    "t_film": 31.7,
+    "fin": 34.7,
+    "mode": "sur l'atterrissage (voix en cours, −6 dB)",
+    "attenuation_db": -6.0
+   }
+  },
+  {
+   "k": 4,
+   "id": 5,
+   "nom": "Super Mario Pression",
+   "sortie": 33.2,
+   "saut": 34.7,
+   "atterrissage": 35.5,
+   "place": 36.8,
+   "fin_voix": 36.31,
+   "moteur": "sounds/moteurs_reels/05/gaz1.wav (CC0)",
+   "son_ecurie": {
+    "fichier": "../audio_v5/themes_ecuries/05_mario_fall_waaah.mp3",
+    "debut_dans_fichier_s": 0.0,
+    "duree_s": 2.89,
+    "gain_db_fichier": 0.0,
+    "t_film": 36.36,
+    "fin": 39.25,
+    "mode": "après la voix",
+    "attenuation_db": 0.0
+   }
+  },
+  {
+   "k": 5,
+   "id": 6,
+   "nom": "Scuderia Symphonie E-Tech",
+   "sortie": 37.0,
+   "saut": 38.5,
+   "atterrissage": 39.3,
+   "place": 40.6,
+   "fin_voix": 40.852,
+   "moteur": "sounds/moteurs_reels/06/gaz1.wav (CC0)",
+   "son_ecurie": {
+    "fichier": "../audio_v5/themes_ecuries/06_peter_fox_alles_neu_symphonie.mp3",
+    "debut_dans_fichier_s": 11.4,
+    "duree_s": 3.0,
+    "gain_db_fichier": 0.0,
+    "t_film": 39.3,
+    "fin": 42.3,
+    "mode": "sur l'atterrissage (voix en cours, −6 dB)",
+    "attenuation_db": -6.0
+   }
+  },
+  {
+   "k": 6,
+   "id": 7,
+   "nom": "Yaris 2 Invincible",
+   "sortie": 40.8,
+   "saut": 42.3,
+   "atterrissage": 43.1,
+   "place": 44.4,
+   "fin_voix": 44.666,
+   "moteur": "sounds/moteurs_reels/07/gaz1.wav (CC0)",
+   "son_ecurie": {
+    "fichier": "../audio_v5/themes_ecuries/07_zelda_item_get.mp3",
+    "debut_dans_fichier_s": 0.25,
+    "duree_s": 2.4,
+    "gain_db_fichier": 0.0,
+    "t_film": 43.1,
+    "fin": 45.5,
+    "mode": "sur l'atterrissage (voix en cours, −6 dB)",
+    "attenuation_db": -6.0
+   }
+  },
+  {
+   "k": 7,
+   "id": 8,
+   "nom": "A4 Oil Leaking",
+   "sortie": 44.6,
+   "saut": 46.1,
+   "atterrissage": 46.9,
+   "place": 48.2,
+   "fin_voix": 48.462,
+   "moteur": "sounds/moteurs_reels/08/gaz1.wav (CC0)",
+   "son_ecurie": {
+    "fichier": "audio/sources/audi_chime.mp3",
+    "debut_dans_fichier_s": 1.0,
+    "duree_s": 3.0,
+    "gain_db_fichier": 0.0,
+    "t_film": 46.9,
+    "fin": 49.9,
+    "mode": "sur l'atterrissage (voix en cours, −6 dB)",
+    "attenuation_db": -6.0
+   }
+  },
+  {
+   "k": 8,
+   "id": 9,
+   "nom": "Titou Wyvern SRT",
+   "sortie": 48.4,
+   "saut": 49.9,
+   "atterrissage": 50.7,
+   "place": 52.0,
+   "fin_voix": 52.264,
+   "moteur": "sounds/moteurs_reels/09/gaz1.wav (CC BY)",
+   "son_ecurie": {
+    "fichier": "../audio_v5/themes_ecuries/09_mh_valstrax_roar.mp3",
+    "debut_dans_fichier_s": 0.2,
+    "duree_s": 3.0,
+    "gain_db_fichier": 0.0,
+    "t_film": 50.7,
+    "fin": 53.7,
+    "mode": "sur l'atterrissage (voix en cours, −6 dB)",
+    "attenuation_db": -6.0
+   }
+  },
+  {
+   "k": 9,
+   "id": 10,
+   "nom": "Doom Slayer Issue GP",
+   "sortie": 52.2,
+   "saut": 53.7,
+   "atterrissage": 54.5,
+   "place": 55.8,
+   "fin_voix": 56.01,
+   "moteur": "sounds/moteurs_reels/10/gaz1.wav (CC0)",
+   "son_ecurie": {
+    "fichier": "../audio_v5/themes_ecuries/10_berserk_guts_theme.mp3",
+    "debut_dans_fichier_s": 1.7,
+    "duree_s": 3.0,
+    "gain_db_fichier": 0.0,
+    "t_film": 54.5,
+    "fin": 57.5,
+    "mode": "sur l'atterrissage (voix en cours, −6 dB)",
+    "attenuation_db": -6.0
+   }
+  },
+  {
+   "k": 10,
+   "id": 11,
+   "nom": "Milo's princess Vroom Vroom",
+   "sortie": 56.0,
+   "saut": 57.5,
+   "atterrissage": 58.3,
+   "place": 59.6,
+   "fin_voix": 59.847,
+   "moteur": "sounds/moteurs_reels/11/gaz1.wav (CC0)",
+   "son_ecurie": {
+    "fichier": "../audio_v5/themes_ecuries/11_rosalina_harmonie_victory.mp3",
+    "debut_dans_fichier_s": 0.0,
+    "duree_s": 3.0,
+    "gain_db_fichier": 0.0,
+    "t_film": 58.3,
+    "fin": 61.3,
+    "mode": "sur l'atterrissage (voix en cours, −6 dB)",
+    "attenuation_db": -6.0
+   }
+  },
+  {
+   "k": 11,
+   "id": 12,
+   "nom": "Bob's Bizarre Racing",
+   "sortie": 59.8,
+   "saut": 61.3,
+   "atterrissage": 62.1,
+   "place": 63.4,
+   "fin_voix": 62.95,
+   "moteur": "sounds/moteurs_reels/12/gaz1.wav (CC0)",
+   "son_ecurie": {
+    "fichier": "../audio_v5/themes_ecuries/12_jojo_kakyoin_rero.mp3",
+    "debut_dans_fichier_s": 0.1,
+    "duree_s": 2.85,
+    "gain_db_fichier": 0.0,
+    "t_film": 63.0,
+    "fin": 65.85,
+    "mode": "après la voix",
+    "attenuation_db": 0.0
+   }
+  },
+  {
+   "k": 12,
+   "id": 13,
+   "nom": "Jojo la Sirène Veloce",
+   "sortie": 63.6,
+   "saut": 65.1,
+   "atterrissage": 65.9,
+   "place": 67.2,
+   "fin_voix": 66.95,
+   "moteur": "sounds/moteurs_reels/13/gaz1.wav (CC0)",
+   "son_ecurie": {
+    "fichier": "../audio_v5/themes_ecuries/13_tokyo_drift_drumroll.mp3",
+    "debut_dans_fichier_s": 0.0,
+    "duree_s": 2.65,
+    "gain_db_fichier": 0.0,
+    "t_film": 67.0,
+    "fin": 69.65,
+    "mode": "après la voix",
+    "attenuation_db": 0.0
+   }
+  },
+  {
+   "k": 13,
+   "id": 14,
+   "nom": "Ninja-Nissan Street Racing",
+   "sortie": 67.4,
+   "saut": 68.9,
+   "atterrissage": 69.7,
+   "place": 71.0,
+   "fin_voix": 71.265,
+   "moteur": "sounds/moteurs_reels/14/gaz1.wav (CC0)",
+   "son_ecurie": {
+    "fichier": "../audio_v5/themes_ecuries/14_splatoon_booyah.mp3",
+    "debut_dans_fichier_s": 0.45,
+    "duree_s": 1.1,
+    "gain_db_fichier": 0.0,
+    "t_film": 69.7,
+    "fin": 70.8,
+    "mode": "sur l'atterrissage (voix en cours, −6 dB)",
+    "attenuation_db": -6.0
+   }
+  },
+  {
+   "k": 14,
+   "id": 15,
+   "nom": "Princess Blooming Speed",
+   "sortie": 71.2,
+   "saut": 72.7,
+   "atterrissage": 73.5,
+   "place": 74.8,
+   "fin_voix": 74.51,
+   "moteur": "sounds/moteurs_reels/15/gaz1.wav (CC0)",
+   "son_ecurie": {
+    "fichier": "../audio_v5/themes_ecuries/15_daisy_hi_im_daisy.mp3",
+    "debut_dans_fichier_s": 0.0,
+    "duree_s": 0.94,
+    "gain_db_fichier": 0.0,
+    "t_film": 74.56,
+    "fin": 75.5,
+    "mode": "après la voix",
+    "attenuation_db": 0.0
+   }
+  }
+ ],
+ "musique_ring": {
+  "source": "audio/sources/ring_music.mp3",
+  "periode_mesure_s": 2.6671,
+  "bpm": 89.99,
+  "premier_temps_s": 153.661,
+  "boucle_s": [
+   153.661,
+   185.666
+  ],
+  "mesures_par_boucle": 12,
+  "raccords_film_s": [
+   47.505
+  ],
+  "fondu_entree": [
+   15.5,
+   15.8
+  ],
+  "fondu_sortie": [
+   73.0,
+   75.5
+  ]
+ },
+ "voix_off": [
+  {
+   "id": "accueil",
+   "texte": "Mesdames et messieurs… bienvenue au Grand Prix de Noël !",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     0.18,
+     3.36
+    ]
+   ],
+   "blanc_s": 0.0,
+   "duree_brute_s": 3.18,
+   "duree_max_s": null,
+   "atempo": 1.0,
+   "duree_finale_s": 3.18,
+   "depasse_encore_duree_max": false,
+   "attaque": 8.95,
+   "fin": 12.13,
+   "marge_db": 8.2,
+   "ducking_db": -9.0,
+   "rms_voix_db": -19.2
+  },
+  {
+   "id": "arene",
+   "texte": "Ce soir, quinze écuries entrent dans l'arène !",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     3.78,
+     6.36
+    ]
+   ],
+   "blanc_s": 0.0,
+   "duree_brute_s": 2.58,
+   "duree_max_s": null,
+   "atempo": 1.0,
+   "duree_finale_s": 2.58,
+   "depasse_encore_duree_max": false,
+   "attaque": 15.4,
+   "fin": 17.98,
+   "marge_db": 8.3,
+   "ducking_db": -13.6,
+   "rms_voix_db": -19.9
+  },
+  {
+   "id": "ecurie_01",
+   "texte": "Petite Mimine Racing",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     6.7,
+     7.48
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     7.9,
+     9.16
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     9.54,
+     10.7
+    ]
+   ],
+   "blanc_s": 0.1,
+   "duree_brute_s": 3.4,
+   "duree_max_s": 3.7,
+   "atempo": 1.0,
+   "duree_finale_s": 3.4,
+   "depasse_encore_duree_max": false,
+   "attaque": 18.15,
+   "fin": 21.55,
+   "marge_db": 10.6,
+   "ducking_db": -9.0,
+   "rms_voix_db": -20.4
+  },
+  {
+   "id": "ecurie_02",
+   "texte": "Twingo Oasis V16 Racing",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     11.1,
+     11.54
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     11.96,
+     13.6
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     13.96,
+     15.32
+    ]
+   ],
+   "blanc_s": 0.1,
+   "duree_brute_s": 3.64,
+   "duree_max_s": 3.7,
+   "atempo": 1.0,
+   "duree_finale_s": 3.64,
+   "depasse_encore_duree_max": false,
+   "attaque": 21.95,
+   "fin": 25.59,
+   "marge_db": 10.7,
+   "ducking_db": -9.0,
+   "rms_voix_db": -20.6
+  },
+  {
+   "id": "ecurie_03",
+   "texte": "Optic-Breuillet Racing",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     15.68,
+     16.22
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     16.62,
+     18.0
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     18.36,
+     19.46
+    ]
+   ],
+   "blanc_s": 0.1,
+   "duree_brute_s": 3.22,
+   "duree_max_s": 3.7,
+   "atempo": 1.0,
+   "duree_finale_s": 3.22,
+   "depasse_encore_duree_max": false,
+   "attaque": 25.75,
+   "fin": 28.97,
+   "marge_db": 12.2,
+   "ducking_db": -9.0,
+   "rms_voix_db": -20.4
+  },
+  {
+   "id": "ecurie_04",
+   "texte": "Tata Freddy Motorsport",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     19.92,
+     20.5
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     20.9,
+     22.44
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     22.8,
+     23.9
+    ]
+   ],
+   "blanc_s": 0.1,
+   "duree_brute_s": 3.42,
+   "duree_max_s": 3.7,
+   "atempo": 1.0,
+   "duree_finale_s": 3.42,
+   "depasse_encore_duree_max": false,
+   "attaque": 29.55,
+   "fin": 32.97,
+   "marge_db": 8.3,
+   "ducking_db": -9.5,
+   "rms_voix_db": -20.5
+  },
+  {
+   "id": "ecurie_05",
+   "texte": "Super Mario Pression",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     24.26,
+     24.76
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     25.06,
+     26.32
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     26.68,
+     27.68
+    ]
+   ],
+   "blanc_s": 0.1,
+   "duree_brute_s": 2.96,
+   "duree_max_s": 3.7,
+   "atempo": 1.0,
+   "duree_finale_s": 2.96,
+   "depasse_encore_duree_max": false,
+   "attaque": 33.35,
+   "fin": 36.31,
+   "marge_db": 10.8,
+   "ducking_db": -9.0,
+   "rms_voix_db": -20.7
+  },
+  {
+   "id": "ecurie_06",
+   "texte": "Scuderia Symphonie E-Tech",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     28.14,
+     28.78
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     29.12,
+     30.86
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     31.32,
+     32.06
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     32.44,
+     33.22
+    ]
+   ],
+   "blanc_s": 0.1,
+   "duree_brute_s": 4.2,
+   "duree_max_s": 3.7,
+   "atempo": 1.1351,
+   "duree_finale_s": 3.702,
+   "depasse_encore_duree_max": true,
+   "attaque": 37.15,
+   "fin": 40.852,
+   "marge_db": 8.7,
+   "ducking_db": -9.0,
+   "rms_voix_db": -20.4
+  },
+  {
+   "id": "ecurie_07",
+   "texte": "Yaris 2 Invincible",
+   "morceaux": [
+    [
+     "voix_off/Yaris_A.mp3",
+     0.02,
+     0.93
+    ],
+    [
+     "voix_off/Yaris_A.mp3",
+     1.12,
+     3.19
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     36.46,
+     37.8
+    ]
+   ],
+   "blanc_s": 0.1,
+   "duree_brute_s": 4.52,
+   "duree_max_s": 3.7,
+   "atempo": 1.2216,
+   "duree_finale_s": 3.716,
+   "depasse_encore_duree_max": true,
+   "attaque": 40.95,
+   "fin": 44.666,
+   "marge_db": 9.7,
+   "ducking_db": -9.0,
+   "rms_voix_db": -20.9
+  },
+  {
+   "id": "ecurie_08",
+   "texte": "A4 Oil Leaking",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     38.24,
+     38.76
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     39.2,
+     40.58
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     41.0,
+     42.84
+    ]
+   ],
+   "blanc_s": 0.1,
+   "duree_brute_s": 3.94,
+   "duree_max_s": 3.7,
+   "atempo": 1.0649,
+   "duree_finale_s": 3.712,
+   "depasse_encore_duree_max": true,
+   "attaque": 44.75,
+   "fin": 48.462,
+   "marge_db": 10.4,
+   "ducking_db": -9.0,
+   "rms_voix_db": -20.7
+  },
+  {
+   "id": "ecurie_09",
+   "texte": "Titou Wyvern SRT",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     45.04,
+     45.62
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     46.0,
+     47.48
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     47.98,
+     49.82
+    ]
+   ],
+   "blanc_s": 0.1,
+   "duree_brute_s": 4.1,
+   "duree_max_s": 3.7,
+   "atempo": 1.1081,
+   "duree_finale_s": 3.714,
+   "depasse_encore_duree_max": true,
+   "attaque": 48.55,
+   "fin": 52.264,
+   "marge_db": 11.6,
+   "ducking_db": -9.0,
+   "rms_voix_db": -20.5
+  },
+  {
+   "id": "ecurie_10",
+   "texte": "Doom Slayer Issue GP",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     50.14,
+     50.68
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     51.02,
+     52.76
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     53.08,
+     54.26
+    ]
+   ],
+   "blanc_s": 0.1,
+   "duree_brute_s": 3.66,
+   "duree_max_s": 3.7,
+   "atempo": 1.0,
+   "duree_finale_s": 3.66,
+   "depasse_encore_duree_max": false,
+   "attaque": 52.35,
+   "fin": 56.01,
+   "marge_db": 11.7,
+   "ducking_db": -9.0,
+   "rms_voix_db": -20.2
+  },
+  {
+   "id": "ecurie_11",
+   "texte": "Milo's princess Vroom Vroom",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     54.68,
+     55.38
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     55.74,
+     57.42
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     57.76,
+     58.9
+    ]
+   ],
+   "blanc_s": 0.1,
+   "duree_brute_s": 3.72,
+   "duree_max_s": 3.7,
+   "atempo": 1.0054,
+   "duree_finale_s": 3.697,
+   "depasse_encore_duree_max": false,
+   "attaque": 56.15,
+   "fin": 59.847,
+   "marge_db": 9.9,
+   "ducking_db": -9.0,
+   "rms_voix_db": -20.3
+  },
+  {
+   "id": "ecurie_12",
+   "texte": "Bob's Bizarre Racing",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     59.34,
+     59.94
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     60.34,
+     61.68
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     62.08,
+     62.94
+    ]
+   ],
+   "blanc_s": 0.1,
+   "duree_brute_s": 3.0,
+   "duree_max_s": 3.7,
+   "atempo": 1.0,
+   "duree_finale_s": 3.0,
+   "depasse_encore_duree_max": false,
+   "attaque": 59.95,
+   "fin": 62.95,
+   "marge_db": 11.7,
+   "ducking_db": -9.0,
+   "rms_voix_db": -20.3
+  },
+  {
+   "id": "ecurie_13",
+   "texte": "Jojo la Sirène Veloce",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     63.74,
+     64.18
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     64.62,
+     65.98
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     66.54,
+     67.74
+    ]
+   ],
+   "blanc_s": 0.1,
+   "duree_brute_s": 3.2,
+   "duree_max_s": 3.7,
+   "atempo": 1.0,
+   "duree_finale_s": 3.2,
+   "depasse_encore_duree_max": false,
+   "attaque": 63.75,
+   "fin": 66.95,
+   "marge_db": 8.3,
+   "ducking_db": -9.4,
+   "rms_voix_db": -20.4
+  },
+  {
+   "id": "ecurie_14",
+   "texte": "Ninja-Nissan Street Racing",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     68.24,
+     69.32
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     69.68,
+     71.34
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     71.68,
+     72.84
+    ]
+   ],
+   "blanc_s": 0.1,
+   "duree_brute_s": 4.1,
+   "duree_max_s": 3.7,
+   "atempo": 1.1081,
+   "duree_finale_s": 3.715,
+   "depasse_encore_duree_max": true,
+   "attaque": 67.55,
+   "fin": 71.265,
+   "marge_db": 9.2,
+   "ducking_db": -9.0,
+   "rms_voix_db": -20.3
+  },
+  {
+   "id": "ecurie_15",
+   "texte": "Princess Blooming Speed",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     73.2,
+     73.68
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     74.02,
+     75.34
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     75.76,
+     76.92
+    ]
+   ],
+   "blanc_s": 0.1,
+   "duree_brute_s": 3.16,
+   "duree_max_s": 3.7,
+   "atempo": 1.0,
+   "duree_finale_s": 3.16,
+   "depasse_encore_duree_max": false,
+   "attaque": 71.35,
+   "fin": 74.51,
+   "marge_db": 10.4,
+   "ducking_db": -9.0,
+   "rms_voix_db": -21.0
+  },
+  {
+   "id": "telephone",
+   "texte": "Sur votre téléphone : suivez la soirée, pariez avec les cotes, cumulez des points… et ouvrez des lootbox. Des bonus… ou de quoi détruire vos adversaires !",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     79.18,
+     88.2
+    ]
+   ],
+   "blanc_s": 0.0,
+   "duree_brute_s": 9.02,
+   "duree_max_s": null,
+   "atempo": 1.0,
+   "duree_finale_s": 9.02,
+   "depasse_encore_duree_max": false,
+   "attaque": 75.3,
+   "fin": 84.32,
+   "marge_db": 13.2,
+   "ducking_db": -9.0,
+   "rms_voix_db": -20.4
+  },
+  {
+   "id": "famille_gotham",
+   "texte": "Des Batmobiles au sommet de Gotham…",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     88.52,
+     90.26
+    ]
+   ],
+   "blanc_s": 0.0,
+   "duree_brute_s": 1.74,
+   "duree_max_s": null,
+   "atempo": 1.0,
+   "duree_finale_s": 1.74,
+   "depasse_encore_duree_max": false,
+   "attaque": 85.1,
+   "fin": 86.84,
+   "marge_db": 8.3,
+   "ducking_db": -11.5,
+   "rms_voix_db": -19.8
+  },
+  {
+   "id": "famille_f1",
+   "texte": "…des Formule 1 sur la ligne arc-en-ciel…",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     90.6,
+     92.36
+    ]
+   ],
+   "blanc_s": 0.0,
+   "duree_brute_s": 1.76,
+   "duree_max_s": null,
+   "atempo": 1.0,
+   "duree_finale_s": 1.76,
+   "depasse_encore_duree_max": false,
+   "attaque": 89.9,
+   "fin": 91.66,
+   "marge_db": 10.5,
+   "ducking_db": -9.0,
+   "rms_voix_db": -19.3
+  },
+  {
+   "id": "famille_tokyo",
+   "texte": "…et les légendes de Tokyo.",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     92.7,
+     94.0
+    ]
+   ],
+   "blanc_s": 0.0,
+   "duree_brute_s": 1.3,
+   "duree_max_s": null,
+   "atempo": 1.0,
+   "duree_finale_s": 1.3,
+   "depasse_encore_duree_max": false,
+   "attaque": 94.9,
+   "fin": 96.2,
+   "marge_db": 11.8,
+   "ducking_db": -9.0,
+   "rms_voix_db": -20.1
+  },
+  {
+   "id": "lootbox",
+   "texte": "Et tous ces bolides… se gagnent dans les lootbox !",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     94.36,
+     96.82
+    ]
+   ],
+   "blanc_s": 0.0,
+   "duree_brute_s": 2.46,
+   "duree_max_s": null,
+   "atempo": 1.0,
+   "duree_finale_s": 2.46,
+   "depasse_encore_duree_max": false,
+   "attaque": 100.8,
+   "fin": 103.26,
+   "marge_db": 11.8,
+   "ducking_db": -9.0,
+   "rms_voix_db": -20.2
+  },
+  {
+   "id": "gloire",
+   "texte": "Un seul vainqueur. Et pour lui… la gloire. Éternelle.",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     97.28,
+     101.16
+    ]
+   ],
+   "blanc_s": 0.0,
+   "duree_brute_s": 3.88,
+   "duree_max_s": null,
+   "atempo": 1.0,
+   "duree_finale_s": 3.88,
+   "depasse_encore_duree_max": false,
+   "attaque": 107.0,
+   "fin": 110.88,
+   "marge_db": 8.3,
+   "ducking_db": -10.1,
+   "rms_voix_db": -20.9
+  },
+  {
+   "id": "piste",
+   "texte": "Pilotes… en piste !",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     101.54,
+     102.66
+    ]
+   ],
+   "blanc_s": 0.0,
+   "duree_brute_s": 1.12,
+   "duree_max_s": null,
+   "atempo": 1.0,
+   "duree_finale_s": 1.12,
+   "depasse_encore_duree_max": false,
+   "attaque": 113.0,
+   "fin": 114.12,
+   "marge_db": 18.0,
+   "ducking_db": -9.0,
+   "rms_voix_db": -19.4
+  },
+  {
+   "id": "rendez_vous",
+   "texte": "Rendez-vous le 23 décembre !",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     102.94,
+     104.46
+    ]
+   ],
+   "blanc_s": 0.0,
+   "duree_brute_s": 1.52,
+   "duree_max_s": null,
+   "atempo": 1.0,
+   "duree_finale_s": 1.52,
+   "depasse_encore_duree_max": false,
+   "attaque": 118.2,
+   "fin": 119.72,
+   "marge_db": 8.3,
+   "ducking_db": -12.9,
+   "rms_voix_db": -19.5
+  }
+ ],
+ "intervalles_voix": [
+  [
+   8.95,
+   12.13
+  ],
+  [
+   15.4,
+   17.98
+  ],
+  [
+   18.15,
+   21.55
+  ],
+  [
+   21.95,
+   25.59
+  ],
+  [
+   25.75,
+   28.97
+  ],
+  [
+   29.55,
+   32.97
+  ],
+  [
+   33.35,
+   36.31
+  ],
+  [
+   37.15,
+   40.852
+  ],
+  [
+   40.95,
+   44.666
+  ],
+  [
+   44.75,
+   48.462
+  ],
+  [
+   48.55,
+   52.264
+  ],
+  [
+   52.35,
+   56.01
+  ],
+  [
+   56.15,
+   59.847
+  ],
+  [
+   59.95,
+   62.95
+  ],
+  [
+   63.75,
+   66.95
+  ],
+  [
+   67.55,
+   71.265
+  ],
+  [
+   71.35,
+   74.51
+  ],
+  [
+   75.3,
+   84.32
+  ],
+  [
+   85.1,
+   86.84
+  ],
+  [
+   89.9,
+   91.66
+  ],
+  [
+   94.9,
+   96.2
+  ],
+  [
+   100.8,
+   103.26
+  ],
+  [
+   107.0,
+   110.88
+  ],
+  [
+   113.0,
+   114.12
+  ],
+  [
+   118.2,
+   119.72
+  ]
+ ],
+ "banque_bbc": {
+  "dossier": "../audio_v5/sons_reels",
+  "licence": "BBC Sound Effects — RemArc (usage personnel)",
+  "utilises": {}
+ },
+ "mix": {
+  "fichier": "audio/mix_v9.wav",
+  "gain_master_db": -2.64,
+  "lufs_integre": -16.0,
+  "vrai_crete_dbtp": -1.3,
+  "methode": "BS.1770-4 (filtres K exacts à 48 kHz, blocs 400 ms / 75 %, portes −70 LUFS et −10 LU) ; vrai crête par suréchantillonnage ×4 ; limiteur à anticipation 5 ms sur la crête vraie, plafond −1,3 dBTP",
+  "ducking": "base -9 dB, enveloppe lissée 80 ms, approfondi jusqu'à -14 dB si la marge voix < +8 dB"
+ },
+ "bilan": {
+  "ecuries_extrait_reel": 15,
+  "pieces_voix": 25,
+  "chevauchement_voix": false,
+  "marge_voix_min_db": 8.2,
+  "evenements": 133
+ }
+}

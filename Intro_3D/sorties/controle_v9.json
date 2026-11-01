@@ -1,0 +1,956 @@
+{
+ "version": "v9",
+ "date": "2026-11-01T14:55:23",
+ "cles": [
+  {
+   "t": 3.5,
+   "label": "Feu sur la télé",
+   "groupe": "ouverture",
+   "surface": 0,
+   "zone_sacree": 0,
+   "textes": [],
+   "nb_textes": 0,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 9.6,
+   "label": "Le logo s'allume",
+   "groupe": "ouverture",
+   "surface": 0,
+   "zone_sacree": 0,
+   "textes": [],
+   "nb_textes": 0,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 12.6,
+   "label": "Le tapis s'ouvre",
+   "groupe": "ouverture",
+   "surface": 0,
+   "zone_sacree": 0,
+   "textes": [],
+   "nb_textes": 0,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 15.8,
+   "label": "Arrivée · descente du ciel",
+   "groupe": "arene",
+   "surface": 0,
+   "zone_sacree": 0,
+   "textes": [],
+   "nb_textes": 0,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 18.8,
+   "label": "Écurie #01 · sortie du tunnel",
+   "groupe": "arene",
+   "surface": 0.0787,
+   "zone_sacree": 0,
+   "textes": [
+    "Laurent · Intercepteur furtif MK-Mimine",
+    "PETITE MIMINE RACING",
+    "#01"
+   ],
+   "nb_textes": 3,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 19.9,
+   "label": "Écurie #01 · saut au-dessus des cordes",
+   "groupe": "arene",
+   "surface": 0.0787,
+   "zone_sacree": 0,
+   "textes": [
+    "Laurent · Intercepteur furtif MK-Mimine",
+    "PETITE MIMINE RACING",
+    "#01"
+   ],
+   "nb_textes": 3,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 20.5,
+   "label": "Écurie #01 · atterrissage",
+   "groupe": "arene",
+   "surface": 0.0787,
+   "zone_sacree": 0,
+   "textes": [
+    "Laurent · Intercepteur furtif MK-Mimine",
+    "PETITE MIMINE RACING",
+    "#01"
+   ],
+   "nb_textes": 3,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 43.2,
+   "label": "Écurie #07 · atterrissage",
+   "groupe": "arene",
+   "surface": 0.0737,
+   "zone_sacree": 0,
+   "textes": [
+    "Fanny · Yaris Invincible WRC",
+    "YARIS 2 INVINCIBLE",
+    "#07"
+   ],
+   "nb_textes": 3,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 62.6,
+   "label": "Écurie #12 · dérapage",
+   "groupe": "arene",
+   "surface": 0.0781,
+   "zone_sacree": 0,
+   "textes": [
+    "Thom · Menacing Wedge ゴゴゴ",
+    "BOB'S BIZARRE RACING",
+    "#12"
+   ],
+   "nb_textes": 3,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 74.85,
+   "label": "Couronne des 15 concept-cars",
+   "groupe": "arene",
+   "surface": 0,
+   "zone_sacree": 0,
+   "textes": [],
+   "nb_textes": 0,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 79,
+   "label": "Téléphone · points",
+   "groupe": "arene",
+   "surface": 0,
+   "zone_sacree": 0,
+   "textes": [],
+   "nb_textes": 0,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 103,
+   "label": "Lootbox · verrous",
+   "groupe": "arene",
+   "surface": 0,
+   "zone_sacree": 0,
+   "textes": [],
+   "nb_textes": 0,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 110,
+   "label": "Gloire éternelle",
+   "groupe": "arene",
+   "surface": 0.0738,
+   "zone_sacree": 0,
+   "textes": [
+    "GLOIRE ÉTERNELLE"
+   ],
+   "nb_textes": 1,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 116,
+   "label": "Départ · piste arc-en-ciel",
+   "groupe": "arene",
+   "surface": 0,
+   "zone_sacree": 0,
+   "textes": [],
+   "nb_textes": 0,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 118.6,
+   "label": "Logo final · 23 décembre",
+   "groupe": "arene",
+   "surface": 0.1611,
+   "zone_sacree": 0.7892,
+   "textes": [],
+   "nb_textes": 0,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 87.1,
+   "label": "Gotham · Batmobile sur le toit",
+   "groupe": "familles",
+   "surface": 0,
+   "zone_sacree": 0,
+   "textes": [],
+   "nb_textes": 0,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 92.8,
+   "label": "Ligne arc-en-ciel · feux",
+   "groupe": "familles",
+   "surface": 0,
+   "zone_sacree": 0,
+   "textes": [],
+   "nb_textes": 0,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 97.7,
+   "label": "Tokyo · légendes sous la pluie",
+   "groupe": "familles",
+   "surface": 0,
+   "zone_sacree": 0,
+   "textes": [],
+   "nb_textes": 0,
+   "collisions": [],
+   "rejet": []
+  }
+ ],
+ "rejets": 0,
+ "determinisme": {
+  "verdict": "identique",
+  "differences": []
+ },
+ "erreurs_console": [],
+ "son": {
+  "voix_off": [
+   {
+    "id": "accueil",
+    "texte": "Mesdames et messieurs… bienvenue au Grand Prix de Noël !",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      0.18,
+      3.36
+     ]
+    ],
+    "blanc_s": 0.0,
+    "duree_brute_s": 3.18,
+    "duree_max_s": null,
+    "atempo": 1.0,
+    "duree_finale_s": 3.18,
+    "depasse_encore_duree_max": false,
+    "attaque": 8.95,
+    "fin": 12.13,
+    "marge_db": 8.2,
+    "ducking_db": -9.0,
+    "rms_voix_db": -19.2
+   },
+   {
+    "id": "arene",
+    "texte": "Ce soir, quinze écuries entrent dans l'arène !",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      3.78,
+      6.36
+     ]
+    ],
+    "blanc_s": 0.0,
+    "duree_brute_s": 2.58,
+    "duree_max_s": null,
+    "atempo": 1.0,
+    "duree_finale_s": 2.58,
+    "depasse_encore_duree_max": false,
+    "attaque": 15.4,
+    "fin": 17.98,
+    "marge_db": 8.3,
+    "ducking_db": -13.6,
+    "rms_voix_db": -19.9
+   },
+   {
+    "id": "ecurie_01",
+    "texte": "Petite Mimine Racing",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      6.7,
+      7.48
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      7.9,
+      9.16
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      9.54,
+      10.7
+     ]
+    ],
+    "blanc_s": 0.1,
+    "duree_brute_s": 3.4,
+    "duree_max_s": 3.7,
+    "atempo": 1.0,
+    "duree_finale_s": 3.4,
+    "depasse_encore_duree_max": false,
+    "attaque": 18.15,
+    "fin": 21.55,
+    "marge_db": 10.6,
+    "ducking_db": -9.0,
+    "rms_voix_db": -20.4
+   },
+   {
+    "id": "ecurie_02",
+    "texte": "Twingo Oasis V16 Racing",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      11.1,
+      11.54
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      11.96,
+      13.6
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      13.96,
+      15.32
+     ]
+    ],
+    "blanc_s": 0.1,
+    "duree_brute_s": 3.64,
+    "duree_max_s": 3.7,
+    "atempo": 1.0,
+    "duree_finale_s": 3.64,
+    "depasse_encore_duree_max": false,
+    "attaque": 21.95,
+    "fin": 25.59,
+    "marge_db": 10.7,
+    "ducking_db": -9.0,
+    "rms_voix_db": -20.6
+   },
+   {
+    "id": "ecurie_03",
+    "texte": "Optic-Breuillet Racing",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      15.68,
+      16.22
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      16.62,
+      18.0
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      18.36,
+      19.46
+     ]
+    ],
+    "blanc_s": 0.1,
+    "duree_brute_s": 3.22,
+    "duree_max_s": 3.7,
+    "atempo": 1.0,
+    "duree_finale_s": 3.22,
+    "depasse_encore_duree_max": false,
+    "attaque": 25.75,
+    "fin": 28.97,
+    "marge_db": 12.2,
+    "ducking_db": -9.0,
+    "rms_voix_db": -20.4
+   },
+   {
+    "id": "ecurie_04",
+    "texte": "Tata Freddy Motorsport",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      19.92,
+      20.5
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      20.9,
+      22.44
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      22.8,
+      23.9
+     ]
+    ],
+    "blanc_s": 0.1,
+    "duree_brute_s": 3.42,
+    "duree_max_s": 3.7,
+    "atempo": 1.0,
+    "duree_finale_s": 3.42,
+    "depasse_encore_duree_max": false,
+    "attaque": 29.55,
+    "fin": 32.97,
+    "marge_db": 8.3,
+    "ducking_db": -9.5,
+    "rms_voix_db": -20.5
+   },
+   {
+    "id": "ecurie_05",
+    "texte": "Super Mario Pression",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      24.26,
+      24.76
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      25.06,
+      26.32
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      26.68,
+      27.68
+     ]
+    ],
+    "blanc_s": 0.1,
+    "duree_brute_s": 2.96,
+    "duree_max_s": 3.7,
+    "atempo": 1.0,
+    "duree_finale_s": 2.96,
+    "depasse_encore_duree_max": false,
+    "attaque": 33.35,
+    "fin": 36.31,
+    "marge_db": 10.8,
+    "ducking_db": -9.0,
+    "rms_voix_db": -20.7
+   },
+   {
+    "id": "ecurie_06",
+    "texte": "Scuderia Symphonie E-Tech",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      28.14,
+      28.78
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      29.12,
+      30.86
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      31.32,
+      32.06
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      32.44,
+      33.22
+     ]
+    ],
+    "blanc_s": 0.1,
+    "duree_brute_s": 4.2,
+    "duree_max_s": 3.7,
+    "atempo": 1.1351,
+    "duree_finale_s": 3.702,
+    "depasse_encore_duree_max": true,
+    "attaque": 37.15,
+    "fin": 40.852,
+    "marge_db": 8.7,
+    "ducking_db": -9.0,
+    "rms_voix_db": -20.4
+   },
+   {
+    "id": "ecurie_07",
+    "texte": "Yaris 2 Invincible",
+    "morceaux": [
+     [
+      "voix_off/Yaris_A.mp3",
+      0.02,
+      0.93
+     ],
+     [
+      "voix_off/Yaris_A.mp3",
+      1.12,
+      3.19
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      36.46,
+      37.8
+     ]
+    ],
+    "blanc_s": 0.1,
+    "duree_brute_s": 4.52,
+    "duree_max_s": 3.7,
+    "atempo": 1.2216,
+    "duree_finale_s": 3.716,
+    "depasse_encore_duree_max": true,
+    "attaque": 40.95,
+    "fin": 44.666,
+    "marge_db": 9.7,
+    "ducking_db": -9.0,
+    "rms_voix_db": -20.9
+   },
+   {
+    "id": "ecurie_08",
+    "texte": "A4 Oil Leaking",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      38.24,
+      38.76
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      39.2,
+      40.58
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      41.0,
+      42.84
+     ]
+    ],
+    "blanc_s": 0.1,
+    "duree_brute_s": 3.94,
+    "duree_max_s": 3.7,
+    "atempo": 1.0649,
+    "duree_finale_s": 3.712,
+    "depasse_encore_duree_max": true,
+    "attaque": 44.75,
+    "fin": 48.462,
+    "marge_db": 10.4,
+    "ducking_db": -9.0,
+    "rms_voix_db": -20.7
+   },
+   {
+    "id": "ecurie_09",
+    "texte": "Titou Wyvern SRT",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      45.04,
+      45.62
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      46.0,
+      47.48
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      47.98,
+      49.82
+     ]
+    ],
+    "blanc_s": 0.1,
+    "duree_brute_s": 4.1,
+    "duree_max_s": 3.7,
+    "atempo": 1.1081,
+    "duree_finale_s": 3.714,
+    "depasse_encore_duree_max": true,
+    "attaque": 48.55,
+    "fin": 52.264,
+    "marge_db": 11.6,
+    "ducking_db": -9.0,
+    "rms_voix_db": -20.5
+   },
+   {
+    "id": "ecurie_10",
+    "texte": "Doom Slayer Issue GP",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      50.14,
+      50.68
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      51.02,
+      52.76
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      53.08,
+      54.26
+     ]
+    ],
+    "blanc_s": 0.1,
+    "duree_brute_s": 3.66,
+    "duree_max_s": 3.7,
+    "atempo": 1.0,
+    "duree_finale_s": 3.66,
+    "depasse_encore_duree_max": false,
+    "attaque": 52.35,
+    "fin": 56.01,
+    "marge_db": 11.7,
+    "ducking_db": -9.0,
+    "rms_voix_db": -20.2
+   },
+   {
+    "id": "ecurie_11",
+    "texte": "Milo's princess Vroom Vroom",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      54.68,
+      55.38
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      55.74,
+      57.42
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      57.76,
+      58.9
+     ]
+    ],
+    "blanc_s": 0.1,
+    "duree_brute_s": 3.72,
+    "duree_max_s": 3.7,
+    "atempo": 1.0054,
+    "duree_finale_s": 3.697,
+    "depasse_encore_duree_max": false,
+    "attaque": 56.15,
+    "fin": 59.847,
+    "marge_db": 9.9,
+    "ducking_db": -9.0,
+    "rms_voix_db": -20.3
+   },
+   {
+    "id": "ecurie_12",
+    "texte": "Bob's Bizarre Racing",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      59.34,
+      59.94
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      60.34,
+      61.68
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      62.08,
+      62.94
+     ]
+    ],
+    "blanc_s": 0.1,
+    "duree_brute_s": 3.0,
+    "duree_max_s": 3.7,
+    "atempo": 1.0,
+    "duree_finale_s": 3.0,
+    "depasse_encore_duree_max": false,
+    "attaque": 59.95,
+    "fin": 62.95,
+    "marge_db": 11.7,
+    "ducking_db": -9.0,
+    "rms_voix_db": -20.3
+   },
+   {
+    "id": "ecurie_13",
+    "texte": "Jojo la Sirène Veloce",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      63.74,
+      64.18
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      64.62,
+      65.98
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      66.54,
+      67.74
+     ]
+    ],
+    "blanc_s": 0.1,
+    "duree_brute_s": 3.2,
+    "duree_max_s": 3.7,
+    "atempo": 1.0,
+    "duree_finale_s": 3.2,
+    "depasse_encore_duree_max": false,
+    "attaque": 63.75,
+    "fin": 66.95,
+    "marge_db": 8.3,
+    "ducking_db": -9.4,
+    "rms_voix_db": -20.4
+   },
+   {
+    "id": "ecurie_14",
+    "texte": "Ninja-Nissan Street Racing",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      68.24,
+      69.32
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      69.68,
+      71.34
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      71.68,
+      72.84
+     ]
+    ],
+    "blanc_s": 0.1,
+    "duree_brute_s": 4.1,
+    "duree_max_s": 3.7,
+    "atempo": 1.1081,
+    "duree_finale_s": 3.715,
+    "depasse_encore_duree_max": true,
+    "attaque": 67.55,
+    "fin": 71.265,
+    "marge_db": 9.2,
+    "ducking_db": -9.0,
+    "rms_voix_db": -20.3
+   },
+   {
+    "id": "ecurie_15",
+    "texte": "Princess Blooming Speed",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      73.2,
+      73.68
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      74.02,
+      75.34
+     ],
+     [
+      "voix_off/VO_V9_tout.mp3",
+      75.76,
+      76.92
+     ]
+    ],
+    "blanc_s": 0.1,
+    "duree_brute_s": 3.16,
+    "duree_max_s": 3.7,
+    "atempo": 1.0,
+    "duree_finale_s": 3.16,
+    "depasse_encore_duree_max": false,
+    "attaque": 71.35,
+    "fin": 74.51,
+    "marge_db": 10.4,
+    "ducking_db": -9.0,
+    "rms_voix_db": -21.0
+   },
+   {
+    "id": "telephone",
+    "texte": "Sur votre téléphone : suivez la soirée, pariez avec les cotes, cumulez des points… et ouvrez des lootbox. Des bonus… ou de quoi détruire vos adversaires !",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      79.18,
+      88.2
+     ]
+    ],
+    "blanc_s": 0.0,
+    "duree_brute_s": 9.02,
+    "duree_max_s": null,
+    "atempo": 1.0,
+    "duree_finale_s": 9.02,
+    "depasse_encore_duree_max": false,
+    "attaque": 75.3,
+    "fin": 84.32,
+    "marge_db": 13.2,
+    "ducking_db": -9.0,
+    "rms_voix_db": -20.4
+   },
+   {
+    "id": "famille_gotham",
+    "texte": "Des Batmobiles au sommet de Gotham…",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      88.52,
+      90.26
+     ]
+    ],
+    "blanc_s": 0.0,
+    "duree_brute_s": 1.74,
+    "duree_max_s": null,
+    "atempo": 1.0,
+    "duree_finale_s": 1.74,
+    "depasse_encore_duree_max": false,
+    "attaque": 85.1,
+    "fin": 86.84,
+    "marge_db": 8.3,
+    "ducking_db": -11.5,
+    "rms_voix_db": -19.8
+   },
+   {
+    "id": "famille_f1",
+    "texte": "…des Formule 1 sur la ligne arc-en-ciel…",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      90.6,
+      92.36
+     ]
+    ],
+    "blanc_s": 0.0,
+    "duree_brute_s": 1.76,
+    "duree_max_s": null,
+    "atempo": 1.0,
+    "duree_finale_s": 1.76,
+    "depasse_encore_duree_max": false,
+    "attaque": 89.9,
+    "fin": 91.66,
+    "marge_db": 10.5,
+    "ducking_db": -9.0,
+    "rms_voix_db": -19.3
+   },
+   {
+    "id": "famille_tokyo",
+    "texte": "…et les légendes de Tokyo.",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      92.7,
+      94.0
+     ]
+    ],
+    "blanc_s": 0.0,
+    "duree_brute_s": 1.3,
+    "duree_max_s": null,
+    "atempo": 1.0,
+    "duree_finale_s": 1.3,
+    "depasse_encore_duree_max": false,
+    "attaque": 94.9,
+    "fin": 96.2,
+    "marge_db": 11.8,
+    "ducking_db": -9.0,
+    "rms_voix_db": -20.1
+   },
+   {
+    "id": "lootbox",
+    "texte": "Et tous ces bolides… se gagnent dans les lootbox !",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      94.36,
+      96.82
+     ]
+    ],
+    "blanc_s": 0.0,
+    "duree_brute_s": 2.46,
+    "duree_max_s": null,
+    "atempo": 1.0,
+    "duree_finale_s": 2.46,
+    "depasse_encore_duree_max": false,
+    "attaque": 100.8,
+    "fin": 103.26,
+    "marge_db": 11.8,
+    "ducking_db": -9.0,
+    "rms_voix_db": -20.2
+   },
+   {
+    "id": "gloire",
+    "texte": "Un seul vainqueur. Et pour lui… la gloire. Éternelle.",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      97.28,
+      101.16
+     ]
+    ],
+    "blanc_s": 0.0,
+    "duree_brute_s": 3.88,
+    "duree_max_s": null,
+    "atempo": 1.0,
+    "duree_finale_s": 3.88,
+    "depasse_encore_duree_max": false,
+    "attaque": 107.0,
+    "fin": 110.88,
+    "marge_db": 8.3,
+    "ducking_db": -10.1,
+    "rms_voix_db": -20.9
+   },
+   {
+    "id": "piste",
+    "texte": "Pilotes… en piste !",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      101.54,
+      102.66
+     ]
+    ],
+    "blanc_s": 0.0,
+    "duree_brute_s": 1.12,
+    "duree_max_s": null,
+    "atempo": 1.0,
+    "duree_finale_s": 1.12,
+    "depasse_encore_duree_max": false,
+    "attaque": 113.0,
+    "fin": 114.12,
+    "marge_db": 18.0,
+    "ducking_db": -9.0,
+    "rms_voix_db": -19.4
+   },
+   {
+    "id": "rendez_vous",
+    "texte": "Rendez-vous le 23 décembre !",
+    "morceaux": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      102.94,
+      104.46
+     ]
+    ],
+    "blanc_s": 0.0,
+    "duree_brute_s": 1.52,
+    "duree_max_s": null,
+    "atempo": 1.0,
+    "duree_finale_s": 1.52,
+    "depasse_encore_duree_max": false,
+    "attaque": 118.2,
+    "fin": 119.72,
+    "marge_db": 8.3,
+    "ducking_db": -12.9,
+    "rms_voix_db": -19.5
+   }
+  ],
+  "mix": {
+   "fichier": "audio/mix_v9.wav",
+   "gain_master_db": -2.64,
+   "lufs_integre": -16.0,
+   "vrai_crete_dbtp": -1.3,
+   "methode": "BS.1770-4 (filtres K exacts à 48 kHz, blocs 400 ms / 75 %, portes −70 LUFS et −10 LU) ; vrai crête par suréchantillonnage ×4 ; limiteur à anticipation 5 ms sur la crête vraie, plafond −1,3 dBTP",
+   "ducking": "base -9 dB, enveloppe lissée 80 ms, approfondi jusqu'à -14 dB si la marge voix < +8 dB"
+  },
+  "bilan": {
+   "ecuries_extrait_reel": 15,
+   "pieces_voix": 25,
+   "chevauchement_voix": false,
+   "marge_voix_min_db": 8.2,
+   "evenements": 133
+  }
+ }
+}

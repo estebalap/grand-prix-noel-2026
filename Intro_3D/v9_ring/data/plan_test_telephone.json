@@ -1,0 +1,241 @@
+{
+ "version": "v9",
+ "titre": "Grand Prix de Noël — V9 Ring",
+ "duree": 112.0,
+ "fps": 60,
+ "regles_ui": {
+  "surface_max": 0.2,
+  "zone_sacree": [
+   0.3,
+   0.3,
+   0.7,
+   0.7
+  ],
+  "textes_max": 3
+ },
+ "segments": [
+  {
+   "id": "telephone_test",
+   "module": "../v9_ring/seg_test_telephone.js",
+   "debut": 69,
+   "fin": 76
+  }
+ ],
+ "ecuries": [
+  {
+   "k": 0,
+   "id": 1,
+   "debut": 18.0,
+   "sortie": 18.0,
+   "saut": 19.4,
+   "atterrissage": 20.2,
+   "place": 21.3,
+   "fin": 21.4
+  },
+  {
+   "k": 1,
+   "id": 2,
+   "debut": 21.4,
+   "sortie": 21.4,
+   "saut": 22.8,
+   "atterrissage": 23.6,
+   "place": 24.7,
+   "fin": 24.8
+  },
+  {
+   "k": 2,
+   "id": 3,
+   "debut": 24.8,
+   "sortie": 24.8,
+   "saut": 26.2,
+   "atterrissage": 27.0,
+   "place": 28.1,
+   "fin": 28.2
+  },
+  {
+   "k": 3,
+   "id": 4,
+   "debut": 28.2,
+   "sortie": 28.2,
+   "saut": 29.6,
+   "atterrissage": 30.4,
+   "place": 31.5,
+   "fin": 31.6
+  },
+  {
+   "k": 4,
+   "id": 5,
+   "debut": 31.6,
+   "sortie": 31.6,
+   "saut": 33.0,
+   "atterrissage": 33.8,
+   "place": 34.9,
+   "fin": 35.0
+  },
+  {
+   "k": 5,
+   "id": 6,
+   "debut": 35.0,
+   "sortie": 35.0,
+   "saut": 36.4,
+   "atterrissage": 37.2,
+   "place": 38.3,
+   "fin": 38.4
+  },
+  {
+   "k": 6,
+   "id": 7,
+   "debut": 38.4,
+   "sortie": 38.4,
+   "saut": 39.8,
+   "atterrissage": 40.6,
+   "place": 41.7,
+   "fin": 41.8
+  },
+  {
+   "k": 7,
+   "id": 8,
+   "debut": 41.8,
+   "sortie": 41.8,
+   "saut": 43.2,
+   "atterrissage": 44.0,
+   "place": 45.1,
+   "fin": 45.2
+  },
+  {
+   "k": 8,
+   "id": 9,
+   "debut": 45.2,
+   "sortie": 45.2,
+   "saut": 46.6,
+   "atterrissage": 47.4,
+   "place": 48.5,
+   "fin": 48.6
+  },
+  {
+   "k": 9,
+   "id": 10,
+   "debut": 48.6,
+   "sortie": 48.6,
+   "saut": 50.0,
+   "atterrissage": 50.8,
+   "place": 51.9,
+   "fin": 52.0
+  },
+  {
+   "k": 10,
+   "id": 11,
+   "debut": 52.0,
+   "sortie": 52.0,
+   "saut": 53.4,
+   "atterrissage": 54.2,
+   "place": 55.3,
+   "fin": 55.4
+  },
+  {
+   "k": 11,
+   "id": 12,
+   "debut": 55.4,
+   "sortie": 55.4,
+   "saut": 56.8,
+   "atterrissage": 57.6,
+   "place": 58.7,
+   "fin": 58.8
+  },
+  {
+   "k": 12,
+   "id": 13,
+   "debut": 58.8,
+   "sortie": 58.8,
+   "saut": 60.2,
+   "atterrissage": 61.0,
+   "place": 62.1,
+   "fin": 62.2
+  },
+  {
+   "k": 13,
+   "id": 14,
+   "debut": 62.2,
+   "sortie": 62.2,
+   "saut": 63.6,
+   "atterrissage": 64.4,
+   "place": 65.5,
+   "fin": 65.6
+  },
+  {
+   "k": 14,
+   "id": 15,
+   "debut": 65.6,
+   "sortie": 65.6,
+   "saut": 67.0,
+   "atterrissage": 67.8,
+   "place": 68.9,
+   "fin": 69.0
+  }
+ ],
+ "telephone": {
+  "debut": 69.0,
+  "fin": 76.0,
+  "pari": 70.6,
+  "points": 72.2,
+  "lootbox": 73.4,
+  "bonus": 74.2,
+  "piege": 74.9
+ },
+ "lootbox": {
+  "debut": 91.0,
+  "descente": 91.3,
+  "verrous": 94.0,
+  "entrouvre": 95.6,
+  "fin": 98.0
+ },
+ "gloire": {
+  "debut": 98.0,
+  "trophee": 99.0,
+  "confettis": 100.4,
+  "titre": 101.0,
+  "fin": 104.0
+ },
+ "depart": {
+  "debut": 104.0,
+  "cordes": 104.3,
+  "demarrage": 105.0,
+  "piste": 107.0,
+  "logo": 109.5,
+  "fin": 112.0
+ },
+ "ouverture": {
+  "feu_tv": 0.0,
+  "etincelle": 7.0,
+  "guirlandes": [
+   7.2,
+   8.6
+  ],
+  "logo_tv": 8.8,
+  "tapis_fente": 11.25,
+  "tapis_ouverture": 11.6,
+  "plongee": 14.0,
+  "arrivee_arene": 15.5
+ },
+ "reperes_son": {
+  "crepitement": [
+   0.0,
+   8.8
+  ],
+  "etincelle": 7.0,
+  "logo_choc": 8.8,
+  "tapis_ouverture": 11.6,
+  "plongee": 14.0,
+  "arrivee_arene": 15.5,
+  "ring_music": [
+   15.5,
+   69.0
+  ],
+  "telephone": 69.0,
+  "familles": 76.0,
+  "lootbox_verrous": 94.0,
+  "gloire": 99.0,
+  "depart_moteurs": 105.0,
+  "logo_final": 109.5
+ }
+}

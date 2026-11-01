@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grand Prix de Noël — V9 Ring</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { --fond: #14113d; --or: #ffc83d; --texte: #f1eadf; }
+  html, body { margin: 0; height: 100%; background: var(--fond); color: var(--texte); font: 14px/1.4 system-ui, sans-serif; overflow: hidden; }
+  #vue { position: fixed; inset: 0 0 56px 0; display: grid; place-items: center; }
+  #sortie { display: block; max-width: 100%; max-height: 100%; aspect-ratio: 16 / 9; background: #000; }
+  #barre { position: fixed; left: 0; right: 0; bottom: 0; height: 56px; background: #0b0a12; border-top: 1px solid #2a2438; padding: 8px 12px; box-sizing: border-box; display: flex; gap: 10px; align-items: center; }
+  button { background: #1a1726; color: var(--texte); border: 1px solid #3c3150; border-radius: 8px; padding: 6px 12px; cursor: pointer; font: inherit; }
+  #frise { flex: 1; position: relative; height: 26px; background: #12101c; border-radius: 6px; cursor: pointer; overflow: hidden; }
+  .seg { position: absolute; top: 0; bottom: 0; border-right: 1px solid #000; font-size: 11px; padding: 4px 6px; box-sizing: border-box; opacity: .85; }
+  #tete { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--or); }
+  #erreur { position: fixed; inset: 0; display: none; place-items: center; background: #200; color: #fbb; padding: 30px; white-space: pre-wrap; z-index: 9; }
+  #charge { position: fixed; inset: 0; display: grid; place-items: center; background: #05040a; z-index: 5; font-size: 18px; }
+  body.capture #barre, body.capture #charge { display: none; } body.capture #vue { inset: 0; }
+</style>
+</head>
+<body>
+<div id="vue"><canvas id="sortie"></canvas></div>
+<div id="charge">Chargement…</div>
+<div id="barre"><button id="lecture">▶ Lecture (Espace)</button><div id="frise"><div id="tete"></div></div><span id="temps">0,00 s</span></div>
+<div id="erreur"></div>
+<audio id="son" preload="none"></audio>
+<script type="module">
+import '../src/shared_bridge.js';
+import { urlWeb } from '../src/shared_bridge.js';
+import { creerFilm } from './noyau_v9.js';
+const THREE = window.THREE, q = new URLSearchParams(location.search);
+const err = (e) => { const d = document.getElementById('erreur'); d.style.display = 'grid'; d.textContent = 'Erreur : ' + (e && e.stack || e); console.error(e); window.erreurFilm = String(e && e.stack || e); };
+window.addEventListener('error', (ev) => err(ev.error || ev.message)); window.addEventListener('unhandledrejection', (ev) => err(ev.reason));
+(async () => {
+  try {
+    const capture = q.has('capture'); if (capture) document.body.classList.add('capture');
+    const qualite = q.get('qualite') || 'apercu';
+    const L = parseInt(q.get('l') || (capture ? 960 : 1280), 10), H = Math.round(L * 9 / 16), SUB = parseInt(q.get('sub') || '1', 10);
+    const seulement = q.get('seg') ? q.get('seg').split(',') : null;          // ?seg=salon : ne construit que ce segment (mise au point)
+    const plan = await (await fetch(q.get('plan') || 'data/plan_v9.json', { cache: 'no-store' })).json();   // ?plan=data/plan_test.json : plan de mise au point
+    const equipes = await (await fetch(urlWeb('data/teams.json'))).json(), logos = {};
+    await Promise.all(equipes.map((e) => new Promise((ok) => { const im = new Image(); im.onload = () => { logos[e.id] = im; ok(); }; im.onerror = () => ok(); im.src = urlWeb(`logos/${String(e.id).padStart(2, '0')}.jpg`); })));
+    const regles = await (await fetch(urlWeb('data/rules.json'))).json();
+    const renderer = new THREE.WebGLRenderer({ antialias: false, preserveDrawingBuffer: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(1); renderer.setSize(L, H, false);
+    const sortie = document.getElementById('sortie'); sortie.width = L; sortie.height = H;
+    if (capture) sortie.getContext('2d', { willReadFrequently: true });
+    const charge = document.getElementById('charge');
+    const film = await creerFilm({ renderer, equipes, logos, regles, plan, sortie, qualite, capture, seulement,
+      parcMax: parseInt(q.get('parc') || '24', 10), progression: (m) => { charge.textContent = m; } });
+    window.filmV9 = film; window.dureeFilm = film.duree; window.fpsFilm = film.fps; window.reperesPlanche = film.reperesPlanche;
+    window.rendreTemps = (t, o = {}) => film.rendreTemps(t, { sub: o.sub ?? SUB });
+    window.statsHUD = () => film.statsHUD(); window.statsCollisions = () => film.statsCollisions();
+    window.imageBase64 = (format = 'png', qual = 0.97) => sortie.toDataURL(format === 'jpeg' ? 'image/jpeg' : 'image/png', qual).split(',')[1];
+    charge.style.display = 'none';
+    const frise = document.getElementById('frise'), tete = document.getElementById('tete'), temps = document.getElementById('temps'), son = document.getElementById('son');
+    const couleurs = { ouverture: '#7a2a2a', arene: '#1d4fd8', familles: '#8a6a1a' };
+    for (const s of plan.segments) for (const [a, b] of (s.plages || [[s.debut, s.fin]])) { const d = document.createElement('div'); d.className = 'seg'; d.textContent = s.id; d.style.left = (a / film.duree * 100) + '%'; d.style.width = ((b - a) / film.duree * 100) + '%'; d.style.background = couleurs[s.id] || '#444'; frise.appendChild(d); }
+    frise.appendChild(tete);
+    let t = parseFloat(q.get('t') || '0'), lecture = false, occupe = false, t0 = 0, tRef = 0, sonCharge = false;
+    const afficher = async () => { if (occupe) return; occupe = true; try { await film.rendreTemps(t, { sub: 1 }); tete.style.left = (t / film.duree * 100) + '%'; temps.textContent = t.toFixed(2).replace('.', ',') + ' s'; } finally { occupe = false; } };
+    const aller = (nt) => { t = Math.max(0, Math.min(film.duree - 1 / 60, nt)); if (lecture) { tRef = t; t0 = performance.now(); if (sonCharge) son.currentTime = t; } afficher(); };
+    const boucle = () => { if (lecture) { t = Math.min(film.duree - 1 / 60, tRef + (performance.now() - t0) / 1000); afficher(); if (t >= film.duree - 1 / 60) { lecture = false; son.pause(); } } requestAnimationFrame(boucle); };
+    const basculer = () => { lecture = !lecture; document.getElementById('lecture').textContent = lecture ? '⏸ Pause (Espace)' : '▶ Lecture (Espace)';
+      if (lecture) { tRef = t; t0 = performance.now(); if (!sonCharge) { sonCharge = true; son.onerror = () => console.info('Bande-son V9 absente (lancer sound_v9.py)'); son.src = 'audio/mix_v9.wav'; } son.currentTime = t; son.play().catch(() => {}); } else son.pause(); };
+    document.getElementById('lecture').onclick = basculer;
+    frise.onclick = (e) => { const r = frise.getBoundingClientRect(); aller((e.clientX - r.left) / r.width * film.duree); };
+    addEventListener('keydown', (e) => { if (e.code === 'Space') { e.preventDefault(); basculer(); } else if (e.code === 'ArrowRight') aller(t + (e.shiftKey ? 1 : 1 / 60)); else if (e.code === 'ArrowLeft') aller(t - (e.shiftKey ? 1 : 1 / 60)); });
+    await film.rendreTemps(t, { sub: capture ? SUB : 1 }); if (!capture) { afficher(); boucle(); }
+    window.pret = true;
+  } catch (e) { err(e); }
+})();
+</script>
+</body>
+</html>

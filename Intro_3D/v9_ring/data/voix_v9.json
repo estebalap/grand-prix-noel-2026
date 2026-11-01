@@ -1,0 +1,506 @@
+{
+ "voix": "Commentateur def (ElevenLabs, voice_id QLs7iK8pmd23CyW29R9f, eleven_v4)",
+ "note": "morceaux = [fichier, début, fin] en secondes dans le fichier source ; les morceaux d'une même pièce sont recollés avec `blanc` s entre eux puis accélérés (atempo ≤ 1,2) si la pièce dépasse `duree_max`. Écurie 7 : prise dédiée prononcée à l'anglaise (Yaris Two Invincible).",
+ "pieces": [
+  {
+   "id": "accueil",
+   "texte": "Mesdames et messieurs… bienvenue au Grand Prix de Noël !",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     0.18,
+     3.36
+    ]
+   ],
+   "t_film": 8.95
+  },
+  {
+   "id": "arene",
+   "texte": "Ce soir, quinze écuries entrent dans l'arène !",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     3.78,
+     6.36
+    ]
+   ],
+   "t_film": 15.4
+  },
+  {
+   "id": "ecurie_01",
+   "ecurie": 1,
+   "nom": "Petite Mimine Racing",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     6.7,
+     7.48
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     7.9,
+     9.16
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     9.54,
+     10.7
+    ]
+   ],
+   "t_film": 18.15,
+   "duree_max": 3.7,
+   "blanc": 0.1
+  },
+  {
+   "id": "ecurie_02",
+   "ecurie": 2,
+   "nom": "Twingo Oasis V16 Racing",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     11.1,
+     11.54
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     11.96,
+     13.6
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     13.96,
+     15.32
+    ]
+   ],
+   "t_film": 21.95,
+   "duree_max": 3.7,
+   "blanc": 0.1
+  },
+  {
+   "id": "ecurie_03",
+   "ecurie": 3,
+   "nom": "Optic-Breuillet Racing",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     15.68,
+     16.22
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     16.62,
+     18.0
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     18.36,
+     19.46
+    ]
+   ],
+   "t_film": 25.75,
+   "duree_max": 3.7,
+   "blanc": 0.1
+  },
+  {
+   "id": "ecurie_04",
+   "ecurie": 4,
+   "nom": "Tata Freddy Motorsport",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     19.92,
+     20.5
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     20.9,
+     22.44
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     22.8,
+     23.9
+    ]
+   ],
+   "t_film": 29.55,
+   "duree_max": 3.7,
+   "blanc": 0.1
+  },
+  {
+   "id": "ecurie_05",
+   "ecurie": 5,
+   "nom": "Super Mario Pression",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     24.26,
+     24.76
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     25.06,
+     26.32
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     26.68,
+     27.68
+    ]
+   ],
+   "t_film": 33.35,
+   "duree_max": 3.7,
+   "blanc": 0.1
+  },
+  {
+   "id": "ecurie_06",
+   "ecurie": 6,
+   "nom": "Scuderia Symphonie E-Tech",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     28.14,
+     28.78
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     29.12,
+     30.86
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     31.32,
+     32.06
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     32.44,
+     33.22
+    ]
+   ],
+   "t_film": 37.15,
+   "duree_max": 3.7,
+   "blanc": 0.1
+  },
+  {
+   "id": "ecurie_07",
+   "ecurie": 7,
+   "nom": "Yaris 2 Invincible",
+   "morceaux": [
+    [
+     "voix_off/Yaris_A.mp3",
+     0.02,
+     0.93
+    ],
+    [
+     "voix_off/Yaris_A.mp3",
+     1.12,
+     3.19
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     36.46,
+     37.8
+    ]
+   ],
+   "t_film": 40.95,
+   "duree_max": 3.7,
+   "blanc": 0.1
+  },
+  {
+   "id": "ecurie_08",
+   "ecurie": 8,
+   "nom": "A4 Oil Leaking",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     38.24,
+     38.76
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     39.2,
+     40.58
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     41.0,
+     42.84
+    ]
+   ],
+   "t_film": 44.75,
+   "duree_max": 3.7,
+   "blanc": 0.1
+  },
+  {
+   "id": "ecurie_09",
+   "ecurie": 9,
+   "nom": "Titou Wyvern SRT",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     45.04,
+     45.62
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     46.0,
+     47.48
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     47.98,
+     49.82
+    ]
+   ],
+   "t_film": 48.55,
+   "duree_max": 3.7,
+   "blanc": 0.1
+  },
+  {
+   "id": "ecurie_10",
+   "ecurie": 10,
+   "nom": "Doom Slayer Issue GP",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     50.14,
+     50.68
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     51.02,
+     52.76
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     53.08,
+     54.26
+    ]
+   ],
+   "t_film": 52.35,
+   "duree_max": 3.7,
+   "blanc": 0.1
+  },
+  {
+   "id": "ecurie_11",
+   "ecurie": 11,
+   "nom": "Milo's princess Vroom Vroom",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     54.68,
+     55.38
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     55.74,
+     57.42
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     57.76,
+     58.9
+    ]
+   ],
+   "t_film": 56.15,
+   "duree_max": 3.7,
+   "blanc": 0.1
+  },
+  {
+   "id": "ecurie_12",
+   "ecurie": 12,
+   "nom": "Bob's Bizarre Racing",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     59.34,
+     59.94
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     60.34,
+     61.68
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     62.08,
+     62.94
+    ]
+   ],
+   "t_film": 59.95,
+   "duree_max": 3.7,
+   "blanc": 0.1
+  },
+  {
+   "id": "ecurie_13",
+   "ecurie": 13,
+   "nom": "Jojo la Sirène Veloce",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     63.74,
+     64.18
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     64.62,
+     65.98
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     66.54,
+     67.74
+    ]
+   ],
+   "t_film": 63.75,
+   "duree_max": 3.7,
+   "blanc": 0.1
+  },
+  {
+   "id": "ecurie_14",
+   "ecurie": 14,
+   "nom": "Ninja-Nissan Street Racing",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     68.24,
+     69.32
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     69.68,
+     71.34
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     71.68,
+     72.84
+    ]
+   ],
+   "t_film": 67.55,
+   "duree_max": 3.7,
+   "blanc": 0.1
+  },
+  {
+   "id": "ecurie_15",
+   "ecurie": 15,
+   "nom": "Princess Blooming Speed",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     73.2,
+     73.68
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     74.02,
+     75.34
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     75.76,
+     76.92
+    ]
+   ],
+   "t_film": 71.35,
+   "duree_max": 3.7,
+   "blanc": 0.1
+  },
+  {
+   "id": "telephone",
+   "texte": "Sur votre téléphone : suivez la soirée, pariez avec les cotes, cumulez des points… et ouvrez des lootbox. Des bonus… ou de quoi détruire vos adversaires !",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     79.18,
+     88.2
+    ]
+   ],
+   "t_film": 75.3
+  },
+  {
+   "id": "famille_gotham",
+   "texte": "Des Batmobiles au sommet de Gotham…",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     88.52,
+     90.26
+    ]
+   ],
+   "t_film": 85.1
+  },
+  {
+   "id": "famille_f1",
+   "texte": "…des Formule 1 sur la ligne arc-en-ciel…",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     90.6,
+     92.36
+    ]
+   ],
+   "t_film": 89.9
+  },
+  {
+   "id": "famille_tokyo",
+   "texte": "…et les légendes de Tokyo.",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     92.7,
+     94.0
+    ]
+   ],
+   "t_film": 94.9
+  },
+  {
+   "id": "lootbox",
+   "texte": "Et tous ces bolides… se gagnent dans les lootbox !",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     94.36,
+     96.82
+    ]
+   ],
+   "t_film": 100.8
+  },
+  {
+   "id": "gloire",
+   "texte": "Un seul vainqueur. Et pour lui… la gloire. Éternelle.",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     97.28,
+     101.16
+    ]
+   ],
+   "t_film": 107.0
+  },
+  {
+   "id": "piste",
+   "texte": "Pilotes… en piste !",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     101.54,
+     102.66
+    ]
+   ],
+   "t_film": 113.0
+  },
+  {
+   "id": "rendez_vous",
+   "texte": "Rendez-vous le 23 décembre !",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     102.94,
+     104.46
+    ]
+   ],
+   "t_film": 118.2
+  }
+ ]
+}
