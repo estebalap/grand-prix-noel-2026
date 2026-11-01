@@ -4,6 +4,9 @@
      2. les modules de segment sont résolus par rapport à ce fichier (def.module = '../v9_ring/seg_x.js' ou 'seg_x.js') ;
      3. contrôle de COLLISIONS : un segment peut exposer collisions() → [{ t, a, b, profondeur }] pour l'image courante ;
         window.statsCollisions() les remonte au rendu de contrôle (une voiture qui traverse un décor fait échouer la planche).
+     4. CARTE DU TEMPS (V9.1) : def.remap = [[filmA, filmB, interneA, interneB], …] (temps FILM absolus → temps INTERNE du
+        segment, linéaire par morceau, coupes franches permises entre morceaux). Elle remplace plages/origine : on resserre ou on
+        accélère un segment déjà validé (ouverture plus nerveuse, familles en 3 × 3 s) sans réécrire son code.
    Texte d'origine :
    NOYAU V8 « FINALE » — orchestrateur du film. L'image est une FONCTION PURE DU TEMPS : rendreTemps(t, { sub }).
 
@@ -91,7 +94,12 @@ export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, s
   const outilsHUD = creerOutilsHUD();
   let dernierTextes = new Set();
 
-  const dans = (s, t) => (s.def.plages || [[s.def.debut, s.def.fin]]).some(([a, b]) => t >= a && t < b);
+  const morceau = (s, t) => (s.def.remap || []).find(([a, b]) => t >= a && t < b) || null;
+  const dans = (s, t) => (s.def.remap ? !!morceau(s, t) : (s.def.plages || [[s.def.debut, s.def.fin]]).some(([a, b]) => t >= a && t < b));
+  /** temps film → temps interne du segment (carte du temps si présente, sinon simple décalage) */
+  const interne = (s, t) => { const m = morceau(s, t); return m ? m[2] + (t - m[0]) * (m[3] - m[2]) / (m[1] - m[0]) : t - s.decalage; };
+  /** temps interne → temps film (premier morceau qui contient l'instant), pour placer les clés de la planche */
+  const versFilm = (s, ti) => { if (!s.def.remap) return ti + s.decalage; const m = s.def.remap.find(([a, b, c, d]) => ti >= Math.min(c, d) && ti <= Math.max(c, d)); return m ? m[0] + (ti - m[2]) * (m[1] - m[0]) / (m[3] - m[2]) : null; };
   const segmentA = (t) => segments.find((s) => dans(s, t)) || null;
   let dernierSeg = null;
   function placer(t) {
@@ -101,7 +109,7 @@ export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, s
     const seg = segmentA(t);
     if (!seg) { camera.position.set(0, 0, 10); camera.lookAt(0, 0, 0); camera.updateMatrixWorld(true); return { seg: null, etat: { post: { fondu: 1 } } }; }
     seg.groupe.visible = true; dernierSeg = seg;
-    const etat = seg.maj(t - seg.decalage) || {};
+    const etat = seg.maj(interne(seg, t)) || {};
     if (etat.fond !== undefined) scene.background.set(etat.fond);
     if (etat.brouillard) { brouillard.color.set(etat.brouillard.couleur); brouillard.density = etat.brouillard.densite; scene.fog = brouillard; }
     if (etat.lumieres) { if (etat.lumieres.hemi !== undefined) hemi.intensity = etat.lumieres.hemi; if (etat.lumieres.cle !== undefined) cle.intensity = etat.lumieres.cle; }
@@ -160,7 +168,7 @@ export async function creerFilm({ renderer, equipes, logos, regles = {}, plan, s
   /** Collisions de la DERNIÈRE image (placer) : liste vide si le segment ne sait pas les mesurer. */
   function statsCollisions() { return dernierSeg && typeof dernierSeg.collisions === 'function' ? dernierSeg.collisions() : []; }
 
-  const cles = segments.flatMap((s) => (s.cles || []).map((k) => ({ t: +(+k.t + s.decalage).toFixed(3), label: k.label, groupe: s.def.id })));
+  const cles = segments.flatMap((s) => (s.cles || []).map((k) => ({ t: versFilm(s, +k.t), label: k.label, groupe: s.def.id })).filter((k) => k.t !== null).map((k) => ({ ...k, t: +k.t.toFixed(3) })));
   return { scene, camera, renderer, rendreTemps, statsHUD, statsCollisions, duree: plan.duree, fps: plan.fps, segments, reperesPlanche: cles, post, placer,
     inventaire: { segments: segments.map((s) => s.def.id), cles: cles.length, duree: plan.duree, fps: plan.fps } };
 }

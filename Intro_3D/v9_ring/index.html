@@ -57,7 +57,7 @@ window.addEventListener('error', (ev) => err(ev.error || ev.message)); window.ad
     charge.style.display = 'none';
     const frise = document.getElementById('frise'), tete = document.getElementById('tete'), temps = document.getElementById('temps'), son = document.getElementById('son');
     const couleurs = { ouverture: '#7a2a2a', arene: '#1d4fd8', familles: '#8a6a1a' };
-    for (const s of plan.segments) for (const [a, b] of (s.plages || [[s.debut, s.fin]])) { const d = document.createElement('div'); d.className = 'seg'; d.textContent = s.id; d.style.left = (a / film.duree * 100) + '%'; d.style.width = ((b - a) / film.duree * 100) + '%'; d.style.background = couleurs[s.id] || '#444'; frise.appendChild(d); }
+    for (const s of plan.segments) for (const [a, b] of (s.remap || s.plages || [[s.debut, s.fin]])) { const d = document.createElement('div'); d.className = 'seg'; d.textContent = s.id; d.style.left = (a / film.duree * 100) + '%'; d.style.width = ((b - a) / film.duree * 100) + '%'; d.style.background = couleurs[s.id] || '#444'; frise.appendChild(d); }
     frise.appendChild(tete);
     let t = parseFloat(q.get('t') || '0'), lecture = false, occupe = false, t0 = 0, tRef = 0, sonCharge = false;
     const afficher = async () => { if (occupe) return; occupe = true; try { await film.rendreTemps(t, { sub: 1 }); tete.style.left = (t / film.duree * 100) + '%'; temps.textContent = t.toFixed(2).replace('.', ',') + ' s'; } finally { occupe = false; } };

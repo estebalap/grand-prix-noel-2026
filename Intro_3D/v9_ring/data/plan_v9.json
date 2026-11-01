@@ -1,7 +1,7 @@
 {
- "version": "v9",
+ "version": "v9.1",
  "titre": "Grand Prix de Noël — V9 Ring",
- "duree": 120.5,
+ "duree": 113.6,
  "fps": 60,
  "regles_ui": {
   "surface_max": 0.2,
@@ -17,8 +17,8 @@
   {
    "id": "ouverture",
    "module": "../v9_ring/seg_ouverture.js",
-   "debut": 0.0,
-   "fin": 15.5,
+   "debut": 0,
+   "fin": 12.6,
    "sous": [
     {
      "id": "cheminee",
@@ -35,23 +35,45 @@
      "debut": 11,
      "fin": 15.5
     }
+   ],
+   "remap": [
+    [
+     0,
+     5,
+     0,
+     7
+    ],
+    [
+     5,
+     7.4,
+     7,
+     9.4
+    ],
+    [
+     7.4,
+     9.6,
+     9.4,
+     11.6
+    ],
+    [
+     9.6,
+     11.6,
+     11.6,
+     14.0
+    ],
+    [
+     11.6,
+     12.6,
+     14.0,
+     15.5
+    ]
    ]
   },
   {
    "id": "arene",
    "module": "../v9_ring/seg_arene.js",
-   "debut": 15.5,
-   "fin": 120.5,
-   "plages": [
-    [
-     15.5,
-     84.5
-    ],
-    [
-     99.5,
-     120.5
-    ]
-   ],
+   "debut": 12.6,
+   "fin": 113.6,
    "sous": [
     {
      "id": "arrivee",
@@ -76,20 +98,34 @@
     {
      "id": "gloire",
      "debut": 106.5,
-     "fin": 112.5
+     "fin": 114.5
     },
     {
      "id": "depart",
-     "debut": 112.5,
-     "fin": 120.5
+     "debut": 114.5,
+     "fin": 122.5
     }
+   ],
+   "remap": [
+    [
+     12.6,
+     81.6,
+     15.5,
+     84.5
+    ],
+    [
+     90.6,
+     113.6,
+     99.5,
+     122.5
+    ]
    ]
   },
   {
    "id": "familles",
    "module": "../v9_ring/seg_familles.js",
-   "debut": 84.5,
-   "fin": 99.5,
+   "debut": 81.6,
+   "fin": 90.6,
    "origine": 0.0,
    "sous": [
     {
@@ -108,7 +144,27 @@
      "fin": 15
     }
    ],
-   "note": "sous-parties en temps INTERNE (origine 0) ; temps film = interne + 84,5 s"
+   "note": "sous-parties en temps INTERNE (origine 0) ; temps film = interne + 84,5 s",
+   "remap": [
+    [
+     81.6,
+     84.6,
+     1.8,
+     4.8
+    ],
+    [
+     84.6,
+     87.6,
+     5.7,
+     8.7
+    ],
+    [
+     87.6,
+     90.6,
+     11.0,
+     14.0
+    ]
+   ]
   }
  ],
  "ecuries": [
@@ -275,24 +331,28 @@
  "lootbox": {
   "debut": 99.5,
   "descente": 99.8,
-  "verrous": 102.5,
-  "entrouvre": 104.1,
+  "verrous": 102.0,
+  "entrouvre": 103.2,
+  "ouvert": 104.6,
+  "trophee_sort": 104.8,
   "fin": 106.5
  },
  "gloire": {
   "debut": 106.5,
-  "trophee": 107.5,
-  "confettis": 109.4,
-  "titre": 109.7,
-  "fin": 112.5
+  "trophee_haut": 107.2,
+  "titre_gloire": 108.4,
+  "titre_eternelle": 109.2,
+  "feux": 109.2,
+  "confettis": 109.2,
+  "fin": 114.5
  },
  "depart": {
-  "debut": 112.5,
-  "cordes": 112.8,
-  "demarrage": 113.5,
-  "piste": 115.5,
-  "logo": 118.0,
-  "fin": 120.5
+  "debut": 114.5,
+  "cordes": 114.8,
+  "demarrage": 115.5,
+  "piste": 117.5,
+  "logo": 120.0,
+  "fin": 122.5
  },
  "ouverture": {
   "feu_tv": 0.0,
@@ -308,24 +368,7 @@
   "arrivee_arene": 15.5
  },
  "reperes_son": {
-  "crepitement": [
-   0.0,
-   8.8
-  ],
-  "etincelle": 7.0,
-  "logo_choc": 8.8,
-  "tapis_ouverture": 11.6,
-  "plongee": 14.0,
-  "arrivee_arene": 15.5,
-  "ring_music": [
-   15.5,
-   75.0
-  ],
-  "telephone": 75.0,
-  "familles": 84.5,
-  "lootbox_verrous": 102.5,
-  "gloire": 109.4,
-  "depart_moteurs": 113.5,
-  "logo_final": 118.0
- }
+  "note": "V9.1 : utiliser les clés de segment + remap ; plus de repères en temps film ici"
+ },
+ "note_temps": "V9.1 : les clés (ecuries, telephone, lootbox, gloire, depart, ouverture) sont en temps INTERNE de leur segment ; le temps FILM s'obtient par segments[i].remap (noyau_v9.js : carte du temps)."
 }

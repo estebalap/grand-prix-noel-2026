@@ -1,6 +1,6 @@
 {
  "voix": "Commentateur def (ElevenLabs, voice_id QLs7iK8pmd23CyW29R9f, eleven_v4)",
- "note": "morceaux = [fichier, début, fin] en secondes dans le fichier source ; les morceaux d'une même pièce sont recollés avec `blanc` s entre eux puis accélérés (atempo ≤ 1,2) si la pièce dépasse `duree_max`. Écurie 7 : prise dédiée prononcée à l'anglaise (Yaris Two Invincible).",
+ "note": "morceaux = [fichier, début, fin] en secondes dans le fichier source ; les morceaux d'une même pièce sont recollés avec `blanc` s entre eux puis accélérés (atempo ≤ 1,2) si la pièce dépasse `duree_max`. Écurie 7 : prise dédiée prononcée à l'anglaise (Yaris Two Invincible). V9.1 : chaque pièce est placée par (seg, t_interne) ; temps film = carte du temps (plan_v9.json → segments[].remap). emphase = traitement « stade » (écho/réverbération + léger gain) sur « la gloire… ÉTERNELLE ».",
  "pieces": [
   {
    "id": "accueil",
@@ -12,7 +12,8 @@
      3.36
     ]
    ],
-   "t_film": 8.95
+   "seg": "ouverture",
+   "t_interne": 8.95
   },
   {
    "id": "arene",
@@ -24,7 +25,8 @@
      6.36
     ]
    ],
-   "t_film": 15.4
+   "seg": "arene",
+   "t_interne": 15.55
   },
   {
    "id": "ecurie_01",
@@ -47,9 +49,10 @@
      10.7
     ]
    ],
-   "t_film": 18.15,
    "duree_max": 3.7,
-   "blanc": 0.1
+   "blanc": 0.1,
+   "seg": "arene",
+   "t_interne": 18.15
   },
   {
    "id": "ecurie_02",
@@ -72,9 +75,10 @@
      15.32
     ]
    ],
-   "t_film": 21.95,
    "duree_max": 3.7,
-   "blanc": 0.1
+   "blanc": 0.1,
+   "seg": "arene",
+   "t_interne": 21.95
   },
   {
    "id": "ecurie_03",
@@ -97,9 +101,10 @@
      19.46
     ]
    ],
-   "t_film": 25.75,
    "duree_max": 3.7,
-   "blanc": 0.1
+   "blanc": 0.1,
+   "seg": "arene",
+   "t_interne": 25.75
   },
   {
    "id": "ecurie_04",
@@ -122,9 +127,10 @@
      23.9
     ]
    ],
-   "t_film": 29.55,
    "duree_max": 3.7,
-   "blanc": 0.1
+   "blanc": 0.1,
+   "seg": "arene",
+   "t_interne": 29.55
   },
   {
    "id": "ecurie_05",
@@ -147,9 +153,10 @@
      27.68
     ]
    ],
-   "t_film": 33.35,
    "duree_max": 3.7,
-   "blanc": 0.1
+   "blanc": 0.1,
+   "seg": "arene",
+   "t_interne": 33.35
   },
   {
    "id": "ecurie_06",
@@ -177,9 +184,10 @@
      33.22
     ]
    ],
-   "t_film": 37.15,
    "duree_max": 3.7,
-   "blanc": 0.1
+   "blanc": 0.1,
+   "seg": "arene",
+   "t_interne": 37.15
   },
   {
    "id": "ecurie_07",
@@ -202,9 +210,10 @@
      37.8
     ]
    ],
-   "t_film": 40.95,
    "duree_max": 3.7,
-   "blanc": 0.1
+   "blanc": 0.1,
+   "seg": "arene",
+   "t_interne": 40.95
   },
   {
    "id": "ecurie_08",
@@ -227,9 +236,10 @@
      42.84
     ]
    ],
-   "t_film": 44.75,
    "duree_max": 3.7,
-   "blanc": 0.1
+   "blanc": 0.1,
+   "seg": "arene",
+   "t_interne": 44.75
   },
   {
    "id": "ecurie_09",
@@ -252,9 +262,10 @@
      49.82
     ]
    ],
-   "t_film": 48.55,
    "duree_max": 3.7,
-   "blanc": 0.1
+   "blanc": 0.1,
+   "seg": "arene",
+   "t_interne": 48.55
   },
   {
    "id": "ecurie_10",
@@ -277,9 +288,10 @@
      54.26
     ]
    ],
-   "t_film": 52.35,
    "duree_max": 3.7,
-   "blanc": 0.1
+   "blanc": 0.1,
+   "seg": "arene",
+   "t_interne": 52.35
   },
   {
    "id": "ecurie_11",
@@ -302,9 +314,10 @@
      58.9
     ]
    ],
-   "t_film": 56.15,
    "duree_max": 3.7,
-   "blanc": 0.1
+   "blanc": 0.1,
+   "seg": "arene",
+   "t_interne": 56.15
   },
   {
    "id": "ecurie_12",
@@ -327,9 +340,10 @@
      62.94
     ]
    ],
-   "t_film": 59.95,
    "duree_max": 3.7,
-   "blanc": 0.1
+   "blanc": 0.1,
+   "seg": "arene",
+   "t_interne": 59.95
   },
   {
    "id": "ecurie_13",
@@ -352,9 +366,10 @@
      67.74
     ]
    ],
-   "t_film": 63.75,
    "duree_max": 3.7,
-   "blanc": 0.1
+   "blanc": 0.1,
+   "seg": "arene",
+   "t_interne": 63.75
   },
   {
    "id": "ecurie_14",
@@ -377,9 +392,10 @@
      72.84
     ]
    ],
-   "t_film": 67.55,
    "duree_max": 3.7,
-   "blanc": 0.1
+   "blanc": 0.1,
+   "seg": "arene",
+   "t_interne": 67.55
   },
   {
    "id": "ecurie_15",
@@ -402,9 +418,10 @@
      76.92
     ]
    ],
-   "t_film": 71.35,
    "duree_max": 3.7,
-   "blanc": 0.1
+   "blanc": 0.1,
+   "seg": "arene",
+   "t_interne": 71.35
   },
   {
    "id": "telephone",
@@ -416,7 +433,8 @@
      88.2
     ]
    ],
-   "t_film": 75.3
+   "seg": "arene",
+   "t_interne": 75.3
   },
   {
    "id": "famille_gotham",
@@ -428,7 +446,8 @@
      90.26
     ]
    ],
-   "t_film": 85.1
+   "seg": "familles",
+   "t_interne": 2.0
   },
   {
    "id": "famille_f1",
@@ -440,7 +459,8 @@
      92.36
     ]
    ],
-   "t_film": 89.9
+   "seg": "familles",
+   "t_interne": 5.9
   },
   {
    "id": "famille_tokyo",
@@ -452,7 +472,8 @@
      94.0
     ]
    ],
-   "t_film": 94.9
+   "seg": "familles",
+   "t_interne": 11.2
   },
   {
    "id": "lootbox",
@@ -464,19 +485,64 @@
      96.82
     ]
    ],
-   "t_film": 100.8
+   "seg": "arene",
+   "t_interne": 100.6
   },
   {
-   "id": "gloire",
-   "texte": "Un seul vainqueur. Et pour lui… la gloire. Éternelle.",
+   "id": "gloire_1",
+   "texte": "Un seul vainqueur.",
    "morceaux": [
     [
      "voix_off/VO_V9_tout.mp3",
      97.28,
+     98.32
+    ]
+   ],
+   "seg": "arene",
+   "t_interne": 105.0,
+   "emphase": false
+  },
+  {
+   "id": "gloire_2",
+   "texte": "Et pour lui…",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     98.6,
+     99.14
+    ]
+   ],
+   "seg": "arene",
+   "t_interne": 107.3,
+   "emphase": false
+  },
+  {
+   "id": "gloire_3",
+   "texte": "la gloire…",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     99.56,
+     100.16
+    ]
+   ],
+   "seg": "arene",
+   "t_interne": 108.3,
+   "emphase": true
+  },
+  {
+   "id": "gloire_4",
+   "texte": "ÉTERNELLE.",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     100.54,
      101.16
     ]
    ],
-   "t_film": 107.0
+   "seg": "arene",
+   "t_interne": 109.1,
+   "emphase": true
   },
   {
    "id": "piste",
@@ -488,7 +554,8 @@
      102.66
     ]
    ],
-   "t_film": 113.0
+   "seg": "arene",
+   "t_interne": 115.2
   },
   {
    "id": "rendez_vous",
@@ -500,7 +567,8 @@
      104.46
     ]
    ],
-   "t_film": 118.2
+   "seg": "arene",
+   "t_interne": 120.3
   }
  ]
 }

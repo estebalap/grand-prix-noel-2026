@@ -4,19 +4,23 @@
    tôle ondulée anthracite (#3b3f48, texture à bandes + usure), montants d'angle, cônes d'empilage, cales, pièces de coin ISO, coffre du
    rideau, rideau à lames « ? », scellé (plomb + étiquette), bordereau riveté sur le toit, marquage « GP NOËL · FRET ».
 
-   Animation (plan.lootbox = { descente, verrous, entrouvre, fin }) — fonction pure de t :
+   Animation (plan.lootbox = { descente, verrous, entrouvre, ouvert, trophee_sort, fin }) — fonction pure de t :
      descente → verrous − 0,2   le conteneur descend du portique, suspendu à 4 élingues, freine et se pose sur ses cales
      verrous                     verrouillage : petite secousse (ressort amorti), gerbes d'étincelles aux 4 cales
      verrous → entrouvre         les 2 barres de verrouillage de la porte sautent l'une après l'autre (puis le scellé)
-     entrouvre →                 le rideau « ? » commence à s'enrouler : lumière DORÉE qui fuit par l'entrebâillement
-   creerFret(THREE, { envMap }) → { groupe, K, dims, obb(), maj(t, D, { disparition }) → { lumiere, posLumiere, etincelles } } */
+     entrouvre → ouvert          le rideau « ? » s'enroule COMPLÈTEMENT (ouvert à « ouvert ») : lumière DORÉE (fond incandescent
+                                 au mur du fond, rais additifs, flaque) et FUMÉE dorée qui s'échappent par la porte
+     trophee_sort →              un TIROIR doré (plateau sur glissières) sort par la porte avec la coupe (e.tiroir, en cm), puis rentre
+     e.enfonce 0 → 1             le conteneur s'enfonce dans le tapis (trappe) avec un éclat doré, puis disparaît
+   creerFret(THREE, { envMap, yPose }) → { groupe, fumee, K, dims, Y_PLATEAU, Z_TROPHEE, maj(t, D, { tiroir, enfonce }) → { lumiere, posLumiere },
+                                          obb() (boîte pleine : voitures), murs() (parois : trophée, intérieur creux), cacher() } */
 import { clamp, lerp, smoother, doux, ressort, prng, texCanvas, haloSprite, obbFixe } from './arene_outils.js';
 
 const K = 3;
 const GAB = { dalle: 0.46, ep: 0.16, linteau: 0.05, hauteurStl: 4.16 };
 const BORD = { l: 3.0, p: 1.9 };
 
-export function creerFret(THREE, { envMap = null, yPose = 22 } = {}) {
+export function creerFret(THREE, { envMap = null, yPose = 22, demiH = 540 } = {}) {
   const groupe = new THREE.Group(); groupe.name = 'lootbox-fret';
   const fret = new THREE.Group(); groupe.add(fret);
   fret.scale.setScalar(K);                                    // on construit en unités du reveal, comme le module d'origine
@@ -113,13 +117,23 @@ export function creerFret(THREE, { envMap = null, yPose = 22 } = {}) {
 
   /* fuite de lumière dorée : fond intérieur incandescent, lueur dans l'entrebâillement, rais additifs, flaque au sol */
   const matOr = new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffc65a').multiplyScalar(1.5), toneMapped: false });
-  const fondOr = new THREE.Mesh(new THREE.PlaneGeometry(P - 0.4, hO), matOr); fondOr.rotation.y = Math.PI / 2; fondOr.position.set(xO - 0.35, dalle + hO / 2, 0); fret.add(fondOr);
+  const matFondOr = new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffb84a').multiplyScalar(0.95), toneMapped: false });
+  const fondOr = new THREE.Mesh(new THREE.PlaneGeometry(P - 0.4, hO), matFondOr); fondOr.rotation.y = Math.PI / 2; fondOr.position.set(-L / 2 + ep * 1.3 + 0.03, dalle + hO / 2, 0); fret.add(fondOr);      // mur du fond incandescent : la coupe se détache en silhouette
   const texRai = texCanvas(THREE, 256, 64, (g, w, h) => { const l = g.createLinearGradient(0, 0, w, 0); l.addColorStop(0, 'rgba(255,255,255,1)'); l.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = l; g.fillRect(0, 0, w, h); const v = g.createLinearGradient(0, 0, 0, h); v.addColorStop(0, 'rgba(0,0,0,1)'); v.addColorStop(0.5, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,1)'); g.globalCompositeOperation = 'destination-out'; g.fillStyle = v; g.fillRect(0, 0, w, h); }, { srgb: false });
   const matRai = new THREE.MeshBasicMaterial({ map: texRai, color: new THREE.Color('#ffc65a').multiplyScalar(1.6), transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide, toneMapped: false });
   const rais = new THREE.Group(); rais.position.set(xO + 0.25, dalle, 0); fret.add(rais);
   for (let i = 0; i < 5; i++) { const m = new THREE.Mesh(new THREE.PlaneGeometry(5, 1), matRai); m.position.set(2.5, 0, -1.6 + i * 0.8); m.rotation.x = Math.PI / 2 + (i % 2 ? 0.25 : -0.25); rais.add(m); }
   const lisere = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.06, P - 0.3), matOr); lisere.position.set(xO + 0.15, dalle + 0.03, 0); fret.add(lisere);
   const flaque = haloSprite(THREE, '#ffc65a', 6, 0); flaque.position.set(xO + 1.6, dalle + 0.2, 0); fret.add(flaque);
+  const lueurInt = haloSprite(THREE, '#ffd27a', 7, 0); lueurInt.position.set(-1.0, dalle + hO * 0.55, 0); fret.add(lueurInt);
+
+  /* TIROIR doré : plateau (8,4 × 7,8 × 0,8 cm) sur deux glissières télescopiques, logé contre la porte ; la coupe y est posée */
+  const EP_PLATEAU = 0.8 / K, X_TROPHEE = 2.0;                 // unités du reveal : coupe à 6 cm derrière le centre, côté porte
+  const matPlateau = std({ color: 0xffc23a, metalness: 1, roughness: 0.2, emissive: new THREE.Color('#5a3200'), emissiveIntensity: 0.35 });
+  const tiroir = new THREE.Group(); fret.add(tiroir);
+  boite(2.8, EP_PLATEAU, 2.6, matPlateau, X_TROPHEE, dalle + EP_PLATEAU / 2, 0, tiroir);
+  for (const z of [-1.2, 1.2]) boite(2.8, 0.07, 0.08, matLiseret, X_TROPHEE, dalle + EP_PLATEAU + 0.035, z, tiroir);      // filets lumineux
+  const glissieres = [-1.05, 1.05].map((z) => boite(1, 0.12, 0.16, matCadre, 0, dalle + 0.06, z));                       // longueur ajustée en maj
 
   /* élingues (4) vers le portique */
   const matElingue = new THREE.MeshBasicMaterial({ color: 0xdcdcf0 });
@@ -137,23 +151,40 @@ export function creerFret(THREE, { envMap = null, yPose = 22 } = {}) {
   /* éclat doré de la disparition */
   const eclat = haloSprite(THREE, '#ffd27a', 70, 0); eclat.position.y = 6; groupe.add(eclat);
 
-  const dims = { L: L * K, P: P * K, H: H * K };
-  groupe.rotation.y = -Math.PI / 2;                           // porte (+x local) tournée vers +z (vers la caméra des plans lootbox)
-  let visibleObb = false;
+  /* FUMÉE dorée (repère MONDE, hors du groupe qui s'enfonce) : bouffées semées, émises par la porte, fonction pure de t */
+  const NF = 46, posF = new Float32Array(NF * 3), aF = new Float32Array(NF), tF = new Float32Array(NF);
+  const semF = Array.from({ length: NF }, (_, i) => ({ u: (i + alea() * 0.8) / NF, lat: (alea() - 0.5) * 2, v: 0.6 + alea() * 0.8, mont: 0.5 + alea(), taille: 0.7 + alea() * 0.7, ph: alea() * 6.28 }));
+  const geoF = new THREE.BufferGeometry(); geoF.setAttribute('position', new THREE.BufferAttribute(posF, 3)); geoF.setAttribute('alpha', new THREE.BufferAttribute(aF, 1)); geoF.setAttribute('taille', new THREE.BufferAttribute(tF, 1));
+  const matF = new THREE.ShaderMaterial({
+    uniforms: { demiH: { value: demiH } },
+    vertexShader: `attribute float alpha; attribute float taille; uniform float demiH; varying float vA;
+      void main(){ vec4 mv = modelViewMatrix * vec4(position, 1.0); gl_Position = projectionMatrix * mv; float z = max(-mv.z, 1.0);
+        gl_PointSize = clamp(taille * projectionMatrix[1][1] * demiH / z, 0.0, 420.0); vA = alpha; }`,
+    fragmentShader: `varying float vA; void main(){ vec2 d = gl_PointCoord - 0.5; float r = dot(d, d) * 4.0; float g = exp(-r * 2.6) * (1.0 - smoothstep(0.7, 1.0, r));
+        gl_FragColor = vec4(mix(vec3(0.85, 0.66, 0.42), vec3(0.95, 0.82, 0.62), g), vA * g); }`,
+    transparent: true, depthWrite: false,
+  });
+  const fumee = new THREE.Points(geoF, matF); fumee.frustumCulled = false; fumee.name = 'fumee-fret'; fumee.renderOrder = 3;
 
-  function maj(t, D, { disparition = 0 } = {}) {
+  const dims = { L: L * K, P: P * K, H: H * K };
+  const Y_PLATEAU = (dalle + EP_PLATEAU) * K, Z_TROPHEE = X_TROPHEE * K;         // dessus du plateau et position de la coupe (repère monde, conteneur posé)
+  groupe.rotation.y = -Math.PI / 2;                           // porte (+x local) tournée vers +z (vers la caméra des plans lootbox)
+  let visibleObb = false, yCourant = yPose, ouvCourant = 0;
+
+  function maj(t, D, { tiroir: ext = 0, enfonce = 0 } = {}) {
     const tPose = D.verrous - 0.2;
     // descente : de 300 cm au-dessus du tapis, freinage doux, contact à tPose, petit rebond puis secousse du verrouillage
     const u = clamp((t - D.descente) / (tPose - D.descente));
     const hauteur = 300 * (1 - smoother(u)) * (1 - smoother(u));
     const rebond = -0.5 * ressort(t - tPose, 20, 0.35) - 0.35 * ressort(t - D.verrous, 26, 0.3);
     const secousse = 0.035 * ressort(t - D.verrous, 34, 0.25);
-    const monte = 260 * smoother((disparition - 0.1) / 0.9), ech = 1 - 0.85 * smoother((disparition - 0.35) / 0.65);
-    groupe.position.set(0, yPose + Math.max(0, hauteur) + rebond + monte, 0);
+    const fond = (dims.H + 1.5) * smoother(enfonce);                                     // s'enfonce entièrement sous le tapis (plateau du ring : 20,5 cm)
+    groupe.position.set(0, yPose + Math.max(0, hauteur) + rebond - fond, 0);
     fret.rotation.set(secousse, 0, -secousse * 0.6);
-    fret.scale.setScalar(K * ech);
-    groupe.visible = t >= D.descente - 0.4 && ech > 0.16;
-    visibleObb = groupe.visible && disparition < 0.05;
+    fret.scale.setScalar(K);
+    groupe.visible = t >= D.descente - 0.4 && enfonce < 0.999;
+    visibleObb = groupe.visible;
+    yCourant = groupe.position.y;
     // élingues : tendues vers le haut pendant la descente, larguées (remontent) après le verrouillage
     const largue = smoother((t - D.verrous - 0.1) / 0.6);
     for (const e of elingues) { e.visible = largue < 0.99; e.scale.set(1, 140 * (1 - largue) + 0.01, 1); e.position.y = H + largue * 40; }
@@ -175,21 +206,63 @@ export function creerFret(THREE, { envMap = null, yPose = 22 } = {}) {
     });
     const tsc = Math.max(0, t - (D.entrouvre - 0.35));
     scelle.visible = tsc < 0.9; scelle.position.set(scelleBase.x + 2.5 * tsc, scelleBase.y + 3 * tsc - 4.9 * tsc * tsc, scelleBase.z - 1 * tsc); scelle.rotation.set(tsc * 7, 0, tsc * 5);
-    // rideau : commence à s'enrouler (entrebâillement)
-    const ouv = 0.42 * hO * smoother((t - D.entrouvre) / 2.2) + 0.03 * hO * smoother((t - D.entrouvre) / 0.15);
+    // rideau : à-coup de déverrouillage puis enroulement COMPLET à D.ouvert
+    const dOuv = Math.max(0.3, D.ouvert - D.entrouvre);
+    const ouv = hO * (0.06 * smoother((t - D.entrouvre) / 0.15) + 0.94 * smoother((t - D.entrouvre - 0.1) / (dOuv - 0.1)));
+    ouvCourant = ouv;
     for (const l of lames) { const y = l.y0 + ouv; l.m.position.y = Math.min(y, yLinteau + 0.6); l.m.visible = y < yLinteau + 0.15; }
-    const fuite = smoother((t - D.entrouvre) / 0.5) * (1 - disparition);
-    fondOr.visible = fuite > 0.01; matRai.opacity = 0.35 * fuite; rais.scale.set(1, 1, 1); rais.children.forEach((m, i) => { m.scale.set(1, Math.max(0.05, ouv * 1.3), 1); m.position.y = ouv * 0.5; });
-    lisere.position.y = dalle + ouv; flaque.material.opacity = 0.6 * fuite; flaque.scale.set(4 + ouv * 4, 4 + ouv * 4, 1);
-    eclat.material.opacity = Math.sin(Math.PI * clamp(disparition)) * 1.0; eclat.visible = disparition > 0.01 && disparition < 0.99;
-    eclat.scale.setScalar(60 + 160 * disparition);
-    return { lumiere: 2.2 * fuite + 6 * Math.sin(Math.PI * clamp(disparition)), posLumiere: [0, yPose + 8, 14 + ouv] };
+    const fuite = smoother((t - D.entrouvre) / 0.5) * (1 - smoother(enfonce * 1.6));
+    const grand = smoother((t - D.entrouvre) / dOuv);
+    fondOr.visible = fuite > 0.01; matRai.opacity = (0.22 + 0.08 * grand) * fuite;
+    rais.children.forEach((m) => { m.scale.set(1 + 0.5 * grand, Math.max(0.05, ouv * 1.2), 1); m.position.y = ouv * 0.5; });
+    lisere.position.y = dalle + ouv; lisere.visible = ouv < hO * 0.99;
+    flaque.material.opacity = 0.4 * fuite; flaque.scale.set(4 + ouv * 4, 4 + ouv * 4, 1);
+    lueurInt.material.opacity = 0.28 * fuite; lueurInt.scale.setScalar(5 + 3 * grand);
+    // tiroir : le plateau glisse vers la porte (+x local) ; glissières télescopiques
+    const exL = ext / K;
+    tiroir.position.x = exL;
+    glissieres.forEach((g) => { const lg = Math.max(0.05, exL + 1.2); g.scale.x = lg; g.position.x = X_TROPHEE - 1.2 + lg / 2; g.visible = exL > 0.02; });
+    // fumée : bouffées émises entre « entrouvre + 0,15 » et « trophee_sort + 1,6 », vie 2,4 s
+    const t0 = D.entrouvre + 0.15, dur = (D.trophee_sort + 1.6) - t0, vie = 2.4, yP = yPose + Math.max(0, hauteur);
+    let nf = 0;
+    semF.forEach((q, i) => {
+      const age = t - (t0 + q.u * dur);
+      if (age < 0 || age > vie) { aF[i] = 0; tF[i] = 0; posF.set([0, -50, 0], i * 3); return; }
+      const k = age / vie, av = 16 * q.v * (1 - Math.exp(-age * 1.4));
+      // porte : z = L·K/2 (monde, porte vers +z) ; la fumée roule au ras du tapis puis s'élève et s'étale
+      posF.set([q.lat * (4 + 10 * k) + Math.sin(age * 1.3 + q.ph) * 1.2, yP + 1.5 + 2.5 * q.mont * age + 6 * k * k, L * K / 2 + 0.5 + av], i * 3);
+      aF[i] = 0.15 * Math.sin(Math.PI * Math.min(1, k * 1.15)) * (1 - smoother(enfonce * 1.3)) * (0.6 + 0.4 * grand); tF[i] = (5 + 15 * k) * q.taille; nf++;
+    });
+    fumee.visible = nf > 0;
+    geoF.attributes.position.needsUpdate = true; geoF.attributes.alpha.needsUpdate = true; geoF.attributes.taille.needsUpdate = true;
+    // éclat doré de la trappe (au ras du tapis) pendant l'enfoncement
+    const ec = Math.sin(Math.PI * clamp(enfonce));
+    eclat.visible = ec > 0.01; eclat.material.opacity = 0.8 * ec; eclat.scale.setScalar(40 + 50 * enfonce); eclat.position.y = fond + 1.5;            // reste au ras du tapis (le groupe, lui, descend)
+    return { lumiere: 1.1 * fuite + 1.4 * ec, posLumiere: [0, yPose + 26, L * K / 2 + 40] };      // la lumière dorée baigne le tapis et les voitures, pas la tôle
   }
   /** OBB de collision du conteneur (repère monde). */
   function obb() {
     if (!visibleObb) return null;
-    return obbFixe('conteneur Lootbox', [groupe.position.x, groupe.position.y + dims.H / 2, groupe.position.z], [dims.P / 2 + 0.6, dims.H / 2, dims.L / 2 + 1.2], 0);
+    return obbFixe('conteneur Lootbox', [groupe.position.x, yCourant + dims.H / 2, groupe.position.z], [dims.P / 2 + 0.6, dims.H / 2, dims.L / 2 + 1.2], 0);
   }
-  function cacher() { groupe.visible = false; visibleObb = false; }
-  return { groupe, K, dims, maj, obb, cacher };
+  /** Parois du conteneur (repère monde, porte vers +z) : l'intérieur est CREUX, la coupe peut y loger et sortir par la porte.
+      Dalle, toit, 2 flancs, mur du fond, coffre du rideau (linteau) et rideau tant qu'il n'est pas enroulé. */
+  function murs() {
+    if (!visibleObb) return [];
+    const y0 = yCourant, hx = dims.P / 2, hz = dims.L / 2, e = ep * K, d = dalle * K;
+    const hMur = (H - dalle - ep) * K, yMur = y0 + (H + dalle - ep) / 2 * K;
+    const res = [
+      obbFixe('conteneur : dalle', [0, y0 + d / 2, 0], [hx, d / 2, hz]),
+      obbFixe('conteneur : toit', [0, y0 + (H - ep / 2) * K, 0], [hx, e / 2, hz]),
+      obbFixe('conteneur : flanc gauche', [-(hx - e / 2), yMur, 0], [e / 2, hMur / 2, hz]),
+      obbFixe('conteneur : flanc droit', [hx - e / 2, yMur, 0], [e / 2, hMur / 2, hz]),
+      obbFixe('conteneur : mur du fond', [0, yMur, -(hz - e * 0.65)], [hx, hMur / 2, e * 0.65]),
+      obbFixe('conteneur : linteau', [0, y0 + (yLinteau + H + 0.34) / 2 * K, (xO + 0.17) * K], [hx, (H + 0.34 - yLinteau) / 2 * K, 0.21 * K]),
+    ];
+    const bas = dalle + ouvCourant;                                                    // rideau : de « bas » au linteau
+    if (bas < yLinteau - 0.02) res.push(obbFixe('conteneur : rideau', [0, y0 + (bas + yLinteau) / 2 * K, (xO + 0.08) * K], [hx, (yLinteau - bas) / 2 * K, 0.06 * K]));
+    return res;
+  }
+  function cacher() { groupe.visible = false; visibleObb = false; fumee.visible = false; }
+  return { groupe, fumee, K, dims, Y_PLATEAU, Z_TROPHEE, Y_LINTEAU: yLinteau * K, maj, obb, murs, cacher };
 }

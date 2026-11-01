@@ -63,7 +63,13 @@ def planche(vignettes, reperes, stats, verdicts, chemin, col=5):
 def verdict(r, s, plan):
     """Critères automatiques du protocole (le contrôle visuel du Chef de régie reste obligatoire en plus)."""
     R = plan['regles_ui']
-    carte_finale = r['t'] >= plan['depart']['logo']                                  # carte de fin : le logo occupe le centre (autorisé)
+    arene = next(x for x in plan['segments'] if x['id'] == 'arene')
+    def film(ti):                                                                     # temps interne de l'arène → temps film (carte du temps)
+        for a, b, c, d in arene.get('remap', []):
+            if c <= ti <= d: return a + (ti - c) * (b - a) / (d - c)
+        return ti
+    # exceptions voulues : carte de fin (logo au centre) et titre « GLOIRE ÉTERNELLE » mis en avant au centre (demande d'Esteban)
+    carte_finale = r['t'] >= film(plan['depart']['logo']) or film(plan['gloire']['titre_gloire']) - 0.1 <= r['t'] < film(plan['gloire']['fin'])
     v = []
     if s['surface'] > R['surface_max']: v.append(f"UI {100 * s['surface']:.0f}% > {100 * R['surface_max']:.0f}%")
     if s['nb_textes'] > R['textes_max']: v.append(f"{s['nb_textes']} textes")

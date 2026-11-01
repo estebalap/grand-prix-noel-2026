@@ -1,6 +1,7 @@
-/* SEGMENT « ARÈNE » de la V9 Ring — le cœur du trailer « Grand Prix de Noël ». Deux plages du film : [15,5 ; 84,5] et [99,5 ; 120,5]
-   (temps interne = temps film ; le noyau l'appelle avec t film). Tous les temps viennent de data/plan_v9.json (segments[1].sous,
-   ecuries, telephone, lootbox, gloire, depart).
+/* SEGMENT « ARÈNE » de la V9.1 Ring — le cœur du trailer « Grand Prix de Noël ». Le noyau l'appelle en temps INTERNE (carte du temps
+   def.remap : film 12,6 → 81,6 ↔ interne 15,5 → 84,5 ; film 90,6 → 113,6 ↔ interne 99,5 → 122,5). Tous les temps ci-dessous sont
+   INTERNES et viennent de data/plan_v9.json (segments[1].sous, ecuries, telephone, lootbox, gloire, depart) : aucune heure codée en
+   dur pour la fin (lootbox → logo), tout est exprimé à partir des clés du plan.
 
    Direction artistique « Arène Bonbon Néon » (arene_decor.js) : ring surélevé à tapis bleu roi et LOGO officiel, cercle de 5 bandes
    arc-en-ciel, 4 poteaux rouge/bleu/jaune/vert, cordes gainées et guirlandes, passerelles LED + tunnels + tremplins sur les 4 axes,
@@ -14,25 +15,34 @@
                             depuis le tunnel, aérien), bandeau V8 (#n°, ÉCURIE, pilote · bolide), logo de l'écurie sur l'écran géant.
                             74,8 : plan aérien de la couronne des 15 concept-cars autour du logo.
      75 → 84,5    TÉLÉPHONE telephone_v9.js (creerTelephone) en grand devant la caméra, la couronne derrière.
-     99,5 → 106,5 LOOTBOX   l'écran remonte, le conteneur « Lootbox Fret » (arene_fret.js) descend au centre, se verrouille
-                            (secousse, étincelles), les verrous sautent, le rideau « ? » s'entrouvre : lumière dorée. Coupe à 106,5.
-     106,5→112,5  GLOIRE    éclat doré, projecteur unique, TROPHÉE (arene_trophee.js) qui monte, confettis + neige (109,4), le public
-                            se lève, titre « GLOIRE ÉTERNELLE » (109,7).
-     112,5→120,5  DÉPART    les cordes tombent (112,8), le pont se déploie, les 15 voitures reculent puis partent en file
-                            (113,5) sur la PISTE ARC-EN-CIEL à 5 voies (arene_piste.js) qui sort de l'arène (115,5) ; plan large qui
-                            s'élève ; 118,0 : le LOGO officiel en grand (carte de fin).
+     99,5 → 106,5 LOOTBOX   l'écran remonte, le conteneur « Lootbox Fret » (arene_fret.js) descend au centre du cercle des 15
+                            concept-cars (descente), se verrouille (secousse, étincelles), les verrous sautent (verrous), le rideau « ? »
+                            s'enroule (entrouvre → ouvert) : lumière dorée et fumée s'échappent ; à trophee_sort le TROPHÉE sort sur
+                            un tiroir doré, décolle en lévitant, grandit et monte au-dessus du toit (rayons dorés derrière lui) vers
+                            le centre du ring, en hauteur (gloire.trophee_haut) ; le conteneur s'enfonce dans le tapis (trappe dorée)
+                            sous la coupe déjà envolée (chorégraphie : arene_gloire.js).
+     106,5→114,5  GLOIRE    projecteur unique + 6 faisceaux volumétriques vers la coupe, contre-plongée héroïque qui tourne autour
+                            du trophée puis recule ; titre en DEUX FRAPPES calées sur la voix : « GLOIRE » (titre_gloire) puis
+                            « ÉTERNELLE » (titre_eternelle) — impact 1,4 → 1 amorti, micro-secousse de caméra, onde dorée, reflet qui
+                            balaie les lettres ; feux d'artifice dorés, confettis + neige, public debout (feux / confettis).
+     114,5→122,5  DÉPART    les cordes tombent (cordes), le pont se déploie, les 15 voitures reculent puis partent en file
+                            (demarrage) sous le trophée qui flotte toujours au-dessus du ring, sur la PISTE ARC-EN-CIEL à 5 voies
+                            (arene_piste.js) qui sort de l'arène (piste) : caméra de POURSUITE serrée dans la meute, puis plan large
+                            qui s'élève ; logo : le LOGO officiel en grand (carte de fin) jusqu'à la fin.
 
    Contrat (LISEZ_MOI_V8.md + noyau_v9.js) : creerSegment(ctx) → { id: 'arene', groupe, cles, maj(t), collisions() }.
    maj(t) est une FONCTION PURE de t : chaque voiture, chaque uniform, chaque lumière est remis à chaque image ; nombre de lumières
    constant ; aucun Math.random() (PRNG semés, ctx.avecAlea pour les constructions de shared/) ; flash post ≤ 0,05.
    collisions() : interpénétrations voiture/voiture, voiture/poteau, voiture/corde (garde de 3 cm), voiture/conteneur, voiture/structure
-   (OBB 3D avec tangage et roulis) et contact au sol (aucun coin de caisse sous la surface porteuse) pour l'image courante. */
-import { clamp, lerp, smoother, doux, easeOut, gauss, angleDiff, hermite, DEG, boiteLocale, obbDepuis, obbFixe, penetrationOBB, distanceSegmentOBB, coinsBas } from './arene_outils.js';
+   (OBB 3D avec tangage et roulis), voiture/trophée, trophée/parois du conteneur (dalle, toit, flancs, fond, linteau, rideau : intérieur
+   creux), trophée/décor (boîte de la VRAIE Coupe Arc-en-Ciel, mesurée sur ses STL), et contact au sol (aucun coin de caisse sous la surface porteuse) pour l'image courante. */
+import { clamp, lerp, smoother, doux, easeOut, gauss, angleDiff, hermite, ressort, DEG, boiteLocale, obbDepuis, obbFixe, penetrationOBB, distanceSegmentOBB, coinsBas } from './arene_outils.js';
 import { creerDecor, G } from './arene_decor.js';
 import { creerEntrees, creerDepart, capVers } from './arene_trajets.js';
 import { creerPiste } from './arene_piste.js';
 import { creerFret } from './arene_fret.js';
 import { creerTrophee } from './arene_trophee.js';
+import { choregraphie, creerEffetsGloire } from './arene_gloire.js';
 import { creerTelephone } from './telephone_v9.js';
 import { creerBandeau } from '../v8_finale/ecuries_bandeau.js';
 
@@ -85,8 +95,12 @@ export async function creerSegment(ctx) {
   ctx.progression('Arène : piste arc-en-ciel…');
   const piste = creerPiste(THREE, G); groupe.add(piste.groupe);
   const depart = creerDepart(entrees.places, P.dep, piste, voitures.map((v) => v.d));
-  const fret = creerFret(THREE, { envMap: ctx.envMap, yPose: G.MAT }); groupe.add(fret.groupe);
-  const trophee = creerTrophee(THREE, { envMap: ctx.envMap, yTapis: G.MAT }); groupe.add(trophee.groupe, trophee.anneau);
+  const fret = creerFret(THREE, { envMap: ctx.envMap, yPose: G.MAT, demiH: ctx.H / 2 }); groupe.add(fret.groupe, fret.fumee);
+  ctx.progression('Arène : Coupe Arc-en-Ciel (vraies STL du Panthéon)…');
+  const trophee = await creerTrophee(THREE, { envMap: ctx.envMap, yTapis: G.MAT, importerShared: ctx.importerShared, urlWeb: ctx.urlWeb }); groupe.add(trophee.groupe, trophee.fx);
+  const Y_HAUT = G.MAT + 30;                                                  // base du socle quand la coupe trône au centre du ring
+  const choreo = choregraphie(P.loot, P.gloire, { yPose: G.MAT, yPlateau: fret.Y_PLATEAU, zTrophee: fret.Z_TROPHEE, yHaut: Y_HAUT, echInit: 0.22 });
+  const effets = creerEffetsGloire(THREE, { demiH: ctx.H / 2 }); groupe.add(effets.groupe);
   ctx.progression('Arène : téléphone…');
   const tel = await creerTelephone(ctx);
   const pivotTel = new THREE.Group(); pivotTel.add(tel.groupe); groupe.add(pivotTel);
@@ -163,31 +177,103 @@ export async function creerSegment(ctx) {
     { t: 17.3, p: [300, 150, 250], c: [80, G.MAT + 30, 0], fov: 48 },
     { t: 18.0, p: [345, 62, 120], c: [272, G.MAT + 22, 0], fov: 46 },
   ];
-  const LOOT = [
-    { t: 99.5, p: [26, G.MAT + 5, 92], c: [0, G.MAT + 160, 0], fov: 50 },
-    { t: 101.4, p: [30, G.MAT + 6, 90], c: [0, G.MAT + 24, 0], fov: 48 },
+  /* Fin du segment : toutes les clés de caméra sont exprimées à partir du plan (lootbox, gloire, depart). */
+  const L_ = P.loot, Gl = P.gloire, D = P.dep;
+  const T_L2 = L_.verrous - 0.6, T_L3 = L_.entrouvre + 0.3, T_DECOL = L_.trophee_sort + 0.8;
+  const LOOT = [                                                              // contre-plongée : le conteneur descend du portique
+    { t: L_.debut, p: [26, G.MAT + 5, 92], c: [0, G.MAT + 160, 0], fov: 50 },
+    { t: T_L2, p: [30, G.MAT + 6, 90], c: [0, G.MAT + 24, 0], fov: 48 },
   ];
-  const LOOT2 = [{ t: 101.4, p: [78, G.MAT + 34, 88], c: [0, G.MAT + 7, 0], fov: 42 }, { t: 103.5, p: [62, G.MAT + 26, 74], c: [0, G.MAT + 6, 2], fov: 40 }];
-  const LOOT3 = [{ t: 103.5, p: [-11, G.MAT + 9, 50], c: [0, G.MAT + 6, 14], fov: 44 }, { t: 106.5, p: [-6, G.MAT + 7.5, 40], c: [0, G.MAT + 6, 14], fov: 42 }];
-  const GLOIRE1 = (t) => { const u = (t - 106.5) / 2.1, a = (70 + 40 * u) * DEG; return { p: [Math.cos(a) * 78, G.MAT + 12 + 4 * u, Math.sin(a) * 78], c: [0, G.MAT + 16, 0], fov: 46 }; };
-  const GLOIRE2 = (t) => { const u = (t - 108.6) / 3.9, a = (96 - 10 * u) * DEG, r = 36 - 4 * u; return { p: [Math.cos(a) * r, G.MAT + 4 + 2 * u, Math.sin(a) * r], c: [0, G.MAT + 19, 0], fov: 52 }; };
-  const DEP1 = [{ t: 112.5, p: [150, G.MAT + 120, 195], c: [10, G.MAT, 0], fov: 46 }, { t: 114.6, p: [175, G.MAT + 95, 175], c: [40, G.MAT, -10], fov: 46 }];
-  const DEP2 = [{ t: 114.6, p: [100, G.MAT + 8, -80], fov: 46 }, { t: 116.3, p: [118, G.MAT + 10, -64], fov: 46 }];
-  const DEP3 = [{ t: 116.3, p: [-150, G.MAT + 80, 110], c: [300, G.MAT + 20, -10], fov: 50 }, { t: 118.0, p: [-250, 185, 150], c: [620, 120, -240], fov: 52 }, { t: 120.5, p: [-330, 240, 200], c: [900, 230, -520], fov: 54 }];
+  const LOOT2 = [{ t: T_L2, p: [78, G.MAT + 34, 88], c: [0, G.MAT + 7, 0], fov: 42 }, { t: T_L3, p: [62, G.MAT + 26, 74], c: [0, G.MAT + 6, 2], fov: 40 }];   // 3/4 : verrous
+  const polaire = (aDeg, r, y) => [Math.cos(aDeg * DEG) * r, y, Math.sin(aDeg * DEG) * r];
+  /** Visée de la gloire : sous le centre de la coupe (≈ 0,14 × distance) pour la placer dans le tiers haut, le titre occupe le bas. */
+  const viseeCoupe = (r, k = 1) => { const c = trophee.centre(); return [c[0], c[1] - 0.095 * r * k, c[2]]; };
+  const SORTIE = [                                                            // face à la porte → suit la coupe qui sort, lévite et grandit
+    { t: T_L3, p: [-11, G.MAT + 9, 50], c: [0, G.MAT + 6, 14], fov: 44 },
+    { t: L_.trophee_sort, p: [-8, G.MAT + 8, 45], c: [0, G.MAT + 6, 16], fov: 38 },
+    { t: T_DECOL, p: polaire(96, 66, G.MAT + 12), c: [0, G.MAT + 7, 24], fov: 36 },      // dans l'intervalle entre deux voitures garées (84° et 108°)
+    { t: (T_DECOL + Gl.trophee_haut) / 2, p: polaire(86, 84, G.MAT + 14), c: [0, G.MAT + 26, 12], fov: 42 },   // recule pendant que la coupe grandit
+    { t: Gl.trophee_haut, p: polaire(70, 90, G.MAT + 18), c: [0, Y_HAUT + 12, 0], fov: 44 },
+  ];
+  const ORBITE = [                                                            // coordonnées polaires autour de la coupe (degrés, cm)
+    { t: Gl.trophee_haut, a: 70, r: 90, y: G.MAT + 18, fov: 44 },
+    { t: Gl.titre_gloire, a: 81, r: 88, y: G.MAT + 17, fov: 44 },
+    { t: Gl.titre_eternelle + 1.4, a: 100, r: 86, y: G.MAT + 16, fov: 44 },
+    { t: Gl.fin - 1.3, a: 118, r: 124, y: G.MAT + 26, fov: 44 },
+    { t: Gl.fin, a: 125, r: 150, y: G.MAT + 36, fov: 44 },
+  ];
+  function cameraSortie(t) {
+    const p = hermite(SORTIE, t, 'p'), fov = hermite(SORTIE, t, 'fov');
+    const w = smoother((t - L_.trophee_sort) / (Gl.trophee_haut - L_.trophee_sort));   // la visée glisse vers la coupe
+    const cK = hermite(SORTIE, t, 'c'), cT = viseeCoupe(Math.hypot(p[0], p[2]), smoother((t - T_DECOL - 0.7) / (Gl.trophee_haut - T_DECOL - 0.7)));   // coupe cadrée entière pendant l'envol
+    return { p, c: cK.map((x, k) => lerp(x, cT[k], w)), fov };
+  }
+  function cameraOrbite(t) {
+    const a = hermite(ORBITE, t, 'a'), r = hermite(ORBITE, t, 'r');
+    return { p: polaire(a, r, hermite(ORBITE, t, 'y')), c: viseeCoupe(r), fov: hermite(ORBITE, t, 'fov') };
+  }
+  /** Micro-secousse d'impact (frappes du titre) : 2 réponses amorties très brèves, la coupe reste nette. */
+  const secousse = (t) => 0.45 * ressort(t - Gl.titre_gloire, 42, 0.42) + 0.6 * ressort(t - Gl.titre_eternelle, 42, 0.42);
+  // départ : grand angle (cordes), caméra rasante (la file passe), POURSUITE serrée dans la meute, plan large qui s'élève (logo)
+  const DEP1 = [{ t: D.debut, p: [150, G.MAT + 120, 195], c: [10, G.MAT + 18, 0], fov: 46 }, { t: D.demarrage + 1.1, p: [175, G.MAT + 95, 175], c: [40, G.MAT, -10], fov: 46 }];
+  const DEP2 = [{ t: D.demarrage + 1.1, p: [100, G.MAT + 8, -80], fov: 46 }, { t: D.piste + 0.3, p: [118, G.MAT + 10, -66], fov: 46 }];
+  const T_LARGE = D.logo - 0.6;
   const hcam = (cles, t) => ({ p: hermite(cles, t, 'p'), c: hermite(cles, t, 'c'), fov: hermite(cles, t, 'fov') });
+  const S_TETE = () => Math.min(...depart.avance);
+  /** Poursuite : caméra posée DANS la file, derrière la 3ᵉ voiture, légèrement décalée et au-dessus ; elle vise la tête de la meute. */
+  function cameraPoursuite(t, u = 0) {
+    // u = 0 : poursuite serrée ; u → 1 : la grue recule et s'élève derrière la meute qui file vers le ciel (plan large du logo)
+    const sl = depart.S(t) - S_TETE(), sc = sl - lerp(72, 190, u);
+    const q = depart.pointFile(sc), qa = depart.pointFile(sc - 1), qb = depart.pointFile(sc + 1);
+    const tx = qb[0] - qa[0], tz = qb[2] - qa[2], n = Math.hypot(tx, tz) || 1, lx = -tz / n, lz = tx / n, lat = lerp(11, 36, u);
+    const v = depart.pointFile(sl + lerp(-18, 170, u));
+    return { p: [q[0] + lx * lat, q[1] + lerp(10, 165, u), q[2] + lz * lat], c: [v[0], v[1] + lerp(2.5, 45, u), v[2]], fov: lerp(50, 56, u) };
+  }
+  const cameraLarge = (t) => cameraPoursuite(t, smoother((t - T_LARGE) / (D.fin - T_LARGE)));
 
   /* ═════════════ habillage 2D ═════════════ */
+  /* Titre « GLOIRE ÉTERNELLE » en deux frappes (exception validée : grand, centre-bas, de titre_gloire à gloire.fin).
+     Lettres or façon site (Fredoka 700, dégradé or, contour prune sombre, ombre portée), impact 1,4 → 1 avec rebond amorti, éclat de
+     reflet qui balaie les lettres (calque hors écran : le texte sert de masque), léger pulse ensuite, sortie avant gloire.fin. */
+  let calque = null;
+  function mot(g, W, str, a, yPx, taille, sortie) {
+    if (a < 0) return;
+    const s = W / 1920;
+    const impact = 1 + 0.4 * Math.exp(-a * 7.5) * Math.cos(a * 17);                     // 1,4 → 1, rebond amorti
+    const pulse = 1 + 0.018 * Math.sin((a - 0.8) * 3.1) * smoother((a - 0.8) / 0.6);
+    const ech = impact * pulse * s, alpha = clamp(a / 0.07) * (1 - sortie);
+    if (alpha <= 0.002) return;
+    const fonte = `700 ${taille}px "Fredoka", "Nunito", system-ui, sans-serif`;
+    const poser = (c) => { c.translate(W / 2, yPx * s); c.scale(ech, ech); c.font = fonte; c.textAlign = 'center'; c.textBaseline = 'middle'; if ('letterSpacing' in c) c.letterSpacing = '5px'; };
+    g.save(); poser(g); g.globalAlpha = alpha; g.lineJoin = 'round';
+    g.shadowColor = 'rgba(25,4,45,.8)'; g.shadowBlur = 10; g.shadowOffsetY = 7;
+    g.lineWidth = 15; g.strokeStyle = 'rgba(42,10,72,.96)'; g.strokeText(str, 0, 0);
+    g.shadowColor = 'rgba(0,0,0,0)'; g.shadowBlur = 0; g.shadowOffsetY = 0;
+    const or = g.createLinearGradient(0, -taille * 0.45, 0, taille * 0.45);
+    or.addColorStop(0, '#fff6c2'); or.addColorStop(0.38, '#ffd659'); or.addColorStop(0.62, '#f2a81d'); or.addColorStop(1, '#c86f0a');
+    g.fillStyle = or; g.fillText(str, 0, 0);
+    g.lineWidth = 2.2; g.strokeStyle = 'rgba(255,248,215,.55)'; g.strokeText(str, 0, -1.5);                // arête claire (biseau)
+    g.restore();
+    // reflet : bande claire qui traverse les lettres (0,1 → 0,75 s après la frappe, puis un second passage lent)
+    const pass = (u) => (u > 0 && u < 1 ? u : null);
+    const u = pass((a - 0.1) / 0.65) ?? pass((a - 2.6) / 1.2);
+    if (u === null) return;
+    const Wc = g.canvas.width, Hc = g.canvas.height;
+    if (!calque || calque.width !== Wc || calque.height !== Hc) { calque = document.createElement('canvas'); calque.width = Wc; calque.height = Hc; }
+    const k = calque.getContext('2d', { willReadFrequently: true });      // calque logiciel, comme la toile HUD du noyau : pixels identiques d'une image à l'autre
+    k.setTransform(1, 0, 0, 1, 0, 0); k.globalCompositeOperation = 'source-over'; k.clearRect(0, 0, Wc, Hc);
+    k.save(); poser(k); k.fillStyle = '#ffffff'; k.fillText(str, 0, 0);
+    const lmot = k.measureText(str).width, xb = lerp(-lmot * 0.75, lmot * 0.75, u);
+    k.globalCompositeOperation = 'source-in';
+    const band = k.createLinearGradient(xb - taille * 0.6, -taille * 0.3, xb + taille * 0.6, taille * 0.3);
+    band.addColorStop(0, 'rgba(255,255,255,0)'); band.addColorStop(0.5, 'rgba(255,255,240,.9)'); band.addColorStop(1, 'rgba(255,255,255,0)');
+    k.fillStyle = band; k.fillRect(-lmot, -taille, lmot * 2, taille * 2); k.restore();
+    g.save(); g.globalAlpha = alpha; g.globalCompositeOperation = 'lighter'; g.drawImage(calque, 0, 0); g.restore();
+  }
   function titreGloire(g, W, H, t) {
-    const a = t - P.gloire.titre; if (a < 0) return;
-    const s = W / 1920, pop = a < 0.18 ? lerp(0.5, 1.08, smoother(a / 0.18)) : a < 0.32 ? lerp(1.08, 1, smoother((a - 0.18) / 0.14)) : 1;
-    const sortie = smoother((t - (P.gloire.fin - 0.35)) / 0.3);
-    g.save(); g.translate(W / 2, 965 * s); g.scale(pop * s, pop * s); g.globalAlpha = clamp(a / 0.1) * (1 - sortie);
-    g.font = '700 118px "Fredoka", "Nunito", system-ui, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
-    if ('letterSpacing' in g) g.letterSpacing = '6px';
-    g.lineJoin = 'round'; g.lineWidth = 16; g.strokeStyle = 'rgba(40,10,70,.92)'; g.shadowColor = 'rgba(255,190,60,.8)'; g.shadowBlur = 34;
-    g.strokeText('GLOIRE ÉTERNELLE', 0, 0); g.shadowBlur = 0;
-    const or = g.createLinearGradient(0, -55, 0, 55); or.addColorStop(0, '#fff3b0'); or.addColorStop(0.5, '#ffc83d'); or.addColorStop(1, '#e08a10');
-    g.fillStyle = or; g.fillText('GLOIRE ÉTERNELLE', 0, 0); g.restore();
+    const sortie = smoother((t - (Gl.fin - 0.9)) / 0.5);
+    mot(g, W, 'GLOIRE', t - Gl.titre_gloire, 800, 190, sortie);
+    mot(g, W, 'ÉTERNELLE', t - Gl.titre_eternelle, 985, 180, sortie);
   }
   function logoFinal(g, W, H, t) {
     const a = t - P.dep.logo; if (a < 0) return;
@@ -224,10 +310,19 @@ export async function creerSegment(ctx) {
     { t: 62.6, label: 'Écurie #12 · dérapage' },
     { t: 74.85, label: 'Couronne des 15 concept-cars' },
     { t: 79.0, label: 'Téléphone · points' },
-    { t: 103.0, label: 'Lootbox · verrous' },
-    { t: 110.0, label: 'Gloire éternelle' },
-    { t: 116.0, label: 'Départ · piste arc-en-ciel' },
-    { t: 118.6, label: 'Logo final · 23 décembre' },
+    { t: P.loot.descente + 0.9, label: 'Lootbox · descente au centre du cercle' },
+    { t: P.loot.verrous + 0.8, label: 'Lootbox · les verrous sautent' },
+    { t: (P.loot.entrouvre + P.loot.ouvert) / 2 + 0.3, label: 'Lootbox · rideau « ? » qui s\'enroule' },
+    { t: P.loot.trophee_sort + 0.5, label: 'Le trophée sort du conteneur' },
+    { t: (P.loot.trophee_sort + 0.8 + P.gloire.trophee_haut) / 2 + 0.2, label: 'Le trophée lévite et grandit' },
+    { t: P.gloire.trophee_haut + 0.4, label: 'Trophée au centre du ring' },
+    { t: P.gloire.titre_gloire + 0.3, label: '« GLOIRE »' },
+    { t: P.gloire.titre_eternelle + 0.4, label: '« GLOIRE ÉTERNELLE » · feux d\'artifice' },
+    { t: P.gloire.fin - 1.8, label: 'Gloire éternelle · recul en majesté' },
+    { t: P.dep.cordes + 0.4, label: 'Départ · les cordes tombent' },
+    { t: P.dep.demarrage + 1.1, label: 'Départ · la file s\'élance' },
+    { t: P.dep.piste + 0.8, label: 'Départ · poursuite sur la piste 5 voies' },
+    { t: P.dep.logo + 0.6, label: 'Logo final · 23 décembre' },
   ];
 
   return {
@@ -249,13 +344,20 @@ export async function creerSegment(ctx) {
         poses.push(p);
       }
 
-      /* ── conteneur, trophée, téléphone, piste ── */
-      const disparition = clamp((t - P.gloire.debut) / 0.7);
-      const fr = (enLoot || (enGloire && disparition < 1)) ? fret.maj(t, P.loot, { disparition }) : (fret.cacher(), null);
-      const montee = enGloire || enDep ? clamp((t - P.gloire.trophee) / 1.5) : 0;
-      trophee.maj(t, enDep ? 1 : montee, enGloire ? 1 : 0.6);
-      if (!(enGloire || enDep)) { trophee.groupe.visible = false; trophee.anneau.visible = false; }
-      const revele = enDep ? 2600 * smoother((t - P.dep.piste + 0.6) / 2.6) : 0;
+      /* ── conteneur, trophée (il SORT du conteneur), téléphone, piste ── */
+      const enFin = enLoot || enGloire || enDep;
+      const enfonce = choreo.enfonce(t);
+      const fr = (enLoot || enGloire) && enfonce < 0.999 ? fret.maj(t, L_, { tiroir: choreo.tiroir(t), enfonce }) : (fret.cacher(), null);
+      const et = enFin ? choreo.trophee(t) : null;
+      if (et) {
+        // reflet qui balaie la vasque à chaque frappe du titre ; aura et colonne de lévitation pleines pendant la gloire et le départ
+        const b1 = t - Gl.titre_gloire, b2 = t - Gl.titre_eternelle;
+        const balaye = (a) => (a > 0 && a < 0.7 ? Math.sin(Math.PI * a / 0.7) : 0);
+        et.brille = Math.max(balaye(b1), balaye(b2)); et.brillePhase = b2 > 0 ? clamp(b2 / 0.7) : clamp(b1 / 0.7);
+        if (enDep) { et.rayons *= 1 - 0.45 * smoother((t - D.piste) / 1.5); }
+      }
+      trophee.maj(t, et);
+      const revele = enDep ? 2600 * smoother((t - D.piste + 0.6) / 2.6) : 0;
       piste.maj(t, revele);
       pivotTel.visible = enTel;
 
@@ -264,12 +366,15 @@ export async function creerSegment(ctx) {
       if (t < P.ecuries[0].sortie) cam = hcam(ARRIVEE, t);
       else if (enEcuries) cam = (t >= 74.6 ? cameraCouronne(t) : cameraEcurie(k, t));
       else if (enTel) { const a = (t - P.tel.debut) / (P.tel.fin - P.tel.debut); cam = { p: [-14 + 22 * a, G.MAT + 27 - 3 * a, 132 - 6 * a], c: [0, G.MAT + 8, 0], fov: 34 }; }
-      else if (enLoot) cam = t < 101.4 ? hcam(LOOT, t) : t < 103.5 ? hcam(LOOT2, t) : hcam(LOOT3, t);
-      else if (enGloire) cam = t < 108.6 ? GLOIRE1(t) : GLOIRE2(t);
-      else if (t < 114.6) cam = hcam(DEP1, t);
-      else if (t < 116.3) { const p = hermite(DEP2, t, 'p'), q = depart.pointFile(depart.S(t) - 40); cam = { p, c: [q[0], q[1] + 3, q[2]], fov: 44 }; }     // la caméra rasante suit la file qui passe
-      else cam = hcam(DEP3, t);
-      if (enLoot && t < 101.4) cam.c = [0, Math.max(G.MAT + 10, fret.groupe.position.y + 8), 0];
+      else if (t < T_L2) { cam = hcam(LOOT, t); cam.c = [0, Math.max(G.MAT + 10, fret.groupe.position.y + 8), 0]; }
+      else if (t < T_L3) cam = hcam(LOOT2, t);
+      else if (t < Gl.trophee_haut) cam = cameraSortie(t);
+      else if (t < D.debut) cam = cameraOrbite(t);
+      else if (t < D.demarrage + 1.1) cam = hcam(DEP1, t);
+      else if (t < D.piste + 0.3) { const p = hermite(DEP2, t, 'p'), q = depart.pointFile(depart.S(t) - 40); cam = { p, c: [q[0], q[1] + 3, q[2]], fov: 44 }; }     // la caméra rasante suit la file qui passe
+      else if (t < T_LARGE) cam = cameraPoursuite(t);
+      else cam = cameraLarge(t);
+      if (enGloire) { const k = secousse(t); cam.p = [cam.p[0] + 0.7 * k, cam.p[1] + k, cam.p[2]]; cam.c = [cam.c[0] + 0.3 * k, cam.c[1] + 0.45 * k, cam.c[2]]; }
 
       /* ── téléphone : flotte devant la caméra, au centre de l'image ── */
       if (enTel) {
@@ -283,29 +388,40 @@ export async function creerSegment(ctx) {
       /* ── écran géant, public, effets ── */
       let ecran = ECRAN_GP;
       if (enEcuries && t < 74.6) { const e = equipes[k]; ecran = ecranAffiche('k' + k, ctx.logos[e.id], e.colors); }
-      const debout = enGloire || enDep ? smoother((t - P.gloire.confettis) / 0.8) : 0;
-      const confettis = t < 18.5 ? 0.8 * (1 - smoother((t - 17.6) / 0.9)) : (enGloire || enDep) ? smoother((t - P.gloire.confettis) / 0.4) * (enDep ? 1 - 0.6 * smoother((t - 114) / 2) : 1) : 0;
+      const debout = enGloire || enDep ? smoother((t - Gl.confettis) / 0.8) : 0;
+      const confettis = t < 18.5 ? 0.8 * (1 - smoother((t - 17.6) / 0.9)) : (enGloire || enDep) ? smoother((t - Gl.confettis) / 0.4) * (enDep ? 1 - 0.6 * smoother((t - (D.debut - 0.5)) / 2) : 1) : 0;
       const neige = (enGloire || enDep) ? 0.9 * smoother((t - P.gloire.confettis) / 0.6) : 0;
       const hero = enEcuries && t < 74.6 ? k : -1;
       const ph = hero >= 0 ? poses[hero] : null;
-      const spotGloire = enGloire ? smoother((t - P.gloire.debut) / 0.5) : 0;
+      const spotGloire = enGloire ? smoother((t - Gl.debut) / 0.5) : 0;
+      const cTro = et ? trophee.centre() : [0, Y_HAUT + 20, 0];
+      const vCam = [cam.p[0] - cTro[0], cam.p[1] - cTro[1], cam.p[2] - cTro[2]], nCam = Math.hypot(...vCam) || 1;
+      const posOrGloire = [cTro[0] + vCam[0] / nCam * 34, cTro[1] + 12 + vCam[1] / nCam * 34, cTro[2] + vCam[2] / nCam * 34];   // lumière dorée côté caméra : la coupe brille
+      const orGloire = enGloire ? 1.7 * smoother((t - Gl.debut) / 0.6) : (enDep ? 1.8 : 0);
       decor.maj(t, {
         flammes: flammes(t), ecran, ecranY: enLoot || enGloire ? 205 + 150 * smoother((t - P.loot.debut) / 1.0) : (enDep ? 355 + 300 * smoother((t - P.dep.debut) / 2.0) : 205),
-        debout, liesse: 0.3 + 0.4 * (enGloire ? 1 : 0), confettis, neige, chuteCordes: enDep ? smoother((t - P.dep.cordes) / 0.55) : 0,
+        debout, liesse: 0.3 + 0.4 * (enGloire || enDep ? 1 : 0), confettis, neige, chuteCordes: enDep ? smoother((t - P.dep.cordes) / 0.55) : 0,
         pont: enDep ? smoother((t - P.dep.cordes) / 0.6) : 0, ambiance: 1 - 0.25 * spotGloire, laser: enTel ? 0.35 : 1,
-        spot: lerp(0.9, 3.0, spotGloire), spotAngle: lerp(0.55, 0.2, spotGloire),
-        or: fr ? fr.lumiere : (enGloire ? 2.2 * smoother((t - P.gloire.trophee) / 1) : 0), posOr: fr ? fr.posLumiere : [0, G.MAT + 40, 18],
+        spot: lerp(0.9, 2.4, spotGloire), spotAngle: lerp(0.55, 0.2, spotGloire),
+        or: Math.max(fr ? fr.lumiere : 0, orGloire), posOr: fr && fr.lumiere > orGloire ? fr.posLumiere : posOrGloire,
         suivi: ph ? 1.3 : (enTel ? 0.45 : 0), posSuivi: ph ? [ph.pos[0] + 6, ph.pos[1] + 30, ph.pos[2] + 6] : [cam.p[0] - 30, cam.p[1] + 40, cam.p[2] - 10],
       });
-      etatCourant = { t, poses, cordes: !enDep || t < P.dep.cordes, pont: enDep ? smoother((t - P.dep.cordes) / 0.6) : 0, fret: fret.obb(), trophee: enGloire || enDep, hero };
+      /* ── effets de la gloire : faisceaux vers la coupe, feux d'artifice dorés, ondes aux frappes du titre ── */
+      effets.maj(t, {
+        feux: Gl.feux, forceFeux: enGloire || enDep ? 1 - smoother((t - D.demarrage) / 1.5) : 0,
+        faisceaux: enGloire ? smoother((t - Gl.debut) / 0.8) : (enDep ? 1 - smoother((t - D.debut) / 1.2) : 0),
+        cible: cTro, ondes: enGloire ? [Gl.titre_gloire, Gl.titre_eternelle] : [], forceOndes: 1,
+      });
+      etatCourant = { t, poses, cordes: !enDep || t < D.cordes, pont: enDep ? smoother((t - D.cordes) / 0.6) : 0, fret: fret.obb(), murs: fret.murs(), trophee: trophee.obb(), hero };
 
       /* ── brouillard, post ── */
       const sortieRose = t < 18 ? 1 - smoother((t - 15.5) / 1.1) : 0;
       const brouillard = { couleur: sortieRose > 0.01 ? '#' + new THREE.Color(BRUME.couleur).lerp(new THREE.Color('#ff86e0'), sortieRose).getHexString() : BRUME.couleur, densite: lerp(BRUME.densite, 0.0032, sortieRose) };
-      const flashOr = enGloire ? 0.03 * Math.sin(Math.PI * clamp((t - P.gloire.debut) / 0.5)) : 0;
+      const frappe = (a) => (a < 0 ? 0 : Math.exp(-a * 9));
+      const flashOr = enFin ? 0.025 * Math.sin(Math.PI * clamp((t - Gl.trophee_haut + 0.25) / 0.5)) + 0.035 * frappe(t - Gl.titre_gloire) + 0.045 * frappe(t - Gl.titre_eternelle) : 0;
       const post = {
         exposition: 0.86, vignette: 0.45, saturation: 1.12, bloomForce: enTel ? 0.22 : 0.34,
-        flash: Math.min(0.05, 0.03 * sortieRose + flashOr), flashCouleur: enGloire ? [1, 0.82, 0.45] : [1, 0.32, 0.78], flou: 0, aberration: 0.0005,
+        flash: Math.min(0.05, 0.03 * sortieRose + flashOr), flashCouleur: enFin ? [1, 0.82, 0.45] : [1, 0.32, 0.78], flou: 0, aberration: 0.0005,
       };
 
       /* ── habillage ── */
@@ -317,6 +433,7 @@ export async function creerSegment(ctx) {
       return {
         camera: { p: cam.p, c: cam.c, fov: cam.fov, near: 0.8, far: 6000 },
         fond: FOND, brouillard, lumieres: { hemi: 0.32, cle: 0.4 }, post, hud,
+        apres: (camera) => trophee.apres(camera),
       };
     },
 
@@ -327,7 +444,12 @@ export async function creerSegment(ctx) {
       E.poses.forEach((p, j) => { if (p) obb.push({ j, o: obbDepuis(THREE, voitures[j].env, voitures[j].boite, voitures[j].nom), sol: obbDepuis(THREE, voitures[j].env, voitures[j].boite, voitures[j].nom, { rognage: 0.2, marge: 0.95 }), phase: p.phase }); });
       const decorObs = [...decor.obstacles];
       if (E.fret) decorObs.push(E.fret);
-      if (E.trophee) decorObs.push(obbFixe('trophée', [0, G.MAT + 17, 0], [10, 17, 10]));
+      if (E.trophee) decorObs.push(E.trophee);
+      // le trophée contre les parois du conteneur (intérieur creux) et contre le décor fixe
+      if (E.trophee) {
+        for (const m of [...E.murs, ...decor.obstacles]) { const p = penetrationOBB(E.trophee, m); if (p > 0) res.push({ t, a: 'trophée', b: m.nom, profondeur: +p.toFixed(2) }); }
+        for (const q of decor.poteaux) { const dd = distanceSegmentOBB(q.p0, q.p1, E.trophee); if (dd < q.r) res.push({ t, a: 'trophée', b: q.nom, profondeur: +(q.r - dd).toFixed(2) }); }
+      }
       for (let a = 0; a < obb.length; a++) {
         const A = obb[a];
         for (let b = a + 1; b < obb.length; b++) { const p = penetrationOBB(A.o, obb[b].o); if (p > 0) res.push({ t, a: A.o.nom, b: obb[b].o.nom, profondeur: +p.toFixed(2) }); }
