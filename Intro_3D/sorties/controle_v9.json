@@ -1,9 +1,9 @@
 {
  "version": "v9",
- "date": "2026-11-02T14:02:30",
+ "date": "2026-11-02T20:45:02",
  "cles": [
   {
-   "t": 1,
+   "t": 1.25,
    "label": "La nuit au salon",
    "groupe": "ouverture",
    "surface": 0,
@@ -14,7 +14,7 @@
    "rejet": []
   },
   {
-   "t": 5,
+   "t": 6.25,
    "label": "Le salon s'allume",
    "groupe": "ouverture",
    "surface": 0,
@@ -25,7 +25,7 @@
    "rejet": []
   },
   {
-   "t": 9.8,
+   "t": 14.41,
    "label": "Ça part en vrille",
    "groupe": "ouverture",
    "surface": 0,
@@ -36,7 +36,7 @@
    "rejet": []
   },
   {
-   "t": 11.2,
+   "t": 16.13,
    "label": "Arrivée · « EN ARÈNE ! » (vortex)",
    "groupe": "arene",
    "surface": 0,
@@ -47,7 +47,7 @@
    "rejet": []
   },
   {
-   "t": 13,
+   "t": 17.93,
    "label": "Arrivée · descente dans l'arène",
    "groupe": "arene",
    "surface": 0,
@@ -58,7 +58,7 @@
    "rejet": []
   },
   {
-   "t": 17.5,
+   "t": 22.43,
    "label": "#01 · travelling latéral rasant",
    "groupe": "arene",
    "surface": 0.0787,
@@ -73,7 +73,7 @@
    "rejet": []
   },
   {
-   "t": 21.44,
+   "t": 26.37,
    "label": "#02 · vue de dessus, tête-à-queue",
    "groupe": "arene",
    "surface": 0.0774,
@@ -88,7 +88,7 @@
    "rejet": []
   },
   {
-   "t": 24.26,
+   "t": 29.19,
    "label": "#03 · 3/4 avant, flare des phares",
    "groupe": "arene",
    "surface": 0.0756,
@@ -103,7 +103,7 @@
    "rejet": []
   },
   {
-   "t": 30.11,
+   "t": 35.04,
    "label": "#04 · sous la boule à facettes",
    "groupe": "arene",
    "surface": 0.0755,
@@ -118,7 +118,7 @@
    "rejet": []
   },
   {
-   "t": 31.84,
+   "t": 36.77,
    "label": "#05 · cabrage, contre-plongée",
    "groupe": "arene",
    "surface": 0.0671,
@@ -133,7 +133,7 @@
    "rejet": []
   },
   {
-   "t": 42.58,
+   "t": 47.51,
    "label": "#07 · impact à l'atterrissage",
    "groupe": "arene",
    "surface": 0.0737,
@@ -148,7 +148,7 @@
    "rejet": []
   },
   {
-   "t": 46.87,
+   "t": 51.8,
    "label": "#08 · l'A4 plonge vers nous",
    "groupe": "arene",
    "surface": 0.0709,
@@ -163,7 +163,7 @@
    "rejet": []
   },
   {
-   "t": 55.58,
+   "t": 60.51,
    "label": "#10 · 6 roues en étincelles",
    "groupe": "arene",
    "surface": 0.0752,
@@ -178,7 +178,7 @@
    "rejet": []
   },
   {
-   "t": 64.12,
+   "t": 69.05,
    "label": "#12 · grue orbitale",
    "groupe": "arene",
    "surface": 0.0781,
@@ -193,7 +193,7 @@
    "rejet": []
   },
   {
-   "t": 76.02,
+   "t": 80.95,
    "label": "#15 · frontal",
    "groupe": "arene",
    "surface": 0.0759,
@@ -208,57 +208,59 @@
    "rejet": []
   },
   {
-   "t": 79.3,
-   "label": "Rush · #08",
-   "groupe": "arene",
-   "surface": 0.0213,
-   "zone_sacree": 0,
-   "textes": [
-    "#08",
-    "A4 OIL LEAKING"
-   ],
-   "nb_textes": 2,
-   "collisions": [],
-   "rejet": []
-  },
-  {
-   "t": 81.8,
+   "t": 84.23,
    "label": "Rush · #02",
    "groupe": "arene",
-   "surface": 0.0263,
+   "surface": 0.0603,
    "zone_sacree": 0,
    "textes": [
-    "#02",
-    "TWINGO OASIS V16 RACING"
+    "LES ANCÊTRES"
    ],
-   "nb_textes": 2,
+   "nb_textes": 1,
    "collisions": [],
    "rejet": []
   },
   {
-   "t": 84.3,
+   "t": 87.03,
+   "label": "Rush · #10",
+   "groupe": "arene",
+   "surface": 0.034,
+   "zone_sacree": 0,
+   "textes": [
+    "LA GEN Z"
+   ],
+   "nb_textes": 1,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 89.83,
    "label": "Couronne des 15 concept-cars",
    "groupe": "arene",
-   "surface": 0,
+   "surface": 0.0631,
    "zone_sacree": 0,
-   "textes": [],
-   "nb_textes": 0,
+   "textes": [
+    "SONT CONVIÉS !"
+   ],
+   "nb_textes": 1,
    "collisions": [],
    "rejet": []
   },
   {
-   "t": 85.4,
+   "t": 90.93,
    "label": "Portail express",
    "groupe": "arene",
-   "surface": 0,
+   "surface": 0.0651,
    "zone_sacree": 0,
-   "textes": [],
-   "nb_textes": 0,
+   "textes": [
+    "SONT CONVIÉS !"
+   ],
+   "nb_textes": 1,
    "collisions": [],
    "rejet": []
   },
   {
-   "t": 100.1,
+   "t": 105.63,
    "label": "Téléphone · points",
    "groupe": "arene",
    "surface": 0,
@@ -269,7 +271,7 @@
    "rejet": []
   },
   {
-   "t": 108.055,
+   "t": 113.585,
    "label": "Lootbox · atterrissage lourd",
    "groupe": "arene",
    "surface": 0,
@@ -280,7 +282,7 @@
    "rejet": []
   },
   {
-   "t": 108.953,
+   "t": 114.483,
    "label": "Lootbox · longue attente, lumière aux joints",
    "groupe": "arene",
    "surface": 0,
@@ -291,7 +293,7 @@
    "rejet": []
   },
   {
-   "t": 111.85,
+   "t": 117.38,
    "label": "Lootbox · le rideau s'ouvre lentement",
    "groupe": "arene",
    "surface": 0,
@@ -302,7 +304,7 @@
    "rejet": []
   },
   {
-   "t": 114.1,
+   "t": 119.63,
    "label": "EMBRASEMENT · le trophée sort",
    "groupe": "arene",
    "surface": 0,
@@ -313,7 +315,7 @@
    "rejet": []
   },
   {
-   "t": 115.7,
+   "t": 121.23,
    "label": "Trophée au centre du ring",
    "groupe": "arene",
    "surface": 0,
@@ -324,7 +326,7 @@
    "rejet": []
   },
   {
-   "t": 116.7,
+   "t": 122.23,
    "label": "« GLOIRE »",
    "groupe": "arene",
    "surface": 0.0475,
@@ -337,7 +339,7 @@
    "rejet": []
   },
   {
-   "t": 117.8,
+   "t": 123.33,
    "label": "« GLOIRE ÉTERNELLE » · pyro",
    "groupe": "arene",
    "surface": 0.1169,
@@ -351,7 +353,7 @@
    "rejet": []
   },
   {
-   "t": 120.7,
+   "t": 126.23,
    "label": "Gloire éternelle · recul en majesté",
    "groupe": "arene",
    "surface": 0.114,
@@ -365,7 +367,7 @@
    "rejet": []
   },
   {
-   "t": 123.2,
+   "t": 128.73,
    "label": "Départ · les cordes tombent",
    "groupe": "arene",
    "surface": 0,
@@ -376,7 +378,7 @@
    "rejet": []
   },
   {
-   "t": 126.3,
+   "t": 131.83,
    "label": "Départ · poursuite sur la piste 5 voies",
    "groupe": "arene",
    "surface": 0,
@@ -387,7 +389,7 @@
    "rejet": []
   },
   {
-   "t": 128.5,
+   "t": 134.03,
    "label": "Logo final · la meute sous le logo",
    "groupe": "arene",
    "surface": 0.11,
@@ -398,7 +400,7 @@
    "rejet": []
   },
   {
-   "t": 130.5,
+   "t": 136.03,
    "label": "Logo final · bouquet",
    "groupe": "arene",
    "surface": 0.1076,
@@ -409,7 +411,7 @@
    "rejet": []
   },
   {
-   "t": 88.4,
+   "t": 93.93,
    "label": "Gotham nocturne · Batmobile",
    "groupe": "familles",
    "surface": 0,
@@ -420,7 +422,7 @@
    "rejet": []
   },
   {
-   "t": 91.2,
+   "t": 96.73,
    "label": "Ligne arc-en-ciel · feux",
    "groupe": "familles",
    "surface": 0,
@@ -431,7 +433,7 @@
    "rejet": []
   },
   {
-   "t": 94.1,
+   "t": 99.63,
    "label": "Tokyo · la course dans le virage",
    "groupe": "familles",
    "surface": 0,
