@@ -493,7 +493,13 @@ export async function creerSegment(ctx) {
 
       /* ── habillage ── */
       const hud = (g, W, H) => {
-        if (enRush) { const tc0 = RU.cuts[ru.i], tc1 = RU.cuts[ru.i + 1] ?? RU.fin; bandeauCompact(g, W, H, fiches[k], t - tc0, smoother((t - (tc1 - 0.14)) / 0.1)); }
+        // V9.4 : grands titres pop des GÉNÉRATIONS (un seul à la fois, en bas, hors zone centrale) — ils remplacent le bandeau
+        if (enRush) {
+          const tc0 = RU.cuts[ru.i], tc1 = RU.cuts[ru.i + 1] ?? RU.fin, titre = (RU.titres || [])[ru.i];
+          if (titre) mot(g, W, titre, t - tc0 - 0.05, 948, 150, smoother((t - (tc1 - 0.12)) / 0.08));
+          else bandeauCompact(g, W, H, fiches[k], t - tc0, smoother((t - (tc1 - 0.14)) / 0.1));
+        }
+        if (enCouronne && CO.titre) mot(g, W, CO.titre, t - CO.debut - 0.12, 150, 150, smoother((t - (CO.fin - 0.35)) / 0.25));
         else if (enEcuries && !enCouronne) {
           const sl = P.ecuries[k];
           bandeau.dessiner(g, W, H, k, t - sl.debut, sl.fin - sl.debut);

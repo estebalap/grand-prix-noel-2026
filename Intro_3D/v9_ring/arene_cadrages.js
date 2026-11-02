@@ -78,9 +78,14 @@ export function creerCadrages({ P, G, entrees, lisse, poseVoiture, voitures }) {
     return relatif(r, -recul, 9, haut, { leve: 1.8, vise: lerp(3, 5, u), fov: 44 });
   };
   R[7] = (k, t, sl) => {            // #08 zoom : Dutch 8° 3/4 arrière bas → 3/4 avant bas (la remorque plonge vers nous)
-    const L2 = voitures[k].d.L / 2;
-    if (t < sl.saut) return relatif(rep(k, t, 0.12), -(L2 + 6), 12, 2.6, { leve: 1.8, vise: 2, fov: 44, roll: 8 * DEG });
-    return relatif(rep(k, t, 0.12), L2 + 7, -12, 2.4, { leve: 2, fov: 46, roll: -5 * DEG });
+    // V9.4 : entrée « normale » (plus de coupe) — 3/4 arrière Dutch qui glisse en douceur vers un 3/4 avant flatteur pendant le vol
+    const L2 = voitures[k].d.L / 2, r = rep(k, t, 0.12);
+    const A = relatif(r, -(L2 + 6), 12, 2.6, { leve: 1.8, vise: 2, fov: 44, roll: 8 * DEG });
+    const B = relatif(r, L2 + 8, -13, 3.2, { leve: 2, fov: 46, roll: -3 * DEG });
+    if (sl.zoom) return t < sl.saut ? A : B;
+    // bascule latérale (hors de la caisse) : on passe par un profil haut pour ne jamais traverser la voiture
+    const u = smoother((t - sl.saut + 0.2) / 0.9), M = relatif(r, 0, 26, 9, { leve: 2, fov: 46 });
+    return u < 0.5 ? melange(A, M, u * 2) : melange(M, B, u * 2 - 1);
   };
   R[8] = (k, t, sl) => {            // #09 poursuite 3/4 → contre-plongée mobile pendant le piqué → 3/4 avant
     const r = rep(k, t, 0.12);
@@ -110,8 +115,9 @@ export function creerCadrages({ P, G, entrees, lisse, poseVoiture, voitures }) {
     return melange(A, B, smoother((t - sl.atterrissage) / 0.5));
   };
   R[13] = (k, t) => relatif(rep(k, t, 0.15), -21, 8, 6.5, { vise: 2.5, fov: 44 });                                                  // #14 poursuite 3/4 classique
-  R[14] = (k, t, sl) => {           // #15 frontal depuis le centre du ring (la voiture fonce vers nous), puis 3/4 avant
+  R[14] = (k, t, sl) => {           // #15 frontal (la voiture fonce vers nous), zoom V9.4 : COUPE à l'atterrissage → contre-plongée 3/4
     const r = rep(k, t, 0.15);
+    if (sl.zoom && t >= sl.atterrissage) return relatif(r, 15, -10, 1.5, { leve: 2.6, fov: 46 });
     const A = relatif(r, 19, 4, 3.6, { leve: 2.5, fov: 40 });
     const B = relatif(r, 17, 10, 3, { fov: 42 });
     return melange(A, B, smoother((t - sl.atterrissage) / 0.5));
@@ -125,7 +131,8 @@ export function creerCadrages({ P, G, entrees, lisse, poseVoiture, voitures }) {
     8: { cle: (sl) => sl.atterrissage + 0.1, plan: (r) => relatif(r, voitures[7].d.L / 2 + 8, 12, 3, { fov: 44 }) },                                          // A4 en dérapage, 3/4 avant
     3: { cle: (sl) => sl.sortie + 0.3, plan: (r) => relatif(r, 21, 0.5, 2.8, { leve: 2.6, fov: 40 }) },                                                         // face pure, flare des phares
     2: { cle: (sl) => sl.atterrissage + 0.05, plan: (r) => ({ p: add(r.p, [13, 22, 13]), c: add(r.p, [0, 1, 0]), fov: 40 }) },                                // Twingo : tête-à-queue vu en plongée
-    10: { cle: (sl) => sl.saut + 0.5, plan: (r) => ({ p: r.W(G.RLAND - 23, 9, 1.4), c: add(r.p, [0, 2.6, 0]), fov: 50 }) },                                  // 6 roues : contre-plongée à l'atterrissage
+    15: { cle: (sl) => sl.place - 0.9, plan: (r) => relatif(r, 15, 8, 2.4, { leve: 2.6, fov: 42, roll: 6 * DEG }) },                                          // Princess Blooming : 3/4 avant « royal »
+    10: { cle: (sl) => sl.sortie + 0.45, plan: (r) => relatif(r, 17, -12, 1.6, { leve: 3, fov: 46 }) },                                                        // 6 roues sur la passerelle, contre-plongée 3/4 avant (aucune voiture devant)
   };
   function rush(t) {
     if (!RU || t < RU.debut || t >= RU.fin) return null;
@@ -158,7 +165,7 @@ export function creerCadrages({ P, G, entrees, lisse, poseVoiture, voitures }) {
   const cameraArrivee = (t) => ({ p: hermite(AR_CLES, t, 'p'), c: hermite(AR_CLES, t, 'c'), fov: hermite(AR_CLES, t, 'fov') });
 
   /* ═════════════ coupes franches (flash 2 images) et impulsions de trauma ═════════════ */
-  const COUPES_ZOOM = { 1: (sl) => [sl.saut], 2: (sl) => [sl.atterrissage], 7: (sl) => [sl.saut], 9: (sl) => [sl.atterrissage + 0.3] };
+  const COUPES_ZOOM = { 1: (sl) => [sl.saut], 2: (sl) => [sl.atterrissage], 7: (sl) => [sl.saut], 9: (sl) => [sl.atterrissage + 0.3], 14: (sl) => [sl.atterrissage] };
   const coupesDe = (k) => (P.ecuries[k].zoom && COUPES_ZOOM[k] ? COUPES_ZOOM[k](P.ecuries[k]) : []);
   const coupes = [];
   P.ecuries.forEach((sl, k) => coupesDe(k).forEach((tc, j) => coupes.push({ t: tc, k, j })));

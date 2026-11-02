@@ -1,7 +1,7 @@
 {
  "voix": "Commentateur def (ElevenLabs, voice_id QLs7iK8pmd23CyW29R9f)",
- "version": "v9.3",
- "note": "UNE prise continue par pièce (bornes à vérifier à −48 dB, fondus 25 ms). Écurie 7 : deux morceaux (prise anglaise Yaris_A + fin). t_film = début de la pièce en temps FILM. atempo_max : accélération douce autorisée si la pièce dépasse son créneau (jamais de coupe). emphase : traitement stade. Bornes « familles/paris » corrigées par le Chef de régie d'après la transcription Scribe (le brief inversait les deux et débordait sur le silence entre prises). V9.3 : ouverture « Mais ce soir… le salon… se transforme… EN ARÈNE ! » (L02, bornes à revérifier aux creux), familles en 3 phrases entières (coupées aux respirations, jamais dans un mot).",
+ "version": "v9.4",
+ "note": "UNE prise continue par pièce (bornes à vérifier à −48 dB, fondus 25 ms). Écurie 7 : deux morceaux (prise anglaise Yaris_A + fin). t_film = début de la pièce en temps FILM. atempo_max : accélération douce autorisée si la pièce dépasse son créneau (jamais de coupe). emphase : traitement stade. Bornes « familles/paris » corrigées par le Chef de régie d'après la transcription Scribe (le brief inversait les deux et débordait sur le silence entre prises). V9.3 : ouverture « Mais ce soir… le salon… se transforme… EN ARÈNE ! » (L02, bornes à revérifier aux creux), familles en 3 phrases entières (coupées aux respirations, jamais dans un mot). V9.4 : ouverture sur le refrain du Mal Aimé (« Mais ce soir… le salon… se transforme… EEENNN… ARÈNE ! », voyelle tenue sans blanc) ; rush des générations (5 répliques à générer voix_off/rush_*.mp3, bornes None = fichier entier rogné aux silences).",
  "pieces": [
   {
    "id": "accueil",
@@ -13,7 +13,7 @@
      3.65
     ]
    ],
-   "t_film": 1.0,
+   "t_film": 1.2,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -23,12 +23,12 @@
    "texte": "Mais ce soir…",
    "morceaux": [
     [
-     "voix_off/L02.mp3",
+     "voix_off/ouverture_L02.mp3",
      0.04,
-     1.1
+     1.12
     ]
    ],
-   "t_film": 5.6,
+   "t_film": 8.6,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -38,12 +38,12 @@
    "texte": "…le salon…",
    "morceaux": [
     [
-     "voix_off/L02.mp3",
+     "voix_off/ouverture_L02.mp3",
      1.12,
      1.95
     ]
    ],
-   "t_film": 6.9,
+   "t_film": 11.0,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -53,27 +53,44 @@
    "texte": "…se transforme…",
    "morceaux": [
     [
-     "voix_off/L02.mp3",
+     "voix_off/ouverture_L02.mp3",
      1.95,
-     2.94
+     2.925
     ]
    ],
-   "t_film": 8.4,
+   "t_film": 12.3,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
   },
   {
-   "id": "en_arene",
-   "texte": "EN ARÈNE !",
+   "id": "en_tenu",
+   "texte": "…EEEENNNNN…",
    "morceaux": [
     [
-     "voix_off/L02.mp3",
-     2.96,
+     "voix_off/ouverture_L02.mp3",
+     2.925,
+     3.12
+    ]
+   ],
+   "t_film": 13.35,
+   "tenir_jusqua": 15.93,
+   "note": "voyelle « en » TENUE (étirement de la voyelle sans changer la hauteur, montée d'intensité) jusqu'à l'arrivée d'« ARÈNE ! » : aucun blanc",
+   "emphase": false,
+   "atempo_max": 1.0,
+   "fondu": 0.025
+  },
+  {
+   "id": "arene_cri",
+   "texte": "ARÈNE !",
+   "morceaux": [
+    [
+     "voix_off/ouverture_L02.mp3",
+     3.12,
      4.2
     ]
    ],
-   "t_film": 11.0,
+   "t_film": 15.93,
    "emphase": true,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -88,7 +105,7 @@
      6.64
     ]
    ],
-   "t_film": 12.1,
+   "t_film": 17.03,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -103,7 +120,7 @@
      10.74
     ]
    ],
-   "t_film": 15.2,
+   "t_film": 20.13,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -118,7 +135,7 @@
      15.36
     ]
    ],
-   "t_film": 19.24,
+   "t_film": 24.17,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -133,7 +150,7 @@
      19.52
     ]
    ],
-   "t_film": 23.51,
+   "t_film": 28.44,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -148,7 +165,7 @@
      23.94
     ]
    ],
-   "t_film": 27.41,
+   "t_film": 32.34,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -163,7 +180,7 @@
      27.78
     ]
    ],
-   "t_film": 31.49,
+   "t_film": 36.42,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -178,7 +195,7 @@
      33.28
     ]
    ],
-   "t_film": 35.39,
+   "t_film": 40.32,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -198,7 +215,7 @@
      37.9
     ]
    ],
-   "t_film": 40.55,
+   "t_film": 45.48,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -213,7 +230,7 @@
      42.86
     ]
    ],
-   "t_film": 45.17,
+   "t_film": 50.1,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -228,7 +245,7 @@
      49.88
     ]
    ],
-   "t_film": 49.77,
+   "t_film": 54.7,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -243,7 +260,7 @@
      54.35
     ]
    ],
-   "t_film": 54.63,
+   "t_film": 59.56,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -258,7 +275,7 @@
      58.96
     ]
    ],
-   "t_film": 58.84,
+   "t_film": 63.77,
    "emphase": false,
    "atempo_max": 1.08,
    "fondu": 0.025
@@ -273,7 +290,7 @@
      63.36
     ]
    ],
-   "t_film": 62.97,
+   "t_film": 67.9,
    "emphase": false,
    "atempo_max": 1.08,
    "fondu": 0.025
@@ -288,7 +305,7 @@
      67.86
     ]
    ],
-   "t_film": 66.81,
+   "t_film": 71.74,
    "emphase": false,
    "atempo_max": 1.08,
    "fondu": 0.025
@@ -303,7 +320,7 @@
      72.88
     ]
    ],
-   "t_film": 70.76,
+   "t_film": 75.69,
    "emphase": false,
    "atempo_max": 1.08,
    "fondu": 0.025
@@ -318,10 +335,90 @@
      76.94
     ]
    ],
-   "t_film": 75.17,
+   "t_film": 80.1,
    "emphase": false,
    "atempo_max": 1.08,
    "fondu": 0.025
+  },
+  {
+   "id": "rush_ancetres",
+   "texte": "Les ancêtres !",
+   "morceaux": [
+    [
+     "voix_off/rush_ancetres.mp3",
+     null,
+     null
+    ]
+   ],
+   "t_film": 83.75,
+   "emphase": false,
+   "atempo_max": 1.0,
+   "fondu": 0.025,
+   "a_generer": true
+  },
+  {
+   "id": "rush_dinosaures",
+   "texte": "Les dinosaures !",
+   "morceaux": [
+    [
+     "voix_off/rush_dinosaures.mp3",
+     null,
+     null
+    ]
+   ],
+   "t_film": 85.15,
+   "emphase": false,
+   "atempo_max": 1.0,
+   "fondu": 0.025,
+   "a_generer": true
+  },
+  {
+   "id": "rush_genz",
+   "texte": "La Gen Z !",
+   "morceaux": [
+    [
+     "voix_off/rush_genz.mp3",
+     null,
+     null
+    ]
+   ],
+   "t_film": 86.55,
+   "emphase": false,
+   "atempo_max": 1.0,
+   "fondu": 0.025,
+   "a_generer": true
+  },
+  {
+   "id": "rush_genalpha",
+   "texte": "La Gen Alpha… six-seven !",
+   "morceaux": [
+    [
+     "voix_off/rush_genalpha.mp3",
+     null,
+     null
+    ]
+   ],
+   "t_film": 87.9,
+   "emphase": false,
+   "atempo_max": 1.0,
+   "fondu": 0.025,
+   "a_generer": true
+  },
+  {
+   "id": "rush_convies",
+   "texte": "…sont conviés !",
+   "morceaux": [
+    [
+     "voix_off/rush_convies.mp3",
+     null,
+     null
+    ]
+   ],
+   "t_film": 89.35,
+   "emphase": true,
+   "atempo_max": 1.0,
+   "fondu": 0.025,
+   "a_generer": true
   },
   {
    "id": "famille_gotham",
@@ -333,7 +430,7 @@
      90.43
     ]
    ],
-   "t_film": 87.6,
+   "t_film": 93.13,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -348,7 +445,7 @@
      92.53
     ]
    ],
-   "t_film": 90.3,
+   "t_film": 95.83,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -363,7 +460,7 @@
      94.1
     ]
    ],
-   "t_film": 92.9,
+   "t_film": 98.43,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -378,7 +475,7 @@
      88.4
     ]
    ],
-   "t_film": 96.2,
+   "t_film": 101.73,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -393,7 +490,7 @@
      96.95
     ]
    ],
-   "t_film": 106.3,
+   "t_film": 111.83,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -408,7 +505,7 @@
      101.3
     ]
    ],
-   "t_film": 114.0,
+   "t_film": 119.53,
    "emphase": true,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -423,7 +520,7 @@
      102.7
     ]
    ],
-   "t_film": 122.75,
+   "t_film": 128.28,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -438,7 +535,7 @@
      104.6
     ]
    ],
-   "t_film": 128.2,
+   "t_film": 133.73,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025

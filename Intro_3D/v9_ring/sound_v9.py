@@ -79,6 +79,7 @@ LISSAGE_DUCK = 0.080           # enveloppe de ducking lissée sur 80 ms
 GAIN_VOIX = 1.0
 # L02 « Le salon… se transforme en… ARÈNE ! » : la borne 2,14 / 2,15 du JSON tombe dans le /s/ de « se » (fricative 1,98 → 2,15,
 # creux de −32 dB au milieu) ; « salon » finit à 1,96 (creux −28 dB) → la jonction est déplacée au creux 1,88–1,99.
+BORNES_FIXES = {'en_tenu': ('debut', 'fin'), 'arene_cri': ('debut',)}
 JONCTIONS_REVUES = {'salon': {'fin': (1.88, 1.99, '« se » commence à 1,98 s (fricative /s/)')},
                     'transforme': {'debut': (1.88, 1.99, '« se » commence à 1,98 s (fricative /s/)')}}
 GAP_MORCEAUX = 0.03             # écurie 7 : silence entre la prise anglaise et la fin
@@ -1193,6 +1194,11 @@ def voix_off_v9(sr, N, pieces, duree):
                 cache_env[fic] = dv.enveloppe_db(brut, sr)[:2] + (brut,)
                 cache_rendu[fic] = v7.decoder_ffmpeg(ch, sr, filtre=v8.FILTRE_VOIX_V8, canaux=1)[:, 0]
             ts, e, _ = cache_env[fic]
+            if a is None or b is None:                       # bornes None : fichier entier rogné aux silences (−48 dB)
+                fort = np.where(e > dv.SEUIL_SILENCE_DB)[0]
+                a = float(ts[fort[0]]) - 0.02 if a is None else a
+                b = float(ts[fort[-1]]) + 0.03 if b is None else b
+                a, b = max(0.0, a), min(float(ts[-1]), b)
             ca, ra = dv.corriger_borne(ts, e, float(a), -1)
             cb, rb = dv.corriger_borne(ts, e, float(b), +1)
             bornes.append({'id': '%s#%d' % (p['id'], k), 'piece': p['id'], 'k': k, 'fichier': fic, 'debut': ca, 'fin': cb,
@@ -1209,6 +1215,19 @@ def voix_off_v9(sr, N, pieces, duree):
             b['niveau_%s_db' % cote] = round(float(e[w].min()), 1)
     jonctions = dv.harmoniser_jonctions(bornes, {f: v[:2] for f, v in cache_env.items()})
     par_id = {b['id']: b for b in bornes}
+    for pid, cotes in BORNES_FIXES.items():                  # bornes imposées (voyelle tenue, attaque du cri)
+        b = par_id.get('%s#0' % pid)
+        if b is None:
+            continue
+        for cote in cotes:
+            b[cote] = b[cote + '_json']
+            b['statut_' + cote] = 'fixée (jonction voyelle tenue)'
+        for b2 in bornes:                                    # le voisin de même prise ne doit pas empiéter
+            if b2 is not b and b2['fichier'] == b['fichier']:
+                if b2['debut'] < b['debut'] < b2['fin'] <= b['fin'] + 1e-9:
+                    b2['fin'] = b['debut']
+                if b['debut'] <= b2['debut'] - 1e-9 and b2['debut'] < b['fin'] < b2['fin']:
+                    b2['debut'] = b['fin']
     corrections = []
     for b in bornes:
         if abs(b['debut'] - b['debut_json']) > 1e-4 or abs(b['fin'] - b['fin_json']) > 1e-4:
@@ -1247,7 +1266,27 @@ def voix_off_v9(sr, N, pieces, duree):
         y, y_brut = np.concatenate(parts), np.concatenate(parts_brut)
         d = y.shape[0] / sr
         t_suiv = float(pieces[ip + 1]['t_film']) if ip + 1 < len(pieces) else duree
-        t0 = max(float(p['t_film']), fin_prec + 0.02)
+        prec_tenue = ip > 0 and pieces[ip - 1].get('tenir_jusqua') is not None
+        t0 = max(float(p['t_film']), fin_prec if prec_tenue else fin_prec + 0.02)
+        if p.get('tenir_jusqua') is not None:               # « EEENNN » : voyelle tenue jusqu'à l'arrivée du cri
+            d_t = float(p['tenir_jusqua']) - t0
+            b0 = par_id['%s#0' % p['id']]
+            src = cache_rendu[b0['fichier']][int(round(b0['debut'] * sr)):int(round(b0['fin'] * sr))]
+            y, info_t = tenir_voyelle(src, sr, d_t)
+            poser(humide, queue_reverbe(y, sr, 1.2, 400 + ip, pre=0.02), t0, sr, gain=0.35)
+            i = int(round(t0 * sr))
+            piste[i:i + y.shape[0]] += y[:max(0, N - i)]
+            fin = float(p['tenir_jusqua'])
+            intervalles.append((t0, fin))
+            controles.append({'id': p['id'], 'zones_coupees': []})
+            rapport.append({'id': p['id'], 'texte': p.get('texte', ''), 'morceaux_json': p['morceaux'],
+                            'bornes': [[round(b0['debut'], 3), round(b0['fin'], 3)]], 't_film_json': p['t_film'],
+                            'attaque': round(t0, 3), 'fin': round(fin, 3), 'retard_s': round(t0 - float(p['t_film']), 3),
+                            'creneau_s': round(fin - t0, 3), 'duree_prise_s': round(d, 3), 'atempo': 1.0, 'atempo_max': 1.0,
+                            'duree_finale_s': round(fin - t0, 3), 'debordement_s': 0.0, 'emphase': False, 'emphase_depuis_s': None,
+                            'voyelle_tenue': info_t})
+            fin_prec = fin
+            continue
         creneau = t_suiv - 0.10 - t0
         amax = float(p.get('atempo_max', 1.0))
         facteur = 1.0
@@ -1314,6 +1353,58 @@ def voix_off_v9(sr, N, pieces, duree):
     assert max(b for _, b in intervalles) <= duree - 0.3, 'la dernière pièce de voix doit finir avant %.2f s' % (duree - 0.3)
     humide[int((duree - 0.06) * sr):] = 0.0
     return piste, humide, intervalles, rapport, corrections, controles
+
+
+def tenir_voyelle(src, sr, duree, attaque=0.055, xf=0.030, grain=0.050, pas=0.0125, montee_db=4.0, graine=9400):
+    """Voyelle TENUE sans changer la hauteur : l'attaque d'origine (attaque s) est conservée, puis fondu croisé de xf s
+    vers une tenue GRANULAIRE (grains de Hann de 50 ms, pas 12,5 ms, recouvrement ×4, normalisée) dont les grains sont
+    pris au hasard dans la partie STABLE de la voyelle (fenêtre la plus régulière en énergie, ≥ 60 ms) ; intensité qui
+    monte de montee_db, petit fondu de sortie de 30 ms APRÈS `duree` (la pièce suivante entre en fondu croisé).
+    Retourne (mono de duree + xf s, infos)."""
+    rng = np.random.default_rng(graine)
+    n_out = int(round((duree + xf) * sr))
+    h = int(0.010 * sr)
+    nfr = src.shape[0] // h
+    e = 20 * np.log10(np.sqrt(np.mean(src[:nfr * h].reshape(nfr, h) ** 2, axis=1)) + 1e-12)
+    lw = 6
+    i_att = int(attaque / 0.010)
+    best = None
+    for k in range(i_att - 1, max(i_att, nfr - lw - 1)):
+        w = e[k:k + lw]
+        sc = float(np.std(w)) - 0.15 * float(np.mean(w))      # régulière ET forte
+        if best is None or sc < best[0]:
+            best = (sc, k)
+    s0, s1 = best[1] * h, min(src.shape[0], (best[1] + lw) * h)
+    ng, nh = int(grain * sr), int(pas * sr)
+    win = np.hanning(ng)
+    stable = src[max(0, s0 - ng // 2):s1 + ng // 2]
+    tenue = np.zeros(n_out + ng)
+    norm = np.zeros(n_out + ng)
+    i = 0
+    while i < n_out:
+        j = int(rng.integers(0, max(1, stable.shape[0] - ng)))
+        g = stable[j:j + ng]
+        if g.shape[0] < ng:
+            g = np.pad(g, (0, ng - g.shape[0]))
+        tenue[i:i + ng] += g * win
+        norm[i:i + ng] += win
+        i += nh
+    tenue = tenue[:n_out] / np.maximum(norm[:n_out], 1e-3)
+    tenue *= rms(src[s0:s1]) / (rms(tenue[int(0.1 * sr):]) + 1e-12)
+    n_att, n_xf = int(attaque * sr), int(xf * sr)
+    out = tenue.copy()
+    a_ = src[:n_att + n_xf].copy()
+    a_ = np.pad(a_, (0, max(0, n_att + n_xf - a_.shape[0])))
+    up = np.sin(0.5 * np.pi * np.arange(n_xf) / n_xf)
+    out[:n_att] = a_[:n_att]
+    out[n_att:n_att + n_xf] = a_[n_att:n_att + n_xf] * up[::-1] + tenue[n_att:n_att + n_xf] * up
+    t = np.arange(n_out) / sr
+    out *= 10 ** (montee_db * np.clip(t / max(duree, 1e-3), 0, 1) ** 1.3 / 20.0)
+    nf = int(0.025 * sr)
+    out[:nf] *= np.sin(0.5 * np.pi * np.arange(nf) / nf)
+    out[-n_xf:] *= up[::-1]
+    return out, {'source_stable_s': [round(s0 / sr, 3), round(s1 / sr, 3)], 'attaque_conservee_s': attaque, 'fondu_croise_s': xf,
+                 'grain_s': grain, 'pas_s': pas, 'montee_db': montee_db, 'duree_s': round(duree, 3)}
 
 
 def courbe_ducking(intervalles, reductions_db, N, sr, avant=0.05, apres=0.12):
@@ -1824,8 +1915,66 @@ SEUIL_RING_DBFS = -60.0                        # contrôle de présence de la ri
 TROU_MAX_S = 0.3
 EMPHASE_QUEUE = {'gloire': (99.10, 99.50)}     # source : silence entre « …pour lui, » (fin 99,08) et « la gloire éternelle »
 CLOCLO_REFRAIN_1 = (29.221, 28.91)             # « Le Mal Aimé » : temps fort du refrain 1 (mesuré V9.2) et anacrouse, fichier complet
-CLOCLO_REFRAIN_2 = (70.6, 70.285)              # refrain 2 (annoncé ≈ 70,6 s, re-mesuré) et anacrouse (un demi-temps avant)
-GAG_SOUS_VOIX_04_DB = -7.0                     # #04 : son moteur réel SOUS « Le Mal Aimé » (le refrain reste au premier plan)
+LERO_DEBUT_S, LERO_DUREE_S = 3.0, (2.5, 3.5)   # #12 : lero_lero.mp3 à partir de 3,0 s, extrait coupé sur un creux entre 2,5 et 3,5 s
+LERO_MOTEUR_SOUS_DB = -8.0                     # #12 : le moteur réel passe sous le gag
+CONTINUITE_SEUIL_DB = -30.0                    # « EEENNN » : aucune zone sous −30 dB (relatif à la crête de la voix) dans la tenue
+
+
+def mal_aime_vrille(chemin, sr, debut_fic, t_tf, P, t_tv, t_v0, t_fin):
+    """Refrain 1 de « Le Mal Aimé » joué NORMALEMENT de 0 à t_tv (lecture du fichier à partir de debut_fic : le temps fort
+    tombe à t_tf), puis la chanson PART EN VRILLE sans aucun blanc jusqu'à t_fin :
+      t_tv → t_v0      la télé s'allume : la bande commence à se déformer (pleurage qui s'installe) ;
+      t_v0 → t_s       accélération de bande (vitesse 1 → 1,35 : la hauteur monte) + pleurage ;
+      t_s → t_fin      bégaiement calé sur la grille des temps (t_s = t_tv + 4 temps) : tranches de 1/2, 1/4, 1/8 puis
+                       1/16 de temps répétées, chaque répétition plus aiguë (×1,35 → ×2,4), passe-haut qui monte (aspiration).
+    Retourne (stéréo de 0 à t_fin, infos)."""
+    marge = 4.0
+    x = v7.decoder_ffmpeg(chemin, sr, debut_fic, t_fin + marge)
+    n = int(round(t_fin * sr))
+    ts_src = np.arange(x.shape[0]) / sr
+    lire = lambda pos: np.stack([np.interp(pos, ts_src, x[:, c]) for c in range(2)], axis=1)
+    t = np.arange(n) / sr
+    pos = t.copy()
+    # pleurage dès la télé, accélération de bande dès t_v0
+    u_w = np.clip((t - t_tv) / max(1e-3, t_v0 - t_tv), 0, 1)
+    pleur = 0.006 * u_w * np.sin(2 * np.pi * 4.7 * np.maximum(0, t - t_tv))
+    t_s = t_tv + 4 * P
+    i_v0, i_s = int(t_v0 * sr), int(t_s * sr)
+    u = np.clip((t[i_v0:i_s] - t_v0) / (t_s - t_v0), 0, 1)
+    vit = 1.0 + 0.35 * u ** 2
+    pos[i_v0:i_s] = t_v0 + np.cumsum(vit) / sr
+    pos[i_s:] = pos[i_s - 1]
+    out = lire(pos[:i_s] + pleur[:i_s])
+    # bégaiement
+    sections = [(t_s, t_s + 2 * P, P / 2), (t_s + 2 * P, t_s + 3 * P, P / 4), (t_s + 3 * P, t_s + 3.5 * P, P / 8), (t_s + 3.5 * P, t_fin, P / 16)]
+    p0 = float(pos[i_s - 1])
+    beg = np.zeros((n - i_s, 2))
+    nb_rep = 0
+    for a, b, L in sections:
+        tr = a
+        while tr < b - 1e-6:
+            Lr = min(L, b - tr)
+            f = 1.35 + 1.05 * ((tr - t_s) / (t_fin - t_s)) ** 1.2
+            nl = int(round(Lr * sr))
+            src = lire(p0 + np.arange(nl) / sr * f)
+            nf_ = min(int(0.003 * sr), nl // 4)
+            if nf_ > 0:
+                rmp = np.sin(0.5 * np.pi * np.arange(nf_) / nf_)[:, None]
+                src[:nf_] *= rmp
+                src[-nf_:] *= rmp[::-1]
+            i0 = int(round(tr * sr)) - i_s
+            beg[i0:i0 + nl] += src[:max(0, beg.shape[0] - i0)]
+            tr += Lr
+            nb_rep += 1
+    hp = np.stack([filtre_bande(beg[:, c], sr, 700.0, None, ordre=2) for c in range(2)], axis=1)
+    w = np.clip((np.arange(beg.shape[0]) / sr) / (t_fin - t_s), 0, 1)[:, None] * 0.75
+    beg = (1 - w) * beg + w * hp
+    out = np.concatenate([out, beg])[:n]
+    gain = 10 ** (np.interp(t, [0, t_v0, t_fin], [0.0, 0.0, 4.0]) / 20.0)
+    out *= gain[:, None]
+    out *= fenetre(n, 0.03, 0.008, sr)[:, None]
+    return out, {'debut_fichier_s': round(debut_fic, 3), 'temps_fort_film_s': round(t_tf, 3), 'pleurage_des_s': t_tv,
+                 'acceleration_bande_s': [t_v0, round(t_s, 3)], 'begaiement_s': [round(t_s, 3), t_fin], 'tranches': nb_rep}
 
 
 def tr_do(m, tq):
@@ -1911,7 +2060,7 @@ def rms_fenetres_db(x, sr, t0, t1, fen=0.4, pas=0.05):
 
 
 def main():
-    ap = argparse.ArgumentParser(description='Bande-son V9.3 « Grand Prix de Noël — Ring » (131,0 s, 48 kHz).')
+    ap = argparse.ArgumentParser(description='Bande-son V9.4 « Grand Prix de Noël — Ring » (136,53 s, 48 kHz).')
     ap.add_argument('--sortie', default=os.path.join(ICI, 'audio', 'mix_v9.wav'))
     ap.add_argument('--mp3', default=os.path.join(ICI, 'audio', 'mix_v9.mp3'))
     ap.add_argument('--timeline', default=os.path.join(ICI, 'data', 'timeline_v9.json'))
@@ -1920,6 +2069,7 @@ def main():
     ap.add_argument('--banque-bbc', default=os.path.join(DOSSIER_V5, 'sons_reels'),
                     help='dossier des WAV BBC (../audio_v5/telecharger_sons_bbc.py) ; absent → synthèse')
     ap.add_argument('--sans-bbc', action='store_true', help='n\'utilise que la synthèse pour les bruitages')
+    ap.add_argument('--strict', action='store_true', help='échoue si une pièce de voix (ex. rush_*.mp3 à générer) manque')
     ap.add_argument('--stems', default=None, help='dossier où écrire les pistes séparées (voix, ring, gags…) après master')
     args = ap.parse_args()
     t_calc = time.time()
@@ -1929,6 +2079,16 @@ def main():
         plan = json.load(f)
     with open(args.voix, encoding='utf-8') as f:
         pieces = json.load(f)['pieces']
+    pieces_toutes = list(pieces)
+    manquantes = [p['id'] for p in pieces if any(not os.path.isfile(os.path.join(ICI, m[0])) for m in p['morceaux'])]
+    if manquantes:
+        msg = 'pièces de voix ABSENTES (fichiers à générer) : %s' % ', '.join(
+            '%s (%s)' % (pid, ', '.join(m[0] for m in next(q for q in pieces if q['id'] == pid)['morceaux'])) for pid in manquantes)
+        if args.strict:
+            print('ERREUR (--strict) : ' + msg, file=sys.stderr)
+            return 2
+        print('  [AVERTISSEMENT] ' + msg + ' -> mix construit SANS ces pièces (relancer quand elles existent)')
+        pieces = [p for p in pieces if p['id'] not in manquantes]
     for p in pieces:
         if p['id'] in EMPHASE_QUEUE:
             p['emphase_depuis'] = EMPHASE_QUEUE[p['id']]
@@ -1979,13 +2139,11 @@ def main():
     parole = [(max(a, pa), min(b, pb)) for a, b in segments_parole(vo, sr) for pa, pb in iv_voix
               if a < pb and b > pa]                          # segments de parole découpés aux bornes des pièces (garde-fou local)
 
-    # ================================ « LE MAL AIMÉ » : temps forts mesurés (refrain 1 et refrain 2) ================================
+    # ================================ « LE MAL AIMÉ » : temps fort mesuré du refrain 1 ================================
     ch_cl = os.path.join(ICI, 'audio', 'sources', 'claude_francois_le_mal_aime.mp3')
     cl1 = temps_fort_cloclo(ch_cl, sr, *CLOCLO_REFRAIN_1)
-    cl2 = temps_fort_cloclo(ch_cl, sr, *CLOCLO_REFRAIN_2)
     P_cl = 60.0 / cl1['bpm']
-    # fondu enchaîné vers la Ring music sur une MESURE de Cloclo (4 temps) la plus proche de la fin de l'arrivée
-    t_ring = t_arene + 4 * P_cl * max(1, round((t_fin_arr - t_arene) / (4 * P_cl)))
+    t_ring = t_arene                                         # la Ring music entre sur « ARÈNE ! »
 
     # ================================ RING MUSIC (fil rouge, de t_ring à la fin) ================================
     ch_ring = os.path.join(ICI, 'audio', 'sources', 'ring_music.mp3')
@@ -1995,77 +2153,73 @@ def main():
                               'mode': ton[1], 'correlation': ton[2]}
     poser(B['ring'], ring, t_ring, sr)
     niveau_ring_ref = B['ring'] * G['ring']                  # niveau de référence (avant automation) pour caler les ambiances
-    ev(t_ring, 'RING MUSIC (fil rouge) : entre sur son temps fort, fondu enchaîné depuis « Le Mal Aimé » ; %d mesures jusqu\'au logo' % (
+    ev(t_ring, 'RING MUSIC (fil rouge) : entre sur son temps fort avec « ARÈNE ! » ; %d mesures jusqu\'au logo' % (
         infos_ring['mesures_logo_a_logo']), 'ring', fin=DUREE, source='audio/sources/ring_music.mp3 (extrait client, lu)')
     tq = ton[0] if ton[0] <= 6 else ton[0] - 12
     accord_aigu = accord_midi(tq, ton[1], base=72, voix=(12, 16, 19, 24))
     accord_cuivres = accord_midi(tq, ton[1], base=36, voix=(0, 7, 12, 16, 19, 24, 28, 31))
     arpege = accord_midi(tq, ton[1], base=72, voix=(0, 4, 7, 12, 16, 19, 24))
-    e04 = ecuries[3]
     t_imp = LB['descente'] + 1.1
     t_feu = float(LB['embrasement'])
     t_ouvre = max(float(GL['titre_eternelle']), fin_voix.get('gloire', float(GL['titre_eternelle']) + 0.5))
     pg0, pg1 = FA['pause_gotham']
-    cles_gain = [(0.0, 0.0), (e04['debut'] - 0.25, 0.0), (e04['debut'] + 0.05, -14.0), (e04['fin'] - 0.25, -14.0), (e04['fin'] + 0.15, 0.0),
-                 (pg0 - 0.4, 0.0), (pg0 + 0.1, -18.0), (pg1 - 0.1, -18.0), (pg1 + 0.5, 0.0),
+    cles_gain = [(0.0, 0.0), (pg0 - 0.4, 0.0), (pg0 + 0.1, -18.0), (pg1 - 0.1, -18.0), (pg1 + 0.5, 0.0),
                  (t_imp, 0.0), (t_imp + 0.7, -16.0), (t_feu - 0.03, -16.0), (t_feu + 0.05, 2.0),
                  (t_ouvre - 0.02, 2.0), (t_ouvre + 0.25, 5.0), (DUREE, 5.0)]
     B['ring'] *= courbe_db(N, sr, cles_gain)[:, None]
-    ev(e04['debut'], 'ring : s\'efface (−14 dB) sous « Le Mal Aimé » (refrain 2)', 'ecuries', fin=e04['fin'])
     ev(pg0, 'ring : se retire presque (−18 dB) — pause de rythme à Gotham', 'familles', fin=pg1)
     ev(t_imp, 'ring : se retire (−16 dB) — suspense du conteneur', 'lootbox', fin=t_feu)
     ev(t_feu, 'ring : revient PLEINE (+2 dB) — tout s\'enflamme', 'lootbox')
     ev(t_ouvre, 'ring : + 3 dB après « éternelle »', 'gloire', fin=t_ouvre + 0.25)
     niveau_ring = B['ring'] * G['ring']
 
-    # ================================ OUVERTURE (0 → 11 s) : crescendo sur « Le Mal Aimé » ================================
-    rng = np.random.default_rng(93100)
+    # ================================ OUVERTURE (0 → 15,93) : refrain du Mal Aimé « normal », puis la VRILLE ================================
+    rng = np.random.default_rng(94100)
+    t_tf, t_tv = float(O['refrain_temps_fort']), float(O['tv_allume'])
     noir0, noir1 = O['noir']
     fest0, fest1 = O['allumage_festif']
     vr0, vr1 = O['vrille']
-    debut_fic = cl1['temps_fort_retenu_s'] - t_arene          # le temps fort du refrain tombe pile sur « EN ARÈNE ! »
-    d_op = t_ring + 0.1
-    xop = v7.decoder_ffmpeg(ch_cl, sr, debut_fic, d_op)
-    cles_db = [(0.0, -28.0), (noir1, -28.0), (fest1, -17.0), (vr0, -14.0), (t_arene - 0.1, 0.0), (t_ring - 0.6, 0.0), (t_ring + 0.02, -60.0), (d_op, -60.0)]
-    cles_fc = [(0.0, 500.0), (noir1, 500.0), (fest1, 1600.0), (vr0, 2400.0), (t_arene - 0.15, 16000.0), (d_op, 16000.0)]
-    xop = cloclo_crescendo(xop, sr, cles_db, cles_fc)
-    xop *= fenetre(xop.shape[0], 0.3, 0.01, sr)[:, None]
+    debut_fic = cl1['temps_fort_retenu_s'] - t_tf            # temps fort 29,22 s du fichier → 0,81 s film
+    xop, info_vr = mal_aime_vrille(ch_cl, sr, debut_fic, t_tf, P_cl, t_tv, vr0, t_arene)
     ref_plein = rms(v7.decoder_ffmpeg(ch_cl, sr, cl1['temps_fort_retenu_s'], 4.0))
-    xop *= 10 ** ((V + CLOCLO_SOUS_VOIX_DB - 1.0) / 20.0) / (ref_plein + 1e-12)
+    xop *= 10 ** ((V + CLOCLO_SOUS_VOIX_DB) / 20.0) / (ref_plein + 1e-12)
     poser(B['cloclo'], xop, 0.0, sr)
-    cl1.update({'debut_fichier_s': round(debut_fic, 3), 'temps_fort_film_s': round(cl1['temps_fort_retenu_s'] - debut_fic, 4),
-                'fondu_vers_ring_s': [round(t_ring - 0.6, 3), round(t_ring, 3)], 'periode_temps_s': round(P_cl, 4)})
-    ev(0.0, '« Le Mal Aimé » en fond dès le début (lu à partir de %.3f s) : radio lointaine étouffée (passe-bas 500 Hz, −28 dB)' % debut_fic,
-       'ouverture', fin=noir1, source='audio/sources/claude_francois_le_mal_aime.mp3 (lu)')
-    ev(fest0, '« Le Mal Aimé » se rapproche : filtre qui s\'ouvre, niveau qui monte', 'ouverture', fin=fest1)
-    ev(vr0, '« Le Mal Aimé » monte jusqu\'au plein niveau', 'ouverture', fin=t_arene)
+    cl1.update(info_vr)
+    cl1['periode_temps_s'] = round(P_cl, 4)
+    cl1['mesures_jusqua_tele'] = round((t_tv - t_tf) / (4 * P_cl), 3)
+    ev(0.0, '« Le Mal Aimé » REFRAIN 1 joué normalement (lu dès %.3f s : anacrouse « Je suis… » à %.2f, temps fort à %.2f)' % (
+        debut_fic, cl1['anacrouse_mesuree_s'] - debut_fic, t_tf), 'ouverture', fin=t_tv,
+       source='audio/sources/claude_francois_le_mal_aime.mp3 (lu)')
+    ev(t_tv, '« Le Mal Aimé » commence à se déformer (pleurage)', 'ouverture', fin=vr0)
+    ev(vr0, '« Le Mal Aimé » PART EN VRILLE : accélération de bande puis bégaiement de plus en plus serré et aigu, sans blanc',
+       'ouverture', fin=t_arene)
     feu = feu_net(sr, rng, vr0 + 0.4)
     feu *= np.interp(np.arange(feu.shape[0]) / sr, [0, noir1, fest1, vr0, vr0 + 0.4], [1.0, 1.0, 0.7, 0.4, 0.0])[:, None]
-    poser(B['amb'], mettre_au_niveau(feu, V - 23.0), 0.0, sr)
-    ev(0.0, 'braises de la cheminée (craquements secs espacés)', 'ouverture', fin=vr0)
+    poser(B['amb'], mettre_au_niveau(feu, V - 25.0), 0.0, sr)
+    ev(0.0, 'braises de la cheminée', 'ouverture', fin=vr0)
     nb_g = 12
     for i in range(nb_g):                                    # cascade des guirlandes : tics cristallins + clochettes discrètes
         tg = fest0 + (fest1 - fest0) * (i / (nb_g - 1)) ** 0.85
         m = tr_do(79 + [0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17, 19][i], tq)
-        poser(B['fx'], stereo(tic_cristal(sr, rng, m), -0.7 + 1.4 * i / (nb_g - 1)), tg, sr, gain=0.07 + 0.006 * i)
-        poser(B['fx'], clochettes_traineau(sr, rng, 1.0), tg + 0.01, sr, gain=0.035)
-    ev(fest0, 'le salon s\'allume : cascade des guirlandes (tics cristallins + clochettes discrètes)', 'ouverture', fin=fest1)
-    poser(B['fx'], mettre_au_niveau(tv_declic(sr, rng), V - 10.0), O['tv_allume'], sr)
-    ev(O['tv_allume'], 'la télé s\'allume : déclic électrique + souffle statique + ronflement', 'ouverture')
+        poser(B['fx'], stereo(tic_cristal(sr, rng, m), -0.7 + 1.4 * i / (nb_g - 1)), tg, sr, gain=0.05 + 0.004 * i)
+        poser(B['fx'], clochettes_traineau(sr, rng, 1.0), tg + 0.01, sr, gain=0.025)
+    ev(fest0, 'le salon s\'allume : guirlandes (tics cristallins + clochettes discrètes)', 'ouverture', fin=fest1)
+    poser(B['fx'], mettre_au_niveau(tv_declic(sr, rng), V - 10.0), t_tv, sr)
+    ev(t_tv, 'la télé s\'allume : déclic électrique', 'ouverture')
     d_vr = t_arene - 0.03 - vr0
-    poser(B['fx'], mettre_au_niveau(riser_vrille(sr, rng, d_vr), V - 8.0), vr0, sr)
-    ev(vr0, 'ÇA PART EN VRILLE : riser qui accélère + aspiration', 'ouverture', fin=t_arene - 0.03)
-    for i, td in enumerate((7.85, 8.55, 9.15, 9.6, 9.95, 10.22, 10.44, 10.6, 10.73, 10.84)):
-        poser(B['fx'], mettre_au_niveau(decharge_electrique(sr, rng, float(rng.uniform(0.08, 0.16))), V - 11.0 + 0.5 * i), td, sr)
-    ev(7.85, 'crépitements électriques de plus en plus serrés (10)', 'ouverture', fin=10.9)
+    poser(B['fx'], mettre_au_niveau(riser_vrille(sr, rng, d_vr), V - 9.0), vr0, sr)
+    ev(vr0, 'VRILLE : riser qui accélère + aspiration', 'ouverture', fin=t_arene - 0.03)
+    tds = list(vr0 + (t_arene - 0.12 - vr0) * (1 - (1 - np.linspace(0.05, 1.0, 12)) ** 0.6))
+    for i, td in enumerate(tds):
+        poser(B['fx'], mettre_au_niveau(decharge_electrique(sr, rng, float(rng.uniform(0.08, 0.16))), V - 12.0 + 0.4 * i), td, sr)
+    ev(tds[0], 'crépitements électriques de plus en plus serrés (12)', 'ouverture', fin=tds[-1] + 0.15)
     poser(B['emph'], sub_drop(sr, 2.0, 120.0, 26.0, 0.55), t_arene, sr, gain=1.0)
     poser(B['emph'], stereo(kit['kb']), t_arene, sr, gain=0.9)
     poser(B['emph'], stereo(v8.cymbale(sr, rng, 2.6, 1.0)), t_arene, sr, gain=0.35)
     poser(B['emph'], mettre_au_niveau(v8.foule(sr, rng, 4.2), V - 6.0), t_arene + 0.02, sr)
-    ev(t_arene, '« EN ARÈNE ! » : temps fort du refrain + impact sub + clameur de la foule', 'arrivee', fin=t_arene + 4.0)
-    ev(t_ring - 0.6, 'fondu enchaîné « Le Mal Aimé » → Ring music sur un temps fort (%.2f)' % t_ring, 'arrivee', fin=t_ring)
+    ev(t_arene, '« ARÈNE ! » : impact sub + clameur de la foule + entrée de la Ring music', 'arrivee', fin=t_arene + 4.0)
 
-    # ================================ ÉCURIES : bandeaux, mouvement, moteurs du Showroom, Cloclo #04 ================================
+    # ================================ ÉCURIES : bandeaux, mouvement, moteurs du Showroom, Lero Lero #12 ================================
     rec = np.random.default_rng(93200)
     rum = rumeur_foule(sr, rec, TEL['debut'] - t_arene + 0.5)
     poser(B['amb'], rum, t_arene + 1.0, sr, gain=0.05)
@@ -2113,18 +2267,42 @@ def main():
             poser(gag, mettre_au_niveau(fondus(bips, 0.01, 0.15), db(rms(gag[gag.any(axis=1)])) if gag.any() else -30.0), t_b, sr, gain=1.4)
             infos_moteurs[8]['bips_audi_film_s'] = round(e['sortie'] + t_b, 3)
             src += ' + 3 bips Audi (audi_chime 0,80–3,20)'
-        niveau_gag = V + (GAG_SOUS_VOIX_04_DB if eid == 4 else GAG_PHARE_SOUS_VOIX_DB)
+        niveau_gag = V + GAG_PHARE_SOUS_VOIX_DB
         gag = mettre_au_niveau(gag, niveau_gag)
         fin_gag = e['sortie'] + gag.shape[0] / sr
         resp = respirations_voix(vo, sr, e['sortie'], fin_gag)
-        if resp:                                             # temps fort : le coup de gaz le plus énergique (0,6 s) dans la plus longue respiration
+        if eid == 12:                                        # #12 : « Lero Lero » au premier plan, moteur réel dessous
+            ch_l = os.path.join(ICI, 'audio', 'sources', 'lero_lero.mp3')
+            if os.path.isfile(ch_l):
+                xl = v7.decoder_ffmpeg(ch_l, sr, LERO_DEBUT_S, LERO_DUREE_S[1] + 0.2)
+                hh = int(0.01 * sr)
+                ml = xl.mean(axis=1)
+                el = 20 * np.log10(np.sqrt(np.mean(ml[:ml.shape[0] // hh * hh].reshape(-1, hh) ** 2, axis=1)) + 1e-12)
+                k0, k1 = int(LERO_DUREE_S[0] * 100), min(el.shape[0], int(LERO_DUREE_S[1] * 100))
+                i_c = (k0 + int(np.argmin(el[k0:k1]))) * hh
+                xl = xl[:i_c] * fenetre(i_c, 0.01, 0.06, sr)[:, None]
+                gag *= 10 ** (LERO_MOTEUR_SOUS_DB / 20.0)
+                t_l = resp[0][0] - e['sortie'] if resp and resp[0][0] - e['sortie'] < 0.6 else 0.10
+                need = int((t_l + xl.shape[0] / sr + 0.05) * sr)
+                if need > gag.shape[0]:
+                    gag = np.pad(gag, ((0, need - gag.shape[0]), (0, 0)))
+                poser(gag, mettre_au_niveau(xl, niveau_gag), t_l, sr)
+                fin_gag = e['sortie'] + gag.shape[0] / sr
+                resp = respirations_voix(vo, sr, e['sortie'], fin_gag)
+                infos_moteurs[12]['lero_lero'] = {'fichier_s': [LERO_DEBUT_S, round(LERO_DEBUT_S + i_c / sr, 3)],
+                                                  'coupe_sur_creux_db': round(float(el[i_c // hh]), 1), 't_film': round(e['sortie'] + t_l, 3),
+                                                  'duree_s': round(i_c / sr, 3)}
+                src += ' (sous) + « Lero Lero » %.2f → %.2f s du fichier' % (LERO_DEBUT_S, LERO_DEBUT_S + i_c / sr)
+            else:
+                print('  [AVERTISSEMENT] audio/sources/lero_lero.mp3 absent -> #12 sans son gag')
+        if resp and eid != 12:                                             # temps fort : le coup de gaz le plus énergique (0,6 s) dans la plus longue respiration
             ra, rb_, _ = max(resp, key=lambda r_: r_[1] - r_[0])
             lg = int(0.6 * sr)
             en = np.convolve(np.mean(x ** 2, axis=1), np.ones(lg) / lg, 'valid') if x.shape[0] > lg else np.ones(1)
             i_m = int(np.argmax(en))
             tf_ = x[i_m:i_m + lg]
             poser(gag, mettre_au_niveau(tf_ * fenetre(tf_.shape[0], 0.02, 0.2, sr)[:, None], niveau_gag), ra - e['sortie'], sr)
-        acc_db = ACCENT_PHARE_DB if eid != 4 else ACCENT_AUTRES_DB
+        acc_db = ACCENT_PHARE_DB
         cl_ = [(0.0, 0.0)]
         for ra, rb_, _ in resp:
             cl_ += [(ra - e['sortie'] - 0.015, 0.0), (ra - e['sortie'], acc_db), (rb_ - e['sortie'], acc_db), (rb_ - e['sortie'] + 0.015, 0.0)]
@@ -2136,17 +2314,6 @@ def main():
                           'place': e['place'], 'fin': e['fin'], 'moteur': src,
                           'mouvement_sous_musique_db_max': round(min(ecart, MOUV_SOUS_MUSIQUE_DB - 0.5), 1),
                           'respirations_voix_s': [[round(a_, 2), round(b_, 2), t_] for a_, b_, t_ in resp]})
-    # « Le Mal Aimé » REFRAIN 2 sur #04 : temps fort mesuré calé sur l'atterrissage (à l'image près)
-    i_atter = round(e04['atterrissage'] * 60.0) / 60.0
-    debut_fic2 = cl2['temps_fort_retenu_s'] - (i_atter - e04['debut'])
-    d_cl = e04['fin'] - e04['debut']
-    xcl = v7.decoder_ffmpeg(ch_cl, sr, debut_fic2, d_cl)
-    xcl = xcl * fenetre(xcl.shape[0], 0.12, 0.30, sr)[:, None]
-    poser(B['cloclo'], mettre_au_niveau(xcl, V + CLOCLO_SOUS_VOIX_DB), e04['debut'], sr)
-    cl2.update({'debut_fichier_s': round(debut_fic2, 3), 'fin_fichier_s': round(debut_fic2 + d_cl, 3), 't_film': [e04['debut'], e04['fin']],
-                'temps_fort_film_s': round(e04['debut'] + cl2['temps_fort_retenu_s'] - debut_fic2, 4), 'atterrissage_04': e04['atterrissage']})
-    ev(e04['debut'], 'écurie 4 : « Le Mal Aimé » REFRAIN 2 au premier plan (temps fort sur l\'atterrissage %.3f)' % i_atter,
-       'ecuries', fin=e04['fin'], source='audio/sources/claude_francois_le_mal_aime.mp3 %.2f → %.2f s (lu)' % (debut_fic2, debut_fic2 + d_cl))
     # RUSH : impact sub + stinger du moteur réel à chaque coupe
     for j, (tc, eid) in enumerate(zip(RU['cuts'], RU['ordre'])):
         imp = impact_smash(sr, rec, kit)
@@ -2160,6 +2327,11 @@ def main():
         poser(imp, st, 0.0, sr, gain=0.8)
         poser(B['gags'], mettre_au_niveau(imp, V - 4.0), tc, sr)
         ev(tc, 'RUSH #%d : impact sub + stinger du moteur réel' % eid, 'rush')
+    t_cv = next((float(q['t_film']) for q in pieces_toutes if q['id'] == 'rush_convies'), float(CO['debut']))
+    poser(B['emph'], stereo(v8.cymbale(sr, rec, 2.6, 1.0)), t_cv, sr, gain=0.4)
+    poser(B['emph'], stereo(kit['kb']), t_cv, sr, gain=0.6)
+    poser(B['amb'], mettre_au_niveau(v8.foule(sr, rec, 3.5), V - 6.0), t_cv + 0.03, sr)
+    ev(t_cv, '« …SONT CONVIÉS ! » : clameur + coup de cymbale' + ('' if 'rush_convies' not in manquantes else ' (voix à générer)'), 'couronne')
     t_po = CO['portail']
     poser(B['fx'], mettre_au_niveau(glitch_teleport(sr, rec), V - 7.0), t_po, sr)
     poser(B['fx'], mettre_au_niveau(swoosh_grave(sr, rec), V - 10.0), t_po - 0.41, sr)
@@ -2361,9 +2533,11 @@ def main():
         masque_parole[int(a * sr):int(b * sr)] = True
     seg_piece = [[k for k, (a, b) in enumerate(parole) if a < pb and b > pa] for pa, pb in iv_voix]
     red_gags = [DUCK_GAGS_DB] * len(parole)
+    red_clo = [DUCK_CLOCLO_DB] * len(iv_voix)
     reductions = [DUCK_BASE_DB] * len(iv_voix)
-    for it in range(16):
+    for it in range(20):
         duck = courbe_ducking(iv_voix, reductions, N, sr)
+        duck_clo = courbe_ducking(iv_voix, red_clo, N, sr)
         duck_doux = courbe_ducking(parole, red_gags, N, sr, avant=0.03, apres=0.06)
         reste = (plein * duck[:, None] + demi * np.sqrt(duck)[:, None] + doux * duck_doux[:, None] + clo * duck_clo[:, None]
                  + lit * duck_lit[:, None] + libre)
@@ -2381,12 +2555,14 @@ def main():
             elif r['marge_bande_voix_db'] < MARGE_PAROLE_MIN_DB + 0.3:     # garde-fou : on baisse aussi les gags sous cette pièce
                 for kk in seg_piece[j]:
                     red_gags[kk] = max(-15.0, red_gags[kk] - (MARGE_PAROLE_MIN_DB + 0.5 - r['marge_bande_voix_db']))
+                red_clo[j] = max(-18.0, red_clo[j] - (MARGE_PAROLE_MIN_DB + 0.5 - r['marge_bande_voix_db']))
                 ok = False
         if ok:
             break
     for j, r in enumerate(rapport_voix):
         r['ducking_db'] = round(reductions[j], 1)
         r['ducking_gags_db'] = round(min([red_gags[kk] for kk in seg_piece[j]] or [DUCK_GAGS_DB]), 1)
+        r['ducking_mal_aime_db'] = round(red_clo[j], 1)
     marges = {r['id']: r['marge_bande_voix_db'] for r in rapport_voix}
     assert min(marges.values()) >= MARGE_PAROLE_MIN_DB, 'garde-fou voix : marge < %.0f dB : %s' % (
         MARGE_PAROLE_MIN_DB, {k: v for k, v in marges.items() if v < MARGE_PAROLE_MIN_DB})
@@ -2440,14 +2616,53 @@ def main():
                 'rms_reste_dbfs': round(reste_db, 1), 'emergence_db': round(s_db - reste_db, 1),
                 'emergence_sur_fond_sans_voix_db': round(s_db - fond_db, 1), 'saut_mix_db': round(saut, 1)}
     e_ = {e['id']: e for e in ecuries}
-    pics = [emergence('« EN ARÈNE ! » 11,0 (Le Mal Aimé + impact + foule)', stems['cloclo'] + stems['drop'], t_arene, t_arene + 0.4)]
-    pics += [emergence('#%02d moteur réel' % i, stems['gags'], e_[i]['sortie'], e_[i]['place']) for i in range(1, 16) if i != 4]
-    pics.append(emergence("#04 Le Mal Aimé (refrain 2), temps fort à l'atterrissage", stems['cloclo'],
-                          e_[4]['atterrissage'] - 0.05, e_[4]['atterrissage'] + 0.35))
-    pics.append(emergence('ka-ching %.1f' % TEL['pari'], stems['gags'], TEL['pari'], TEL['pari'] + 0.4))
+    pics = [emergence('« ARÈNE ! » %.2f (impact + foule + ring)' % t_arene, stems['drop'] + stems['ring'], t_arene, t_arene + 0.4)]
+    pics += [emergence('#%02d moteur réel%s' % (i, ' + Lero Lero' if i == 12 else ''), stems['gags'], e_[i]['sortie'], e_[i]['place'])
+             for i in range(1, 16)]
+    pics.append(emergence('ka-ching %.2f' % TEL['pari'], stems['gags'], TEL['pari'], TEL['pari'] + 0.4))
     for p_ in pics:
         if 'moteur réel' in p_['element']:
             p_['objectif_8db_atteint'] = bool(p_['emergence_sur_fond_sans_voix_db'] >= 8.0)
+    # « EEENNN » : continuité de la voix placée de « …se transforme… » à « ARÈNE ! »
+    rv = {r['id']: r for r in rapport_voix}
+    hh = int(0.01 * sr)
+    i_a, i_b = int(rv['transforme']['attaque'] * 100), int(t_arene * 100)
+    ev_ = 20 * np.log10(np.sqrt(np.mean(vo[:vo.shape[0] // hh * hh].reshape(-1, hh) ** 2, axis=1)) + 1e-12)
+    ref_v = float(ev_.max())
+    bas = ev_[i_a:i_b] - ref_v < CONTINUITE_SEUIL_DB
+    zones_bas, k_ = [], 0
+    while k_ < bas.shape[0]:
+        if bas[k_]:
+            j_ = k_
+            while j_ < bas.shape[0] and bas[j_]:
+                j_ += 1
+            za, zb = (i_a + k_) / 100.0, (i_a + j_) / 100.0
+            voulue = any(abs(za - r1['fin']) < 0.03 and abs(zb - r2['attaque']) < 0.03
+                         for r1, r2 in zip(rapport_voix, rapport_voix[1:]))
+            zones_bas.append({'s': [round(za, 2), round(zb, 2)], 'respiration_voulue': bool(voulue)})
+            k_ = j_
+        k_ += 1
+    t0_t = rv['en_tenu']['attaque'] + 0.03
+    dans_tenue = [z for z in zones_bas if z['s'][1] > t0_t and z['s'][0] < t_arene - 0.01]
+    assert not dans_tenue, '« EEENNN » : zone sous %.0f dB dans la tenue : %s' % (CONTINUITE_SEUIL_DB, dans_tenue)
+    assert all(z['respiration_voulue'] for z in zones_bas), '« EEENNN » : blanc non voulu %s' % zones_bas
+    i_t0, i_t1 = int(t0_t * 100), int((t_arene - 0.02) * 100)
+    continuite = {'fenetre_s': [rv['transforme']['attaque'], t_arene], 'seuil_db': CONTINUITE_SEUIL_DB,
+                  'zones_sous_seuil': zones_bas, 'tenue_min_db': round(float(ev_[i_t0:i_t1].min() - ref_v), 1),
+                  'tenue_debut_fin_db': [round(float(np.mean(ev_[i_t0:i_t0 + 20]) - ref_v), 1), round(float(np.mean(ev_[i_t1 - 20:i_t1]) - ref_v), 1)],
+                  'arene_cri_attaque_s': rv['arene_cri']['attaque']}
+    assert abs(rv['arene_cri']['attaque'] - t_arene) < 0.005, '« ARÈNE ! » à %.3f au lieu de %.2f' % (rv['arene_cri']['attaque'], t_arene)
+    # temps fort du refrain dans la piste placée (flux spectral, ± 0,3 s autour de la clé)
+    mc = stems['cloclo'].mean(axis=1)[:int(3.0 * sr)]
+    nfft, hop = 2048, 240
+    idx = np.arange(nfft)[None, :] + hop * np.arange((mc.shape[0] - nfft) // hop)[:, None]
+    Lc = np.log1p(10.0 * np.abs(np.fft.rfft(mc[idx] * np.hanning(nfft), axis=1)))
+    flc = np.maximum(np.diff(Lc, axis=0), 0.0).sum(axis=1)
+    tc_ = (np.arange(flc.shape[0]) + 1) * hop / sr + nfft / 2 / sr
+    wc = (tc_ > t_tf - 0.3) & (tc_ < t_tf + 0.3)
+    t_fort_mesure = float(tc_[wc][np.argmax(flc[wc])])
+    cl1['temps_fort_mesure_dans_le_mix_s'] = round(t_fort_mesure, 3)
+    assert abs(t_fort_mesure - t_tf) < 0.03, 'Mal Aimé : temps fort mesuré à %.3f au lieu de %.2f' % (t_fort_mesure, t_tf)
     # coupure interne des 15 prises d'écurie
     coupes_voix = {c['id']: c['zones_coupees'] for c in ctrl_voix}
     fautes = {k: v for k, v in coupes_voix.items() if k.startswith('ecurie_') and v}
@@ -2461,15 +2676,16 @@ def main():
     assert not muets, 'événements muets : %s' % [(e['t'], e['quoi']) for e in muets]
 
     timeline = {
-        'version': 'v9.3', 'duree': DUREE, 'echantillons': int(final.shape[0]), 'frequence_hz': sr, 'canaux': 2,
+        'version': 'v9.4', 'duree': DUREE, 'echantillons': int(final.shape[0]), 'frequence_hz': sr, 'canaux': 2,
         'plan': os.path.relpath(args.plan, ICI).replace(os.sep, '/'), 'voix': os.path.relpath(args.voix, ICI).replace(os.sep, '/'),
         'evenements': sorted(evenements, key=lambda x: (x['t'], x['quoi'])),
         'voix_off': rapport_voix, 'corrections_bornes': corrections, 'controle_coupures_voix': coupes_voix,
         'intervalles_voix': [[round(a, 3), round(b, 3)] for a, b in iv_voix], 'niveau_voix_dbfs_avant_master': round(V, 1),
-        'ecuries': lignes_ec, 'moteurs_showroom': infos_moteurs, 'le_mal_aime': {'refrain_1_ouverture': cl1, 'refrain_2_ecurie_04': cl2},
+        'ecuries': lignes_ec, 'moteurs_showroom': infos_moteurs, 'le_mal_aime_ouverture': cl1, 'continuite_eeennn': continuite,
+        'pieces_voix_absentes': manquantes,
         'ring_entree_s': round(t_ring, 3), 'bips_f1_film_s': [round(x, 3) for x in bips],
         'familles_sous_musique_db': niveaux_fam, 'musique_ring': infos_ring, 'controle_ring': controle_ring,
-        'automation_ring': {'gain_db': cles_gain}, 'automation_mal_aime_ouverture': {'gain_db': cles_db, 'passe_bas_hz': cles_fc}, 'pics_audibles': pics,
+        'automation_ring': {'gain_db': cles_gain}, 'pics_audibles': pics,
         'banque_bbc': {'dossier': os.path.relpath(bbc.dossier, ICI).replace(os.sep, '/'), 'utilises': bbc.utilises},
         'mix': {'fichier': os.path.relpath(args.sortie, ICI).replace(os.sep, '/'), 'mp3': os.path.relpath(args.mp3, ICI).replace(os.sep, '/'),
                 'gain_master_db': round(gain_db, 2), 'lufs_integre': round(lufs, 2), 'vrai_crete_dbtp': round(tp, 2),
@@ -2482,14 +2698,16 @@ def main():
     with open(args.timeline, 'w', encoding='utf-8') as f:
         json.dump(timeline, f, ensure_ascii=False, indent=1)
 
-    print('Mix V9.3 : %s (+ %s)' % (args.sortie, os.path.basename(args.mp3)))
+    print('Mix V9.4 : %s (+ %s)' % (args.sortie, os.path.basename(args.mp3)))
     print('  durée %.4f s (%d échantillons, attendu %d) | sonie %.2f LUFS | vrai crête %.2f dBTP | gain master %+.2f dB' % (
         final.shape[0] / sr, final.shape[0], N, lufs, tp, gain_db))
     print('  ring : %.2f → %.2f BPM (atempo), %d mesures %.2f → %.2f, raccords %s, tonalité %s %s | trou max %.2f s' % (
         infos_ring['bpm_mesure'], infos_ring['bpm_film'], infos_ring['mesures_logo_a_logo'], t_ring, DEP['logo'],
         infos_ring['raccords_film_s'], infos_ring['tonalite']['tonique'], infos_ring['tonalite']['mode'], trou_max))
     print('  Le Mal Aimé refrain 1 : %s' % cl1)
-    print('  Le Mal Aimé refrain 2 : %s' % cl2)
+    print('  EEENNN : %s' % continuite)
+    if manquantes:
+        print('  [AVERTISSEMENT] mix SANS les pièces : %s' % ', '.join(manquantes))
     print('  bips F1 %s | ring entre à %.3f' % ([round(x, 2) for x in bips], t_ring))
     for c in corrections:
         print('  borne %-13s début %s | fin %s' % (c['piece'], c['debut'], c['fin']))

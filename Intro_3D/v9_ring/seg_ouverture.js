@@ -1,4 +1,5 @@
-/* SEGMENT « OUVERTURE » de la V9.3 Ring — film 0 → 11,0 s (temps interne = temps film). CRESCENDO voulu par le client :
+/* SEGMENT « OUVERTURE » de la V9.3/V9.4 Ring — V9.4 : film 0 → 15,93 s, repères lus dans plan.ouverture (noir 0–2,5 ; allumage festif 2,5–7,5 ;
+   salon illuminé jusqu'à 10,89 ; télé + salon éteint 10,89 ; vrille 11,6–15,93 ; arène 15,93). Déroulé et temps ci-dessous = V9.3 (0 → 11,0 s) (temps interne = temps film). CRESCENDO voulu par le client :
    « ça part doucement, la salle est sombre, s'allume festivement, lent, puis tout d'un coup ça part en vrille ».
    Versions précédentes archivées : ouverture_archive_v91.js (feu sur la télé + trappe), ouverture_archive_v92.js (6,5 s).
 
@@ -25,16 +26,22 @@ import { chargerImage, textureLogo, creerHaloTele } from './ouverture_tele.js';
 import { creerEcranVortex, creerAnneauxAspirants, creerExplosionNeon, creerTunnelNeon } from './ouverture_vortex.js';
 import { creerGuirlandesPiece } from './ouverture_guirlandes.js';
 
-/* ───────── repères de temps (plan_v9.json v9.3 : "ouverture") ───────── */
-const T_NOIR = [0.0, 2.0];
-const T_CASCADE = [2.0, 3.6];        // guirlandes du sapin, de bas en haut
-const T_ETOILE = 3.65;
-const T_CHEMINEE = [3.3, 4.6];
-const T_AMBIANCE = [3.9, 5.4];
-const T_FESTONS = [4.2, 1.1];        // début, durée du chenillard des festons du salon
-const T_TV = 6.8;                    // tv_allume = salon_dim
-const T_VRILLE = [7.6, 11.0];
-/* le vortex est écrit dans l'horloge V9.2 (τ de 5,0 à 6,5) ; τ(t) le rejoue étiré et accéléré sur la vrille */
+/* ───────── repères de temps : lus dans plan_v9.json ("ouverture", v9.4), rien en dur ─────────
+   Les étapes de l'allumage festif sont des FRACTIONS de la plage allumage_festif (dosage validé en V9.3). */
+let T_NOIR, T_FESTIF, T_CASCADE, T_ETOILE, T_CHEMINEE, T_AMBIANCE, T_FESTONS, T_TV, T_VRILLE;
+function lireReperes(plan) {
+  const O = plan && plan.ouverture;
+  if (!O || !O.noir || !O.allumage_festif || O.tv_allume === undefined || !O.vrille) throw new Error('ouverture : plan.ouverture incomplet (noir, allumage_festif, tv_allume, vrille)');
+  T_NOIR = O.noir; T_FESTIF = O.allumage_festif; T_TV = O.tv_allume; T_VRILLE = O.vrille;
+  const [a, b] = T_FESTIF, L = b - a, f = (x) => a + x * L;
+  T_CASCADE = [f(0.0), f(0.457)];      // guirlandes du sapin, de bas en haut
+  T_ETOILE = f(0.471);
+  T_CHEMINEE = [f(0.371), f(0.743)];
+  T_AMBIANCE = [f(0.543), f(0.971)];
+  T_FESTONS = [f(0.629), 0.314 * L];   // début, durée du chenillard des festons du salon
+}
+/* le vortex est écrit dans l'horloge V9.2 (τ de 5,0 à 6,5) ; τ(t) le rejoue étiré et accéléré sur la vrille :
+   G(s) = 0,4 s + 0,6 s³ (vitesse ×0,4 de la vitesse moyenne au départ, ×2,2 juste avant la fin : culmine avant la coupe). */
 const T_ASPI = [5.0, 6.5];
 const tau = (t) => {
   if (t < T_VRILLE[0]) return T_ASPI[0] + (t - T_VRILLE[0]);              // avant la vrille : horloge réelle décalée (rien n'en dépend encore)
@@ -65,6 +72,7 @@ function hermite(cles, t, cle) {
 export async function creerSegment(ctx) {
   const { THREE, renderer, outils } = ctx;
   const { clamp, lerp, smoother } = outils;
+  lireReperes(ctx.plan);
   const groupe = new THREE.Group(); groupe.name = 'seg-ouverture';
   const demiH = ctx.H / 2;
 
@@ -141,13 +149,16 @@ export async function creerSegment(ctx) {
 
   /* ═════════════ TRAJECTOIRES DE CAMÉRA ═════════════ */
   const Y = E.y, Z = E.z;
-  /* salon (temps réel) : très lent dans le noir, travelling chaleureux, puis la caméra se pose face à la dalle à 7,6 s */
+  /* salon (temps réel) : très lent dans le noir, travelling chaleureux pendant l'allumage, le salon illuminé vit tranquillement,
+     puis la caméra se pose face à la dalle au début de la vrille */
+  const tVie = (T_FESTIF[1] + T_TV) / 2;
   const CAM_SALON = [
     { t: 0.0, p: [-124, 117, 218], c: [56, 86, -150], fov: 50 },            // derrière le canapé, dans la nuit
-    { t: 2.0, p: [-116, 118, 210], c: [54, 88, -150], fov: 50 },
-    { t: 5.5, p: [-70, 120, 168], c: [40, 95, -158], fov: 48 },             // le salon s'est allumé : sapin, cheminée, festons
-    { t: 6.8, p: [-30, 116, 104], c: [10, Y - 4, Z], fov: 45 },             // la télé s'allume
-    { t: 7.6, p: [0, Y, 24], c: [0, Y, Z], fov: 38 },                       // face à la dalle : tension
+    { t: T_NOIR[1], p: [-116, 118, 210], c: [54, 88, -150], fov: 50 },
+    { t: T_FESTIF[1], p: [-78, 120, 176], c: [42, 94, -158], fov: 48 },     // le salon s'est allumé : sapin, cheminée, festons
+    { t: tVie, p: [-56, 119, 146], c: [26, 98, -162], fov: 47 },            // le salon illuminé vit : lent travelling chaleureux
+    { t: T_TV, p: [-30, 116, 104], c: [10, Y - 4, Z], fov: 45 },            // la télé s'allume
+    { t: T_VRILLE[0], p: [0, Y, 24], c: [0, Y, Z], fov: 38 },               // face à la dalle : tension
   ];
   /* vrille (horloge τ, reprise de la V9.2) */
   const CAM_VRILLE = [
@@ -166,7 +177,7 @@ export async function creerSegment(ctx) {
 
   return {
     id: 'ouverture', groupe,
-    cles: [{ t: 1.0, label: 'La nuit au salon' }, { t: 5.0, label: 'Le salon s\'allume' }, { t: 9.8, label: 'Ça part en vrille' }],
+    cles: [{ t: +((T_NOIR[0] + T_NOIR[1]) / 2).toFixed(2), label: 'La nuit au salon' }, { t: +(T_FESTIF[0] + 0.75 * (T_FESTIF[1] - T_FESTIF[0])).toFixed(2), label: 'Le salon s\'allume' }, { t: +(T_VRILLE[0] + 0.65 * (T_VRILLE[1] - T_VRILLE[0])).toFixed(2), label: 'Ça part en vrille' }],
     collisions() { return []; },
     maj(t) {
       const cam = camera(t), T = tau(t);
