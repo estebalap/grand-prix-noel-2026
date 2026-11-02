@@ -1,34 +1,19 @@
 {
  "voix": "Commentateur def (ElevenLabs, voice_id QLs7iK8pmd23CyW29R9f)",
- "version": "v9.4",
+ "version": "v9.5",
  "note": "UNE prise continue par pièce (bornes à vérifier à −48 dB, fondus 25 ms). Écurie 7 : deux morceaux (prise anglaise Yaris_A + fin). t_film = début de la pièce en temps FILM. atempo_max : accélération douce autorisée si la pièce dépasse son créneau (jamais de coupe). emphase : traitement stade. Bornes « familles/paris » corrigées par le Chef de régie d'après la transcription Scribe (le brief inversait les deux et débordait sur le silence entre prises). V9.3 : ouverture « Mais ce soir… le salon… se transforme… EN ARÈNE ! » (L02, bornes à revérifier aux creux), familles en 3 phrases entières (coupées aux respirations, jamais dans un mot). V9.4 : ouverture sur le refrain du Mal Aimé (« Mais ce soir… le salon… se transforme… EEENNN… ARÈNE ! », voyelle tenue sans blanc) ; rush des générations (5 répliques à générer voix_off/rush_*.mp3, bornes None = fichier entier rogné aux silences).",
  "pieces": [
   {
-   "id": "accueil",
-   "texte": "Mesdames et messieurs… bienvenue au Grand Prix de Noël !",
+   "id": "mesdames",
+   "texte": "Mesdames et messieurs…",
    "morceaux": [
     [
      "voix_off/VO_V9_tout.mp3",
      0.03,
-     3.65
+     1.25
     ]
    ],
-   "t_film": 1.2,
-   "emphase": false,
-   "atempo_max": 1.0,
-   "fondu": 0.025
-  },
-  {
-   "id": "ce_soir",
-   "texte": "Mais ce soir…",
-   "morceaux": [
-    [
-     "voix_off/ouverture_L02.mp3",
-     0.04,
-     1.12
-    ]
-   ],
-   "t_film": 8.6,
+   "t_film": 5.6,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -43,7 +28,7 @@
      1.95
     ]
    ],
-   "t_film": 11.0,
+   "t_film": 8.0,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -58,7 +43,7 @@
      2.925
     ]
    ],
-   "t_film": 12.3,
+   "t_film": 10.9,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -73,7 +58,7 @@
      3.12
     ]
    ],
-   "t_film": 13.35,
+   "t_film": 11.9,
    "tenir_jusqua": 15.93,
    "note": "voyelle « en » TENUE (étirement de la voyelle sans changer la hauteur, montée d'intensité) jusqu'à l'arrivée d'« ARÈNE ! » : aucun blanc",
    "emphase": false,
@@ -526,19 +511,50 @@
    "fondu": 0.025
   },
   {
-   "id": "rendez_vous",
-   "texte": "Rendez-vous le 23 décembre !",
+   "id": "rendez_vous_final",
+   "texte": "Rendez-vous le 23 décembre… pour le… GRAND… PRIX DE… NOËL !",
    "morceaux": [
     [
      "voix_off/VO_V9_tout.mp3",
-     102.9,
+     102.73,
      104.6
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     98.7,
+     98.9,
+     "pour (de « pour lui »)"
+    ],
+    [
+     "voix_off/ouverture_L02.mp3",
+     1.12,
+     1.3,
+     "le (de « le salon »)"
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     2.3,
+     2.64,
+     "GRAND"
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     2.64,
+     2.94,
+     "PRIX DE"
+    ],
+    [
+     "voix_off/VO_V9_tout.mp3",
+     2.94,
+     3.45,
+     "NOËL"
     ]
    ],
-   "t_film": 133.73,
-   "emphase": false,
+   "t_film": 131.4,
+   "emphase": true,
    "atempo_max": 1.0,
-   "fondu": 0.025
+   "fondu": 0.025,
+   "montage": "mots séparés par des pauses dramatiques croissantes (0,25 / 0,35 / 0,45 s) ; « GRAND », « PRIX DE », « NOËL » en emphase stade ; doit finir avant 136,3 ; bornes de mots à affiner aux creux ; PROVISOIRE (à régénérer d'une traite avec ElevenLabs quand l'outil est disponible)"
   }
  ]
 }

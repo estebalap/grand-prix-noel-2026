@@ -1,6 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+Bande-son V9.5 « Grand Prix de Noël — Ring » : 136,53 s calées sur data/plan_v9.json (v9.4) et data/voix_v9.json (v9.5).
+Ouverture : refrain de « Le Mal Aimé » SEUL 0 → 5,0 (temps fort mesuré à 0,81), arrêt de platine propre 5,0 → 5,15 + « tchk »,
+puis salon seul (feu, salle) et narration « Mesdames et messieurs… » 5,6, « …le salon… » 8,0, « …se transforme… » 10,9,
+« EEENNN » tenu 11,9 → 15,93 sur la vrille (riser, aspiration, crépitements, sans musique), « ARÈNE ! » 15,93 + impact + foule
++ Ring music (fil rouge). Écuries : moteurs réels du Showroom au premier plan, #08 bips Audi, #12 « Lero Lero ». Rush des
+générations (voix rush_* : avertissement si absentes, --strict pour échouer). Fin : « Rendez-vous le 23 décembre… pour le…
+GRAND… PRIX DE… NOËL ! » monté mot à mot (emphase stade et impact sur chaque mot, musique qui ponctue NOËL).
+(Historique détaillé des versions V9.2–V9.4 ci-dessous.)
+
 Bande-son V9.3 « Grand Prix de Noël — Ring » : 131,0 s calées sur data/plan_v9.json et data/voix_v9.json (version v9.3).
 Ouverture et arène : temps film = temps interne (remap identité, vérifié) ; familles : carte du temps (vers_film).
 
@@ -79,8 +88,19 @@ LISSAGE_DUCK = 0.080           # enveloppe de ducking lissée sur 80 ms
 GAIN_VOIX = 1.0
 # L02 « Le salon… se transforme en… ARÈNE ! » : la borne 2,14 / 2,15 du JSON tombe dans le /s/ de « se » (fricative 1,98 → 2,15,
 # creux de −32 dB au milieu) ; « salon » finit à 1,96 (creux −28 dB) → la jonction est déplacée au creux 1,88–1,99.
+# Montage « Rendez-vous le 23 décembre… pour le… GRAND… PRIX DE… NOËL ! » (mots pris dans des prises existantes) :
+# pauses après chaque morceau (croissantes avant GRAND / PRIX DE / NOËL), morceaux en emphase stade, et bornes de mots
+# affinées au creux réel (fenêtres choisies d'après la transcription mot à mot et l'enveloppe 10 ms).
+MONTAGE = {'rendez_vous_final': {'pauses': [0.15, 0.02, 0.20, 0.28, 0.36], 'emphase': [3, 4, 5],
+                                 'bornes': {0: ((102.70, 102.76), None),            # « Rendez-vous le 23 décembre » d'une traite
+                                            1: ((98.65, 98.72), (98.79, 98.85)),    # « pour » (de « pour lui » : le /l/ suit sans creux)
+                                            2: ((1.13, 1.16), (1.54, 1.57)),       # « le » (de « le salon » : le /s/ commence à 1,58)
+                                            3: ((2.28, 2.35), (2.58, 2.67)),       # « GRAND »
+                                            4: ((2.58, 2.67), (2.90, 2.96)),       # « PRIX DE »
+                                            5: ((2.90, 2.96), (3.64, 3.70))}}}     # « NOËL ! » (jusqu'au creux avant « ce soir »)
 BORNES_FIXES = {'en_tenu': ('debut', 'fin'), 'arene_cri': ('debut',)}
-JONCTIONS_REVUES = {'salon': {'fin': (1.88, 1.99, '« se » commence à 1,98 s (fricative /s/)')},
+JONCTIONS_REVUES = {'mesdames': {'fin': (1.17, 1.25, '« bien(venue) » commence à 1,26 s (« messieurs » finit au creux de 1,21)')},
+                    'salon': {'fin': (1.88, 1.99, '« se » commence à 1,98 s (fricative /s/)')},
                     'transforme': {'debut': (1.88, 1.99, '« se » commence à 1,98 s (fricative /s/)')}}
 GAP_MORCEAUX = 0.03             # écurie 7 : silence entre la prise anglaise et la fin
 RETARD_MAX = 0.30               # une pièce peut attendre la fin de la précédente d'au plus 0,3 s
@@ -1187,7 +1207,8 @@ def voix_off_v9(sr, N, pieces, duree):
     # --- 1. bornes
     bornes = []
     for p in pieces:
-        for k, (fic, a, b) in enumerate(p['morceaux']):
+        for k, m_ in enumerate(p['morceaux']):
+            fic, a, b = m_[0], m_[1], m_[2]
             ch = os.path.join(ICI, fic)
             if fic not in cache_env:
                 brut = v7.decoder_ffmpeg(ch, sr, canaux=1)[:, 0]
@@ -1213,8 +1234,22 @@ def voix_off_v9(sr, N, pieces, duree):
             b[cote] = tj
             b['statut_' + cote] = 'jonction revue : ' + motif
             b['niveau_%s_db' % cote] = round(float(e[w].min()), 1)
-    jonctions = dv.harmoniser_jonctions(bornes, {f: v[:2] for f, v in cache_env.items()})
+    jonctions = dv.harmoniser_jonctions([b for b in bornes if b['piece'] not in MONTAGE],   # les mots du montage sont des citations
+                                        {f: v[:2] for f, v in cache_env.items()})
     par_id = {b['id']: b for b in bornes}
+    for pid, mt in MONTAGE.items():                          # bornes de mots du montage : creux réel dans la fenêtre
+        for k, fen in mt['bornes'].items():
+            b = par_id.get('%s#%d' % (pid, k))
+            if b is None:
+                continue
+            ts, e, _ = cache_env[b['fichier']]
+            for cote, w_ in zip(('debut', 'fin'), fen):
+                if w_ is None:
+                    continue
+                w = (ts >= w_[0]) & (ts <= w_[1])
+                b[cote] = float(ts[w][np.argmin(e[w])])
+                b['statut_' + cote] = 'mot : creux réel dans %s' % (list(w_),)
+                b['niveau_%s_db' % cote] = round(float(e[w].min()), 1)
     for pid, cotes in BORNES_FIXES.items():                  # bornes imposées (voyelle tenue, attaque du cri)
         b = par_id.get('%s#0' % pid)
         if b is None:
@@ -1223,7 +1258,7 @@ def voix_off_v9(sr, N, pieces, duree):
             b[cote] = b[cote + '_json']
             b['statut_' + cote] = 'fixée (jonction voyelle tenue)'
         for b2 in bornes:                                    # le voisin de même prise ne doit pas empiéter
-            if b2 is not b and b2['fichier'] == b['fichier']:
+            if b2 is not b and b2['fichier'] == b['fichier'] and b2['piece'] not in MONTAGE:
                 if b2['debut'] < b['debut'] < b2['fin'] <= b['fin'] + 1e-9:
                     b2['fin'] = b['debut']
                 if b['debut'] <= b2['debut'] - 1e-9 and b2['debut'] < b['fin'] < b2['fin']:
@@ -1259,8 +1294,9 @@ def voix_off_v9(sr, N, pieces, duree):
             seg[:nf] *= np.sin(0.5 * np.pi * np.arange(nf) / nf)
             seg[-nf:] *= np.cos(0.5 * np.pi * np.arange(nf) / nf)
             if k > 0:
-                parts.append(np.zeros(int(GAP_MORCEAUX * sr)))
-                parts_brut.append(np.zeros(int(GAP_MORCEAUX * sr)))
+                gap = MONTAGE[p['id']]['pauses'][k - 1] if p['id'] in MONTAGE else GAP_MORCEAUX
+                parts.append(np.zeros(int(gap * sr)))
+                parts_brut.append(np.zeros(int(gap * sr)))
             parts.append(seg)
             parts_brut.append(brut)
         y, y_brut = np.concatenate(parts), np.concatenate(parts_brut)
@@ -1320,6 +1356,22 @@ def voix_off_v9(sr, N, pieces, duree):
             w = (ts >= a_) & (ts <= b_)
             t_cut = float(ts[w][np.argmin(e[w])])
             i_e = int(round((t_cut - b0['debut']) / facteur * sr))
+        mots = []
+        if p['id'] in MONTAGE:                               # emphase stade MOT PAR MOT (montage) ; instants de chaque mot
+            o, km = 0, 0
+            for q in parts:
+                if km % 2 == 0:
+                    k_ = km // 2
+                    lab = p['morceaux'][k_][3] if len(p['morceaux'][k_]) > 3 else p.get('texte', '')[:30]
+                    if k_ in MONTAGE[p['id']]['emphase']:
+                        z = compresser(y[o:o + q.shape[0]], sr) * 10 ** (GAIN_EMPHASE_DB / 20.0)
+                        y[o:o + q.shape[0]] = z
+                        poser(humide, voix_stade(z, sr, 500 + k_), t0 + o / sr, sr, gain=1.0)
+                    mots.append({'mot': lab, 'debut': round(t0 + o / sr, 3), 'fin': round(t0 + (o + q.shape[0]) / sr, 3),
+                                 'emphase': k_ in MONTAGE[p['id']]['emphase']})
+                o += q.shape[0]
+                km += 1
+            emph = False
         if emph:
             tete, queue = y[:i_e], y[i_e:]
             queue = compresser(queue, sr) * 10 ** (GAIN_EMPHASE_DB / 20.0)
@@ -1344,7 +1396,8 @@ def voix_off_v9(sr, N, pieces, duree):
                         't_film_json': p['t_film'], 'attaque': round(t0, 3), 'fin': round(fin, 3), 'retard_s': round(retard, 3),
                         'creneau_s': round(creneau, 3), 'duree_prise_s': round(d, 3), 'atempo': round(facteur, 4),
                         'atempo_max': amax, 'duree_finale_s': round(d2, 3), 'debordement_s': round(max(0.0, debord), 3),
-                        'emphase': bool(emph), 'emphase_depuis_s': round(t0 + i_e / sr, 3) if emph else None})
+                        'emphase': bool(emph) or bool(mots), 'emphase_depuis_s': round(t0 + i_e / sr, 3) if emph else None,
+                        'mots': mots or None})
         fin_prec = fin
     ordre = sorted(range(len(intervalles)), key=lambda j: intervalles[j][0])
     for a, b in zip(ordre, ordre[1:]):
@@ -1917,6 +1970,7 @@ EMPHASE_QUEUE = {'gloire': (99.10, 99.50)}     # source : silence entre « …po
 CLOCLO_REFRAIN_1 = (29.221, 28.91)             # « Le Mal Aimé » : temps fort du refrain 1 (mesuré V9.2) et anacrouse, fichier complet
 LERO_DEBUT_S, LERO_DUREE_S = 3.0, (2.5, 3.5)   # #12 : lero_lero.mp3 à partir de 3,0 s, extrait coupé sur un creux entre 2,5 et 3,5 s
 LERO_MOTEUR_SOUS_DB = -8.0                     # #12 : le moteur réel passe sous le gag
+T_COUPE_MUSIQUE, D_ARRET = 5.0, 0.15           # le refrain s'arrête à 5,0 s (platine qui s'arrête en 0,15 s)
 CONTINUITE_SEUIL_DB = -30.0                    # « EEENNN » : aucune zone sous −30 dB (relatif à la crête de la voix) dans la tenue
 
 
@@ -1975,6 +2029,33 @@ def mal_aime_vrille(chemin, sr, debut_fic, t_tf, P, t_tv, t_v0, t_fin):
     out *= fenetre(n, 0.03, 0.008, sr)[:, None]
     return out, {'debut_fichier_s': round(debut_fic, 3), 'temps_fort_film_s': round(t_tf, 3), 'pleurage_des_s': t_tv,
                  'acceleration_bande_s': [t_v0, round(t_s, 3)], 'begaiement_s': [round(t_s, 3), t_fin], 'tranches': nb_rep}
+
+
+def arret_platine(x, sr, t_c, d):
+    """Arrêt de platine propre à t_c : la vitesse de lecture tombe de 1 à 0 en d s (phase φ = t − t²/2d), le niveau
+    s'éteint avec elle ; rien après t_c + d (pas de clic : la vitesse et le niveau arrivent à 0 ensemble)."""
+    n_c, n_d = int(t_c * sr), int(d * sr)
+    t = np.arange(n_d) / sr
+    pos = t_c + t - t ** 2 / (2 * d)
+    ts = np.arange(x.shape[0]) / sr
+    fr = np.stack([np.interp(pos, ts, x[:, c]) for c in range(2)], axis=1) * ((1 - t / d) ** 1.5)[:, None]
+    out = np.zeros_like(x)
+    out[:n_c] = x[:n_c]
+    out[n_c:n_c + n_d] = fr[:max(0, out.shape[0] - n_c)]
+    return out
+
+
+def tchk_telecommande(sr, rng):
+    """« tchk » : petit clic plastique de télécommande (deux contacts à 18 ms, bande 1,5–7 kHz, très court)."""
+    n = int(0.06 * sr)
+    out = np.zeros(n)
+    for d, g in ((0.0, 1.0), (0.018, 0.6)):
+        nc = int(0.008 * sr)
+        tc = np.arange(nc) / sr
+        poser_m = filtre_bande(rng.standard_normal(nc), sr, 1500.0, 7000.0) * np.exp(-tc / 0.0015) * g
+        i0 = int(d * sr)
+        out[i0:i0 + nc] += poser_m[:n - i0]
+    return stereo(norme(out), 0.15)
 
 
 def tr_do(m, tq):
@@ -2060,7 +2141,7 @@ def rms_fenetres_db(x, sr, t0, t1, fen=0.4, pas=0.05):
 
 
 def main():
-    ap = argparse.ArgumentParser(description='Bande-son V9.4 « Grand Prix de Noël — Ring » (136,53 s, 48 kHz).')
+    ap = argparse.ArgumentParser(description='Bande-son V9.5 « Grand Prix de Noël — Ring » (136,53 s, 48 kHz).')
     ap.add_argument('--sortie', default=os.path.join(ICI, 'audio', 'mix_v9.wav'))
     ap.add_argument('--mp3', default=os.path.join(ICI, 'audio', 'mix_v9.mp3'))
     ap.add_argument('--timeline', default=os.path.join(ICI, 'data', 'timeline_v9.json'))
@@ -2173,42 +2254,45 @@ def main():
     ev(t_ouvre, 'ring : + 3 dB après « éternelle »', 'gloire', fin=t_ouvre + 0.25)
     niveau_ring = B['ring'] * G['ring']
 
-    # ================================ OUVERTURE (0 → 15,93) : refrain du Mal Aimé « normal », puis la VRILLE ================================
-    rng = np.random.default_rng(94100)
+    # ================================ OUVERTURE (0 → 15,93) : refrain SEUL, coupure, salon, narration, vrille ================================
+    rng = np.random.default_rng(95100)
     t_tf, t_tv = float(O['refrain_temps_fort']), float(O['tv_allume'])
     noir0, noir1 = O['noir']
     fest0, fest1 = O['allumage_festif']
     vr0, vr1 = O['vrille']
     debut_fic = cl1['temps_fort_retenu_s'] - t_tf            # temps fort 29,22 s du fichier → 0,81 s film
-    xop, info_vr = mal_aime_vrille(ch_cl, sr, debut_fic, t_tf, P_cl, t_tv, vr0, t_arene)
+    xop = v7.decoder_ffmpeg(ch_cl, sr, debut_fic, T_COUPE_MUSIQUE + 0.6)
+    xop = arret_platine(xop, sr, T_COUPE_MUSIQUE, D_ARRET)
+    xop *= fenetre(xop.shape[0], 0.03, 0.005, sr)[:, None]
     ref_plein = rms(v7.decoder_ffmpeg(ch_cl, sr, cl1['temps_fort_retenu_s'], 4.0))
     xop *= 10 ** ((V + CLOCLO_SOUS_VOIX_DB) / 20.0) / (ref_plein + 1e-12)
     poser(B['cloclo'], xop, 0.0, sr)
-    cl1.update(info_vr)
-    cl1['periode_temps_s'] = round(P_cl, 4)
-    cl1['mesures_jusqua_tele'] = round((t_tv - t_tf) / (4 * P_cl), 3)
-    ev(0.0, '« Le Mal Aimé » REFRAIN 1 joué normalement (lu dès %.3f s : anacrouse « Je suis… » à %.2f, temps fort à %.2f)' % (
-        debut_fic, cl1['anacrouse_mesuree_s'] - debut_fic, t_tf), 'ouverture', fin=t_tv,
+    poser(B['fx'], mettre_au_niveau(tchk_telecommande(sr, rng), V - 14.0), T_COUPE_MUSIQUE, sr)
+    cl1.update({'debut_fichier_s': round(debut_fic, 3), 'temps_fort_film_s': round(t_tf, 3), 'periode_temps_s': round(P_cl, 4),
+                'coupure_s': [T_COUPE_MUSIQUE, round(T_COUPE_MUSIQUE + D_ARRET, 3)]})
+    ev(0.0, '« Le Mal Aimé » REFRAIN 1 joué SEUL (lu dès %.3f s : anacrouse à %.2f, temps fort à %.2f)' % (
+        debut_fic, cl1['anacrouse_mesuree_s'] - debut_fic, t_tf), 'ouverture', fin=T_COUPE_MUSIQUE,
        source='audio/sources/claude_francois_le_mal_aime.mp3 (lu)')
-    ev(t_tv, '« Le Mal Aimé » commence à se déformer (pleurage)', 'ouverture', fin=vr0)
-    ev(vr0, '« Le Mal Aimé » PART EN VRILLE : accélération de bande puis bégaiement de plus en plus serré et aigu, sans blanc',
-       'ouverture', fin=t_arene)
-    feu = feu_net(sr, rng, vr0 + 0.4)
-    feu *= np.interp(np.arange(feu.shape[0]) / sr, [0, noir1, fest1, vr0, vr0 + 0.4], [1.0, 1.0, 0.7, 0.4, 0.0])[:, None]
-    poser(B['amb'], mettre_au_niveau(feu, V - 25.0), 0.0, sr)
-    ev(0.0, 'braises de la cheminée', 'ouverture', fin=vr0)
-    nb_g = 12
-    for i in range(nb_g):                                    # cascade des guirlandes : tics cristallins + clochettes discrètes
-        tg = fest0 + (fest1 - fest0) * (i / (nb_g - 1)) ** 0.85
-        m = tr_do(79 + [0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17, 19][i], tq)
-        poser(B['fx'], stereo(tic_cristal(sr, rng, m), -0.7 + 1.4 * i / (nb_g - 1)), tg, sr, gain=0.05 + 0.004 * i)
-        poser(B['fx'], clochettes_traineau(sr, rng, 1.0), tg + 0.01, sr, gain=0.025)
-    ev(fest0, 'le salon s\'allume : guirlandes (tics cristallins + clochettes discrètes)', 'ouverture', fin=fest1)
+    ev(T_COUPE_MUSIQUE, 'COUPURE de la musique : la platine s\'arrête en %.2f s + « tchk » de télécommande' % D_ARRET, 'ouverture',
+       fin=T_COUPE_MUSIQUE + D_ARRET)
+    d_feu = t_arene + 0.5
+    feu = feu_net(sr, rng, d_feu)
+    feu *= np.interp(np.arange(feu.shape[0]) / sr, [0, T_COUPE_MUSIQUE, T_COUPE_MUSIQUE + 0.3, vr0, t_arene, d_feu],
+                     [0.6, 0.6, 1.0, 1.0, 0.25, 0.0])[:, None]
+    poser(B['amb'], mettre_au_niveau(feu, V - 24.0), 0.0, sr)
+    salle = souffle_piece(sr, rng, d_feu)
+    salle *= np.interp(np.arange(salle.shape[0]) / sr, [0, T_COUPE_MUSIQUE, T_COUPE_MUSIQUE + 0.3, t_arene, d_feu], [0.0, 0.0, 1.0, 0.6, 0.0])[:, None]
+    poser(B['amb'], mettre_au_niveau(salle, V - 34.0), 0.0, sr)
+    ev(0.0, 'ambiance du salon : feu qui crépite discret (seul après la coupure) + ton de salle', 'ouverture', fin=t_arene)
+    for i in range(8):                                       # guirlandes : tics cristallins très discrets (bruitage, pas de musique)
+        tg = fest0 + (fest1 - fest0) * i / 7
+        poser(B['fx'], stereo(tic_cristal(sr, rng, tr_do(91 + [0, 4, 7, 12, 7, 12, 16, 19][i], tq)), -0.6 + 1.2 * i / 7), tg, sr, gain=0.035)
+    ev(fest0, 'guirlandes qui s\'allument : tics cristallins très discrets', 'ouverture', fin=fest1)
     poser(B['fx'], mettre_au_niveau(tv_declic(sr, rng), V - 10.0), t_tv, sr)
     ev(t_tv, 'la télé s\'allume : déclic électrique', 'ouverture')
     d_vr = t_arene - 0.03 - vr0
-    poser(B['fx'], mettre_au_niveau(riser_vrille(sr, rng, d_vr), V - 9.0), vr0, sr)
-    ev(vr0, 'VRILLE : riser qui accélère + aspiration', 'ouverture', fin=t_arene - 0.03)
+    poser(B['fx'], mettre_au_niveau(riser_vrille(sr, rng, d_vr), V - 8.0), vr0, sr)
+    ev(vr0, 'VRILLE : riser qui accélère + aspiration (sans musique)', 'ouverture', fin=t_arene - 0.03)
     tds = list(vr0 + (t_arene - 0.12 - vr0) * (1 - (1 - np.linspace(0.05, 1.0, 12)) ** 0.6))
     for i, td in enumerate(tds):
         poser(B['fx'], mettre_au_niveau(decharge_electrique(sr, rng, float(rng.uniform(0.08, 0.16))), V - 12.0 + 0.4 * i), td, sr)
@@ -2515,6 +2599,25 @@ def main():
     acc *= (np.exp(-ta / 1.4) * np.cos(0.5 * np.pi * np.clip((ta - (d_res - 0.6)) / 0.6, 0, 1)))[:, None]
     poser(B['mus'], acc, t_lf, sr, gain=0.45)
     ev(t_lf, 'LOGO FINAL : impact + accord + dernier temps fort de la ring et sa résonance', 'depart', fin=DUREE - 0.06)
+    rf = next((r for r in rapport_voix if r['id'] == 'rendez_vous_final'), None)
+    mots_fin = [m for m in (rf['mots'] if rf else []) if m['emphase']]
+    for i, m in enumerate(mots_fin):                         # impact sur GRAND, PRIX DE, NOËL ; la musique ponctue NOËL
+        g_ = 0.6 + 0.2 * i
+        poser(B['emph'], sub_drop(sr, 1.4, 100.0, 30.0, 0.35), m['debut'], sr, gain=0.8 * g_)
+        poser(B['emph'], stereo(kit['kb']), m['debut'], sr, gain=0.8 * g_)
+        poser(B['emph'], stereo(v8.cymbale(sr, rd, 1.8, 0.7)), m['debut'], sr, gain=0.25 * g_)
+        ev(m['debut'], '« %s » : impact (emphase stade)' % m['mot'], 'depart')
+    if mots_fin:
+        t_n = mots_fin[-1]['debut']
+        d_n = DUREE - 0.06 - t_n
+        accn = v8.cuivres(accord_cuivres, d_n, sr, 1.6, attaque=0.008)
+        tn = temps(accn.shape[0], sr)
+        accn *= (np.exp(-tn / 0.9) * np.cos(0.5 * np.pi * np.clip((tn - (d_n - 0.25)) / 0.25, 0, 1)))[:, None]
+        poser(B['mus'], accn, t_n, sr, gain=0.5)
+        poser(B['fx'], jingle_cle(sr, rd, arpege, accord_aigu)[:int(d_n * sr)], t_n + 0.03, sr, gain=0.4)
+        poser(B['fx'], feu_artifice(sr, rd, 1.0)[:int(d_n * sr)], t_n + 0.05, sr, gain=0.45)
+        ev(t_n, '« NOËL ! » : ponctuation musicale (accord de cuivres + cloches + cymbale + feu d\'artifice), éteinte avant la fin', 'depart',
+           fin=DUREE - 0.06)
 
     # ================================ MIX : voix, ducking, mastering ================================
     bus_voix = np.stack([vo, vo], axis=1) * GAIN_VOIX
@@ -2623,6 +2726,11 @@ def main():
     for p_ in pics:
         if 'moteur réel' in p_['element']:
             p_['objectif_8db_atteint'] = bool(p_['emergence_sur_fond_sans_voix_db'] >= 8.0)
+    # aucune musique entre la coupure et « ARÈNE ! » (le refrain, la ring et les couches musicales sont muets)
+    fen_s = (T_COUPE_MUSIQUE + D_ARRET, t_arene - 0.005)
+    musique_muette = {k: round(rms_db_fenetre(v, *fen_s), 1) for k, v in (('le_mal_aime', stems['cloclo']), ('ring', stems['ring']),
+                                                                          ('couches_musicales', B['mus'] * G['mus']))}
+    assert max(musique_muette.values()) < -90.0, 'musique entre %.2f et %.2f : %s' % (fen_s[0], fen_s[1], musique_muette)
     # « EEENNN » : continuité de la voix placée de « …se transforme… » à « ARÈNE ! »
     rv = {r['id']: r for r in rapport_voix}
     hh = int(0.01 * sr)
@@ -2650,10 +2758,10 @@ def main():
     continuite = {'fenetre_s': [rv['transforme']['attaque'], t_arene], 'seuil_db': CONTINUITE_SEUIL_DB,
                   'zones_sous_seuil': zones_bas, 'tenue_min_db': round(float(ev_[i_t0:i_t1].min() - ref_v), 1),
                   'tenue_debut_fin_db': [round(float(np.mean(ev_[i_t0:i_t0 + 20]) - ref_v), 1), round(float(np.mean(ev_[i_t1 - 20:i_t1]) - ref_v), 1)],
-                  'arene_cri_attaque_s': rv['arene_cri']['attaque']}
+                  'arene_cri_attaque_s': rv['arene_cri']['attaque'], 'musique_rms_dbfs_5_15_a_15_93': musique_muette}
     assert abs(rv['arene_cri']['attaque'] - t_arene) < 0.005, '« ARÈNE ! » à %.3f au lieu de %.2f' % (rv['arene_cri']['attaque'], t_arene)
     # temps fort du refrain dans la piste placée (flux spectral, ± 0,3 s autour de la clé)
-    mc = stems['cloclo'].mean(axis=1)[:int(3.0 * sr)]
+    mc = stems['cloclo'].mean(axis=1)[:int(3.0 * sr)] + 1e-9 * np.random.default_rng(1).standard_normal(int(3.0 * sr))
     nfft, hop = 2048, 240
     idx = np.arange(nfft)[None, :] + hop * np.arange((mc.shape[0] - nfft) // hop)[:, None]
     Lc = np.log1p(10.0 * np.abs(np.fft.rfft(mc[idx] * np.hanning(nfft), axis=1)))
@@ -2676,7 +2784,7 @@ def main():
     assert not muets, 'événements muets : %s' % [(e['t'], e['quoi']) for e in muets]
 
     timeline = {
-        'version': 'v9.4', 'duree': DUREE, 'echantillons': int(final.shape[0]), 'frequence_hz': sr, 'canaux': 2,
+        'version': 'v9.5', 'duree': DUREE, 'echantillons': int(final.shape[0]), 'frequence_hz': sr, 'canaux': 2,
         'plan': os.path.relpath(args.plan, ICI).replace(os.sep, '/'), 'voix': os.path.relpath(args.voix, ICI).replace(os.sep, '/'),
         'evenements': sorted(evenements, key=lambda x: (x['t'], x['quoi'])),
         'voix_off': rapport_voix, 'corrections_bornes': corrections, 'controle_coupures_voix': coupes_voix,
@@ -2698,14 +2806,15 @@ def main():
     with open(args.timeline, 'w', encoding='utf-8') as f:
         json.dump(timeline, f, ensure_ascii=False, indent=1)
 
-    print('Mix V9.4 : %s (+ %s)' % (args.sortie, os.path.basename(args.mp3)))
+    print('Mix V9.5 : %s (+ %s)' % (args.sortie, os.path.basename(args.mp3)))
     print('  durée %.4f s (%d échantillons, attendu %d) | sonie %.2f LUFS | vrai crête %.2f dBTP | gain master %+.2f dB' % (
         final.shape[0] / sr, final.shape[0], N, lufs, tp, gain_db))
     print('  ring : %.2f → %.2f BPM (atempo), %d mesures %.2f → %.2f, raccords %s, tonalité %s %s | trou max %.2f s' % (
         infos_ring['bpm_mesure'], infos_ring['bpm_film'], infos_ring['mesures_logo_a_logo'], t_ring, DEP['logo'],
         infos_ring['raccords_film_s'], infos_ring['tonalite']['tonique'], infos_ring['tonalite']['mode'], trou_max))
     print('  Le Mal Aimé refrain 1 : %s' % cl1)
-    print('  EEENNN : %s' % continuite)
+    print('  EEENNN / silence musical : %s' % continuite)
+    print('  rendez_vous_final : %s' % [(m['mot'], m['debut'], m['fin']) for m in (rv.get('rendez_vous_final') or {}).get('mots') or []])
     if manquantes:
         print('  [AVERTISSEMENT] mix SANS les pièces : %s' % ', '.join(manquantes))
     print('  bips F1 %s | ring entre à %.3f' % ([round(x, 2) for x in bips], t_ring))
@@ -2714,7 +2823,7 @@ def main():
     for r in rapport_voix:
         print('   voix %-12s %7.3f → %7.3f  retard %.3f  créneau %.3f  prise %.3f  atempo %.4f  débord %.3f  marge bande %+5.1f  duck %5.1f%s' % (
             r['id'], r['attaque'], r['fin'], r['retard_s'], r['creneau_s'], r['duree_prise_s'], r['atempo'], r['debordement_s'],
-            r['marge_bande_voix_db'], r['ducking_db'], '  EMPHASE dès %.3f' % r['emphase_depuis_s'] if r['emphase'] else '')
+            r['marge_bande_voix_db'], r['ducking_db'], ('  EMPHASE dès %.3f' % r['emphase_depuis_s'] if r['emphase_depuis_s'] is not None else ('  EMPHASE par mot' if r['emphase'] else '')))
               + '  duck gags %5.1f' % r['ducking_gags_db'])
     for p_ in pics:
         print('  pic %-44s élément %6.1f dBFS | / tout le reste %+5.1f dB | / fond sans voix %+5.1f dB | saut du mix %+5.1f dB' % (
