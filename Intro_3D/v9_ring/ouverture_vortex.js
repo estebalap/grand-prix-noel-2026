@@ -76,7 +76,7 @@ export function creerAnneauxAspirants(THREE, ecran, n = 9) {
         float rr(vec2 p, vec2 b, float r){ vec2 q = abs(p) - b + r; return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r; }
         void main(){ vec2 p = (vUv - 0.5) * vec2(${(W * 1.12).toFixed(1)}, ${(H * 1.2).toFixed(1)});
           float d = abs(rr(p, vec2(${(W / 2).toFixed(1)}, ${(H / 2).toFixed(1)}), 8.0));
-          float v = exp(-d * d / 6.0) * 1.6 + exp(-d * d / 90.0) * 0.35;
+          float v = exp(-d * d / 6.0) * 1.5 + exp(-d * d / 90.0) * 0.14;   // trait net, voile léger (les cadres superposés ne virent pas au blanc)
           gl_FragColor = vec4(couleur * v * force, 1.0); }`,
       transparent: true, depthWrite: false, depthTest: true, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
     });

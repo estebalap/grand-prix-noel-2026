@@ -205,8 +205,8 @@ export function creerFlares(THREE, env, phares, { ech = 1 } = {}) {
     for (const [i, s] of sprites.entries()) {
       const f = clamp(force) * (0.9 + 0.1 * Math.sin(t * 23 + i * 2));
       s.e.visible = s.tr.visible = f > 0.01;
-      s.e.material.opacity = f; s.e.scale.setScalar((5 + 2 * f) / ech); s.e.material.rotation = 0.2 * Math.sin(t * 0.7);
-      s.tr.material.opacity = 0.7 * f; s.tr.scale.set(26 / ech, 1.4 / ech, 1);
+      s.e.material.opacity = 0.6 * f; s.e.scale.setScalar((3 + 1.2 * f) / ech); s.e.material.rotation = 0.2 * Math.sin(t * 0.7);
+      s.tr.material.opacity = 0.4 * f; s.tr.scale.set(16 / ech, 0.9 / ech, 1);
     }
   }
   return { maj };

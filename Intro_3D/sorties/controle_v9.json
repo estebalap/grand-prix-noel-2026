@@ -1,10 +1,10 @@
 {
  "version": "v9",
- "date": "2026-11-02T03:30:09",
+ "date": "2026-11-02T14:02:30",
  "cles": [
   {
-   "t": 3,
-   "label": "Le salon de Noël",
+   "t": 1,
+   "label": "La nuit au salon",
    "groupe": "ouverture",
    "surface": 0,
    "zone_sacree": 0,
@@ -14,8 +14,8 @@
    "rejet": []
   },
   {
-   "t": 4.75,
-   "label": "La télé s'allume",
+   "t": 5,
+   "label": "Le salon s'allume",
    "groupe": "ouverture",
    "surface": 0,
    "zone_sacree": 0,
@@ -25,8 +25,8 @@
    "rejet": []
   },
   {
-   "t": 5.9,
-   "label": "La télé aspire la caméra",
+   "t": 9.8,
+   "label": "Ça part en vrille",
    "groupe": "ouverture",
    "surface": 0,
    "zone_sacree": 0,
@@ -36,19 +36,8 @@
    "rejet": []
   },
   {
-   "t": 6.7,
-   "label": "Arrivée · jaillit du vortex (DROP)",
-   "groupe": "arene",
-   "surface": 0,
-   "zone_sacree": 0,
-   "textes": [],
-   "nb_textes": 0,
-   "collisions": [],
-   "rejet": []
-  },
-  {
-   "t": 8.5,
-   "label": "Arrivée · descente dans l'arène",
+   "t": 11.2,
+   "label": "Arrivée · « EN ARÈNE ! » (vortex)",
    "groupe": "arene",
    "surface": 0,
    "zone_sacree": 0,
@@ -59,6 +48,17 @@
   },
   {
    "t": 13,
+   "label": "Arrivée · descente dans l'arène",
+   "groupe": "arene",
+   "surface": 0,
+   "zone_sacree": 0,
+   "textes": [],
+   "nb_textes": 0,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 17.5,
    "label": "#01 · travelling latéral rasant",
    "groupe": "arene",
    "surface": 0.0787,
@@ -73,7 +73,7 @@
    "rejet": []
   },
   {
-   "t": 16.49,
+   "t": 21.44,
    "label": "#02 · vue de dessus, tête-à-queue",
    "groupe": "arene",
    "surface": 0.0774,
@@ -88,7 +88,7 @@
    "rejet": []
   },
   {
-   "t": 19.76,
+   "t": 24.26,
    "label": "#03 · 3/4 avant, flare des phares",
    "groupe": "arene",
    "surface": 0.0756,
@@ -103,7 +103,7 @@
    "rejet": []
   },
   {
-   "t": 25.61,
+   "t": 30.11,
    "label": "#04 · sous la boule à facettes",
    "groupe": "arene",
    "surface": 0.0755,
@@ -118,8 +118,8 @@
    "rejet": []
   },
   {
-   "t": 27.34,
-   "label": "#05 · cabrage au ras du pare-chocs",
+   "t": 31.84,
+   "label": "#05 · cabrage, contre-plongée",
    "groupe": "arene",
    "surface": 0.0671,
    "zone_sacree": 0,
@@ -133,7 +133,7 @@
    "rejet": []
   },
   {
-   "t": 38.08,
+   "t": 42.58,
    "label": "#07 · impact à l'atterrissage",
    "groupe": "arene",
    "surface": 0.0737,
@@ -148,8 +148,8 @@
    "rejet": []
   },
   {
-   "t": 42.52,
-   "label": "#08 · Dutch 8°, huile",
+   "t": 46.87,
+   "label": "#08 · l'A4 plonge vers nous",
    "groupe": "arene",
    "surface": 0.0709,
    "zone_sacree": 0,
@@ -163,7 +163,7 @@
    "rejet": []
   },
   {
-   "t": 51.08,
+   "t": 55.58,
    "label": "#10 · 6 roues en étincelles",
    "groupe": "arene",
    "surface": 0.0752,
@@ -178,63 +178,65 @@
    "rejet": []
   },
   {
-   "t": 55.74,
-   "label": "#11 · smash cut",
+   "t": 64.12,
+   "label": "#12 · grue orbitale",
+   "groupe": "arene",
+   "surface": 0.0781,
+   "zone_sacree": 0,
+   "textes": [
+    "Thom · Menacing Wedge ゴゴゴ",
+    "BOB'S BIZARRE RACING",
+    "#12"
+   ],
+   "nb_textes": 3,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 76.02,
+   "label": "#15 · frontal",
+   "groupe": "arene",
+   "surface": 0.0759,
+   "zone_sacree": 0,
+   "textes": [
+    "Élie · Daisy Streamliner 37-X",
+    "PRINCESS BLOOMING SPEED",
+    "#15"
+   ],
+   "nb_textes": 3,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 79.3,
+   "label": "Rush · #08",
+   "groupe": "arene",
+   "surface": 0.0213,
+   "zone_sacree": 0,
+   "textes": [
+    "#08",
+    "A4 OIL LEAKING"
+   ],
+   "nb_textes": 2,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 81.8,
+   "label": "Rush · #02",
    "groupe": "arene",
    "surface": 0.0263,
    "zone_sacree": 0,
    "textes": [
-    "#11",
-    "MILO'S PRINCESS VROOM VROOM"
+    "#02",
+    "TWINGO OASIS V16 RACING"
    ],
    "nb_textes": 2,
    "collisions": [],
    "rejet": []
   },
   {
-   "t": 64.61,
-   "label": "#13 · smash cut",
-   "groupe": "arene",
-   "surface": 0.0265,
-   "zone_sacree": 0,
-   "textes": [
-    "#13",
-    "JOJO LA SIRÈNE VELOCE"
-   ],
-   "nb_textes": 2,
-   "collisions": [],
-   "rejet": []
-  },
-  {
-   "t": 75.7,
-   "label": "Rush · #12 posé « JoJo »",
-   "groupe": "arene",
-   "surface": 0.0264,
-   "zone_sacree": 0,
-   "textes": [
-    "#12",
-    "BOB'S BIZARRE RACING"
-   ],
-   "nb_textes": 2,
-   "collisions": [],
-   "rejet": []
-  },
-  {
-   "t": 77.7,
-   "label": "Rush · #14 profil drift",
-   "groupe": "arene",
-   "surface": 0.0258,
-   "zone_sacree": 0,
-   "textes": [
-    "#14",
-    "NINJA-NISSAN STREET RACING"
-   ],
-   "nb_textes": 2,
-   "collisions": [],
-   "rejet": []
-  },
-  {
-   "t": 79.8,
+   "t": 84.3,
    "label": "Couronne des 15 concept-cars",
    "groupe": "arene",
    "surface": 0,
@@ -245,7 +247,7 @@
    "rejet": []
   },
   {
-   "t": 80.9,
+   "t": 85.4,
    "label": "Portail express",
    "groupe": "arene",
    "surface": 0,
@@ -256,7 +258,7 @@
    "rejet": []
   },
   {
-   "t": 93.2,
+   "t": 100.1,
    "label": "Téléphone · points",
    "groupe": "arene",
    "surface": 0,
@@ -267,8 +269,8 @@
    "rejet": []
   },
   {
-   "t": 99.8,
-   "label": "Lootbox · descente au centre du cercle",
+   "t": 108.055,
+   "label": "Lootbox · atterrissage lourd",
    "groupe": "arene",
    "surface": 0,
    "zone_sacree": 0,
@@ -278,8 +280,8 @@
    "rejet": []
   },
   {
-   "t": 101.9,
-   "label": "Lootbox · les verrous sautent",
+   "t": 108.953,
+   "label": "Lootbox · longue attente, lumière aux joints",
    "groupe": "arene",
    "surface": 0,
    "zone_sacree": 0,
@@ -289,8 +291,8 @@
    "rejet": []
   },
   {
-   "t": 103.3,
-   "label": "Lootbox · rideau « ? » qui s'enroule",
+   "t": 111.85,
+   "label": "Lootbox · le rideau s'ouvre lentement",
    "groupe": "arene",
    "surface": 0,
    "zone_sacree": 0,
@@ -300,8 +302,8 @@
    "rejet": []
   },
   {
-   "t": 104.4,
-   "label": "Le trophée sort du conteneur",
+   "t": 114.1,
+   "label": "EMBRASEMENT · le trophée sort",
    "groupe": "arene",
    "surface": 0,
    "zone_sacree": 0,
@@ -311,18 +313,7 @@
    "rejet": []
   },
   {
-   "t": 105.7,
-   "label": "Le trophée lévite et grandit",
-   "groupe": "arene",
-   "surface": 0,
-   "zone_sacree": 0,
-   "textes": [],
-   "nb_textes": 0,
-   "collisions": [],
-   "rejet": []
-  },
-  {
-   "t": 106.7,
+   "t": 115.7,
    "label": "Trophée au centre du ring",
    "groupe": "arene",
    "surface": 0,
@@ -333,7 +324,7 @@
    "rejet": []
   },
   {
-   "t": 107.7,
+   "t": 116.7,
    "label": "« GLOIRE »",
    "groupe": "arene",
    "surface": 0.0475,
@@ -346,8 +337,8 @@
    "rejet": []
   },
   {
-   "t": 108.8,
-   "label": "« GLOIRE ÉTERNELLE » · feux d'artifice",
+   "t": 117.8,
+   "label": "« GLOIRE ÉTERNELLE » · pyro",
    "groupe": "arene",
    "surface": 0.1169,
    "zone_sacree": 0.0583,
@@ -360,10 +351,10 @@
    "rejet": []
   },
   {
-   "t": 111.8,
+   "t": 120.7,
    "label": "Gloire éternelle · recul en majesté",
    "groupe": "arene",
-   "surface": 0.1139,
+   "surface": 0.114,
    "zone_sacree": 0.0524,
    "textes": [
     "GLOIRE",
@@ -374,7 +365,7 @@
    "rejet": []
   },
   {
-   "t": 114.3,
+   "t": 123.2,
    "label": "Départ · les cordes tombent",
    "groupe": "arene",
    "surface": 0,
@@ -385,18 +376,7 @@
    "rejet": []
   },
   {
-   "t": 115.7,
-   "label": "Départ · la file s'élance",
-   "groupe": "arene",
-   "surface": 0,
-   "zone_sacree": 0,
-   "textes": [],
-   "nb_textes": 0,
-   "collisions": [],
-   "rejet": []
-  },
-  {
-   "t": 117.4,
+   "t": 126.3,
    "label": "Départ · poursuite sur la piste 5 voies",
    "groupe": "arene",
    "surface": 0,
@@ -407,19 +387,30 @@
    "rejet": []
   },
   {
-   "t": 119.7,
-   "label": "Logo final · 23 décembre",
+   "t": 128.5,
+   "label": "Logo final · la meute sous le logo",
    "groupe": "arene",
-   "surface": 0.1611,
-   "zone_sacree": 0.7892,
+   "surface": 0.11,
+   "zone_sacree": 0.5231,
    "textes": [],
    "nb_textes": 0,
    "collisions": [],
    "rejet": []
   },
   {
-   "t": 82.7,
-   "label": "Gotham · Batmobile sur le toit",
+   "t": 130.5,
+   "label": "Logo final · bouquet",
+   "groupe": "arene",
+   "surface": 0.1076,
+   "zone_sacree": 0.5129,
+   "textes": [],
+   "nb_textes": 0,
+   "collisions": [],
+   "rejet": []
+  },
+  {
+   "t": 88.4,
+   "label": "Gotham nocturne · Batmobile",
    "groupe": "familles",
    "surface": 0,
    "zone_sacree": 0,
@@ -429,7 +420,7 @@
    "rejet": []
   },
   {
-   "t": 84.8,
+   "t": 91.2,
    "label": "Ligne arc-en-ciel · feux",
    "groupe": "familles",
    "surface": 0,
@@ -440,8 +431,8 @@
    "rejet": []
   },
   {
-   "t": 87.6,
-   "label": "Tokyo · légendes sous la pluie",
+   "t": 94.1,
+   "label": "Tokyo · la course dans le virage",
    "groupe": "familles",
    "surface": 0,
    "zone_sacree": 0,
@@ -475,31 +466,64 @@
       3.68
      ]
     ],
-    "t_film_json": 0.1,
-    "attaque": 0.1,
-    "fin": 3.775,
+    "t_film_json": 1.0,
+    "attaque": 1.0,
+    "fin": 4.675,
     "retard_s": 0.0,
-    "creneau_s": 3.55,
+    "creneau_s": 4.5,
     "duree_prise_s": 3.675,
     "atempo": 1.0,
     "atempo_max": 1.0,
     "duree_finale_s": 3.675,
-    "debordement_s": 0.125,
+    "debordement_s": 0.0,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 16.6,
-    "marge_bande_voix_db": 17.9,
+    "marge_db": 25.5,
+    "marge_bande_voix_db": 30.3,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    },
    {
-    "id": "salon_1",
-    "texte": "Le salon…",
+    "id": "ce_soir",
+    "texte": "Mais ce soir…",
     "morceaux_json": [
      [
       "voix_off/L02.mp3",
-      1.28,
-      2.14
+      0.04,
+      1.1
+     ]
+    ],
+    "bornes": [
+     [
+      0.005,
+      1.12
+     ]
+    ],
+    "t_film_json": 5.6,
+    "attaque": 5.6,
+    "fin": 6.715,
+    "retard_s": 0.0,
+    "creneau_s": 1.2,
+    "duree_prise_s": 1.115,
+    "atempo": 1.0,
+    "atempo_max": 1.0,
+    "duree_finale_s": 1.115,
+    "debordement_s": 0.0,
+    "emphase": false,
+    "emphase_depuis_s": null,
+    "marge_db": 27.4,
+    "marge_bande_voix_db": 28.8,
+    "ducking_db": -9.0,
+    "ducking_gags_db": -3.0
+   },
+   {
+    "id": "salon",
+    "texte": "…le salon…",
+    "morceaux_json": [
+     [
+      "voix_off/L02.mp3",
+      1.12,
+      1.95
      ]
     ],
     "bornes": [
@@ -508,11 +532,11 @@
       1.95
      ]
     ],
-    "t_film_json": 3.75,
-    "attaque": 3.795,
-    "fin": 4.625,
-    "retard_s": 0.045,
-    "creneau_s": 1.305,
+    "t_film_json": 6.9,
+    "attaque": 6.9,
+    "fin": 7.73,
+    "retard_s": 0.0,
+    "creneau_s": 1.4,
     "duree_prise_s": 0.83,
     "atempo": 1.0,
     "atempo_max": 1.0,
@@ -520,74 +544,74 @@
     "debordement_s": 0.0,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 9.5,
-    "marge_bande_voix_db": 8.7,
+    "marge_db": 21.5,
+    "marge_bande_voix_db": 28.3,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    },
    {
-    "id": "salon_2",
-    "texte": "…se transforme en…",
+    "id": "transforme",
+    "texte": "…se transforme…",
     "morceaux_json": [
      [
       "voix_off/L02.mp3",
-      2.15,
-      3.12
+      1.95,
+      2.94
      ]
     ],
     "bornes": [
      [
       1.95,
-      3.12
+      2.925
      ]
     ],
-    "t_film_json": 5.2,
-    "attaque": 5.2,
-    "fin": 6.37,
+    "t_film_json": 8.4,
+    "attaque": 8.4,
+    "fin": 9.375,
     "retard_s": 0.0,
-    "creneau_s": 1.2,
-    "duree_prise_s": 1.17,
+    "creneau_s": 2.5,
+    "duree_prise_s": 0.975,
     "atempo": 1.0,
     "atempo_max": 1.0,
-    "duree_finale_s": 1.17,
+    "duree_finale_s": 0.975,
     "debordement_s": 0.0,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 17.2,
-    "marge_bande_voix_db": 27.8,
+    "marge_db": 19.9,
+    "marge_bande_voix_db": 25.8,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    },
    {
-    "id": "salon_3",
-    "texte": "ARÈNE !",
+    "id": "en_arene",
+    "texte": "EN ARÈNE !",
     "morceaux_json": [
      [
       "voix_off/L02.mp3",
-      3.12,
-      4.18
+      2.96,
+      4.2
      ]
     ],
     "bornes": [
      [
-      3.12,
-      4.205
+      2.925,
+      4.2
      ]
     ],
-    "t_film_json": 6.5,
-    "attaque": 6.5,
-    "fin": 7.585,
+    "t_film_json": 11.0,
+    "attaque": 11.0,
+    "fin": 12.275,
     "retard_s": 0.0,
-    "creneau_s": 1.05,
-    "duree_prise_s": 1.085,
+    "creneau_s": 1.0,
+    "duree_prise_s": 1.275,
     "atempo": 1.0,
     "atempo_max": 1.0,
-    "duree_finale_s": 1.085,
-    "debordement_s": 0.035,
+    "duree_finale_s": 1.275,
+    "debordement_s": 0.275,
     "emphase": true,
-    "emphase_depuis_s": 6.5,
-    "marge_db": 1.9,
-    "marge_bande_voix_db": 19.5,
+    "emphase_depuis_s": 11.0,
+    "marge_db": 1.3,
+    "marge_bande_voix_db": 10.3,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    },
@@ -607,20 +631,20 @@
       6.64
      ]
     ],
-    "t_film_json": 7.65,
-    "attaque": 7.65,
-    "fin": 10.61,
-    "retard_s": 0.0,
-    "creneau_s": 2.95,
+    "t_film_json": 12.1,
+    "attaque": 12.295,
+    "fin": 15.255,
+    "retard_s": 0.195,
+    "creneau_s": 2.805,
     "duree_prise_s": 2.96,
     "atempo": 1.0,
     "atempo_max": 1.0,
     "duree_finale_s": 2.96,
-    "debordement_s": 0.01,
+    "debordement_s": 0.155,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 14.3,
-    "marge_bande_voix_db": 24.5,
+    "marge_db": 7.3,
+    "marge_bande_voix_db": 8.9,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    },
@@ -640,22 +664,22 @@
       10.78
      ]
     ],
-    "t_film_json": 10.7,
-    "attaque": 10.7,
-    "fin": 14.686,
-    "retard_s": 0.0,
-    "creneau_s": 3.94,
+    "t_film_json": 15.2,
+    "attaque": 15.275,
+    "fin": 19.261,
+    "retard_s": 0.075,
+    "creneau_s": 3.865,
     "duree_prise_s": 4.14,
     "atempo": 1.04,
     "atempo_max": 1.04,
     "duree_finale_s": 3.986,
-    "debordement_s": 0.046,
+    "debordement_s": 0.121,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 6.7,
-    "marge_bande_voix_db": 8.1,
-    "ducking_db": -9.0,
-    "ducking_gags_db": -3.0
+    "marge_db": 5.1,
+    "marge_bande_voix_db": 6.5,
+    "ducking_db": -14.0,
+    "ducking_gags_db": -4.4
    },
    {
     "id": "ecurie_02",
@@ -673,22 +697,22 @@
       15.41
      ]
     ],
-    "t_film_json": 14.74,
-    "attaque": 14.74,
-    "fin": 18.981,
-    "retard_s": 0.0,
-    "creneau_s": 4.17,
+    "t_film_json": 19.24,
+    "attaque": 19.281,
+    "fin": 23.522,
+    "retard_s": 0.041,
+    "creneau_s": 4.129,
     "duree_prise_s": 4.395,
     "atempo": 1.04,
     "atempo_max": 1.04,
     "duree_finale_s": 4.241,
-    "debordement_s": 0.071,
+    "debordement_s": 0.112,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 6.9,
-    "marge_bande_voix_db": 6.5,
-    "ducking_db": -14.0,
-    "ducking_gags_db": -6.6
+    "marge_db": 4.2,
+    "marge_bande_voix_db": 13.7,
+    "ducking_db": -9.0,
+    "ducking_gags_db": -3.0
    },
    {
     "id": "ecurie_03",
@@ -706,22 +730,22 @@
       19.565
      ]
     ],
-    "t_film_json": 19.01,
-    "attaque": 19.01,
-    "fin": 22.826,
-    "retard_s": 0.0,
-    "creneau_s": 3.8,
+    "t_film_json": 23.51,
+    "attaque": 23.542,
+    "fin": 27.329,
+    "retard_s": 0.032,
+    "creneau_s": 3.768,
     "duree_prise_s": 3.925,
-    "atempo": 1.0329,
+    "atempo": 1.04,
     "atempo_max": 1.04,
-    "duree_finale_s": 3.816,
-    "debordement_s": 0.016,
+    "duree_finale_s": 3.787,
+    "debordement_s": 0.019,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 8.1,
-    "marge_bande_voix_db": 10.1,
-    "ducking_db": -9.0,
-    "ducking_gags_db": -3.0
+    "marge_db": 5.0,
+    "marge_bande_voix_db": 6.5,
+    "ducking_db": -14.0,
+    "ducking_gags_db": -4.7
    },
    {
     "id": "ecurie_04",
@@ -739,9 +763,9 @@
       23.97
      ]
     ],
-    "t_film_json": 22.91,
-    "attaque": 22.91,
-    "fin": 26.908,
+    "t_film_json": 27.41,
+    "attaque": 27.41,
+    "fin": 31.408,
     "retard_s": 0.0,
     "creneau_s": 3.98,
     "duree_prise_s": 4.15,
@@ -751,9 +775,9 @@
     "debordement_s": 0.018,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 8.1,
-    "marge_bande_voix_db": 9.6,
-    "ducking_db": -9.0,
+    "marge_db": 5.1,
+    "marge_bande_voix_db": 6.8,
+    "ducking_db": -14.0,
     "ducking_gags_db": -3.0
    },
    {
@@ -772,9 +796,9 @@
       27.815
      ]
     ],
-    "t_film_json": 26.99,
-    "attaque": 26.99,
-    "fin": 30.585,
+    "t_film_json": 31.49,
+    "attaque": 31.49,
+    "fin": 35.085,
     "retard_s": 0.0,
     "creneau_s": 3.8,
     "duree_prise_s": 3.595,
@@ -784,8 +808,8 @@
     "debordement_s": 0.0,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 2.6,
-    "marge_bande_voix_db": 10.3,
+    "marge_db": 3.0,
+    "marge_bande_voix_db": 8.2,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    },
@@ -805,9 +829,9 @@
       33.325
      ]
     ],
-    "t_film_json": 30.89,
-    "attaque": 30.89,
-    "fin": 36.004,
+    "t_film_json": 35.39,
+    "attaque": 35.39,
+    "fin": 40.504,
     "retard_s": 0.0,
     "creneau_s": 5.06,
     "duree_prise_s": 5.31,
@@ -817,8 +841,8 @@
     "debordement_s": 0.054,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 5.9,
-    "marge_bande_voix_db": 15.4,
+    "marge_db": 2.2,
+    "marge_bande_voix_db": 12.0,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    },
@@ -847,9 +871,9 @@
       37.945
      ]
     ],
-    "t_film_json": 36.05,
-    "attaque": 36.05,
-    "fin": 40.669,
+    "t_film_json": 40.55,
+    "attaque": 40.55,
+    "fin": 45.169,
     "retard_s": 0.0,
     "creneau_s": 4.52,
     "duree_prise_s": 4.79,
@@ -859,8 +883,8 @@
     "debordement_s": 0.099,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 7.4,
-    "marge_bande_voix_db": 15.8,
+    "marge_db": 2.6,
+    "marge_bande_voix_db": 12.8,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    },
@@ -880,9 +904,9 @@
       42.89
      ]
     ],
-    "t_film_json": 40.67,
-    "attaque": 40.689,
-    "fin": 45.237,
+    "t_film_json": 45.17,
+    "attaque": 45.189,
+    "fin": 49.737,
     "retard_s": 0.019,
     "creneau_s": 4.481,
     "duree_prise_s": 4.715,
@@ -892,8 +916,8 @@
     "debordement_s": 0.067,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 2.7,
-    "marge_bande_voix_db": 13.8,
+    "marge_db": 3.4,
+    "marge_bande_voix_db": 8.5,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    },
@@ -913,9 +937,9 @@
       49.875
      ]
     ],
-    "t_film_json": 45.27,
-    "attaque": 45.27,
-    "fin": 50.045,
+    "t_film_json": 49.77,
+    "attaque": 49.77,
+    "fin": 54.545,
     "retard_s": 0.0,
     "creneau_s": 4.76,
     "duree_prise_s": 4.925,
@@ -925,8 +949,8 @@
     "debordement_s": 0.015,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 8.3,
-    "marge_bande_voix_db": 15.0,
+    "marge_db": 4.7,
+    "marge_bande_voix_db": 11.7,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    },
@@ -946,9 +970,9 @@
       54.375
      ]
     ],
-    "t_film_json": 50.13,
-    "attaque": 50.13,
-    "fin": 54.458,
+    "t_film_json": 54.63,
+    "attaque": 54.63,
+    "fin": 58.958,
     "retard_s": 0.0,
     "creneau_s": 4.11,
     "duree_prise_s": 4.5,
@@ -958,8 +982,8 @@
     "debordement_s": 0.218,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 3.2,
-    "marge_bande_voix_db": 11.0,
+    "marge_db": 3.3,
+    "marge_bande_voix_db": 10.9,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    },
@@ -979,9 +1003,9 @@
       58.99
      ]
     ],
-    "t_film_json": 54.34,
-    "attaque": 54.478,
-    "fin": 58.591,
+    "t_film_json": 58.84,
+    "attaque": 58.978,
+    "fin": 63.091,
     "retard_s": 0.138,
     "creneau_s": 3.892,
     "duree_prise_s": 4.43,
@@ -991,8 +1015,8 @@
     "debordement_s": 0.221,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 5.9,
-    "marge_bande_voix_db": 17.2,
+    "marge_db": 4.2,
+    "marge_bande_voix_db": 16.6,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    },
@@ -1012,9 +1036,9 @@
       63.39
      ]
     ],
-    "t_film_json": 58.47,
-    "attaque": 58.611,
-    "fin": 62.412,
+    "t_film_json": 62.97,
+    "attaque": 63.111,
+    "fin": 66.912,
     "retard_s": 0.141,
     "creneau_s": 3.599,
     "duree_prise_s": 4.11,
@@ -1024,8 +1048,8 @@
     "debordement_s": 0.202,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 4.0,
-    "marge_bande_voix_db": 10.3,
+    "marge_db": 3.2,
+    "marge_bande_voix_db": 8.2,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    },
@@ -1045,9 +1069,9 @@
       67.9
      ]
     ],
-    "t_film_json": 62.31,
-    "attaque": 62.432,
-    "fin": 66.366,
+    "t_film_json": 66.81,
+    "attaque": 66.932,
+    "fin": 70.866,
     "retard_s": 0.122,
     "creneau_s": 3.728,
     "duree_prise_s": 4.24,
@@ -1057,10 +1081,10 @@
     "debordement_s": 0.206,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 4.7,
+    "marge_db": 6.4,
     "marge_bande_voix_db": 6.5,
     "ducking_db": -14.0,
-    "ducking_gags_db": -3.5
+    "ducking_gags_db": -5.5
    },
    {
     "id": "ecurie_14",
@@ -1078,9 +1102,9 @@
       72.91
      ]
     ],
-    "t_film_json": 66.26,
-    "attaque": 66.386,
-    "fin": 70.831,
+    "t_film_json": 70.76,
+    "attaque": 70.886,
+    "fin": 75.331,
     "retard_s": 0.126,
     "creneau_s": 4.184,
     "duree_prise_s": 4.8,
@@ -1090,10 +1114,10 @@
     "debordement_s": 0.261,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 5.0,
-    "marge_bande_voix_db": 8.0,
-    "ducking_db": -11.2,
-    "ducking_gags_db": -3.0
+    "marge_db": 6.1,
+    "marge_bande_voix_db": 6.5,
+    "ducking_db": -14.0,
+    "ducking_gags_db": -5.1
    },
    {
     "id": "ecurie_15",
@@ -1111,11 +1135,11 @@
       76.965
      ]
     ],
-    "t_film_json": 70.67,
-    "attaque": 70.851,
-    "fin": 74.676,
+    "t_film_json": 75.17,
+    "attaque": 75.351,
+    "fin": 79.176,
     "retard_s": 0.181,
-    "creneau_s": 11.049,
+    "creneau_s": 12.149,
     "duree_prise_s": 3.825,
     "atempo": 1.0,
     "atempo_max": 1.08,
@@ -1123,41 +1147,107 @@
     "debordement_s": 0.0,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 3.8,
-    "marge_bande_voix_db": 14.3,
+    "marge_db": 2.7,
+    "marge_bande_voix_db": 11.8,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    },
    {
-    "id": "familles",
-    "texte": "Des Batmobiles au sommet de Gotham… des Formule 1 sur la ligne arc-en-ciel… et les légendes de Tokyo.",
+    "id": "famille_gotham",
+    "texte": "Des Batmobiles au sommet de Gotham…",
     "morceaux_json": [
      [
       "voix_off/VO_V9_tout.mp3",
       88.36,
-      94.1
+      90.43
      ]
     ],
     "bornes": [
      [
       88.36,
-      94.1
+      90.37
      ]
     ],
-    "t_film_json": 82.0,
-    "attaque": 82.0,
-    "fin": 87.74,
+    "t_film_json": 87.6,
+    "attaque": 87.6,
+    "fin": 89.61,
     "retard_s": 0.0,
-    "creneau_s": 7.2,
-    "duree_prise_s": 5.74,
+    "creneau_s": 2.6,
+    "duree_prise_s": 2.01,
     "atempo": 1.0,
     "atempo_max": 1.0,
-    "duree_finale_s": 5.74,
+    "duree_finale_s": 2.01,
     "debordement_s": 0.0,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 12.8,
-    "marge_bande_voix_db": 17.0,
+    "marge_db": 12.6,
+    "marge_bande_voix_db": 19.3,
+    "ducking_db": -9.0,
+    "ducking_gags_db": -3.0
+   },
+   {
+    "id": "famille_f1",
+    "texte": "…des Formule 1 sur la ligne arc-en-ciel…",
+    "morceaux_json": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      90.43,
+      92.53
+     ]
+    ],
+    "bornes": [
+     [
+      90.37,
+      92.43
+     ]
+    ],
+    "t_film_json": 90.3,
+    "attaque": 90.3,
+    "fin": 92.36,
+    "retard_s": 0.0,
+    "creneau_s": 2.5,
+    "duree_prise_s": 2.06,
+    "atempo": 1.0,
+    "atempo_max": 1.0,
+    "duree_finale_s": 2.06,
+    "debordement_s": 0.0,
+    "emphase": false,
+    "emphase_depuis_s": null,
+    "marge_db": 13.9,
+    "marge_bande_voix_db": 16.5,
+    "ducking_db": -9.0,
+    "ducking_gags_db": -3.0
+   },
+   {
+    "id": "famille_tokyo",
+    "texte": "…et les légendes de Tokyo.",
+    "morceaux_json": [
+     [
+      "voix_off/VO_V9_tout.mp3",
+      92.53,
+      94.1
+     ]
+    ],
+    "bornes": [
+     [
+      92.43,
+      94.1
+     ]
+    ],
+    "t_film_json": 92.9,
+    "attaque": 92.9,
+    "fin": 94.57,
+    "retard_s": 0.0,
+    "creneau_s": 3.2,
+    "duree_prise_s": 1.67,
+    "atempo": 1.0,
+    "atempo_max": 1.0,
+    "duree_finale_s": 1.67,
+    "debordement_s": 0.0,
+    "emphase": false,
+    "emphase_depuis_s": null,
+    "marge_db": 13.2,
+    "marge_bande_voix_db": 17.8,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    },
@@ -1177,11 +1267,11 @@
       88.4
      ]
     ],
-    "t_film_json": 89.3,
-    "attaque": 89.3,
-    "fin": 98.66,
+    "t_film_json": 96.2,
+    "attaque": 96.2,
+    "fin": 105.56,
     "retard_s": 0.0,
-    "creneau_s": 9.8,
+    "creneau_s": 10.0,
     "duree_prise_s": 9.36,
     "atempo": 1.0,
     "atempo_max": 1.0,
@@ -1189,7 +1279,7 @@
     "debordement_s": 0.0,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 6.4,
+    "marge_db": 6.3,
     "marge_bande_voix_db": 8.0,
     "ducking_db": -10.3,
     "ducking_gags_db": -3.0
@@ -1210,11 +1300,11 @@
       96.99
      ]
     ],
-    "t_film_json": 99.2,
-    "attaque": 99.2,
-    "fin": 102.075,
+    "t_film_json": 106.3,
+    "attaque": 106.3,
+    "fin": 109.175,
     "retard_s": 0.0,
-    "creneau_s": 5.8,
+    "creneau_s": 7.6,
     "duree_prise_s": 2.875,
     "atempo": 1.0,
     "atempo_max": 1.0,
@@ -1222,8 +1312,8 @@
     "debordement_s": 0.0,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 9.1,
-    "marge_bande_voix_db": 12.5,
+    "marge_db": 10.4,
+    "marge_bande_voix_db": 14.8,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    },
@@ -1243,9 +1333,9 @@
       101.3
      ]
     ],
-    "t_film_json": 105.1,
-    "attaque": 105.1,
-    "fin": 109.205,
+    "t_film_json": 114.0,
+    "attaque": 114.0,
+    "fin": 118.105,
     "retard_s": 0.0,
     "creneau_s": 8.65,
     "duree_prise_s": 4.105,
@@ -1254,9 +1344,9 @@
     "duree_finale_s": 4.105,
     "debordement_s": 0.0,
     "emphase": true,
-    "emphase_depuis_s": 107.335,
-    "marge_db": 2.5,
-    "marge_bande_voix_db": 14.0,
+    "emphase_depuis_s": 116.235,
+    "marge_db": 1.5,
+    "marge_bande_voix_db": 11.5,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    },
@@ -1276,9 +1366,9 @@
       102.725
      ]
     ],
-    "t_film_json": 113.85,
-    "attaque": 113.85,
-    "fin": 115.175,
+    "t_film_json": 122.75,
+    "attaque": 122.75,
+    "fin": 124.075,
     "retard_s": 0.0,
     "creneau_s": 5.35,
     "duree_prise_s": 1.325,
@@ -1288,8 +1378,8 @@
     "debordement_s": 0.0,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 9.0,
-    "marge_bande_voix_db": 15.7,
+    "marge_db": 10.0,
+    "marge_bande_voix_db": 16.8,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    },
@@ -1309,11 +1399,11 @@
       104.6
      ]
     ],
-    "t_film_json": 119.3,
-    "attaque": 119.3,
-    "fin": 121.175,
+    "t_film_json": 128.2,
+    "attaque": 128.2,
+    "fin": 130.075,
     "retard_s": 0.0,
-    "creneau_s": 2.2,
+    "creneau_s": 2.7,
     "duree_prise_s": 1.875,
     "atempo": 1.0,
     "atempo_max": 1.0,
@@ -1321,8 +1411,8 @@
     "debordement_s": 0.0,
     "emphase": false,
     "emphase_depuis_s": null,
-    "marge_db": 6.6,
-    "marge_bande_voix_db": 16.3,
+    "marge_db": 4.8,
+    "marge_bande_voix_db": 11.4,
     "ducking_db": -9.0,
     "ducking_gags_db": -3.0
    }
@@ -1330,7 +1420,7 @@
   "mix": {
    "fichier": "audio/mix_v9.wav",
    "mp3": "audio/mix_v9.mp3",
-   "gain_master_db": -3.26,
+   "gain_master_db": -3.48,
    "lufs_integre": -16.0,
    "vrai_crete_dbtp": -1.3,
    "ducking": "voix : base -9 dB → -14 dB si la marge (bande 300 Hz–3,4 kHz, pendant la parole) < +8 dB ; gags -3 dB sous la PAROLE seulement (respirations libres, garde-fou +6 dB) ; Cloclo -6 dB ; jazz -5 dB ; impacts : moitié ; scratch et humide « stade » non duckés"

@@ -1,38 +1,41 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Bande-son V9.2 « Grand Prix de Noël — Ring » : 121,6 s calées sur data/plan_v9.json et data/voix_v9.json (version v9.2).
+Bande-son V9.3 « Grand Prix de Noël — Ring » : 131,0 s calées sur data/plan_v9.json et data/voix_v9.json (version v9.3).
 Ouverture et arène : temps film = temps interne (remap identité, vérifié) ; familles : carte du temps (vers_film).
 
-  0 → 4,65 s      JAZZ DE NOËL lounge, cliché assumé (« Jingle Bells », domaine public, au piano électrique feutré, swing 82 BPM,
-                  contrebasse, balais, clochettes de traîneau) + crépitement de cheminée net, sous « Mesdames et messieurs… »
-                  (0,1) et « Le salon… » (3,75). Le « …WAY » de la mélodie tomberait pile sur le scratch.
-  4,65 → 5,05     RECORD SCRATCH qui COUPE le jazz (décélération exponentielle de phase du disque + chirp 1800 → 120 Hz +
-                  friction).
-  5,05 → 6,36     aspiration : riser sub-basse + souffle inversé, décharges électriques, explosion de particules, sous
-                  « …se transforme en… » (5,2) ; 6,36 → 6,5 micro-suspense.
-  6,5 → 10,65     « ARÈNE ! » (emphase stade) pile sur le 1er temps d'un DROP électro/synthwave 128 BPM (grosse caisse, basse
-                  sidechain, arpèges), roulement final, puis raccord sur le TEMPS FORT de la Ring music à 10,65.
-  10,65 → 121,6   RING MUSIC du client, fil rouge jusqu'à la fin (boucle sur les temps forts, étirée par atempo pour que le
-                  logo final 119,1 tombe sur un temps fort ; ducking sous la voix ; montée de la gloire ; résonance finale).
-  10,65 → 74,2    ÉCURIES : swoosh grave à chaque bandeau, bruitages de mouvement discrets (≤ −14 dB sous la musique), GAGS
-                  MOTEURS au premier plan (−5,5 dB sous la voix, ducking doux de 6 dB) : #02 vaisseau spatial, #05 V8 lourd +
-                  sub, #08 bips Audi + boîte de conserve + démarreur qui tousse, #10 rugissement 6×6 + sub 44 Hz, les autres
-                  leur moteur réel CC0 / CC BY (../../sounds/moteurs_reels) ; #04 Tata Freddy : CLAUDE FRANÇOIS « Le Mal Aimé »
-                  (temps fort mesuré calé à l'image près sur l'atterrissage, la ring s'efface dessous) ; #11–#15 : impact sub +
-                  stinger moteur à chaque coupe franche, idem aux coupes du RUSH (74,2 → 79,2) ; portail de la couronne 80,6.
-  81,6 → 89,2     FAMILLES (Gotham / F1 / Tokyo) sous la ring, swoosh grave + glitch de téléportation à chaque portail.
-  89,2 → 98,6     CASINO : KA-CHING (pari 91,7, points 92,9, bonus 95,5), cascade de pièces d'or, roulette qui ralentit
-                  94,1 → 95,5, swoosh rouge du piège 97,0.
-  98,6 → 121,6    LOOTBOX, GLOIRE (« la gloire éternelle » en emphase stade, impacts, foule, fanfare), DÉPART, LOGO 119,1.
+  0 → 11 s        CRESCENDO sur Claude François « Le Mal Aimé » (audio/sources, lu dès 18,22 s du fichier : le temps fort
+                  MESURÉ du refrain, 29,22 s, tombe pile à 11,0 sur « EN ARÈNE ! ») : 0 → 2 radio lointaine étouffée
+                  (passe-bas 500 Hz, −28 dB) + braises ; 2 → 5,5 le salon s'allume (filtre qui s'ouvre, clochettes discrètes
+                  sur la cascade des guirlandes) ; 6,8 déclic de la télé ; 7,6 → 11 VRILLE (riser qui accélère, aspiration,
+                  crépitements électriques, la musique monte au plein niveau) ; 11,0 temps fort + impact sub + clameur.
+                  Voix : accueil 1,0 ; « Mais ce soir… » 5,6 ; « …le salon… » 6,9 ; « …se transforme… » 8,4 ; « EN ARÈNE ! » 11,0.
+  11 → 16,04      le refrain continue sous l'arrivée, fondu enchaîné vers la RING MUSIC sur une mesure de « Le Mal Aimé ».
+  16,04 → 131     RING MUSIC du client, fil rouge (boucle sur les temps forts, atempo pour que le logo 128,0 tombe sur un temps
+                  fort ; ducking sous la voix ; pause de rythme à Gotham, retrait pendant le suspense du conteneur, retour plein
+                  à l'embrasement ; résonance finale jusqu'à 131).
+  15,15 → 78,7    ÉCURIES : swoosh grave à chaque bandeau, mouvement discret (≤ −14 dB sous la musique), MOTEURS RÉELS DU
+                  SHOWROOM au premier plan (sounds/moteurs_reels/NN/banque.json, comme shared/engine_audio.js en mode « réel » :
+                  ralenti bouclé + coups de gaz, ou bandes multi-régimes), temps fort dans les respirations de la voix (accent
+                  +4 dB), ducking doux de 3 dB sous la parole, garde-fou voix +6 dB ; #08 : + 3 bips Audi ; #04 : « Le Mal Aimé »
+                  REFRAIN 2 (temps fort mesuré calé sur l'atterrissage). RUSH 78,7 → 83,7 (#08 #03 #02 #10) : impact sub +
+                  stinger du moteur réel à chaque coupe. Portail de la couronne 85,1.
+  86,1 → 96,1     FAMILLES : Gotham (entrée en fondu, PAUSE de rythme 86,1 → 87,6 : pluie, tonnerre, nappe sombre), F1 (bips),
+                  Tokyo (vraie course : dépassements Doppler croisés, crissements) ; swoosh + glitch (discret vers Tokyo).
+  96,1 → 105,5    CASINO : ka-ching, pièces d'or, roulette, swoosh rouge du piège.
+  105,5 → 114,5   CONTENEUR : descente, impact lourd, SUSPENSE (musique retirée, battements de cœur, grincements, verrous un à
+                  un dès 109,3, souffle, rideau lent 110,5 → 113,2), trophée 113,4, TOUT S'ENFLAMME 113,6 (pyro, feux
+                  d'artifice, foule, musique pleine).
+  114,5 → 131     GLOIRE (« la gloire éternelle » en emphase stade, impacts 116,4 / 117,4, foule, fanfare), FIN plus pleine
+                  (foule, moteurs qui passent, feux d'artifice), final musical sur le logo 128,0, résonance jusqu'à 131.
 VOIX : UNE prise continue par pièce ; bornes vérifiées à −48 dB et élargies jusqu'au vrai silence (outils_v9/decoupe_voix.py),
-jamais de coupe de syllabe ; pas de time-stretch si la pièce tient dans son créneau, sinon atempo ≤ atempo_max puis débordement
-naturel ≤ 0,3 s ; aucune voix ne se chevauche ; contrôle de coupure interne par comparaison d'enveloppes.
+jonctions de prises collées posées au creux le plus bas, jamais de coupe de syllabe ; pas de time-stretch si la pièce tient dans
+son créneau, sinon atempo ≤ atempo_max puis débordement naturel ≤ 0,3 s ; aucune voix ne se chevauche.
 
 Réutilise par IMPORT la bande-son V8 (../v8_finale/sound_v8.py, non modifiée) et la V7 à travers elle.
-Sorties : audio/mix_v9.wav (48 kHz stéréo 16 bit, 121,6 s exactement, −16 LUFS BS.1770-4, vrai crête ≤ −1 dBTP), audio/mix_v9.mp3
+Sorties : audio/mix_v9.wav (48 kHz stéréo 16 bit, 131,0 s exactement, −16 LUFS BS.1770-4, vrai crête ≤ −1 dBTP), audio/mix_v9.mp3
 (320 kb/s) et data/timeline_v9.json (événements, voix, corrections de bornes, contrôles). Les sons sous droits (ring music,
-Claude François, moteurs fournis, carillon Audi) sont LUS dans audio/ (ignoré par git), jamais copiés dans le dépôt.
+Claude François, carillon Audi) sont LUS dans audio/ (ignoré par git), jamais copiés dans le dépôt ; moteurs CC0 / CC BY.
 Dépendances : numpy, scipy, ffmpeg. Déterminisme : toutes les graines sont fixes.
 """
 import argparse
@@ -76,8 +79,8 @@ LISSAGE_DUCK = 0.080           # enveloppe de ducking lissée sur 80 ms
 GAIN_VOIX = 1.0
 # L02 « Le salon… se transforme en… ARÈNE ! » : la borne 2,14 / 2,15 du JSON tombe dans le /s/ de « se » (fricative 1,98 → 2,15,
 # creux de −32 dB au milieu) ; « salon » finit à 1,96 (creux −28 dB) → la jonction est déplacée au creux 1,88–1,99.
-JONCTIONS_REVUES = {'salon_1': {'fin': (1.88, 1.99, '« se » commence à 1,98 s (fricative /s/)')},
-                    'salon_2': {'debut': (1.88, 1.99, '« se » commence à 1,98 s (fricative /s/)')}}
+JONCTIONS_REVUES = {'salon': {'fin': (1.88, 1.99, '« se » commence à 1,98 s (fricative /s/)')},
+                    'transforme': {'debut': (1.88, 1.99, '« se » commence à 1,98 s (fricative /s/)')}}
 GAP_MORCEAUX = 0.03             # écurie 7 : silence entre la prise anglaise et la fin
 RETARD_MAX = 0.30               # une pièce peut attendre la fin de la précédente d'au plus 0,3 s
 DEBORD_MAX = 0.30               # débordement naturel maximal au-delà du créneau
@@ -1215,7 +1218,12 @@ def voix_off_v9(sr, N, pieces, duree):
     for j in jonctions:
         for c in corrections:
             if c['piece'] == j['piece']:
-                c['debut'][1], c['debut'][2] = j['debut_apres'], 'rattachement (zone %.1f dB entre prises collées)' % j['zone_db_min']
+                if 'chevauchement' in j:
+                    c['debut'][1], c['debut'][2] = j['jonction'], 'jonction au creux du chevauchement (%.1f dB)' % j['zone_db_min']
+                else:
+                    c['debut'][1], c['debut'][2] = j['debut_apres'], 'rattachement (zone %.1f dB entre prises collées)' % j['zone_db_min']
+            if c['piece'] == j.get('piece_precedente'):
+                c['fin'][1], c['fin'][2] = j['jonction'], 'jonction au creux du chevauchement (%.1f dB)' % j['zone_db_min']
     # --- 2. assemblage et placement
     piste = np.zeros(N)
     humide = np.zeros((N, 2))
@@ -1437,29 +1445,9 @@ def ecrire_wav16(chemin, x, sr, graine=90909):
 
 
 # ----------------------------------------------------------------------------------------------
-# V9.2 : ouverture jazz → record scratch → aspiration → DROP électro, casino, portails, smash cuts
+# V9.2 : riser d'aspiration, décharges, swoosh grave, glitch de portail, casino, impacts de coupe
 # ----------------------------------------------------------------------------------------------
-BPM_JAZZ = 82.0
-BPM_DROP = 128.0
 
-
-def piano_ep(f, duree, sr, vel=1.0):
-    """Piano électrique « lounge » feutré (FM 1:1, indice qui retombe, petite lame aiguë ×14), passe-bas 3,2 kHz."""
-    n = int(duree * sr)
-    t = temps(n, sr)
-    idx = (2.2 * np.exp(-t / 0.25) + 0.35) * vel
-    x = np.sin(2 * np.pi * f * t + idx * np.sin(2 * np.pi * f * t))
-    x += 0.12 * vel * np.sin(2 * np.pi * 14.0 * f * t) * np.exp(-t / 0.03)
-    x *= montee(t, 0.003) * np.exp(-t / 1.1) * fenetre(n, 0.0, 0.08, sr)
-    return filtre_bande(x, sr, 60.0, 3200.0, ordre=1)
-
-
-def contrebasse(f, duree, sr):
-    """Contrebasse pincée : fondamentale + 2ᵉ/3ᵉ harmoniques, attaque de doigt, décroissance."""
-    n = int(duree * sr)
-    t = temps(n, sr)
-    x = np.sin(2 * np.pi * f * t) + 0.45 * np.sin(4 * np.pi * f * t) * np.exp(-t / 0.15) + 0.2 * np.sin(6 * np.pi * f * t) * np.exp(-t / 0.08)
-    return x * montee(t, 0.006) * np.exp(-t / 0.55) * fenetre(n, 0.0, 0.06, sr)
 
 
 def clochettes_traineau(sr, rng, gain=1.0):
@@ -1481,74 +1469,6 @@ def clochettes_traineau(sr, rng, gain=1.0):
     poser(out, filtre_bande(rng.standard_normal(nc), sr, 5000.0, 14000.0) * np.exp(-tc / 0.012), 0.0, sr, gain=0.25)
     return out * gain
 
-
-def jazz_noel(sr, rng, t0, duree):
-    """Jazz de Noël lounge, cliché assumé : « Jingle Bells » (J. L. Pierpont, 1857, domaine public) au piano électrique
-    feutré, swing 82 BPM en fa majeur (Fmaj9 – Dm9 – Gm9 – C13), contrebasse qui marche, balais, clochettes de traîneau
-    sur les croches. t0 = premier temps de la mélodie ; « way » tombe sur t0 + 6 temps. Renvoie (stéréo, liste des notes)."""
-    n = int(duree * sr)
-    out = np.zeros((n, 2))
-    b = 60.0 / BPM_JAZZ
-    sw = lambda x: (math.floor(x) + (0.62 if abs(x - math.floor(x) - 0.5) < 1e-6 else x - math.floor(x)))   # croches swing
-    mel = [(0, 69, .5), (.5, 69, .5), (1, 69, 1), (2, 69, .5), (2.5, 69, .5), (3, 69, 1),
-           (4, 69, .5), (4.5, 72, .5), (5, 65, .75), (5.75, 67, .25), (6, 69, 2)]
-    for bt, m, du in mel:
-        poser(out, stereo(piano_ep(midi_hz(m), du * b + 0.4, sr, 1.0), 0.1), t0 + sw(bt) * b, sr, gain=0.55)
-    accords = [(0, [57, 60, 64, 67]), (2, [53, 57, 60, 64]), (4, [58, 62, 65, 69]), (6, [58, 64, 69, 74])]
-    for bt, notes in accords:
-        for d, du, g in ((0.0, 0.9, 0.22), (1.62, 0.35, 0.16)):
-            for i, m in enumerate(notes):
-                poser(out, stereo(piano_ep(midi_hz(m), du * b + 0.3, sr, 0.6), -0.3 + 0.2 * i), t0 + (bt + d) * b + 0.004 * i, sr, gain=g)
-    for k, m in enumerate([41, 45, 38, 40, 43, 46, 48, 40]):
-        poser(out, stereo(contrebasse(midi_hz(m), 0.9 * b, sr), -0.1), t0 + k * b, sr, gain=0.42)
-    for k in range(-1, 9):                                    # balais : frottement sur chaque temps, petit coup sur 2 et 4
-        tb = t0 + k * b
-        nb = int(0.5 * b * sr)
-        tt = temps(nb, sr)
-        sw_ = filtre_bande(rng.standard_normal(nb), sr, 1500.0, 9000.0) * np.sin(np.pi * np.clip(tt / (0.5 * b), 0, 1)) ** 2
-        poser(out, sw_, tb, sr, pan=0.35, gain=0.035)
-        if k % 2 == 1:
-            nt = int(0.08 * sr)
-            tq = temps(nt, sr)
-            poser(out, filtre_bande(rng.standard_normal(nt), sr, 1200.0, 7000.0) * np.exp(-tq / 0.02), tb, sr, pan=0.3, gain=0.08)
-    k = -1.0                                                 # clochettes : petite secousse d'intro puis croches swing
-    while t0 + k * b < duree:
-        tk = t0 + sw(k) * b if k >= 0 else t0 + k * b
-        if tk >= 0:
-            poser(out, clochettes_traineau(sr, rng, 1.0 if abs(k - round(k)) < 1e-6 else 0.6), tk, sr, gain=0.10)
-        k += 0.5
-    return out, mel
-
-
-def record_scratch(source, t_s, sr, rng, duree=0.40, tau=0.11):
-    """RECORD SCRATCH : (1) le disque de jazz freine — décélération exponentielle de la phase de lecture
-    φ(t) = τ(1 − e^(−t/τ)) appliquée à `source` (stéréo complète) à partir de t_s, la hauteur s'effondre ; (2) chirp de diamant
-    1800 → 120 Hz (dents de scie, rugueux) ; (3) friction bruitée du vinyle sous le doigt ; (4) petit « zip » avant de 40 ms.
-    Renvoie un stéréo de `duree` s à poser à t_s − 0,04."""
-    pre = 0.04
-    n = int((duree + pre) * sr)
-    out = np.zeros((n, 2))
-    t = temps(int(duree * sr), sr)
-    phi = tau * (1.0 - np.exp(-t / tau))
-    pos = t_s + phi
-    tsrc = np.arange(source.shape[0]) / sr
-    frein = np.stack([np.interp(pos, tsrc, source[:, c]) for c in range(2)], axis=1)
-    frein *= (np.exp(-t / 0.22) * fenetre(t.shape[0], 0.002, 0.05, sr))[:, None]
-    poser(out, frein, pre, sr, gain=1.4)
-    f = 1800.0 * (120.0 / 1800.0) ** np.clip(t / 0.34, 0, 1)
-    ph = phase_continue(f, sr)
-    saw = sum(np.sin(h * ph) / h for h in range(1, 8))
-    rug = 1.0 + 0.5 * np.sign(np.sin(2 * np.pi * 63.0 * t))
-    ch = norme(saw * rug) * montee(t, 0.002) * np.exp(-t / 0.2) * fenetre(t.shape[0], 0.0, 0.04, sr)
-    poser(out, stereo(ch, -0.1), pre, sr, gain=0.55)
-    gr = np.abs(filtre_bande(rng.standard_normal(t.shape[0]), sr, 30.0, 220.0))
-    fr = filtre_bande(rng.standard_normal(t.shape[0]), sr, 900.0, 6000.0) * (gr / (gr.max() + 1e-9)) * np.exp(-t / 0.16)
-    poser(out, stereo(norme(fr), 0.15), pre, sr, gain=0.45)
-    nz = int(pre * sr)
-    tz = temps(nz, sr)
-    zip_ = np.sin(phase_continue(500.0 * (1800.0 / 500.0) ** (tz / pre), sr)) * montee(tz, 0.002) + 0.4 * filtre_bande(rng.standard_normal(nz), sr, 1500.0, 7000.0)
-    poser(out, stereo(norme(zip_) * fenetre(nz, 0.002, 0.004, sr)), 0.0, sr, gain=0.4)
-    return out
 
 
 def riser_aspirant(sr, rng, duree):
@@ -1578,107 +1498,6 @@ def decharge_electrique(sr, rng, duree=0.18):
     x = norme(0.8 * norme(arc) + 0.5 * norme(buzz)) * montee(t, 0.001) * fenetre(n, 0.0, 0.04, sr)
     return stereo(x, float(rng.uniform(-0.7, 0.7)))
 
-
-def explosion_particules(sr, rng, duree=1.1):
-    """Explosion de particules : boum doux + nuée de 260 grains cristallins (3–11 kHz) dont la densité retombe, très large."""
-    n = int(duree * sr)
-    out = np.zeros((n, 2))
-    poser(out, sub_drop(sr, 0.7, 120.0, 40.0, 0.18), 0.0, sr, gain=0.6)
-    nf = int(0.35 * sr)
-    tf = temps(nf, sr)
-    poser(out, filtre_bande(rng.standard_normal(nf), sr, 800.0, 9000.0) * np.exp(-tf / 0.07) * montee(tf, 0.001), 0.0, sr, gain=0.35)
-    for _ in range(260):
-        d = float(rng.exponential(0.22))
-        if d > duree - 0.1:
-            continue
-        ng = int(0.06 * sr)
-        tg = temps(ng, sr)
-        g = np.sin(2 * np.pi * float(rng.uniform(3000, 11000)) * tg) * np.exp(-tg / float(rng.uniform(0.008, 0.03))) * montee(tg, 0.0004)
-        poser(out, g, d, sr, pan=float(rng.uniform(-1, 1)), gain=float(rng.uniform(0.05, 0.25)) * math.exp(-d / 0.5))
-    return out * fenetre(n, 0.0, 0.3, sr)[:, None]
-
-
-def scie(f, n, sr, detune=(0.994, 1.0, 1.006)):
-    t = temps(n, sr)
-    x = np.zeros(n)
-    for d in detune:
-        h = 1
-        while f * d * h < min(12000.0, 0.45 * sr) and h <= 40:
-            x += np.sin(2 * np.pi * f * d * h * t + 0.37 * h) / h
-            h += 1
-    return x
-
-
-def drop_electro(sr, rng, kit, t_drop, t_fin_grille, t_raccord, tonique):
-    """DROP électro / synthwave 128 BPM à partir de t_drop (1er temps) : impact + accord de supersaw, grosse caisse sur tous
-    les temps, clap sur 2 et 4, charleston en contretemps, basse en scie SIDECHAINÉE (pompe sous chaque grosse caisse),
-    arpège en doubles croches, nappe ; la grille s'arrête sur le dernier temps entier ≤ t_fin_grille, puis roulement de caisse
-    claire qui accélère jusqu'à t_raccord − 0,05 (temps fort de la Ring music). Mineur sur `tonique` (0 = do).
-    Renvoie (stéréo commençant à t_drop, instants des temps)."""
-    b = 60.0 / BPM_DROP
-    nb_temps = int((t_fin_grille - t_drop) / b + 1e-6)
-    D = t_raccord - t_drop + 0.6
-    n = int(D * sr)
-    out = np.zeros((n, 2))
-    r = tonique if tonique <= 6 else tonique - 12
-    prog = [[r + 45, r + 48, r + 52], [r + 41, r + 45, r + 48]]          # i – VI (la mineur : la – fa)
-    temps_ = [k * b for k in range(nb_temps + 1)]
-    pompe = np.ones(n)
-    tt = temps(n, sr)
-    for tk in temps_[:-1] + [temps_[-1]]:
-        i0 = int(tk * sr)
-        seg = tt[i0:] - tk
-        pompe[i0:] = np.minimum(pompe[i0:], 1.0 - 0.85 * np.exp(-seg / 0.07))
-    for k, tk in enumerate(temps_):
-        poser(out, kit['kb'] if k == 0 else kit['k'], tk, sr, gain=0.95 if k == 0 else 0.8)
-        if k % 2 == 1:
-            poser(out, kit['c'], tk, sr, pan=-0.05, gain=0.5)
-        if k < nb_temps:
-            poser(out, kit['h'], tk + b / 2, sr, pan=0.25, gain=0.25)
-    fin_grille = temps_[-1] + b
-    for k in range(nb_temps):
-        acc = prog[(k // 4) % 2]
-        racine = midi_hz(acc[0] - 12)
-        for c8 in (0.0, 0.5):
-            t8 = k * b + c8 * b
-            n8 = int(0.5 * b * sr)
-            x = scie(racine, n8, sr, (0.997, 1.003)) * fenetre(n8, 0.003, 0.02, sr)
-            x = filtre_bande(x, sr, 35.0, 900.0)
-            poser(out, stereo(norme(x)), t8, sr, gain=0.45)
-        for s16 in range(4):
-            m = acc[(k * 4 + s16) % 3] + 24 + (12 if (k * 4 + s16) % 8 >= 6 else 0)
-            n16 = int(0.25 * b * sr * 0.8)
-            t16 = temps(n16, sr)
-            x = np.sign(np.sin(2 * np.pi * midi_hz(m) * t16)) * 0.5 + np.sin(2 * np.pi * midi_hz(m) * t16)
-            x = filtre_bande(x, sr, 300.0, 5000.0) * np.exp(-t16 / 0.06) * fenetre(n16, 0.002, 0.01, sr)
-            poser(out, x, k * b + s16 * b / 4, sr, pan=0.45 if s16 % 2 else -0.45, gain=0.12)
-    for bloc in range(0, nb_temps, 4):
-        acc = prog[(bloc // 4) % 2]
-        d = min(4, nb_temps - bloc) * b
-        nn = int(d * sr)
-        pad = sum(scie(midi_hz(m + 12), nn, sr) for m in acc)
-        pad = filtre_bande(pad, sr, 200.0, 4000.0) * fenetre(nn, 0.01, 0.05, sr)
-        poser(out, np.stack([pad, np.roll(pad, 97)], axis=1) * 0.5 / (np.max(np.abs(pad)) + 1e-9), bloc * b, sr, gain=0.35)
-    out *= pompe[:, None] * 0.6 + 0.4                         # tout le tapis pompe (la grosse caisse a été posée avant)
-    for k, tk in enumerate(temps_):                           # les grosses caisses repassent par-dessus la pompe
-        poser(out, kit['kb'] if k == 0 else kit['k'], tk, sr, gain=0.35)
-    # impact d'entrée : sub + crash + supersaw de l'accord
-    poser(out, sub_drop(sr, 1.6, 110.0, 30.0, 0.45), 0.0, sr, gain=0.9)
-    poser(out, stereo(v8.cymbale(sr, rng, 2.2, 0.8)), 0.0, sr, gain=0.35)
-    ns = int(1.2 * sr)
-    stab = sum(scie(midi_hz(m + 12), ns, sr, (0.99, 0.995, 1.0, 1.005, 1.01)) for m in prog[0])
-    stab = filtre_bande(stab, sr, 150.0, 7000.0) * np.exp(-temps(ns, sr) / 0.35) * fenetre(ns, 0.003, 0.2, sr)
-    poser(out, np.stack([stab, np.roll(stab, 211)], axis=1) / (np.max(np.abs(stab)) + 1e-9), 0.0, sr, gain=0.45)
-    # roulement de caisse claire qui accélère jusqu'au raccord
-    t_r0, t_r1 = fin_grille - b, t_raccord - t_drop - 0.05
-    tr, pas, i = t_r0, b / 4, 0
-    while tr < t_r1 - 0.01:
-        u = (tr - t_r0) / max(1e-3, t_r1 - t_r0)
-        poser(out, kit['s'], tr, sr, pan=0.0, gain=0.25 + 0.45 * u)
-        tr += max(b / 8, pas * (1.0 - 0.5 * u))
-        i += 1
-    out[int(t_r1 * sr):] *= 0.0
-    return out, [t_drop + x for x in temps_]
 
 
 def swoosh_grave(sr, rng, duree=0.75):
@@ -1786,34 +1605,6 @@ def impact_smash(sr, rng, kit):
     return out
 
 
-def boite_de_conserve(sr, rng, duree):
-    """Boîte de conserve qui cliquette : chocs de tôle mince (partiels 1,8–6 kHz très courts) irréguliers + ferraille."""
-    n = int(duree * sr)
-    out = np.zeros((n, 2))
-    tc = 0.0
-    while tc < duree - 0.05:
-        nc = int(0.05 * sr)
-        t = temps(nc, sr)
-        f0 = float(rng.uniform(1800, 3200))
-        x = sum(np.sin(2 * np.pi * f0 * r * t) * np.exp(-t / 0.012) / (1 + j) for j, r in enumerate((1.0, 1.37, 1.93, 2.61)))
-        x += 0.6 * filtre_bande(rng.standard_normal(nc), sr, 2000.0, 9000.0) * np.exp(-t / 0.004)
-        poser(out, norme(x), tc, sr, pan=float(rng.uniform(-0.4, 0.4)), gain=float(rng.uniform(0.3, 0.9)))
-        tc += float(rng.uniform(0.03, 0.11))
-    return out * fenetre(n, 0.03, 0.15, sr)[:, None]
-
-
-def charger_moteur_mp3(chemin, sr):
-    """Moteur fourni (audio/moteurs/moteur_NN.mp3) : continu retiré (passe-haut 25 Hz), écrêtage adouci (passe-bas 6 kHz).
-    Retourne (stéréo, composante continue mesurée) ou None."""
-    if not os.path.isfile(chemin):
-        return None
-    x = v7.decoder_ffmpeg(chemin, sr)
-    sat = float(np.abs(x.mean(axis=0)).max())
-    x = np.stack([filtre_bande(x[:, c], sr, 25.0, 6000.0) for c in range(2)], axis=1)
-    if np.max(np.abs(x)) < 1e-4:
-        return None
-    return norme(x), sat
-
 
 def mettre_au_niveau(x, cible_db):
     """Échelle x pour que son RMS (sur les échantillons non nuls) vaille cible_db dBFS."""
@@ -1837,7 +1628,7 @@ def temps_fort_cloclo(chemin, sr, t_annonce=29.40, t_anacrouse=28.95):
     """Vérifie le temps fort « …le mal aimé » dans le fichier complet : grille des temps (autocorrélation du flux spectral
     18–38 s), calage de phase sur le flux, puis attaque la plus forte à ± 0,25 s du temps de grille le plus proche de
     l'instant annoncé. Retourne un dict (instants mesurés et écarts)."""
-    T0 = 18.0
+    T0 = max(0.0, t_annonce - 11.4)
     x = v7.decoder_ffmpeg(chemin, sr, T0, 20.0, canaux=1)[:, 0]
     nfft, hop = 2048, 240
     idx = np.arange(nfft)[None, :] + hop * np.arange((x.shape[0] - nfft) // hop)[:, None]
@@ -1868,6 +1659,151 @@ def temps_fort_cloclo(chemin, sr, t_annonce=29.40, t_anacrouse=28.95):
 
 
 # ----------------------------------------------------------------------------------------------
+# V9.3 : moteurs du Showroom réel, ouverture en crescendo sur « Le Mal Aimé », suspense du conteneur, embrasement
+# ----------------------------------------------------------------------------------------------
+def moteur_showroom(eid, sr):
+    """Banque RÉELLE du Showroom (sounds/moteurs_reels/NN/banque.json, ce que joue shared/engine_audio.js en mode « réel ») :
+    - banque « ralenti + coups_de_gaz » : ralenti (bouclé) et coups de gaz enregistrés, tels quels ;
+    - banque « bandes » (multi-régimes : turbine #01, banc #03) : ralenti = bande la plus basse ; coup de gaz = montée de
+      régime reconstituée en enchaînant les bandes de la plus basse à la plus haute (fondus à puissance constante), comme le
+      moteur du Showroom quand on pousse le régime.
+    Retourne {'ralenti': stéréo, 'gaz': [stéréo, …], 'moteur', 'licence', 'credit', 'type'} ou None."""
+    dos = os.path.join(DOSSIER_MOTEURS, '%02d' % eid)
+    try:
+        with open(os.path.join(dos, 'banque.json'), encoding='utf-8') as f:
+            meta = json.load(f)
+    except (OSError, ValueError):
+        return None
+    if meta.get('licence') not in ('CC0', 'CC BY'):
+        return None
+    lire = lambda nom: v7.decoder_ffmpeg(os.path.join(dos, nom), sr, filtre='highpass=f=30')
+    if meta.get('ralenti') and meta.get('coups_de_gaz'):
+        ral = lire(meta['ralenti'])
+        gaz = [lire(g) for g in meta['coups_de_gaz'] if os.path.isfile(os.path.join(dos, g))]
+        typ = 'ralenti + coups de gaz'
+    elif meta.get('bandes'):
+        bandes = sorted(meta['bandes'], key=lambda b: b['rpm'])
+        bufs = [lire(b['file']) for b in bandes]
+        ral = bufs[0]
+        seg, xf = int(0.32 * sr), int(0.08 * sr)
+        morceaux = [b[:seg + xf] if b.shape[0] >= seg + xf else np.pad(b, ((0, seg + xf - b.shape[0]), (0, 0)), mode='wrap') for b in bufs]
+        n = seg * len(morceaux) + xf
+        g = np.zeros((n, 2))
+        up = np.sin(0.5 * np.pi * np.arange(xf) / xf)[:, None]
+        for i, m in enumerate(morceaux):
+            m = m.copy()
+            if i > 0:
+                m[:xf] *= up
+            if i < len(morceaux) - 1:
+                m[-xf:] *= up[::-1]
+            g[i * seg:i * seg + m.shape[0]] += m
+        gaz = [g]                                            # une montée de régime
+        typ = 'bandes multi-régimes (montée reconstituée)'
+    else:
+        return None
+    return {'ralenti': ral, 'gaz': gaz, 'moteur': meta.get('moteur', ''), 'licence': meta.get('licence'), 'credit': meta.get('credit', ''),
+            'type': typ}
+
+
+def boucle(x, n, sr, xf=0.08):
+    """Boucle un stéréo jusqu'à n échantillons (fondus enchaînés de xf s aux raccords)."""
+    if x.shape[0] >= n:
+        return x[:n].copy()
+    k = int(xf * sr)
+    out = np.zeros((n, 2))
+    pas = x.shape[0] - k
+    up = np.sin(0.5 * np.pi * np.arange(k) / k)[:, None]
+    i = 0
+    while i < n:
+        m = x.copy()
+        if i > 0:
+            m[:k] *= up
+        m[-k:] *= up[::-1]
+        b = min(n - i, m.shape[0])
+        out[i:i + b] += m[:b]
+        i += pas
+    return out
+
+
+def cloclo_crescendo(x, sr, cles_db, cles_fc):
+    """« Le Mal Aimé » en crescendo : niveau (cles_db, dB) et filtre passe-bas qui s'ouvre (cles_fc, Hz, interpolation
+    logarithmique) appliqués à x (stéréo commençant à t = 0). Le passe-bas variable est un fondu entre 4 versions filtrées
+    (500, 1200, 3000 Hz, plein spectre) pondérées par la position log de la coupure courante."""
+    n = x.shape[0]
+    t = np.arange(n) / sr
+    fcs = [500.0, 1200.0, 3000.0, 16000.0]
+    vers = [np.stack([filtre_bande(x[:, c], sr, None, f, ordre=2) for c in range(2)], axis=1) for f in fcs[:3]] + [x]
+    ts, vs = zip(*cles_fc)
+    lf = np.interp(t, ts, np.log(vs))
+    lgs = np.log(fcs)
+    out = np.zeros_like(x)
+    for i in range(4):
+        if i == 0:
+            w = np.clip((lgs[1] - lf) / (lgs[1] - lgs[0]), 0, 1)
+        elif i == 3:
+            w = np.clip((lf - lgs[2]) / (lgs[3] - lgs[2]), 0, 1)
+        else:
+            w = np.clip(1.0 - np.abs(lf - lgs[i]) / np.where(lf < lgs[i], lgs[i] - lgs[i - 1], lgs[i + 1] - lgs[i]), 0, 1)
+        out += vers[i] * w[:, None]
+    ts, vs = zip(*cles_db)
+    return out * (10 ** (np.interp(t, ts, vs) / 20.0))[:, None]
+
+
+def tv_declic(sr, rng):
+    """La télé s'allume : déclic de relais, « toc » du tube, souffle statique bref, ronflement 50 Hz qui s'installe."""
+    n = int(0.9 * sr)
+    t = temps(n, sr)
+    out = np.zeros((n, 2))
+    nc = int(0.01 * sr)
+    poser(out, filtre_bande(rng.standard_normal(nc), sr, 1500.0, 9000.0) * np.exp(-temps(nc, sr) / 0.0015), 0.0, sr, gain=0.8)
+    poser(out, np.sin(2 * np.pi * 70.0 * t[:int(0.2 * sr)]) * np.exp(-t[:int(0.2 * sr)] / 0.04), 0.004, sr, gain=0.6)
+    st = filtre_bande(rng.standard_normal(n), sr, 2000.0, 12000.0) * np.exp(-t / 0.12) * montee(t, 0.003)
+    poser(out, np.stack([st, np.roll(st, 37)], axis=1), 0.01, sr, gain=0.35)
+    hum = sum(np.sin(2 * np.pi * 50.0 * h * t) / h ** 1.3 for h in range(1, 8)) * montee(t, 0.1) * fenetre(n, 0.0, 0.4, sr)
+    poser(out, stereo(hum), 0.0, sr, gain=0.12)
+    return out
+
+
+def riser_vrille(sr, rng, duree):
+    """Ça part en VRILLE : riser aspirant + pulsations qui ACCÉLÈRENT (4 → 26 Hz) sur un ton qui monte (90 → 700 Hz)."""
+    n = int(duree * sr)
+    t = temps(n, sr)
+    u = t / duree
+    base = riser_aspirant(sr, rng, duree)
+    rate = 4.0 + 22.0 * u ** 1.6
+    puls = 0.5 + 0.5 * np.sign(np.sin(2 * np.pi * np.cumsum(rate) / sr))
+    ton = np.sin(phase_continue(90.0 * (700.0 / 90.0) ** u, sr))
+    ton = (ton + 0.4 * np.sign(ton)) * puls * u ** 1.2
+    ton = filtre_bande(ton, sr, 60.0, 5000.0)
+    return base + stereo(0.5 * norme(ton)) * fenetre(n, 0.05, 0.012, sr)[:, None]
+
+
+def battement_coeur(sr, duree, bpm0=58.0, bpm1=72.0):
+    """Battements de cœur lents (« poum-poum » graves 48 / 62 Hz), tempo qui monte doucement de bpm0 à bpm1."""
+    n = int(duree * sr)
+    out = np.zeros((n, 2))
+    t = 0.05
+    while t < duree - 0.3:
+        u = t / duree
+        for d, f, g in ((0.0, 48.0, 1.0), (0.17, 62.0, 0.7)):
+            nb = int(0.18 * sr)
+            tb = temps(nb, sr)
+            x = np.sin(2 * np.pi * f * tb * (1 + 0.6 * np.exp(-tb / 0.02))) * np.exp(-tb / 0.05) * montee(tb, 0.004)
+            poser(out, stereo(x), t + d, sr, gain=g)
+        t += 60.0 / (bpm0 + (bpm1 - bpm0) * u)
+    return out
+
+
+def souffle_sombre(sr, rng, duree):
+    """Souffle d'angoisse : vent grave 80–500 Hz qui respire lentement, stéréo large."""
+    n = int(duree * sr)
+    t = temps(n, sr)
+    mod = 0.55 + 0.45 * np.sin(2 * np.pi * 0.23 * t + 1.0) ** 2
+    a, b = bruit_filtre(rng, n, sr, 80.0, 500.0), bruit_filtre(rng, n, sr, 80.0, 500.0)
+    return np.stack([a, b], axis=1) * (mod * fenetre(n, 0.8, 0.6, sr))[:, None]
+
+
+# ----------------------------------------------------------------------------------------------
 # Programme principal
 # ----------------------------------------------------------------------------------------------
 FEUX_F1_INTERNES = [5.6, 6.4, 7.2, 8.0, 8.8]   # familles_f1.js → FEUX : la colonne k s'allume à 5,6 + 0,8·k (temps interne)
@@ -1886,9 +1822,15 @@ DUCK_CLOCLO_DB = -6.0                          # « Le Mal Aimé » : ducking do
 DUCK_LIT_DB = -5.0                             # jazz de Noël : lit sous « Mesdames et messieurs… »
 SEUIL_RING_DBFS = -60.0                        # contrôle de présence de la ring music (fenêtres de 50 ms)
 TROU_MAX_S = 0.3
-T_SCRATCH, T_ASPIRATION, T_SUSPENSE = 4.65, 5.05, 6.36
 EMPHASE_QUEUE = {'gloire': (99.10, 99.50)}     # source : silence entre « …pour lui, » (fin 99,08) et « la gloire éternelle »
-CLOCLO_ANNONCE = (29.40, 28.95)                # temps fort « …le mal aimé » et anacrouse « Je suis… » annoncés (fichier complet)
+CLOCLO_REFRAIN_1 = (29.221, 28.91)             # « Le Mal Aimé » : temps fort du refrain 1 (mesuré V9.2) et anacrouse, fichier complet
+CLOCLO_REFRAIN_2 = (70.6, 70.285)              # refrain 2 (annoncé ≈ 70,6 s, re-mesuré) et anacrouse (un demi-temps avant)
+GAG_SOUS_VOIX_04_DB = -7.0                     # #04 : son moteur réel SOUS « Le Mal Aimé » (le refrain reste au premier plan)
+
+
+def tr_do(m, tq):
+    """Transpose une note midi pensée en do vers la tonique tq (−5…+6 demi-tons)."""
+    return m + tq
 
 
 def segments_parole(vo, sr, seuil_rel=SEUIL_PAROLE_DB, trou=RESPIRATION_MIN):
@@ -1969,7 +1911,7 @@ def rms_fenetres_db(x, sr, t0, t1, fen=0.4, pas=0.05):
 
 
 def main():
-    ap = argparse.ArgumentParser(description='Bande-son V9.2 « Grand Prix de Noël — Ring » (121,6 s, 48 kHz).')
+    ap = argparse.ArgumentParser(description='Bande-son V9.3 « Grand Prix de Noël — Ring » (131,0 s, 48 kHz).')
     ap.add_argument('--sortie', default=os.path.join(ICI, 'audio', 'mix_v9.wav'))
     ap.add_argument('--mp3', default=os.path.join(ICI, 'audio', 'mix_v9.mp3'))
     ap.add_argument('--timeline', default=os.path.join(ICI, 'data', 'timeline_v9.json'))
@@ -1993,7 +1935,7 @@ def main():
     DUREE = float(plan['duree'])
     N = int(round(DUREE * sr))
     seg = {s['id']: s for s in plan['segments']}
-    for sid in ('ouverture', 'arene'):                     # V9.2 : temps film = temps interne (remap identité)
+    for sid in ('ouverture', 'arene'):                     # V9.2+ : temps film = temps interne (remap identité)
         for a, b, c, d in seg[sid]['remap']:
             assert abs(a - c) < 1e-9 and abs(b - d) < 1e-9, 'segment %s : remap non identité' % sid
     TEL, LB, GL, DEP, ARR, RU, CO, FA = (plan['telephone'], plan['lootbox'], plan['gloire'], plan['depart'], plan['arrivee'],
@@ -2003,7 +1945,8 @@ def main():
     g0f, g1f = FA['gotham']
     f0f, f1f = FA['f1']
     k0f, k1f = FA['tokyo']
-    t_drop, t_ring = float(ARR['drop']), float(ARR['fin'])
+    t_arene, t_fin_arr = float(ARR['en_arene']), float(ARR['fin'])
+    O = plan['ouverture']
     bbc = BanqueBBC(args.banque_bbc if not args.sans_bbc else os.path.join(ICI, '__aucune_banque__'), sr)
     kit = v8.construire_kit(sr)
     evenements = []
@@ -2036,227 +1979,203 @@ def main():
     parole = [(max(a, pa), min(b, pb)) for a, b in segments_parole(vo, sr) for pa, pb in iv_voix
               if a < pb and b > pa]                          # segments de parole découpés aux bornes des pièces (garde-fou local)
 
-    # ================================ RING MUSIC (10,65 → 121,6 s) ================================
+    # ================================ « LE MAL AIMÉ » : temps forts mesurés (refrain 1 et refrain 2) ================================
+    ch_cl = os.path.join(ICI, 'audio', 'sources', 'claude_francois_le_mal_aime.mp3')
+    cl1 = temps_fort_cloclo(ch_cl, sr, *CLOCLO_REFRAIN_1)
+    cl2 = temps_fort_cloclo(ch_cl, sr, *CLOCLO_REFRAIN_2)
+    P_cl = 60.0 / cl1['bpm']
+    # fondu enchaîné vers la Ring music sur une MESURE de Cloclo (4 temps) la plus proche de la fin de l'arrivée
+    t_ring = t_arene + 4 * P_cl * max(1, round((t_fin_arr - t_arene) / (4 * P_cl)))
+
+    # ================================ RING MUSIC (fil rouge, de t_ring à la fin) ================================
     ch_ring = os.path.join(ICI, 'audio', 'sources', 'ring_music.mp3')
     ring, infos_ring, analyse = musique_ring_continue(sr, ch_ring, t_ring, float(DEP['logo']), DUREE)
     ton = tonalite(analyse, sr)
     infos_ring['tonalite'] = {'tonique': ['do', 'do#', 'ré', 'mi♭', 'mi', 'fa', 'fa#', 'sol', 'la♭', 'la', 'si♭', 'si'][ton[0]],
                               'mode': ton[1], 'correlation': ton[2]}
     poser(B['ring'], ring, t_ring, sr)
-    ev(t_ring, 'RING MUSIC (fil rouge jusqu\'à la fin) : temps fort à %.2f, %d mesures jusqu\'au logo, %.2f BPM (atempo ×%.5f)' % (
-        t_ring, infos_ring['mesures_logo_a_logo'], infos_ring['bpm_film'], 1.0 / infos_ring['etirement']), 'ring', fin=DUREE,
-       source='audio/sources/ring_music.mp3 (extrait client, lu)')
+    niveau_ring_ref = B['ring'] * G['ring']                  # niveau de référence (avant automation) pour caler les ambiances
+    ev(t_ring, 'RING MUSIC (fil rouge) : entre sur son temps fort, fondu enchaîné depuis « Le Mal Aimé » ; %d mesures jusqu\'au logo' % (
+        infos_ring['mesures_logo_a_logo']), 'ring', fin=DUREE, source='audio/sources/ring_music.mp3 (extrait client, lu)')
     tq = ton[0] if ton[0] <= 6 else ton[0] - 12
     accord_aigu = accord_midi(tq, ton[1], base=72, voix=(12, 16, 19, 24))
     accord_cuivres = accord_midi(tq, ton[1], base=36, voix=(0, 7, 12, 16, 19, 24, 28, 31))
     arpege = accord_midi(tq, ton[1], base=72, voix=(0, 4, 7, 12, 16, 19, 24))
     e04 = ecuries[3]
+    t_imp = LB['descente'] + 1.1
+    t_feu = float(LB['embrasement'])
     t_ouvre = max(float(GL['titre_eternelle']), fin_voix.get('gloire', float(GL['titre_eternelle']) + 0.5))
+    pg0, pg1 = FA['pause_gotham']
     cles_gain = [(0.0, 0.0), (e04['debut'] - 0.25, 0.0), (e04['debut'] + 0.05, -14.0), (e04['fin'] - 0.25, -14.0), (e04['fin'] + 0.15, 0.0),
-                 (LB['trophee_sort'], 0.0), (GL['titre_gloire'] - 0.1, 2.0), (t_ouvre - 0.02, 2.0), (t_ouvre + 0.25, 5.0), (DUREE, 5.0)]
-    cles_filtre = [(0.0, 0.0), (GL['debut'], 0.0), (GL['titre_gloire'] - 0.1, 0.8), (t_ouvre - 0.02, 0.8), (t_ouvre + 0.25, 0.0), (DUREE, 0.0)]
-    i_a, i_b = int((GL['debut'] - 1.0) * sr), int((t_ouvre + 1.0) * sr)
-    lp = np.stack([filtre_bande(B['ring'][i_a:i_b, c], sr, None, 2200.0, ordre=2) for c in range(2)], axis=1)
-    w = np.interp(np.arange(i_a, i_b) / sr, *zip(*cles_filtre))[:, None]
-    B['ring'][i_a:i_b] = (1.0 - w) * B['ring'][i_a:i_b] + w * lp
+                 (pg0 - 0.4, 0.0), (pg0 + 0.1, -18.0), (pg1 - 0.1, -18.0), (pg1 + 0.5, 0.0),
+                 (t_imp, 0.0), (t_imp + 0.7, -16.0), (t_feu - 0.03, -16.0), (t_feu + 0.05, 2.0),
+                 (t_ouvre - 0.02, 2.0), (t_ouvre + 0.25, 5.0), (DUREE, 5.0)]
     B['ring'] *= courbe_db(N, sr, cles_gain)[:, None]
-    ev(e04['debut'], 'ring : s\'efface (−14 dB) sous « Le Mal Aimé »', 'ecuries', fin=e04['fin'])
-    ev(LB['trophee_sort'], 'ring : montée +2 dB, passe-bas 2,2 kHz qui se referme', 'gloire', fin=t_ouvre)
-    ev(t_ouvre, 'ring : le filtre s\'ouvre + 3 dB (après « éternelle »)', 'gloire', fin=t_ouvre + 0.25)
+    ev(e04['debut'], 'ring : s\'efface (−14 dB) sous « Le Mal Aimé » (refrain 2)', 'ecuries', fin=e04['fin'])
+    ev(pg0, 'ring : se retire presque (−18 dB) — pause de rythme à Gotham', 'familles', fin=pg1)
+    ev(t_imp, 'ring : se retire (−16 dB) — suspense du conteneur', 'lootbox', fin=t_feu)
+    ev(t_feu, 'ring : revient PLEINE (+2 dB) — tout s\'enflamme', 'lootbox')
+    ev(t_ouvre, 'ring : + 3 dB après « éternelle »', 'gloire', fin=t_ouvre + 0.25)
     niveau_ring = B['ring'] * G['ring']
 
-    # ================================ OUVERTURE : jazz → scratch → aspiration → DROP ================================
-    rng = np.random.default_rng(92100)
-    b_j = 60.0 / BPM_JAZZ
-    t0_j = T_SCRATCH - 6 * b_j                               # « …all the WAY » tomberait pile sur le scratch
-    jazz, _ = jazz_noel(sr, rng, t0_j, T_SCRATCH + 1.0)
-    jazz = mettre_au_niveau(jazz, V - 11.0)
-    jz = jazz.copy()
-    jz[int(T_SCRATCH * sr):] = 0.0
-    jz[:int(T_SCRATCH * sr)] *= fenetre(int(T_SCRATCH * sr), 0.15, 0.004, sr)[:, None]
-    poser(B['lit'], jz, 0.0, sr)
-    ev(0.0, 'jazz de Noël lounge (« Jingle Bells » au piano feutré, 82 BPM swing, contrebasse, balais, clochettes de traîneau)',
-       'ouverture', fin=T_SCRATCH)
-    feu = feu_net(sr, rng, T_SCRATCH + 0.05)
-    feu[int((T_SCRATCH - 0.004) * sr):] = 0.0
-    poser(B['amb'], mettre_au_niveau(feu, V - 22.0), 0.0, sr)
-    ev(0.0, 'crépitement de cheminée net', 'ouverture', fin=T_SCRATCH)
-    scr = record_scratch(jazz * 1.0, T_SCRATCH, sr, rng)
-    poser(B['scratch'], mettre_au_niveau(scr, V + 4.0), T_SCRATCH - 0.04, sr)     # « salon » est fini à 4,60 : pas de ducking
-    ev(T_SCRATCH, 'RECORD SCRATCH : le disque freine (phase exponentielle), chirp 1800 → 120 Hz, friction — le jazz est COUPÉ',
-       'ouverture', fin=T_SCRATCH + 0.40)
-    d_asp = T_SUSPENSE - T_ASPIRATION
-    poser(B['fx'], mettre_au_niveau(riser_aspirant(sr, rng, d_asp), V - 9.0), T_ASPIRATION, sr)
-    ev(T_ASPIRATION, 'riser sub-basse aspirant (28 → 75 Hz + souffle inversé)', 'ouverture', fin=T_SUSPENSE)
-    poser(B['fx'], mettre_au_niveau(explosion_particules(sr, rng), V - 9.0), T_ASPIRATION + 0.01, sr)
-    ev(T_ASPIRATION + 0.01, 'explosion de particules (la télé se désintègre)', 'ouverture', fin=T_ASPIRATION + 1.1)
-    for td in (5.12, 5.58, 5.93, 6.18):
-        poser(B['fx'], mettre_au_niveau(decharge_electrique(sr, rng, float(rng.uniform(0.12, 0.2))), V - 8.0), td, sr)
-        ev(td, 'décharge électrique', 'ouverture')
-    ev(T_SUSPENSE, 'micro-suspense (silence avant ARÈNE)', 'ouverture', fin=t_drop)
-    drop, temps_drop = drop_electro(sr, rng, kit, t_drop, t_ring - 0.3, t_ring, ton[0])
-    poser(B['drop'], mettre_au_niveau(drop, V - 5.0), t_drop, sr)
-    poser(B['emph'], sub_drop(sr, 1.8, 120.0, 28.0, 0.5), t_drop, sr, gain=0.9)
-    poser(B['emph'], stereo(kit['kb']), t_drop, sr, gain=0.9)
-    poser(B['emph'], stereo(v8.cymbale(sr, rng, 2.6, 1.0)), t_drop, sr, gain=0.35)
-    ev(t_drop, 'DROP électro/synthwave 128 BPM sur « ARÈNE ! » (grosse caisse, basse sidechain, arpèges) + impact', 'arrivee',
-       fin=t_ring, source='synthèse', temps=[round(x, 3) for x in temps_drop])
-    poser(B['fx'], stereo(v8.cymbale(sr, rng, 2.6, 1.0)), t_ring, sr, gain=0.35)
-    poser(B['fx'], sub_drop(sr, 1.4, 90.0, 30.0, 0.35), t_ring, sr, gain=0.6)
-    ev(t_ring, 'raccord drop → ring music sur son temps fort (crash + sub)', 'arrivee')
-    poser(B['amb'], v8.foule(sr, rng, 3.5), t_drop + 0.05, sr, gain=0.25)
+    # ================================ OUVERTURE (0 → 11 s) : crescendo sur « Le Mal Aimé » ================================
+    rng = np.random.default_rng(93100)
+    noir0, noir1 = O['noir']
+    fest0, fest1 = O['allumage_festif']
+    vr0, vr1 = O['vrille']
+    debut_fic = cl1['temps_fort_retenu_s'] - t_arene          # le temps fort du refrain tombe pile sur « EN ARÈNE ! »
+    d_op = t_ring + 0.1
+    xop = v7.decoder_ffmpeg(ch_cl, sr, debut_fic, d_op)
+    cles_db = [(0.0, -28.0), (noir1, -28.0), (fest1, -17.0), (vr0, -14.0), (t_arene - 0.1, 0.0), (t_ring - 0.6, 0.0), (t_ring + 0.02, -60.0), (d_op, -60.0)]
+    cles_fc = [(0.0, 500.0), (noir1, 500.0), (fest1, 1600.0), (vr0, 2400.0), (t_arene - 0.15, 16000.0), (d_op, 16000.0)]
+    xop = cloclo_crescendo(xop, sr, cles_db, cles_fc)
+    xop *= fenetre(xop.shape[0], 0.3, 0.01, sr)[:, None]
+    ref_plein = rms(v7.decoder_ffmpeg(ch_cl, sr, cl1['temps_fort_retenu_s'], 4.0))
+    xop *= 10 ** ((V + CLOCLO_SOUS_VOIX_DB - 1.0) / 20.0) / (ref_plein + 1e-12)
+    poser(B['cloclo'], xop, 0.0, sr)
+    cl1.update({'debut_fichier_s': round(debut_fic, 3), 'temps_fort_film_s': round(cl1['temps_fort_retenu_s'] - debut_fic, 4),
+                'fondu_vers_ring_s': [round(t_ring - 0.6, 3), round(t_ring, 3)], 'periode_temps_s': round(P_cl, 4)})
+    ev(0.0, '« Le Mal Aimé » en fond dès le début (lu à partir de %.3f s) : radio lointaine étouffée (passe-bas 500 Hz, −28 dB)' % debut_fic,
+       'ouverture', fin=noir1, source='audio/sources/claude_francois_le_mal_aime.mp3 (lu)')
+    ev(fest0, '« Le Mal Aimé » se rapproche : filtre qui s\'ouvre, niveau qui monte', 'ouverture', fin=fest1)
+    ev(vr0, '« Le Mal Aimé » monte jusqu\'au plein niveau', 'ouverture', fin=t_arene)
+    feu = feu_net(sr, rng, vr0 + 0.4)
+    feu *= np.interp(np.arange(feu.shape[0]) / sr, [0, noir1, fest1, vr0, vr0 + 0.4], [1.0, 1.0, 0.7, 0.4, 0.0])[:, None]
+    poser(B['amb'], mettre_au_niveau(feu, V - 23.0), 0.0, sr)
+    ev(0.0, 'braises de la cheminée (craquements secs espacés)', 'ouverture', fin=vr0)
+    nb_g = 12
+    for i in range(nb_g):                                    # cascade des guirlandes : tics cristallins + clochettes discrètes
+        tg = fest0 + (fest1 - fest0) * (i / (nb_g - 1)) ** 0.85
+        m = tr_do(79 + [0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17, 19][i], tq)
+        poser(B['fx'], stereo(tic_cristal(sr, rng, m), -0.7 + 1.4 * i / (nb_g - 1)), tg, sr, gain=0.07 + 0.006 * i)
+        poser(B['fx'], clochettes_traineau(sr, rng, 1.0), tg + 0.01, sr, gain=0.035)
+    ev(fest0, 'le salon s\'allume : cascade des guirlandes (tics cristallins + clochettes discrètes)', 'ouverture', fin=fest1)
+    poser(B['fx'], mettre_au_niveau(tv_declic(sr, rng), V - 10.0), O['tv_allume'], sr)
+    ev(O['tv_allume'], 'la télé s\'allume : déclic électrique + souffle statique + ronflement', 'ouverture')
+    d_vr = t_arene - 0.03 - vr0
+    poser(B['fx'], mettre_au_niveau(riser_vrille(sr, rng, d_vr), V - 8.0), vr0, sr)
+    ev(vr0, 'ÇA PART EN VRILLE : riser qui accélère + aspiration', 'ouverture', fin=t_arene - 0.03)
+    for i, td in enumerate((7.85, 8.55, 9.15, 9.6, 9.95, 10.22, 10.44, 10.6, 10.73, 10.84)):
+        poser(B['fx'], mettre_au_niveau(decharge_electrique(sr, rng, float(rng.uniform(0.08, 0.16))), V - 11.0 + 0.5 * i), td, sr)
+    ev(7.85, 'crépitements électriques de plus en plus serrés (10)', 'ouverture', fin=10.9)
+    poser(B['emph'], sub_drop(sr, 2.0, 120.0, 26.0, 0.55), t_arene, sr, gain=1.0)
+    poser(B['emph'], stereo(kit['kb']), t_arene, sr, gain=0.9)
+    poser(B['emph'], stereo(v8.cymbale(sr, rng, 2.6, 1.0)), t_arene, sr, gain=0.35)
+    poser(B['emph'], mettre_au_niveau(v8.foule(sr, rng, 4.2), V - 6.0), t_arene + 0.02, sr)
+    ev(t_arene, '« EN ARÈNE ! » : temps fort du refrain + impact sub + clameur de la foule', 'arrivee', fin=t_arene + 4.0)
+    ev(t_ring - 0.6, 'fondu enchaîné « Le Mal Aimé » → Ring music sur un temps fort (%.2f)' % t_ring, 'arrivee', fin=t_ring)
 
-    # ================================ ÉCURIES : bandeaux, mouvement, gags, Cloclo, smash ================================
-    rec = np.random.default_rng(92200)
-    rum = rumeur_foule(sr, rec, TEL['debut'] - t_ring + 0.5)
-    poser(B['amb'], rum, t_ring, sr, gain=0.05)
+    # ================================ ÉCURIES : bandeaux, mouvement, moteurs du Showroom, Cloclo #04 ================================
+    rec = np.random.default_rng(93200)
+    rum = rumeur_foule(sr, rec, TEL['debut'] - t_arene + 0.5)
+    poser(B['amb'], rum, t_arene + 1.0, sr, gain=0.05)
     lignes_ec = []
     infos_moteurs = {}
+    banques = {eid: moteur_showroom(eid, sr) for eid in range(1, 16)}
     for k, e in enumerate(ecuries):
         eid = e['id']
         pan0 = -0.7 if k % 2 == 0 else 0.7
-        if not e['smash']:
-            sw = swoosh_grave(sr, rec)
-            poser(B['fx'], mettre_au_niveau(sw, V - 12.0), e['debut'] - 0.55 * 0.75, sr)
-            ev(e['debut'], 'écurie %d : swoosh grave (bandeau)' % eid, 'ecuries')
-        # mouvement discret (≤ −14 dB sous la musique)
-        tmp = np.zeros((N, 2))
+        sw = swoosh_grave(sr, rec)
+        poser(B['fx'], mettre_au_niveau(sw, V - 12.0), e['debut'] - 0.55 * 0.75, sr)
+        ev(e['debut'], 'écurie %d : swoosh grave (bandeau)' % eid, 'ecuries')
+        tmp = np.zeros((N, 2))                                # mouvement discret (≤ −14 dB sous la musique)
         poser(tmp, jet_flammes(sr, rec, 0.7), e['sortie'], sr, gain=0.5)
-        wv, pic = whoosh_buf(sr, 0.9, 92300 + k, sens=-1 if k % 2 else 1)
+        wv, pic = whoosh_buf(sr, 0.9, 93300 + k, sens=-1 if k % 2 else 1)
         poser(tmp, wv, e['saut'] + 0.25 - pic, sr, gain=0.5)
         poser(tmp, stereo(impact_amorti(sr, rec), pan0 * 0.2), e['atterrissage'], sr, gain=0.6)
         d_der = e['place'] - e['atterrissage'] + 0.15
         poser(tmp, pan_glisse(crissement(sr, rec, d_der, f0=float(rec.uniform(1000, 1350))), pan0 * 0.3, -pan0 * 0.3), e['atterrissage'] + 0.02, sr, gain=0.2)
-        ts_, mv = rms_fenetres_db(tmp, sr, e['sortie'] - 0.2, e['place'] + 1.0)
-        _, mu = rms_fenetres_db(niveau_ring, sr, e['sortie'] - 0.2, e['place'] + 1.0)
+        _, mv = rms_fenetres_db(tmp, sr, e['sortie'] - 0.2, e['place'] + 1.0)
+        _, mu = rms_fenetres_db(niveau_ring_ref, sr, e['sortie'] - 0.2, e['place'] + 1.0)
         ecart = float(np.max(mv - mu))
         B['mouv'] += tmp * min(1.0, 10 ** ((MOUV_SOUS_MUSIQUE_DB - 0.5 - ecart) / 20.0))
-        # GAG moteur au premier plan (fenêtre sortie → place)
+        # MOTEUR RÉEL du Showroom au premier plan : ralenti bouclé + coup de gaz à la sortie + temps fort dans la respiration
         d_gag = e['place'] - e['sortie'] + 0.35
-        gag = np.zeros((int((e['fin'] - e['sortie'] + 1.0) * sr), 2))
-        src = ''
-        if eid == 4:
-            src = 'Claude François (voir ci-dessous)'
-        elif eid in (2, 5, 8, 10):
-            m = charger_moteur_mp3(os.path.join(ICI, 'audio', 'moteurs', 'moteur_%02d.mp3' % eid), sr)
-            x, sat = m if m is not None else (stereo(moteur_qui_monte(sr, rec, d_gag)), 0.0)
-            infos_moteurs[eid] = {'fichier': 'audio/moteurs/moteur_%02d.mp3' % eid, 'composante_continue_retiree': round(sat, 3)}
-            if eid == 2:                                     # vaisseau spatial dès l'entrée et pendant la vue de dessus
-                xx = x[:int(d_gag * sr)] * fenetre(min(x.shape[0], int(d_gag * sr)), 0.08, 0.35, sr)[:, None]
-                poser(gag, xx, 0.0, sr)
-                src = 'moteur_02 (sifflement de vaisseau spatial)'
-            elif eid == 5:                                   # V8 lourd + sub qui tremble
-                xx = x[:int(d_gag * sr)] * fenetre(min(x.shape[0], int(d_gag * sr)), 0.05, 0.4, sr)[:, None]
-                sub = np.stack([filtre_bande(xx[:, c], sr, None, 90.0, ordre=2) for c in range(2)], axis=1)
-                tt = temps(xx.shape[0], sr)
-                trem = np.sin(2 * np.pi * 38.0 * tt) * (0.6 + 0.4 * np.sin(2 * np.pi * 7.0 * tt) ** 2) * fenetre(xx.shape[0], 0.1, 0.4, sr)
-                poser(gag, xx + 1.6 * sub + stereo(0.35 * trem), 0.0, sr)
-                src = 'moteur_05 (V8 lourd) + sub 38 Hz'
-            elif eid == 8:                                   # bips Audi + boîte de conserve + démarreur qui tousse
-                ch_a = os.path.join(ICI, 'audio', 'sources', 'audi_chime.mp3')
-                bips = v7.decoder_ffmpeg(ch_a, sr, 0.80, 2.40)
-                toux = v7.decoder_ffmpeg(ch_a, sr, 3.85, 2.05)
-                resp8 = respirations_voix(vo, sr, e['sortie'] + 0.0, e['fin'])
-                t_b = resp8[0][0] - e['sortie'] if resp8 else 0.10                  # 1er bip dans la 1re respiration
-                cand = [r_ for r_ in resp8 if r_[0] - e['sortie'] >= t_b + 1.6]
-                t_t = (max(cand, key=lambda r_: r_[1] - r_[0])[0] - e['sortie']) if cand else t_b + 2.45
-                t_t = min(t_t, e['fin'] - e['sortie'] - 0.6)
-                poser(gag, fondus(bips, 0.01, 0.15), t_b, sr, gain=1.0)
-                poser(gag, fondus(toux, 0.02, 0.25), t_t, sr, gain=1.0)
-                infos_moteurs[8].update({'bips_film_s': round(e['sortie'] + t_b, 3), 'toux_film_s': round(e['sortie'] + t_t, 3)})
-                poser(gag, boite_de_conserve(sr, rec, d_gag), 0.0, sr, gain=0.35)
-                poser(gag, x[:int(d_gag * sr)] * fenetre(min(x.shape[0], int(d_gag * sr)), 0.1, 0.4, sr)[:, None], 0.0, sr, gain=0.35)
-                src = 'audi_chime 0,80–3,20 (3 bips) + 3,85–5,90 (démarreur qui tousse) + boîte de conserve + moteur_08'
-            else:                                            # 6×6 monster-truck sur le gros plan des roues + sub 44 Hz
-                xx = x[:int(d_gag * sr)] * fenetre(min(x.shape[0], int(d_gag * sr)), 0.12, 0.45, sr)[:, None]
-                tt = temps(xx.shape[0], sr)
-                sub = np.sin(2 * np.pi * 44.0 * tt) * fenetre(xx.shape[0], 0.15, 0.45, sr) * (0.7 + 0.3 * np.sin(2 * np.pi * 9.0 * tt) ** 2)
-                poser(gag, xx + stereo(0.45 * sub), 0.05, sr)
-                src = 'moteur_10 (rugissement 6×6) + sub 44 Hz'
+        n_g = int(d_gag * sr)
+        gag = np.zeros((n_g + int(0.8 * sr), 2))
+        bq = banques[eid]
+        if bq is not None:
+            ral = boucle(bq['ralenti'], n_g, sr)
+            poser(gag, ral * fenetre(n_g, 0.12, 0.35, sr)[:, None], 0.0, sr, gain=0.45)
+            g0 = bq['gaz'][0]
+            poser(gag, g0[:n_g] * fenetre(min(n_g, g0.shape[0]), 0.01, 0.3, sr)[:, None], 0.05, sr, gain=1.0)
+            x = bq['gaz'][1 % len(bq['gaz'])]
+            src = '%s — %s (%s, sounds/moteurs_reels/%02d)' % (bq['moteur'], bq['type'], bq['licence'], eid)
+            infos_moteurs[eid] = {'moteur': bq['moteur'], 'banque': bq['type'], 'licence': bq['licence'], 'credit': bq['credit']}
         else:
-            mot = charger_moteur_ecurie(eid, 0, sr)
-            if mot is not None:
-                x = mot[0][:int(d_gag * sr)]
-                src = '%s (%s)' % (mot[1], mot[2])
-            else:
-                x = moteur_qui_monte(sr, rec, d_gag)
-                src = 'synthèse'
-            poser(gag, pan_glisse(norme(x) * fenetre(x.shape[0], 0.05, 0.4, sr), pan0 * 0.5, -pan0 * 0.2), 0.0, sr)
-        if eid != 4:
-            phare = eid in GAGS_PHARES
-            gag = gag[:int(d_gag * sr) + int(2.6 * sr * (eid == 8))]
-            gag = mettre_au_niveau(gag, V + (GAG_PHARE_SOUS_VOIX_DB if phare else GAG_SOUS_VOIX_DB))
-            fin_gag = e['sortie'] + gag.shape[0] / sr
-            resp = respirations_voix(vo, sr, e['sortie'], fin_gag)
-            # temps fort du gag (son extrait le plus énergique, 0,6 s) posé au début de la plus longue respiration
-            if resp and eid != 8:
-                ra, rb_, _ = max(resp, key=lambda r_: r_[1] - r_[0])
-                xs_ = x if x.ndim == 2 else stereo(x)
-                lg = int(0.6 * sr)
-                en = np.convolve(np.mean(xs_ ** 2, axis=1), np.ones(lg) / lg, 'valid') if xs_.shape[0] > lg else np.ones(1)
-                i_m = int(np.argmax(en))
-                tf_ = xs_[i_m:i_m + lg]
-                tf_ = mettre_au_niveau(tf_ * fenetre(tf_.shape[0], 0.02, 0.2, sr)[:, None],
-                                       V + (GAG_PHARE_SOUS_VOIX_DB if phare else GAG_SOUS_VOIX_DB))
-                poser(gag, tf_, ra - e['sortie'], sr)
-            # accent dans les respirations réelles de la voix (+4 dB gags phares, +2 dB les autres)
-            acc_db = ACCENT_PHARE_DB if phare else ACCENT_AUTRES_DB
-            cl_ = [(0.0, 0.0)]
-            for ra, rb_, _ in resp:                              # rampes de 15 ms (les creux durent 60 ms et plus)
-                cl_ += [(ra - e['sortie'] - 0.015, 0.0), (ra - e['sortie'], acc_db), (rb_ - e['sortie'], acc_db), (rb_ - e['sortie'] + 0.015, 0.0)]
-            cl_.append((gag.shape[0] / sr + 1.0, 0.0))
-            gag = gag * courbe_db(gag.shape[0], sr, cl_)[:, None]
-            poser(B['gags'], gag, e['sortie'], sr)
-            lignes_ec_resp = [[round(a_, 2), round(b_, 2), t_] for a_, b_, t_ in resp]
-            ev(e['sortie'], 'écurie %d : GAG moteur au premier plan — %s' % (eid, src), 'ecuries', fin=e['sortie'] + gag.shape[0] / sr)
+            x = stereo(moteur_qui_monte(sr, rec, d_gag))
+            poser(gag, x, 0.0, sr)
+            src = 'synthèse (banque absente)'
+        if eid == 8:                                         # + les 3 bips Audi dans la 1re respiration
+            bips = v7.decoder_ffmpeg(os.path.join(ICI, 'audio', 'sources', 'audi_chime.mp3'), sr, 0.80, 2.40)
+            resp8 = respirations_voix(vo, sr, e['sortie'], e['fin'])
+            t_b = resp8[0][0] - e['sortie'] if resp8 else 0.10
+            poser(gag, mettre_au_niveau(fondus(bips, 0.01, 0.15), db(rms(gag[gag.any(axis=1)])) if gag.any() else -30.0), t_b, sr, gain=1.4)
+            infos_moteurs[8]['bips_audi_film_s'] = round(e['sortie'] + t_b, 3)
+            src += ' + 3 bips Audi (audi_chime 0,80–3,20)'
+        niveau_gag = V + (GAG_SOUS_VOIX_04_DB if eid == 4 else GAG_PHARE_SOUS_VOIX_DB)
+        gag = mettre_au_niveau(gag, niveau_gag)
+        fin_gag = e['sortie'] + gag.shape[0] / sr
+        resp = respirations_voix(vo, sr, e['sortie'], fin_gag)
+        if resp:                                             # temps fort : le coup de gaz le plus énergique (0,6 s) dans la plus longue respiration
+            ra, rb_, _ = max(resp, key=lambda r_: r_[1] - r_[0])
+            lg = int(0.6 * sr)
+            en = np.convolve(np.mean(x ** 2, axis=1), np.ones(lg) / lg, 'valid') if x.shape[0] > lg else np.ones(1)
+            i_m = int(np.argmax(en))
+            tf_ = x[i_m:i_m + lg]
+            poser(gag, mettre_au_niveau(tf_ * fenetre(tf_.shape[0], 0.02, 0.2, sr)[:, None], niveau_gag), ra - e['sortie'], sr)
+        acc_db = ACCENT_PHARE_DB if eid != 4 else ACCENT_AUTRES_DB
+        cl_ = [(0.0, 0.0)]
+        for ra, rb_, _ in resp:
+            cl_ += [(ra - e['sortie'] - 0.015, 0.0), (ra - e['sortie'], acc_db), (rb_ - e['sortie'], acc_db), (rb_ - e['sortie'] + 0.015, 0.0)]
+        cl_.append((gag.shape[0] / sr + 1.0, 0.0))
+        gag = gag * courbe_db(gag.shape[0], sr, cl_)[:, None]
+        poser(B['gags'], gag, e['sortie'], sr)
+        ev(e['sortie'], 'écurie %d : MOTEUR RÉEL du Showroom au premier plan — %s' % (eid, src), 'ecuries', fin=fin_gag)
         lignes_ec.append({'id': eid, 'debut': e['debut'], 'sortie': e['sortie'], 'saut': e['saut'], 'atterrissage': e['atterrissage'],
-                          'place': e['place'], 'fin': e['fin'], 'smash': e['smash'], 'gag': src,
+                          'place': e['place'], 'fin': e['fin'], 'moteur': src,
                           'mouvement_sous_musique_db_max': round(min(ecart, MOUV_SOUS_MUSIQUE_DB - 0.5), 1),
-                          'respirations_voix_s': lignes_ec_resp if eid != 4 else None})
-    # Claude François « Le Mal Aimé » sur #04 : temps fort mesuré calé sur l'atterrissage
-    ch_cl = os.path.join(ICI, 'audio', 'sources', 'claude_francois_le_mal_aime.mp3')
-    cl = temps_fort_cloclo(ch_cl, sr, *CLOCLO_ANNONCE)
-    i_atter = round(e04['atterrissage'] * 60.0) / 60.0       # au frame près (60 i/s)
-    debut_fic = cl['temps_fort_retenu_s'] - (i_atter - e04['debut'])
+                          'respirations_voix_s': [[round(a_, 2), round(b_, 2), t_] for a_, b_, t_ in resp]})
+    # « Le Mal Aimé » REFRAIN 2 sur #04 : temps fort mesuré calé sur l'atterrissage (à l'image près)
+    i_atter = round(e04['atterrissage'] * 60.0) / 60.0
+    debut_fic2 = cl2['temps_fort_retenu_s'] - (i_atter - e04['debut'])
     d_cl = e04['fin'] - e04['debut']
-    xcl = v7.decoder_ffmpeg(ch_cl, sr, debut_fic, d_cl)
+    xcl = v7.decoder_ffmpeg(ch_cl, sr, debut_fic2, d_cl)
     xcl = xcl * fenetre(xcl.shape[0], 0.12, 0.30, sr)[:, None]
     poser(B['cloclo'], mettre_au_niveau(xcl, V + CLOCLO_SOUS_VOIX_DB), e04['debut'], sr)
-    cl.update({'debut_fichier_s': round(debut_fic, 3), 'fin_fichier_s': round(debut_fic + d_cl, 3), 't_film': [e04['debut'], e04['fin']],
-               'temps_fort_film_s': round(e04['debut'] + cl['temps_fort_retenu_s'] - debut_fic, 4), 'atterrissage_04': e04['atterrissage']})
-    ev(e04['debut'], 'écurie 4 : CLAUDE FRANÇOIS « Le Mal Aimé » au premier plan (temps fort sur l\'atterrissage %.3f)' % i_atter,
-       'ecuries', fin=e04['fin'], source='audio/sources/claude_francois_le_mal_aime.mp3 %.2f → %.2f s (lu)' % (debut_fic, debut_fic + d_cl))
-    # smash cuts #11–#15 (instants des coupes de arene_cadrages.js) et RUSH
-    coupes = []
-    for e in ecuries:
-        if e['smash']:
-            for tc in (e['sortie'], e['saut'] - 0.12, e['atterrissage'] + 0.02, e['place'] - 0.38):
-                coupes.append((tc, e['id'], 'smash #%d' % e['id']))
-    for tc, eid in zip(RU['cuts'], RU['ordre']):
-        coupes.append((tc, eid, 'rush #%d' % eid))
-    for j, (tc, eid, nom) in enumerate(sorted(coupes)):
+    cl2.update({'debut_fichier_s': round(debut_fic2, 3), 'fin_fichier_s': round(debut_fic2 + d_cl, 3), 't_film': [e04['debut'], e04['fin']],
+                'temps_fort_film_s': round(e04['debut'] + cl2['temps_fort_retenu_s'] - debut_fic2, 4), 'atterrissage_04': e04['atterrissage']})
+    ev(e04['debut'], 'écurie 4 : « Le Mal Aimé » REFRAIN 2 au premier plan (temps fort sur l\'atterrissage %.3f)' % i_atter,
+       'ecuries', fin=e04['fin'], source='audio/sources/claude_francois_le_mal_aime.mp3 %.2f → %.2f s (lu)' % (debut_fic2, debut_fic2 + d_cl))
+    # RUSH : impact sub + stinger du moteur réel à chaque coupe
+    for j, (tc, eid) in enumerate(zip(RU['cuts'], RU['ordre'])):
         imp = impact_smash(sr, rec, kit)
-        mot = charger_moteur_ecurie(eid, 1 + j % 2, sr)
-        x = mot[0] if mot is not None else moteur_qui_monte(sr, rec, 0.5)
-        i_pk = int(np.argmax(np.abs(x[:int(min(x.shape[0] / sr, 3.0) * sr)])))
-        st = x[max(0, i_pk - int(0.03 * sr)):i_pk + int(0.40 * sr)]
-        st = norme(st) * fenetre(st.shape[0], 0.004, 0.18, sr)
-        poser(imp, stereo(st, 0.3 if j % 2 else -0.3), 0.0, sr, gain=0.7)
-        poser(B['gags'], mettre_au_niveau(imp, V - 5.0), tc, sr)
-        ev(tc, 'coupe franche (%s) : impact sub + stinger moteur' % nom, 'ecuries' if nom.startswith('smash') else 'rush')
+        bq = banques.get(eid)
+        x = bq['gaz'][j % len(bq['gaz'])] if bq is not None else stereo(moteur_qui_monte(sr, rec, 0.5))
+        lg = int(0.45 * sr)
+        en = np.convolve(np.mean(x ** 2, axis=1), np.ones(int(0.05 * sr)) / int(0.05 * sr), 'valid')
+        i_pk = int(np.argmax(en[:max(1, x.shape[0] - lg)]))
+        st = x[i_pk:i_pk + lg]
+        st = norme(st) * fenetre(st.shape[0], 0.004, 0.2, sr)[:, None]
+        poser(imp, st, 0.0, sr, gain=0.8)
+        poser(B['gags'], mettre_au_niveau(imp, V - 4.0), tc, sr)
+        ev(tc, 'RUSH #%d : impact sub + stinger du moteur réel' % eid, 'rush')
     t_po = CO['portail']
     poser(B['fx'], mettre_au_niveau(glitch_teleport(sr, rec), V - 7.0), t_po, sr)
     poser(B['fx'], mettre_au_niveau(swoosh_grave(sr, rec), V - 10.0), t_po - 0.41, sr)
     ev(t_po, 'portail de la couronne : glitch / téléportation + swoosh grave', 'couronne')
 
-    # ================================ FAMILLES (81,6 → 89,2 s) ================================
-    rfm = np.random.default_rng(92600)
+    # ================================ FAMILLES ================================
+    rfm = np.random.default_rng(93600)
     bus_got, bus_f1, bus_tk = np.zeros((N, 2)), np.zeros((N, 2)), np.zeros((N, 2))
     dg = g1f - g0f
-    poser(bus_got, pluie(sr, rfm, dg + 0.1, 380.0, sombre=True), g0f, sr, gain=0.35)
-    poser(bus_got, pan_glisse(moteur_grave_batmobile(sr, rfm, dg + 0.1), -0.4, 0.4), g0f, sr, gain=0.5)
-    poser(bus_got, stereo(tonnerre_lointain(sr, rfm, 2.2), -0.3), g0f + 0.4, sr, gain=0.35)
-    ev(g0f, 'Gotham : pluie + moteur grave de Batmobile + tonnerre lointain', 'familles', fin=g1f)
+    poser(bus_got, pluie(sr, rfm, dg + 0.1, 380.0, sombre=True), g0f, sr, gain=0.40)
+    poser(bus_got, stereo(tonnerre_lointain(sr, rfm, 3.0), -0.3), pg0 + 0.35, sr, gain=0.45)
+    poser(bus_got, stereo(tonnerre_lointain(sr, rfm, 2.4), 0.4), g1f - 1.6, sr, gain=0.30)
+    nd = nappe_accords(sr, dg + 0.1, accord_midi(tq, 'mineur', base=36, voix=(0, 7, 12, 15)), rfm, brillance=0.15, attaque=1.0, relache=0.3)
+    poser(bus_got, nd, g0f, sr, gain=0.22)
+    poser(bus_got, pan_glisse(moteur_grave_batmobile(sr, rfm, g1f - pg1 + 0.1), -0.4, 0.4), pg1, sr, gain=0.45)
+    ev(g0f, 'Gotham : PAUSE de rythme (fondu, pluie, tonnerre lointain, nappe sombre), puis moteur grave de Batmobile', 'familles', fin=g1f)
     dedans = [fi for fi in FEUX_F1_INTERNES if vers_film_ou_none(seg['familles'], fi) is not None
               and f0f - 1e-9 <= vers_film(seg['familles'], fi) < f1f - 1e-6]
     avant = [fi for fi in FEUX_F1_INTERNES if fi < min(dedans or [1e9])]
@@ -2280,28 +2199,36 @@ def main():
     poser(bus_f1, v6_hybride_ralenti(sr, rfm, f1f - t_v6 + 0.3), t_v6, sr, gain=0.6)
     ev(f0f, 'F1 : grille au ralenti, 5 bips, rugissement coupé net par Tokyo', 'familles', fin=f1f)
     dk = k1f - k0f
-    poser(bus_tk, pluie(sr, rfm, dk + 0.1, 300.0), k0f, sr, gain=0.2)
-    poser(bus_tk, stereo(bourdonnement_neon(sr, rfm, dk + 0.1), 0.5), k0f, sr, gain=0.10)
-    for tp, fb in ((k0f + 0.8, 160.0), (k0f + 2.2, 190.0)):
-        poser(bus_tk, passage_turbo(sr, rfm, 1.6, fb), tp - 0.55 * 1.6, sr, gain=0.5)
-    ev(k0f, 'Tokyo : néons qui grésillent + pluie + 2 turbos qui passent', 'familles', fin=k1f)
+    poser(bus_tk, pluie(sr, rfm, dk + 0.1, 300.0), k0f, sr, gain=0.12)
+    poser(bus_tk, stereo(bourdonnement_neon(sr, rfm, dk + 0.1), 0.5), k0f, sr, gain=0.06)
+    passes = [(0.25, 150.0, 1), (0.75, 185.0, -1), (1.2, 165.0, 1), (1.65, 205.0, -1), (2.15, 175.0, 1), (2.7, 195.0, -1)]
+    for d, fb, sens in passes:                               # vraie course : dépassements, Doppler croisés gauche ↔ droite
+        pt = passage_turbo(sr, rfm, 1.4, fb)
+        poser(bus_tk, pt[:, ::-1] if sens < 0 else pt, k0f + d - 0.55 * 1.4, sr, gain=0.5)
+    for d in (0.95, 1.9, 2.9):
+        poser(bus_tk, pan_glisse(crissement(sr, rfm, 0.45, f0=float(rfm.uniform(1050, 1300))), -0.5, 0.5), k0f + d, sr, gain=0.16)
+    ev(k0f, 'Tokyo : VRAIE COURSE — 6 dépassements Doppler croisés, crissements, néons', 'familles', fin=k1f)
     niveaux_fam = {}
     for nom, bb, a, b in (('gotham', bus_got, g0f, g1f), ('f1', bus_f1, f0f, f1f), ('tokyo', bus_tk, k0f, k1f)):
-        ecart = rms_db_fenetre(bb * G['fam'], a, b) - rms_db_fenetre(niveau_ring, a, b)
+        ecart = rms_db_fenetre(bb * G['fam'], a, b) - rms_db_fenetre(niveau_ring_ref, a, b)
         bb *= 10 ** ((FAM_SOUS_MUSIQUE_DB - ecart) / 20.0)
         niveaux_fam[nom] = FAM_SOUS_MUSIQUE_DB
-    B['fam'] += (bus_got * masque_intervalle(N, g0f, g1f)[:, None] + bus_f1 * masque_intervalle(N, f0f, f1f)[:, None]
+    m_got = masque_intervalle(N, g0f, g1f)
+    i0g = int(g0f * sr)
+    m_got[i0g:i0g + int(0.6 * sr)] *= np.sin(0.5 * np.pi * np.arange(int(0.6 * sr)) / int(0.6 * sr))   # entrée à Gotham en FONDU
+    B['fam'] += (bus_got * m_got[:, None] + bus_f1 * masque_intervalle(N, f0f, f1f)[:, None]
                  + bus_tk * masque_intervalle(N, k0f, k1f)[:, None])
-    for tz in FA['portails']:
-        poser(B['fx'], mettre_au_niveau(swoosh_grave(sr, rfm), V - 10.0), tz - 0.41, sr)
-        poser(B['fx'], mettre_au_niveau(glitch_teleport(sr, rfm), V - 8.0), tz - 0.05, sr)
-        ev(tz, 'transition de monde : swoosh grave + glitch / téléportation', 'familles')
+    ev(g0f, 'entrée à Gotham : fondu (pas de glitch)', 'familles')
+    for tz, g_sw, g_gl, quoi in ((f0f, -10.0, -8.0, 'swoosh grave + glitch'), (k0f, -14.0, -16.0, 'swoosh + glitch discret'),
+                                 (k1f, -10.0, -8.0, 'swoosh grave + glitch')):
+        poser(B['fx'], mettre_au_niveau(swoosh_grave(sr, rfm), V + g_sw), tz - 0.41, sr)
+        poser(B['fx'], mettre_au_niveau(glitch_teleport(sr, rfm, 0.4 if g_gl < -10 else 0.55), V + g_gl), tz - 0.05, sr)
+        ev(tz, 'transition de monde : %s' % quoi, 'familles')
 
-    # ================================ CASINO (89,2 → 98,6 s) ================================
-    rt = np.random.default_rng(92500)
+    # ================================ CASINO ================================
+    rt = np.random.default_rng(93500)
     for tk_, quoi in ((TEL['pari'], 'pari'), (TEL['points'], 'points'), (TEL['bonus'], 'bonus (jackpot)')):
-        kc = ka_ching(sr, rt)
-        poser(B['gags'], mettre_au_niveau(kc, V - 1.0), tk_ - 0.12, sr)
+        poser(B['gags'], mettre_au_niveau(ka_ching(sr, rt), V - 1.0), tk_ - 0.12, sr)
         ev(tk_, 'KA-CHING (cloche 2450 + 3680 Hz + tiroir-caisse) : %s' % quoi, 'telephone')
     poser(B['gags'], mettre_au_niveau(cascade_pieces(sr, rt), V - 8.0), TEL['points'] + 0.05, sr)
     ev(TEL['points'], 'cascade de pièces d\'or qui tintent', 'telephone', fin=TEL['points'] + 1.5)
@@ -2314,28 +2241,46 @@ def main():
     poser(B['fx'], mettre_au_niveau(swoosh_rouge(sr, rt), V - 6.0), TEL['piege'] - 0.45, sr)
     ev(TEL['piege'], 'piège : swoosh rouge menaçant', 'telephone', fin=TEL['piege'] + 1.0)
 
-    # ================================ LOOTBOX (98,6 → 105,6 s) ================================
-    rl = np.random.default_rng(92700)
-    t_desc, t_imp = LB['descente'], LB['descente'] + 1.1
-    poser(B['amb'], rumeur_foule(sr, rl, GL['debut'] - LB['debut'] + 0.5), LB['debut'], sr, gain=0.05)
+    # ================================ CONTENEUR : SUSPENSE puis EMBRASEMENT ================================
+    rl = np.random.default_rng(93700)
+    t_desc = LB['descente']
     poser(B['fx'], stereo(v8.obus_siffle(sr, t_imp - t_desc), 0.1), t_desc, sr, gain=0.25)
     poser(B['fx'], riser(sr, t_imp - t_desc, rl, f0=300.0, f1=6000.0), t_desc, sr, gain=0.2)
     ev(t_desc, 'conteneur qui descend (sifflement)', 'lootbox', fin=t_imp)
-    poser(B['fx'], impact_metal_lourd(sr, rl), t_imp, sr, gain=0.75)
-    ev(t_imp, 'IMPACT LOURD du conteneur', 'lootbox')
-    for i, d in enumerate((0.0, 0.22, 0.41, 0.66)):
-        poser(B['fx'], stereo(clac_metal(sr, rl, float(rl.uniform(700, 1100))), -0.6 + 0.4 * i), LB['verrous'] + d, sr, gain=0.8)
-    ev(LB['verrous'], '4 verrous qui sautent', 'lootbox', fin=LB['verrous'] + 0.7)
-    poser(B['fx'], cliquetis(sr, rl, LB['ouvert'] - LB['entrouvre']), LB['entrouvre'], sr, gain=0.35)
-    ev(LB['entrouvre'], 'rideau qui s\'enroule', 'lootbox', fin=LB['ouvert'])
+    poser(B['fx'], impact_metal_lourd(sr, rl), t_imp, sr, gain=0.8)
+    ev(t_imp, 'IMPACT LOURD du conteneur — la musique se retire', 'lootbox')
+    d_sus = LB['trophee_sort'] - (t_imp + 0.3)
+    poser(B['fx'], mettre_au_niveau(battement_coeur(sr, d_sus), V - 9.0), t_imp + 0.3, sr)
+    ev(t_imp + 0.3, 'battements de cœur lents (58 → 72 /min)', 'lootbox', fin=LB['trophee_sort'])
+    poser(B['amb'], mettre_au_niveau(souffle_sombre(sr, rl, d_sus), V - 20.0), t_imp + 0.3, sr)
+    for tgc in (t_imp + 0.9, t_imp + 1.9, LB['verrous'] - 0.45, LB['entrouvre'] + 0.9, LB['entrouvre'] + 1.9):
+        poser(B['fx'], mettre_au_niveau(stereo(v8.grincement(sr, rl, float(rl.uniform(0.6, 1.0))), float(rl.uniform(-0.6, 0.6))), V - 13.0), tgc, sr)
+        ev(tgc, 'grincement métallique', 'lootbox')
+    t_v = LB['verrous']
+    for i in range(4):                                       # verrous UN À UN
+        tv = t_v + 0.3 * i
+        poser(B['fx'], stereo(clac_metal(sr, rl, float(rl.uniform(700, 1100))), -0.6 + 0.4 * i), tv, sr, gain=0.8)
+        ev(tv, 'verrou %d/4' % (i + 1), 'lootbox')
+    poser(B['fx'], cliquetis(sr, rl, LB['ouvert'] - LB['entrouvre'], 12.0, 6.0), LB['entrouvre'], sr, gain=0.35)
+    ev(LB['entrouvre'], 'rideau qui s\'enroule lentement', 'lootbox', fin=LB['ouvert'])
     t_ts, t_th = LB['trophee_sort'], GL['trophee_haut']
     d_ch = t_th - t_ts + 0.6
-    poser(B['mus'], choeur_dore(sr, rl, d_ch, accord_midi(tq, ton[1], base=60, voix=(0, 7, 12, 16))), t_ts, sr, gain=0.30)
-    poser(B['mus'], shimmer(sr, rl, d_ch, 3000.0, 10000.0, 22) * (np.linspace(0.0, 1.0, int(d_ch * sr)) ** 1.5)[:, None], t_ts, sr, gain=0.22)
-    ev(t_ts, 'le trophée sort : chœur + scintillement doré qui montent', 'lootbox', fin=t_ts + d_ch)
+    poser(B['mus'], choeur_dore(sr, rl, d_ch, accord_midi(tq, ton[1], base=60, voix=(0, 7, 12, 16))), t_ts, sr, gain=0.25)
+    poser(B['mus'], shimmer(sr, rl, d_ch, 3000.0, 10000.0, 22) * (np.linspace(0.0, 1.0, int(d_ch * sr)) ** 1.5)[:, None], t_ts, sr, gain=0.2)
+    ev(t_ts, 'le trophée sort : scintillement doré + chœur', 'lootbox', fin=t_ts + d_ch)
+    poser(B['emph'], sub_drop(sr, 2.0, 110.0, 26.0, 0.5), t_feu, sr, gain=1.0)
+    poser(B['emph'], stereo(kit['kb']), t_feu, sr, gain=0.9)
+    poser(B['emph'], stereo(v8.cymbale(sr, rl, 3.0, 1.2)), t_feu, sr, gain=0.35)
+    for i, (d, pan) in enumerate(((0.0, -0.85), (0.04, 0.85), (0.12, -0.45), (0.16, 0.45), (0.45, -0.7), (0.5, 0.7))):
+        poser(B['fx'], jet_flammes(sr, rl, 1.0), t_feu + d, sr, pan=pan, gain=0.55)
+    for d, tl in ((0.05, 1.0), (0.55, 0.8), (1.1, 0.9), (1.8, 0.7)):
+        poser(B['fx'], feu_artifice(sr, rl, tl), t_feu + d, sr, pan=float(rl.uniform(-0.6, 0.6)), gain=0.5)
+    poser(B['amb'], mettre_au_niveau(v8.foule(sr, rl, 5.0), V - 6.0), t_feu + 0.03, sr)
+    ev(t_feu, 'TOUT S\'ENFLAMME : jets de flammes pyro, feux d\'artifice, la foule explose, la musique revient pleine', 'lootbox',
+       fin=t_feu + 3.0)
 
-    # ================================ GLOIRE (105,6 → 113,6 s) ================================
-    rg = np.random.default_rng(92800)
+    # ================================ GLOIRE ================================
+    rg = np.random.default_rng(93800)
     for i, m in enumerate(accord_aigu):
         poser(B['fx'], stereo(cloche(midi_hz(m + 12), 1.5, sr, 0.7), -0.5 + 0.33 * i), t_th + 0.04 * i, sr, gain=0.14)
     ev(t_th, 'trophée en haut : éclat de cloches', 'gloire')
@@ -2352,36 +2297,42 @@ def main():
     B['emph'][i_e0:i_e1] -= (1.0 - 10 ** (-14.0 / 20.0)) * medium        # médium laissé à la voix
     poser(B['fx'], confettis(sr, rg), GL['confettis'], sr, gain=0.4)
     poser(B['amb'], v8.foule(sr, rg, 5.0), t_et, sr, gain=0.55)
-    ev(t_et, 'CLAMEUR DE FOULE qui explose + confettis', 'gloire', fin=t_et + 4.5)
-    ff = fanfare(sr, rg, kit)
-    poser(B['mus'], ff, t_ouvre - 0.95, sr, gain=0.38)
+    ev(t_et, 'CLAMEUR DE FOULE + confettis', 'gloire', fin=t_et + 4.5)
+    poser(B['mus'], fanfare(sr, rg, kit), t_ouvre - 0.95, sr, gain=0.38)
     ev(t_ouvre - 0.6, 'fanfare : timbales, appel de cuivres, accord majeur (relatif de la ring)', 'gloire', fin=t_ouvre + 4.0)
 
-    # ================================ DÉPART (113,6 → 121,6 s) ================================
-    rd = np.random.default_rng(92900)
+    # ================================ FIN : départ plus plein, final musical sur le logo ================================
+    rd = np.random.default_rng(93900)
     poser(B['fx'], stereo(twang_cordes(sr, rd), -0.3), DEP['cordes'], sr, gain=0.35)
     ev(DEP['cordes'], 'cordes du ring qui claquent', 'depart')
-    t_dem, t_pis = DEP['demarrage'], DEP['piste']
+    t_dem, t_pis, t_lf = DEP['demarrage'], DEP['piste'], DEP['logo']
     for i in range(15):
         td = t_dem + 0.07 * i + float(rd.uniform(0.0, 0.03))
         pan = -0.85 + 1.7 * ((i * 7) % 15) / 14.0
         poser(B['fx'], stereo(demarreur(sr, rd, 0.32), pan), td, sr, gain=0.18)
-        mot = charger_moteur_ecurie(i + 1, 1, sr)
+        bq = banques.get(i + 1)
         lmax = int((t_pis - td + 0.4) * sr)
-        x = mot[0][:lmax] if mot is not None else moteur_qui_monte(sr, rd, lmax / sr, 70.0 + 5 * i, 200.0 + 8 * i)
-        poser(B['fx'], stereo(norme(x) * fenetre(x.shape[0], 0.04, 0.5, sr), pan), td + 0.28, sr, gain=0.11)
-    ev(t_dem, 'les moteurs démarrent', 'depart', fin=t_pis + 0.4)
-    for d, fb, sens in ((-0.25, 170.0, 1), (0.0, 140.0, -1), (0.2, 200.0, 1), (0.45, 155.0, -1)):
+        x = bq['gaz'][0][:lmax] if bq is not None else stereo(moteur_qui_monte(sr, rd, lmax / sr, 70.0 + 5 * i, 200.0 + 8 * i))
+        poser(B['fx'], norme(x) * fenetre(x.shape[0], 0.04, 0.5, sr)[:, None], td + 0.28, sr, pan=0.0, gain=0.13)
+    ev(t_dem, 'les 15 moteurs réels démarrent', 'depart', fin=t_pis + 0.4)
+    for d, fb, sens in ((-1.1, 160.0, 1), (-0.5, 185.0, -1), (-0.25, 170.0, 1), (0.0, 140.0, -1), (0.2, 200.0, 1), (0.45, 155.0, -1),
+                        (1.1, 175.0, 1), (1.7, 190.0, -1)):
         pt = passage_turbo(sr, rd, 1.6, fb)
-        poser(B['fx'], pt[:, ::-1] if sens < 0 else pt, t_pis + d - 0.55 * 1.6, sr, gain=0.32)
-    wv, pic = whoosh_buf(sr, 1.2, 92901, sens=1)
+        poser(B['fx'], pt[:, ::-1] if sens < 0 else pt, t_pis + d - 0.55 * 1.6, sr, gain=0.34)
+    wv, pic = whoosh_buf(sr, 1.2, 93901, sens=1)
     poser(B['fx'], wv, t_pis - pic, sr, gain=0.45)
-    ev(t_pis, 'passage en trombe', 'depart', fin=t_pis + 1.0)
-    t_lf = DEP['logo']
+    ev(t_pis - 1.1, 'moteurs qui passent en trombe (8 passages Doppler croisés)', 'depart', fin=t_pis + 1.8)
+    for d, tl in ((-2.0, 0.7), (-1.0, 0.8), (-0.4, 0.8), (0.0, 1.0), (0.7, 0.9), (1.5, 0.8), (2.2, 0.6)):
+        poser(B['fx'], feu_artifice(sr, rd, tl), t_lf + d, sr, pan=float(rd.uniform(-0.7, 0.7)), gain=0.45)
+    ev(t_lf - 2.0, 'feux d\'artifice (7) autour du logo', 'depart', fin=t_lf + 2.6)
     d_cr = t_lf - (t_pis + 0.3)
     poser(B['fx'], riser(sr, d_cr, rd, f0=300.0, f1=11000.0), t_pis + 0.3, sr, gain=0.3)
-    nfo = int((t_lf - t_dem + 0.3) * sr)
-    poser(B['amb'], rumeur_foule(sr, rd, nfo / sr) * np.linspace(0.3, 1.0, nfo)[:, None], t_dem, sr, gain=0.10)
+    nfo = int((DUREE - t_dem) * sr)
+    poser(B['amb'], rumeur_foule(sr, rd, nfo / sr) * np.interp(np.arange(nfo) / sr, [0, t_lf - t_dem, nfo / sr], [0.5, 1.0, 0.6])[:, None],
+          t_dem, sr, gain=0.16)
+    for tf_, dur in ((t_pis, 3.5), (t_lf, 3.0)):
+        poser(B['amb'], mettre_au_niveau(v8.foule(sr, rd, dur), V - 8.0), tf_ + 0.02, sr)
+    ev(t_dem, 'foule pleine jusqu\'à la fin (rumeur + 2 clameurs)', 'depart', fin=DUREE - 0.06)
     d_res = DUREE - 0.06 - t_lf
     poser(B['fx'], sub_drop(sr, 2.2, 110.0, 26.0, 0.6), t_lf, sr, gain=1.0)
     poser(B['fx'], stereo(kit['kb']), t_lf, sr, gain=0.9)
@@ -2389,8 +2340,8 @@ def main():
     poser(B['fx'], jingle_cle(sr, rd, arpege, accord_aigu), t_lf + 0.05, sr, gain=0.45)
     acc = v8.cuivres(accord_cuivres, d_res, sr, 1.6, attaque=0.01)
     ta = temps(acc.shape[0], sr)
-    acc *= (np.exp(-ta / 1.2) * np.cos(0.5 * np.pi * np.clip((ta - (d_res - 0.6)) / 0.6, 0, 1)))[:, None]
-    poser(B['mus'], acc, t_lf, sr, gain=0.4)
+    acc *= (np.exp(-ta / 1.4) * np.cos(0.5 * np.pi * np.clip((ta - (d_res - 0.6)) / 0.6, 0, 1)))[:, None]
+    poser(B['mus'], acc, t_lf, sr, gain=0.45)
     ev(t_lf, 'LOGO FINAL : impact + accord + dernier temps fort de la ring et sa résonance', 'depart', fin=DUREE - 0.06)
 
     # ================================ MIX : voix, ducking, mastering ================================
@@ -2489,16 +2440,13 @@ def main():
                 'rms_reste_dbfs': round(reste_db, 1), 'emergence_db': round(s_db - reste_db, 1),
                 'emergence_sur_fond_sans_voix_db': round(s_db - fond_db, 1), 'saut_mix_db': round(saut, 1)}
     e_ = {e['id']: e for e in ecuries}
-    pics = [emergence('#02 vaisseau spatial', stems['gags'], e_[2]['sortie'], e_[2]['place']),
-            emergence('#04 Cloclo — temps fort à l\'atterrissage', stems['cloclo'], e_[4]['atterrissage'] - 0.05, e_[4]['atterrissage'] + 0.35),
-            emergence('#05 V8 lourd', stems['gags'], e_[5]['sortie'], e_[5]['place']),
-            emergence('#08 bips Audi + toux', stems['gags'], e_[8]['sortie'], e_[8]['fin']),
-            emergence('#10 rugissement 6×6', stems['gags'], e_[10]['sortie'], e_[10]['place']),
-            emergence('record scratch 4,65', stems['scratch'], T_SCRATCH, T_SCRATCH + 0.4),
-            emergence('drop 6,5', stems['drop'], t_drop, t_drop + 0.5),
-            emergence('ka-ching 91,7', stems['gags'], TEL['pari'], TEL['pari'] + 0.4)]
+    pics = [emergence('« EN ARÈNE ! » 11,0 (Le Mal Aimé + impact + foule)', stems['cloclo'] + stems['drop'], t_arene, t_arene + 0.4)]
+    pics += [emergence('#%02d moteur réel' % i, stems['gags'], e_[i]['sortie'], e_[i]['place']) for i in range(1, 16) if i != 4]
+    pics.append(emergence("#04 Le Mal Aimé (refrain 2), temps fort à l'atterrissage", stems['cloclo'],
+                          e_[4]['atterrissage'] - 0.05, e_[4]['atterrissage'] + 0.35))
+    pics.append(emergence('ka-ching %.1f' % TEL['pari'], stems['gags'], TEL['pari'], TEL['pari'] + 0.4))
     for p_ in pics:
-        if p_['element'][:3] in ('#02', '#05', '#08', '#10'):
+        if 'moteur réel' in p_['element']:
             p_['objectif_8db_atteint'] = bool(p_['emergence_sur_fond_sans_voix_db'] >= 8.0)
     # coupure interne des 15 prises d'écurie
     coupes_voix = {c['id']: c['zones_coupees'] for c in ctrl_voix}
@@ -2513,14 +2461,15 @@ def main():
     assert not muets, 'événements muets : %s' % [(e['t'], e['quoi']) for e in muets]
 
     timeline = {
-        'version': 'v9.2', 'duree': DUREE, 'echantillons': int(final.shape[0]), 'frequence_hz': sr, 'canaux': 2,
+        'version': 'v9.3', 'duree': DUREE, 'echantillons': int(final.shape[0]), 'frequence_hz': sr, 'canaux': 2,
         'plan': os.path.relpath(args.plan, ICI).replace(os.sep, '/'), 'voix': os.path.relpath(args.voix, ICI).replace(os.sep, '/'),
         'evenements': sorted(evenements, key=lambda x: (x['t'], x['quoi'])),
         'voix_off': rapport_voix, 'corrections_bornes': corrections, 'controle_coupures_voix': coupes_voix,
         'intervalles_voix': [[round(a, 3), round(b, 3)] for a, b in iv_voix], 'niveau_voix_dbfs_avant_master': round(V, 1),
-        'ecuries': lignes_ec, 'moteurs_fournis': infos_moteurs, 'claude_francois': cl, 'bips_f1_film_s': [round(x, 3) for x in bips],
+        'ecuries': lignes_ec, 'moteurs_showroom': infos_moteurs, 'le_mal_aime': {'refrain_1_ouverture': cl1, 'refrain_2_ecurie_04': cl2},
+        'ring_entree_s': round(t_ring, 3), 'bips_f1_film_s': [round(x, 3) for x in bips],
         'familles_sous_musique_db': niveaux_fam, 'musique_ring': infos_ring, 'controle_ring': controle_ring,
-        'automation_ring': {'gain_db': cles_gain, 'passe_bas_2200Hz_melange': cles_filtre}, 'pics_audibles': pics,
+        'automation_ring': {'gain_db': cles_gain}, 'automation_mal_aime_ouverture': {'gain_db': cles_db, 'passe_bas_hz': cles_fc}, 'pics_audibles': pics,
         'banque_bbc': {'dossier': os.path.relpath(bbc.dossier, ICI).replace(os.sep, '/'), 'utilises': bbc.utilises},
         'mix': {'fichier': os.path.relpath(args.sortie, ICI).replace(os.sep, '/'), 'mp3': os.path.relpath(args.mp3, ICI).replace(os.sep, '/'),
                 'gain_master_db': round(gain_db, 2), 'lufs_integre': round(lufs, 2), 'vrai_crete_dbtp': round(tp, 2),
@@ -2533,14 +2482,15 @@ def main():
     with open(args.timeline, 'w', encoding='utf-8') as f:
         json.dump(timeline, f, ensure_ascii=False, indent=1)
 
-    print('Mix V9.2 : %s (+ %s)' % (args.sortie, os.path.basename(args.mp3)))
+    print('Mix V9.3 : %s (+ %s)' % (args.sortie, os.path.basename(args.mp3)))
     print('  durée %.4f s (%d échantillons, attendu %d) | sonie %.2f LUFS | vrai crête %.2f dBTP | gain master %+.2f dB' % (
         final.shape[0] / sr, final.shape[0], N, lufs, tp, gain_db))
     print('  ring : %.2f → %.2f BPM (atempo), %d mesures %.2f → %.2f, raccords %s, tonalité %s %s | trou max %.2f s' % (
         infos_ring['bpm_mesure'], infos_ring['bpm_film'], infos_ring['mesures_logo_a_logo'], t_ring, DEP['logo'],
         infos_ring['raccords_film_s'], infos_ring['tonalite']['tonique'], infos_ring['tonalite']['mode'], trou_max))
-    print('  Cloclo : %s' % cl)
-    print('  bips F1 %s | moteurs fournis %s' % ([round(x, 2) for x in bips], infos_moteurs))
+    print('  Le Mal Aimé refrain 1 : %s' % cl1)
+    print('  Le Mal Aimé refrain 2 : %s' % cl2)
+    print('  bips F1 %s | ring entre à %.3f' % ([round(x, 2) for x in bips], t_ring))
     for c in corrections:
         print('  borne %-13s début %s | fin %s' % (c['piece'], c['debut'], c['fin']))
     for r in rapport_voix:

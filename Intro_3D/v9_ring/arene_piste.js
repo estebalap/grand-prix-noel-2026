@@ -58,11 +58,30 @@ export function creerPiste(THREE, G) {
   const o = new THREE.Object3D(); let n = 0;
   for (let s = 500; s < longueur && n < 40; s += 45) { courbe.getPointAt(s / longueur, p); o.position.set(p.x, p.y / 2, p.z); o.scale.set(1, Math.max(1, p.y - 1), 1); o.updateMatrix(); pyl.setMatrixAt(n++, o.matrix); }
   pyl.count = n; groupe.add(pyl);
+  // V9.3 : la piste BORDÉE DE LUMIÈRES — ampoules tous les 6 cm sur les deux bords, chenillard arc-en-ciel (masquées au-delà de revele)
+  const posA = [], sA = [], cotA = [];
+  for (let sv = 2; sv < longueur; sv += 6) for (const sg of [1, -1]) {
+    courbe.getPointAt(sv / longueur, p); courbe.getTangentAt(sv / longueur, tg); lat.crossVectors(up, tg).normalize();
+    const o = sg * (LARG / 2 + 2.4); posA.push(p.x + lat.x * o, p.y + 2.1, p.z + lat.z * o); sA.push(sv); cotA.push(sg);
+  }
+  const geoA = new THREE.BufferGeometry(); geoA.setAttribute('position', new THREE.Float32BufferAttribute(posA, 3)); geoA.setAttribute('sv', new THREE.Float32BufferAttribute(sA, 1)); geoA.setAttribute('cote', new THREE.Float32BufferAttribute(cotA, 1));
+  const matA = new THREE.ShaderMaterial({
+    uniforms: { t: { value: 0 }, revele: { value: 0 }, demiH: { value: 540 } },
+    vertexShader: `attribute float sv; attribute float cote; uniform float t, revele, demiH; varying vec3 vC; varying float vA;
+      void main(){ vec4 mv = modelViewMatrix * vec4(position, 1.0); gl_Position = projectionMatrix * mv; float z = max(-mv.z, 1.0);
+        float k = fract(sv / 48.0 - t * 1.4 + cote * 0.25); vC = 0.5 + 0.5 * cos(6.2831 * (sv / 300.0 + vec3(0.0, 0.33, 0.67)));
+        vA = (sv < revele ? 1.0 : 0.0) * (0.55 + 0.45 * smoothstep(0.75, 1.0, k));
+        gl_PointSize = vA > 0.0 ? clamp(2.6 * projectionMatrix[1][1] * demiH / z, 1.5, 14.0) : 0.0; }`,
+    fragmentShader: 'varying vec3 vC; varying float vA; void main(){ vec2 d = gl_PointCoord - 0.5; float g = exp(-dot(d, d) * 14.0); gl_FragColor = vec4((vC * 0.6 + 0.6) * 1.8 * g * vA, 1.0); }',
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+  });
+  const ampoules = new THREE.Points(geoA, matA); ampoules.frustumCulled = false; groupe.add(ampoules);
 
   const point = (s) => { const q = courbe.getPointAt(Math.min(1, Math.max(0, s / longueur))); return [q.x, q.y - 0.18, q.z]; };
   const tangente = (s) => { const q = courbe.getTangentAt(Math.min(1, Math.max(0, s / longueur))); return [q.x, q.y, q.z]; };
   return {
     groupe, point, tangente, longueur,
-    maj(t, revele) { mat.uniforms.t.value = t; mat.uniforms.revele.value = revele; matR.uniforms.t.value = t; matR.uniforms.revele.value = revele; groupe.visible = revele > 0.5; pyl.visible = revele > 480; },
+    reglerEcran(demiH) { matA.uniforms.demiH.value = demiH; },
+    maj(t, revele) { matA.uniforms.t.value = t; matA.uniforms.revele.value = revele; mat.uniforms.t.value = t; mat.uniforms.revele.value = revele; matR.uniforms.t.value = t; matR.uniforms.revele.value = revele; groupe.visible = revele > 0.5; pyl.visible = revele > 480; },
   };
 }

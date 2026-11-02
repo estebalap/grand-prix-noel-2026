@@ -1,7 +1,7 @@
 {
  "voix": "Commentateur def (ElevenLabs, voice_id QLs7iK8pmd23CyW29R9f)",
- "version": "v9.2",
- "note": "UNE prise continue par pièce (bornes à vérifier à −48 dB, fondus 25 ms). Écurie 7 : deux morceaux (prise anglaise Yaris_A + fin). t_film = début de la pièce en temps FILM. atempo_max : accélération douce autorisée si la pièce dépasse son créneau (jamais de coupe). emphase : traitement stade. Bornes « familles/paris » corrigées par le Chef de régie d'après la transcription Scribe (le brief inversait les deux et débordait sur le silence entre prises).",
+ "version": "v9.3",
+ "note": "UNE prise continue par pièce (bornes à vérifier à −48 dB, fondus 25 ms). Écurie 7 : deux morceaux (prise anglaise Yaris_A + fin). t_film = début de la pièce en temps FILM. atempo_max : accélération douce autorisée si la pièce dépasse son créneau (jamais de coupe). emphase : traitement stade. Bornes « familles/paris » corrigées par le Chef de régie d'après la transcription Scribe (le brief inversait les deux et débordait sur le silence entre prises). V9.3 : ouverture « Mais ce soir… le salon… se transforme… EN ARÈNE ! » (L02, bornes à revérifier aux creux), familles en 3 phrases entières (coupées aux respirations, jamais dans un mot).",
  "pieces": [
   {
    "id": "accueil",
@@ -13,52 +13,67 @@
      3.65
     ]
    ],
-   "t_film": 0.1,
+   "t_film": 1.0,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
   },
   {
-   "id": "salon_1",
-   "texte": "Le salon…",
+   "id": "ce_soir",
+   "texte": "Mais ce soir…",
    "morceaux": [
     [
      "voix_off/L02.mp3",
-     1.28,
-     2.14
+     0.04,
+     1.1
     ]
    ],
-   "t_film": 3.75,
+   "t_film": 5.6,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
   },
   {
-   "id": "salon_2",
-   "texte": "…se transforme en…",
+   "id": "salon",
+   "texte": "…le salon…",
    "morceaux": [
     [
      "voix_off/L02.mp3",
-     2.15,
-     3.12
+     1.12,
+     1.95
     ]
    ],
-   "t_film": 5.2,
+   "t_film": 6.9,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
   },
   {
-   "id": "salon_3",
-   "texte": "ARÈNE !",
+   "id": "transforme",
+   "texte": "…se transforme…",
    "morceaux": [
     [
      "voix_off/L02.mp3",
-     3.12,
-     4.18
+     1.95,
+     2.94
     ]
    ],
-   "t_film": 6.5,
+   "t_film": 8.4,
+   "emphase": false,
+   "atempo_max": 1.0,
+   "fondu": 0.025
+  },
+  {
+   "id": "en_arene",
+   "texte": "EN ARÈNE !",
+   "morceaux": [
+    [
+     "voix_off/L02.mp3",
+     2.96,
+     4.2
+    ]
+   ],
+   "t_film": 11.0,
    "emphase": true,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -73,7 +88,7 @@
      6.64
     ]
    ],
-   "t_film": 7.65,
+   "t_film": 12.1,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -88,7 +103,7 @@
      10.74
     ]
    ],
-   "t_film": 10.7,
+   "t_film": 15.2,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -103,7 +118,7 @@
      15.36
     ]
    ],
-   "t_film": 14.74,
+   "t_film": 19.24,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -118,7 +133,7 @@
      19.52
     ]
    ],
-   "t_film": 19.01,
+   "t_film": 23.51,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -133,7 +148,7 @@
      23.94
     ]
    ],
-   "t_film": 22.91,
+   "t_film": 27.41,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -148,7 +163,7 @@
      27.78
     ]
    ],
-   "t_film": 26.99,
+   "t_film": 31.49,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -163,7 +178,7 @@
      33.28
     ]
    ],
-   "t_film": 30.89,
+   "t_film": 35.39,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -183,7 +198,7 @@
      37.9
     ]
    ],
-   "t_film": 36.05,
+   "t_film": 40.55,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -198,7 +213,7 @@
      42.86
     ]
    ],
-   "t_film": 40.67,
+   "t_film": 45.17,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -213,7 +228,7 @@
      49.88
     ]
    ],
-   "t_film": 45.27,
+   "t_film": 49.77,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -228,7 +243,7 @@
      54.35
     ]
    ],
-   "t_film": 50.13,
+   "t_film": 54.63,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -243,7 +258,7 @@
      58.96
     ]
    ],
-   "t_film": 54.34,
+   "t_film": 58.84,
    "emphase": false,
    "atempo_max": 1.08,
    "fondu": 0.025
@@ -258,7 +273,7 @@
      63.36
     ]
    ],
-   "t_film": 58.47,
+   "t_film": 62.97,
    "emphase": false,
    "atempo_max": 1.08,
    "fondu": 0.025
@@ -273,7 +288,7 @@
      67.86
     ]
    ],
-   "t_film": 62.31,
+   "t_film": 66.81,
    "emphase": false,
    "atempo_max": 1.08,
    "fondu": 0.025
@@ -288,7 +303,7 @@
      72.88
     ]
    ],
-   "t_film": 66.26,
+   "t_film": 70.76,
    "emphase": false,
    "atempo_max": 1.08,
    "fondu": 0.025
@@ -303,22 +318,52 @@
      76.94
     ]
    ],
-   "t_film": 70.67,
+   "t_film": 75.17,
    "emphase": false,
    "atempo_max": 1.08,
    "fondu": 0.025
   },
   {
-   "id": "familles",
-   "texte": "Des Batmobiles au sommet de Gotham… des Formule 1 sur la ligne arc-en-ciel… et les légendes de Tokyo.",
+   "id": "famille_gotham",
+   "texte": "Des Batmobiles au sommet de Gotham…",
    "morceaux": [
     [
      "voix_off/VO_V9_tout.mp3",
      88.36,
+     90.43
+    ]
+   ],
+   "t_film": 87.6,
+   "emphase": false,
+   "atempo_max": 1.0,
+   "fondu": 0.025
+  },
+  {
+   "id": "famille_f1",
+   "texte": "…des Formule 1 sur la ligne arc-en-ciel…",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     90.43,
+     92.53
+    ]
+   ],
+   "t_film": 90.3,
+   "emphase": false,
+   "atempo_max": 1.0,
+   "fondu": 0.025
+  },
+  {
+   "id": "famille_tokyo",
+   "texte": "…et les légendes de Tokyo.",
+   "morceaux": [
+    [
+     "voix_off/VO_V9_tout.mp3",
+     92.53,
      94.1
     ]
    ],
-   "t_film": 82.0,
+   "t_film": 92.9,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -333,7 +378,7 @@
      88.4
     ]
    ],
-   "t_film": 89.3,
+   "t_film": 96.2,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -348,7 +393,7 @@
      96.95
     ]
    ],
-   "t_film": 99.2,
+   "t_film": 106.3,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -363,7 +408,7 @@
      101.3
     ]
    ],
-   "t_film": 105.1,
+   "t_film": 114.0,
    "emphase": true,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -378,7 +423,7 @@
      102.7
     ]
    ],
-   "t_film": 113.85,
+   "t_film": 122.75,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -393,7 +438,7 @@
      104.6
     ]
    ],
-   "t_film": 119.3,
+   "t_film": 128.2,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025

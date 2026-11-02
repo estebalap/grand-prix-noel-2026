@@ -1,132 +1,139 @@
-/* CADRAGES SUR MESURE du segment arène (V9.2 Ring) — une recette de caméra PAR écurie (fini la monotonie 3/4 arrière), smash cuts des
-   écuries #11–#15, RUSH (ralenti d'action des 5 dernières), COURONNE + plongée dans le PORTAIL EXPRESS, ARRIVÉE qui jaillit du
-   vortex. Toutes les heures viennent du plan (plan_v9.json v9.2, temps film = temps interne) ; tout est fonction PURE de t.
+/* CADRAGES SUR MESURE du segment arène (V9.3 Ring) — une recette de caméra PAR écurie, la voiture TOUJOURS ENTIÈRE dans l'image
+   (contrôle automatique : seg_arene.visibiliteVedette, ≥ 85 % du créneau), coupes franches pour les 4 écuries « zoom » (plan :
+   ecuries[k].zoom — A4 Oil Leaking #08, Optic-Breuillet #03, Twingo #02, Doom Slayer #10), RUSH de ces 4 écuries, COURONNE + plongée
+   dans le PORTAIL EXPRESS, ARRIVÉE qui jaillit du vortex. Toutes les heures viennent du plan (plan_v9.json v9.3, temps film = temps
+   interne) ; tout est fonction PURE de t.
 
-     #01  travelling latéral rasant au ras du tapis, légère contre-plongée
-     #02  vue de dessus PURE (90°, style Micro Machines) qui tourne lentement ; la Twingo fait un tête-à-queue ridicule
-     #03  3/4 avant dynamique (flare sur les phares : seg_arene)
-     #04  grue glamour sous la boule à facettes dorée, puis travelling circulaire autour de la voiture
-     #05  contre-plongée agressive au ras du pare-chocs avant qui tremble ; cabrage au départ du tunnel
-     #06  travelling oblique de profil au téléobjectif, façon télémétrie F1
-     #07  plan d'impact plongeant : la caméra tombe avec la voiture et s'écrase avec elle à l'atterrissage
-     #08  Dutch angle 8° au ras du pot d'échappement (gouttes et flaques d'huile : arene_juice)
-     #09  contre-plongée dramatique depuis le tapis sur le piqué aérien
-     #10  gros plan extrême rasant sur le train de 6 roues qui crachent des étincelles, dézoom en fin de plan
-     #11–#15  SMASH CUTS : 4 coupes franches par voiture (sortie, saut, atterrissage, entrée dans la place), angles opposés ;
-              les plans « de profil » ne servent qu'avant l'atterrissage (jamais de caméra dans une voiture garée)
-     RUSH      74,2 → 79,2 : 1,0 s par voiture, plein cadre, en ACTION (ralenti d'action : la scène entière est rejouée à l'instant
-               choisi de son entrée, donc sans aucune collision nouvelle) — face pure, 3/4 gauche posé « JoJo », plongée sirène,
-               profil drift, contre-plongée royale
+     #01  travelling latéral rasant au ras du tapis, légère contre-plongée (suit aussi l'écart latéral pendant le dérapage)
+     #02  zoom : 3/4 avant bas pendant l'élan → COUPE au saut → vue de dessus (Micro Machines) qui tourne lentement pendant le
+          tête-à-queue
+     #03  zoom : 3/4 avant dynamique (flare des phares) → COUPE à l'atterrissage → contre-plongée 3/4 de l'autre côté
+     #04  3/4 avant glamour pendant l'approche, puis travelling circulaire sous la boule à facettes dorée
+     #05  contre-plongée 3/4 avant au ras du tapis (le pare-chocs tremble), cabrage au départ du tunnel
+     #06  travelling oblique de profil au téléobjectif, façon télémétrie F1 (suit l'écart latéral)
+     #07  plan d'impact plongeant 3/4 arrière : la caméra tombe avec la voiture et s'écrase avec elle à l'atterrissage
+     #08  zoom : Dutch angle 8° en 3/4 arrière bas (huile) → COUPE au saut → 3/4 avant bas : l'A4 et sa remorque plongent vers nous
+     #09  poursuite 3/4 → contre-plongée mobile devant la voiture pendant le piqué, puis 3/4 avant pendant le dérapage
+     #10  zoom : 3/4 arrière rasant sur le train de 6 roues qui crachent des étincelles → COUPE au dérapage → contre-plongée avant,
+          dézoom final
+     #11–#15  entrées « normales » variées et flatteuses : 3/4 avant bas, grue orbitale, profil intérieur, poursuite 3/4 classique,
+              frontal depuis le centre du ring
+     RUSH      ordre du plan (#08 → #03 → #02 → #10), 1,25 s chacune : ralenti d'action (la scène entière est rejouée à l'instant
+               choisi de son entrée : aucune collision nouvelle), plein cadre, flash 2 images à chaque coupe
    creerCadrages(ctx) → { cameraEcurie(k, t), cameraArrivee(t), cameraCouronne(t), rush(t) → { i, k, tA, cam } | null,
-                          coupes (instants des coupes franches + flash), impulsions (trauma) } */
+                          coupes (instants des coupes franches + flash), impulsions (trauma), coupesDe(k) } */
 import { clamp, lerp, smoother, hermite, DEG } from './arene_outils.js';
 
 export function creerCadrages({ P, G, entrees, lisse, poseVoiture, voitures }) {
   const add = (a, b, k = 1) => [a[0] + b[0] * k, a[1] + b[1] * k, a[2] + b[2] * k];
   const mix = (a, b, u) => a.map((x, i) => lerp(x, b[i], u));
   const melange = (A, B, u) => ({ p: mix(A.p, B.p, u), c: mix(A.c, B.c, u), fov: lerp(A.fov, B.fov, u), roll: lerp(A.roll || 0, B.roll || 0, u) });
-  /** Repère de la voiture k à t : position lissée, avant f, gauche s, axe d'entrée W(u, l, y). */
+  /** Repère de la voiture k à t : position lissée, avant f, gauche s, axe d'entrée W(u, l, y), écart latéral l. */
   function rep(k, t, win = 0.15) {
     const L = lisse(k, t, win); if (!L) return null;
     const E = entrees.entrees[k], f = L.f, s = [f[2], 0, -f[0]];
-    const u = L.p[0] * E.ax + L.p[2] * E.az;
-    const W = (uu, l, y) => [E.ax * uu - E.az * l, G.MAT + y, E.az * uu + E.ax * l];
-    return { p: L.p, f, s, u, W, E, h: L.p[1] - G.MAT, d: voitures[k].d };
+    const u = L.p[0] * E.ax + L.p[2] * E.az, l = -L.p[0] * E.az + L.p[2] * E.ax;
+    const W = (uu, ll, y) => [E.ax * uu - E.az * ll, G.MAT + y, E.az * uu + E.ax * ll];
+    return { p: L.p, f, s, u, l, W, E, h: L.p[1] - G.MAT, d: voitures[k].d };
   }
+  /** Plan relatif à la voiture : avant (cm), gauche (cm), haut (cm) ; visée = centre de la caisse + leve. */
+  const relatif = (r, av, ga, ht, { leve = 2.2, vise = 0, fov = 42, roll = 0 } = {}) =>
+    ({ p: add(add(add(r.p, r.f, av), r.s, ga), [0, ht, 0]), c: add(add(r.p, [0, leve, 0]), r.f, vise), fov, roll });
 
-  /* ═════════════ recettes #01 → #10 ═════════════ */
+  /* ═════════════ recettes ═════════════ */
   const R = [];
-  R[0] = (k, t, sl) => {            // #01 travelling latéral rasant
-    const r = rep(k, t, 0.25), dir = [-r.E.ax, 0, -r.E.az], l = -r.p[0] * r.E.az + r.p[2] * r.E.ax;   // l : écart latéral de la voiture à l'axe
-    return { p: r.W(r.u - 3, l - 27, 1.5 + r.h * 0.55), c: add(add(r.p, [0, 2.4, 0]), dir, 4), fov: 40 };
+  R[0] = (k, t) => {                // #01 travelling latéral rasant
+    const r = rep(k, t, 0.25), dir = [-r.E.ax, 0, -r.E.az];
+    return { p: r.W(r.u - 3, r.l - 27, 1.5 + r.h * 0.55), c: add(add(r.p, [0, 2.4, 0]), dir, 3), fov: 40 };
   };
-  R[1] = (k, t, sl) => {            // #02 vue de dessus pure qui tourne
-    const r = rep(k, t, 0.22), th = 0.42 * (t - sl.sortie) + 0.6, H = 29 + 0.6 * r.h;
-    return { p: [r.p[0] + Math.cos(th) * 0.5, r.p[1] + H, r.p[2] + Math.sin(th) * 0.5], c: r.p, fov: 38 };
+  R[1] = (k, t, sl) => {            // #02 zoom : 3/4 avant bas → vue de dessus pure qui tourne
+    if (t < sl.saut) return relatif(rep(k, t, 0.15), 17, 9, 3.2, { fov: 42 });
+    const r = rep(k, t, 0.22), th = 0.42 * (t - sl.sortie) + 0.6, H = 23 + 0.5 * r.h;
+    return { p: [r.p[0] + Math.cos(th) * 0.5, r.p[1] + H, r.p[2] + Math.sin(th) * 0.5], c: r.p, fov: 40 };
   };
-  R[2] = (k, t, sl) => {            // #03 3/4 avant dynamique
-    const r = rep(k, t, 0.12);
-    return { p: add(add(add(r.p, r.f, 24), r.s, 11), [0, 6, 0]), c: add(add(r.p, [0, 2.2, 0]), r.f, -2), fov: 42 };
+  R[2] = (k, t, sl) => {            // #03 zoom : 3/4 avant dynamique → contre-plongée 3/4 de l'autre côté
+    if (t < sl.atterrissage) return relatif(rep(k, t, 0.12), 21, 10, 5.5, { vise: -1.5, fov: 42 });
+    return relatif(rep(k, t, 0.15), 17, -11, 1.4, { leve: 2.6, fov: 44 });
   };
-  R[3] = (k, t, sl) => {            // #04 grue glamour sous la boule, puis travelling circulaire
-    const r = rep(k, t, 0.2);
-    const boule = [0, 145, 0], dir = [r.E.ax, 0, r.E.az];
-    const A = { p: add(add(add(r.p, r.f, 21), r.s, -13), [0, 4.5, 0]), c: add(r.p, [0, 2.4, 0]), fov: 44 };             // 3/4 avant glamour pendant l'approche
+  R[3] = (k, t, sl) => {            // #04 3/4 avant glamour, puis travelling circulaire sous la boule
+    const r = rep(k, t, 0.2), boule = [0, 145, 0];
+    const A = relatif(r, 19, -12, 4.5, { leve: 2.4, fov: 44 });
     const tO = t - sl.atterrissage, a = Math.atan2(r.p[2], r.p[0]) + 0.35 + 1.05 * tO;
-    // travelling circulaire : la caméra tourne autour de la voiture, côté extérieur, et lève les yeux vers la boule dorée
-    const B = { p: [r.p[0] + Math.cos(a) * 32, G.MAT + 4 + 1.5 * Math.sin(tO * 1.3), r.p[2] + Math.sin(a) * 32], c: mix(add(r.p, [0, 3, 0]), boule, 0.045), fov: 52 };
-    void dir;
+    const B = { p: [r.p[0] + Math.cos(a) * 27, G.MAT + 4.5 + 1.5 * Math.sin(tO * 1.3), r.p[2] + Math.sin(a) * 27], c: mix(add(r.p, [0, 2.6, 0]), boule, 0.03), fov: 48 };
     return melange(A, B, smoother((t - sl.atterrissage + 0.35) / 0.6));
   };
-  R[4] = (k, t, sl) => {            // #05 contre-plongée au ras du pare-chocs avant
+  R[4] = (k, t) => {                // #05 contre-plongée 3/4 avant au ras du tapis, pare-chocs qui tremble
     const r = rep(k, t, 0.08), av = r.d.L / 2;
-    const tremble = 0.12 * Math.sin(t * 53) + 0.08 * Math.sin(t * 87);
-    return { p: add(add(r.p, r.f, av + 7.5), [0, 0.9 + tremble, 0]), c: add(add(r.p, r.f, av * 0.6), [0, 3.4, 0]), fov: 52 };
+    const tremble = 0.1 * Math.sin(t * 53) + 0.07 * Math.sin(t * 87);
+    return relatif(r, av + 14, 7, 1.3 + tremble, { leve: 2.8, fov: 36 });
   };
-  R[5] = (k, t, sl) => {            // #06 travelling oblique de profil (téléobjectif)
+  R[5] = (k, t) => {                // #06 travelling oblique de profil (téléobjectif)
     const r = rep(k, t, 0.2);
-    return { p: r.W(r.u + 14, 46, 8 + r.h * 0.7), c: add(r.p, [0, 2, 0]), fov: 27 };
+    return { p: r.W(r.u + 12, r.l + 44, 7 + r.h * 0.7), c: add(r.p, [0, 2, 0]), fov: 26 };
   };
-  R[6] = (k, t, sl) => {            // #07 plan d'impact plongeant
-    const r = rep(k, t, t >= sl.saut - 0.1 && t < sl.atterrissage + 0.3 ? 0.04 : 0.15);
+  R[6] = (k, t, sl) => {            // #07 plan d'impact plongeant 3/4 arrière
+    const r = rep(k, t, t >= sl.saut - 0.1 && t < sl.atterrissage + 0.3 ? 0.05 : 0.15);
     const u = clamp((t - sl.saut) / (sl.atterrissage - sl.saut)), apres = smoother((t - sl.atterrissage) / 0.6);
-    const recul = lerp(lerp(26, 20, u), 21, apres), haut = lerp(lerp(18, 6.5, u * u), 6, apres);
-    return { p: add(add(r.p, r.f, -recul), [0, haut, 0]), c: add(add(r.p, r.f, lerp(6, 9, u)), [0, 1.6, 0]), fov: lerp(46, 52, u) };
+    const recul = lerp(lerp(21, 16, u), 17, apres), haut = lerp(lerp(14, 5.5, u * u), 6, apres);
+    return relatif(r, -recul, 9, haut, { leve: 1.8, vise: lerp(3, 5, u), fov: 44 });
   };
-  R[7] = (k, t, sl) => {            // #08 Dutch angle 8° au ras du pot d'échappement
-    const r = rep(k, t, 0.12), ar = r.d.L / 2;
-    return { p: add(add(add(r.p, r.f, -(ar + 6)), r.s, 2.5), [0, 1.3, 0]), c: add(add(r.p, r.f, 4), [0, 1.6, 0]), fov: 46, roll: 8 * DEG };
+  R[7] = (k, t, sl) => {            // #08 zoom : Dutch 8° 3/4 arrière bas → 3/4 avant bas (la remorque plonge vers nous)
+    const L2 = voitures[k].d.L / 2;
+    if (t < sl.saut) return relatif(rep(k, t, 0.12), -(L2 + 6), 12, 2.6, { leve: 1.8, vise: 2, fov: 44, roll: 8 * DEG });
+    return relatif(rep(k, t, 0.12), L2 + 7, -12, 2.4, { leve: 2, fov: 46, roll: -5 * DEG });
   };
-  R[8] = (k, t, sl) => {            // #09 contre-plongée sur le piqué aérien
+  R[8] = (k, t, sl) => {            // #09 poursuite 3/4 → contre-plongée mobile pendant le piqué → 3/4 avant
     const r = rep(k, t, 0.12);
-    const A = { p: add(add(add(r.p, r.f, -16), r.s, 5), [0, 6, 0]), c: add(r.p, r.f, 4), fov: 44 };
-    const B = { p: r.W(G.RLAND - 24, 7, 1.2), c: add(r.p, [0, 2, 0]), fov: 54 };
-    return t < sl.saut - 0.25 ? A : B;
+    if (t < sl.saut - 0.2) return relatif(r, -19, 8, 6, { vise: 4, fov: 44 });
+    if (t < sl.atterrissage + 0.15) { const p = r.W(r.u - 26, r.l + 5, 1.3); return { p, c: add(r.p, [0, 2, 0]), fov: 46 }; }
+    return relatif(r, 18, 10, 3.2, { fov: 44 });
   };
-  R[9] = (k, t, sl) => {            // #10 gros plan extrême rasant sur les 6 roues, dézoom final
-    const r = rep(k, t, 0.1), L = r.d.L;
-    const A = { p: add(add(add(r.p, r.s, 9.5), r.f, -L * 0.6), [0, 0.9, 0]), c: add(add(add(r.p, r.f, L * 0.45), r.s, 2.5), [0, 1.3, 0]), fov: 46 };
-    const B = { p: add(add(add(r.p, r.s, 34), r.f, -26), [0, 15, 0]), c: add(r.p, [0, 2.5, 0]), fov: 44 };
+  R[9] = (k, t, sl) => {            // #10 zoom : 3/4 arrière rasant sur les 6 roues → contre-plongée avant, dézoom final
+    const r = rep(k, t, 0.1);
+    if (t < sl.atterrissage + 0.3) return relatif(r, -14, 15, 1.4, { leve: 2.4, vise: 2, fov: 46 });
+    const A = relatif(r, 19, -10, 1.6, { leve: 3, fov: 44 });
+    const B = relatif(r, 30, -26, 15, { leve: 2.5, fov: 44 });
     return melange(A, B, smoother((t - sl.place + 0.15) / Math.max(0.4, sl.fin - sl.place + 0.15)));
   };
-
-  /* ═════════════ smash cuts #11 → #15 ═════════════ */
-  const PLANS = {
-    faceBas: (r) => ({ p: add(add(r.p, r.f, 16), [0, 2, 0]), c: add(r.p, [0, 2.2, 0]), fov: 44 }),
-    plongee: (r) => ({ p: add(add(add(r.p, [0, 52, 0]), r.s, 7), r.f, -6), c: r.p, fov: 40 }),
-    arriereDutch: (r) => ({ p: add(add(add(r.p, r.f, -15), r.s, -4), [0, 2.4, 0]), c: add(r.p, r.f, 6), fov: 46, roll: -12 * DEG }),
-    profilG: (r) => ({ p: add(add(r.p, r.s, 25), [0, 3, 0]), c: add(r.p, [0, 2, 0]), fov: 38 }),
-    profilD: (r) => ({ p: add(add(r.p, r.s, -25), [0, 3, 0]), c: add(r.p, [0, 2, 0]), fov: 38 }),
-    contre: (r) => ({ p: add(add(add(r.p, r.f, 11), r.s, -5), [0, 0.8, 0]), c: add(r.p, [0, 5, 0]), fov: 54 }),
-    aerien: (r) => ({ p: add(add(r.p, r.f, -32), [0, 30, 0]), c: add(r.p, r.f, 10), fov: 44 }),
+  R[10] = (k, t, sl) => {           // #11 3/4 avant bas, puis presque de face (côté centre du ring : aucune voiture garée entre nous)
+    const r = rep(k, t, 0.15);
+    return melange(relatif(r, 18, -10, 2.2, { fov: 42 }), relatif(r, 16, -4, 10, { leve: 1.5, fov: 44 }), smoother((t - sl.atterrissage + 0.2) / 0.5));
   };
-  const SMASH = { 10: ['faceBas', 'plongee', 'arriereDutch', 'contre'], 11: ['plongee', 'contre', 'profilD', 'arriereDutch'],
-    12: ['arriereDutch', 'faceBas', 'aerien', 'contre'], 13: ['profilD', 'plongee', 'faceBas', 'arriereDutch'], 14: ['contre', 'aerien', 'profilG', 'plongee'] };
-  const coupesDe = (sl) => [sl.sortie, sl.saut - 0.12, sl.atterrissage + 0.02, sl.place - 0.38];
-  function cameraSmash(k, t, sl) {
-    const c = coupesDe(sl); let i = 0; while (i < 3 && t >= c[i + 1]) i++;
-    return PLANS[SMASH[k][i]](rep(k, t, 0.1));
-  }
+  R[11] = (k, t, sl) => {           // #12 grue orbitale lente au-dessus de la voiture
+    const r = rep(k, t, 0.2), a = Math.atan2(r.f[2], r.f[0]) + 2.2 + 0.5 * (t - sl.sortie);
+    return { p: [r.p[0] + Math.cos(a) * 20, r.p[1] + 15, r.p[2] + Math.sin(a) * 20], c: add(r.p, [0, 1.6, 0]), fov: 44 };
+  };
+  R[12] = (k, t, sl) => {           // #13 profil (côté intérieur), puis 3/4 arrière pendant le dérapage
+    const r = rep(k, t, 0.18);
+    const A = { p: r.W(r.u - 4, r.l - 26, 3 + r.h * 0.6), c: add(r.p, [0, 2.2, 0]), fov: 42 };
+    const B = relatif(r, -18, -9, 5, { vise: 3, fov: 44 });
+    return melange(A, B, smoother((t - sl.atterrissage) / 0.5));
+  };
+  R[13] = (k, t) => relatif(rep(k, t, 0.15), -21, 8, 6.5, { vise: 2.5, fov: 44 });                                                  // #14 poursuite 3/4 classique
+  R[14] = (k, t, sl) => {           // #15 frontal depuis le centre du ring (la voiture fonce vers nous), puis 3/4 avant
+    const r = rep(k, t, 0.15);
+    const A = relatif(r, 19, 4, 3.6, { leve: 2.5, fov: 40 });
+    const B = relatif(r, 17, 10, 3, { fov: 42 });
+    return melange(A, B, smoother((t - sl.atterrissage) / 0.5));
+  };
 
-  function cameraEcurie(k, t) {
-    const sl = P.ecuries[k];
-    return sl.smash ? cameraSmash(k, t, sl) : R[k](k, t, sl);
-  }
+  function cameraEcurie(k, t) { return R[k](k, t, P.ecuries[k]); }
 
-  /* ═════════════ RUSH : ralenti d'action, 1,0 s par voiture ═════════════ */
+  /* ═════════════ RUSH : ralenti d'action des 4 écuries « zoom », 1,25 s chacune ═════════════ */
   const RU = P.rush;
-  const RUSH_DEF = [
-    { cle: (sl) => sl.sortie + 0.25, plan: (r) => ({ p: add(add(r.p, r.f, 21), [0, 2.6, 0]), c: add(r.p, [0, 2.6, 0]), fov: 40 }) },                         // face pure
-    { cle: (sl) => sl.place + 0.05, plan: (r, a) => ({ p: add(add(add(r.p, r.f, lerp(17, 13, a)), r.s, lerp(12, 9, a)), [0, 2.2, 0]), c: add(r.p, [0, 2.7, 0]), fov: 40, roll: 18 * DEG }) },   // 3/4 gauche posé « JoJo »
-    { cle: (sl) => sl.saut - 0.2, plan: (r) => ({ p: add(add(r.p, [0, 38, 0]), r.f, 10), c: r.p, fov: 44 }) },                                                  // plongée sirène
-    { cle: (sl) => sl.atterrissage + 0.05, plan: (r) => { const n = Math.hypot(r.p[0], r.p[2]) || 1; return { p: [r.p[0] + r.p[0] / n * 22, r.p[1] + 2.6, r.p[2] + r.p[2] / n * 22], c: add(r.p, [0, 2, 0]), fov: 36 }; } },   // profil drift
-    { cle: (sl) => sl.saut + 0.22, plan: (r) => ({ p: r.W(G.RLAND - 17, 6, 1.2), c: add(r.p, [0, 2.5, 0]), fov: 54 }) },                                                // contre-plongée royale
-  ];
+  const RUSH_DEF = {
+    8: { cle: (sl) => sl.atterrissage + 0.1, plan: (r) => relatif(r, voitures[7].d.L / 2 + 8, 12, 3, { fov: 44 }) },                                          // A4 en dérapage, 3/4 avant
+    3: { cle: (sl) => sl.sortie + 0.3, plan: (r) => relatif(r, 21, 0.5, 2.8, { leve: 2.6, fov: 40 }) },                                                         // face pure, flare des phares
+    2: { cle: (sl) => sl.atterrissage + 0.05, plan: (r) => ({ p: add(r.p, [13, 22, 13]), c: add(r.p, [0, 1, 0]), fov: 40 }) },                                // Twingo : tête-à-queue vu en plongée
+    10: { cle: (sl) => sl.saut + 0.5, plan: (r) => ({ p: r.W(G.RLAND - 23, 9, 1.4), c: add(r.p, [0, 2.6, 0]), fov: 50 }) },                                  // 6 roues : contre-plongée à l'atterrissage
+  };
   function rush(t) {
     if (!RU || t < RU.debut || t >= RU.fin) return null;
     let i = 0; while (i < RU.cuts.length - 1 && t >= RU.cuts[i + 1]) i++;
-    const k = RU.ordre[i] - 1, sl = P.ecuries[k], a = t - RU.cuts[i], tA = RUSH_DEF[i].cle(sl) + a;
-    return { i, k, tA, cam: RUSH_DEF[i].plan(rep(k, tA, 0.1), a) };
+    const id = RU.ordre[i], k = id - 1, sl = P.ecuries[k], a = t - RU.cuts[i];
+    const def = RUSH_DEF[id] || { cle: (s) => s.atterrissage, plan: (r) => relatif(r, 18, 10, 3) };
+    const tA = def.cle(sl) + a;
+    return { i, k, tA, cam: def.plan(rep(k, tA, 0.1), a) };
   }
 
   /* ═════════════ COURONNE + plongée dans le portail ═════════════ */
@@ -138,24 +145,26 @@ export function creerCadrages({ P, G, entrees, lisse, poseVoiture, voitures }) {
     return { p: mix(CO_CLES[1].p, [0.35, G.MAT + 3.2, 0.25], u), c: [0, G.MAT, 0], fov: lerp(48, 62, u) };
   }
 
-  /* ═════════════ ARRIVÉE : jaillit du vortex au DROP ═════════════ */
-  const AR = P.arrivee;
+  /* ═════════════ ARRIVÉE : jaillit du vortex pile sur « EN ARÈNE ! » ═════════════ */
+  const AR = P.arrivee, T0 = AR.drop;
   const AR_CLES = [
-    { t: AR.debut - 0.3, p: [0, 1240, 2], c: [0, G.MAT, 0], fov: 72 },                     // clé d'élan (avant le segment) : la caméra arrive lancée
-    { t: AR.debut, p: [0, 960, 3], c: [0, G.MAT, 0], fov: 72 },
-    { t: AR.debut + 0.75, p: [120, 430, 170], c: [0, G.MAT, 0], fov: 58 },
-    { t: AR.debut + 1.9, p: [190, 150, 230], c: [40, G.MAT + 20, 0], fov: 48 },
-    { t: AR.debut + 3.15, p: [330, 62, 112], c: [262, G.MAT + 18, 0], fov: 46 },
+    { t: T0 - 0.3, p: [0, 1240, 2], c: [0, G.MAT, 0], fov: 72 },                       // clé d'élan (avant le segment) : la caméra arrive lancée
+    { t: T0, p: [0, 960, 3], c: [0, G.MAT, 0], fov: 72 },
+    { t: T0 + 0.75, p: [120, 430, 170], c: [0, G.MAT, 0], fov: 58 },
+    { t: T0 + 1.9, p: [190, 150, 230], c: [40, G.MAT + 20, 0], fov: 48 },
+    { t: lerp(T0 + 1.9, AR.fin, 0.55), p: [330, 62, 112], c: [262, G.MAT + 18, 0], fov: 46 },
     { t: AR.fin, p: [302, G.MAT + 7, -44], c: [272, G.MAT + 4, 0], fov: 44 },
   ];
   const cameraArrivee = (t) => ({ p: hermite(AR_CLES, t, 'p'), c: hermite(AR_CLES, t, 'c'), fov: hermite(AR_CLES, t, 'fov') });
 
   /* ═════════════ coupes franches (flash 2 images) et impulsions de trauma ═════════════ */
+  const COUPES_ZOOM = { 1: (sl) => [sl.saut], 2: (sl) => [sl.atterrissage], 7: (sl) => [sl.saut], 9: (sl) => [sl.atterrissage + 0.3] };
+  const coupesDe = (k) => (P.ecuries[k].zoom && COUPES_ZOOM[k] ? COUPES_ZOOM[k](P.ecuries[k]) : []);
   const coupes = [];
-  P.ecuries.forEach((sl, k) => { if (sl.smash) coupesDe(sl).forEach((tc, j) => coupes.push({ t: tc, k, j })); });
+  P.ecuries.forEach((sl, k) => coupesDe(k).forEach((tc, j) => coupes.push({ t: tc, k, j })));
   if (RU) RU.cuts.forEach((tc, i) => coupes.push({ t: tc, k: RU.ordre[i] - 1, j: i, rush: true }));
   const VIOLENT = new Set([4, 6, 9]);
-  const impulsions = [{ t: AR.drop, a: 1.25, d: 0.32 }];
+  const impulsions = [{ t: T0, a: 1.25, d: 0.32 }];
   P.ecuries.forEach((sl, k) => {
     impulsions.push({ t: sl.debut + 0.1, a: 0.22, d: 0.16 });                                       // apparition du bandeau
     impulsions.push({ t: sl.atterrissage, a: VIOLENT.has(k) ? 1.3 : 0.45, d: VIOLENT.has(k) ? 0.3 : 0.2 });

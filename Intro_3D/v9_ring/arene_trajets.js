@@ -177,7 +177,12 @@ export function creerDepart(places, D, piste, dims) {
   // ordre dans la file (rang 0 = la plus proche de la sortie) → voie de l'éventail
   const rang = avance.map((a) => avance.filter((b) => b < a).length);
   const VMAX = 175, TACC = 1.3;
-  const S = (t) => { const u = t - T1; if (u <= 0) return 0; if (u < TACC) return VMAX * (u * u * u / (TACC * TACC) - u * u * u * u / (2 * TACC * TACC * TACC)); return VMAX * (TACC / 2 + (u - TACC)); };
+  const S0 = (t) => { const u = t - T1; if (u <= 0) return 0; if (u < TACC) return VMAX * (u * u * u / (TACC * TACC) - u * u * u * u / (2 * TACC * TACC * TACC)); return VMAX * (TACC / 2 + (u - TACC)); };
+  // V9.3 : tour de parade sous le logo final — la meute ralentit (VMAX → VLENT en TF s, vitesse continue) pour rester dans l'arène,
+  // écarts le long de la courbe inchangés (aucune collision possible entre voitures de la file)
+  const VLENT = 40, TFREIN = 1.0, T_FREIN = D.logo != null ? Math.max(T1 + TACC, D.logo - 0.6) : Infinity;
+  const S = (t) => { if (t <= T_FREIN) return S0(t); const tau = t - T_FREIN, u = Math.min(1, tau / TFREIN);
+    const base = S0(T_FREIN) + VLENT * tau + (VMAX - VLENT) * TFREIN * (1 - Math.pow(1 - u, 3)) / 3; return base; };
   const sEventail = LB + 180;
   function pose(k, t) {
     const ph = places[k], d = dims[k];

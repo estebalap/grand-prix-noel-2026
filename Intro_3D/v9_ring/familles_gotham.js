@@ -4,10 +4,11 @@
    ailée (forme générique), château d'eau sur pieds, antenne à feu rouge, édicule d'escalier, lampadaire ambré. En contrebas, la ville
    gothique (façades aux fenêtres allumées en espace monde, flèches, avenues ponctuées de réverbères ambrés), la pluie fine, et
    un PROJECTEUR-SIGNAL qui éclaire la nappe de nuages : disque lumineux traversé d'une silhouette de chauve-souris générique
-   (dessin original, aucun logo officiel). Ciel bleu-vert, horizon ambré par la ville : jamais de noir dominant.
+   (dessin original, aucun logo officiel). V9.3 : ciel BLEU NUIT nuageux, rares fenêtres et réverbères ambrés, contre-jours froids :
+   sombre mais lisible, jamais un noir bouché.
 
-   V9.2 (extrait montré : 1,8 → 4,3 s) : la caméra sort d'un rift (raccord avec le portail express de l'arène), glisse autour de la
-   Batmobile garée à 8 m du parapet, phares allumés ; à 3,35 s elle démarre (turbine, étincelles, ombres qui se compriment) et plonge
+   V9.3 (extrait montré : 0,3 → 4,3 s = film 86,1 → 90,1) : GOTHAM NOCTURNE. Ouverture en fondu depuis le noir, 1,5 s de calme : la
+   silhouette de la Batmobile se révèle en contre-jour, ses phares s'allument (1,25 → 1,5 s), caméra lente ; la voix arrive à 1,8 s ; à 3,35 s elle démarre (turbine, étincelles, ombres qui se compriment) et plonge
    dans un rift ouvert 1 m devant le parapet : l'arrière le franchit à ~4,25 s.
    Repère : voiture à l'origine, avant = +z (vers la ville), gauche = +x ; toit à y = 0 ; m = 1 mètre « monde » en cm. */
 import { prng, texCanvas, halo, creerCiel, creerPluie, matFacades, obbDecor, splineT } from './familles_outils.js';
@@ -22,14 +23,14 @@ export function creerGotham(ctx, bat, boite) {
   const m = L / 6.0;                                    // la Batmobile 1989 mesure ~6 m
   const nez = boite.max.z, GAP = 8.0 * m, EP = 0.45 * m, zBord = nez + GAP + EP;     // bord extérieur du toit
   const HIMM = 68 * m;                                  // hauteur de l'immeuble (rue à y = -HIMM)
-  const FOG = '#2a5560', DENS = 0.0021 / m;
+  const FOG = '#1a2738', DENS = 0.0021 / m;
   const obstacles = [];
   const std = (o) => new THREE.MeshStandardMaterial({ roughness: 0.75, metalness: 0.05, envMapIntensity: 0.02, ...o });   // l'environnement néon du noyau est très lumineux : décor quasi mat
 
-  /* ───────── ciel bleu-vert, horizon ambré, nuages éclairés par le signal ───────── */
-  const dirSignal = new THREE.Vector3(-0.1, 0.035, 1.0).normalize();
-  const ciel = creerCiel(THREE, { rayon: 2600 * m, haut: '#1d4f7a', milieu: '#2f7f88', bas: '#d9914a', nuages: 0.95, couleurNuage: '#7fa6b0', clairNuage: 0.42,
-    zone: { dir: dirSignal.toArray(), couleur: '#ffd27a', force: 0.55, taille: 0.24 }, echelle: 1.1, vent: 0.012 });
+  /* ───────── ciel bleu nuit, nuages éclairés par le signal ───────── */
+  const dirSignal = new THREE.Vector3(-0.3, 0.12, 1.0).normalize();
+  const ciel = creerCiel(THREE, { rayon: 2600 * m, haut: '#0a1430', milieu: '#16294a', bas: '#3a3a52', nuages: 0.95, couleurNuage: '#3c4e6e', clairNuage: 0.4,
+    zone: { dir: dirSignal.toArray(), couleur: '#ffd27a', force: 0.9, taille: 0.22 }, echelle: 1.1, vent: 0.012 });
   groupe.add(ciel.mesh);
 
   /* ───────── le toit : dalle mouillée, immeuble, parapets ───────── */
@@ -44,7 +45,7 @@ export function creerGotham(ctx, bat, boite) {
   const toit = new THREE.Mesh(new THREE.PlaneGeometry(LX, LZ), std({ map: texToit, roughness: 0.62, metalness: 0.05, envMapIntensity: 0.04 }));
   toit.rotation.x = -Math.PI / 2; toit.position.set(0, 0, zBord - LZ / 2); groupe.add(toit);
   // le corps de l'immeuble (façades fenêtrées) sous le toit
-  const facImm = matFacades(THREE, { base: '#3a4048', base2: '#454b55', fen: ['#ffc86e', '#ffe2a8', '#9fe0ff'], allume: 0.42, etage: 3.6 * m, pas: 2.6 * m, toit: '#2a3038', brouillard: FOG, densite: DENS, lueur: 2.2 });
+  const facImm = matFacades(THREE, { base: '#3a4048', base2: '#454b55', fen: ['#ffc86e', '#ffe2a8', '#9fe0ff'], allume: 0.12, etage: 3.6 * m, pas: 2.6 * m, toit: '#2a3038', brouillard: FOG, densite: DENS, lueur: 2.2 });
   const imm = new THREE.Mesh(new THREE.BoxGeometry(LX, HIMM, LZ), facImm.mat); imm.position.set(0, -HIMM / 2 - 0.02 * m, zBord - LZ / 2); groupe.add(imm);
   imm.geometry.setAttribute('aGraine', new THREE.BufferAttribute(new Float32Array(imm.geometry.attributes.position.count).fill(0.37), 1));
   // parapets de pierre + corniche (bord côté ville et bords latéraux)
@@ -93,7 +94,7 @@ export function creerGotham(ctx, bat, boite) {
   for (const y of [4.0, 5.2, 6.4]) { const cer = new THREE.Mesh(new THREE.TorusGeometry(2.02 * m, 0.05 * m, 6, 32), fer); cer.rotation.x = Math.PI / 2; cer.position.y = y * m; cdo.add(cer); }
   const chap = new THREE.Mesh(new THREE.ConeGeometry(2.25 * m, 1.4 * m, 24), fer); chap.position.y = 7.6 * m; cdo.add(chap);
   for (let i = 0; i < 4; i++) { const a = i * Math.PI / 2 + Math.PI / 4, p = new THREE.Mesh(new THREE.CylinderGeometry(0.1 * m, 0.12 * m, 3.6 * m, 8), fer); p.position.set(Math.cos(a) * 1.5 * m, 1.8 * m, Math.sin(a) * 1.5 * m); cdo.add(p); }
-  cdo.position.set(-15 * m, 0, zBord - 25 * m); groupe.add(cdo);
+  cdo.position.set(-16 * m, 0, zBord - 27 * m); groupe.add(cdo);
   obstacles.push(obbDecor('chateau-eau', cdo.position.x, cdo.position.z, 1.7 * m, 1.7 * m, 0, 8.4 * m));
 
   /* ───────── antenne à feu rouge (clignotement = fonction de t) ───────── */
@@ -106,8 +107,8 @@ export function creerGotham(ctx, bat, boite) {
   obstacles.push(obbDecor('antenne', ant.position.x, ant.position.z, 0.3 * m, 0.3 * m, 0, 11 * m));
 
   /* ───────── édicule d'escalier, climatiseurs, lampadaire ambré ───────── */
-  const edi = new THREE.Mesh(new THREE.BoxGeometry(3.4 * m, 3.0 * m, 3.0 * m), pierreF); edi.position.set(-2.5 * m, 1.5 * m, zBord - 24 * m); groupe.add(edi);
-  const porte = new THREE.Mesh(new THREE.PlaneGeometry(1.0 * m, 2.1 * m), new THREE.MeshBasicMaterial({ color: new THREE.Color(1.6, 1.05, 0.5) })); porte.position.set(-2.5 * m, 1.05 * m, zBord - 22.49 * m); groupe.add(porte);
+  const edi = new THREE.Mesh(new THREE.BoxGeometry(3.4 * m, 3.0 * m, 3.0 * m), pierreF); edi.position.set(11 * m, 1.5 * m, zBord - 26 * m); groupe.add(edi);
+  const porte = new THREE.Mesh(new THREE.PlaneGeometry(1.0 * m, 2.1 * m), new THREE.MeshBasicMaterial({ color: new THREE.Color(1.6, 1.05, 0.5) })); porte.position.set(11 * m, 1.05 * m, zBord - 24.49 * m); groupe.add(porte);
   obstacles.push(obbDecor('edicule', edi.position.x, edi.position.z, 1.7 * m, 1.5 * m, 0, 3 * m));
   for (const [x, z] of [[11 * m, zBord - 8 * m], [12.5 * m, zBord - 11 * m], [-12 * m, zBord - 6 * m]]) {
     const cl = new THREE.Mesh(new THREE.BoxGeometry(1.6 * m, 1.1 * m, 1.2 * m), std({ color: 0x8b9199, roughness: 0.5, metalness: 0.4 })); cl.position.set(x, 0.55 * m, z); groupe.add(cl);
@@ -122,7 +123,7 @@ export function creerGotham(ctx, bat, boite) {
   const lumAmbre = new THREE.PointLight(0xffa040, 0.45, 9 * m, 2.0); lumAmbre.position.set(-4.2 * m, 3.4 * m, zBord - 1.2 * m); groupe.add(lumAmbre);
 
   /* ───────── la ville gothique en contrebas ───────── */
-  const facVille = matFacades(THREE, { base: '#2b3a48', base2: '#3a3f52', fen: ['#ffc060', '#ffdf9a', '#7fd8ff'], allume: 0.38, etage: 3.8 * m, pas: 2.8 * m, toit: '#1d2632', brouillard: FOG, densite: DENS, lueur: 2.6 });
+  const facVille = matFacades(THREE, { base: '#2b3a48', base2: '#3a3f52', fen: ['#ffc060', '#ffdf9a', '#7fd8ff'], allume: 0.14, etage: 3.8 * m, pas: 2.8 * m, toit: '#1d2632', brouillard: FOG, densite: DENS, lueur: 2.6 });
   const tours = [];
   for (let i = 0; i < 520; i++) {
     const a = R(0, Math.PI * 2), r = 55 * m + Math.pow(rnd(), 0.7) * 520 * m;
@@ -145,7 +146,7 @@ export function creerGotham(ctx, bat, boite) {
   // sol de la ville + avenues : réverbères ambrés (Points)
   const solV = new THREE.Mesh(new THREE.PlaneGeometry(1400 * m, 1400 * m), new THREE.MeshStandardMaterial({ color: 0x1b2430, roughness: 0.4, metalness: 0.3, envMapIntensity: 0.05 }));
   solV.rotation.x = -Math.PI / 2; solV.position.set(0, -HIMM, zBord); groupe.add(solV);
-  const nL = 2600, pL = new Float32Array(nL * 3);
+  const nL = 520, pL = new Float32Array(nL * 3);
   for (let i = 0; i < nL; i++) {
     const axeX = rnd() < 0.5, k = Math.round(R(-16, 16)), s = R(-500, 500) * m;
     const x = axeX ? s : k * 30 * m + 15 * m, z = zBord + (axeX ? k * 30 * m + 15 * m : s);
@@ -192,9 +193,11 @@ export function creerGotham(ctx, bat, boite) {
   groupe.add(bat);
   const yPh = boite.min.y + Hc * 0.32, xPh = W * 0.3;
   const cibleSpot = new THREE.Object3D(); cibleSpot.position.set(0, 0.4 * m - solY, nez + 8 * m); bat.add(cibleSpot);
+  const phares = [];
   for (const s of [-1, 1]) {
     const sp = new THREE.SpotLight(0xdfeaff, 0.35, 9 * m, 0.42, 0.8, 2.0); sp.position.set(s * xPh, yPh, nez - 0.1 * m); sp.target = cibleSpot; bat.add(sp);
     const lueur = halo(THREE, '#e8f2ff', 0.75 * m, 0.6); lueur.position.set(s * xPh, yPh, nez + 0.05 * m); bat.add(lueur);
+    phares.push({ sp, lueur });
   }
   // flamme de la turbine arrière (additive, longueur pilotée par la poussée)
   const flamme = new THREE.Mesh(new THREE.ConeGeometry(0.32 * m, 1, 16, 1, true), new THREE.ShaderMaterial({
@@ -206,8 +209,10 @@ export function creerGotham(ctx, bat, boite) {
   const ombres = creerOmbres(THREE, [{ env: bat, boite }], { sol: () => 0 }); groupe.add(ombres.groupe);
 
   // lumières d'ambiance : contre-jour ambré de la ville, bleu-vert du ciel
-  const contre = new THREE.DirectionalLight(0xffb060, 0.45); contre.position.set(-20 * m, 6 * m, 60 * m); groupe.add(contre); groupe.add(contre.target);
-  const hemi = new THREE.HemisphereLight(0x5fa0b8, 0x2a2420, 0.5); groupe.add(hemi);
+  const contre = new THREE.DirectionalLight(0xffb060, 0.22); contre.position.set(-20 * m, 6 * m, 60 * m); groupe.add(contre); groupe.add(contre.target);
+  const hemi = new THREE.HemisphereLight(0x4a6a9a, 0x1a1820, 0.34); groupe.add(hemi);
+  // contre-jour froid (nuit) : découpe la silhouette de la Batmobile sur le ciel bleu nuit
+  const decoupe = new THREE.DirectionalLight(0x7f9cf0, 0.32); decoupe.position.set(-15 * m, 10 * m, -30 * m); groupe.add(decoupe); groupe.add(decoupe.target);
   const signalLum = new THREE.DirectionalLight(0xffe0a0, 0.45); signalLum.position.copy(dirSignal).multiplyScalar(50 * m); groupe.add(signalLum);
 
   /* ───────── chorégraphie (temps interne ; extrait montré : 1,8 → 4,3 s) ─────────
@@ -223,13 +228,11 @@ export function creerGotham(ctx, bat, boite) {
   const centreV = [0, solY + boite.min.y + Hc * 0.5, (boite.min.z + boite.max.z) / 2];
   const C = (x, y, z) => [centreV[0] + x * m, y * m, centreV[2] + z * m];
   const cam = splineT([
-    { t: 1.55, p: C(9.8, 3.1, 12.2) }, { t: 1.8, p: C(8.6, 2.7, 9.6) }, { t: 2.4, p: C(7.4, 1.9, 4.2) }, { t: 3.0, p: C(6.0, 1.5, -3.0) },
-    { t: 3.4, p: C(3.8, 1.35, -7.2) }, { t: 3.9, p: C(2.5, 1.5, -4.4) }, { t: 4.3, p: C(1.8, 1.9, 0.2) }, { t: 4.6, p: C(1.5, 2.1, 2.4) },
+    { t: 0.0, p: C(5.6, 1.15, 12.2) }, { t: 0.3, p: C(5.8, 1.2, 11.6) }, { t: 1.3, p: C(6.6, 1.3, 9.6) }, { t: 2.3, p: C(7.2, 1.45, 5.6) },
+    { t: 3.0, p: C(6.2, 1.45, -1.5) }, { t: 3.4, p: C(4.4, 1.4, -6.2) }, { t: 3.9, p: C(2.5, 1.5, -4.4) }, { t: 4.3, p: C(1.8, 1.9, 0.2) }, { t: 4.6, p: C(1.5, 2.1, 2.4) },
   ]);
-  // rift d'entrée : posé là où passe la caméra à 1,86 s, perpendiculaire à sa trajectoire
-  const T_SORTIE = 1.86, pS = cam(T_SORTIE), pS2 = cam(T_SORTIE + 0.02);
-  const riftDebut = creerRift(THREE, { rayon: 3.4 * m }); riftDebut.groupe.position.set(...pS);
-  riftDebut.groupe.lookAt(2 * pS[0] - pS2[0], 2 * pS[1] - pS2[1], 2 * pS[2] - pS2[2]); groupe.add(riftDebut.groupe);
+  /** phares : allumage en deux battements (1,25 → 1,5 s), juste avant la voix (film 87,6 = interne 1,8) */
+  const allumage = (t) => (t < 1.25 ? 0 : t < 1.32 ? 0.8 : t < 1.38 ? 0.1 : smoother((t - 1.38) / 0.12));
   const etincelles = creerEtincelles(THREE, { demiH: ctx.H / 2, evenements: [{
     t0: T_DEP, t1: T_DEP + 0.55, n: 100, vie: [0.22, 0.5], graine: 'gotham-depart',
     source: (tb, a) => { const z = boite.min.z + avance(tb) + 0.5 * m, s = a[0] < 0.5 ? -1 : 1;
@@ -245,7 +248,9 @@ export function creerGotham(ctx, bat, boite) {
       const tangage = -0.035 * poussee * Math.exp(-Math.max(0, t - T_DEP) * 3);        // cabré au démarrage
       const pose = { pos: [0, solY, s], cap: 0, capVitesse: 0, heave: -0.02 * m * poussee * Math.exp(-Math.max(0, t - T_DEP) * 4), tangage, pente: 0, roulis: 0, dist: s, braquage: 0, coins: {} };
       ctx.poser(bat, pose);
-      bat.v7.reel.eclairer(1, 0);
+      const kP = allumage(t);
+      bat.v7.reel.eclairer(0.03 + 0.97 * kP, t);
+      for (const f of phares) { f.sp.intensity = 0.4 * kP; f.lueur.material.opacity = 0.6 * kP; }
       const passee = boite.min.z + s > zP;                                   // l'arrière a franchi le rift : elle est ailleurs
       bat.visible = !passee;
       flamme.visible = poussee > 0;
@@ -254,7 +259,6 @@ export function creerGotham(ctx, bat, boite) {
       etincelles.maj(t);
       ciel.maj(t); pluie.maj(t);
       feuRouge.visible = haloRouge.visible = (t % 1.6) < 0.8;
-      riftDebut.maj(t, t < 1.95 ? 1 : 1 - smoother((t - 1.95) / 0.3));
       riftFin.maj(t, smoother((t - 3.15) / 0.3));
       bat.updateMatrixWorld(true);
       const p = cam(t);
@@ -263,9 +267,10 @@ export function creerGotham(ctx, bat, boite) {
       const c = [centreV[0], lerp(centreV[1] + 0.25 * m, cv[1], k), lerp(centreV[2], cv[2], k)];
       return {
         camera: { p, c, fov: 40, near: 0.1 * m, far: 3200 * m },
-        fond: 0x2f6f80, brouillard: { couleur: FOG, densite: DENS * 0.6 },
-        lumieres: { hemi: 0.25, cle: 0.35 },
-        post: { exposition: 0.88, vignette: 0.42, saturation: 1.12, bloomForce: 0.56, aberration: 0.0005 },
+        fond: 0x16294a, brouillard: { couleur: FOG, densite: DENS * 0.6 },
+        lumieres: { hemi: 0.18, cle: 0.18 },
+        // ouverture EN FONDU depuis le noir (le portail de la couronne de l'arène se referme à film 86,1 = interne 0,3)
+        post: { exposition: 0.98, vignette: 0.5, saturation: 1.05, bloomForce: 0.5, aberration: 0.0005, fondu: 1 - smoother((t - 0.3) / 0.85) },
       };
     },
   };

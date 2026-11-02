@@ -134,6 +134,7 @@ def controler_coupures(source_env, placee_env, seuil=SEUIL_SILENCE_DB, marge_db=
 
 def harmoniser_jonctions(bornes, enveloppes, seuil=SEUIL_SILENCE_DB, ecart_max=0.6):
     """bornes : liste de dicts {id, fichier, debut, fin} (bornes déjà corrigées), enveloppes : {fichier: (ts, e)}.
+    Deux pièces consécutives dont les bornes élargies se CROISENT : jonction commune au creux le plus bas du chevauchement.
     Deux pièces consécutives d'une même prise séparées par une zone NON silencieuse (aucun point sous le seuil) : la zone
     est rattachée à la pièce suivante (son début recule jusqu'à la fin de la précédente) — rien n'est jeté entre deux prises
     collées (souffle ou consonne d'attaque). Modifie bornes en place et retourne la liste des rattachements."""
@@ -145,6 +146,14 @@ def harmoniser_jonctions(bornes, enveloppes, seuil=SEUIL_SILENCE_DB, ecart_max=0
         ts, e = enveloppes[fic]
         lst = sorted(lst, key=lambda b: b['debut'])
         for a, b in zip(lst, lst[1:]):
+            if b['debut'] < a['fin'] - 1e-6 and b['debut_json'] >= a['fin_json'] - 0.02:
+                # deux élargissements se croisent (la borne commune du JSON tombait dans un mot) : jonction au creux le plus bas
+                i0, i1 = np.searchsorted(ts, b['debut']), np.searchsorted(ts, a['fin'])
+                tj = float(ts[i0 + int(np.argmin(e[i0:i1 + 1]))])
+                faits.append({'piece': b['id'], 'piece_precedente': a['id'], 'chevauchement': [round(b['debut'], 3), round(a['fin'], 3)],
+                              'jonction': round(tj, 3), 'zone_db_min': round(float(e[i0:i1 + 1].min()), 1), 'debut_apres': round(tj, 3)})
+                a['fin'] = b['debut'] = tj
+                continue
             g = b['debut'] - a['fin']
             if 1e-6 < g <= ecart_max:
                 i0, i1 = np.searchsorted(ts, a['fin']), np.searchsorted(ts, b['debut'])

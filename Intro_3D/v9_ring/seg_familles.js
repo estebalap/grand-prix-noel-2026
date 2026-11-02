@@ -1,15 +1,16 @@
 /* SEGMENT « FAMILLES » de la V9 Ring — trois mondes reliés par des PORTAILS EXPRESS (temps INTERNE 0 → 15 s).
 
-   V9.2 : le noyau ne montre que trois extraits (plan_v9.json → remap) :
-     film 81,6 → 84,1  =  interne  1,8 →  4,3   GOTHAM      familles_gotham.js  la caméra sort d'un rift ; la Batmobile 1989 (B02)
-                                                                                  garée au bord du toit démarre et plonge dans un rift
-     film 84,1 → 86,2  =  interne  5,9 →  8,0   ARC-EN-CIEL familles_f1.js      5 feux, extinction, départ ; la F03 traverse un rift
-     film 86,2 → 89,2  =  interne 11,0 → 14,0   TOKYO       familles_tokyo.js   la file TK05 → TK02 ; la Skyline double et plonge
-   Voix : « Des Batmobiles au sommet de Gotham… des Formule 1 sur la ligne arc-en-ciel… et les légendes de Tokyo. »
+   V9.3 : le noyau ne montre que trois extraits (plan_v9.json → remap [[86,1, 90,1, 0,3, 4,3], [90,1, 92,6, 5,5, 8,0], [92,6, 96,1, 10,5, 14,0]]) :
+     film 86,1 → 90,1  =  interne  0,3 →  4,3   GOTHAM      familles_gotham.js  fondu dans un Gotham nocturne, 1,5 s de calme, phares
+                                                                                  qui s'allument ; la Batmobile démarre et plonge dans un rift
+     film 90,1 → 92,6  =  interne  5,5 →  8,0   ARC-EN-CIEL familles_f1.js      5 feux, extinction, départ ; la F03 traverse un rift
+     film 92,6 → 96,1  =  interne 10,5 → 14,0   TOKYO       familles_tokyo.js   vraie course à 4 de front, dérives dans le virage ;
+                                                                                  la Skyline gagne et plonge dans un rift
+   Voix (film) : Gotham 87,6 · F1 90,3 · Tokyo 92,9.
 
-   GLITCH DE TÉLÉPORTATION (±0,18 s autour de chaque coupe : interne 1,8 / 4,3 / 5,9 / 8,0 / 11,0 / 14,0) : aberration chromatique
-   poussée (post.aberration), tranches de l'image décalées + scanlines + bandes numériques (hud, hors zone centrale), flash d'inversion
-   de 3 images à l'entrée de chaque monde et à la sortie finale, badge « ⚡ MAP WARP : … » ≤ 0,6 s en haut à gauche.
+   GLITCH DE TÉLÉPORTATION discret (±0,12 s autour des coupes interne 4,3 / 5,5 / 8,0 / 10,5 / 14,0 ; rien à l'entrée de Gotham) :
+   aberration chromatique, quelques tranches décalées + scanlines + bandes numériques (hud, hors zone centrale), flash d'inversion de
+   2 images à l'entrée du circuit et à la sortie finale, badge « ⚡ MAP WARP : … » 0,4–0,5 s en haut à gauche (F1, Tokyo).
    Hors des fenêtres de glitch : aucun habillage (la voix suffit).
 
    Contrat (LISEZ_MOI_V8.md + noyau_v9.js) : creerSegment(ctx) → { id, groupe, cles, maj(t), collisions() }.
@@ -24,9 +25,11 @@ import { creerTokyo, ORDRE_TOKYO } from './familles_tokyo.js';
 
 const CODES_F1 = ['F03', 'F02', 'F04', 'F01', 'F06'];          // voies rouge, orange, jaune, verte, bleue
 const COUPES = [5, 10];                                        // frontières des mondes (temps interne)
-const COUPES_FILM = [1.8, 4.3, 5.9, 8.0, 11.0, 14.0];          // coupes réellement montrées (bords des extraits du remap)
-const ENTREES = [{ t: 1.8, nom: 'GOTHAM' }, { t: 5.9, nom: 'CIRCUIT F1' }, { t: 11.0, nom: 'NÉO-TOKYO' }];
-const INVERSIONS = [[1.8, 1.85], [5.9, 5.95], [11.0, 11.05], [13.95, 14.01]];   // 3 images à 60 i/s
+// V9.3 : Gotham s'ouvre en FONDU (aucun glitch ni badge à son entrée) ; glitchs plus courts et plus discrets
+const COUPES_FILM = [4.3, 5.5, 8.0, 10.5, 14.0];               // coupes réellement montrées (bords des extraits du remap)
+const FORCE_COUPE = [0.8, 0.8, 0.55, 0.55, 0.8];               // l'entrée de Tokyo est volontairement discrète
+const ENTREES = [{ t: 5.5, nom: 'CIRCUIT F1', duree: 0.5 }, { t: 10.5, nom: 'NÉO-TOKYO', duree: 0.4 }];
+const INVERSIONS = [[5.5, 5.534], [13.966, 14.01]];            // 2 images à 60 i/s : entrée du circuit, sortie vers l'arène
 
 export async function creerSegment(ctx) {
   const { THREE, garage } = ctx;
@@ -63,23 +66,23 @@ export async function creerSegment(ctx) {
   return {
     id: 'familles', groupe,
     // clés hors des fenêtres de glitch, dans les extraits montrés
-    cles: [{ t: 2.9, label: 'Gotham · Batmobile sur le toit' }, { t: 6.6, label: 'Ligne arc-en-ciel · feux' }, { t: 12.4, label: 'Tokyo · légendes sous la pluie' }],
+    cles: [{ t: 2.6, label: 'Gotham nocturne · Batmobile' }, { t: 6.6, label: 'Ligne arc-en-ciel · feux' }, { t: 12.0, label: 'Tokyo · la course dans le virage' }],
     maj(t) {
       const k = t < COUPES[0] ? 0 : t < COUPES[1] ? 1 : 2;
       for (let i = 0; i < 3; i++) mondes[i].groupe.visible = i === k;
       actif = mondes[k]; tCourant = t;
       const etat = actif.maj(t);
-      const gl = intensiteGlitch(t, COUPES_FILM, 0.18);
+      const gl = COUPES_FILM.reduce((g, c, i) => Math.max(g, FORCE_COUPE[i] * intensiteGlitch(t, [c], 0.12)), 0);
       const inversion = INVERSIONS.some(([a, b]) => t >= a && t < b);
-      const entree = ENTREES.find((e) => t >= e.t && t <= e.t + 0.6);
+      const entree = ENTREES.find((e) => t >= e.t && t <= e.t + e.duree);
       // éclair coloré bref au passage (teinte du rift : cyan / magenta), jamais un voile blanc
       const dC = Math.min(...COUPES_FILM.map((c) => Math.abs(t - c)));
       const eclat = Math.exp(-Math.pow(dC / 0.05, 2));
-      etat.post = { ...etat.post, flash: 0.07 * eclat, flashCouleur: teintes[k], flou: 0,
-        aberration: (etat.post.aberration || 0.0006) + 0.011 * gl };
+      etat.post = { ...etat.post, flash: 0.05 * eclat, flashCouleur: teintes[k], flou: 0,
+        aberration: (etat.post.aberration || 0.0006) + 0.0065 * gl };
       if (gl > 0.02 || inversion || entree) {
         etat.hud = (g, W, H) => dessinerGlitch(g, W, H, { t, g: gl, inversion, source: ctx.renderer.domElement, zone,
-          badge: entree ? { texte: entree.nom, tau: t - entree.t } : null });
+          badge: entree ? { texte: entree.nom, tau: t - entree.t, duree: entree.duree } : null });
       }
       return etat;
     },

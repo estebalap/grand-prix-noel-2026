@@ -9,12 +9,14 @@
                  et se fige au centre, en hauteur (base à yHaut) à Gl.trophee_haut ; ensuite elle flotte (léger roulis vertical).
    Le contrôle de collisions (seg_arene.collisions) vérifie la coupe contre les parois du conteneur, les voitures et le décor.
 
-   creerEffetsGloire(THREE, { demiH }) → { groupe, maj(t, e) } — e = { feux: instant de la 1ʳᵉ salve, faisceaux: 0..1,
-     cible: [x, y, z], ondes: [instants], forceFeux } :
-     FEUX D'ARTIFICE dorés au-dessus du ring (9 salves semées : fusée qui monte, pivoine qui s'ouvre, traînée, scintillement, gravité),
+   creerEffetsGloire(THREE, { demiH }) → { groupe, maj(t, e) } — e = { feux: instant de la 1ʳᵉ salve, feux2: instant du bouquet final,
+     faisceaux: 0..1, cible: [x, y, z], ondes: [instants], forceFeux, forceFeux2, jets: 0..1, tJets } :
+     FEUX D'ARTIFICE dorés au-dessus du ring (2 × 9 salves semées : fusée qui monte, pivoine qui s'ouvre, traînée, scintillement,
+     gravité ; le 2ᵉ groupe = bouquet final au-dessus du ring et de la piste),
+     JETS DE FLAMMES PYRO tout autour du ring (V9.3, embrasement : 12 colonnes au sol hors des axes des passerelles, salves décalées),
      FAISCEAUX de projecteurs volumétriques (6 cônes additifs depuis le portique vers le trophée),
      ONDE lumineuse dorée (anneau qui s'étend à chaque frappe du titre). Aucune lumière ajoutée (nombre de lumières constant). */
-import { clamp, lerp, smoother, easeOut, prng, texCanvas } from './arene_outils.js';
+import { clamp, lerp, smoother, easeOut, prng, texCanvas, DEG } from './arene_outils.js';
 
 export function choregraphie(L, Gl, { yPose, yPlateau, zTrophee, yHaut, echInit = 0.22 }) {
   const ts = L.trophee_sort, tDecol = ts + 0.8, th = Gl.trophee_haut, dLev = th - tDecol;
@@ -47,13 +49,16 @@ export function creerEffetsGloire(THREE, { demiH = 540 } = {}) {
   const alea = prng('feux-gloire');
 
   /* ── feux d'artifice : 9 salves × (110 étincelles + 8 points de fusée) ── */
-  const SALVES = 9, NE = 110, NFU = 8, NT = SALVES * (NE + NFU);
-  const aDir = new Float32Array(NT * 3), aB = new Float32Array(NT * 4), aCol = new Float32Array(NT * 3), aK = new Float32Array(NT * 2);
+  const SALVES = 18, NE = 110, NFU = 8, NT = SALVES * (NE + NFU);
+  const aDir = new Float32Array(NT * 3), aB = new Float32Array(NT * 4), aCol = new Float32Array(NT * 3), aK = new Float32Array(NT * 3);
   const PALETTE = [[1, 0.82, 0.35], [1, 0.9, 0.55], [1, 0.72, 0.25], [1, 0.97, 0.85]];
   const centres = [];
+  const DT = [0, 0.35, 0.75, 1.15, 1.6, 2.05, 2.6, 3.1, 3.6];
   for (let b = 0; b < SALVES; b++) {
-    const a = b * 2.4 + alea() * 0.6, r = 40 + alea() * 90;
-    centres.push({ c: [Math.cos(a) * r, 175 + alea() * 85, Math.sin(a) * r], dt: [0, 0.35, 0.75, 1.15, 1.6, 2.05, 2.6, 3.1, 3.6][b] + alea() * 0.12, v: 0.8 + alea() * 0.45 });
+    const grp = b < 9 ? 0 : 1, a = b * 2.4 + alea() * 0.6, r = 40 + alea() * 90;
+    // groupe 2 (bouquet final) : au-dessus du ring ET de la piste arc-en-ciel qui sort côté +x
+    const c = grp ? [lerp(-60, 620, alea()), 190 + alea() * 120, lerp(-200, 140, alea())] : [Math.cos(a) * r, 175 + alea() * 85, Math.sin(a) * r];
+    centres.push({ c, dt: DT[b % 9] * (grp ? 0.85 : 1) + alea() * 0.12, v: (0.8 + alea() * 0.45) * (grp ? 1.25 : 1), grp });
   }
   let n = 0;
   centres.forEach((B, b) => {
@@ -67,18 +72,18 @@ export function creerEffetsGloire(THREE, { demiH = 540 } = {}) {
       aB.set([...B.c, B.dt], n * 4);
       const blanc = alea() < 0.18;
       aCol.set(blanc ? [1, 1, 1] : pal, n * 3);
-      aK.set([fusee ? 1 : 0, alea()], n * 2);
+      aK.set([fusee ? 1 : 0, alea(), B.grp], n * 3);
     }
   });
   const geoF = new THREE.BufferGeometry();
   geoF.setAttribute('position', new THREE.BufferAttribute(new Float32Array(NT * 3), 3));
   geoF.setAttribute('aDir', new THREE.BufferAttribute(aDir, 3)); geoF.setAttribute('aB', new THREE.BufferAttribute(aB, 4));
-  geoF.setAttribute('aCol', new THREE.BufferAttribute(aCol, 3)); geoF.setAttribute('aK', new THREE.BufferAttribute(aK, 2));
+  geoF.setAttribute('aCol', new THREE.BufferAttribute(aCol, 3)); geoF.setAttribute('aK', new THREE.BufferAttribute(aK, 3));
   const matF = new THREE.ShaderMaterial({
-    uniforms: { t: { value: -10 }, demiH: { value: demiH }, force: { value: 0 } },
-    vertexShader: `attribute vec3 aDir; attribute vec4 aB; attribute vec3 aCol; attribute vec2 aK; uniform float t, demiH, force; varying vec3 vC; varying float vA;
+    uniforms: { t: { value: -10 }, t2: { value: -10 }, demiH: { value: demiH }, force: { value: 0 }, force2: { value: 0 } },
+    vertexShader: `attribute vec3 aDir; attribute vec4 aB; attribute vec3 aCol; attribute vec3 aK; uniform float t, t2, demiH, force, force2; varying vec3 vC; varying float vA;
       void main(){
-        float tau = t - aB.w; vec3 p; float a = 0.0; float sz = 3.0;
+        float tau = (aK.z > 0.5 ? t2 : t) - aB.w; vec3 p; float a = 0.0; float sz = 3.0;
         if (aK.x > 0.5) {                                   // fusée : monte 0,55 s avant l'explosion (traînée de 8 points)
           float u = clamp(-tau / 0.55, 0.0, 1.0); float lag = aDir.y * 0.08;
           float uu = clamp(u + lag, 0.0, 1.0);
@@ -92,7 +97,7 @@ export function creerEffetsGloire(THREE, { demiH = 540 } = {}) {
           a *= 1.0 + 1.5 * exp(-tt * 9.0);                 // éclair d'ouverture
           sz = mix(5.5, 2.4, clamp(tt / vie, 0.0, 1.0));
         }
-        vA = a * force; vC = aCol;
+        vA = a * (aK.z > 0.5 ? force2 : force); vC = aCol;
         vec4 mv = modelViewMatrix * vec4(p, 1.0); gl_Position = projectionMatrix * mv;
         float z = max(-mv.z, 1.0); gl_PointSize = clamp(sz * projectionMatrix[1][1] * demiH / z, 0.0, 22.0);
         if (vA < 0.003) gl_PointSize = 0.0;
@@ -126,13 +131,43 @@ export function creerEffetsGloire(THREE, { demiH = 540 } = {}) {
     sp.renderOrder = 6; groupe.add(sp); return sp;
   });
 
+  /* ── jets de flammes pyro : 12 colonnes au sol autour du ring (à 142 cm de l'axe, hors du carré), loin des passerelles (≥ 27° des axes) ── */
+  const matJet = new THREE.ShaderMaterial({
+    uniforms: { t: { value: 0 }, force: { value: 0 } },
+    vertexShader: 'varying vec2 vU; void main(){ vU = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+    fragmentShader: `varying vec2 vU; uniform float t, force;
+      float h(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+      float n(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f); return mix(mix(h(i), h(i + vec2(1, 0)), f.x), mix(h(i + vec2(0, 1)), h(i + vec2(1, 1)), f.x), f.y); }
+      void main(){ float y = vU.y; float tu = n(vec2(vU.x * 6.0, y * 4.0 - t * 7.0)) * 0.6 + n(vec2(vU.x * 13.0, y * 9.0 - t * 11.0)) * 0.4;
+        float corps = smoothstep(1.0, 0.25, y + tu * 0.45) * smoothstep(0.0, 0.06, y);
+        vec3 c = mix(vec3(1.0, 0.95, 0.75), mix(vec3(1.0, 0.55, 0.1), vec3(0.9, 0.15, 0.05), smoothstep(0.35, 0.95, y)), smoothstep(0.05, 0.5, y));
+        gl_FragColor = vec4(c * corps * force * 1.5, 1.0); }`,
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
+  });
+  const geoJet = new THREE.CylinderGeometry(7, 2.2, 85, 16, 1, true); geoJet.translate(0, 42.5, 0);
+  const jets = [];
+  for (let i = 0; i < 12; i++) {
+    const q4 = Math.floor(i / 3), a = (q4 * 90 + 27 + (i % 3) * 18) * DEG, uj = { t: matJet.uniforms.t, force: { value: 0 } };
+    const m = new THREE.Mesh(geoJet, matJet.clone()); m.material.uniforms = uj; const rj = 142 / Math.max(Math.abs(Math.cos(a)), Math.abs(Math.sin(a))); m.position.set(Math.cos(a) * rj, 0, Math.sin(a) * rj);      // hors du carré du ring (demi-côté 125) m.frustumCulled = false;
+    groupe.add(m); jets.push({ m, u: uj, dec: (i % 4) * 0.33 + (i % 3) * 0.11 });
+  }
+
   const q = new THREE.Quaternion(), bas = new THREE.Vector3(0, -1, 0), dir = new THREE.Vector3();
   function maj(t, e = {}) {
     groupe.visible = true;
     // feux
-    const f0 = e.feux ?? Infinity;
-    matF.uniforms.t.value = t - f0; matF.uniforms.force.value = e.forceFeux ?? 0;
-    feux.visible = (e.forceFeux ?? 0) > 0.01 && t > f0 - 0.6 && t < f0 + 7.5;
+    const f0 = e.feux ?? Infinity, f2 = e.feux2 ?? Infinity;
+    matF.uniforms.t.value = Math.max(-10, t - f0); matF.uniforms.force.value = e.forceFeux ?? 0;
+    matF.uniforms.t2.value = Math.max(-10, t - f2); matF.uniforms.force2.value = e.forceFeux2 ?? 0;
+    feux.visible = ((e.forceFeux ?? 0) > 0.01 && t > f0 - 0.6 && t < f0 + 7.5) || ((e.forceFeux2 ?? 0) > 0.01 && t > f2 - 0.6 && t < f2 + 7.5);
+    // jets de flammes pyro autour du ring : salves décalées, chaque colonne pulse (fonction pure de t)
+    const fj = clamp(e.jets ?? 0), tj = e.tJets ?? 0;
+    matJet.uniforms.t.value = t;
+    jets.forEach((j, i) => {
+      const a = t - tj - j.dec, cyc = ((a % 1.3) + 1.3) % 1.3, puls = a < 0 ? 0 : smoother(cyc / 0.08) * (1 - smoother((cyc - 0.45) / 0.5));
+      const f = fj * (a < 0 ? 0 : Math.max(puls, 0.25 * smoother(a / 0.3)));
+      j.m.visible = f > 0.01; j.m.scale.set(1 + 0.25 * f, 0.25 + 0.95 * f, 1 + 0.25 * f); j.u.force.value = f;
+    });
     // faisceaux
     const fz = clamp(e.faisceaux ?? 0), c = e.cible || [0, 60, 0];
     matFx.uniforms.force.value = 0.32 * fz; matFx.uniforms.t.value = t;

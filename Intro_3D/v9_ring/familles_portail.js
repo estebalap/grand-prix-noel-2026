@@ -102,7 +102,7 @@ export function dessinerGlitch(g, W, H, o) {
     const r = prng('glitch-' + img);
     // tranches décalées de l'image rendue (uniquement au-dessus et au-dessous de la zone centrale)
     if (o.source) {
-      const n = 2 + Math.floor(o.g * 5);
+      const n = 1 + Math.floor(o.g * 3);
       for (let i = 0; i < n; i++) {
         const haut = r() < 0.5;
         const h = Math.max(2, Math.round(H * (0.012 + 0.05 * r() * o.g)));
@@ -125,8 +125,9 @@ export function dessinerGlitch(g, W, H, o) {
     }
     g.globalAlpha = 1;
   }
-  if (o.badge && o.badge.tau >= 0 && o.badge.tau <= 0.6) {
-    const tau = o.badge.tau, entree = easeOut(tau / 0.12), sortie = clamp((tau - 0.48) / 0.12);
+  const duree = o.badge ? (o.badge.duree || 0.6) : 0;
+  if (o.badge && o.badge.tau >= 0 && o.badge.tau <= duree) {
+    const tau = o.badge.tau, entree = easeOut(tau / 0.1), sortie = clamp((tau - (duree - 0.1)) / 0.1);
     const al = clamp(tau / 0.05) * (1 - sortie);
     const tremble = (prng('badge-' + img)() - 0.5) * 10 * s * (1 - clamp(tau / 0.25));
     // translation ARRONDIE au pixel et texte sans flou d'ombre : le cache de glyphes / d'ombres floues du canvas 2D ne dépend

@@ -107,23 +107,26 @@ export function matFacades(THREE, { base = '#1a2030', base2 = '#252c40', fen = [
     bandes: { value: bandes }, cBandes: { value: C(cBandes) } };
   const m = new THREE.ShaderMaterial({
     uniforms: u,
-    vertexShader: `attribute float aGraine; varying vec3 vW; varying vec3 vN; varying float vG;
-      void main(){ vec4 lp = vec4(position, 1.0); vec3 n = normal;
+    vertexShader: `attribute float aGraine; varying vec3 vW; varying vec3 vN; varying float vG; varying vec3 vAx; varying vec2 vH;
+      void main(){ vec4 lp = vec4(position, 1.0); vec3 n = normal; vec3 ax = vec3(1.0, 0.0, 0.0), az = vec3(0.0, 0.0, 1.0); vec3 org = vec3(0.0);
         #ifdef USE_INSTANCING
           lp = instanceMatrix * lp; n = mat3(instanceMatrix) * n;
+          ax = normalize(mat3(modelMatrix) * instanceMatrix[0].xyz); az = normalize(mat3(modelMatrix) * instanceMatrix[2].xyz);
+          org = (modelMatrix * vec4(instanceMatrix[3].xyz, 1.0)).xyz;
         #endif
         vec4 wp = modelMatrix * lp; vW = wp.xyz; vN = normalize(mat3(modelMatrix) * n); vG = aGraine;
+        vec3 off = wp.xyz - org; vAx = ax; vH = vec2(dot(off, ax), dot(off, az));     // coordonnées horizontales dans les axes de l'immeuble (tours tournées le long d'un virage)
         gl_Position = projectionMatrix * viewMatrix * wp; }`,
-    fragmentShader: `uniform vec3 cBase, cBase2, f1, f2, f3, cToit, fCol, cBandes; uniform float allume, etage, pas, fDens, lueur, bandes; varying vec3 vW; varying vec3 vN; varying float vG;
+    fragmentShader: `uniform vec3 cBase, cBase2, f1, f2, f3, cToit, fCol, cBandes; uniform float allume, etage, pas, fDens, lueur, bandes; varying vec3 vW; varying vec3 vN; varying float vG; varying vec3 vAx; varying vec2 vH;
       float hh(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
       void main(){
         vec3 n = normalize(vN); float y = abs(vW.y);
         vec3 col;
         if (abs(n.y) > 0.5) { col = cToit; }
         else {
-          float hz = abs(n.x) > 0.5 ? vW.z : vW.x;
+          bool faceX = abs(dot(n, normalize(vAx))) > 0.5; float hz = faceX ? vH.y : vH.x;
           vec2 q = vec2(hz / pas, y / etage); vec2 ce = floor(q), f = fract(q);
-          float r = hh(ce + vec2(vG * 17.0, vG * 31.0 + (abs(n.x) > 0.5 ? 7.0 : 0.0)));
+          float r = hh(ce + vec2(vG * 17.0, vG * 31.0 + (faceX ? 7.0 : 0.0)));
           col = mix(cBase, cBase2, hh(vec2(vG, 3.7)));
           col *= 0.85 + 0.15 * step(0.5, fract(q.y * 0.5));
           float fen = step(0.16, f.x) * step(f.x, 0.84) * step(0.28, f.y) * step(f.y, 0.86);

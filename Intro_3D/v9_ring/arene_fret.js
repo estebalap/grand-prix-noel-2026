@@ -5,9 +5,11 @@
    rideau, rideau à lames « ? », scellé (plomb + étiquette), bordereau riveté sur le toit, marquage « GP NOËL · FRET ».
 
    Animation (plan.lootbox = { descente, verrous, entrouvre, ouvert, trophee_sort, fin }) — fonction pure de t :
-     descente → verrous − 0,2   le conteneur descend du portique, suspendu à 4 élingues, freine et se pose sur ses cales
-     verrous                     verrouillage : petite secousse (ressort amorti), gerbes d'étincelles aux 4 cales
-     verrous → entrouvre         les 2 barres de verrouillage de la porte sautent l'une après l'autre (puis le scellé)
+     descente → pose             (pose = D.pose, V9.3 : ≈ 63 % de descente → verrous) descente LENTE suspendue à 4 élingues,
+                                 ATTERRISSAGE LOURD sur les cales (rebond, secousse, gerbes d'étincelles aux 4 cales)
+     pose → verrous              LONGUE ATTENTE : le conteneur tremble par à-coups, des filets de lumière dorée fuient par les
+                                 joints de la porte, un peu de fumée s'en échappe
+     verrous →                   les 2 barres de verrouillage sautent UNE À UNE, puis le scellé
      entrouvre → ouvert          le rideau « ? » s'enroule COMPLÈTEMENT (ouvert à « ouvert ») : lumière DORÉE (fond incandescent
                                  au mur du fond, rais additifs, flaque) et FUMÉE dorée qui s'échappent par la porte
      trophee_sort →              un TIROIR doré (plateau sur glissières) sort par la porte avec la coupe (e.tiroir, en cm), puis rentre
@@ -166,18 +168,28 @@ export function creerFret(THREE, { envMap = null, yPose = 22, demiH = 540 } = {}
   });
   const fumee = new THREE.Points(geoF, matF); fumee.frustumCulled = false; fumee.name = 'fumee-fret'; fumee.renderOrder = 3;
 
+  /* joints de la porte : liserés dorés additifs autour du rideau (fuite de lumière pendant l'attente) */
+  const matJoint = new THREE.MeshBasicMaterial({ color: new THREE.Color('#ffc65a').multiplyScalar(2.2), transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false });
+  const joints = new THREE.Group(); fret.add(joints);
+  for (const z of [-(P / 2 - 0.2), P / 2 - 0.2]) boite(0.03, hO, 0.09, matJoint, xO + 0.15, dalle + hO / 2, z, joints);
+  boite(0.03, 0.05, P - 0.4, matJoint, xO + 0.15, yLinteau - 0.03, 0, joints);
+  for (let i = 1; i < nLames; i += 3) boite(0.03, 0.025, P - 0.5, matJoint, xO + 0.14, dalle + i * hL, 0, joints);
+  const ACOUPS = Array.from({ length: 5 }, (_, i) => (i + 0.15 + 0.7 * alea()) / 5);
+
   const dims = { L: L * K, P: P * K, H: H * K };
   const Y_PLATEAU = (dalle + EP_PLATEAU) * K, Z_TROPHEE = X_TROPHEE * K;         // dessus du plateau et position de la coupe (repère monde, conteneur posé)
   groupe.rotation.y = -Math.PI / 2;                           // porte (+x local) tournée vers +z (vers la caméra des plans lootbox)
   let visibleObb = false, yCourant = yPose, ouvCourant = 0;
 
   function maj(t, D, { tiroir: ext = 0, enfonce = 0 } = {}) {
-    const tPose = D.verrous - 0.2;
+    const tPose = D.pose ?? D.verrous - 0.2;
     // descente : de 300 cm au-dessus du tapis, freinage doux, contact à tPose, petit rebond puis secousse du verrouillage
     const u = clamp((t - D.descente) / (tPose - D.descente));
     const hauteur = 300 * (1 - smoother(u)) * (1 - smoother(u));
-    const rebond = -0.5 * ressort(t - tPose, 20, 0.35) - 0.35 * ressort(t - D.verrous, 26, 0.3);
-    const secousse = 0.035 * ressort(t - D.verrous, 34, 0.25);
+    const rebond = -1.1 * ressort(t - tPose, 18, 0.32) - 0.25 * ressort(t - D.verrous, 26, 0.3);         // atterrissage lourd
+    // à-coups pendant l'attente (quelque chose bouge à l'intérieur) : impulsions semées entre la pose et l'ouverture du rideau
+    let secousse = 0.05 * ressort(t - tPose, 30, 0.25) + 0.03 * ressort(t - D.verrous, 34, 0.25);
+    for (let i = 0; i < ACOUPS.length; i++) { const ta = tPose + 0.55 + ACOUPS[i] * (D.entrouvre - tPose - 0.6); secousse += 0.022 * ressort(t - ta, 38, 0.28) * (i % 2 ? -1 : 1); }
     const fond = (dims.H + 1.5) * smoother(enfonce);                                     // s'enfonce entièrement sous le tapis (plateau du ring : 20,5 cm)
     groupe.position.set(0, yPose + Math.max(0, hauteur) + rebond - fond, 0);
     fret.rotation.set(secousse, 0, -secousse * 0.6);
@@ -186,10 +198,10 @@ export function creerFret(THREE, { envMap = null, yPose = 22, demiH = 540 } = {}
     visibleObb = groupe.visible;
     yCourant = groupe.position.y;
     // élingues : tendues vers le haut pendant la descente, larguées (remontent) après le verrouillage
-    const largue = smoother((t - D.verrous - 0.1) / 0.6);
+    const largue = smoother((t - tPose - 0.25) / 0.7);
     for (const e of elingues) { e.visible = largue < 0.99; e.scale.set(1, 140 * (1 - largue) + 0.01, 1); e.position.y = H + largue * 40; }
-    // étincelles
-    const te = t - D.verrous + 0.02;
+    // étincelles : à l'atterrissage lourd
+    const te = t - tPose + 0.02;
     etincelles.visible = te > 0 && te < 0.75;
     for (let i = 0; i < NE; i++) {
       const [x, z, vx, vy, vz, vie] = velE[i], a = clamp(te / vie) * vie;
@@ -198,13 +210,13 @@ export function creerFret(THREE, { envMap = null, yPose = 22, demiH = 540 } = {}
     geoE.attributes.position.needsUpdate = true; matE.opacity = clamp(1 - te / 0.75);
     // barres de verrouillage qui sautent l'une après l'autre, puis le scellé
     barres.forEach((b, i) => {
-      const ts = t - (D.verrous + 0.45 + i * 0.42), a = Math.max(0, ts);
+      const ts = t - (D.verrous + i * 0.45), a = Math.max(0, ts);
       const vole = ts > 0;
       b.g.visible = a < 0.9;
       b.g.position.set(b.base.x + 2.2 * a, b.base.y + (vole ? 4.5 * a - 4.9 * a * a : 0), b.base.z + Math.sign(b.z) * 1.6 * a);
       b.g.rotation.set(vole ? a * 9 * Math.sign(b.z) : 0, 0, vole ? -a * 6 : 0);
     });
-    const tsc = Math.max(0, t - (D.entrouvre - 0.35));
+    const tsc = Math.max(0, t - Math.min(D.verrous + 0.9, D.entrouvre - 0.2));
     scelle.visible = tsc < 0.9; scelle.position.set(scelleBase.x + 2.5 * tsc, scelleBase.y + 3 * tsc - 4.9 * tsc * tsc, scelleBase.z - 1 * tsc); scelle.rotation.set(tsc * 7, 0, tsc * 5);
     // rideau : à-coup de déverrouillage puis enroulement COMPLET à D.ouvert
     const dOuv = Math.max(0.3, D.ouvert - D.entrouvre);
@@ -218,12 +230,15 @@ export function creerFret(THREE, { envMap = null, yPose = 22, demiH = 540 } = {}
     lisere.position.y = dalle + ouv; lisere.visible = ouv < hO * 0.99;
     flaque.material.opacity = 0.4 * fuite; flaque.scale.set(4 + ouv * 4, 4 + ouv * 4, 1);
     lueurInt.material.opacity = 0.28 * fuite; lueurInt.scale.setScalar(5 + 3 * grand);
+    // filets de lumière dorée par les joints de la porte pendant l'attente (scintillent, s'effacent quand le rideau monte)
+    const joint = smoother((t - tPose - 0.4) / 1.0) * (1 - smoother((t - D.entrouvre - 0.4) / 0.6)) * (1 - smoother(enfonce * 2));
+    matJoint.opacity = joint * (0.65 + 0.35 * Math.sin(t * 13) * Math.sin(t * 7.3)); joints.visible = joint > 0.01;
     // tiroir : le plateau glisse vers la porte (+x local) ; glissières télescopiques
     const exL = ext / K;
     tiroir.position.x = exL;
     glissieres.forEach((g) => { const lg = Math.max(0.05, exL + 1.2); g.scale.x = lg; g.position.x = X_TROPHEE - 1.2 + lg / 2; g.visible = exL > 0.02; });
     // fumée : bouffées émises entre « entrouvre + 0,15 » et « trophee_sort + 1,6 », vie 2,4 s
-    const t0 = D.entrouvre + 0.15, dur = (D.trophee_sort + 1.6) - t0, vie = 2.4, yP = yPose + Math.max(0, hauteur);
+    const t0 = tPose + 0.6, dur = (D.trophee_sort + 1.6) - t0, vie = 2.4, yP = yPose + Math.max(0, hauteur);
     let nf = 0;
     semF.forEach((q, i) => {
       const age = t - (t0 + q.u * dur);
@@ -231,14 +246,14 @@ export function creerFret(THREE, { envMap = null, yPose = 22, demiH = 540 } = {}
       const k = age / vie, av = 16 * q.v * (1 - Math.exp(-age * 1.4));
       // porte : z = L·K/2 (monde, porte vers +z) ; la fumée roule au ras du tapis puis s'élève et s'étale
       posF.set([q.lat * (4 + 10 * k) + Math.sin(age * 1.3 + q.ph) * 1.2, yP + 1.5 + 2.5 * q.mont * age + 6 * k * k, L * K / 2 + 0.5 + av], i * 3);
-      aF[i] = 0.15 * Math.sin(Math.PI * Math.min(1, k * 1.15)) * (1 - smoother(enfonce * 1.3)) * (0.6 + 0.4 * grand); tF[i] = (5 + 15 * k) * q.taille; nf++;
+      aF[i] = 0.09 * Math.sin(Math.PI * Math.min(1, k * 1.15)) * (1 - smoother(enfonce * 1.3)) * (0.35 + 0.65 * grand);   // avant l'ouverture : fine fumée qui fuit tF[i] = (5 + 15 * k) * q.taille; nf++;
     });
     fumee.visible = nf > 0;
     geoF.attributes.position.needsUpdate = true; geoF.attributes.alpha.needsUpdate = true; geoF.attributes.taille.needsUpdate = true;
     // éclat doré de la trappe (au ras du tapis) pendant l'enfoncement
     const ec = Math.sin(Math.PI * clamp(enfonce));
     eclat.visible = ec > 0.01; eclat.material.opacity = 0.8 * ec; eclat.scale.setScalar(40 + 50 * enfonce); eclat.position.y = fond + 1.5;            // reste au ras du tapis (le groupe, lui, descend)
-    return { lumiere: 1.1 * fuite + 1.4 * ec, posLumiere: [0, yPose + 26, L * K / 2 + 40] };      // la lumière dorée baigne le tapis et les voitures, pas la tôle
+    return { lumiere: 0.7 * fuite + 1.2 * ec, posLumiere: [0, yPose + 26, L * K / 2 + 40] };      // la lumière dorée baigne le tapis et les voitures, pas la tôle
   }
   /** OBB de collision du conteneur (repère monde). */
   function obb() {

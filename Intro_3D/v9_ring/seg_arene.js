@@ -1,5 +1,5 @@
-/* SEGMENT « ARÈNE » de la V9.2 Ring — le cœur du trailer « Grand Prix de Noël ». Carte du temps IDENTITÉ (temps interne = temps
-   film) sur deux plages [6,5 → 81,6] et [89,2 → 121,6]. TOUTES les heures viennent de data/plan_v9.json v9.2 (arrivee, ecuries à durées
+/* SEGMENT « ARÈNE » de la V9.3 Ring — le cœur du trailer « Grand Prix de Noël ». Carte du temps IDENTITÉ (temps interne = temps
+   film) sur deux plages [11,0 → 86,1] et [96,1 → 131,0]. TOUTES les heures viennent de data/plan_v9.json v9.3 (arrivee, ecuries à durées
    variables, rush, couronne, telephone, lootbox, gloire, depart) : aucun temps codé en dur.
 
    Direction artistique « Arène Bonbon Néon » (arene_decor.js) : ring surélevé à tapis bleu roi et LOGO officiel, cercle de 5 bandes
@@ -11,19 +11,21 @@
      arrivee    la caméra JAILLIT du vortex néon (cyan, magenta, or, violet) au DROP : flash ≤ 0,05 + brume qui se dissipe, trauma,
                 pyro, lasers ; descente dans l'arène (voix « Ce soir, quinze écuries… »)
      ecuries    15 créneaux à durées variables (arene_trajets.js) : sortie du tunnel, passerelle, TREMPLIN, vol au-dessus des cordes,
-                atterrissage, DÉRAPAGE jusqu'à sa place ; un CADRAGE SUR MESURE par écurie (arene_cadrages.js) ; #11–#15 en smash
-                cuts (4 coupes franches, flash 2 images, bandeau réduit #n° + NOM)
-     rush       ralenti d'action : 1,0 s par voiture (#11 → #15), plein cadre, flash 2 images à chaque coupe
+                atterrissage, DÉRAPAGE jusqu'à sa place ; un CADRAGE SUR MESURE par écurie (arene_cadrages.js), voiture ENTIÈRE à
+                l'image (contrôle : visibiliteVedette) ; coupes franches pour les 4 écuries « zoom » du plan (#02, #03, #08, #10)
+     rush       ralenti d'action des 4 écuries « zoom » (ordre du plan), 1,25 s chacune, plein cadre, flash 2 images à chaque coupe
      couronne   plan aérien des 15 concept-cars autour du logo ; à « portail », le PORTAIL EXPRESS hexagonal s'ouvre au centre et la
                 caméra plonge dedans (raccord vers Gotham)
      telephone  telephone_v9.js (creerTelephone) en grand devant la caméra, la couronne derrière.
-     lootbox    l'écran remonte, le conteneur « Lootbox Fret » (arene_fret.js) descend au centre du cercle des 15 concept-cars, se
-                verrouille, les verrous sautent, le rideau « ? » s'enroule : lumière dorée et fumée ; la VRAIE Coupe Arc-en-Ciel sort sur
-                un tiroir doré, lévite, grandit et monte au centre du ring ; le conteneur s'enfonce dans le tapis (arene_gloire.js).
+     lootbox    SUSPENSE : le conteneur « Lootbox Fret » (arene_fret.js) descend LENTEMENT, atterrissage lourd, longue attente (il
+                tremble, lumière dorée et fumée fuient par les joints, la caméra tourne lentement, le public se tait), verrous un à
+                un, rideau « ? » qui s'ouvre lentement ; la VRAIE Coupe Arc-en-Ciel sort, et à « embrasement » TOUT S'ENFLAMME (jets
+                pyro autour du ring, feux d'artifice, faisceaux, confettis, public debout) ; le conteneur s'enfonce dans le tapis.
      gloire     faisceaux volumétriques, contre-plongée héroïque autour de la coupe puis recul ; « GLOIRE » / « ÉTERNELLE » en deux
                 frappes ; feux d'artifice dorés, confettis + neige, public debout.
-     depart     les cordes tombent, le pont se déploie, la file part sous la coupe sur la PISTE ARC-EN-CIEL à 5 voies : poursuite serrée,
-                plan large qui s'élève, LOGO final.
+     depart     les cordes tombent, le pont se déploie, la file part sous la coupe sur la PISTE ARC-EN-CIEL à 5 voies (bordée
+                d'ampoules) : poursuite serrée, puis grue latérale sur la meute des 15 voitures sous le LOGO final, bouquet de feux
+                d'artifice, faisceaux, confettis, public : une image pleine jusqu'au bout.
 
    Contrat (LISEZ_MOI_V8.md + noyau_v9.js) : creerSegment(ctx) → { id: 'arene', groupe, cles, maj(t), collisions() }.
    maj(t) est une FONCTION PURE de t : chaque voiture, chaque uniform, chaque lumière est remis à chaque image ; nombre de lumières
@@ -54,7 +56,9 @@ function chargerImage(url) {
 export async function creerSegment(ctx) {
   const { THREE, garage, poser, animer, plan, equipes } = ctx;
   const groupe = new THREE.Group(); groupe.name = 'seg-arene';
-  const P = { ecuries: plan.ecuries, arrivee: plan.arrivee, rush: plan.rush, couronne: plan.couronne, tel: plan.telephone, loot: plan.lootbox, gloire: plan.gloire, dep: plan.depart };
+  // V9.3 : l'arène apparaît sur « EN ARÈNE ! » (arrivee.en_arene) ; « drop » reste l'instant d'apparition pour tout le segment
+  const arrivee = plan.arrivee ? { ...plan.arrivee, drop: plan.arrivee.drop ?? plan.arrivee.en_arene ?? plan.arrivee.debut } : null;
+  const P = { ecuries: plan.ecuries, arrivee, rush: plan.rush, couronne: plan.couronne, tel: plan.telephone, loot: plan.lootbox, gloire: plan.gloire, dep: plan.depart };
   for (const cle of ['arrivee', 'rush', 'couronne', 'tel', 'loot', 'gloire', 'dep']) if (!P[cle]) throw new Error('seg_arene : clé « ' + cle + ' » absente de plan_v9.json (v9.2 attendu)');
   const N = P.ecuries.length;
   if (N !== 15) throw new Error('seg_arene : 15 créneaux attendus dans plan_v9.json → ecuries');
@@ -102,7 +106,7 @@ export async function creerSegment(ctx) {
   const STYLES = []; STYLES[1] = { spin: 2 * Math.PI }; STYLES[4] = { wheelie: 0.3 };
   const entrees = creerEntrees(P.ecuries, voitures.map((v) => v.d), STYLES);
   ctx.progression('Arène : piste arc-en-ciel…');
-  const piste = creerPiste(THREE, G); groupe.add(piste.groupe);
+  const piste = creerPiste(THREE, G); groupe.add(piste.groupe); piste.reglerEcran(ctx.H / 2);
   const depart = creerDepart(entrees.places, P.dep, piste, voitures.map((v) => v.d));
   const fret = creerFret(THREE, { envMap: ctx.envMap, yPose: G.MAT, demiH: ctx.H / 2 }); groupe.add(fret.groupe, fret.fumee);
   ctx.progression('Arène : Coupe Arc-en-Ciel (vraies STL du Panthéon)…');
@@ -184,14 +188,20 @@ export async function creerSegment(ctx) {
   const vortex = creerVortex(THREE, { yBouche: 700 }); groupe.add(vortex.groupe);
 
   /* Fin du segment : toutes les clés de caméra sont exprimées à partir du plan (lootbox, gloire, depart). */
-  const L_ = P.loot, Gl = P.gloire, D = P.dep;
-  const T_L2 = L_.verrous - 0.6, T_L3 = L_.entrouvre + 0.3, T_DECOL = L_.trophee_sort + 0.8;
-  const LOOT = [                                                              // contre-plongée : le conteneur descend du portique
+  // V9.3 « suspense » : descente LENTE, atterrissage lourd à T_POSE (≈ 63 % de descente → verrous), longue attente, verrous un à un,
+  // rideau qui s'ouvre lentement (entrouvre → ouvert), sortie du trophée, puis EMBRASEMENT de toute l'arène
+  const L_ = { ...P.loot, pose: P.loot.descente + 0.63 * (P.loot.verrous - P.loot.descente) }, Gl = P.gloire, D = P.dep;
+  const T_POSE = L_.pose, T_EMB = L_.embrasement ?? L_.trophee_sort + 0.2;
+  const T_L2 = T_POSE + 0.6, T_L3 = L_.entrouvre + 0.3, T_DECOL = L_.trophee_sort + 0.8;
+  const LOOT = [                                                              // contre-plongée : le conteneur descend lentement du portique
     { t: L_.debut, p: [26, G.MAT + 5, 92], c: [0, G.MAT + 160, 0], fov: 50 },
-    { t: T_L2, p: [30, G.MAT + 6, 90], c: [0, G.MAT + 24, 0], fov: 48 },
+    { t: T_L2, p: [32, G.MAT + 7, 88], c: [0, G.MAT + 24, 0], fov: 46 },
   ];
-  const LOOT2 = [{ t: T_L2, p: [78, G.MAT + 34, 88], c: [0, G.MAT + 7, 0], fov: 42 }, { t: T_L3, p: [62, G.MAT + 26, 74], c: [0, G.MAT + 6, 2], fov: 40 }];   // 3/4 : verrous
   const polaire = (aDeg, r, y) => [Math.cos(aDeg * DEG) * r, y, Math.sin(aDeg * DEG) * r];
+  // longue attente : la caméra tourne lentement autour du conteneur qui tremble (filets de lumière par les joints)
+  const ATTENTE = [{ t: T_L2, a: 28, r: 82, y: G.MAT + 24, fov: 42 }, { t: T_L3, a: 76, r: 66, y: G.MAT + 15, fov: 40 }];
+  const cameraAttente = (t) => ({ p: polaire(hermite(ATTENTE, t, 'a'), hermite(ATTENTE, t, 'r'), hermite(ATTENTE, t, 'y')), c: [0, G.MAT + 7, 2], fov: hermite(ATTENTE, t, 'fov') });
+  const traumaFin = creerTrauma([{ t: T_POSE, a: 1.1, d: 0.32 }, { t: T_EMB, a: 0.75, d: 0.35 }]);
   /** Visée de la gloire : sous le centre de la coupe (≈ 0,14 × distance) pour la placer dans le tiers haut, le titre occupe le bas. */
   const viseeCoupe = (r, k = 1) => { const c = trophee.centre(); return [c[0], c[1] - 0.095 * r * k, c[2]]; };
   const SORTIE = [                                                            // face à la porte → suit la coupe qui sort, lévite et grandit
@@ -235,7 +245,21 @@ export async function creerSegment(ctx) {
     const v = depart.pointFile(sl + lerp(-18, 170, u));
     return { p: [q[0] + lx * lat, q[1] + lerp(10, 165, u), q[2] + lz * lat], c: [v[0], v[1] + lerp(2.5, 45, u), v[2]], fov: lerp(50, 56, u) };
   }
-  const cameraLarge = (t) => cameraPoursuite(t, smoother((t - T_LARGE) / (D.fin - T_LARGE)));
+  /** Plan final (logo) : grue latérale qui suit le MILIEU de la meute des 15 voitures (côté extérieur de la piste, au-dessus des
+      premiers rangs) : la piste bordée de lumières traverse le tiers bas de l'image avec toute la meute, le public et l'arène derrière,
+      la coupe qui flotte au-dessus du ring au début (la visée glisse de la coupe vers la meute), le bouquet final au-dessus. */
+  // la meute ralentit en tour de parade (arene_trajets : creerDepart) : elle reste dans l'arène sous le logo
+  const FINALE = [
+    { t: D.logo, p: [-125, 118, 62], c: [330, 34, -25], fov: 50 },
+    { t: D.fin, p: [-70, 112, 52], c: [460, 34, -55], fov: 48 },
+  ];
+  const planFinal = (t) => hcam(FINALE, t);
+  const cameraFinale = (t) => {
+    const u = smoother((t - T_LARGE) / 1.4);
+    if (u >= 1) return planFinal(t);
+    const A = cameraPoursuite(t), B = planFinal(t);
+    return { p: A.p.map((x, i) => lerp(x, B.p[i], u)), c: A.c.map((x, i) => lerp(x, B.c[i], u)), fov: lerp(A.fov, B.fov, u) };
+  };
 
   /* ═════════════ habillage 2D ═════════════ */
   /* Titre « GLOIRE ÉTERNELLE » en deux frappes (exception validée : grand, centre-bas, de titre_gloire à gloire.fin).
@@ -284,12 +308,13 @@ export async function creerSegment(ctx) {
   function logoFinal(g, W, H, t) {
     const a = t - P.dep.logo; if (a < 0) return;
     const pop = a < 0.3 ? lerp(0.4, 1.06, easeOut(a / 0.3)) : a < 0.5 ? lerp(1.06, 1, smoother((a - 0.3) / 0.2)) : 1 + 0.012 * Math.sin((a - 0.5) * 2.2);
-    const taille = H * 0.56 * pop;
+    // V9.3 : logo un peu plus petit et plus haut : la meute des 15 voitures file sur la piste dans le tiers bas de l'image
+    const taille = H * 0.48 * pop, cy = H * 0.4;
     g.save(); g.globalAlpha = clamp(a / 0.2);
-    const halo = g.createRadialGradient(W / 2, H / 2, taille * 0.2, W / 2, H / 2, taille * 0.62);
-    halo.addColorStop(0, 'rgba(255,200,90,.45)'); halo.addColorStop(1, 'rgba(255,120,200,0)'); g.fillStyle = halo; g.beginPath(); g.arc(W / 2, H / 2, taille * 0.62, 0, Math.PI * 2); g.fill();
+    const halo = g.createRadialGradient(W / 2, cy, taille * 0.2, W / 2, cy, taille * 0.6);
+    halo.addColorStop(0, 'rgba(255,200,90,.38)'); halo.addColorStop(1, 'rgba(255,120,200,0)'); g.fillStyle = halo; g.beginPath(); g.arc(W / 2, cy, taille * 0.6, 0, Math.PI * 2); g.fill();
     g.shadowColor = 'rgba(40,0,60,.6)'; g.shadowBlur = 30 * (W / 1920);
-    g.drawImage(logoImg, W / 2 - taille / 2, H / 2 - taille / 2, taille, taille); g.restore();
+    g.drawImage(logoImg, W / 2 - taille / 2, cy - taille / 2, taille, taille); g.restore();
   }
 
   /* ═════════════ flammes (pyro) : à chaque sortie de voiture + temps forts ═════════════ */
@@ -298,7 +323,9 @@ export async function creerSegment(ctx) {
     const f = [0, 0, 0, 0];
     for (let k = 0; k < N; k++) f[k % 4] = Math.max(f[k % 4], impulsion(t - P.ecuries[k].sortie));
     const tous = Math.max(impulsion(t - AR.drop), impulsion(t - (AR.drop + 1.15)), impulsion(t - CO.portail), impulsion(t - P.gloire.confettis), impulsion(t - P.dep.demarrage), impulsion(t - P.dep.logo));
-    return f.map((x) => Math.max(x, tous));
+    // embrasement : les jets des tunnels crachent en continu (salves décalées) jusqu'à la fin de la gloire
+    const emb = t >= T_EMB && t < P.gloire.fin ? Math.max(0.35, 1 - (((t - T_EMB) % 0.9) / 0.9)) * smoother((t - T_EMB) / 0.15) : 0;
+    return f.map((x, s) => Math.max(x, tous, emb * (s % 2 ? 0.85 : 1)));
   }
 
   /* ═════════════ état de l'image courante (pour collisions()) ═════════════ */
@@ -307,38 +334,37 @@ export async function creerSegment(ctx) {
   const ECRAN_GP = ecranAffiche('gp', logoImg, ['#3a1aa0', '#c03aa8']);
   const kCourant = (t) => { for (let k = 0; k < N; k++) if (t < P.ecuries[k].fin) return k; return N - 1; };
 
-  const E_ = P.ecuries;
+  const E_ = P.ecuries, RO = RU.ordre;
   const cles = [
-    { t: AR.drop + 0.2, label: 'Arrivée · jaillit du vortex (DROP)' },
+    { t: AR.drop + 0.2, label: 'Arrivée · « EN ARÈNE ! » (vortex)' },
     { t: AR.drop + 2.0, label: 'Arrivée · descente dans l\'arène' },
     { t: E_[0].sortie + 2.35, label: '#01 · travelling latéral rasant' },
-    { t: E_[1].sortie + 1.8, label: '#02 · vue de dessus, tête-à-queue' },
+    { t: E_[1].saut + 0.9, label: '#02 · vue de dessus, tête-à-queue' },
     { t: E_[2].sortie + 0.8, label: '#03 · 3/4 avant, flare des phares' },
     { t: E_[3].atterrissage + 0.7, label: '#04 · sous la boule à facettes' },
-    { t: E_[4].sortie + 0.4, label: '#05 · cabrage au ras du pare-chocs' },
+    { t: E_[4].sortie + 0.4, label: '#05 · cabrage, contre-plongée' },
     { t: E_[6].atterrissage + 0.03, label: '#07 · impact à l\'atterrissage' },
-    { t: E_[7].sortie + 1.9, label: '#08 · Dutch 8°, huile' },
+    { t: E_[7].saut + 0.4, label: '#08 · l\'A4 plonge vers nous' },
     { t: E_[9].sortie + 1.0, label: '#10 · 6 roues en étincelles' },
-    { t: E_[10].saut + 0.1, label: '#11 · smash cut' },
-    { t: E_[12].atterrissage + 0.3, label: '#13 · smash cut' },
-    { t: RU.cuts[1] + 0.5, label: 'Rush · #12 posé « JoJo »' },
-    { t: RU.cuts[3] + 0.5, label: 'Rush · #14 profil drift' },
+    { t: E_[11].sortie + 1.2, label: '#12 · grue orbitale' },
+    { t: E_[14].sortie + 0.9, label: '#15 · frontal' },
+    { t: RU.cuts[0] + 0.6, label: `Rush · #${String(RO[0]).padStart(2, '0')}` },
+    { t: RU.cuts[2] + 0.6, label: `Rush · #${String(RO[2]).padStart(2, '0')}` },
     { t: CO.debut + 0.6, label: 'Couronne des 15 concept-cars' },
     { t: CO.portail + 0.3, label: 'Portail express' },
     { t: P.tel.points + 0.3, label: 'Téléphone · points' },
-    { t: P.loot.descente + 0.9, label: 'Lootbox · descente au centre du cercle' },
-    { t: P.loot.verrous + 0.8, label: 'Lootbox · les verrous sautent' },
-    { t: (P.loot.entrouvre + P.loot.ouvert) / 2 + 0.3, label: 'Lootbox · rideau « ? » qui s\'enroule' },
-    { t: P.loot.trophee_sort + 0.5, label: 'Le trophée sort du conteneur' },
-    { t: (P.loot.trophee_sort + 0.8 + P.gloire.trophee_haut) / 2 + 0.2, label: 'Le trophée lévite et grandit' },
+    { t: T_POSE + 0.05, label: 'Lootbox · atterrissage lourd' },
+    { t: (T_POSE + L_.verrous) / 2 + 0.3, label: 'Lootbox · longue attente, lumière aux joints' },
+    { t: (P.loot.entrouvre + P.loot.ouvert) / 2, label: 'Lootbox · le rideau s\'ouvre lentement' },
+    { t: T_EMB + 0.5, label: 'EMBRASEMENT · le trophée sort' },
     { t: P.gloire.trophee_haut + 0.4, label: 'Trophée au centre du ring' },
     { t: P.gloire.titre_gloire + 0.3, label: '« GLOIRE »' },
-    { t: P.gloire.titre_eternelle + 0.4, label: '« GLOIRE ÉTERNELLE » · feux d\'artifice' },
+    { t: P.gloire.titre_eternelle + 0.4, label: '« GLOIRE ÉTERNELLE » · pyro' },
     { t: P.gloire.fin - 1.8, label: 'Gloire éternelle · recul en majesté' },
     { t: P.dep.cordes + 0.4, label: 'Départ · les cordes tombent' },
-    { t: P.dep.demarrage + 1.1, label: 'Départ · la file s\'élance' },
     { t: P.dep.piste + 0.8, label: 'Départ · poursuite sur la piste 5 voies' },
-    { t: P.dep.logo + 0.6, label: 'Logo final · 23 décembre' },
+    { t: P.dep.logo + 0.5, label: 'Logo final · la meute sous le logo' },
+    { t: P.dep.fin - 0.5, label: 'Logo final · bouquet' },
   ];
 
   return {
@@ -348,7 +374,7 @@ export async function creerSegment(ctx) {
       const enArrivee = t < P.ecuries[0].sortie;
       const ru = cad.rush(t), enRush = !!ru, enCouronne = t >= CO.debut && t < P.tel.debut;
       const tA = ru ? ru.tA : t;                                               // ralenti d'action : la scène est rejouée à tA
-      // coupes franches (smash cuts, rush) : flash blanc de 2 images + petite surexposition + lumière locale sur la voiture
+      // coupes franches (écuries « zoom », rush) : flash blanc de 2 images + petite surexposition + lumière locale sur la voiture
       const tCoupe = cad.coupes.reduce((m, c) => (c.t <= t && c.t > m ? c.t : m), -Infinity), coupeFlash = t - tCoupe < 2 / 60 ? 1 : 0;
       const enTel = t >= P.tel.debut && t < P.tel.fin;
       const enLoot = t >= P.loot.debut && t < P.gloire.debut;
@@ -369,6 +395,7 @@ export async function creerSegment(ctx) {
       const enFin = enLoot || enGloire || enDep;
       const enfonce = choreo.enfonce(t);
       const fr = (enLoot || enGloire) && enfonce < 0.999 ? fret.maj(t, L_, { tiroir: choreo.tiroir(t), enfonce }) : (fret.cacher(), null);
+      const embrase = enFin ? smoother((t - T_EMB) / 0.35) : 0;                // TOUT S'ENFLAMME : pyro, feux, faisceaux, confettis, public debout
       const et = enFin ? choreo.trophee(t) : null;
       if (et) {
         // reflet qui balaie la vasque à chaque frappe du titre ; aura et colonne de lévitation pleines pendant la gloire et le départ
@@ -390,14 +417,15 @@ export async function creerSegment(ctx) {
       else if (enEcuries) cam = cad.cameraEcurie(k, t);
       else if (enTel) { const a = (t - P.tel.debut) / (P.tel.fin - P.tel.debut); cam = { p: [-14 + 22 * a, G.MAT + 27 - 3 * a, 132 - 6 * a], c: [0, G.MAT + 8, 0], fov: 34 }; }
       else if (t < T_L2) { cam = hcam(LOOT, t); cam.c = [0, Math.max(G.MAT + 10, fret.groupe.position.y + 8), 0]; }
-      else if (t < T_L3) cam = hcam(LOOT2, t);
+      else if (t < T_L3) cam = cameraAttente(t);
       else if (t < Gl.trophee_haut) cam = cameraSortie(t);
       else if (t < D.debut) cam = cameraOrbite(t);
       else if (t < D.demarrage + 1.1) cam = hcam(DEP1, t);
       else if (t < D.piste + 0.3) { const p = hermite(DEP2, t, 'p'), q = depart.pointFile(depart.S(t) - 40); cam = { p, c: [q[0], q[1] + 3, q[2]], fov: 44 }; }     // la caméra rasante suit la file qui passe
       else if (t < T_LARGE) cam = cameraPoursuite(t);
-      else cam = cameraLarge(t);
+      else cam = cameraFinale(t);
       if (enArrivee || enEcuries) cam = secouer(cam, trauma(t), enCouronne ? 0.6 : 1);
+      if (enLoot || enGloire) cam = secouer(cam, traumaFin(t), 0.8);
       if (enGloire) { const k = secousse(t); cam.p = [cam.p[0] + 0.7 * k, cam.p[1] + k, cam.p[2]]; cam.c = [cam.c[0] + 0.3 * k, cam.c[1] + 0.45 * k, cam.c[2]]; }
 
       /* ── téléphone : flotte devant la caméra, au centre de l'image ── */
@@ -412,35 +440,37 @@ export async function creerSegment(ctx) {
       /* ── écran géant, public, effets ── */
       let ecran = ECRAN_GP;
       if (enEcuries && !enCouronne) { const e = equipes[k]; ecran = ecranAffiche('k' + k, ctx.logos[e.id], e.colors); }
-      const debout = enGloire || enDep ? smoother((t - Gl.confettis) / 0.8) : 0;
-      const confettis = enArrivee ? 0.8 * smoother((t - AR.drop) / 0.25) * (1 - smoother((t - (AR.fin - 0.9)) / 0.9)) : (enGloire || enDep) ? smoother((t - Gl.confettis) / 0.4) * (enDep ? 1 - 0.6 * smoother((t - (D.debut - 0.5)) / 2) : 1) : 0;
-      const neige = (enGloire || enDep) ? 0.9 * smoother((t - P.gloire.confettis) / 0.6) : 0;
+      const debout = enFin ? smoother((t - T_EMB) / 0.6) : 0;
+      const confettis = enArrivee ? 0.8 * smoother((t - AR.drop) / 0.25) * (1 - smoother((t - (AR.fin - 0.9)) / 0.9)) : enFin ? smoother((t - T_EMB) / 0.4) * (enDep ? 1 - 0.25 * smoother((t - (D.debut - 0.5)) / 2) : 1) : 0;
+      const neige = enFin ? 0.9 * smoother((t - T_EMB) / 0.6) : 0;
+      const silence = enLoot && t < T_EMB ? smoother((t - L_.descente) / 1.2) : 0;   // le public se tait pendant l'attente
       const hero = enEcuries && !enCouronne ? k : -1;
       const ph = hero >= 0 ? poses[hero] : null;
-      const spotGloire = enGloire ? smoother((t - Gl.debut) / 0.5) : 0;
+      const spotGloire = enFin && !enDep ? Math.max(0.35 * silence, embrase) : 0;
       const cTro = et ? trophee.centre() : [0, Y_HAUT + 20, 0];
       const vCam = [cam.p[0] - cTro[0], cam.p[1] - cTro[1], cam.p[2] - cTro[2]], nCam = Math.hypot(...vCam) || 1;
       const posOrGloire = [cTro[0] + vCam[0] / nCam * 34, cTro[1] + 12 + vCam[1] / nCam * 34, cTro[2] + vCam[2] / nCam * 34];   // lumière dorée côté caméra : la coupe brille
-      const orGloire = enGloire ? 1.7 * smoother((t - Gl.debut) / 0.6) : (enDep ? 1.8 : 0);
+      const orGloire = enGloire ? 1.7 * smoother((t - Gl.debut) / 0.6) : (enDep ? 1.8 : (enLoot ? 1.2 * embrase : 0));
       decor.maj(t, {
         flammes: flammes(t), ecran, ecranY: enLoot || enGloire ? 205 + 150 * smoother((t - P.loot.debut) / 1.0) : (enDep ? 355 + 300 * smoother((t - P.dep.debut) / 2.0) : 205),
-        debout, liesse: 0.3 + 0.4 * (enGloire || enDep ? 1 : 0), confettis, neige, chuteCordes: enDep ? smoother((t - P.dep.cordes) / 0.55) : 0,
-        pont: enDep ? smoother((t - P.dep.cordes) / 0.6) : 0, ambiance: 1 - 0.25 * spotGloire, laser: enTel ? 0.35 : 1,
-        spot: lerp(0.9, 2.4, spotGloire), spotAngle: lerp(0.55, 0.2, spotGloire),
+        debout, liesse: enFin ? lerp(0.3 * (1 - silence) + 0.03, 0.85, embrase) : 0.3, confettis, neige, chuteCordes: enDep ? smoother((t - P.dep.cordes) / 0.55) : 0,
+        pont: enDep ? smoother((t - P.dep.cordes) / 0.6) : 0, ambiance: 1 - 0.25 * spotGloire - 0.3 * silence, laser: enTel ? 0.35 : (1 - 0.8 * silence),
+        spot: lerp(0.9, enLoot ? 1.5 : 2.4, spotGloire), spotAngle: lerp(0.55, 0.2, spotGloire),
         or: Math.max(fr ? fr.lumiere : 0, orGloire), posOr: fr && fr.lumiere > orGloire ? fr.posLumiere : posOrGloire,
         suivi: ph ? (k === 1 ? 0.15 : 0.5) + 1.6 * coupeFlash : (enTel ? 0.45 : 0), posSuivi: ph ? [ph.pos[0] + 6, ph.pos[1] + 30, ph.pos[2] + 6] : [cam.p[0] - 30, cam.p[1] + 40, cam.p[2] - 10],
       });
       /* ── effets de la gloire : faisceaux vers la coupe, feux d'artifice dorés, ondes aux frappes du titre ── */
       effets.maj(t, {
-        feux: Gl.feux, forceFeux: enGloire || enDep ? 1 - smoother((t - D.demarrage) / 1.5) : 0,
-        faisceaux: enGloire ? smoother((t - Gl.debut) / 0.8) : (enDep ? 1 - smoother((t - D.debut) / 1.2) : 0),
-        cible: cTro, ondes: enGloire ? [Gl.titre_gloire, Gl.titre_eternelle] : [], forceOndes: 1,
+        feux: Gl.feux ?? T_EMB, forceFeux: enFin ? 1 : 0, feux2: D.logo - 1.6, forceFeux2: enDep ? 1 : 0,
+        faisceaux: enLoot || enGloire ? embrase : (enDep ? 1 - 0.35 * smoother((t - D.debut) / 1.2) : 0),
+        cible: enDep ? [cTro[0] * 0.5 + 150, cTro[1], cTro[2]] : cTro, ondes: enGloire ? [Gl.titre_gloire, Gl.titre_eternelle] : [], forceOndes: 1,
+        jets: (enLoot || enGloire) ? embrase * (1 - smoother((t - Gl.fin + 0.3) / 0.3)) : 0, tJets: T_EMB,
       });
       /* ── juice diégétique ── */
       ombres.maj(poses, { pont: enDep ? smoother((t - D.cordes) / 0.6) : 0 });
       etincelles.maj(t);
       huile.maj(t);
-      flares.maj(tA, k === 2 && enEcuries && !enRush ? smoother((tA - P.ecuries[2].sortie) / 0.3) * (1 - smoother((tA - P.ecuries[2].fin + 0.3) / 0.3)) : 0);
+      flares.maj(tA, k === 2 && enEcuries && !enCouronne ? smoother((tA - P.ecuries[2].sortie) / 0.3) * (1 - smoother((tA - P.ecuries[2].fin + 0.3) / 0.3)) : 0);
       const yEcran = enLoot || enGloire ? 205 + 150 * smoother((t - P.loot.debut) / 1.0) : (enDep ? 355 + 300 * smoother((t - P.dep.debut) / 2.0) : 205);
       boule.maj(t, { y: yEcran - 60, yAccroche: yEcran - 30, visible: t < P.tel.debut });
       portail.maj(t, enCouronne ? smoother((t - CO.portail) / 0.35) : 0);
@@ -455,7 +485,7 @@ export async function creerSegment(ctx) {
       const brouillard = { couleur: haze > 0.01 ? '#' + new THREE.Color(BRUME.couleur).lerp(teinte, haze).getHexString() : BRUME.couleur, densite: lerp(BRUME.densite, 0.0016, haze) };
       const sortieRose = enArrivee ? Math.exp(-Math.max(0, t - AR.drop) / 0.22) : 0;
       const frappe = (a) => (a < 0 ? 0 : Math.exp(-a * 9));
-      const flashOr = enFin ? 0.025 * Math.sin(Math.PI * clamp((t - Gl.trophee_haut + 0.25) / 0.5)) + 0.035 * frappe(t - Gl.titre_gloire) + 0.045 * frappe(t - Gl.titre_eternelle) : 0;
+      const flashOr = enFin ? 0.02 * Math.sin(Math.PI * clamp((t - Gl.trophee_haut + 0.25) / 0.5)) + 0.025 * frappe(t - T_EMB) + 0.035 * frappe(t - Gl.titre_gloire) + 0.045 * frappe(t - Gl.titre_eternelle) : 0;
       const post = {
         exposition: (enFin || enTel ? 0.86 : 0.8) + 0.18 * coupeFlash, vignette: 0.45, saturation: 1.14, bloomForce: enTel ? 0.24 : (enFin ? 0.36 : 0.55),
         flash: Math.min(0.05, 0.05 * sortieRose + flashOr + 0.05 * coupeFlash), flashCouleur: enFin ? [1, 0.82, 0.45] : (coupeFlash ? [1, 1, 1] : [0.85, 0.6, 1]), flou: 0, aberration: 0.0005,
@@ -463,11 +493,10 @@ export async function creerSegment(ctx) {
 
       /* ── habillage ── */
       const hud = (g, W, H) => {
-        if (enRush) { const tc0 = RU.cuts[ru.i]; bandeauCompact(g, W, H, fiches[k], t - tc0, smoother((t - (tc0 + 0.86)) / 0.1)); }
+        if (enRush) { const tc0 = RU.cuts[ru.i], tc1 = RU.cuts[ru.i + 1] ?? RU.fin; bandeauCompact(g, W, H, fiches[k], t - tc0, smoother((t - (tc1 - 0.14)) / 0.1)); }
         else if (enEcuries && !enCouronne) {
           const sl = P.ecuries[k];
-          if (!sl.smash) bandeau.dessiner(g, W, H, k, t - sl.debut, sl.fin - sl.debut);
-          else { const cs = cad.coupesDe(sl).filter((c) => c <= t), c0 = cs.length ? cs[cs.length - 1] : sl.debut; bandeauCompact(g, W, H, fiches[k], t - c0, smoother((t - (sl.fin - 0.22)) / 0.15)); }
+          bandeau.dessiner(g, W, H, k, t - sl.debut, sl.fin - sl.debut);
         }
         if (enGloire) titreGloire(g, W, H, t);
         if (enDep) logoFinal(g, W, H, t);
@@ -516,6 +545,42 @@ export async function creerSegment(ctx) {
       const r = { voiture_voiture: penetrationOBB(oA, oB), voiture_poteau: q.r - distanceSegmentOBB(q.p0, q.p1, oC) };
       const c = decor.cordes[1]; poserE(A, pose([G.CORDE - 1, G.MAT + G.HCORDES[1] - 2, 0], Math.PI / 2)); r.voiture_corde = G.RCORDE + GARDE_CORDE - distanceSegmentOBB(c.p0, c.p1, obbDepuis(THREE, A.env, A.boite, A.nom));
       return r;
+    },
+    /** V9.3 — « voiture ENTIÈRE » : la boîte englobante de la vedette (8 coins) est-elle entièrement dans l'image (marge 3 %), assez
+        grande (≥ 30 % de la largeur OU de la hauteur) et non masquée (rayons caméra → 9 points de la caisse testés contre le décor fixe
+        et les autres voitures : masquée si plus de la moitié sont coupés) ? À appeler après placer(t). */
+    visibiliteVedette() {
+      const E = etatCourant; if (E.hero < 0) return null;
+      const cam = ctx.camera; cam.updateMatrixWorld(true);
+      const v = voitures[E.hero], o = obbDepuis(THREE, v.env, v.boite, v.nom, { rognage: 0, marge: 1 });
+      const pt = (a, b, c, k = 1) => [0, 1, 2].map((i) => o.c[i] + (o.u[0][i] * o.e[0] * a + o.u[1][i] * o.e[1] * b + o.u[2][i] * o.e[2] * c) * k);
+      let x0 = 9, x1 = -9, y0 = 9, y1 = -9, devant = true; const q = new THREE.Vector3(), qv = new THREE.Vector3();
+      for (const a of [-1, 1]) for (const b of [-1, 1]) for (const c of [-1, 1]) {
+        q.set(...pt(a, b, c)); qv.copy(q).applyMatrix4(cam.matrixWorldInverse); if (qv.z > -cam.near) devant = false;
+        q.project(cam); x0 = Math.min(x0, q.x); x1 = Math.max(x1, q.x); y0 = Math.min(y0, q.y); y1 = Math.max(y1, q.y);
+      }
+      const M = 0.97, entiere = devant && x0 >= -M && x1 <= M && y0 >= -M && y1 <= M;
+      const part = Math.max((Math.min(1, x1) - Math.max(-1, x0)) / 2, (Math.min(1, y1) - Math.max(-1, y0)) / 2);
+      // occlusion : segment caméra → point contre les boîtes orientées (méthode des dalles)
+      const occ = [...decor.obstacles, ...E.poses.map((p, j) => (p && j !== E.hero ? obbDepuis(THREE, voitures[j].env, voitures[j].boite, voitures[j].nom) : null)).filter(Boolean)];
+      if (E.fret) occ.push(E.fret);
+      const P0 = [cam.position.x, cam.position.y, cam.position.z];
+      const coupe = (P1, b) => {
+        let t0 = 0, t1 = 1;
+        for (let i = 0; i < 3; i++) {
+          const u = b.u[i], o0 = (P0[0] - b.c[0]) * u[0] + (P0[1] - b.c[1]) * u[1] + (P0[2] - b.c[2]) * u[2];
+          const dd = (P1[0] - P0[0]) * u[0] + (P1[1] - P0[1]) * u[1] + (P1[2] - P0[2]) * u[2];
+          if (Math.abs(dd) < 1e-9) { if (Math.abs(o0) > b.e[i]) return false; continue; }
+          let ta = (-b.e[i] - o0) / dd, tb = (b.e[i] - o0) / dd; if (ta > tb) [ta, tb] = [tb, ta];
+          t0 = Math.max(t0, ta); t1 = Math.min(t1, tb); if (t0 > t1) return false;
+        }
+        return t1 > 0.001 && t0 < 0.97;
+      };
+      const echant = [[0, 0, 0]]; for (const a of [-1, 1]) for (const b of [-1, 1]) for (const c of [-1, 1]) echant.push([a, b, c]);
+      let caches = 0;
+      for (const [a, b, c] of echant) { const P1 = pt(a, b, c, 0.8); if (occ.some((bx) => coupe(P1, bx))) caches++; }
+      const masquee = caches > echant.length / 2;
+      return { ecurie: E.hero + 1, entiere, part: +part.toFixed(3), masquee, ok: entiere && part >= 0.3 && !masquee };
     },
     /** Part de l'image occupée par la voiture vedette (max largeur / hauteur), pour le contrôle « ≥ 25 % ». */
     mesureVedette() {
