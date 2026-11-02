@@ -12,6 +12,9 @@
      ensuite             garée, immobile.
    Suspension : réponses impulsionnelles analytiques (atterrissage : compression + rebond amorti ; départ : cabrage ; arrêt : plongée).
    Roues : distance parcourue absolue (poser : ω = v / R), braquage = contre-braquage de la dérive.
+   V9.2 — styles[k] (cadrages sur mesure) : { spin } tête-à-queue supplémentaire (rad) pendant la partie polaire du dérapage (la caisse
+   reste à r ≥ R1, hors de la couronne garée) ; { wheelie } cabrage au départ du tunnel (rad) : pivot sur l'essieu arrière (y relevé de
+   ez·sin θ, aucun coin sous la passerelle), sur le plat de la passerelle uniquement.
 
    DÉPART (plan.depart) : marche arrière radiale de la couronne (r 50 → 74) en pivotant vers la tangente, puis FILE INDIENNE : toutes les
    voitures suivent la MÊME courbe (cercle r = 74 puis sortie tangente vers le pont et la piste arc-en-ciel) avec la même loi d'abscisse
@@ -48,7 +51,7 @@ export function attribuerPlaces(n = 15) {
  * Prépare les trajectoires d'entrée.
  * @param slots plan.ecuries ; @param dims [{ L, ez, ex }] par voiture (longueur, demi-empattement, demi-voie)
  */
-export function creerEntrees(slots, dims) {
+export function creerEntrees(slots, dims, styles = []) {
   const places = attribuerPlaces(slots.length);
   const entrees = slots.map((sl, k) => {
     const s = k % 4, [ax, az] = axe(s), alpha = s * 90 * DEG, phi = places[k], d = dims[k];
@@ -91,7 +94,7 @@ export function creerEntrees(slots, dims) {
       const v = sv < S - 0.5 ? dirA(sv) : capP;
       return m + 0.35 * angleDiff(m, v);
     };
-    return { k, s, ax, az, alpha, phi, d, sl, tC, tV, tD, v0, v1, r0, distCourse, vitCourse, assiette, zVol, pVol, R, S, ptA, sDe, dirA, capDerape, capP, dCourse };
+    return { k, s, ax, az, alpha, phi, d, sl, tC, tV, tD, v0, v1, r0, distCourse, vitCourse, assiette, zVol, pVol, R, S, sCourbe, ptA, sDe, dirA, capDerape, capP, dCourse };
   });
 
   /** Pose de la voiture k au temps t (temps film) ; null si elle n'est pas encore sortie du tunnel. */
@@ -113,6 +116,8 @@ export function creerEntrees(slots, dims) {
     } else if (t < sl.place) {
       const tau = t - sl.atterrissage, sv = E.sDe(tau), p = E.ptA(sv);
       x = p[0]; z = p[1]; y = G.MAT; cap = E.capDerape(sv); dist = E.dCourse + E.R + sv; phase = 'derapage';
+      const st = styles[k] || {};
+      if (st.spin) cap += st.spin * smoother((sv / Math.max(1, E.sCourbe) - 0.04) / 0.86);      // tête-à-queue complet pendant la partie polaire
       const beta = angleDiff(E.dirA(sv), cap); braq = clamp(-0.85 * beta, -0.5, 0.5) * (1 - smoother((sv - E.S + 18) / 14));
       // roulis : accélération latérale (différences finies sur la trajectoire pure)
       const h = 0.03, pa = E.ptA(E.sDe(tau - h)), pb = E.ptA(E.sDe(tau + h));
@@ -123,12 +128,20 @@ export function creerEntrees(slots, dims) {
     } else {
       const p = E.ptA(E.S); x = p[0]; z = p[1]; y = G.MAT; cap = E.capP; dist = E.dCourse + E.R + E.S; phase = 'garee';
     }
+    // cabrage (wheelie) au départ du tunnel : nez levé, pivot sur l'essieu arrière
+    const stw = (styles[k] || {}).wheelie || 0;
+    let cabre = 0;
+    if (stw && phase === 'course') {
+      const tau = t - sl.sortie;
+      cabre = stw * smoother(tau / 0.22) * (1 - smoother((tau - 0.55) / 0.4)) * (1 + 0.08 * Math.sin(tau * 26));
+      tang -= cabre; y += d.ez * Math.sin(cabre) + 0.6 * Math.sin(cabre);         // pivot sur l'essieu arrière + 0,6·sin θ de garde : le pare-chocs arrière ne touche jamais la passerelle
+    }
     // suspension analytique (impulsions)
     const heave = -0.3 * ressort(t - sl.atterrissage, 16, 0.42) + (phase === 'vol' ? 0.25 * smoother((t - sl.saut) / 0.2) * (1 - smoother((t - sl.atterrissage + 0.15) / 0.15)) : 0);
     const tS = 0.07 * ressort(t - sl.atterrissage - 0.02, 14, 0.4) - 0.035 * ressort(t - sl.sortie, 11, 0.5) + 0.045 * ressort(t - sl.place + 0.12, 13, 0.45);
     tang += tS;
     const coins = { av_g: heave - tS * d.ez + roul * d.ex, av_d: heave - tS * d.ez - roul * d.ex, ar_g: heave + tS * d.ez + roul * d.ex, ar_d: heave + tS * d.ez - roul * d.ex };
-    return { pos: [x, y, z], cap, capVitesse: cap, heave: phase === 'vol' ? 0 : heave, tangage: tang, pente: 0, roulis: roul, dist, braquage: braq, coins, phase };
+    return { pos: [x, y, z], cap, capVitesse: cap, heave: phase === 'vol' ? 0 : heave, tangage: tang, pente: 0, roulis: roul, dist, braquage: braq, coins, phase, cabre };
   }
   return { entrees, places, pose };
 }

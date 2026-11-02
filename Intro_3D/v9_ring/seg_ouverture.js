@@ -1,36 +1,31 @@
-/* SEGMENT « OUVERTURE » de la V9 Ring — film 0 → 15,5 s (temps interne = temps film). Part du segment salon V8 validé.
+/* SEGMENT « OUVERTURE » de la V9.2 Ring — film 0 → 6,5 s (temps interne = temps film). Version V9.1 archivée dans
+   ouverture_archive_v91.js (feu de cheminée sur la télé, trappe du tapis) : la trappe et la plongée sont supprimées (choix du client).
 
-    0 →  7 s  CHEMINÉE : le salon dans la pénombre (spots, sapin, vraie cheminée éteints). Seule source : la TÉLÉ, qui diffuse un
-              feu de cheminée plein écran (ouverture_tele.js). Sa lueur orange danse sur le canapé de cuir blanc, le sapin éteint, le
-              tapis rouge (deux lumières ponctuelles devant l'écran, vacillement partagé avec le shader). Travelling très lent vers la
-              télé, fondu d'entrée depuis le noir (0,8 s). Aucun texte.
-    7 → 11 s  ALLUMAGE : 7,0 s une étincelle saute de l'écran jusqu'au pied du sapin ; 7,2 → 8,6 s les guirlandes s'allument en
-              cascade de bas en haut (instanceColor par hauteur, 5 couleurs des voies), l'étoile éclate, puis spots, ambiance et
-              vraie cheminée montent. 8,8 s : sur la télé les flammes se rétractent et révèlent le LOGO officiel (data/logo_gp.png)
-              dans un choc doré LOCAL (lumière dorée + aura additive + bloom ; flash post ≤ 0,05). Voix off : « Mesdames et
-              messieurs… bienvenue au Grand Prix de Noël ! ». La caméra cadre la télé (logo grand et lisible), puis se retourne et
-              s'élève vers le tapis.
-   11 → 15,5 s LE TAPIS : mécanique V8 décalée de +3 s (fente 11,25 s, ouverture 11,6 s en ressort amorti, lumière arc-en-ciel,
-              plongée dans le puits ~14,0 s). Le puits débouche dans une LUMIÈRE de salle de spectacle (rose #ff3fa4 / cyan #2de2ff,
-              faisceaux, confettis lumineux) qui envahit l'image de 14,8 à 15,5 s : à 15,5 s l'image est dominée par un rose-violet
-              lumineux (raccord avec seg_arene.js qui sort de cette lumière en descendant du ciel vers le ring).
+    0 → 4,6 s  LE SALON CHAUD : salon de Noël cosy et éclairé (sapin et guirlandes allumés, vraie cheminée qui crépite, lumière
+               ambrée), télé éteinte (noir laqué). Lent travelling depuis le canapé vers la télé.
+               Voix : « Mesdames et messieurs… bienvenue au Grand Prix de Noël ! » (0,1 → 3,7) puis « Le salon… » (3,75).
+    4,6 s      LA TÉLÉ S'ALLUME (allumage cathodique électrique, LOGO blanc-bleu saturé, halo additif) et le salon S'ASSOMBRIT
+               BRUTALEMENT (facteur 1 → 0,08 en 0,15 s : sapin, guirlandes, cheminée, spots) ; seule la dalle irradie, une lumière
+               froide de la télé balaie la pièce (projecteur dont la cible balaie le salon).
+    5,0 → 6,5 s LA TÉLÉ ASPIRE LA CAMÉRA : vortex (FOV 38° → 88° → 48°, roulis hélicoïdal qui vrille), cadres néon aspirés autour de
+               la dalle, EXPLOSION de 340 particules néon 3D (cyan, magenta, or, violet) qui jaillissent de l'écran, envahissent le
+               salon et tourbillonnent autour de l'axe de la télé pendant que la caméra y est avalée ; la caméra traverse la dalle
+               (≈ 5,95 s) et file dans le TUNNEL NÉON 3D (280 particules filantes, lumière rose au bout).
+               Voix : « …se transforme en… » (5,2 → 6,17), micro-suspense, « ARÈNE ! » à 6,5 s sur la coupe.
+    6,5 s      l'image est DANS le tunnel néon (cyan / magenta / or / violet, lumineux, ni noir ni blanc pur) : raccord avec l'arène.
 
-   Contrat : creerSegment(ctx) → { id: 'ouverture', groupe, cles, maj(t), collisions() }. maj(t) est une FONCTION PURE de t : toutes
-   les intensités, couleurs, uniforms, positions touchées sont remises à chaque image ; nombre de lumières constant (on ne joue que
-   sur les intensités) ; aucun Math.random() ; aucun HUD. Aucun fichier existant modifié (salon.js et salon_bascule.js importés). */
+   Contrat : creerSegment(ctx) → { id: 'ouverture', groupe, cles, maj(t), collisions() }. maj(t) est une FONCTION PURE de t (tout ce
+   qui est touché est remis à chaque image), nombre de lumières constant (seules les intensités varient), aucun Math.random(),
+   flash post ≤ 0,05 (l'éclat vient de la dalle, du halo additif et des lumières locales), aucun HUD. */
 import { construireSalon, environnementSalon } from '../src/decors/salon.js';
-import { trouverPieces, solPerce, creerBattants, creerPuits, creerFaisceau, VOIES_ARC } from '../v8_finale/salon_bascule.js';
-import { chargerImage, textureLogo, creerEcranFeu, creerHaloTele, vacillement } from './ouverture_tele.js';
-import { creerDome, creerFaisceaux, creerConfettis, creerEtincelle } from './ouverture_spectacle.js';
+import { VOIES_ARC } from '../v8_finale/salon_bascule.js';
+import { chargerImage, textureLogo, creerHaloTele } from './ouverture_tele.js';
+import { creerEcranVortex, creerAnneauxAspirants, creerExplosionNeon, creerTunnelNeon } from './ouverture_vortex.js';
 
-/* ───────── repères de temps (plan_v9.json : "ouverture") ───────── */
-const T_ETINCELLE = 7.0, DUREE_ETINCELLE = 0.26;
-const T_GUIRLANDES = [7.2, 8.6];
-const T_LOGO = 8.8;
-const T_TABLE = [10.7, 11.5];        // la table basse glisse vers la télé (V8 + 3 s)
-const T_FENTE = 11.25, T_OUVERTURE = 11.6;
-const PROF_PUITS = 350;
-const DOME = { centre: [0, -1150, 25], rayon: 900 };   // la bulle de lumière sous le puits
+/* ───────── repères de temps (plan_v9.json v9.2 : "ouverture") ───────── */
+const T_TV = 4.6;                    // tv_allume = salon_dim
+const T_ASPI = [5.0, 6.5];           // aspiration
+const T_FIN = 6.5;
 
 /** Spline d'Hermite cubique à tangentes de Catmull-Rom non uniformes (C1 en temps : vitesse continue, aucune saccade). */
 function hermite(cles, t, cle) {
@@ -62,29 +57,29 @@ export async function creerSegment(ctx) {
   const imgLogo = await chargerImage(new URL('./data/logo_gp.png', import.meta.url).href);
   const texLogo = textureLogo(THREE, imgLogo);
 
-  /* ═════════════ LE SALON (identique à la V8) ═════════════ */
-  const salon = ctx.avecAlea('salon-v9', () => construireSalon({ graine: 2312 }));
+  /* ═════════════ LE SALON (../src/decors/salon.js, non modifié) ═════════════ */
+  const salon = ctx.avecAlea('salon-v92', () => construireSalon({ graine: 2312 }));
   groupe.add(salon.groupe);
-  const A = salon.ancres;
+  const A = salon.ancres, E = A.ecran.centre;
   const envSalon = environnementSalon(renderer);
-  const matsEnv = [];                                                       // matériaux à reflets : leur envMapIntensity suit l'éclairage
+  const matsEnv = [];
   salon.groupe.traverse((o) => {
     if (!o.isMesh) return;
     for (const m of Array.isArray(o.material) ? o.material : [o.material]) {
       if (m && (m.isMeshStandardMaterial || m.isMeshPhysicalMaterial) && !m.envMap) { m.envMap = envSalon; m.envMapIntensity = 0.55; m.needsUpdate = true; }
+      if (m && m.envMap === envSalon && !matsEnv.some((e) => e.m === m)) matsEnv.push({ m, base: m.envMapIntensity });
     }
   });
 
-  /* repérage des pièces du salon (sans modifier salon.js) */
+  /* repérage des pièces du salon */
   let ampoules = null, etoile = null, ecran = null, feuCheminee = null, lueurTV = null, lueurSapin = null, lune = null, hemiSalon = null;
-  const spots = [], disquesSpots = [], flammesCheminee = [], braises = [];
+  const spots = [], disquesSpots = [], braises = [];
   salon.groupe.traverse((o) => {
     if (o.isInstancedMesh) ampoules = o;
     else if (o.isMesh && o.geometry.type === 'OctahedronGeometry') etoile = o;
     else if (o.isMesh && o.geometry.type === 'PlaneGeometry' && o.material.isMeshBasicMaterial && Math.abs(o.geometry.parameters.width - (A.ecran.largeur - 3)) < 0.5) ecran = o;
     else if (o.isMesh && o.geometry.type === 'CylinderGeometry' && o.material.isMeshBasicMaterial && o.geometry.parameters.radiusTop === 6) disquesSpots.push(o);
-    else if (o.isMesh && o.material.isShaderMaterial && o.material.uniforms && o.material.uniforms.graine) flammesCheminee.push(o);
-    else if (o.isMesh && o.material.isMeshStandardMaterial && o.material.emissiveIntensity > 0 && o.material.emissive && o.material.emissive.getHex() === 0xc22a00) braises.push(o);
+    else if (o.isMesh && o.material.isMeshStandardMaterial && o.material.emissive && o.material.emissive.getHex() === 0xc22a00) braises.push(o);
     if (o.isSpotLight) spots.push({ l: o, base: o.intensity });
     else if (o.isHemisphereLight) hemiSalon = o;
     else if (o.isPointLight) {
@@ -94,201 +89,122 @@ export async function creerSegment(ctx) {
       else if (o.color.getHex() === 0x8fb2ff) lune = o;
     }
   });
-  if (!ampoules || !etoile || !ecran || !feuCheminee || !lueurTV || !lueurSapin || !lune || !hemiSalon || spots.length !== 3 || !flammesCheminee.length) {
-    throw new Error('ouverture : pièces du salon introuvables');
-  }
-  const baseSpots = spots.map((s) => s.base);
+  if (!ampoules || !etoile || !ecran || !feuCheminee || !lueurTV || !lueurSapin || !lune || !hemiSalon || spots.length !== 3) throw new Error('ouverture : pièces du salon introuvables');
   const coulEtoile = etoile.material.color.clone(), coulDisque = disquesSpots.length ? disquesSpots[0].material.color.clone() : new THREE.Color(1, 1, 1);
   const braiseBase = braises.map((m) => m.material.emissiveIntensity);
+  const coulVoies = VOIES_ARC.map((c) => new THREE.Color(c)), colTmp = new THREE.Color();
+  const NB = ampoules.count;
 
-  /* guirlande : hauteur normalisée de chaque ampoule, couleur de voie, phase de scintillement */
-  const NB = ampoules.count, hauteurs = new Float32Array(NB), m4 = new THREE.Matrix4(), v3 = new THREE.Vector3();
-  let hMin = Infinity, hMax = -Infinity;
-  for (let i = 0; i < NB; i++) { ampoules.getMatrixAt(i, m4); v3.setFromMatrixPosition(m4); hauteurs[i] = v3.y; hMin = Math.min(hMin, v3.y); hMax = Math.max(hMax, v3.y); }
-  for (let i = 0; i < NB; i++) hauteurs[i] = (hauteurs[i] - hMin) / Math.max(1e-6, hMax - hMin);
-  const coulVoies = VOIES_ARC.map((c) => new THREE.Color(c));
-  const colTmp = new THREE.Color();
-
-  /* l'écran : feu de cheminée → logo */
+  /* la dalle : éteinte → logo électrique → vortex → tunnel */
   const aspect = ecran.geometry.parameters.width / ecran.geometry.parameters.height;
-  const tele = creerEcranFeu(THREE, texLogo, aspect);
-  ecran.material = tele.mat;
+  const dalle = creerEcranVortex(THREE, texLogo, aspect);
+  ecran.material = dalle.mat;
   const halo = creerHaloTele(THREE, A.ecran); groupe.add(halo.mesh);
 
-  /* ═════════════ LA TRAPPE (salon_bascule.js V8, tel quel) ═════════════ */
-  const pieces = trouverPieces(THREE, salon.groupe, A.tapis);
-  const tp = A.tapis, trou = { x0: tp.centre.x - tp.largeur / 2, x1: tp.centre.x + tp.largeur / 2, z0: tp.centre.z - tp.profondeur / 2, z1: tp.centre.z + tp.profondeur / 2 };
-  pieces.sol.visible = false; pieces.tapis.visible = false;
-  const sol2 = solPerce(THREE, pieces.sol, trou); salon.groupe.add(sol2);
-  const battants = creerBattants(THREE, pieces.tapis, tp, envSalon); salon.groupe.add(battants.groupe);
-  battants.groupe.traverse((o) => { if (o.isMesh && o.material.envMap) matsEnv.push({ m: o.material, base: o.material.envMapIntensity }); });
-  salon.groupe.traverse((o) => {
-    if (!o.isMesh) return;
-    for (const m of Array.isArray(o.material) ? o.material : [o.material]) if (m && m.envMap === envSalon && !matsEnv.some((e) => e.m === m)) matsEnv.push({ m, base: m.envMapIntensity });
-  });
-  const puits = creerPuits(THREE, trou, PROF_PUITS); groupe.add(puits.groupe);
-  const faisceau = creerFaisceau(THREE, trou, 235); groupe.add(faisceau.groupe);
-
-  /* ═════════════ SOUS LE TAPIS : LA LUMIÈRE DE SPECTACLE ═════════════ */
-  const dome = creerDome(THREE, DOME.centre, DOME.rayon); groupe.add(dome.mesh);
-  const projos = creerFaisceaux(THREE, DOME.centre, DOME.rayon, 6); groupe.add(projos.groupe);
-  const confettis = creerConfettis(THREE, { x: tp.centre.x, z: tp.centre.z, rayon: 560, yHaut: -200, yBas: -2000, demiH, graine: 1512 }); groupe.add(confettis.mesh);
-
-  /* ═════════════ L'ÉTINCELLE : de l'écran au pied du sapin ═════════════ */
-  const E = A.ecran.centre;
-  const etincelle = creerEtincelle(THREE, { A: [E.x + 28, E.y - 8, E.z + 3], C: [E.x + 120, E.y + 105, E.z + 70], B: [150, 36, -2], t0: T_ETINCELLE, duree: DUREE_ETINCELLE, demiH });
-  groupe.add(etincelle.mesh);
+  /* ═════════════ L'ASPIRATION ═════════════ */
+  const anneaux = creerAnneauxAspirants(THREE, A.ecran, 9); groupe.add(anneaux.groupe);
+  const explosion = creerExplosionNeon(THREE, A.ecran, { n: 340, t0: 4.95, etalement: 0.6, aspiration: 5.65, demiH }); groupe.add(explosion.mesh);
+  const tunnel = creerTunnelNeon(THREE, A.ecran, { rayon: 78, longueur: 3200, n: 280, demiH }); groupe.add(tunnel.groupe);
 
   /* ═════════════ LUMIÈRES PROPRES AU SEGMENT (nombre constant) ═════════════ */
   const chaud = new THREE.HemisphereLight(0xffd6a6, 0x4a2414, 0.0); groupe.add(chaud);
   const plafonnier = new THREE.PointLight(0xffbc80, 0.0, 900, 2); plafonnier.position.set(0, 225, 40); groupe.add(plafonnier);
-  const halo2 = new THREE.PointLight(0xff9a52, 0.0, 700, 2); halo2.position.set(150, 90, -60); groupe.add(halo2);
-  const feuTV = new THREE.PointLight(0xff7a26, 0.0, 620, 2); feuTV.position.set(E.x, E.y - 5, E.z + 34); groupe.add(feuTV);         // lueur du feu de la télé
-  const feuTVBas = new THREE.PointLight(0xff5a14, 0.0, 430, 2); feuTVBas.position.set(E.x, 34, E.z + 90); groupe.add(feuTVBas);    // rase le tapis
-  const choc = new THREE.PointLight(0xffc860, 0.0, 900, 2); choc.position.set(E.x, E.y, E.z + 60); groupe.add(choc);                // choc doré du logo
-  const lumEtincelle = new THREE.PointLight(0xffb050, 0.0, 260, 2); lumEtincelle.position.set(E.x, E.y, E.z + 10); groupe.add(lumEtincelle);
-  const arcs = VOIES_ARC.map((c, i) => { const l = new THREE.PointLight(c, 0.0, 520, 2); l.position.set(lerp(trou.x0 + 35, trou.x1 - 35, i / 4), 18, tp.centre.z); groupe.add(l); return l; });
-  const coulFeu = new THREE.Color(0xff7a26), coulLogo = new THREE.Color(0xc9a6ff), coulTmp = new THREE.Color();
-  const coulHaloFeu = new THREE.Color(1.0, 0.42, 0.1), coulHaloOr = new THREE.Color(1.0, 0.78, 0.36), coulHaloLogo = new THREE.Color(0.75, 0.6, 1.0);
+  const haloFeu = new THREE.PointLight(0xff9a52, 0.0, 700, 2); haloFeu.position.set(150, 90, -60); groupe.add(haloFeu);   // reflet de la cheminée
+  const froid = new THREE.PointLight(0x9cbcff, 0.0, 520, 2); froid.position.set(E.x, E.y - 10, E.z + 130); groupe.add(froid);   // la dalle irradie
+  const balayage = new THREE.SpotLight(0xcfe2ff, 0.0, 900, 0.32, 0.55, 2); balayage.position.set(E.x, E.y, E.z + 8);
+  const cibleBalayage = new THREE.Object3D(); groupe.add(balayage, cibleBalayage); balayage.target = cibleBalayage;
+  const neonLum = NEON_LUMIERES.map(([c, x, y]) => { const l = new THREE.PointLight(c, 0.0, 420, 2); l.position.set(E.x + x, E.y + y, E.z + 70); groupe.add(l); return l; });
+  const coulHaloElec = new THREE.Color(0.3, 0.55, 1.35), coulHaloVortex = new THREE.Color(0.85, 0.45, 1.1), coulTmp = new THREE.Color();
 
-  /* ═════════════ TRAJECTOIRE DE CAMÉRA (une seule courbe continue de 0 à 15,5 s) ═════════════ */
+  /* ═════════════ TRAJECTOIRE DE CAMÉRA ═════════════ */
+  const Y = E.y, Z = E.z;
   const CAM = [
-    { t: 0.0, p: [-128, 116, 216], c: [34, 84, -150], fov: 50 },            // derrière le canapé, la télé-cheminée au fond
-    { t: 3.5, p: [-104, 120, 200], c: [40, 85, -146], fov: 50 },
-    { t: 7.0, p: [-74, 126, 176], c: [48, 86, -140], fov: 51 },             // travelling très lent vers la télé ; le sapin entre à droite
-    { t: 8.0, p: [-56, 128, 150], c: [70, 92, -110], fov: 52 },             // on suit la cascade des guirlandes
-    { t: 8.9, p: [-30, 122, 92], c: [18, 104, -160], fov: 48 },             // choc doré : retour vers la télé
-    { t: 9.6, p: [0, 113, 6], c: [0, 111, -177], fov: 44 },                 // le logo, grand et lisible
-    { t: 10.4, p: [0, 114, -16], c: [0, 111, -177], fov: 43 },
-    { t: 11.0, p: [-22, 165, -50], c: [36, 22, 0], fov: 48 },             // on se retourne vers le salon en s'élevant
-    { t: 11.7, p: [-10, 214, -72], c: [0, 0, 20], fov: 50 },                // le tapis vu du côté télé : la fente
-    { t: 12.6, p: [0, 238, -44], c: [0, 0, 22], fov: 48 },                  // la trappe s'ouvre sous nos yeux
-    { t: 13.4, p: [0, 248, 6], c: [0, 0, 24], fov: 45 },                    // plongée verticale sur la fente arc-en-ciel
-    { t: 14.0, p: [0, 160, 10], c: [0, -300, 24], fov: 50 },                // on plonge
-    { t: 14.5, p: [0, -265, 12], c: [0, -900, 22], fov: 62 },               // dans le puits lumineux
-    { t: 15.5, p: [0, -930, 15], c: [0, -1700, 21], fov: 70 },              // dans la lumière de spectacle
-    { t: 16.0, p: [0, -1180, 16], c: [0, -1950, 21], fov: 72 },             // clé fantôme : vitesse non nulle à 15,5 s (raccord)
+    { t: 0.0, p: [-118, 118, 216], c: [52, 88, -150], fov: 50 },              // derrière le canapé : sapin, cheminée, télé éteinte
+    { t: 2.3, p: [-82, 120, 178], c: [40, 94, -160], fov: 49 },
+    { t: 4.6, p: [-26, 115, 96], c: [8, Y - 4, Z], fov: 45 },               // la télé s'allume
+    { t: 5.0, p: [0, Y, 24], c: [0, Y, Z], fov: 38 },                      // tension : le cadre se resserre
+    { t: 5.5, p: [0, Y, -82], c: [0, Y, Z - 220], fov: 62 },               // aspirée : le champ s'ouvre
+    { t: 5.95, p: [0, Y, Z + 0.5], c: [0, Y, Z - 320], fov: 88 },           // la caméra traverse la dalle
+    { t: 6.5, p: [0, Y, Z - 640], c: [0, Y, Z - 1000], fov: 48 },          // dans le tunnel néon
+    { t: 7.0, p: [0, Y, Z - 1380], c: [0, Y, Z - 1800], fov: 46 },         // clé fantôme : vitesse non nulle à 6,5 s (raccord)
   ];
   const camera = (t) => ({ p: hermite(CAM, t, 'p'), c: hermite(CAM, t, 'c'), fov: hermite(CAM, t, 'fov') });
-
-  /** Angle d'ouverture des battants (rad) : entrebâillement, puis ressort amorti (léger rebond en butée à ~106°). */
-  function angleBattants(t) {
-    const fente = 0.035 * smoother((t - T_FENTE) / 0.35);
-    if (t < T_OUVERTURE) return fente;
-    const s = t - T_OUVERTURE, w = 4.4, z = 0.5, wd = w * Math.sqrt(1 - z * z);
-    const r = 1 - Math.exp(-z * w * s) * (Math.cos(wd * s) + (z * w / wd) * Math.sin(wd * s));
-    return fente + (1.85 - fente) * r;
-  }
+  /** Roulis hélicoïdal : nul avant 5,0 s, puis la caméra vrille de plus en plus vite (≈ 1,3 tour à 6,5 s). */
+  const roulis = (t) => { const s = clamp((t - T_ASPI[0]) / (T_ASPI[1] - T_ASPI[0]), 0, 1); return 8.2 * s * s * (1 - 0.25 * s); };
 
   return {
     id: 'ouverture', groupe,
-    cles: [{ t: 3.5, label: 'Feu sur la télé' }, { t: 9.6, label: 'Le logo s\'allume' }, { t: 12.6, label: 'Le tapis s\'ouvre' }],
+    cles: [{ t: 3.0, label: 'Le salon de Noël' }, { t: 4.75, label: 'La télé s\'allume' }, { t: 5.9, label: 'La télé aspire la caméra' }],
     collisions() { return []; },
     maj(t) {
       const cam = camera(t);
-      const dessous = cam.p[1] < -2;                                        // la caméra a franchi le plancher
-      const ang = angleBattants(t), ouv = clamp(ang / (Math.PI / 2), 0, 1);
-      const vac = vacillement(t);
+      const dedans = cam.p[2] < Z - 0.2;                                     // la caméra a franchi la dalle : on est dans le tunnel
+      const salonVu = dedans ? 0 : 1;
 
       /* ── enveloppes ── */
-      const amb = smoother((t - 8.5) / 1.1);                               // spots et ambiance du salon
-      const cheminee = smoother((t - 9.0) / 0.9);                          // la vraie cheminée prend le relais du feu de la télé
-      const flamme = 1 - smoother((t - (T_LOGO - 0.12)) / 0.5);            // les flammes de la télé se rétractent
-      const revele = smoother((t - T_LOGO) / 0.55);
-      const eChoc = t < T_LOGO - 0.04 ? 0 : smoother((t - (T_LOGO - 0.04)) / 0.06) * Math.exp(-Math.max(0, t - T_LOGO) * 2.4);
-      const brille = smoother((t - (T_LOGO + 0.3)) / 0.6);
-      const salonVu = dessous ? 0 : 1;
+      const allume = smoother((t - T_TV) / 0.12);                           // allumage cathodique (ligne puis ouverture)
+      const dim = 1 - 0.92 * smoother((t - T_TV) / 0.15);                   // facteur de lumière du salon : 1 → 0,08 en 0,15 s
+      const choc = t < T_TV ? 0 : smoother((t - T_TV) / 0.05) * Math.exp(-Math.max(0, t - T_TV - 0.05) * 3.5);
+      const vortex = smoother((t - T_ASPI[0]) / 0.9);
+      const aspi = smoother((t - T_ASPI[0]) / 0.25);
+      const vac = 0.8 + 0.1 * Math.sin(t * 11.3) + 0.06 * Math.sin(t * 23.1 + 1.3) + 0.05 * Math.sin(t * 37.7 + 0.4);
 
-      /* ── salon : animation d'origine puis recalibrage (rendu non « physique », comme en V8) ── */
+      /* ── salon : animation d'origine (flammes de la cheminée), puis recalibrage des intensités ── */
+      salon.groupe.visible = !dedans;
       salon.maj(t, { intensiteSalon: 1, tvAllumee: 1 });
-      const fS = 0.24 * amb * salonVu;
-      hemiSalon.intensity = 0.28 * fS + 0.012 * salonVu;
-      spots.forEach((s, i) => { s.l.visible = true; s.l.intensity = baseSpots[i] * fS; });
-      feuCheminee.intensity = 3.2 * vac * 0.24 * (0.04 + 0.96 * cheminee) * salonVu;
-      lueurTV.intensity = 0;                                                 // remplacée par feuTV (couleur pilotée)
-      lune.intensity = 0.55 * 0.32 * salonVu;
-      for (const f of flammesCheminee) { const k = Math.max(0.001, cheminee); f.scale.set(1, k, 1); f.visible = cheminee > 0.002; }
-      braises.forEach((m, i) => { m.material.emissiveIntensity = braiseBase[i] * (0.25 + 0.75 * cheminee); });
-      for (const d of disquesSpots) d.material.color.copy(coulDisque).multiplyScalar(0.04 + 0.96 * amb);
-      for (const e of matsEnv) e.m.envMapIntensity = e.base * (0.07 + 0.93 * amb);
-
-      /* ── guirlandes : cascade de bas en haut (7,2 → 8,6 s), 5 couleurs des voies ── */
-      const ic = ampoules.instanceColor.array, dureeCascade = T_GUIRLANDES[1] - T_GUIRLANDES[0] - 0.12;
-      let allumees = 0;
-      for (let i = 0; i < NB; i++) {
-        const tOn = T_GUIRLANDES[0] + hauteurs[i] * dureeCascade;
-        const on = smoother((t - tOn) / 0.12);
-        const pop = t > tOn ? 1 + 1.2 * Math.exp(-(t - tOn) * 7) : 1;
+      const fS = 0.24 * dim * salonVu;
+      hemiSalon.intensity = 0.28 * fS;
+      spots.forEach((s) => { s.l.visible = true; s.l.intensity = s.base * fS; });
+      feuCheminee.intensity = 3.2 * vac * fS;
+      lueurTV.intensity = 0;
+      lune.intensity = 0.55 * 0.24 * salonVu;
+      lueurSapin.intensity = 0.9 * fS;
+      braises.forEach((m, i) => { m.material.emissiveIntensity = braiseBase[i] * dim; });
+      for (const d of disquesSpots) d.material.color.copy(coulDisque).multiplyScalar(dim);
+      for (const e of matsEnv) e.m.envMapIntensity = e.base * dim * dim;          // les reflets chauds s'éteignent avec le salon
+      etoile.material.color.copy(coulEtoile).multiplyScalar(1.3 * dim);
+      const ic = ampoules.instanceColor.array;
+      for (let i = 0; i < NB; i++) {                                         // guirlandes : 5 couleurs des voies, scintillement doux
         const sc = 0.72 + 0.28 * Math.sin(t * (1.3 + (i % 5) * 0.37) + i * 2.399);
-        const k = (0.012 + on * 2.4 * sc * pop);
-        colTmp.copy(coulVoies[i % 5]).multiplyScalar(k);
+        colTmp.copy(coulVoies[i % 5]).multiplyScalar(2.4 * sc * dim);
         ic[i * 3] = colTmp.r; ic[i * 3 + 1] = colTmp.g; ic[i * 3 + 2] = colTmp.b;
-        allumees += on;
       }
       ampoules.instanceColor.needsUpdate = true;
-      const fracGuirl = allumees / NB;
-      const eEtoile = smoother((t - T_GUIRLANDES[1]) / 0.12), popEtoile = t > T_GUIRLANDES[1] ? 1 + 1.5 * Math.exp(-(t - T_GUIRLANDES[1]) * 5) : 1;
-      etoile.material.color.copy(coulEtoile).multiplyScalar(0.03 + 1.4 * eEtoile * popEtoile);
-      lueurSapin.intensity = 0.9 * (0.15 + 0.85 * fracGuirl) * fracGuirl * 0.6 * salonVu;
+      chaud.intensity = 0.26 * dim * salonVu;
+      plafonnier.intensity = 0.42 * dim * salonVu;
+      haloFeu.intensity = (0.5 + 0.06 * Math.sin(t * 9.1) + 0.04 * Math.sin(t * 17.3 + 1.1)) * dim * salonVu;
 
-      /* ── la télé : feu → logo ── */
-      const gainTV = (0.15 + 0.85 * smoother((t - 0.1) / 0.9)) * lerp(0.62, 0.92, revele);
-      tele.maj({ t, flamme, revele, choc: eChoc, brille, gain: gainTV, escarbilles: 1 - smoother((t - 9.0) / 0.8) });
-      coulTmp.copy(coulFeu).lerp(coulLogo, revele);
-      feuTV.color.copy(coulTmp);
-      const danse = Math.pow(vac, 1.8);
-      feuTV.intensity = salonVu * lerp(0.55 * danse, 0.7, revele);
-      feuTVBas.intensity = salonVu * 0.42 * danse * (1 - revele);
-      choc.intensity = salonVu * 1.8 * eChoc;
-      const forceHalo = salonVu * gainTV * ((0.22 + 0.05 * (vac - 0.8)) * (1 - revele) + 0.16 * revele + 0.7 * eChoc);
-      coulTmp.copy(coulHaloFeu).lerp(coulHaloLogo, revele).lerp(coulHaloOr, clamp(eChoc * 1.4, 0, 1));
-      halo.maj({ force: forceHalo, couleur: coulTmp, rayons: 0.35 * revele + 1.6 * eChoc, t });
+      /* ── la dalle et son rayonnement froid ── */
+      dalle.maj({ t, allume, choc, vortex, gain: 1.0 });
+      froid.intensity = salonVu * allume * (0.07 + 0.2 * choc + 0.06 * vortex);   // les murs blancs renvoient presque tout : dose faible
+      const sb = smoother((t - T_TV) / 0.9);                                 // le projecteur froid balaie la pièce de gauche à droite
+      cibleBalayage.position.set(lerp(-230, 230, sb), 30 + 40 * Math.sin(sb * Math.PI), 120 - 40 * Math.sin(sb * Math.PI));
+      balayage.intensity = salonVu * allume * 1.1 * (1 - 0.6 * smoother((t - 5.6) / 0.4));
+      coulTmp.copy(coulHaloElec).lerp(coulHaloVortex, vortex);
+      halo.maj({ force: salonVu * allume * (0.05 + 0.16 * choc + 0.07 * vortex), couleur: coulTmp, rayons: 0.6 + 1.2 * choc + 0.6 * vortex, t: t * (1 + 4 * vortex) });
 
-      /* ── l'étincelle ── */
-      etincelle.maj(t);
-      const tete = etincelle.tete(t), dImpact = t - (T_ETINCELLE + DUREE_ETINCELLE);
-      if (tete) lumEtincelle.position.set(tete[0], tete[1], tete[2]); else lumEtincelle.position.set(150, 40, -2);
-      lumEtincelle.intensity = salonVu * (tete ? 1.6 : (dImpact >= 0 ? 1.8 * Math.exp(-dImpact * 5) : 0));
-
-      /* ── ambiance chaude du salon allumé (comme en V8) ; elle s'efface un peu quand l'arc-en-ciel prend le relais ── */
-      const chaleur = salonVu * amb * (1 - 0.45 * smoother((t - 11.0) / 1.4));
-      chaud.intensity = 0.24 * chaleur;
-      plafonnier.intensity = 0.6 * chaleur;
-      halo2.intensity = (0.5 + 0.06 * Math.sin(t * 9.1) + 0.04 * Math.sin(t * 17.3 + 1.1)) * chaleur * (0.3 + 0.7 * cheminee);
-
-      /* ── table basse : glisse vers la télé avant l'ouverture ── */
-      const dz = -135 * smoother((t - T_TABLE[0]) / (T_TABLE[1] - T_TABLE[0]));
-      pieces.table.forEach((m, i) => { const b = pieces.tableBase[i]; m.position.set(b.x, b.y, b.z + dz); });
-
-      /* ── trappe, lumière arc-en-ciel, puits ── */
-      battants.maj(ang);
-      const jaillit = smoother((t - T_FENTE) / 0.5) * (0.25 + 0.75 * smoother((t - T_OUVERTURE) / 0.6));
-      const prox = 1 - 0.85 * smoother((t - 13.0) / 0.6);
-      faisceau.maj(dessous ? 0 : 0.38 * jaillit * prox, Math.max(ouv, 0.05), t);
-      arcs.forEach((l, i) => { l.intensity = dessous ? 0 : jaillit * (0.9 + 0.15 * Math.sin(t * 4.0 + i * 1.3)); });
-      const defil = 0.9 * t + 7.0 * smoother((t - 13.8) / 1.2);
-      puits.maj(-defil, 0.6 * smoother((t - 11.45) / 0.7) * (1 - smoother((t - 14.75) / 0.5)));
-
-      /* ── la lumière de spectacle : aperçue par la trappe, puis elle envahit l'image (14,8 → 15,5 s) ── */
-      const eSpect = 0.25 * smoother((t - 11.7) / 1.0) + 0.5 * smoother((t - 14.2) / 0.9);
-      dome.maj(t, eSpect);
-      projos.maj(t, 0.32 * smoother((t - 12.2) / 1.0) - 0.08 * smoother((t - 14.8) / 0.6));
-      confettis.maj(t, smoother((t - 13.6) / 0.8));
+      /* ── l'aspiration : anneaux, explosion néon (lumières colorées qui l'accompagnent), tunnel ── */
+      anneaux.maj(t, salonVu * aspi * (1 - smoother((t - 5.85) / 0.12)));
+      explosion.maj(t, salonVu * smoother((t - 4.93) / 0.08));
+      neonLum.forEach((l, i) => { l.intensity = salonVu * aspi * (0.3 + 0.12 * Math.sin(t * 7.0 + i * 1.9)); });
+      tunnel.maj(t, smoother((t - 5.4) / 0.4));
 
       /* ── post-traitement ── */
-      const fondu = 1 - smoother(t / 0.8);
-      const plonge = smoother((t - 13.9) / 0.4) * (1 - 0.7 * smoother((t - 14.9) / 0.6));
-      const fin = smoother((t - 14.8) / 0.7);
+      const fondu = 1 - smoother(t / 0.45);
+      const vrille = smoother((t - 5.2) / 0.5);
       const post = {
-        exposition: lerp(lerp(0.9, 0.88, amb), 0.8, fin), vignette: lerp(lerp(0.62, 0.48, amb), 0.32, fin),
-        saturation: lerp(lerp(1.1, 1.03, amb), 1.2, fin), bloomForce: lerp(0.3 + 0.12 * eChoc, 0.4, fin),
-        flash: 0.03 * fin, flashCouleur: [1.0, 0.32, 0.78], fondu, flou: 0.35 * plonge, centreFlou: [0.5, 0.5],
-        aberration: 0.0005 + 0.0012 * plonge,
+        exposition: dedans ? 0.82 : lerp(0.83, 0.9, 1 - dim),
+        vignette: dedans ? 0.35 : lerp(0.62, 0.66, 1 - dim),
+        saturation: dedans ? 1.2 : lerp(1.1, 1.12, 1 - dim),
+        bloomForce: 0.28 + 0.06 * choc + 0.12 * vortex,
+        flash: 0.025 * choc, flashCouleur: [0.55, 0.75, 1.0],
+        fondu, flou: 0.45 * vrille * (dedans ? 0.6 : 1), centreFlou: [0.5, 0.5],
+        aberration: 0.0005 + 0.0025 * vrille,
       };
 
       return {
-        camera: { p: cam.p, c: cam.c, fov: cam.fov, near: 3, far: 4600 },
-        fond: dessous ? 0x2a0c3a : 0x05040a,
+        camera: { p: cam.p, c: cam.c, fov: cam.fov, roll: roulis(t), near: dedans ? 1 : 3, far: 4600 },
+        fond: dedans ? 0x2a0c3a : 0x05040a,
         brouillard: null,
         lumieres: { hemi: 0, cle: 0 },
         post,
@@ -296,3 +212,6 @@ export async function creerSegment(ctx) {
     },
   };
 }
+
+/* Lumières néon de l'explosion (couleur, décalage x, y par rapport au centre de la dalle). */
+const NEON_LUMIERES = [[0x2de2ff, -90, 20], [0xff3fa4, 90, -10], [0xffc83d, 0, 70], [0x8a4dff, 0, -60]];

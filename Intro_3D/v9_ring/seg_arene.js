@@ -1,34 +1,29 @@
-/* SEGMENT « ARÈNE » de la V9.1 Ring — le cœur du trailer « Grand Prix de Noël ». Le noyau l'appelle en temps INTERNE (carte du temps
-   def.remap : film 12,6 → 81,6 ↔ interne 15,5 → 84,5 ; film 90,6 → 113,6 ↔ interne 99,5 → 122,5). Tous les temps ci-dessous sont
-   INTERNES et viennent de data/plan_v9.json (segments[1].sous, ecuries, telephone, lootbox, gloire, depart) : aucune heure codée en
-   dur pour la fin (lootbox → logo), tout est exprimé à partir des clés du plan.
+/* SEGMENT « ARÈNE » de la V9.2 Ring — le cœur du trailer « Grand Prix de Noël ». Carte du temps IDENTITÉ (temps interne = temps
+   film) sur deux plages [6,5 → 81,6] et [89,2 → 121,6]. TOUTES les heures viennent de data/plan_v9.json v9.2 (arrivee, ecuries à durées
+   variables, rush, couronne, telephone, lootbox, gloire, depart) : aucun temps codé en dur.
 
    Direction artistique « Arène Bonbon Néon » (arene_decor.js) : ring surélevé à tapis bleu roi et LOGO officiel, cercle de 5 bandes
-   arc-en-ciel, 4 poteaux rouge/bleu/jaune/vert, cordes gainées et guirlandes, passerelles LED + tunnels + tremplins sur les 4 axes,
-   murs d'enceintes, flammes, lasers verts, écran géant, public instancié en bonnets, sapin géant, confettis, neige.
+   arc-en-ciel, 4 poteaux, cordes NÉON et guirlandes, passerelles LED + tunnels + tremplins sur les 4 axes, murs d'enceintes, flammes,
+   lasers, écran géant, BOULE À FACETTES DORÉE sous l'écran (arene_juice.js), public instancié en bonnets, sapin géant, confettis, neige.
+   Juice 100 % diégétique (arene_juice.js) : ombres de contact sous chaque voiture et chaque roue, gerbes d'étincelles, gouttes et
+   flaques d'huile de l'A4, flare des phares, trauma caméra (pure), bloom poussé.
 
-     15,5 → 18    ARRIVÉE   on sort de la lumière rose du salon (flash teinté qui retombe + brume rose qui se dissipe) en descendant
-                            du ciel au-dessus du ring vers une vue d'arène (pyro, lasers, public). Voix : « Ce soir, quinze écuries… »
-     18 → 75      ÉCURIES   15 créneaux de 3,8 s (arene_trajets.js) : sortie du tunnel dans les flammes, passerelle, TREMPLIN, vol
-                            au-dessus de la corde du haut, atterrissage amorti, DÉRAPAGE jusqu'à sa place dans la couronne ; seule la
-                            voiture de l'écurie bouge. 5 recettes de caméra (poursuite basse, latéral, contre-plongée au saut, frontal
-                            depuis le tunnel, aérien), bandeau V8 (#n°, ÉCURIE, pilote · bolide), logo de l'écurie sur l'écran géant.
-                            74,8 : plan aérien de la couronne des 15 concept-cars autour du logo.
-     75 → 84,5    TÉLÉPHONE telephone_v9.js (creerTelephone) en grand devant la caméra, la couronne derrière.
-     99,5 → 106,5 LOOTBOX   l'écran remonte, le conteneur « Lootbox Fret » (arene_fret.js) descend au centre du cercle des 15
-                            concept-cars (descente), se verrouille (secousse, étincelles), les verrous sautent (verrous), le rideau « ? »
-                            s'enroule (entrouvre → ouvert) : lumière dorée et fumée s'échappent ; à trophee_sort le TROPHÉE sort sur
-                            un tiroir doré, décolle en lévitant, grandit et monte au-dessus du toit (rayons dorés derrière lui) vers
-                            le centre du ring, en hauteur (gloire.trophee_haut) ; le conteneur s'enfonce dans le tapis (trappe dorée)
-                            sous la coupe déjà envolée (chorégraphie : arene_gloire.js).
-     106,5→114,5  GLOIRE    projecteur unique + 6 faisceaux volumétriques vers la coupe, contre-plongée héroïque qui tourne autour
-                            du trophée puis recule ; titre en DEUX FRAPPES calées sur la voix : « GLOIRE » (titre_gloire) puis
-                            « ÉTERNELLE » (titre_eternelle) — impact 1,4 → 1 amorti, micro-secousse de caméra, onde dorée, reflet qui
-                            balaie les lettres ; feux d'artifice dorés, confettis + neige, public debout (feux / confettis).
-     114,5→122,5  DÉPART    les cordes tombent (cordes), le pont se déploie, les 15 voitures reculent puis partent en file
-                            (demarrage) sous le trophée qui flotte toujours au-dessus du ring, sur la PISTE ARC-EN-CIEL à 5 voies
-                            (arene_piste.js) qui sort de l'arène (piste) : caméra de POURSUITE serrée dans la meute, puis plan large
-                            qui s'élève ; logo : le LOGO officiel en grand (carte de fin) jusqu'à la fin.
+     arrivee    la caméra JAILLIT du vortex néon (cyan, magenta, or, violet) au DROP : flash ≤ 0,05 + brume qui se dissipe, trauma,
+                pyro, lasers ; descente dans l'arène (voix « Ce soir, quinze écuries… »)
+     ecuries    15 créneaux à durées variables (arene_trajets.js) : sortie du tunnel, passerelle, TREMPLIN, vol au-dessus des cordes,
+                atterrissage, DÉRAPAGE jusqu'à sa place ; un CADRAGE SUR MESURE par écurie (arene_cadrages.js) ; #11–#15 en smash
+                cuts (4 coupes franches, flash 2 images, bandeau réduit #n° + NOM)
+     rush       ralenti d'action : 1,0 s par voiture (#11 → #15), plein cadre, flash 2 images à chaque coupe
+     couronne   plan aérien des 15 concept-cars autour du logo ; à « portail », le PORTAIL EXPRESS hexagonal s'ouvre au centre et la
+                caméra plonge dedans (raccord vers Gotham)
+     telephone  telephone_v9.js (creerTelephone) en grand devant la caméra, la couronne derrière.
+     lootbox    l'écran remonte, le conteneur « Lootbox Fret » (arene_fret.js) descend au centre du cercle des 15 concept-cars, se
+                verrouille, les verrous sautent, le rideau « ? » s'enroule : lumière dorée et fumée ; la VRAIE Coupe Arc-en-Ciel sort sur
+                un tiroir doré, lévite, grandit et monte au centre du ring ; le conteneur s'enfonce dans le tapis (arene_gloire.js).
+     gloire     faisceaux volumétriques, contre-plongée héroïque autour de la coupe puis recul ; « GLOIRE » / « ÉTERNELLE » en deux
+                frappes ; feux d'artifice dorés, confettis + neige, public debout.
+     depart     les cordes tombent, le pont se déploie, la file part sous la coupe sur la PISTE ARC-EN-CIEL à 5 voies : poursuite serrée,
+                plan large qui s'élève, LOGO final.
 
    Contrat (LISEZ_MOI_V8.md + noyau_v9.js) : creerSegment(ctx) → { id: 'arene', groupe, cles, maj(t), collisions() }.
    maj(t) est une FONCTION PURE de t : chaque voiture, chaque uniform, chaque lumière est remis à chaque image ; nombre de lumières
@@ -36,7 +31,7 @@
    collisions() : interpénétrations voiture/voiture, voiture/poteau, voiture/corde (garde de 3 cm), voiture/conteneur, voiture/structure
    (OBB 3D avec tangage et roulis), voiture/trophée, trophée/parois du conteneur (dalle, toit, flancs, fond, linteau, rideau : intérieur
    creux), trophée/décor (boîte de la VRAIE Coupe Arc-en-Ciel, mesurée sur ses STL), et contact au sol (aucun coin de caisse sous la surface porteuse) pour l'image courante. */
-import { clamp, lerp, smoother, doux, easeOut, gauss, angleDiff, hermite, ressort, DEG, boiteLocale, obbDepuis, obbFixe, penetrationOBB, distanceSegmentOBB, coinsBas } from './arene_outils.js';
+import { clamp, lerp, smoother, doux, easeOut, gauss, angleDiff, hermite, ressort, prng, DEG, boiteLocale, obbDepuis, obbFixe, penetrationOBB, distanceSegmentOBB, coinsBas } from './arene_outils.js';
 import { creerDecor, G } from './arene_decor.js';
 import { creerEntrees, creerDepart, capVers } from './arene_trajets.js';
 import { creerPiste } from './arene_piste.js';
@@ -45,6 +40,8 @@ import { creerTrophee } from './arene_trophee.js';
 import { choregraphie, creerEffetsGloire } from './arene_gloire.js';
 import { creerTelephone } from './telephone_v9.js';
 import { creerBandeau } from '../v8_finale/ecuries_bandeau.js';
+import { creerOmbres, creerEtincelles, creerTrauma, secouer, creerHuile, creerFlares, creerBoule, creerPortail, creerVortex, bandeauCompact } from './arene_juice.js';
+import { creerCadrages } from './arene_cadrages.js';
 
 const FOND = 0x5a2a9a;
 const BRUME = { couleur: '#9a3cc0', densite: 0.00055 };
@@ -57,7 +54,8 @@ function chargerImage(url) {
 export async function creerSegment(ctx) {
   const { THREE, garage, poser, animer, plan, equipes } = ctx;
   const groupe = new THREE.Group(); groupe.name = 'seg-arene';
-  const P = { ecuries: plan.ecuries, tel: plan.telephone, loot: plan.lootbox, gloire: plan.gloire, dep: plan.depart };
+  const P = { ecuries: plan.ecuries, arrivee: plan.arrivee, rush: plan.rush, couronne: plan.couronne, tel: plan.telephone, loot: plan.lootbox, gloire: plan.gloire, dep: plan.depart };
+  for (const cle of ['arrivee', 'rush', 'couronne', 'tel', 'loot', 'gloire', 'dep']) if (!P[cle]) throw new Error('seg_arene : clé « ' + cle + ' » absente de plan_v9.json (v9.2 attendu)');
   const N = P.ecuries.length;
   if (N !== 15) throw new Error('seg_arene : 15 créneaux attendus dans plan_v9.json → ecuries');
 
@@ -87,11 +85,22 @@ export async function creerSegment(ctx) {
     env.visible = false; groupe.add(env);
     voitures.push({ env, boite, ech, d: { L: boite.max.z - boite.min.z, ez, ex, ech }, nom: equipes[k].name });
   }
+  // phares et feux plus intenses (le bloom poussé de l'arène fait le halo) : chaque matériau émissif vif une seule fois
+  const dejaVu = new Set();
+  for (const v of voitures) v.env.traverse((o) => {
+    const mats = o.isMesh ? (Array.isArray(o.material) ? o.material : [o.material]) : [];
+    for (const m of mats) if (m && m.emissive && !dejaVu.has(m) && m.emissiveIntensity > 0 && m.emissive.r + m.emissive.g + m.emissive.b > 0.6) { dejaVu.add(m); m.emissiveIntensity = Math.min(4, m.emissiveIntensity * 1.8); }
+  });
+  // positions locales des roues (voiture posée à l'origine, cap 0) : étincelles sous les roues
+  const v3 = new THREE.Vector3();
+  const rouesLoc = voitures.map((v) => { v.env.position.set(0, 0, 0); v.env.rotation.set(0, 0, 0); v.env.updateMatrixWorld(true); return v.env.v7.roues.map((w) => { w.noeud.getWorldPosition(v3); return [v3.x, v3.y, v3.z]; }); });
   const poserE = (v, p) => {
     const c = {}; for (const key in p.coins) c[key] = p.coins[key] / v.ech;
     poser(v.env, { ...p, dist: p.dist / v.ech, coins: c });
   };
-  const entrees = creerEntrees(P.ecuries, voitures.map((v) => v.d));
+  // styles des cadrages sur mesure : la Twingo #02 fait un tête-à-queue complet, la #05 se cabre en sortant du tunnel
+  const STYLES = []; STYLES[1] = { spin: 2 * Math.PI }; STYLES[4] = { wheelie: 0.3 };
+  const entrees = creerEntrees(P.ecuries, voitures.map((v) => v.d), STYLES);
   ctx.progression('Arène : piste arc-en-ciel…');
   const piste = creerPiste(THREE, G); groupe.add(piste.groupe);
   const depart = creerDepart(entrees.places, P.dep, piste, voitures.map((v) => v.d));
@@ -106,6 +115,7 @@ export async function creerSegment(ctx) {
   const pivotTel = new THREE.Group(); pivotTel.add(tel.groupe); groupe.add(pivotTel);
   const cc = await ctx.importerShared('concept_cars.js');
   const bandeau = creerBandeau({ equipes, infoConcept: (id) => cc.conceptInfo(id), logos: ctx.logos });
+  const fiches = equipes.map((e) => ({ numero: '#' + String(e.id).padStart(2, '0'), nom: e.name.toUpperCase(), fonce: e.colors[0], vif: e.colors[1] }));
 
   /* ═════════════ poses (fonction pure) ═════════════ */
   /** Pose de la voiture k au temps t : null = cachée (pas encore sortie du tunnel). */
@@ -126,57 +136,53 @@ export async function creerSegment(ctx) {
     return { p: [sx / sw, sy / sw, sz / sw], f: [hx / n, 0, hz / n] };
   }
 
-  /* ═════════════ caméras des écuries : 5 recettes, plans fluides (positions = fonctions lisses de la trajectoire) ═════════════ */
-  const add = (a, b, k = 1) => [a[0] + b[0] * k, a[1] + b[1] * k, a[2] + b[2] * k];
-  function plan_(k, t, def) {
-    const E = entrees.entrees[k], ax = E.ax, az = E.az, W = (u, l, y) => [ax * u - az * l, G.MAT + y, az * u + ax * l];
-    const L = lisse(k, t, def.win ?? 0.15); if (!L) return null;
-    const cible = add(L.p, [0, 2.2, 0]);
-    const f = L.f, s = [f[2], 0, -f[0]];                                    // s = gauche de la voiture
-    let p;
-    switch (def.type) {
-      case 'chase': p = add(add(add(L.p, f, -def.back), s, def.side), [0, def.up, 0]); return { p, c: add(cible, f, def.ahead ?? 3), fov: def.fov ?? 42 };
-      case 'dolly': { const u = L.p[0] * ax + L.p[2] * az; p = W(u - (def.ahead ?? 4), def.l, L.p[1] - G.MAT + def.up); return { p, c: cible, fov: def.fov ?? 40 }; }
-      case 'dollybas': { const u = L.p[0] * ax + L.p[2] * az; return { p: W(u + def.back, def.l, def.y), c: cible, fov: def.fov ?? 46 }; }
-      case 'fixe': return { p: W(def.u, def.l, def.y), c: cible, fov: def.fov ?? 44 };
-      case 'exterieur': {
-        const r = Math.hypot(L.p[0], L.p[2]) || 1, a = Math.atan2(L.p[2], L.p[0]) + (def.decal || 0);
-        p = [Math.cos(a) * (r + def.dist), G.MAT + def.up, Math.sin(a) * (r + def.dist)];
-        return { p, c: cible, fov: def.fov ?? 40 };
-      }
-      case 'plongee': { const r = Math.hypot(L.p[0], L.p[2]) || 1; p = [L.p[0] + L.p[0] / r * def.out, L.p[1] + def.up, L.p[2] + L.p[2] / r * def.out]; return { p, c: cible, fov: def.fov ?? 42 }; }
-      default: return null;
-    }
-  }
-  // instants relatifs au créneau : sortie 0 · saut 1,5 · atterrissage 2,3 · place 3,6 · fin 3,8
-  const RECETTES = [
-    [{ t: 0, type: 'chase', back: 19, side: 8, up: 5 }, { t: 2.45, fondu: 0.6, type: 'exterieur', dist: 24, up: 8 }],
-    [{ t: 0, type: 'dolly', l: -24, up: 5, ahead: 5 }, { t: 2.35, fondu: 0.6, type: 'exterieur', dist: 21, up: 9, decal: -0.2 }],
-    [{ t: 0, type: 'chase', back: -22, side: 9, up: 3.5, ahead: 0 }, { t: 1.1, type: 'dollybas', back: 9, l: 11, y: 2.5, fov: 50 }, { t: 2.12, type: 'plongee', up: 17, out: 24, win: 0.25 }],
-    [{ t: 0, type: 'fixe', u: 262, l: -20, y: 5, fov: 46 }, { t: 0.55, type: 'chase', back: 16, side: -12, up: 6 }, { t: 2.3, type: 'exterieur', dist: 22, up: 4, decal: 0.3 }],
-    [{ t: 0, type: 'chase', back: 17, side: 3, up: 11, ahead: 8 }, { t: 1.5, fondu: 0.4, type: 'chase', back: 4, side: 18, up: 12 }, { t: 2.2, type: 'plongee', up: 19, out: 22, win: 0.25 }],
-  ];
-  const RECETTE_DE = [0, 2, 1, 3, 4, 1, 2, 0, 4, 3, 2, 1, 0, 3, 4];             // variée d'une écurie à l'autre (écurie 1 : poursuite basse)
-  function cameraEcurie(k, t) {
-    const sl = P.ecuries[k], tau = t - sl.sortie, R = RECETTES[RECETTE_DE[k]];
-    let i = 0; while (i < R.length - 1 && tau >= R[i + 1].t) i++;
-    let cam = plan_(k, t, R[i]);
-    if (i > 0 && R[i].fondu) {                                             // bascule douce : mélange lissé des deux plans
-      const u = smoother((tau - R[i].t) / R[i].fondu);
-      if (u < 1) { const a = plan_(k, t, R[i - 1]); cam = { p: a.p.map((x, j) => lerp(x, cam.p[j], u)), c: a.c.map((x, j) => lerp(x, cam.c[j], u)), fov: lerp(a.fov, cam.fov, u) }; }
-    }
-    return cam;
-  }
-  /** Plan aérien de la couronne (fin des écuries, ≈ 74,8 s). */
-  const cameraCouronne = (t) => { const u = t - 74.6; return { p: [8 * u, G.MAT + 140 + 6 * u, 118 - 4 * u], c: [0, G.MAT, 6], fov: 46 }; };     // sous l'écran géant, en plongée
+  /* ═════════════ cadrages sur mesure, rush, couronne, arrivée (arene_cadrages.js) ═════════════ */
+  const cad = creerCadrages({ P, G, entrees, lisse, poseVoiture, voitures });
+  const trauma = creerTrauma(cad.impulsions);
+  const AR = P.arrivee, RU = P.rush, CO = P.couronne;
 
-  /* ═════════════ caméras des autres parties (splines d'Hermite : vitesse continue) ═════════════ */
-  const ARRIVEE = [
-    { t: 15.5, p: [0, 980, 70], c: [0, G.MAT, 0], fov: 52 },
-    { t: 16.5, p: [90, 420, 240], c: [0, G.MAT + 20, 0], fov: 50 },
-    { t: 17.3, p: [300, 150, 250], c: [80, G.MAT + 30, 0], fov: 48 },
-    { t: 18.0, p: [345, 62, 120], c: [272, G.MAT + 22, 0], fov: 46 },
-  ];
+  /* ═════════════ juice diégétique (arene_juice.js) ═════════════ */
+  const ombres = creerOmbres(THREE, voitures, { sol: (x, z, pont) => decor.sol(x, z, pont) }); groupe.add(ombres.groupe);
+  const roueMonde = (k, p, w) => { const c = Math.cos(p.cap), sn = Math.sin(p.cap); return [p.pos[0] + w[0] * c + w[2] * sn, p.pos[1], p.pos[2] - w[0] * sn + w[2] * c]; };
+  const vecMonde = (p, avant, lat) => { const c = Math.cos(p.cap), sn = Math.sin(p.cap); return [sn * avant + c * lat, 0, c * avant - sn * lat]; };
+  /** source d'étincelles sous les roues de la voiture k (filtre : avant / arrière / toutes), vitesse relative à la caisse */
+  const sourceRoues = (k, filtre, { avant = [-60, 40], lat = 55, haut = [30, 110] } = {}) => (tb, a) => {
+    const p = poseVoiture(k, tb); if (!p || p.phase === 'vol' || p.phase === 'garee') return null;
+    const rs = rouesLoc[k].filter((w) => filtre === 'toutes' || (filtre === 'arriere' ? w[2] < 0 : w[2] >= 0));
+    const w = rs[Math.floor(a[0] * rs.length) % rs.length], q = roueMonde(k, p, w);
+    const v = vecMonde(p, lerp(avant[0], avant[1], a[1]), (a[2] - 0.5) * 2 * lat); v[1] = lerp(haut[0], haut[1], a[3]);
+    return { p: [q[0], q[1] + 0.35, q[2]], v, sol: p.pos[1] };
+  };
+  const evts = [];
+  P.ecuries.forEach((sl, k) => {
+    evts.push({ t0: sl.atterrissage, t1: sl.atterrissage + 0.07, n: 90, vie: [0.35, 0.8], graine: 'atterrissage-' + k, source: sourceRoues(k, 'toutes', { avant: [40, 140], lat: 70, haut: [40, 130] }) });
+    evts.push({ t0: sl.atterrissage + 0.15, t1: sl.place - 0.05, n: 64, vie: [0.3, 0.6], graine: 'derapage-' + k, source: sourceRoues(k, 'arriere', { avant: [-90, -30], lat: 60, haut: [20, 80] }) });
+  });
+  { const sl = P.ecuries[9]; evts.push({ t0: sl.sortie + 0.05, t1: sl.place, n: 260, vie: [0.3, 0.65], graine: 'six-roues', source: sourceRoues(9, 'toutes', { avant: [-100, -35], lat: 40, haut: [25, 85] }) }); }
+  { const sl = P.ecuries[7], b = voitures[7].boite;
+    evts.push({ t0: sl.sortie + 0.05, t1: sl.place, n: 180, vie: [0.3, 0.6], graine: 'a4-frotte', source: (tb, a) => {
+      const p = poseVoiture(7, tb); if (!p || p.phase === 'vol' || p.phase === 'garee') return null;
+      const q = roueMonde(7, p, [(a[0] - 0.5) * 2.4, 0, b.min.z + 1.5]), v = vecMonde(p, lerp(-90, -30, a[1]), (a[2] - 0.5) * 80); v[1] = lerp(20, 70, a[3]);
+      return { p: [q[0], q[1] + 0.2, q[2]], v, sol: p.pos[1] };
+    } }); }
+  const etincelles = creerEtincelles(THREE, { demiH: ctx.H / 2, evenements: evts }); groupe.add(etincelles.points);
+  // huile de l'A4 #08 : gouttes précalculées (pures) sous l'arrière de la remorque, flaques là où elles touchent le sol
+  const gouttes = [];
+  { const sl = P.ecuries[7], b = voitures[7].boite, a = prng('huile-a4'), n = 34, t0 = sl.sortie + 0.15, t1 = sl.place + 0.4;
+    for (let i = 0; i < n; i++) {
+      const tb = t0 + (t1 - t0) * (i + a()) / n, p = poseVoiture(7, tb); if (!p) continue;
+      const q = roueMonde(7, p, [(a() - 0.5) * 1.6, 0, b.min.z + 2.5 + a() * 5]);
+      const y = p.pos[1] + 1.1, solY = p.phase === 'vol' ? decor.sol(q[0], q[2], 0) : p.pos[1];
+      gouttes.push({ tb, p: [q[0], y, q[2]], sol: solY, r: 0.7 + 0.8 * a() });
+    } }
+  const huile = creerHuile(THREE, gouttes, { envMap: ctx.envMap }); groupe.add(huile.groupe);
+  // flare des phares de la #03
+  const b3 = voitures[2].boite, e3 = voitures[2].ech;
+  const flares = creerFlares(THREE, voitures[2].env, [-1, 1].map((sg) => [sg * (b3.max.x - b3.min.x) * 0.3 / e3, (b3.max.y - b3.min.y) * 0.42 / e3, (b3.max.z - 0.25) / e3]), { ech: e3 });
+  const boule = creerBoule(THREE, { envMap: ctx.envMap, demiH: ctx.H / 2, yTapis: G.MAT }); groupe.add(boule.groupe);
+  const portail = creerPortail(THREE, { yTapis: G.MAT, rayon: 30 }); groupe.add(portail.groupe);
+  const vortex = creerVortex(THREE, { yBouche: 700 }); groupe.add(vortex.groupe);
+
   /* Fin du segment : toutes les clés de caméra sont exprimées à partir du plan (lootbox, gloire, depart). */
   const L_ = P.loot, Gl = P.gloire, D = P.dep;
   const T_L2 = L_.verrous - 0.6, T_L3 = L_.entrouvre + 0.3, T_DECOL = L_.trophee_sort + 0.8;
@@ -291,7 +297,7 @@ export async function creerSegment(ctx) {
   function flammes(t) {
     const f = [0, 0, 0, 0];
     for (let k = 0; k < N; k++) f[k % 4] = Math.max(f[k % 4], impulsion(t - P.ecuries[k].sortie));
-    const tous = Math.max(impulsion(t - 16.1), impulsion(t - 17.2), impulsion(t - P.gloire.confettis), impulsion(t - P.dep.demarrage), impulsion(t - P.dep.logo));
+    const tous = Math.max(impulsion(t - AR.drop), impulsion(t - (AR.drop + 1.15)), impulsion(t - CO.portail), impulsion(t - P.gloire.confettis), impulsion(t - P.dep.demarrage), impulsion(t - P.dep.logo));
     return f.map((x) => Math.max(x, tous));
   }
 
@@ -301,15 +307,25 @@ export async function creerSegment(ctx) {
   const ECRAN_GP = ecranAffiche('gp', logoImg, ['#3a1aa0', '#c03aa8']);
   const kCourant = (t) => { for (let k = 0; k < N; k++) if (t < P.ecuries[k].fin) return k; return N - 1; };
 
+  const E_ = P.ecuries;
   const cles = [
-    { t: 15.8, label: 'Arrivée · descente du ciel' },
-    { t: 18.8, label: 'Écurie #01 · sortie du tunnel' },
-    { t: 19.9, label: 'Écurie #01 · saut au-dessus des cordes' },
-    { t: 20.5, label: 'Écurie #01 · atterrissage' },
-    { t: 43.2, label: 'Écurie #07 · atterrissage' },
-    { t: 62.6, label: 'Écurie #12 · dérapage' },
-    { t: 74.85, label: 'Couronne des 15 concept-cars' },
-    { t: 79.0, label: 'Téléphone · points' },
+    { t: AR.drop + 0.2, label: 'Arrivée · jaillit du vortex (DROP)' },
+    { t: AR.drop + 2.0, label: 'Arrivée · descente dans l\'arène' },
+    { t: E_[0].sortie + 2.35, label: '#01 · travelling latéral rasant' },
+    { t: E_[1].sortie + 1.8, label: '#02 · vue de dessus, tête-à-queue' },
+    { t: E_[2].sortie + 0.8, label: '#03 · 3/4 avant, flare des phares' },
+    { t: E_[3].atterrissage + 0.7, label: '#04 · sous la boule à facettes' },
+    { t: E_[4].sortie + 0.4, label: '#05 · cabrage au ras du pare-chocs' },
+    { t: E_[6].atterrissage + 0.03, label: '#07 · impact à l\'atterrissage' },
+    { t: E_[7].sortie + 1.9, label: '#08 · Dutch 8°, huile' },
+    { t: E_[9].sortie + 1.0, label: '#10 · 6 roues en étincelles' },
+    { t: E_[10].saut + 0.1, label: '#11 · smash cut' },
+    { t: E_[12].atterrissage + 0.3, label: '#13 · smash cut' },
+    { t: RU.cuts[1] + 0.5, label: 'Rush · #12 posé « JoJo »' },
+    { t: RU.cuts[3] + 0.5, label: 'Rush · #14 profil drift' },
+    { t: CO.debut + 0.6, label: 'Couronne des 15 concept-cars' },
+    { t: CO.portail + 0.3, label: 'Portail express' },
+    { t: P.tel.points + 0.3, label: 'Téléphone · points' },
     { t: P.loot.descente + 0.9, label: 'Lootbox · descente au centre du cercle' },
     { t: P.loot.verrous + 0.8, label: 'Lootbox · les verrous sautent' },
     { t: (P.loot.entrouvre + P.loot.ouvert) / 2 + 0.3, label: 'Lootbox · rideau « ? » qui s\'enroule' },
@@ -329,18 +345,23 @@ export async function creerSegment(ctx) {
     id: 'arene', groupe, cles,
     maj(t) {
       const enEcuries = t >= P.ecuries[0].sortie && t < P.tel.debut;
+      const enArrivee = t < P.ecuries[0].sortie;
+      const ru = cad.rush(t), enRush = !!ru, enCouronne = t >= CO.debut && t < P.tel.debut;
+      const tA = ru ? ru.tA : t;                                               // ralenti d'action : la scène est rejouée à tA
+      // coupes franches (smash cuts, rush) : flash blanc de 2 images + petite surexposition + lumière locale sur la voiture
+      const tCoupe = cad.coupes.reduce((m, c) => (c.t <= t && c.t > m ? c.t : m), -Infinity), coupeFlash = t - tCoupe < 2 / 60 ? 1 : 0;
       const enTel = t >= P.tel.debut && t < P.tel.fin;
       const enLoot = t >= P.loot.debut && t < P.gloire.debut;
       const enGloire = t >= P.gloire.debut && t < P.dep.debut;
       const enDep = t >= P.dep.debut;
-      const k = kCourant(t);
+      const k = ru ? ru.k : kCourant(t);
 
       /* ── voitures : seules celles déjà sorties sont visibles ; la vedette seule bouge ── */
       const poses = [];
       for (let j = 0; j < N; j++) {
-        const v = voitures[j], p = poseVoiture(j, t);
+        const v = voitures[j], p = poseVoiture(j, tA);
         v.env.visible = !!p;
-        if (p) { poserE(v, p); animer(v.env, t); v.env.updateMatrixWorld(true); }
+        if (p) { poserE(v, p); animer(v.env, tA); v.env.updateMatrixWorld(true); }
         poses.push(p);
       }
 
@@ -363,8 +384,10 @@ export async function creerSegment(ctx) {
 
       /* ── caméra ── */
       let cam;
-      if (t < P.ecuries[0].sortie) cam = hcam(ARRIVEE, t);
-      else if (enEcuries) cam = (t >= 74.6 ? cameraCouronne(t) : cameraEcurie(k, t));
+      if (enArrivee) cam = cad.cameraArrivee(t);
+      else if (enRush) cam = ru.cam;
+      else if (enCouronne) cam = cad.cameraCouronne(t);
+      else if (enEcuries) cam = cad.cameraEcurie(k, t);
       else if (enTel) { const a = (t - P.tel.debut) / (P.tel.fin - P.tel.debut); cam = { p: [-14 + 22 * a, G.MAT + 27 - 3 * a, 132 - 6 * a], c: [0, G.MAT + 8, 0], fov: 34 }; }
       else if (t < T_L2) { cam = hcam(LOOT, t); cam.c = [0, Math.max(G.MAT + 10, fret.groupe.position.y + 8), 0]; }
       else if (t < T_L3) cam = hcam(LOOT2, t);
@@ -374,6 +397,7 @@ export async function creerSegment(ctx) {
       else if (t < D.piste + 0.3) { const p = hermite(DEP2, t, 'p'), q = depart.pointFile(depart.S(t) - 40); cam = { p, c: [q[0], q[1] + 3, q[2]], fov: 44 }; }     // la caméra rasante suit la file qui passe
       else if (t < T_LARGE) cam = cameraPoursuite(t);
       else cam = cameraLarge(t);
+      if (enArrivee || enEcuries) cam = secouer(cam, trauma(t), enCouronne ? 0.6 : 1);
       if (enGloire) { const k = secousse(t); cam.p = [cam.p[0] + 0.7 * k, cam.p[1] + k, cam.p[2]]; cam.c = [cam.c[0] + 0.3 * k, cam.c[1] + 0.45 * k, cam.c[2]]; }
 
       /* ── téléphone : flotte devant la caméra, au centre de l'image ── */
@@ -387,11 +411,11 @@ export async function creerSegment(ctx) {
 
       /* ── écran géant, public, effets ── */
       let ecran = ECRAN_GP;
-      if (enEcuries && t < 74.6) { const e = equipes[k]; ecran = ecranAffiche('k' + k, ctx.logos[e.id], e.colors); }
+      if (enEcuries && !enCouronne) { const e = equipes[k]; ecran = ecranAffiche('k' + k, ctx.logos[e.id], e.colors); }
       const debout = enGloire || enDep ? smoother((t - Gl.confettis) / 0.8) : 0;
-      const confettis = t < 18.5 ? 0.8 * (1 - smoother((t - 17.6) / 0.9)) : (enGloire || enDep) ? smoother((t - Gl.confettis) / 0.4) * (enDep ? 1 - 0.6 * smoother((t - (D.debut - 0.5)) / 2) : 1) : 0;
+      const confettis = enArrivee ? 0.8 * smoother((t - AR.drop) / 0.25) * (1 - smoother((t - (AR.fin - 0.9)) / 0.9)) : (enGloire || enDep) ? smoother((t - Gl.confettis) / 0.4) * (enDep ? 1 - 0.6 * smoother((t - (D.debut - 0.5)) / 2) : 1) : 0;
       const neige = (enGloire || enDep) ? 0.9 * smoother((t - P.gloire.confettis) / 0.6) : 0;
-      const hero = enEcuries && t < 74.6 ? k : -1;
+      const hero = enEcuries && !enCouronne ? k : -1;
       const ph = hero >= 0 ? poses[hero] : null;
       const spotGloire = enGloire ? smoother((t - Gl.debut) / 0.5) : 0;
       const cTro = et ? trophee.centre() : [0, Y_HAUT + 20, 0];
@@ -404,7 +428,7 @@ export async function creerSegment(ctx) {
         pont: enDep ? smoother((t - P.dep.cordes) / 0.6) : 0, ambiance: 1 - 0.25 * spotGloire, laser: enTel ? 0.35 : 1,
         spot: lerp(0.9, 2.4, spotGloire), spotAngle: lerp(0.55, 0.2, spotGloire),
         or: Math.max(fr ? fr.lumiere : 0, orGloire), posOr: fr && fr.lumiere > orGloire ? fr.posLumiere : posOrGloire,
-        suivi: ph ? 1.3 : (enTel ? 0.45 : 0), posSuivi: ph ? [ph.pos[0] + 6, ph.pos[1] + 30, ph.pos[2] + 6] : [cam.p[0] - 30, cam.p[1] + 40, cam.p[2] - 10],
+        suivi: ph ? (k === 1 ? 0.15 : 0.5) + 1.6 * coupeFlash : (enTel ? 0.45 : 0), posSuivi: ph ? [ph.pos[0] + 6, ph.pos[1] + 30, ph.pos[2] + 6] : [cam.p[0] - 30, cam.p[1] + 40, cam.p[2] - 10],
       });
       /* ── effets de la gloire : faisceaux vers la coupe, feux d'artifice dorés, ondes aux frappes du titre ── */
       effets.maj(t, {
@@ -412,26 +436,44 @@ export async function creerSegment(ctx) {
         faisceaux: enGloire ? smoother((t - Gl.debut) / 0.8) : (enDep ? 1 - smoother((t - D.debut) / 1.2) : 0),
         cible: cTro, ondes: enGloire ? [Gl.titre_gloire, Gl.titre_eternelle] : [], forceOndes: 1,
       });
-      etatCourant = { t, poses, cordes: !enDep || t < D.cordes, pont: enDep ? smoother((t - D.cordes) / 0.6) : 0, fret: fret.obb(), murs: fret.murs(), trophee: trophee.obb(), hero };
+      /* ── juice diégétique ── */
+      ombres.maj(poses, { pont: enDep ? smoother((t - D.cordes) / 0.6) : 0 });
+      etincelles.maj(t);
+      huile.maj(t);
+      flares.maj(tA, k === 2 && enEcuries && !enRush ? smoother((tA - P.ecuries[2].sortie) / 0.3) * (1 - smoother((tA - P.ecuries[2].fin + 0.3) / 0.3)) : 0);
+      const yEcran = enLoot || enGloire ? 205 + 150 * smoother((t - P.loot.debut) / 1.0) : (enDep ? 355 + 300 * smoother((t - P.dep.debut) / 2.0) : 205);
+      boule.maj(t, { y: yEcran - 60, yAccroche: yEcran - 30, visible: t < P.tel.debut });
+      portail.maj(t, enCouronne ? smoother((t - CO.portail) / 0.35) : 0);
+      vortex.maj(t, enArrivee ? 1 - smoother((t - AR.drop - 0.5) / 0.8) : 0);
+      etatCourant = { t: tA, poses, cordes: !enDep || t < D.cordes, pont: enDep ? smoother((t - D.cordes) / 0.6) : 0, fret: fret.obb(), murs: fret.murs(), trophee: trophee.obb(), hero };
 
       /* ── brouillard, post ── */
-      const sortieRose = t < 18 ? 1 - smoother((t - 15.5) / 1.1) : 0;
-      const brouillard = { couleur: sortieRose > 0.01 ? '#' + new THREE.Color(BRUME.couleur).lerp(new THREE.Color('#ff86e0'), sortieRose).getHexString() : BRUME.couleur, densite: lerp(BRUME.densite, 0.0032, sortieRose) };
+      // brume du vortex (palette cyan / magenta / or / violet) qui se dissipe après le DROP
+      const haze = enArrivee ? 1 - smoother((t - AR.drop) / 1.2) : 0;
+      const PAL = ['#2de2ff', '#ff3fa4', '#ffc83d', '#8a4dff'], phv = ((t - AR.drop) * 2.2 % 4 + 4) % 4, i0 = Math.floor(phv);
+      const teinte = new THREE.Color(PAL[i0]).lerp(new THREE.Color(PAL[(i0 + 1) % 4]), phv - i0);
+      const brouillard = { couleur: haze > 0.01 ? '#' + new THREE.Color(BRUME.couleur).lerp(teinte, haze).getHexString() : BRUME.couleur, densite: lerp(BRUME.densite, 0.0016, haze) };
+      const sortieRose = enArrivee ? Math.exp(-Math.max(0, t - AR.drop) / 0.22) : 0;
       const frappe = (a) => (a < 0 ? 0 : Math.exp(-a * 9));
       const flashOr = enFin ? 0.025 * Math.sin(Math.PI * clamp((t - Gl.trophee_haut + 0.25) / 0.5)) + 0.035 * frappe(t - Gl.titre_gloire) + 0.045 * frappe(t - Gl.titre_eternelle) : 0;
       const post = {
-        exposition: 0.86, vignette: 0.45, saturation: 1.12, bloomForce: enTel ? 0.22 : 0.34,
-        flash: Math.min(0.05, 0.03 * sortieRose + flashOr), flashCouleur: enFin ? [1, 0.82, 0.45] : [1, 0.32, 0.78], flou: 0, aberration: 0.0005,
+        exposition: (enFin || enTel ? 0.86 : 0.8) + 0.18 * coupeFlash, vignette: 0.45, saturation: 1.14, bloomForce: enTel ? 0.24 : (enFin ? 0.36 : 0.55),
+        flash: Math.min(0.05, 0.05 * sortieRose + flashOr + 0.05 * coupeFlash), flashCouleur: enFin ? [1, 0.82, 0.45] : (coupeFlash ? [1, 1, 1] : [0.85, 0.6, 1]), flou: 0, aberration: 0.0005,
       };
 
       /* ── habillage ── */
       const hud = (g, W, H) => {
-        if (enEcuries && t < 74.6) { const sl = P.ecuries[k]; bandeau.dessiner(g, W, H, k, t - sl.debut, sl.fin - sl.debut); }
+        if (enRush) { const tc0 = RU.cuts[ru.i]; bandeauCompact(g, W, H, fiches[k], t - tc0, smoother((t - (tc0 + 0.86)) / 0.1)); }
+        else if (enEcuries && !enCouronne) {
+          const sl = P.ecuries[k];
+          if (!sl.smash) bandeau.dessiner(g, W, H, k, t - sl.debut, sl.fin - sl.debut);
+          else { const cs = cad.coupesDe(sl).filter((c) => c <= t), c0 = cs.length ? cs[cs.length - 1] : sl.debut; bandeauCompact(g, W, H, fiches[k], t - c0, smoother((t - (sl.fin - 0.22)) / 0.15)); }
+        }
         if (enGloire) titreGloire(g, W, H, t);
         if (enDep) logoFinal(g, W, H, t);
       };
       return {
-        camera: { p: cam.p, c: cam.c, fov: cam.fov, near: 0.8, far: 6000 },
+        camera: { p: cam.p, c: cam.c, fov: cam.fov, roll: cam.roll || 0, near: 0.8, far: 6000 },
         fond: FOND, brouillard, lumieres: { hemi: 0.32, cle: 0.4 }, post, hud,
         apres: (camera) => trophee.apres(camera),
       };
@@ -463,7 +505,7 @@ export async function creerSegment(ctx) {
       return res;
     },
     /** Informations de mise au point : dimensions mesurées des voitures et places attribuées. */
-    infos() { return { voitures: voitures.map((v) => ({ nom: v.nom, L: +v.d.L.toFixed(2), largeur: +(v.boite.max.x - v.boite.min.x).toFixed(2), hauteur: +(v.boite.max.y - v.boite.min.y).toFixed(2), ymin: +v.boite.min.y.toFixed(2), ez: +v.d.ez.toFixed(2), ex: +v.d.ex.toFixed(2) })), places: entrees.places.map((p) => Math.round(p / DEG)) }; },
+    infos() { return { voitures: voitures.map((v) => ({ nom: v.nom, L: +v.d.L.toFixed(2), largeur: +(v.boite.max.x - v.boite.min.x).toFixed(2), hauteur: +(v.boite.max.y - v.boite.min.y).toFixed(2), ymin: +v.boite.min.y.toFixed(2), ez: +v.d.ez.toFixed(2), ex: +v.d.ex.toFixed(2), roues: v.env.v7.roues.length, ech: +v.ech.toFixed(2) })), places: entrees.places.map((p) => Math.round(p / DEG)) }; },
     /** Contrôle de l'outil : force un contact (voiture 2 posée sur la voiture 1, voiture 3 dans un poteau) et renvoie ce qui est détecté. */
     testContactForce() {
       const A = voitures[0], B = voitures[1], C3 = voitures[2];

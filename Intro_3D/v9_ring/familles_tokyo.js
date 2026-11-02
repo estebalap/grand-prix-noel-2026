@@ -8,8 +8,11 @@
    TK02 (Skyline R30) en tête, TK01 (Starion), TK04 (Trans Am « Néon Bandit »), TK05 (Pikachu Car) en queue.
    TK06 n'est JAMAIS construit ni montré. Roues qui tournent (ctx.poser : ω = distance / R, rotation absolue).
    Caméra de poursuite : roule avec la file, côté voie opposée, et remonte doucement de la dernière voiture à la Skyline.
+   V9.2 : à 12,85 s la Skyline s'aligne, accélère (étincelles), double la caméra et plonge dans un rift (franchi à ~13,97 s).
    Repère : rue le long de x, voitures vers +x sur z = ZV ; chaussée y = 0 ; m = 1 mètre « monde » en cm. */
-import { prng, texCanvas, halo, creerCiel, creerPluie, matFacades, ombreContact, obbDecor } from './familles_outils.js';
+import { prng, texCanvas, halo, creerCiel, creerPluie, matFacades, obbDecor } from './familles_outils.js';
+import { creerRift } from './familles_portail.js';
+import { creerOmbres, creerEtincelles } from './arene_juice.js';
 
 export const ORDRE_TOKYO = ['TK02', 'TK01', 'TK04', 'TK05'];
 const KANJIS = ['夜光', '雨街', '星夢', '龍', '麺', '電気', '花月', '風音', '酒場', '火龍', '夢', '光'];
@@ -137,25 +140,48 @@ export function creerTokyo(ctx, voitures) {
   const pluie = creerPluie(THREE, rnd, { n: 6000, centre: [40 * m, 7 * m, 0], taille: [120 * m, 16 * m, 2 * ZF], vitesse: [-1.4 * m, -10 * m, 0.5 * m], longueur: 0.6 * m, couleur: '#ffd6f4', alpha: 0.2, proche: 1.4 * m });
   groupe.add(pluie.mesh);
 
-  /* ───────── les voitures (+ phares, ombres, reflets) ───────── */
+  /* ───────── les voitures (+ phares, reflets) ───────── */
   const flotte = voitures.map((v, k) => {
     const b = v.boite, solY = -b.min.y, W = b.max.x - b.min.x, Hc = b.max.y - b.min.y;
     v.env.v7.reel.eclairer(v.code === 'TK05' ? 0.4 : 1, 0);
     for (const s of [-1, 1]) { const h = halo(THREE, '#f2f6ff', 0.9 * m, 0.85); h.position.set(s * W * 0.32, b.min.y + Hc * 0.36, b.max.z + 0.05 * m); v.env.add(h);
       const r = halo(THREE, '#ff2a3a', 0.6 * m, 0.7); r.position.set(s * W * 0.34, b.min.y + Hc * 0.45, b.min.z - 0.05 * m); v.env.add(r); }
     groupe.add(v.env);
-    const om = ombreContact(THREE, b.max.z - b.min.z, W, 0.65); groupe.add(om);
     const mir = ctx.decors.creerMiroirModele(THREE, v.env); mir.racine.visible = true; groupe.add(mir.racine);
-    return { ...v, solY, om, mir, ph: k * 1.9, cz: (b.min.z + b.max.z) / 2 };
+    return { ...v, solY, mir, ph: k * 1.9, cz: (b.min.z + b.max.z) / 2 };
   });
-  const AMP = 0.32 * m, OM = 0.85;
-  /** Pose de la voiture k : file à allure constante, ondulation latérale douce (cap = direction de la vitesse). */
+  // ombres de contact (corps + roues) dessinées APRÈS la chaussée laquée semi-transparente (renderOrder 2)
+  const ombres = creerOmbres(THREE, flotte.map((f) => ({ env: f.env, boite: f.boite })), { sol: () => 0 });
+  ombres.groupe.traverse((o) => { if (o.isMesh) o.renderOrder = 3; }); groupe.add(ombres.groupe);
+
+  /* ───────── chorégraphie V9.2 (extrait montré : 11,0 → 14,0 s) ─────────
+     11,0 → 12,85  la caméra remonte la file (3/4 avant, voie opposée) de la Pikachu Car à la Skyline
+     12,85         la Skyline (TK02) déboîte droit et accélère (étincelles), double la caméra, plonge dans un rift ouvert sur sa
+                   voie : son arrière le franchit à ~13,97 s (raccord avec le téléphone de l'arène) */
+  const T_GO = 12.85, ACC = 30 * m, AMP = 0.32 * m, OM = 0.85;
+  const sortie = (t) => (t <= T_GO ? 0 : 0.5 * ACC * (t - T_GO) * (t - T_GO));
+  /** Pose de la voiture k : file à allure constante, ondulation latérale douce (cap = direction de la vitesse) ; la Skyline
+      s'aligne et accélère à T_GO. */
   function poseVoiture(k, t) {
-    const f = flotte[k], tt = t - 10;
-    const x = -k * ESP + V * tt, z = ZV + AMP * Math.sin(OM * t + f.ph), dz = AMP * OM * Math.cos(OM * t + f.ph);
-    const cap = Math.atan2(V, dz), roulis = -0.012 * Math.sin(OM * t + f.ph);
-    return { pos: [x, f.solY, z], cap, capVitesse: cap, heave: 0.004 * m * Math.sin(t * 13 + k), tangage: 0, pente: 0, roulis, dist: V * tt + 40 * m, braquage: (Math.PI / 2 - cap) * 1.4, coins: {} };
+    const f = flotte[k], tt = t - 10, go = k === 0 ? smoother((t - T_GO) / 0.25) : 0, s = k === 0 ? sortie(t) : 0;
+    const x = -k * ESP + V * tt + s, vx = V + (k === 0 && t > T_GO ? ACC * (t - T_GO) : 0);
+    const z = ZV + AMP * Math.sin(OM * t + f.ph) * (1 - go), dz = AMP * OM * Math.cos(OM * t + f.ph) * (1 - go);
+    const cap = Math.atan2(vx, dz), roulis = -0.012 * Math.sin(OM * t + f.ph) * (1 - go);
+    const squat = k === 0 && t > T_GO ? Math.exp(-(t - T_GO) * 4) * smoother((t - T_GO) / 0.06) : 0;
+    return { pos: [x, f.solY, z], cap, capVitesse: cap, heave: 0.004 * m * Math.sin(t * 13 + k) - 0.025 * m * squat, tangage: -0.03 * squat, pente: 0, roulis,
+      dist: V * tt + s + 40 * m, braquage: (Math.PI / 2 - cap) * 1.4, coins: {} };
   }
+  const T_FRANCHI = 13.97, pFr = poseVoiture(0, T_FRANCHI);
+  const XR = pFr.pos[0] + flotte[0].boite.min.z, ZR = pFr.pos[2];                   // l'arrière de la Skyline atteint le plan à 13,97 s
+  const rift = creerRift(THREE, { rayon: 2.0 * m }); rift.groupe.position.set(XR, 1.2 * m, ZR); rift.groupe.rotation.y = Math.PI / 2; groupe.add(rift.groupe);
+  const portail = { x: XR, z: ZR, nx: 1, nz: 0 };
+  const sky = flotte[0];
+  const etincelles = creerEtincelles(THREE, { demiH: ctx.H / 2, evenements: [{
+    t0: T_GO + 0.02, t1: T_GO + 0.5, n: 90, vie: [0.2, 0.45], graine: 'tokyo-skyline',
+    source: (tb, a) => { const p = poseVoiture(0, tb), sgn = a[0] < 0.5 ? -1 : 1, xa = p.pos[0] + sky.boite.min.z + 0.7 * m;
+      return { p: [xa, 0.04 * m, p.pos[2] + sgn * (sky.boite.max.x - sky.boite.min.x) * 0.4], v: [-(60 + 120 * a[1]), 25 + 65 * a[2], sgn * (10 + 40 * a[3])], sol: 0 }; },
+  }] });
+  groupe.add(etincelles.points);
 
   /* ───────── lumières : néons roses/cyan, lampadaires, hémisphère violet ───────── */
   const hemi = new THREE.HemisphereLight(0xb07aff, 0x301040, 0.9); groupe.add(hemi);
@@ -163,30 +189,43 @@ export function creerTokyo(ctx, voitures) {
   groupe.add(lRose, lCyan, lBlanc);
   const cle = new THREE.DirectionalLight(0xffd0f0, 0.5); cle.position.set(20 * m, 30 * m, 25 * m); groupe.add(cle); groupe.add(cle.target);
   void sources; void lampes;
+  const listeV = flotte.map((f, k) => ({ env: f.env, nom: f.code, portail: k === 0 ? portail : null }));
 
   return {
-    groupe, obstacles, voitures: flotte.map((f) => ({ env: f.env, nom: f.code })),
+    groupe, obstacles, voitures: listeV,
     maj(t) {
       ciel.maj(t); pluie.maj(t);
-      flotte.forEach((f, k) => {
+      const posesO = flotte.map((f, k) => {
         const p = poseVoiture(k, t);
         ctx.poser(f.env, p); f.env.v7.reel.eclairer(f.code === 'TK05' ? 0.4 : 1, 0);
-        f.om.position.set(p.pos[0] + Math.sin(p.cap) * f.cz, 0.02 * m, p.pos[2] + Math.cos(p.cap) * f.cz); f.om.rotation.z = p.cap;
+        const passee = k === 0 && p.pos[0] + f.boite.min.z > XR;
+        f.env.visible = !passee;
         f.env.updateMatrixWorld(true); f.mir.sync();
+        return passee ? null : { pos: [p.pos[0], 0, p.pos[2]], heave: p.heave, cap: p.cap, phase: 'sol' };
       });
-      // caméra de poursuite : le point suivi remonte de la dernière voiture (k = 3) à la Skyline (k = 0)
-      const u = clamp((t - 10) / 5), e = u * 0.55 + 0.45 * smoother(u);
-      const kf = lerp(3, 0, e), xs = -kf * ESP + V * (t - 10);
-      // caméra DEVANT la voiture suivie (3/4 avant), dans la voie opposée, regard vers l'arrière : la rue fuit, le ciel s'ouvre
-      const p = [xs + lerp(5.0, 4.4, u) * m, lerp(1.35, 1.15, u) * m, ZV + 3.0 * m];
-      const c = [xs - 0.6 * m, 0.95 * m, ZV - 0.4 * m];
+      ombres.maj(posesO);
+      etincelles.maj(t);
+      rift.maj(t, smoother((t - 13.0) / 0.3));
+      // caméra : remonte la file (point suivi de la voiture k = 3 à la Skyline), puis poursuit la Skyline qui la double
+      const u = clamp((t - 11.0) / (T_GO - 11.0)), kf = lerp(3, 0, smoother(u));
+      const xs = -kf * ESP + V * (Math.min(t, T_GO) - 10);
+      const tau = Math.max(0, t - T_GO);
+      const xCam = xs + lerp(5.0, 3.4, u) * m + V * tau + 0.5 * 10 * m * tau * tau;
+      const p = [xCam, lerp(1.35, 1.2, u) * m, ZV + 3.0 * m];
+      const pS = poseVoiture(0, t);
+      const cSky = [pS.pos[0] + sky.cz * Math.sin(pS.cap) - 0.6 * m * (1 - smoother(tau / 0.4)), 0.95 * m, pS.pos[2] - 0.4 * m * (1 - smoother(tau / 0.4))];
+      const cFile = [xs - 0.6 * m, 0.95 * m, ZV - 0.4 * m];
+      const kS = smoother(1 - kf);                                                          // la visée rejoint la Skyline quand le suivi l'atteint
+      let c = [lerp(cFile[0], cSky[0], kS), lerp(cFile[1], cSky[1], kS), lerp(cFile[2], cSky[2], kS)];
+      const kR = smoother((t - 13.6) / 0.35);                                                 // fin : la visée glisse vers le cœur du rift
+      c = [lerp(c[0], XR + 1 * m, kR), lerp(c[1], 1.2 * m, kR), lerp(c[2], ZR, kR)];
       // lumières qui accompagnent la caméra (néons de part et d'autre de la file)
-      lRose.position.set(xs + 4 * m, 5 * m, -ZF + 1.2 * m); lCyan.position.set(xs - 3 * m, 5.5 * m, ZF - 1.2 * m); lBlanc.position.set(xs + 1 * m, 6 * m, DEMI - 1.4 * m);
+      lRose.position.set(xCam + 0 * m, 5 * m, -ZF + 1.2 * m); lCyan.position.set(xCam - 7 * m, 5.5 * m, ZF - 1.2 * m); lBlanc.position.set(xCam - 3 * m, 6 * m, DEMI - 1.4 * m);
       return {
         camera: { p, c, fov: 46, near: 0.1 * m, far: 2200 * m },
         fond: 0x7a2c90, brouillard: { couleur: FOG, densite: DENS * 0.55 },
         lumieres: { hemi: 0.2, cle: 0.25 },
-        post: { exposition: 0.9, vignette: 0.42, saturation: 1.15, bloomForce: 0.42, aberration: 0.0007 },
+        post: { exposition: 0.88, vignette: 0.42, saturation: 1.15, bloomForce: 0.58, aberration: 0.0007 },
       };
     },
   };

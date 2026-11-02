@@ -4,14 +4,18 @@
    bleu #3fa9ff), séparées par des lignes blanches — le teasing direct de la piste Hot Wheels du soir. Ligne de départ à damier,
    vibreurs rouge et blanc, herbe, muret des stands, tribune colorée sous auvent, collines et arbres, ciel bleu à nuages blancs.
    Cinq F1 alignées, une par voie : F03 (rouge), F02 (orange), F04 (jaune), F01 (vert), F06 (bleu). Moteurs au ralenti :
-   micro-pilonnement (somme de sinus, amplitude ~3 mm « réels »), aucune translation, aucun tremblement de caméra.
-   Portique de 5 feux rouges : la colonne k s'allume à 5,6 + 0,8·k s (5,6 → 8,8 s).
-   Caméra : travelling bas DERRIÈRE la grille, de la voie rouge vers la voie bleue, regard vers le portique (les 5 voies fuient
-   vers les feux). Repère : voitures vers +x, voie k centrée en z = (k − 2)·LV ; sol y = 0 ; m = 1 mètre « monde » en cm. */
-import { prng, texCanvas, halo, creerCiel, ombreContact, obbDecor } from './familles_outils.js';
+   micro-pilonnement (somme de sinus, amplitude ~3 mm « réels »), aucun tremblement de caméra.
+   V9.2 (extrait montré : 5,9 → 8,0 s) : les 5 feux s'allument de 5,82 à 6,78 s, extinction à 7,05 s = DÉPART ; un rift s'ouvre sur
+   la ligne de la voie rouge et la F03, en tête, le traverse à pleine vitesse (~7,95 s) ; étincelles de fond plat, ombres de contact.
+   Caméra : travelling bas DERRIÈRE la grille vers la voie rouge, regard vers le portique, puis poursuite de la voiture de tête. Repère : voitures vers +x, voie k centrée en z = (k − 2)·LV ; sol y = 0 ; m = 1 mètre « monde » en cm. */
+import { prng, texCanvas, halo, creerCiel, obbDecor } from './familles_outils.js';
+import { creerRift } from './familles_portail.js';
+import { creerOmbres, creerEtincelles } from './arene_juice.js';
 
 export const COULEURS_VOIES = ['#ff3b3b', '#ff9a1a', '#ffe23d', '#35e07a', '#3fa9ff'];
-export const FEUX = [5.6, 6.4, 7.2, 8.0, 8.8];
+export const FEUX = [5.82, 6.06, 6.3, 6.54, 6.78];      // V9.2 : extrait montré 5,9 → 8,0 s
+export const T_GO = 7.05;                                  // extinction des feux = départ
+const ACC = [30, 25.5, 27, 24, 22.5];                      // accélérations (m/s² « monde ») : F03 en tête
 
 export function creerF1(ctx, voitures) {
   const { THREE, outils } = ctx, { clamp, lerp, smoother } = outils;
@@ -144,45 +148,67 @@ export function creerF1(ctx, voitures) {
     const x = XD - 0.55 * m - b.max.z;                 // le nez s'arrête à 55 cm de la ligne
     v.env.v7.reel.eclairer(0.2, 0);
     groupe.add(v.env);
-    const om = ombreContact(THREE, b.max.z - b.min.z, b.max.x - b.min.x, 0.6); om.position.set(x + (b.min.z + b.max.z) / 2, 0.03 * m, z); om.rotation.z = Math.PI / 2; groupe.add(om);
-    return { x, y: solY, z, ph: k * 1.37 };
+    return { x, y: solY, z, ph: k * 1.37, acc: ACC[k] * m };
   });
+  const ombres = creerOmbres(THREE, voitures.map((v) => ({ env: v.env, boite: v.boite })), { sol: () => 0 }); groupe.add(ombres.groupe);
 
   /* ───────── soleil + ciel ───────── */
   const soleil = new THREE.DirectionalLight(0xfff1dc, 2.1); soleil.position.set(dirSol[0] * 100 * m, dirSol[1] * 100 * m, dirSol[2] * 100 * m); groupe.add(soleil); groupe.add(soleil.target);
   const hemi = new THREE.HemisphereLight(0xbfdcff, 0x4c8a40, 1.05); groupe.add(hemi);
   const rebond = new THREE.DirectionalLight(0xffffff, 0.6); rebond.position.set(-60 * m, 20 * m, 30 * m); groupe.add(rebond); groupe.add(rebond.target);
 
-  /* ───────── caméra : travelling bas derrière la grille (spline lente) ───────── */
+  /* ───────── départ : extinction des feux, rift sur la ligne de la voie rouge, étincelles de fond plat ───────── */
+  const avance = (k, t) => (t <= T_GO ? 0 : 0.5 * poses[k].acc * (t - T_GO) * (t - T_GO));
+  const XR = XD + 5.0 * m, ZR = poses[0].z;                                       // rift de la voiture de tête (F03, voie rouge)
+  const rift = creerRift(THREE, { rayon: 2.0 * m }); rift.groupe.position.set(XR, 1.1 * m, ZR); rift.groupe.rotation.y = Math.PI / 2; groupe.add(rift.groupe);
+  const portailTete = { x: XR, z: ZR, nx: 1, nz: 0 };
+  const etincelles = creerEtincelles(THREE, { demiH: ctx.H / 2, evenements: voitures.map((v, k) => ({
+    t0: T_GO + 0.02, t1: T_GO + 0.42, n: k === 0 ? 34 : 18, vie: [0.18, 0.42], graine: 'f1-depart-' + k,
+    source: (tb, a) => { const xa = poses[k].x + v.boite.min.z + avance(k, tb) + 0.9 * m;
+      return { p: [xa, 0.04 * m, poses[k].z + (a[0] - 0.5) * 0.9 * m], v: [-(70 + 120 * a[1]), 25 + 60 * a[2], (a[3] - 0.5) * 70], sol: 0 }; },
+  })) });
+  groupe.add(etincelles.points);
+
   const xArr = Math.min(...poses.map((p, k) => p.x + voitures[k].boite.min.z));
+  const listeV = voitures.map((v, k) => ({ env: v.env, nom: v.code, portail: k === 0 ? portailTete : null }));
 
   return {
-    groupe, obstacles, voitures: voitures.map((v) => ({ env: v.env, nom: v.code })),
+    groupe, obstacles, voitures: listeV,
     maj(t) {
       ciel.maj(t);
-      // ralenti moteur : micro-pilonnement + roulis infime (somme de sinus, fonction pure de t)
-      voitures.forEach((v, k) => {
-        const p = poses[k], ph = p.ph;
-        const heave = (0.010 * Math.sin(t * 2 * Math.PI * 7.3 + ph) + 0.006 * Math.sin(t * 2 * Math.PI * 11.1 + ph * 2.1)) * m;
-        const roulis = 0.0025 * Math.sin(t * 2 * Math.PI * 5.2 + ph * 1.3);
-        ctx.poser(v.env, { pos: [p.x, p.y, p.z], cap: Math.PI / 2, capVitesse: Math.PI / 2, heave, tangage: 0.0015 * Math.sin(t * 2 * Math.PI * 6.1 + ph), pente: 0, roulis, dist: 0, braquage: 0, coins: {} });
+      const posesOmbre = voitures.map((v, k) => {
+        const p = poses[k], ph = p.ph, s = avance(k, t), go = t > T_GO ? clamp((t - T_GO) / 0.08) : 0;
+        // ralenti moteur (micro-pilonnement), puis départ : l'arrière s'écrase, le nez se lève un instant
+        const ralenti = (0.010 * Math.sin(t * 2 * Math.PI * 7.3 + ph) + 0.006 * Math.sin(t * 2 * Math.PI * 11.1 + ph * 2.1)) * m * (1 - go);
+        const heave = ralenti - 0.03 * m * go * Math.exp(-Math.max(0, t - T_GO) * 5);
+        const tangage = -0.02 * go * Math.exp(-Math.max(0, t - T_GO) * 4) + 0.0015 * Math.sin(t * 2 * Math.PI * 6.1 + ph) * (1 - go);
+        ctx.poser(v.env, { pos: [p.x + s, p.y, p.z], cap: Math.PI / 2, capVitesse: Math.PI / 2, heave, tangage, pente: 0, roulis: 0.0025 * Math.sin(t * 2 * Math.PI * 5.2 + ph * 1.3) * (1 - go), dist: s, braquage: 0, coins: {} });
         v.env.v7.reel.eclairer(0.25, 0);
+        const passee = k === 0 && p.x + v.boite.min.z + s > XR;
+        v.env.visible = !passee;
+        return passee ? null : { pos: [p.x + s, 0, p.z], heave, cap: Math.PI / 2, phase: 'sol' };
       });
-      // feux : la colonne k s'allume à FEUX[k] (montée 60 ms)
+      ombres.maj(posesOmbre);
+      etincelles.maj(t);
+      // feux : la colonne k s'allume à FEUX[k] (montée 50 ms) ; extinction générale à T_GO
       feux.forEach((f, k) => {
-        const on = smoother((t - FEUX[k]) / 0.06);
-        for (const l of f.lampes) l.material.color.setRGB(0.09 + 3.2 * on, 0.012 + 0.05 * on, 0.012 + 0.03 * on);
-        for (const h of f.halos) h.material.opacity = 0.95 * on;
+        const on = smoother((t - FEUX[k]) / 0.05) * (1 - smoother((t - T_GO) / 0.04));
+        for (const l of f.lampes) l.material.color.setRGB(0.05 + 3.6 * on, 0.008 + 0.05 * on, 0.008 + 0.03 * on);
+        for (const h of f.halos) h.material.opacity = 1.0 * on;
       });
-      const u = clamp((t - 5) / 5), e = u * 0.75 + 0.25 * smoother(u);
-      const zc = lerp(-2.75 * LV, 2.75 * LV, e);
-      const p = [xArr - lerp(5.0, 4.2, u) * m, lerp(1.05, 1.25, u) * m, zc];
-      const c = [XP + 6 * m, 2.1 * m, zc * 0.42];
+      rift.maj(t, smoother((t - (T_GO - 0.05)) / 0.28));
+      // caméra : travelling bas derrière la grille vers la voie rouge, puis poursuite de la voiture de tête jusqu'au rift
+      const u = clamp((t - 5.75) / (T_GO - 5.75)), e = u * 0.7 + 0.3 * smoother(u);
+      const zc = lerp(0.6 * LV, -1.5 * LV, e);
+      const sL = avance(0, t);
+      const p = [xArr - 4.6 * m + 0.78 * Math.min(sL, 12 * m), lerp(1.0, 1.2, u) * m, zc];
+      const kc = smoother((t - (T_GO - 0.1)) / 0.5);
+      const c = [lerp(XP + 6 * m, XR + 4 * m, kc), lerp(2.2, 1.35, kc) * m, lerp(zc * 0.42, ZR * 0.8, kc)];
       return {
         camera: { p, c, fov: 40, near: 0.1 * m, far: 3000 * m },
         fond: 0x6fb4f2, brouillard: { couleur: '#cfe6ff', densite: 0.0009 / m },
         lumieres: { hemi: 0.15, cle: 0.4 },
-        post: { exposition: 0.8, vignette: 0.3, saturation: 1.12, bloomForce: 0.3, aberration: 0.0004 },
+        post: { exposition: 0.8, vignette: 0.3, saturation: 1.12, bloomForce: 0.56, aberration: 0.0004 },
       };
     },
   };

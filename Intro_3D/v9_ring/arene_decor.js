@@ -128,7 +128,8 @@ export function creerDecor(ctx, { logoImg }) {
   const cordesG = new THREE.Group(); cordesG.name = 'cordes'; ring.add(cordesG);
   const cordes = [];
   const geoCorde = new THREE.CylinderGeometry(G.RCORDE, G.RCORDE, 2 * G.POTEAU - 4, 12, 1);
-  const matsCorde = [std({ color: 0xf4f4ff, roughness: 0.4 }), std({ color: 0xff2a3d, roughness: 0.35 }), std({ color: 0x2f5bff, roughness: 0.35 })];
+  // V9.2 « juice » : cordes NÉON (gaines émissives, le bloom poussé de l'arène fait le halo)
+  const matsCorde = [std({ color: 0xf4f4ff, roughness: 0.4, emissive: C('#ffe8f6'), emissiveIntensity: 0.35 }), std({ color: 0xff2a3d, roughness: 0.35, emissive: C('#ff2a3d'), emissiveIntensity: 0.9 }), std({ color: 0x2f5bff, roughness: 0.35, emissive: C('#3f6bff'), emissiveIntensity: 0.9 })];
   const ptsGuirlande = [], colGuirlande = [], phGuirlande = [];
   const PALG = [[1, 0.25, 0.25], [1, 0.82, 0.25], [0.3, 1, 0.45], [0.3, 0.75, 1], [1, 0.35, 0.8]];
   for (let s = 0; s < 4; s++) {
@@ -202,7 +203,7 @@ export function creerDecor(ctx, { logoImg }) {
     dessus.position.set(G.RPIED + longPass / 2, G.MAT + 0.02, 0); pg.add(dessus);
     for (let i = 0; i < 4; i++) { const pil = new THREE.Mesh(new THREE.BoxGeometry(5, G.MAT - 3, 5), matChrome); pil.position.set(G.RPIED + 10 + i * (longPass - 20) / 3, (G.MAT - 3) / 2, 0); pg.add(pil); }
     // rambardes néon
-    for (const sz of [-1, 1]) { const r = new THREE.Mesh(new THREE.BoxGeometry(longPass + G.LRAMPE, 0.8, 0.8), emis(s % 2 ? COULEURS.rose : COULEURS.cyan, 1.6)); r.position.set(G.RLIP + (longPass + G.LRAMPE) / 2, G.MAT + 0.4, sz * (G.DEMI_PASS + 0.4)); pg.add(r); }
+    for (const sz of [-1, 1]) { const r = new THREE.Mesh(new THREE.BoxGeometry(longPass + G.LRAMPE, 0.8, 0.8), emis(s % 2 ? COULEURS.rose : COULEURS.cyan, 2.3)); r.position.set(G.RLIP + (longPass + G.LRAMPE) / 2, G.MAT + 0.4, sz * (G.DEMI_PASS + 0.4)); pg.add(r); }
     obstacles.push(obbFixe('passerelle ' + s, [ax * (G.RPIED + longPass / 2), G.MAT - 1.5, az * (G.RPIED + longPass / 2)], [longPass / 2, 1.5, G.DEMI_PASS], ry));
     // tremplin : profil parabolique (pied en RPIED, lèvre en RLIP, hauteur HRAMPE), extrudé sur la largeur
     const rampe = new THREE.Group(); rampe.position.set(0, G.MAT, 0); pg.add(rampe);
@@ -219,14 +220,14 @@ export function creerDecor(ctx, { logoImg }) {
     texR.repeat.set(0.05, 0.05);
     const matR = std({ map: texR, roughness: 0.35, metalness: 0.2, emissive: C('#ffffff'), emissiveMap: texR, emissiveIntensity: 0.35 });
     rampe.add(new THREE.Mesh(geoR, matR));
-    const levre = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 2 * G.DEMI_PASS + 1), emis(COULEURS.jaune, 2.2)); levre.position.set(G.RLIP + 0.4, G.HRAMPE - 0.3, 0); rampe.add(levre);
+    const levre = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 2 * G.DEMI_PASS + 1), emis(COULEURS.jaune, 2.8)); levre.position.set(G.RLIP + 0.4, G.HRAMPE - 0.3, 0); rampe.add(levre);
     const appui = new THREE.Mesh(new THREE.BoxGeometry(G.LRAMPE * 0.6, G.MAT, 2 * G.DEMI_PASS * 0.8), matStruct); appui.position.set(G.RPIED - G.LRAMPE * 0.3, -G.MAT / 2 - 3, 0); rampe.add(appui);
     // fosse lumineuse entre le ring et le tremplin (là où la voiture vole)
     const fosse = new THREE.Mesh(new THREE.PlaneGeometry(G.RLIP - G.DEMI, 2 * G.DEMI_PASS + 20), emis(COULEURS.magenta, 0.9)); fosse.rotation.x = -Math.PI / 2; fosse.position.set((G.RLIP + G.DEMI) / 2, 0.3, 0); pg.add(fosse);
     // tunnel : arche lumineuse + voûte intérieure dégradée (jamais de trou noir)
     const tun = new THREE.Group(); tun.position.set(G.RTUNNEL, G.MAT, 0); pg.add(tun);
-    const arche = new THREE.Mesh(new THREE.TorusGeometry(34, 3, 12, 40, Math.PI), emis(s % 2 ? COULEURS.cyan : COULEURS.rose, 2.0)); arche.rotation.y = Math.PI / 2; tun.add(arche);
-    const arche2 = new THREE.Mesh(new THREE.TorusGeometry(38, 1.2, 8, 40, Math.PI), emis(COULEURS.or, 1.6)); arche2.rotation.y = Math.PI / 2; arche2.position.x = -1; tun.add(arche2);
+    const arche = new THREE.Mesh(new THREE.TorusGeometry(34, 3, 12, 40, Math.PI), emis(s % 2 ? COULEURS.cyan : COULEURS.rose, 2.9)); arche.rotation.y = Math.PI / 2; tun.add(arche);
+    const arche2 = new THREE.Mesh(new THREE.TorusGeometry(38, 1.2, 8, 40, Math.PI), emis(COULEURS.or, 2.4)); arche2.rotation.y = Math.PI / 2; arche2.position.x = -1; tun.add(arche2);
     for (const sz of [-1, 1]) { const pil = new THREE.Mesh(new THREE.BoxGeometry(8, G.MAT, 8), matStruct); pil.position.set(0, -G.MAT / 2, sz * 34); tun.add(pil); }
     const texVoute = texCanvas(THREE, 64, 256, (g, w, h) => { const d = g.createLinearGradient(0, 0, 0, h); d.addColorStop(0, s % 2 ? '#2de2ff' : '#ff3fa4'); d.addColorStop(0.5, '#a43cd8'); d.addColorStop(1, '#ffd23d'); g.fillStyle = d; g.fillRect(0, 0, w, h); for (let y = 0; y < h; y += 32) { g.fillStyle = 'rgba(255,255,255,.35)'; g.fillRect(0, y, w, 5); } });
     const voute = new THREE.Mesh(new THREE.CylinderGeometry(33, 33, 70, 24, 1, true, 0, Math.PI), new THREE.MeshBasicMaterial({ map: texVoute, side: THREE.BackSide, toneMapped: false }));

@@ -6,10 +6,13 @@
    un PROJECTEUR-SIGNAL qui éclaire la nappe de nuages : disque lumineux traversé d'une silhouette de chauve-souris générique
    (dessin original, aucun logo officiel). Ciel bleu-vert, horizon ambré par la ville : jamais de noir dominant.
 
-   Caméra : orbite lente (vitesse angulaire quasi constante) autour de la Batmobile, du flanc gauche vers l'arrière, puis légère
-   plongée par-dessus le capot vers la ville. Phares allumés (feux émissifs, halos, projecteurs doux sur le parapet).
+   V9.2 (extrait montré : 1,8 → 4,3 s) : la caméra sort d'un rift (raccord avec le portail express de l'arène), glisse autour de la
+   Batmobile garée à 8 m du parapet, phares allumés ; à 3,35 s elle démarre (turbine, étincelles, ombres qui se compriment) et plonge
+   dans un rift ouvert 1 m devant le parapet : l'arrière le franchit à ~4,25 s.
    Repère : voiture à l'origine, avant = +z (vers la ville), gauche = +x ; toit à y = 0 ; m = 1 mètre « monde » en cm. */
-import { prng, texCanvas, halo, creerCiel, creerPluie, matFacades, ombreContact, obbDecor } from './familles_outils.js';
+import { prng, texCanvas, halo, creerCiel, creerPluie, matFacades, obbDecor, splineT } from './familles_outils.js';
+import { creerRift } from './familles_portail.js';
+import { creerOmbres, creerEtincelles } from './arene_juice.js';
 
 export function creerGotham(ctx, bat, boite) {
   const { THREE, outils } = ctx, { clamp, lerp, smoother } = outils;
@@ -17,7 +20,7 @@ export function creerGotham(ctx, bat, boite) {
   const groupe = new THREE.Group(); groupe.name = 'familles-gotham';
   const L = boite.max.z - boite.min.z, W = boite.max.x - boite.min.x, Hc = boite.max.y - boite.min.y;
   const m = L / 6.0;                                    // la Batmobile 1989 mesure ~6 m
-  const nez = boite.max.z, GAP = 1.7 * m, EP = 0.45 * m, zBord = nez + GAP + EP;     // bord extérieur du toit
+  const nez = boite.max.z, GAP = 8.0 * m, EP = 0.45 * m, zBord = nez + GAP + EP;     // bord extérieur du toit
   const HIMM = 68 * m;                                  // hauteur de l'immeuble (rue à y = -HIMM)
   const FOG = '#2a5560', DENS = 0.0021 / m;
   const obstacles = [];
@@ -90,7 +93,7 @@ export function creerGotham(ctx, bat, boite) {
   for (const y of [4.0, 5.2, 6.4]) { const cer = new THREE.Mesh(new THREE.TorusGeometry(2.02 * m, 0.05 * m, 6, 32), fer); cer.rotation.x = Math.PI / 2; cer.position.y = y * m; cdo.add(cer); }
   const chap = new THREE.Mesh(new THREE.ConeGeometry(2.25 * m, 1.4 * m, 24), fer); chap.position.y = 7.6 * m; cdo.add(chap);
   for (let i = 0; i < 4; i++) { const a = i * Math.PI / 2 + Math.PI / 4, p = new THREE.Mesh(new THREE.CylinderGeometry(0.1 * m, 0.12 * m, 3.6 * m, 8), fer); p.position.set(Math.cos(a) * 1.5 * m, 1.8 * m, Math.sin(a) * 1.5 * m); cdo.add(p); }
-  cdo.position.set(-8.5 * m, 0, zBord - 15 * m); groupe.add(cdo);
+  cdo.position.set(-15 * m, 0, zBord - 25 * m); groupe.add(cdo);
   obstacles.push(obbDecor('chateau-eau', cdo.position.x, cdo.position.z, 1.7 * m, 1.7 * m, 0, 8.4 * m));
 
   /* ───────── antenne à feu rouge (clignotement = fonction de t) ───────── */
@@ -99,11 +102,11 @@ export function creerGotham(ctx, bat, boite) {
   for (let i = 1; i <= 4; i++) { const tr = new THREE.Mesh(new THREE.BoxGeometry(1.2 * m * (1 - i * 0.15), 0.05 * m, 0.05 * m), fer); tr.position.y = i * 2.2 * m; ant.add(tr); }
   const feuRouge = new THREE.Mesh(new THREE.SphereGeometry(0.14 * m, 10, 8), new THREE.MeshBasicMaterial({ color: 0xff2020 })); feuRouge.position.y = 11.1 * m; ant.add(feuRouge);
   const haloRouge = halo(THREE, '#ff3030', 2.2 * m, 0.9); haloRouge.position.y = 11.1 * m; ant.add(haloRouge);
-  ant.position.set(7.5 * m, 0, zBord - 17 * m); groupe.add(ant);
+  ant.position.set(12 * m, 0, zBord - 22 * m); groupe.add(ant);
   obstacles.push(obbDecor('antenne', ant.position.x, ant.position.z, 0.3 * m, 0.3 * m, 0, 11 * m));
 
   /* ───────── édicule d'escalier, climatiseurs, lampadaire ambré ───────── */
-  const edi = new THREE.Mesh(new THREE.BoxGeometry(3.4 * m, 3.0 * m, 3.0 * m), std({ color: 0x5b6068, roughness: 0.7 })); edi.position.set(-2.5 * m, 1.5 * m, zBord - 24 * m); groupe.add(edi);
+  const edi = new THREE.Mesh(new THREE.BoxGeometry(3.4 * m, 3.0 * m, 3.0 * m), pierreF); edi.position.set(-2.5 * m, 1.5 * m, zBord - 24 * m); groupe.add(edi);
   const porte = new THREE.Mesh(new THREE.PlaneGeometry(1.0 * m, 2.1 * m), new THREE.MeshBasicMaterial({ color: new THREE.Color(1.6, 1.05, 0.5) })); porte.position.set(-2.5 * m, 1.05 * m, zBord - 22.49 * m); groupe.add(porte);
   obstacles.push(obbDecor('edicule', edi.position.x, edi.position.z, 1.7 * m, 1.5 * m, 0, 3 * m));
   for (const [x, z] of [[11 * m, zBord - 8 * m], [12.5 * m, zBord - 11 * m], [-12 * m, zBord - 6 * m]]) {
@@ -183,51 +186,86 @@ export function creerGotham(ctx, bat, boite) {
   const pluie = creerPluie(THREE, rnd, { n: 5200, centre: [0, 6 * m, -2 * m], taille: [44 * m, 22 * m, 44 * m], vitesse: [-1.2 * m, -9 * m, 0.6 * m], longueur: 0.55 * m, couleur: '#cfe6ff', alpha: 0.2, proche: 1.2 * m });
   groupe.add(pluie.mesh);
 
-  /* ───────── la Batmobile : phares allumés, halos, ombre de contact ───────── */
+  /* ───────── la Batmobile : phares (enfants de la voiture), flamme de turbine, ombres de contact ───────── */
   const solY = -boite.min.y;
   bat.v7.reel.eclairer(1, 0);
   groupe.add(bat);
-  const ombre = ombreContact(THREE, L, W, 0.75); ombre.position.set(0, 0.03 * m, (boite.min.z + boite.max.z) / 2); groupe.add(ombre);
-  const yPh = boite.min.y + solY + Hc * 0.32, xPh = W * 0.3;
-  const cibleSpot = new THREE.Object3D(); cibleSpot.position.set(0, 0.4 * m, nez + 8 * m); groupe.add(cibleSpot);
+  const yPh = boite.min.y + Hc * 0.32, xPh = W * 0.3;
+  const cibleSpot = new THREE.Object3D(); cibleSpot.position.set(0, 0.4 * m - solY, nez + 8 * m); bat.add(cibleSpot);
   for (const s of [-1, 1]) {
-    const sp = new THREE.SpotLight(0xdfeaff, 0.35, 9 * m, 0.42, 0.8, 2.0); sp.position.set(s * xPh, yPh, nez - 0.1 * m); sp.target = cibleSpot; groupe.add(sp);
-    const lueur = halo(THREE, '#e8f2ff', 0.75 * m, 0.6); lueur.position.set(s * xPh, yPh, nez + 0.05 * m); groupe.add(lueur);
+    const sp = new THREE.SpotLight(0xdfeaff, 0.35, 9 * m, 0.42, 0.8, 2.0); sp.position.set(s * xPh, yPh, nez - 0.1 * m); sp.target = cibleSpot; bat.add(sp);
+    const lueur = halo(THREE, '#e8f2ff', 0.75 * m, 0.6); lueur.position.set(s * xPh, yPh, nez + 0.05 * m); bat.add(lueur);
   }
+  // flamme de la turbine arrière (additive, longueur pilotée par la poussée)
+  const flamme = new THREE.Mesh(new THREE.ConeGeometry(0.32 * m, 1, 16, 1, true), new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, fog: false,
+    vertexShader: 'varying float vY; void main(){ vY = uv.y; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+    fragmentShader: 'varying float vY; void main(){ vec3 c = mix(vec3(1.0, 0.35, 0.08), vec3(0.6, 0.9, 1.4), vY); gl_FragColor = vec4(c * 2.2 * vY, vY); }',
+  }));
+  flamme.rotation.x = Math.PI / 2; bat.add(flamme);
+  const ombres = creerOmbres(THREE, [{ env: bat, boite }], { sol: () => 0 }); groupe.add(ombres.groupe);
+
   // lumières d'ambiance : contre-jour ambré de la ville, bleu-vert du ciel
   const contre = new THREE.DirectionalLight(0xffb060, 0.45); contre.position.set(-20 * m, 6 * m, 60 * m); groupe.add(contre); groupe.add(contre.target);
   const hemi = new THREE.HemisphereLight(0x5fa0b8, 0x2a2420, 0.5); groupe.add(hemi);
   const signalLum = new THREE.DirectionalLight(0xffe0a0, 0.45); signalLum.position.copy(dirSignal).multiplyScalar(50 * m); groupe.add(signalLum);
 
-  /* ───────── pose et caméra ───────── */
-  const pose = { pos: [0, solY, 0], cap: 0, capVitesse: 0, heave: 0, tangage: 0, pente: 0, roulis: 0, dist: 0, braquage: 0, coins: {} };
-  const aspect = ctx.L / ctx.H;
+  /* ───────── chorégraphie (temps interne ; extrait montré : 1,8 → 4,3 s) ─────────
+     1,80  la caméra SORT d'un rift (raccord avec la couronne de l'arène qui plonge dans le portail express)
+     1,8 → 3,3  glissé autour de la Batmobile garée, phares allumés, ville et bat-signal derrière
+     3,15  un rift s'ouvre au bord du toit, 1 m devant le parapet
+     3,35  la Batmobile démarre (turbine, étincelles) et plonge dans le rift : l'arrière le franchit à ~4,25 s */
+  const T_DEP = 3.35, ACC = 33 * m;                                       // accélération (cm/s²) : bolide-fusée
+  const zP = zBord - EP - 1.0 * m;                                         // plan du rift de sortie
+  const riftFin = creerRift(THREE, { rayon: 2.35 * m }); riftFin.groupe.position.set(0, 1.55 * m, zP); groupe.add(riftFin.groupe);
+  const portailFin = { x: 0, z: zP, nx: 0, nz: 1 };
+  const avance = (t) => (t <= T_DEP ? 0 : 0.5 * ACC * (t - T_DEP) * (t - T_DEP));
   const centreV = [0, solY + boite.min.y + Hc * 0.5, (boite.min.z + boite.max.z) / 2];
+  const C = (x, y, z) => [centreV[0] + x * m, y * m, centreV[2] + z * m];
+  const cam = splineT([
+    { t: 1.55, p: C(9.8, 3.1, 12.2) }, { t: 1.8, p: C(8.6, 2.7, 9.6) }, { t: 2.4, p: C(7.4, 1.9, 4.2) }, { t: 3.0, p: C(6.0, 1.5, -3.0) },
+    { t: 3.4, p: C(3.8, 1.35, -7.2) }, { t: 3.9, p: C(2.5, 1.5, -4.4) }, { t: 4.3, p: C(1.8, 1.9, 0.2) }, { t: 4.6, p: C(1.5, 2.1, 2.4) },
+  ]);
+  // rift d'entrée : posé là où passe la caméra à 1,86 s, perpendiculaire à sa trajectoire
+  const T_SORTIE = 1.86, pS = cam(T_SORTIE), pS2 = cam(T_SORTIE + 0.02);
+  const riftDebut = creerRift(THREE, { rayon: 3.4 * m }); riftDebut.groupe.position.set(...pS);
+  riftDebut.groupe.lookAt(2 * pS[0] - pS2[0], 2 * pS[1] - pS2[1], 2 * pS[2] - pS2[2]); groupe.add(riftDebut.groupe);
+  const etincelles = creerEtincelles(THREE, { demiH: ctx.H / 2, evenements: [{
+    t0: T_DEP, t1: T_DEP + 0.55, n: 100, vie: [0.22, 0.5], graine: 'gotham-depart',
+    source: (tb, a) => { const z = boite.min.z + avance(tb) + 0.5 * m, s = a[0] < 0.5 ? -1 : 1;
+      return { p: [s * W * 0.38, 0.05 * m, z], v: [s * (10 + 40 * a[1]), 30 + 70 * a[2], -(60 + 110 * a[4])], sol: 0 }; },
+  }] });
+  groupe.add(etincelles.points);
+  const voitures = [{ env: bat, nom: 'B02', portail: portailFin }];
 
   return {
-    groupe, obstacles, voitures: [{ env: bat, nom: 'B02' }],
+    groupe, obstacles, voitures,
     maj(t) {
-      const u = clamp(t / 5);
+      const s = avance(t), poussee = t > T_DEP ? clamp((t - T_DEP) / 0.12) : 0;
+      const tangage = -0.035 * poussee * Math.exp(-Math.max(0, t - T_DEP) * 3);        // cabré au démarrage
+      const pose = { pos: [0, solY, s], cap: 0, capVitesse: 0, heave: -0.02 * m * poussee * Math.exp(-Math.max(0, t - T_DEP) * 4), tangage, pente: 0, roulis: 0, dist: s, braquage: 0, coins: {} };
       ctx.poser(bat, pose);
       bat.v7.reel.eclairer(1, 0);
+      const passee = boite.min.z + s > zP;                                   // l'arrière a franchi le rift : elle est ailleurs
+      bat.visible = !passee;
+      flamme.visible = poussee > 0;
+      if (flamme.visible) { const lf = (1.2 + 2.2 * poussee + 0.25 * Math.sin(t * 57)) * m; flamme.scale.set(1, lf, 1); flamme.position.set(0, boite.min.y + Hc * 0.42, boite.min.z - lf / 2); }
+      ombres.maj([passee ? null : { pos: [0, 0, s], heave: pose.heave, cap: 0, phase: 'sol' }]);
+      etincelles.maj(t);
       ciel.maj(t); pluie.maj(t);
       feuRouge.visible = haloRouge.visible = (t % 1.6) < 0.8;
-      // orbite : angle depuis l'avant, vers la gauche (+x) ; ease très doux (vitesse jamais nulle)
-      const e = u * 0.82 + 0.18 * smoother(u);
-      const a = lerp(104, 196, e) * Math.PI / 180;
-      const fov = 38, fr = 0.5;
-      const eff = Math.abs(Math.sin(a)) * L + Math.abs(Math.cos(a)) * W;
-      const D = Math.max(L * 1.15, eff / (fr * 2 * Math.tan(fov * Math.PI / 360) * aspect)) * lerp(1.0, 1.18, smoother(u));
-      const hCam = lerp(1.6 * m, 3.1 * m, smoother((u - 0.2) / 0.8));
-      const p = [centreV[0] + D * Math.sin(a), hCam, centreV[2] + D * Math.cos(a)];
-      // visée : la voiture, puis glisse vers la ville (plongée) en gardant la Batmobile dans le cadre
-      const pl = smoother((u - 0.35) / 0.65);
-      const c = [lerp(centreV[0], 0, pl), lerp(centreV[1] + 0.25 * m, centreV[1] + 0.1 * m, pl), lerp(centreV[2], nez + 3.5 * m, pl)];
+      riftDebut.maj(t, t < 1.95 ? 1 : 1 - smoother((t - 1.95) / 0.3));
+      riftFin.maj(t, smoother((t - 3.15) / 0.3));
+      bat.updateMatrixWorld(true);
+      const p = cam(t);
+      const cv = [centreV[0], centreV[1] + 0.25 * m, Math.min(centreV[2] + s + 2 * m, zP)];
+      const k = smoother((t - 3.25) / 0.55);
+      const c = [centreV[0], lerp(centreV[1] + 0.25 * m, cv[1], k), lerp(centreV[2], cv[2], k)];
       return {
-        camera: { p, c, fov, near: 0.1 * m, far: 3200 * m },
+        camera: { p, c, fov: 40, near: 0.1 * m, far: 3200 * m },
         fond: 0x2f6f80, brouillard: { couleur: FOG, densite: DENS * 0.6 },
         lumieres: { hemi: 0.25, cle: 0.35 },
-        post: { exposition: 0.9, vignette: 0.42, saturation: 1.12, bloomForce: 0.4, aberration: 0.0005 },
+        post: { exposition: 0.88, vignette: 0.42, saturation: 1.12, bloomForce: 0.56, aberration: 0.0005 },
       };
     },
   };

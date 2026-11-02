@@ -196,3 +196,20 @@ export function spline(points) {
     return p1.map((_, k) => 0.5 * ((2 * p1[k]) + (-p0[k] + p2[k]) * f + (2 * p0[k] - 5 * p1[k] + 4 * p2[k] - p3[k]) * f2 + (-p0[k] + 3 * p1[k] - 3 * p2[k] + p3[k]) * f3));
   };
 }
+
+/** Spline de Hermite à tangentes de Catmull-Rom NON UNIFORMES : cles = [{ t, p: [..] }] triées ; C1 continue en t. */
+export function splineT(cles) {
+  const n = cles.length;
+  const tg = (i) => {
+    const a = cles[Math.max(0, i - 1)], b = cles[Math.min(n - 1, i + 1)];
+    return a.p.map((_, k) => (b.p[k] - a.p[k]) / Math.max(1e-6, b.t - a.t));
+  };
+  return (t) => {
+    if (t <= cles[0].t) return cles[0].p.slice();
+    if (t >= cles[n - 1].t) return cles[n - 1].p.slice();
+    let i = 0; while (i < n - 2 && t > cles[i + 1].t) i++;
+    const A = cles[i], B = cles[i + 1], h = B.t - A.t, f = (t - A.t) / h, f2 = f * f, f3 = f2 * f;
+    const ma = tg(i), mb = tg(i + 1);
+    return A.p.map((_, k) => (2 * f3 - 3 * f2 + 1) * A.p[k] + (f3 - 2 * f2 + f) * h * ma[k] + (-2 * f3 + 3 * f2) * B.p[k] + (f3 - f2) * h * mb[k]);
+  };
+}

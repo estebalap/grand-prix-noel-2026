@@ -1,15 +1,15 @@
-# V9.1 RING — « Grand Prix de Noël » en 113,6 secondes
+# V9.2 RING — « Grand Prix de Noël » en 121,6 secondes
 
 Dossier : `Intro_3D/v9_ring/` (la V8 `v8_finale/` est une archive : on l'importe, on ne la modifie pas).
 Contrat de temps : `data/plan_v9.json` (source unique image + son). Orchestrateur : `noyau_v9.js` (copie du noyau V8 + segments
-multi-plages + contrôle de collisions). Carte du temps V9.1 : `segments[].remap` (temps film → temps interne par morceaux : ouverture resserrée à 12,6 s, familles en 3 × 3 s). Page : `index.html` (`?seg=arene`, `?plan=data/plan_test_telephone.json`, `?t=40`).
+multi-plages + contrôle de collisions). Carte du temps V9.1 : `segments[].remap` (temps film → temps interne par morceaux : V9.2 : ouverture et arène en identité, familles en 3 extraits). Page : `index.html` (`?seg=arene`, `?plan=data/plan_test_telephone.json`, `?t=40`).
 
 | Segment | Fichiers | Temps film | Contenu |
 |---|---|---|---|
-| ouverture | `seg_ouverture.js`, `ouverture_tele.js`, `ouverture_spectacle.js` | 0 → 12,6 s | feu de cheminée sur la télé dans le noir, étincelle, guirlandes, LOGO officiel, trappe du tapis, plongée vers la lumière de l'arène |
-| arene | `seg_arene.js`, `arene_*.js`, `telephone_v9.js` | 12,6 → 81,6 puis 90,6 → 113,6 s | arène façon ring (hommage original), 15 entrées sautées par-dessus les cordes → couronne autour du logo, téléphone Pocket Pit (vraies pages connectées), conteneur Lootbox Fret d'où sort la VRAIE Coupe Arc-en-Ciel (STL du Panthéon), « GLOIRE… ÉTERNELLE » en deux frappes, départ sur la piste 5 voies, logo final |
-| familles | `seg_familles.js`, `familles_*.js` | 81,6 → 90,6 s | Batmobile 1989 sur un toit de Gotham, 5 F1 sur la ligne arc-en-ciel, Tokyo cyberpunk (TK01, TK02, TK04, TK05 ; jamais TK06) |
-| son | `sound_v9.py` → `audio/mix_v9.wav` | 0 → 113,6 s | feu de cheminée net, voix Commentateur def (`voix_off/`, `data/voix_v9.json`), Ring music en continu du logo (6,8 s) à la fin, plus aucun son d'écurie, « gloire… ÉTERNELLE » traité façon stade |
+| ouverture | `seg_ouverture.js`, `ouverture_vortex.js` (+ `ouverture_tele.js`, `ouverture_spectacle.js`) | 0 → 6,5 s | salon de Noël chaud → 4,6 s la télé s'allume, le salon s'éteint (0,08) → 5,0–6,5 s vortex : la télé aspire la caméra (FOV 38→88→48°, roulis hélicoïdal, 340 particules néon), tunnel néon |
+| arene | `seg_arene.js`, `arene_cadrages.js`, `arene_juice.js`, `arene_*.js`, `telephone_v9.js` | 6,5 → 81,6 puis 89,2 → 121,6 s | jaillissement sur le drop, 15 écuries à créneaux variables calés sur la voix et cadrages sur mesure (#02 vue de dessus, #04 boule à facettes, #10 gros plan 6 roues…), #11–#15 en smash cuts + rush de 5 × 1 s, couronne + portail, téléphone (paris), lootbox → vraie Coupe Arc-en-Ciel, GLOIRE / ÉTERNELLE, départ, logo. Ombres de contact, étincelles, secousses (trauma), bloom 0,55 |
+| familles | `seg_familles.js`, `familles_*.js`, `familles_portail.js` | 81,6 → 89,2 s | Gotham → F1 → Néo-Tokyo, portails express hexagonaux + glitch de téléportation (« MAP WARP ») |
+| son | `sound_v9.py` → `audio/mix_v9.wav` + `.mp3` | 0 → 121,6 s | jazz de Noël → record scratch (4,65) → riser → « ARÈNE ! » + drop 128 BPM (6,5) → Ring music fil rouge ; une prise de voix continue par pièce (`data/voix_v9.json`) ; gags moteurs au premier plan (#02 OVNI, #05 V8, #08 bips Audi + boîte de conserve, #10 6×6) ; « Le Mal Aimé » sur #04 ; casino (ka-ching, pièces, roulette) |
 
 Le dossier `audio/` (Ring music, carillon Audi, mix) est ignoré par git : sons sous droits, à garder sur le PC.
 
