@@ -1,6 +1,6 @@
 {
  "voix": "Commentateur def (ElevenLabs, voice_id QLs7iK8pmd23CyW29R9f)",
- "version": "v9.5",
+ "version": "v9.6",
  "note": "UNE prise continue par pièce (bornes à vérifier à −48 dB, fondus 25 ms). Écurie 7 : deux morceaux (prise anglaise Yaris_A + fin). t_film = début de la pièce en temps FILM. atempo_max : accélération douce autorisée si la pièce dépasse son créneau (jamais de coupe). emphase : traitement stade. Bornes « familles/paris » corrigées par le Chef de régie d'après la transcription Scribe (le brief inversait les deux et débordait sur le silence entre prises). V9.3 : ouverture « Mais ce soir… le salon… se transforme… EN ARÈNE ! » (L02, bornes à revérifier aux creux), familles en 3 phrases entières (coupées aux respirations, jamais dans un mot). V9.4 : ouverture sur le refrain du Mal Aimé (« Mais ce soir… le salon… se transforme… EEENNN… ARÈNE ! », voyelle tenue sans blanc) ; rush des générations (5 répliques à générer voix_off/rush_*.mp3, bornes None = fichier entier rogné aux silences).",
  "pieces": [
   {
@@ -10,75 +10,29 @@
     [
      "voix_off/VO_V9_tout.mp3",
      0.03,
-     1.25
+     1.21
     ]
    ],
-   "t_film": 5.6,
+   "t_film": 5.4,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
   },
   {
-   "id": "salon",
-   "texte": "…le salon…",
+   "id": "salon_arene",
+   "texte": "…le salon se transforme… en ARÈNE !",
    "morceaux": [
     [
      "voix_off/ouverture_L02.mp3",
      1.12,
-     1.95
-    ]
-   ],
-   "t_film": 8.0,
-   "emphase": false,
-   "atempo_max": 1.0,
-   "fondu": 0.025
-  },
-  {
-   "id": "transforme",
-   "texte": "…se transforme…",
-   "morceaux": [
-    [
-     "voix_off/ouverture_L02.mp3",
-     1.95,
-     2.925
-    ]
-   ],
-   "t_film": 10.9,
-   "emphase": false,
-   "atempo_max": 1.0,
-   "fondu": 0.025
-  },
-  {
-   "id": "en_tenu",
-   "texte": "…EEEENNNNN…",
-   "morceaux": [
-    [
-     "voix_off/ouverture_L02.mp3",
-     2.925,
-     3.12
-    ]
-   ],
-   "t_film": 11.9,
-   "tenir_jusqua": 15.93,
-   "note": "voyelle « en » TENUE (étirement de la voyelle sans changer la hauteur, montée d'intensité) jusqu'à l'arrivée d'« ARÈNE ! » : aucun blanc",
-   "emphase": false,
-   "atempo_max": 1.0,
-   "fondu": 0.025
-  },
-  {
-   "id": "arene_cri",
-   "texte": "ARÈNE !",
-   "morceaux": [
-    [
-     "voix_off/ouverture_L02.mp3",
-     3.12,
      4.2
     ]
    ],
-   "t_film": 15.93,
+   "t_film": 7.2,
    "emphase": true,
    "atempo_max": 1.0,
-   "fondu": 0.025
+   "fondu": 0.025,
+   "note": "UNE prise d'une traite (L02 1,12 → 4,20) ; l'attaque de « ARÈNE » (3,12 dans L02) tombe à 9,2 = apparition de l'arène ; emphase stade sur ARÈNE seulement"
   },
   {
    "id": "arene",
@@ -90,7 +44,7 @@
      6.64
     ]
    ],
-   "t_film": 17.03,
+   "t_film": 10.3,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -105,7 +59,7 @@
      10.74
     ]
    ],
-   "t_film": 20.13,
+   "t_film": 13.4,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -120,7 +74,7 @@
      15.36
     ]
    ],
-   "t_film": 24.17,
+   "t_film": 17.44,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -135,7 +89,7 @@
      19.52
     ]
    ],
-   "t_film": 28.44,
+   "t_film": 21.71,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -150,7 +104,7 @@
      23.94
     ]
    ],
-   "t_film": 32.34,
+   "t_film": 25.61,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -165,7 +119,7 @@
      27.78
     ]
    ],
-   "t_film": 36.42,
+   "t_film": 29.69,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -180,7 +134,7 @@
      33.28
     ]
    ],
-   "t_film": 40.32,
+   "t_film": 33.59,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -200,7 +154,7 @@
      37.9
     ]
    ],
-   "t_film": 45.48,
+   "t_film": 38.75,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -215,7 +169,7 @@
      42.86
     ]
    ],
-   "t_film": 50.1,
+   "t_film": 43.37,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -230,7 +184,7 @@
      49.88
     ]
    ],
-   "t_film": 54.7,
+   "t_film": 47.97,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -245,7 +199,7 @@
      54.35
     ]
    ],
-   "t_film": 59.56,
+   "t_film": 52.83,
    "emphase": false,
    "atempo_max": 1.04,
    "fondu": 0.025
@@ -260,7 +214,7 @@
      58.96
     ]
    ],
-   "t_film": 63.77,
+   "t_film": 57.04,
    "emphase": false,
    "atempo_max": 1.08,
    "fondu": 0.025
@@ -275,7 +229,7 @@
      63.36
     ]
    ],
-   "t_film": 67.9,
+   "t_film": 61.17,
    "emphase": false,
    "atempo_max": 1.08,
    "fondu": 0.025
@@ -290,7 +244,7 @@
      67.86
     ]
    ],
-   "t_film": 71.74,
+   "t_film": 65.01,
    "emphase": false,
    "atempo_max": 1.08,
    "fondu": 0.025
@@ -305,7 +259,7 @@
      72.88
     ]
    ],
-   "t_film": 75.69,
+   "t_film": 68.96,
    "emphase": false,
    "atempo_max": 1.08,
    "fondu": 0.025
@@ -320,7 +274,7 @@
      76.94
     ]
    ],
-   "t_film": 80.1,
+   "t_film": 73.37,
    "emphase": false,
    "atempo_max": 1.08,
    "fondu": 0.025
@@ -335,7 +289,7 @@
      null
     ]
    ],
-   "t_film": 83.75,
+   "t_film": 77.02,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025,
@@ -351,7 +305,7 @@
      null
     ]
    ],
-   "t_film": 85.15,
+   "t_film": 78.42,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025,
@@ -367,7 +321,7 @@
      null
     ]
    ],
-   "t_film": 86.55,
+   "t_film": 79.82,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025,
@@ -383,7 +337,7 @@
      null
     ]
    ],
-   "t_film": 87.9,
+   "t_film": 81.17,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025,
@@ -399,7 +353,7 @@
      null
     ]
    ],
-   "t_film": 89.35,
+   "t_film": 82.62,
    "emphase": true,
    "atempo_max": 1.0,
    "fondu": 0.025,
@@ -415,7 +369,7 @@
      90.43
     ]
    ],
-   "t_film": 93.13,
+   "t_film": 86.4,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -430,7 +384,7 @@
      92.53
     ]
    ],
-   "t_film": 95.83,
+   "t_film": 89.1,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -445,7 +399,7 @@
      94.1
     ]
    ],
-   "t_film": 98.43,
+   "t_film": 91.7,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -460,7 +414,7 @@
      88.4
     ]
    ],
-   "t_film": 101.73,
+   "t_film": 95.0,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -475,7 +429,7 @@
      96.95
     ]
    ],
-   "t_film": 111.83,
+   "t_film": 105.1,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -490,7 +444,7 @@
      101.3
     ]
    ],
-   "t_film": 119.53,
+   "t_film": 112.8,
    "emphase": true,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -505,7 +459,7 @@
      102.7
     ]
    ],
-   "t_film": 128.28,
+   "t_film": 121.55,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -550,7 +504,7 @@
      "NOËL"
     ]
    ],
-   "t_film": 131.4,
+   "t_film": 124.67,
    "emphase": true,
    "atempo_max": 1.0,
    "fondu": 0.025,

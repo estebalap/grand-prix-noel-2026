@@ -1,7 +1,7 @@
 {
- "version": "v9.4",
+ "version": "v9.6",
  "titre": "Grand Prix de Noël — V9 Ring",
- "duree": 136.53,
+ "duree": 129.8,
  "fps": 60,
  "regles_ui": {
   "surface_max": 0.2,
@@ -18,83 +18,83 @@
    "id": "ouverture",
    "module": "../v9_ring/seg_ouverture.js",
    "debut": 0,
-   "fin": 15.93,
+   "fin": 9.2,
    "remap": [
     [
      0,
-     15.93,
+     9.2,
      0,
-     15.93
+     9.2
     ]
    ]
   },
   {
    "id": "arene",
    "module": "../v9_ring/seg_arene.js",
-   "debut": 15.93,
-   "fin": 136.53,
+   "debut": 9.2,
+   "fin": 129.8,
    "sous": [
     {
      "id": "arrivee",
-     "debut": 15.93,
-     "fin": 20.08
+     "debut": 9.2,
+     "fin": 13.35
     },
     {
      "id": "ecuries",
-     "debut": 20.08,
-     "fin": 83.63
+     "debut": 13.35,
+     "fin": 76.9
     },
     {
      "id": "rush",
-     "debut": 83.63,
-     "fin": 89.23
+     "debut": 76.9,
+     "fin": 82.5
     },
     {
      "id": "couronne",
-     "debut": 89.23,
-     "fin": 91.63
+     "debut": 82.5,
+     "fin": 84.9
     },
     {
      "id": "telephone",
-     "debut": 101.63,
-     "fin": 111.03
+     "debut": 94.9,
+     "fin": 104.3
     },
     {
      "id": "lootbox",
-     "debut": 111.03,
-     "fin": 120.03
+     "debut": 104.3,
+     "fin": 113.3
     },
     {
      "id": "gloire",
-     "debut": 120.03,
-     "fin": 128.03
+     "debut": 113.3,
+     "fin": 121.3
     },
     {
      "id": "depart",
-     "debut": 128.03,
-     "fin": 136.53
+     "debut": 121.3,
+     "fin": 129.8
     }
    ],
    "remap": [
     [
-     15.93,
-     91.63,
-     15.93,
-     91.63
+     9.2,
+     84.9,
+     9.2,
+     84.9
     ],
     [
-     101.63,
-     136.53,
-     101.63,
-     136.53
+     94.9,
+     129.8,
+     94.9,
+     129.8
     ]
    ]
   },
   {
    "id": "familles",
    "module": "../v9_ring/seg_familles.js",
-   "debut": 91.63,
-   "fin": 101.63,
+   "debut": 84.9,
+   "fin": 94.9,
    "origine": 0.0,
    "sous": [
     {
@@ -116,20 +116,20 @@
    "note": "V9.3 : extraits RECHOISIS par le segment (remap à réécrire par l'agent familles si besoin)",
    "remap": [
     [
-     91.63,
-     95.63,
+     84.9,
+     88.9,
      0.3,
      4.3
     ],
     [
-     95.63,
-     98.13,
+     88.9,
+     91.4,
      5.5,
      8.0
     ],
     [
-     98.13,
-     101.63,
+     91.4,
+     94.9,
      10.5,
      14.0
     ]
@@ -140,12 +140,12 @@
   {
    "k": 0,
    "id": 1,
-   "debut": 20.08,
-   "sortie": 20.08,
-   "saut": 21.43,
-   "atterrissage": 22.13,
-   "place": 23.38,
-   "fin": 24.12,
+   "debut": 13.35,
+   "sortie": 13.35,
+   "saut": 14.7,
+   "atterrissage": 15.4,
+   "place": 16.65,
+   "fin": 17.39,
    "duree_voix": 4.08,
    "smash": false,
    "zoom": false
@@ -153,12 +153,12 @@
   {
    "k": 1,
    "id": 2,
-   "debut": 24.12,
-   "sortie": 24.12,
-   "saut": 25.47,
-   "atterrissage": 26.17,
-   "place": 27.42,
-   "fin": 28.39,
+   "debut": 17.39,
+   "sortie": 17.39,
+   "saut": 18.74,
+   "atterrissage": 19.44,
+   "place": 20.69,
+   "fin": 21.66,
    "duree_voix": 4.32,
    "smash": false,
    "zoom": true
@@ -166,12 +166,12 @@
   {
    "k": 2,
    "id": 3,
-   "debut": 28.39,
-   "sortie": 28.39,
-   "saut": 29.74,
-   "atterrissage": 30.44,
-   "place": 31.69,
-   "fin": 32.29,
+   "debut": 21.66,
+   "sortie": 21.66,
+   "saut": 23.01,
+   "atterrissage": 23.71,
+   "place": 24.96,
+   "fin": 25.56,
    "duree_voix": 3.88,
    "smash": false,
    "zoom": true
@@ -179,12 +179,12 @@
   {
    "k": 3,
    "id": 4,
-   "debut": 32.29,
-   "sortie": 32.29,
-   "saut": 33.64,
-   "atterrissage": 34.34,
-   "place": 35.59,
-   "fin": 36.37,
+   "debut": 25.56,
+   "sortie": 25.56,
+   "saut": 26.91,
+   "atterrissage": 27.61,
+   "place": 28.86,
+   "fin": 29.64,
    "duree_voix": 4.12,
    "smash": false,
    "zoom": false
@@ -192,12 +192,12 @@
   {
    "k": 4,
    "id": 5,
-   "debut": 36.37,
-   "sortie": 36.37,
-   "saut": 37.72,
-   "atterrissage": 38.42,
-   "place": 39.67,
-   "fin": 40.27,
+   "debut": 29.64,
+   "sortie": 29.64,
+   "saut": 30.99,
+   "atterrissage": 31.69,
+   "place": 32.94,
+   "fin": 33.54,
    "duree_voix": 3.56,
    "smash": false,
    "zoom": false
@@ -205,12 +205,12 @@
   {
    "k": 5,
    "id": 6,
-   "debut": 40.27,
-   "sortie": 40.27,
-   "saut": 41.62,
-   "atterrissage": 42.32,
-   "place": 43.57,
-   "fin": 45.43,
+   "debut": 33.54,
+   "sortie": 33.54,
+   "saut": 34.89,
+   "atterrissage": 35.59,
+   "place": 36.84,
+   "fin": 38.7,
    "duree_voix": 5.24,
    "smash": false,
    "zoom": false
@@ -218,12 +218,12 @@
   {
    "k": 6,
    "id": 7,
-   "debut": 45.43,
-   "sortie": 45.43,
-   "saut": 46.78,
-   "atterrissage": 47.48,
-   "place": 48.73,
-   "fin": 50.05,
+   "debut": 38.7,
+   "sortie": 38.7,
+   "saut": 40.05,
+   "atterrissage": 40.75,
+   "place": 42.0,
+   "fin": 43.32,
    "duree_voix": 4.68,
    "smash": false,
    "zoom": false
@@ -231,12 +231,12 @@
   {
    "k": 7,
    "id": 8,
-   "debut": 50.05,
-   "sortie": 50.05,
-   "saut": 51.4,
-   "atterrissage": 52.1,
-   "place": 53.35,
-   "fin": 54.65,
+   "debut": 43.32,
+   "sortie": 43.32,
+   "saut": 44.67,
+   "atterrissage": 45.37,
+   "place": 46.62,
+   "fin": 47.92,
    "duree_voix": 4.66,
    "smash": false,
    "zoom": false
@@ -244,12 +244,12 @@
   {
    "k": 8,
    "id": 9,
-   "debut": 54.65,
-   "sortie": 54.65,
-   "saut": 56.0,
-   "atterrissage": 56.7,
-   "place": 57.95,
-   "fin": 59.51,
+   "debut": 47.92,
+   "sortie": 47.92,
+   "saut": 49.27,
+   "atterrissage": 49.97,
+   "place": 51.22,
+   "fin": 52.78,
    "duree_voix": 4.93,
    "smash": false,
    "zoom": false
@@ -257,12 +257,12 @@
   {
    "k": 9,
    "id": 10,
-   "debut": 59.51,
-   "sortie": 59.51,
-   "saut": 60.86,
-   "atterrissage": 61.56,
-   "place": 62.81,
-   "fin": 63.72,
+   "debut": 52.78,
+   "sortie": 52.78,
+   "saut": 54.13,
+   "atterrissage": 54.83,
+   "place": 56.08,
+   "fin": 56.99,
    "duree_voix": 4.25,
    "smash": false,
    "zoom": true
@@ -270,12 +270,12 @@
   {
    "k": 10,
    "id": 11,
-   "debut": 63.72,
-   "sortie": 63.72,
-   "saut": 65.07,
-   "atterrissage": 65.77,
-   "place": 67.02,
-   "fin": 67.85,
+   "debut": 56.99,
+   "sortie": 56.99,
+   "saut": 58.34,
+   "atterrissage": 59.04,
+   "place": 60.29,
+   "fin": 61.12,
    "duree_voix": 4.4,
    "smash": false,
    "zoom": false
@@ -283,12 +283,12 @@
   {
    "k": 11,
    "id": 12,
-   "debut": 67.85,
-   "sortie": 67.85,
-   "saut": 69.2,
-   "atterrissage": 69.9,
-   "place": 71.15,
-   "fin": 71.69,
+   "debut": 61.12,
+   "sortie": 61.12,
+   "saut": 62.47,
+   "atterrissage": 63.17,
+   "place": 64.42,
+   "fin": 64.96,
    "duree_voix": 4.08,
    "smash": false,
    "zoom": false
@@ -296,12 +296,12 @@
   {
    "k": 12,
    "id": 13,
-   "debut": 71.69,
-   "sortie": 71.69,
-   "saut": 73.04,
-   "atterrissage": 73.74,
-   "place": 74.99,
-   "fin": 75.64,
+   "debut": 64.96,
+   "sortie": 64.96,
+   "saut": 66.31,
+   "atterrissage": 67.01,
+   "place": 68.26,
+   "fin": 68.91,
    "duree_voix": 4.2,
    "smash": false,
    "zoom": false
@@ -309,12 +309,12 @@
   {
    "k": 13,
    "id": 14,
-   "debut": 75.64,
-   "sortie": 75.64,
-   "saut": 76.99,
-   "atterrissage": 77.69,
-   "place": 78.94,
-   "fin": 80.05,
+   "debut": 68.91,
+   "sortie": 68.91,
+   "saut": 70.26,
+   "atterrissage": 70.96,
+   "place": 72.21,
+   "fin": 73.32,
    "duree_voix": 4.7,
    "smash": false,
    "zoom": false
@@ -322,84 +322,84 @@
   {
    "k": 14,
    "id": 15,
-   "debut": 80.05,
-   "sortie": 80.05,
-   "saut": 81.4,
-   "atterrissage": 82.1,
-   "place": 83.35,
-   "fin": 83.63,
+   "debut": 73.32,
+   "sortie": 73.32,
+   "saut": 74.67,
+   "atterrissage": 75.37,
+   "place": 76.62,
+   "fin": 76.9,
    "duree_voix": 3.8,
    "smash": false,
    "zoom": true
   }
  ],
  "telephone": {
-  "debut": 101.63,
-  "fin": 111.03,
-  "pari": 104.13,
-  "points": 105.33,
-  "lootbox": 106.53,
-  "bonus": 107.93,
-  "piege": 109.43
+  "debut": 94.9,
+  "fin": 104.3,
+  "pari": 97.4,
+  "points": 98.6,
+  "lootbox": 99.8,
+  "bonus": 101.2,
+  "piege": 102.7
  },
  "lootbox": {
-  "debut": 111.03,
-  "descente": 111.33,
-  "verrous": 114.83,
-  "entrouvre": 116.03,
-  "ouvert": 118.73,
-  "trophee_sort": 118.93,
-  "embrasement": 119.13,
-  "fin": 120.03
+  "debut": 104.3,
+  "descente": 104.6,
+  "verrous": 108.1,
+  "entrouvre": 109.3,
+  "ouvert": 112.0,
+  "trophee_sort": 112.2,
+  "embrasement": 112.4,
+  "fin": 113.3
  },
  "gloire": {
-  "debut": 120.03,
-  "trophee_haut": 120.83,
-  "titre_gloire": 121.93,
-  "titre_eternelle": 122.93,
-  "feux": 119.13,
-  "confettis": 122.93,
-  "fin": 128.03
+  "debut": 113.3,
+  "trophee_haut": 114.1,
+  "titre_gloire": 115.2,
+  "titre_eternelle": 116.2,
+  "feux": 112.4,
+  "confettis": 116.2,
+  "fin": 121.3
  },
  "depart": {
-  "debut": 128.03,
-  "cordes": 128.33,
-  "demarrage": 129.03,
-  "piste": 131.03,
-  "logo": 133.53,
-  "fin": 136.53
+  "debut": 121.3,
+  "cordes": 121.6,
+  "demarrage": 122.3,
+  "piste": 124.3,
+  "logo": 126.8,
+  "fin": 129.8
  },
  "ouverture": {
   "debut": 0.0,
   "refrain_temps_fort": 0.81,
   "noir": [
    0.0,
-   2.5
+   1.0
   ],
   "allumage_festif": [
-   2.5,
-   7.5
+   1.0,
+   4.5
   ],
-  "tv_allume": 10.89,
-  "salon_dim": 10.89,
+  "tv_allume": 6.9,
+  "salon_dim": 6.9,
   "vrille": [
-   11.6,
-   15.93
+   7.4,
+   9.2
   ],
-  "fin": 15.93,
-  "note": "V9.4 : animation ralentie pour laisser vivre le refrain du Mal Aimé (temps fort 29,22 s du fichier à 0,81 film ; 4 mesures jusqu'à la télé à 10,89 ; 2 mesures de vrille ; « ARÈNE ! » sur le temps fort à 15,93)"
+  "fin": 9.2,
+  "note": "V9.6 : transition raccourcie ; musique coupée à 5,0 ; « Mesdames et messieurs… » 5,4 ; « le salon se transforme… en ARÈNE ! » d'une traite à 7,2, ARÈNE = apparition de l'arène à 9,2"
  },
  "reperes_son": {
   "note": "V9.1 : utiliser les clés de segment + remap ; plus de repères en temps film ici"
  },
- "note_temps": "V9.4 : ouverture 0–15,93 (refrain du Mal Aimé), tout le reste décalé : +4,93 s jusqu'au rush, +5,53 s après (rush allongé à 4 × 1,4 s avec titres de générations).",
+ "note_temps": "V9.6 : ouverture 0–9,2 s, tout le reste avancé de 6,73 s.",
  "arrivee": {
-  "debut": 15.93,
-  "en_arene": 15.93,
-  "fin": 20.08
+  "debut": 9.2,
+  "en_arene": 9.2,
+  "fin": 13.35
  },
  "rush": {
-  "debut": 83.63,
+  "debut": 76.9,
   "ordre": [
    2,
    3,
@@ -407,10 +407,10 @@
    15
   ],
   "cuts": [
-   83.63,
-   85.03,
-   86.43,
-   87.83
+   76.9,
+   78.3,
+   79.7,
+   81.1
   ],
   "titres": [
    "LES ANCÊTRES",
@@ -418,30 +418,30 @@
    "LA GEN Z",
    "LA GEN α 67"
   ],
-  "fin": 89.23
+  "fin": 82.5
  },
  "couronne": {
-  "debut": 89.23,
+  "debut": 82.5,
   "titre": "SONT CONVIÉS !",
-  "portail": 90.63,
-  "fin": 91.63
+  "portail": 83.9,
+  "fin": 84.9
  },
  "familles": {
   "gotham": [
-   91.63,
-   95.63
+   84.9,
+   88.9
   ],
   "f1": [
-   95.63,
-   98.13
+   88.9,
+   91.4
   ],
   "tokyo": [
-   98.13,
-   101.63
+   91.4,
+   94.9
   ],
   "pause_gotham": [
-   91.63,
-   93.13
+   84.9,
+   86.4
   ]
  }
 }

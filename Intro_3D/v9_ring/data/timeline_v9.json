@@ -1,7 +1,7 @@
 {
- "version": "v9.5",
- "duree": 136.53,
- "echantillons": 6553440,
+ "version": "v9.6",
+ "duree": 129.8,
+ "echantillons": 6230400,
  "frequence_hz": 48000,
  "canaux": 2,
  "plan": "data/plan_v9.json",
@@ -12,7 +12,7 @@
    "bloc": "ouverture",
    "quoi": "ambiance du salon : feu qui crépite discret (seul après la coupure) + ton de salle",
    "source": "synthèse",
-   "fin": 15.93,
+   "fin": 9.2,
    "rms_mix_db": -27.5,
    "rms_bruitages_db": -28.0
   },
@@ -26,13 +26,13 @@
    "rms_bruitages_db": -28.0
   },
   {
-   "t": 2.5,
+   "t": 1.0,
    "bloc": "ouverture",
    "quoi": "guirlandes qui s'allument : tics cristallins très discrets",
    "source": "synthèse",
-   "fin": 7.5,
-   "rms_mix_db": -26.5,
-   "rms_bruitages_db": -23.8
+   "fin": 4.5,
+   "rms_mix_db": -25.8,
+   "rms_bruitages_db": -25.5
   },
   {
    "t": 5.0,
@@ -41,794 +41,794 @@
    "source": "synthèse",
    "fin": 5.15,
    "rms_mix_db": -27.9,
-   "rms_bruitages_db": -33.4
-  },
-  {
-   "t": 10.89,
-   "bloc": "ouverture",
-   "quoi": "la télé s'allume : déclic électrique",
-   "source": "synthèse",
-   "rms_mix_db": -26.0,
-   "rms_bruitages_db": -38.8
-  },
-  {
-   "t": 11.6,
-   "bloc": "ouverture",
-   "quoi": "VRILLE : riser qui accélère + aspiration (sans musique)",
-   "source": "synthèse",
-   "fin": 15.9,
-   "rms_mix_db": -20.8,
-   "rms_bruitages_db": -44.7
-  },
-  {
-   "t": 11.728,
-   "bloc": "ouverture",
-   "quoi": "crépitements électriques de plus en plus serrés (12)",
-   "source": "synthèse",
-   "fin": 15.96,
-   "rms_mix_db": -21.3,
-   "rms_bruitages_db": -44.8
-  },
-  {
-   "t": 15.93,
-   "bloc": "ring",
-   "quoi": "RING MUSIC (fil rouge) : entre sur son temps fort avec « ARÈNE ! » ; 44 mesures jusqu'au logo",
-   "source": "audio/sources/ring_music.mp3 (extrait client, lu)",
-   "fin": 136.53,
-   "rms_mix_db": -13.2,
-   "rms_bruitages_db": -16.4
-  },
-  {
-   "t": 15.93,
-   "bloc": "arrivee",
-   "quoi": "« ARÈNE ! » : impact sub + clameur de la foule + entrée de la Ring music",
-   "source": "synthèse",
-   "fin": 19.93,
-   "rms_mix_db": -13.2,
-   "rms_bruitages_db": -16.4
-  },
-  {
-   "t": 20.08,
-   "bloc": "ecuries",
-   "quoi": "écurie 1 : MOTEUR RÉEL du Showroom au premier plan — turbine à réaction (enregistrement réel) — bandes multi-régimes (montée reconstituée) (CC0, sounds/moteurs_reels/01)",
-   "source": "synthèse",
-   "fin": 24.53,
-   "rms_mix_db": -23.4,
-   "rms_bruitages_db": -26.1
-  },
-  {
-   "t": 20.08,
-   "bloc": "ecuries",
-   "quoi": "écurie 1 : swoosh grave (bandeau)",
-   "source": "synthèse",
-   "rms_mix_db": -23.4,
-   "rms_bruitages_db": -26.1
-  },
-  {
-   "t": 24.12,
-   "bloc": "ecuries",
-   "quoi": "écurie 2 : MOTEUR RÉEL du Showroom au premier plan — 4 cylindres à plat Subaru WRX (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/02)",
-   "source": "synthèse",
-   "fin": 28.57,
-   "rms_mix_db": -21.9,
-   "rms_bruitages_db": -23.9
-  },
-  {
-   "t": 24.12,
-   "bloc": "ecuries",
-   "quoi": "écurie 2 : swoosh grave (bandeau)",
-   "source": "synthèse",
-   "rms_mix_db": -21.9,
-   "rms_bruitages_db": -23.9
-  },
-  {
-   "t": 28.39,
-   "bloc": "ecuries",
-   "quoi": "écurie 3 : MOTEUR RÉEL du Showroom au premier plan — moteur turbo de prototype (voiture réelle sur banc de puissance) — bandes multi-régimes (montée reconstituée) (CC0, sounds/moteurs_reels/03)",
-   "source": "synthèse",
-   "fin": 32.84,
-   "rms_mix_db": -20.5,
-   "rms_bruitages_db": -24.1
-  },
-  {
-   "t": 28.39,
-   "bloc": "ecuries",
-   "quoi": "écurie 3 : swoosh grave (bandeau)",
-   "source": "synthèse",
-   "rms_mix_db": -20.5,
-   "rms_bruitages_db": -24.1
-  },
-  {
-   "t": 32.29,
-   "bloc": "ecuries",
-   "quoi": "écurie 4 : MOTEUR RÉEL du Showroom au premier plan — V12 Lamborghini (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/04)",
-   "source": "synthèse",
-   "fin": 36.74,
-   "rms_mix_db": -21.6,
-   "rms_bruitages_db": -23.1
-  },
-  {
-   "t": 32.29,
-   "bloc": "ecuries",
-   "quoi": "écurie 4 : swoosh grave (bandeau)",
-   "source": "synthèse",
-   "rms_mix_db": -21.6,
-   "rms_bruitages_db": -23.1
-  },
-  {
-   "t": 36.37,
-   "bloc": "ecuries",
-   "quoi": "écurie 5 : MOTEUR RÉEL du Showroom au premier plan — V8 de hot-rod Chevrolet (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/05)",
-   "source": "synthèse",
-   "fin": 40.82,
-   "rms_mix_db": -20.0,
-   "rms_bruitages_db": -21.1
-  },
-  {
-   "t": 36.37,
-   "bloc": "ecuries",
-   "quoi": "écurie 5 : swoosh grave (bandeau)",
-   "source": "synthèse",
-   "rms_mix_db": -20.0,
-   "rms_bruitages_db": -21.1
-  },
-  {
-   "t": 40.27,
-   "bloc": "ecuries",
-   "quoi": "écurie 6 : MOTEUR RÉEL du Showroom au premier plan — moteur électrique (enregistrements réels) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/06)",
-   "source": "synthèse",
-   "fin": 44.72,
-   "rms_mix_db": -19.1,
-   "rms_bruitages_db": -24.6
-  },
-  {
-   "t": 40.27,
-   "bloc": "ecuries",
-   "quoi": "écurie 6 : swoosh grave (bandeau)",
-   "source": "synthèse",
-   "rms_mix_db": -19.1,
-   "rms_bruitages_db": -24.6
-  },
-  {
-   "t": 45.43,
-   "bloc": "ecuries",
-   "quoi": "écurie 7 : MOTEUR RÉEL du Showroom au premier plan — 4 cylindres de rallycross (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/07)",
-   "source": "synthèse",
-   "fin": 49.88,
-   "rms_mix_db": -20.6,
-   "rms_bruitages_db": -24.0
-  },
-  {
-   "t": 45.43,
-   "bloc": "ecuries",
-   "quoi": "écurie 7 : swoosh grave (bandeau)",
-   "source": "synthèse",
-   "rms_mix_db": -20.6,
-   "rms_bruitages_db": -24.0
-  },
-  {
-   "t": 50.05,
-   "bloc": "ecuries",
-   "quoi": "écurie 8 : MOTEUR RÉEL du Showroom au premier plan — gros diesel de pick-up (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/08) + 3 bips Audi (audi_chime 0,80–3,20)",
-   "source": "synthèse",
-   "fin": 54.5,
-   "rms_mix_db": -20.8,
-   "rms_bruitages_db": -22.1
-  },
-  {
-   "t": 50.05,
-   "bloc": "ecuries",
-   "quoi": "écurie 8 : swoosh grave (bandeau)",
-   "source": "synthèse",
-   "rms_mix_db": -20.8,
-   "rms_bruitages_db": -22.1
-  },
-  {
-   "t": 54.65,
-   "bloc": "ecuries",
-   "quoi": "écurie 9 : MOTEUR RÉEL du Showroom au premier plan — 6 cylindres en ligne BMW M3 (enregistrement réel) — ralenti + coups de gaz (CC BY, sounds/moteurs_reels/09)",
-   "source": "synthèse",
-   "fin": 59.1,
-   "rms_mix_db": -20.9,
-   "rms_bruitages_db": -24.6
-  },
-  {
-   "t": 54.65,
-   "bloc": "ecuries",
-   "quoi": "écurie 9 : swoosh grave (bandeau)",
-   "source": "synthèse",
-   "rms_mix_db": -20.9,
-   "rms_bruitages_db": -24.6
-  },
-  {
-   "t": 59.51,
-   "bloc": "ecuries",
-   "quoi": "écurie 10 : MOTEUR RÉEL du Showroom au premier plan — V8 Corvette à arbre à cames méchant (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/10)",
-   "source": "synthèse",
-   "fin": 63.96,
-   "rms_mix_db": -22.7,
-   "rms_bruitages_db": -28.4
-  },
-  {
-   "t": 59.51,
-   "bloc": "ecuries",
-   "quoi": "écurie 10 : swoosh grave (bandeau)",
-   "source": "synthèse",
-   "rms_mix_db": -22.7,
-   "rms_bruitages_db": -28.4
-  },
-  {
-   "t": 63.72,
-   "bloc": "ecuries",
-   "quoi": "écurie 11 : MOTEUR RÉEL du Showroom au premier plan — petit moteur de Mini (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/11)",
-   "source": "synthèse",
-   "fin": 68.17,
-   "rms_mix_db": -20.7,
-   "rms_bruitages_db": -23.3
-  },
-  {
-   "t": 63.72,
-   "bloc": "ecuries",
-   "quoi": "écurie 11 : swoosh grave (bandeau)",
-   "source": "synthèse",
-   "rms_mix_db": -20.7,
-   "rms_bruitages_db": -23.3
-  },
-  {
-   "t": 67.85,
-   "bloc": "ecuries",
-   "quoi": "écurie 12 : MOTEUR RÉEL du Showroom au premier plan — V8 Ferrari (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/12) (sous) + « Lero Lero » 3.00 → 6.43 s du fichier",
-   "source": "synthèse",
-   "fin": 72.3,
-   "rms_mix_db": -22.0,
-   "rms_bruitages_db": -27.9
-  },
-  {
-   "t": 67.85,
-   "bloc": "ecuries",
-   "quoi": "écurie 12 : swoosh grave (bandeau)",
-   "source": "synthèse",
-   "rms_mix_db": -22.0,
-   "rms_bruitages_db": -27.9
-  },
-  {
-   "t": 71.69,
-   "bloc": "ecuries",
-   "quoi": "écurie 13 : MOTEUR RÉEL du Showroom au premier plan — 4 cylindres Honda Civic qui monte dans les tours (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/13)",
-   "source": "synthèse",
-   "fin": 76.14,
-   "rms_mix_db": -20.9,
-   "rms_bruitages_db": -28.5
-  },
-  {
-   "t": 71.69,
-   "bloc": "ecuries",
-   "quoi": "écurie 13 : swoosh grave (bandeau)",
-   "source": "synthèse",
-   "rms_mix_db": -20.9,
-   "rms_bruitages_db": -28.5
-  },
-  {
-   "t": 75.64,
-   "bloc": "ecuries",
-   "quoi": "écurie 14 : MOTEUR RÉEL du Showroom au premier plan — voiture de drift (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/14)",
-   "source": "synthèse",
-   "fin": 80.09,
-   "rms_mix_db": -22.3,
-   "rms_bruitages_db": -24.2
-  },
-  {
-   "t": 75.64,
-   "bloc": "ecuries",
-   "quoi": "écurie 14 : swoosh grave (bandeau)",
-   "source": "synthèse",
-   "rms_mix_db": -22.3,
-   "rms_bruitages_db": -24.2
-  },
-  {
-   "t": 80.05,
-   "bloc": "ecuries",
-   "quoi": "écurie 15 : MOTEUR RÉEL du Showroom au premier plan — vieux moteur (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/15)",
-   "source": "synthèse",
-   "fin": 84.5,
-   "rms_mix_db": -21.6,
-   "rms_bruitages_db": -29.0
-  },
-  {
-   "t": 80.05,
-   "bloc": "ecuries",
-   "quoi": "écurie 15 : swoosh grave (bandeau)",
-   "source": "synthèse",
-   "rms_mix_db": -21.6,
-   "rms_bruitages_db": -29.0
-  },
-  {
-   "t": 83.63,
-   "bloc": "rush",
-   "quoi": "RUSH #2 : impact sub + stinger du moteur réel",
-   "source": "synthèse",
-   "rms_mix_db": -22.5,
-   "rms_bruitages_db": -25.1
-  },
-  {
-   "t": 85.03,
-   "bloc": "rush",
-   "quoi": "RUSH #3 : impact sub + stinger du moteur réel",
-   "source": "synthèse",
-   "rms_mix_db": -22.6,
-   "rms_bruitages_db": -21.9
-  },
-  {
-   "t": 86.43,
-   "bloc": "rush",
-   "quoi": "RUSH #10 : impact sub + stinger du moteur réel",
-   "source": "synthèse",
-   "rms_mix_db": -22.1,
-   "rms_bruitages_db": -21.6
-  },
-  {
-   "t": 87.83,
-   "bloc": "rush",
-   "quoi": "RUSH #15 : impact sub + stinger du moteur réel",
-   "source": "synthèse",
-   "rms_mix_db": -22.2,
-   "rms_bruitages_db": -21.6
-  },
-  {
-   "t": 89.35,
-   "bloc": "couronne",
-   "quoi": "« …SONT CONVIÉS ! » : clameur + coup de cymbale (voix à générer)",
-   "source": "synthèse",
-   "rms_mix_db": -19.2,
-   "rms_bruitages_db": -17.3
-  },
-  {
-   "t": 90.63,
-   "bloc": "couronne",
-   "quoi": "portail de la couronne : glitch / téléportation + swoosh grave",
-   "source": "synthèse",
-   "rms_mix_db": -21.1,
-   "rms_bruitages_db": -21.7
-  },
-  {
-   "t": 91.63,
-   "bloc": "familles",
-   "quoi": "Gotham : PAUSE de rythme (fondu, pluie, tonnerre lointain, nappe sombre), puis moteur grave de Batmobile",
-   "source": "synthèse",
-   "fin": 95.63,
-   "rms_mix_db": -28.7,
-   "rms_bruitages_db": -30.1
-  },
-  {
-   "t": 91.63,
-   "bloc": "familles",
-   "quoi": "entrée à Gotham : fondu (pas de glitch)",
-   "source": "synthèse",
-   "rms_mix_db": -28.7,
-   "rms_bruitages_db": -30.1
-  },
-  {
-   "t": 91.63,
-   "bloc": "familles",
-   "quoi": "ring : se retire presque (−18 dB) — pause de rythme à Gotham",
-   "source": "synthèse",
-   "fin": 93.13,
-   "rms_mix_db": -28.7,
-   "rms_bruitages_db": -30.1
-  },
-  {
-   "t": 95.63,
-   "bloc": "familles",
-   "quoi": "F1 : grille au ralenti, 5 bips, rugissement coupé net par Tokyo",
-   "source": "synthèse",
-   "fin": 98.13,
-   "rms_mix_db": -24.4,
-   "rms_bruitages_db": -26.6
-  },
-  {
-   "t": 95.63,
-   "bloc": "familles",
-   "quoi": "transition de monde : swoosh grave + glitch",
-   "source": "synthèse",
-   "rms_mix_db": -24.4,
-   "rms_bruitages_db": -26.6
-  },
-  {
-   "t": 95.73,
-   "bloc": "familles",
-   "quoi": "F1 : bip du feu rouge 1/5",
-   "source": "synthèse",
-   "rms_mix_db": -23.0,
-   "rms_bruitages_db": -28.4
-  },
-  {
-   "t": 96.53,
-   "bloc": "familles",
-   "quoi": "F1 : bip du feu rouge 2/5",
-   "source": "synthèse",
-   "rms_mix_db": -20.7,
    "rms_bruitages_db": -33.7
   },
   {
-   "t": 97.33,
-   "bloc": "familles",
-   "quoi": "F1 : bip du feu rouge 3/5",
+   "t": 6.9,
+   "bloc": "ouverture",
+   "quoi": "la télé s'allume : déclic électrique",
    "source": "synthèse",
-   "rms_mix_db": -20.6,
-   "rms_bruitages_db": -32.9
+   "rms_mix_db": -30.5,
+   "rms_bruitages_db": -30.5
   },
   {
-   "t": 97.58,
-   "bloc": "familles",
-   "quoi": "F1 : bip du feu rouge 4/5",
+   "t": 7.4,
+   "bloc": "ouverture",
+   "quoi": "VRILLE : riser qui accélère + aspiration (sans musique)",
    "source": "synthèse",
-   "rms_mix_db": -20.3,
-   "rms_bruitages_db": -31.7
+   "fin": 9.17,
+   "rms_mix_db": -22.3,
+   "rms_bruitages_db": -41.1
   },
   {
-   "t": 97.83,
-   "bloc": "familles",
-   "quoi": "F1 : bip du feu rouge 5/5",
+   "t": 7.451,
+   "bloc": "ouverture",
+   "quoi": "crépitements électriques de plus en plus serrés (12)",
    "source": "synthèse",
-   "rms_mix_db": -21.9,
-   "rms_bruitages_db": -26.3
-  },
-  {
-   "t": 98.13,
-   "bloc": "familles",
-   "quoi": "Tokyo : VRAIE COURSE — 6 dépassements Doppler croisés, crissements, néons",
-   "source": "synthèse",
-   "fin": 101.63,
-   "rms_mix_db": -25.2,
-   "rms_bruitages_db": -26.4
-  },
-  {
-   "t": 98.13,
-   "bloc": "familles",
-   "quoi": "transition de monde : swoosh + glitch discret",
-   "source": "synthèse",
-   "rms_mix_db": -25.2,
-   "rms_bruitages_db": -26.4
-  },
-  {
-   "t": 101.63,
-   "bloc": "familles",
-   "quoi": "transition de monde : swoosh grave + glitch",
-   "source": "synthèse",
-   "rms_mix_db": -24.5,
-   "rms_bruitages_db": -30.8
-  },
-  {
-   "t": 104.13,
-   "bloc": "telephone",
-   "quoi": "KA-CHING (cloche 2450 + 3680 Hz + tiroir-caisse) : pari",
-   "source": "synthèse",
-   "rms_mix_db": -19.0,
-   "rms_bruitages_db": -22.0
-  },
-  {
-   "t": 105.33,
-   "bloc": "telephone",
-   "quoi": "KA-CHING (cloche 2450 + 3680 Hz + tiroir-caisse) : points",
-   "source": "synthèse",
-   "rms_mix_db": -19.4,
-   "rms_bruitages_db": -21.4
-  },
-  {
-   "t": 105.33,
-   "bloc": "telephone",
-   "quoi": "cascade de pièces d'or qui tintent",
-   "source": "synthèse",
-   "fin": 106.83,
-   "rms_mix_db": -19.4,
-   "rms_bruitages_db": -21.4
-  },
-  {
-   "t": 106.53,
-   "bloc": "telephone",
-   "quoi": "roulette qui ralentit jusqu'au jackpot",
-   "source": "synthèse",
-   "fin": 107.93,
-   "rms_mix_db": -21.3,
-   "rms_bruitages_db": -32.8
-  },
-  {
-   "t": 107.93,
-   "bloc": "telephone",
-   "quoi": "KA-CHING (cloche 2450 + 3680 Hz + tiroir-caisse) : bonus (jackpot)",
-   "source": "synthèse",
-   "rms_mix_db": -20.3,
-   "rms_bruitages_db": -21.6
-  },
-  {
-   "t": 109.43,
-   "bloc": "telephone",
-   "quoi": "piège : swoosh rouge menaçant",
-   "source": "synthèse",
-   "fin": 110.43,
-   "rms_mix_db": -22.0,
-   "rms_bruitages_db": -35.7
-  },
-  {
-   "t": 111.33,
-   "bloc": "lootbox",
-   "quoi": "conteneur qui descend (sifflement)",
-   "source": "synthèse",
-   "fin": 112.43,
-   "rms_mix_db": -27.1,
-   "rms_bruitages_db": -25.3
-  },
-  {
-   "t": 112.43,
-   "bloc": "lootbox",
-   "quoi": "IMPACT LOURD du conteneur — la musique se retire",
-   "source": "synthèse",
+   "fin": 9.23,
    "rms_mix_db": -21.8,
-   "rms_bruitages_db": -27.9
-  },
-  {
-   "t": 112.43,
-   "bloc": "lootbox",
-   "quoi": "ring : se retire (−16 dB) — suspense du conteneur",
-   "source": "synthèse",
-   "fin": 119.13,
-   "rms_mix_db": -21.8,
-   "rms_bruitages_db": -27.9
-  },
-  {
-   "t": 112.73,
-   "bloc": "lootbox",
-   "quoi": "battements de cœur lents (58 → 72 /min)",
-   "source": "synthèse",
-   "fin": 118.93,
-   "rms_mix_db": -20.9,
-   "rms_bruitages_db": -30.4
-  },
-  {
-   "t": 113.33,
-   "bloc": "lootbox",
-   "quoi": "grincement métallique",
-   "source": "synthèse",
-   "rms_mix_db": -20.7,
-   "rms_bruitages_db": -35.8
-  },
-  {
-   "t": 114.33,
-   "bloc": "lootbox",
-   "quoi": "grincement métallique",
-   "source": "synthèse",
-   "rms_mix_db": -21.7,
    "rms_bruitages_db": -41.0
   },
   {
-   "t": 114.38,
-   "bloc": "lootbox",
-   "quoi": "grincement métallique",
-   "source": "synthèse",
-   "rms_mix_db": -21.5,
-   "rms_bruitages_db": -38.7
+   "t": 9.2,
+   "bloc": "ring",
+   "quoi": "RING MUSIC (fil rouge) : entre sur son temps fort avec « ARÈNE ! » ; 44 mesures jusqu'au logo",
+   "source": "audio/sources/ring_music.mp3 (extrait client, lu)",
+   "fin": 129.8,
+   "rms_mix_db": -14.6,
+   "rms_bruitages_db": -16.1
   },
   {
-   "t": 114.83,
-   "bloc": "lootbox",
-   "quoi": "verrou 1/4",
+   "t": 9.2,
+   "bloc": "arrivee",
+   "quoi": "« ARÈNE ! » : impact sub + clameur de la foule + entrée de la Ring music",
    "source": "synthèse",
-   "rms_mix_db": -27.9,
-   "rms_bruitages_db": -26.4
+   "fin": 13.2,
+   "rms_mix_db": -14.6,
+   "rms_bruitages_db": -16.1
   },
   {
-   "t": 115.13,
-   "bloc": "lootbox",
-   "quoi": "verrou 2/4",
+   "t": 13.35,
+   "bloc": "ecuries",
+   "quoi": "écurie 1 : MOTEUR RÉEL du Showroom au premier plan — turbine à réaction (enregistrement réel) — bandes multi-régimes (montée reconstituée) (CC0, sounds/moteurs_reels/01)",
    "source": "synthèse",
-   "rms_mix_db": -28.1,
-   "rms_bruitages_db": -27.0
+   "fin": 17.8,
+   "rms_mix_db": -23.1,
+   "rms_bruitages_db": -25.8
   },
   {
-   "t": 115.43,
-   "bloc": "lootbox",
-   "quoi": "verrou 3/4",
+   "t": 13.35,
+   "bloc": "ecuries",
+   "quoi": "écurie 1 : swoosh grave (bandeau)",
    "source": "synthèse",
-   "rms_mix_db": -29.1,
-   "rms_bruitages_db": -26.8
+   "rms_mix_db": -23.1,
+   "rms_bruitages_db": -25.8
   },
   {
-   "t": 115.73,
-   "bloc": "lootbox",
-   "quoi": "verrou 4/4",
+   "t": 17.39,
+   "bloc": "ecuries",
+   "quoi": "écurie 2 : MOTEUR RÉEL du Showroom au premier plan — 4 cylindres à plat Subaru WRX (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/02)",
    "source": "synthèse",
-   "rms_mix_db": -28.3,
-   "rms_bruitages_db": -28.6
+   "fin": 21.84,
+   "rms_mix_db": -21.7,
+   "rms_bruitages_db": -23.8
   },
   {
-   "t": 116.03,
-   "bloc": "lootbox",
-   "quoi": "rideau qui s'enroule lentement",
+   "t": 17.39,
+   "bloc": "ecuries",
+   "quoi": "écurie 2 : swoosh grave (bandeau)",
    "source": "synthèse",
-   "fin": 118.73,
-   "rms_mix_db": -31.7,
-   "rms_bruitages_db": -35.0
+   "rms_mix_db": -21.7,
+   "rms_bruitages_db": -23.8
   },
   {
-   "t": 116.93,
-   "bloc": "lootbox",
-   "quoi": "grincement métallique",
+   "t": 21.66,
+   "bloc": "ecuries",
+   "quoi": "écurie 3 : MOTEUR RÉEL du Showroom au premier plan — moteur turbo de prototype (voiture réelle sur banc de puissance) — bandes multi-régimes (montée reconstituée) (CC0, sounds/moteurs_reels/03)",
    "source": "synthèse",
-   "rms_mix_db": -30.7,
-   "rms_bruitages_db": -32.1
-  },
-  {
-   "t": 117.93,
-   "bloc": "lootbox",
-   "quoi": "grincement métallique",
-   "source": "synthèse",
-   "rms_mix_db": -31.7,
-   "rms_bruitages_db": -33.2
-  },
-  {
-   "t": 118.93,
-   "bloc": "lootbox",
-   "quoi": "le trophée sort : scintillement doré + chœur",
-   "source": "synthèse",
-   "fin": 121.43,
-   "rms_mix_db": -18.1,
-   "rms_bruitages_db": -12.7
-  },
-  {
-   "t": 119.13,
-   "bloc": "lootbox",
-   "quoi": "TOUT S'ENFLAMME : jets de flammes pyro, feux d'artifice, la foule explose, la musique revient pleine",
-   "source": "synthèse",
-   "fin": 122.13,
-   "rms_mix_db": -13.2,
-   "rms_bruitages_db": -11.7
-  },
-  {
-   "t": 119.13,
-   "bloc": "lootbox",
-   "quoi": "ring : revient PLEINE (+2 dB) — tout s'enflamme",
-   "source": "synthèse",
-   "rms_mix_db": -13.2,
-   "rms_bruitages_db": -11.7
-  },
-  {
-   "t": 120.83,
-   "bloc": "gloire",
-   "quoi": "trophée en haut : éclat de cloches",
-   "source": "synthèse",
-   "rms_mix_db": -22.6,
-   "rms_bruitages_db": -27.8
-  },
-  {
-   "t": 121.93,
-   "bloc": "gloire",
-   "quoi": "« GLOIRE » : impact + cymbale + feu d'artifice",
-   "source": "synthèse",
-   "fin": 123.93,
-   "rms_mix_db": -17.7,
-   "rms_bruitages_db": -20.2
-  },
-  {
-   "t": 122.93,
-   "bloc": "gloire",
-   "quoi": "CLAMEUR DE FOULE + confettis",
-   "source": "synthèse",
-   "fin": 127.43,
-   "rms_mix_db": -16.5,
-   "rms_bruitages_db": -18.1
-  },
-  {
-   "t": 122.93,
-   "bloc": "gloire",
-   "quoi": "« ÉTERNELLE » : impact + cymbale + feu d'artifice",
-   "source": "synthèse",
-   "fin": 124.93,
-   "rms_mix_db": -16.5,
-   "rms_bruitages_db": -18.1
-  },
-  {
-   "t": 123.035,
-   "bloc": "gloire",
-   "quoi": "fanfare : timbales, appel de cuivres, accord majeur (relatif de la ring)",
-   "source": "synthèse",
-   "fin": 127.635,
-   "rms_mix_db": -15.7,
-   "rms_bruitages_db": -19.3
-  },
-  {
-   "t": 123.635,
-   "bloc": "gloire",
-   "quoi": "ring : + 3 dB après « éternelle »",
-   "source": "synthèse",
-   "fin": 123.885,
-   "rms_mix_db": -19.3,
-   "rms_bruitages_db": -19.7
-  },
-  {
-   "t": 128.33,
-   "bloc": "depart",
-   "quoi": "cordes du ring qui claquent",
-   "source": "synthèse",
-   "rms_mix_db": -21.5,
-   "rms_bruitages_db": -29.6
-  },
-  {
-   "t": 129.03,
-   "bloc": "depart",
-   "quoi": "foule pleine jusqu'à la fin (rumeur + 2 clameurs)",
-   "source": "synthèse",
-   "fin": 136.47,
-   "rms_mix_db": -20.4,
-   "rms_bruitages_db": -29.7
-  },
-  {
-   "t": 129.03,
-   "bloc": "depart",
-   "quoi": "les 15 moteurs réels démarrent",
-   "source": "synthèse",
-   "fin": 131.43,
-   "rms_mix_db": -20.4,
-   "rms_bruitages_db": -29.7
-  },
-  {
-   "t": 129.93,
-   "bloc": "depart",
-   "quoi": "moteurs qui passent en trombe (8 passages Doppler croisés)",
-   "source": "synthèse",
-   "fin": 132.83,
-   "rms_mix_db": -19.2,
-   "rms_bruitages_db": -18.5
-  },
-  {
-   "t": 131.53,
-   "bloc": "depart",
-   "quoi": "feux d'artifice (7) autour du logo",
-   "source": "synthèse",
-   "fin": 136.13,
-   "rms_mix_db": -20.6,
-   "rms_bruitages_db": -26.9
-  },
-  {
-   "t": 133.53,
-   "bloc": "depart",
-   "quoi": "LOGO FINAL : impact + accord + dernier temps fort de la ring et sa résonance",
-   "source": "synthèse",
-   "fin": 136.47,
+   "fin": 26.11,
    "rms_mix_db": -20.3,
-   "rms_bruitages_db": -19.9
+   "rms_bruitages_db": -23.8
   },
   {
-   "t": 134.19,
-   "bloc": "depart",
-   "quoi": "« GRAND » : impact (emphase stade)",
+   "t": 21.66,
+   "bloc": "ecuries",
+   "quoi": "écurie 3 : swoosh grave (bandeau)",
    "source": "synthèse",
-   "rms_mix_db": -17.9,
+   "rms_mix_db": -20.3,
+   "rms_bruitages_db": -23.8
+  },
+  {
+   "t": 25.56,
+   "bloc": "ecuries",
+   "quoi": "écurie 4 : MOTEUR RÉEL du Showroom au premier plan — V12 Lamborghini (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/04)",
+   "source": "synthèse",
+   "fin": 30.01,
+   "rms_mix_db": -21.3,
+   "rms_bruitages_db": -22.8
+  },
+  {
+   "t": 25.56,
+   "bloc": "ecuries",
+   "quoi": "écurie 4 : swoosh grave (bandeau)",
+   "source": "synthèse",
+   "rms_mix_db": -21.3,
+   "rms_bruitages_db": -22.8
+  },
+  {
+   "t": 29.64,
+   "bloc": "ecuries",
+   "quoi": "écurie 5 : MOTEUR RÉEL du Showroom au premier plan — V8 de hot-rod Chevrolet (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/05)",
+   "source": "synthèse",
+   "fin": 34.09,
+   "rms_mix_db": -19.8,
    "rms_bruitages_db": -21.1
   },
   {
-   "t": 134.795,
-   "bloc": "depart",
-   "quoi": "« PRIX DE » : impact (emphase stade)",
+   "t": 29.64,
+   "bloc": "ecuries",
+   "quoi": "écurie 5 : swoosh grave (bandeau)",
    "source": "synthèse",
-   "rms_mix_db": -17.4,
+   "rms_mix_db": -19.8,
+   "rms_bruitages_db": -21.1
+  },
+  {
+   "t": 33.54,
+   "bloc": "ecuries",
+   "quoi": "écurie 6 : MOTEUR RÉEL du Showroom au premier plan — moteur électrique (enregistrements réels) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/06)",
+   "source": "synthèse",
+   "fin": 37.99,
+   "rms_mix_db": -19.0,
+   "rms_bruitages_db": -24.6
+  },
+  {
+   "t": 33.54,
+   "bloc": "ecuries",
+   "quoi": "écurie 6 : swoosh grave (bandeau)",
+   "source": "synthèse",
+   "rms_mix_db": -19.0,
+   "rms_bruitages_db": -24.6
+  },
+  {
+   "t": 38.7,
+   "bloc": "ecuries",
+   "quoi": "écurie 7 : MOTEUR RÉEL du Showroom au premier plan — 4 cylindres de rallycross (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/07)",
+   "source": "synthèse",
+   "fin": 43.15,
+   "rms_mix_db": -20.3,
+   "rms_bruitages_db": -24.0
+  },
+  {
+   "t": 38.7,
+   "bloc": "ecuries",
+   "quoi": "écurie 7 : swoosh grave (bandeau)",
+   "source": "synthèse",
+   "rms_mix_db": -20.3,
+   "rms_bruitages_db": -24.0
+  },
+  {
+   "t": 43.32,
+   "bloc": "ecuries",
+   "quoi": "écurie 8 : MOTEUR RÉEL du Showroom au premier plan — gros diesel de pick-up (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/08) + 3 bips Audi (audi_chime 0,80–3,20)",
+   "source": "synthèse",
+   "fin": 47.77,
+   "rms_mix_db": -20.6,
+   "rms_bruitages_db": -22.1
+  },
+  {
+   "t": 43.32,
+   "bloc": "ecuries",
+   "quoi": "écurie 8 : swoosh grave (bandeau)",
+   "source": "synthèse",
+   "rms_mix_db": -20.6,
+   "rms_bruitages_db": -22.1
+  },
+  {
+   "t": 47.92,
+   "bloc": "ecuries",
+   "quoi": "écurie 9 : MOTEUR RÉEL du Showroom au premier plan — 6 cylindres en ligne BMW M3 (enregistrement réel) — ralenti + coups de gaz (CC BY, sounds/moteurs_reels/09)",
+   "source": "synthèse",
+   "fin": 52.37,
+   "rms_mix_db": -20.7,
+   "rms_bruitages_db": -24.6
+  },
+  {
+   "t": 47.92,
+   "bloc": "ecuries",
+   "quoi": "écurie 9 : swoosh grave (bandeau)",
+   "source": "synthèse",
+   "rms_mix_db": -20.7,
+   "rms_bruitages_db": -24.6
+  },
+  {
+   "t": 52.78,
+   "bloc": "ecuries",
+   "quoi": "écurie 10 : MOTEUR RÉEL du Showroom au premier plan — V8 Corvette à arbre à cames méchant (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/10)",
+   "source": "synthèse",
+   "fin": 57.23,
+   "rms_mix_db": -22.4,
+   "rms_bruitages_db": -28.3
+  },
+  {
+   "t": 52.78,
+   "bloc": "ecuries",
+   "quoi": "écurie 10 : swoosh grave (bandeau)",
+   "source": "synthèse",
+   "rms_mix_db": -22.4,
+   "rms_bruitages_db": -28.3
+  },
+  {
+   "t": 56.99,
+   "bloc": "ecuries",
+   "quoi": "écurie 11 : MOTEUR RÉEL du Showroom au premier plan — petit moteur de Mini (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/11)",
+   "source": "synthèse",
+   "fin": 61.44,
+   "rms_mix_db": -20.4,
+   "rms_bruitages_db": -23.3
+  },
+  {
+   "t": 56.99,
+   "bloc": "ecuries",
+   "quoi": "écurie 11 : swoosh grave (bandeau)",
+   "source": "synthèse",
+   "rms_mix_db": -20.4,
+   "rms_bruitages_db": -23.3
+  },
+  {
+   "t": 61.12,
+   "bloc": "ecuries",
+   "quoi": "écurie 12 : MOTEUR RÉEL du Showroom au premier plan — V8 Ferrari (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/12) (sous) + « Lero Lero » 3.00 → 6.43 s du fichier",
+   "source": "synthèse",
+   "fin": 65.57,
+   "rms_mix_db": -21.7,
+   "rms_bruitages_db": -27.7
+  },
+  {
+   "t": 61.12,
+   "bloc": "ecuries",
+   "quoi": "écurie 12 : swoosh grave (bandeau)",
+   "source": "synthèse",
+   "rms_mix_db": -21.7,
+   "rms_bruitages_db": -27.7
+  },
+  {
+   "t": 64.96,
+   "bloc": "ecuries",
+   "quoi": "écurie 13 : MOTEUR RÉEL du Showroom au premier plan — 4 cylindres Honda Civic qui monte dans les tours (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/13)",
+   "source": "synthèse",
+   "fin": 69.41,
+   "rms_mix_db": -20.6,
+   "rms_bruitages_db": -28.2
+  },
+  {
+   "t": 64.96,
+   "bloc": "ecuries",
+   "quoi": "écurie 13 : swoosh grave (bandeau)",
+   "source": "synthèse",
+   "rms_mix_db": -20.6,
+   "rms_bruitages_db": -28.2
+  },
+  {
+   "t": 68.91,
+   "bloc": "ecuries",
+   "quoi": "écurie 14 : MOTEUR RÉEL du Showroom au premier plan — voiture de drift (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/14)",
+   "source": "synthèse",
+   "fin": 73.36,
+   "rms_mix_db": -22.0,
+   "rms_bruitages_db": -23.9
+  },
+  {
+   "t": 68.91,
+   "bloc": "ecuries",
+   "quoi": "écurie 14 : swoosh grave (bandeau)",
+   "source": "synthèse",
+   "rms_mix_db": -22.0,
+   "rms_bruitages_db": -23.9
+  },
+  {
+   "t": 73.32,
+   "bloc": "ecuries",
+   "quoi": "écurie 15 : MOTEUR RÉEL du Showroom au premier plan — vieux moteur (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/15)",
+   "source": "synthèse",
+   "fin": 77.77,
+   "rms_mix_db": -21.3,
+   "rms_bruitages_db": -28.9
+  },
+  {
+   "t": 73.32,
+   "bloc": "ecuries",
+   "quoi": "écurie 15 : swoosh grave (bandeau)",
+   "source": "synthèse",
+   "rms_mix_db": -21.3,
+   "rms_bruitages_db": -28.9
+  },
+  {
+   "t": 76.9,
+   "bloc": "rush",
+   "quoi": "RUSH #2 : impact sub + stinger du moteur réel",
+   "source": "synthèse",
+   "rms_mix_db": -22.3,
+   "rms_bruitages_db": -25.1
+  },
+  {
+   "t": 78.3,
+   "bloc": "rush",
+   "quoi": "RUSH #3 : impact sub + stinger du moteur réel",
+   "source": "synthèse",
+   "rms_mix_db": -22.5,
+   "rms_bruitages_db": -21.8
+  },
+  {
+   "t": 79.7,
+   "bloc": "rush",
+   "quoi": "RUSH #10 : impact sub + stinger du moteur réel",
+   "source": "synthèse",
+   "rms_mix_db": -22.0,
+   "rms_bruitages_db": -21.6
+  },
+  {
+   "t": 81.1,
+   "bloc": "rush",
+   "quoi": "RUSH #15 : impact sub + stinger du moteur réel",
+   "source": "synthèse",
+   "rms_mix_db": -22.1,
+   "rms_bruitages_db": -21.5
+  },
+  {
+   "t": 82.62,
+   "bloc": "couronne",
+   "quoi": "« …SONT CONVIÉS ! » : clameur + coup de cymbale (voix à générer)",
+   "source": "synthèse",
+   "rms_mix_db": -19.0,
+   "rms_bruitages_db": -17.2
+  },
+  {
+   "t": 83.9,
+   "bloc": "couronne",
+   "quoi": "portail de la couronne : glitch / téléportation + swoosh grave",
+   "source": "synthèse",
+   "rms_mix_db": -20.9,
+   "rms_bruitages_db": -21.6
+  },
+  {
+   "t": 84.9,
+   "bloc": "familles",
+   "quoi": "Gotham : PAUSE de rythme (fondu, pluie, tonnerre lointain, nappe sombre), puis moteur grave de Batmobile",
+   "source": "synthèse",
+   "fin": 88.9,
+   "rms_mix_db": -28.6,
+   "rms_bruitages_db": -30.1
+  },
+  {
+   "t": 84.9,
+   "bloc": "familles",
+   "quoi": "entrée à Gotham : fondu (pas de glitch)",
+   "source": "synthèse",
+   "rms_mix_db": -28.6,
+   "rms_bruitages_db": -30.1
+  },
+  {
+   "t": 84.9,
+   "bloc": "familles",
+   "quoi": "ring : se retire presque (−18 dB) — pause de rythme à Gotham",
+   "source": "synthèse",
+   "fin": 86.4,
+   "rms_mix_db": -28.6,
+   "rms_bruitages_db": -30.1
+  },
+  {
+   "t": 88.9,
+   "bloc": "familles",
+   "quoi": "F1 : grille au ralenti, 5 bips, rugissement coupé net par Tokyo",
+   "source": "synthèse",
+   "fin": 91.4,
+   "rms_mix_db": -24.2,
+   "rms_bruitages_db": -26.4
+  },
+  {
+   "t": 88.9,
+   "bloc": "familles",
+   "quoi": "transition de monde : swoosh grave + glitch",
+   "source": "synthèse",
+   "rms_mix_db": -24.2,
+   "rms_bruitages_db": -26.4
+  },
+  {
+   "t": 89.0,
+   "bloc": "familles",
+   "quoi": "F1 : bip du feu rouge 1/5",
+   "source": "synthèse",
+   "rms_mix_db": -22.7,
+   "rms_bruitages_db": -28.2
+  },
+  {
+   "t": 89.8,
+   "bloc": "familles",
+   "quoi": "F1 : bip du feu rouge 2/5",
+   "source": "synthèse",
+   "rms_mix_db": -20.4,
+   "rms_bruitages_db": -33.4
+  },
+  {
+   "t": 90.6,
+   "bloc": "familles",
+   "quoi": "F1 : bip du feu rouge 3/5",
+   "source": "synthèse",
+   "rms_mix_db": -20.3,
+   "rms_bruitages_db": -32.5
+  },
+  {
+   "t": 90.85,
+   "bloc": "familles",
+   "quoi": "F1 : bip du feu rouge 4/5",
+   "source": "synthèse",
+   "rms_mix_db": -20.0,
+   "rms_bruitages_db": -31.3
+  },
+  {
+   "t": 91.1,
+   "bloc": "familles",
+   "quoi": "F1 : bip du feu rouge 5/5",
+   "source": "synthèse",
+   "rms_mix_db": -21.5,
+   "rms_bruitages_db": -26.0
+  },
+  {
+   "t": 91.4,
+   "bloc": "familles",
+   "quoi": "Tokyo : VRAIE COURSE — 6 dépassements Doppler croisés, crissements, néons",
+   "source": "synthèse",
+   "fin": 94.9,
+   "rms_mix_db": -24.9,
+   "rms_bruitages_db": -26.0
+  },
+  {
+   "t": 91.4,
+   "bloc": "familles",
+   "quoi": "transition de monde : swoosh + glitch discret",
+   "source": "synthèse",
+   "rms_mix_db": -24.9,
+   "rms_bruitages_db": -26.0
+  },
+  {
+   "t": 94.9,
+   "bloc": "familles",
+   "quoi": "transition de monde : swoosh grave + glitch",
+   "source": "synthèse",
+   "rms_mix_db": -24.1,
+   "rms_bruitages_db": -30.0
+  },
+  {
+   "t": 97.4,
+   "bloc": "telephone",
+   "quoi": "KA-CHING (cloche 2450 + 3680 Hz + tiroir-caisse) : pari",
+   "source": "synthèse",
+   "rms_mix_db": -18.8,
+   "rms_bruitages_db": -21.9
+  },
+  {
+   "t": 98.6,
+   "bloc": "telephone",
+   "quoi": "KA-CHING (cloche 2450 + 3680 Hz + tiroir-caisse) : points",
+   "source": "synthèse",
+   "rms_mix_db": -19.2,
+   "rms_bruitages_db": -21.4
+  },
+  {
+   "t": 98.6,
+   "bloc": "telephone",
+   "quoi": "cascade de pièces d'or qui tintent",
+   "source": "synthèse",
+   "fin": 100.1,
+   "rms_mix_db": -19.2,
+   "rms_bruitages_db": -21.4
+  },
+  {
+   "t": 99.8,
+   "bloc": "telephone",
+   "quoi": "roulette qui ralentit jusqu'au jackpot",
+   "source": "synthèse",
+   "fin": 101.2,
+   "rms_mix_db": -20.9,
+   "rms_bruitages_db": -31.7
+  },
+  {
+   "t": 101.2,
+   "bloc": "telephone",
+   "quoi": "KA-CHING (cloche 2450 + 3680 Hz + tiroir-caisse) : bonus (jackpot)",
+   "source": "synthèse",
+   "rms_mix_db": -20.1,
+   "rms_bruitages_db": -21.4
+  },
+  {
+   "t": 102.7,
+   "bloc": "telephone",
+   "quoi": "piège : swoosh rouge menaçant",
+   "source": "synthèse",
+   "fin": 103.7,
+   "rms_mix_db": -21.5,
+   "rms_bruitages_db": -32.4
+  },
+  {
+   "t": 104.6,
+   "bloc": "lootbox",
+   "quoi": "conteneur qui descend (sifflement)",
+   "source": "synthèse",
+   "fin": 105.7,
+   "rms_mix_db": -26.7,
+   "rms_bruitages_db": -25.0
+  },
+  {
+   "t": 105.7,
+   "bloc": "lootbox",
+   "quoi": "IMPACT LOURD du conteneur — la musique se retire",
+   "source": "synthèse",
+   "rms_mix_db": -21.5,
+   "rms_bruitages_db": -27.6
+  },
+  {
+   "t": 105.7,
+   "bloc": "lootbox",
+   "quoi": "ring : se retire (−16 dB) — suspense du conteneur",
+   "source": "synthèse",
+   "fin": 112.4,
+   "rms_mix_db": -21.5,
+   "rms_bruitages_db": -27.6
+  },
+  {
+   "t": 106.0,
+   "bloc": "lootbox",
+   "quoi": "battements de cœur lents (58 → 72 /min)",
+   "source": "synthèse",
+   "fin": 112.2,
+   "rms_mix_db": -20.6,
+   "rms_bruitages_db": -30.1
+  },
+  {
+   "t": 106.6,
+   "bloc": "lootbox",
+   "quoi": "grincement métallique",
+   "source": "synthèse",
+   "rms_mix_db": -20.3,
+   "rms_bruitages_db": -35.5
+  },
+  {
+   "t": 107.6,
+   "bloc": "lootbox",
+   "quoi": "grincement métallique",
+   "source": "synthèse",
+   "rms_mix_db": -21.3,
+   "rms_bruitages_db": -40.9
+  },
+  {
+   "t": 107.65,
+   "bloc": "lootbox",
+   "quoi": "grincement métallique",
+   "source": "synthèse",
+   "rms_mix_db": -21.2,
+   "rms_bruitages_db": -38.6
+  },
+  {
+   "t": 108.1,
+   "bloc": "lootbox",
+   "quoi": "verrou 1/4",
+   "source": "synthèse",
+   "rms_mix_db": -27.7,
+   "rms_bruitages_db": -26.2
+  },
+  {
+   "t": 108.4,
+   "bloc": "lootbox",
+   "quoi": "verrou 2/4",
+   "source": "synthèse",
+   "rms_mix_db": -27.9,
+   "rms_bruitages_db": -26.8
+  },
+  {
+   "t": 108.7,
+   "bloc": "lootbox",
+   "quoi": "verrou 3/4",
+   "source": "synthèse",
+   "rms_mix_db": -28.9,
+   "rms_bruitages_db": -26.6
+  },
+  {
+   "t": 109.0,
+   "bloc": "lootbox",
+   "quoi": "verrou 4/4",
+   "source": "synthèse",
+   "rms_mix_db": -28.1,
+   "rms_bruitages_db": -28.4
+  },
+  {
+   "t": 109.3,
+   "bloc": "lootbox",
+   "quoi": "rideau qui s'enroule lentement",
+   "source": "synthèse",
+   "fin": 112.0,
+   "rms_mix_db": -31.6,
+   "rms_bruitages_db": -34.8
+  },
+  {
+   "t": 110.2,
+   "bloc": "lootbox",
+   "quoi": "grincement métallique",
+   "source": "synthèse",
+   "rms_mix_db": -30.6,
+   "rms_bruitages_db": -32.0
+  },
+  {
+   "t": 111.2,
+   "bloc": "lootbox",
+   "quoi": "grincement métallique",
+   "source": "synthèse",
+   "rms_mix_db": -31.6,
+   "rms_bruitages_db": -33.0
+  },
+  {
+   "t": 112.2,
+   "bloc": "lootbox",
+   "quoi": "le trophée sort : scintillement doré + chœur",
+   "source": "synthèse",
+   "fin": 114.7,
+   "rms_mix_db": -18.0,
+   "rms_bruitages_db": -12.3
+  },
+  {
+   "t": 112.4,
+   "bloc": "lootbox",
+   "quoi": "TOUT S'ENFLAMME : jets de flammes pyro, feux d'artifice, la foule explose, la musique revient pleine",
+   "source": "synthèse",
+   "fin": 115.4,
+   "rms_mix_db": -13.0,
+   "rms_bruitages_db": -11.4
+  },
+  {
+   "t": 112.4,
+   "bloc": "lootbox",
+   "quoi": "ring : revient PLEINE (+2 dB) — tout s'enflamme",
+   "source": "synthèse",
+   "rms_mix_db": -13.0,
+   "rms_bruitages_db": -11.4
+  },
+  {
+   "t": 114.1,
+   "bloc": "gloire",
+   "quoi": "trophée en haut : éclat de cloches",
+   "source": "synthèse",
+   "rms_mix_db": -22.3,
+   "rms_bruitages_db": -27.5
+  },
+  {
+   "t": 115.2,
+   "bloc": "gloire",
+   "quoi": "« GLOIRE » : impact + cymbale + feu d'artifice",
+   "source": "synthèse",
+   "fin": 117.2,
+   "rms_mix_db": -17.2,
+   "rms_bruitages_db": -19.9
+  },
+  {
+   "t": 116.2,
+   "bloc": "gloire",
+   "quoi": "CLAMEUR DE FOULE + confettis",
+   "source": "synthèse",
+   "fin": 120.7,
+   "rms_mix_db": -16.0,
+   "rms_bruitages_db": -17.8
+  },
+  {
+   "t": 116.2,
+   "bloc": "gloire",
+   "quoi": "« ÉTERNELLE » : impact + cymbale + feu d'artifice",
+   "source": "synthèse",
+   "fin": 118.2,
+   "rms_mix_db": -16.0,
+   "rms_bruitages_db": -17.8
+  },
+  {
+   "t": 116.305,
+   "bloc": "gloire",
+   "quoi": "fanfare : timbales, appel de cuivres, accord majeur (relatif de la ring)",
+   "source": "synthèse",
+   "fin": 120.905,
+   "rms_mix_db": -15.1,
+   "rms_bruitages_db": -19.0
+  },
+  {
+   "t": 116.905,
+   "bloc": "gloire",
+   "quoi": "ring : + 3 dB après « éternelle »",
+   "source": "synthèse",
+   "fin": 117.155,
+   "rms_mix_db": -18.9,
+   "rms_bruitages_db": -19.4
+  },
+  {
+   "t": 121.6,
+   "bloc": "depart",
+   "quoi": "cordes du ring qui claquent",
+   "source": "synthèse",
+   "rms_mix_db": -21.2,
+   "rms_bruitages_db": -29.3
+  },
+  {
+   "t": 122.3,
+   "bloc": "depart",
+   "quoi": "foule pleine jusqu'à la fin (rumeur + 2 clameurs)",
+   "source": "synthèse",
+   "fin": 129.74,
+   "rms_mix_db": -20.0,
+   "rms_bruitages_db": -29.4
+  },
+  {
+   "t": 122.3,
+   "bloc": "depart",
+   "quoi": "les 15 moteurs réels démarrent",
+   "source": "synthèse",
+   "fin": 124.7,
+   "rms_mix_db": -20.0,
+   "rms_bruitages_db": -29.4
+  },
+  {
+   "t": 123.2,
+   "bloc": "depart",
+   "quoi": "moteurs qui passent en trombe (8 passages Doppler croisés)",
+   "source": "synthèse",
+   "fin": 126.1,
+   "rms_mix_db": -18.9,
+   "rms_bruitages_db": -18.2
+  },
+  {
+   "t": 124.8,
+   "bloc": "depart",
+   "quoi": "feux d'artifice (7) autour du logo",
+   "source": "synthèse",
+   "fin": 129.4,
+   "rms_mix_db": -20.3,
+   "rms_bruitages_db": -26.7
+  },
+  {
+   "t": 126.8,
+   "bloc": "depart",
+   "quoi": "LOGO FINAL : impact + accord + dernier temps fort de la ring et sa résonance",
+   "source": "synthèse",
+   "fin": 129.74,
+   "rms_mix_db": -20.0,
+   "rms_bruitages_db": -19.6
+  },
+  {
+   "t": 127.46,
+   "bloc": "depart",
+   "quoi": "« GRAND » : impact (emphase stade)",
+   "source": "synthèse",
+   "rms_mix_db": -17.5,
    "rms_bruitages_db": -20.8
   },
   {
-   "t": 135.425,
+   "t": 128.065,
+   "bloc": "depart",
+   "quoi": "« PRIX DE » : impact (emphase stade)",
+   "source": "synthèse",
+   "rms_mix_db": -17.0,
+   "rms_bruitages_db": -20.5
+  },
+  {
+   "t": 128.695,
    "bloc": "depart",
    "quoi": "« NOËL ! » : ponctuation musicale (accord de cuivres + cloches + cymbale + feu d'artifice), éteinte avant la fin",
    "source": "synthèse",
-   "fin": 136.47,
-   "rms_mix_db": -16.5,
-   "rms_bruitages_db": -19.4
+   "fin": 129.74,
+   "rms_mix_db": -16.2,
+   "rms_bruitages_db": -19.1
   },
   {
-   "t": 135.425,
+   "t": 128.695,
    "bloc": "depart",
    "quoi": "« NOËL » : impact (emphase stade)",
    "source": "synthèse",
-   "rms_mix_db": -16.5,
-   "rms_bruitages_db": -19.4
+   "rms_mix_db": -16.2,
+   "rms_bruitages_db": -19.1
   }
  ],
  "voix_off": [
@@ -839,7 +839,7 @@
     [
      "voix_off/VO_V9_tout.mp3",
      0.03,
-     1.25
+     1.21
     ]
    ],
    "bornes": [
@@ -848,11 +848,11 @@
      1.21
     ]
    ],
-   "t_film_json": 5.6,
-   "attaque": 5.6,
-   "fin": 6.805,
+   "t_film_json": 5.4,
+   "attaque": 5.4,
+   "fin": 6.605,
    "retard_s": 0.0,
-   "creneau_s": 2.3,
+   "creneau_s": 1.7,
    "duree_prise_s": 1.205,
    "atempo": 1.0,
    "atempo_max": 1.0,
@@ -861,159 +861,50 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
-   "marge_db": 28.7,
-   "marge_bande_voix_db": 31.7,
+   "calage_attaque": null,
+   "marge_db": 28.6,
+   "marge_bande_voix_db": 30.6,
    "ducking_db": -9.0,
    "ducking_gags_db": -3.0,
    "ducking_mal_aime_db": -6.0
   },
   {
-   "id": "salon",
-   "texte": "…le salon…",
+   "id": "salon_arene",
+   "texte": "…le salon se transforme… en ARÈNE !",
    "morceaux_json": [
     [
      "voix_off/ouverture_L02.mp3",
      1.12,
-     1.95
-    ]
-   ],
-   "bornes": [
-    [
-     1.12,
-     1.95
-    ]
-   ],
-   "t_film_json": 8.0,
-   "attaque": 8.0,
-   "fin": 8.83,
-   "retard_s": 0.0,
-   "creneau_s": 2.8,
-   "duree_prise_s": 0.83,
-   "atempo": 1.0,
-   "atempo_max": 1.0,
-   "duree_finale_s": 0.83,
-   "debordement_s": 0.0,
-   "emphase": false,
-   "emphase_depuis_s": null,
-   "mots": null,
-   "marge_db": 27.8,
-   "marge_bande_voix_db": 29.1,
-   "ducking_db": -9.0,
-   "ducking_gags_db": -3.0,
-   "ducking_mal_aime_db": -6.0
-  },
-  {
-   "id": "transforme",
-   "texte": "…se transforme…",
-   "morceaux_json": [
-    [
-     "voix_off/ouverture_L02.mp3",
-     1.95,
-     2.925
-    ]
-   ],
-   "bornes": [
-    [
-     1.95,
-     2.925
-    ]
-   ],
-   "t_film_json": 10.9,
-   "attaque": 10.9,
-   "fin": 11.875,
-   "retard_s": 0.0,
-   "creneau_s": 0.9,
-   "duree_prise_s": 0.975,
-   "atempo": 1.0,
-   "atempo_max": 1.0,
-   "duree_finale_s": 0.975,
-   "debordement_s": 0.075,
-   "emphase": false,
-   "emphase_depuis_s": null,
-   "mots": null,
-   "marge_db": 19.4,
-   "marge_bande_voix_db": 27.8,
-   "ducking_db": -9.0,
-   "ducking_gags_db": -3.0,
-   "ducking_mal_aime_db": -6.0
-  },
-  {
-   "id": "en_tenu",
-   "texte": "…EEEENNNNN…",
-   "morceaux_json": [
-    [
-     "voix_off/ouverture_L02.mp3",
-     2.925,
-     3.12
-    ]
-   ],
-   "bornes": [
-    [
-     2.925,
-     3.12
-    ]
-   ],
-   "t_film_json": 11.9,
-   "attaque": 11.9,
-   "fin": 15.93,
-   "retard_s": 0.0,
-   "creneau_s": 4.03,
-   "duree_prise_s": 0.195,
-   "atempo": 1.0,
-   "atempo_max": 1.0,
-   "duree_finale_s": 4.03,
-   "debordement_s": 0.0,
-   "emphase": false,
-   "emphase_depuis_s": null,
-   "voyelle_tenue": {
-    "source_stable_s": [
-     0.1,
-     0.16
-    ],
-    "attaque_conservee_s": 0.055,
-    "fondu_croise_s": 0.03,
-    "grain_s": 0.05,
-    "pas_s": 0.0125,
-    "montee_db": 4.0,
-    "duree_s": 4.03
-   },
-   "marge_db": 22.0,
-   "marge_bande_voix_db": 29.4,
-   "ducking_db": -9.0,
-   "ducking_gags_db": -3.0,
-   "ducking_mal_aime_db": -6.0
-  },
-  {
-   "id": "arene_cri",
-   "texte": "ARÈNE !",
-   "morceaux_json": [
-    [
-     "voix_off/ouverture_L02.mp3",
-     3.12,
      4.2
     ]
    ],
    "bornes": [
     [
-     3.12,
+     1.12,
      4.2
     ]
    ],
-   "t_film_json": 15.93,
-   "attaque": 15.93,
-   "fin": 17.01,
+   "t_film_json": 7.2,
+   "attaque": 7.18,
+   "fin": 10.26,
    "retard_s": 0.0,
-   "creneau_s": 1.0,
-   "duree_prise_s": 1.08,
+   "creneau_s": 3.02,
+   "duree_prise_s": 3.08,
    "atempo": 1.0,
    "atempo_max": 1.0,
-   "duree_finale_s": 1.08,
-   "debordement_s": 0.08,
+   "duree_finale_s": 3.08,
+   "debordement_s": 0.06,
    "emphase": true,
-   "emphase_depuis_s": 15.93,
+   "emphase_depuis_s": 9.185,
    "mots": null,
-   "marge_db": 1.1,
-   "marge_bande_voix_db": 11.0,
+   "calage_attaque": {
+    "attaque_source_s": 3.14,
+    "cible_film_s": 9.2,
+    "t_film_cale": 7.18,
+    "t_film_json": 7.2
+   },
+   "marge_db": 3.4,
+   "marge_bande_voix_db": 13.0,
    "ducking_db": -9.0,
    "ducking_gags_db": -3.0,
    "ducking_mal_aime_db": -6.0
@@ -1034,9 +925,9 @@
      6.64
     ]
    ],
-   "t_film_json": 17.03,
-   "attaque": 17.03,
-   "fin": 19.99,
+   "t_film_json": 10.3,
+   "attaque": 10.3,
+   "fin": 13.26,
    "retard_s": 0.0,
    "creneau_s": 3.0,
    "duree_prise_s": 2.96,
@@ -1047,8 +938,9 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
-   "marge_db": 9.0,
-   "marge_bande_voix_db": 12.2,
+   "calage_attaque": null,
+   "marge_db": 9.4,
+   "marge_bande_voix_db": 12.8,
    "ducking_db": -9.0,
    "ducking_gags_db": -3.0,
    "ducking_mal_aime_db": -6.0
@@ -1069,9 +961,9 @@
      10.78
     ]
    ],
-   "t_film_json": 20.13,
-   "attaque": 20.13,
-   "fin": 24.116,
+   "t_film_json": 13.4,
+   "attaque": 13.4,
+   "fin": 17.386,
    "retard_s": 0.0,
    "creneau_s": 3.94,
    "duree_prise_s": 4.14,
@@ -1082,11 +974,12 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
+   "calage_attaque": null,
    "marge_db": 4.9,
    "marge_bande_voix_db": 6.5,
    "ducking_db": -14.0,
-   "ducking_gags_db": -4.0,
-   "ducking_mal_aime_db": -7.0
+   "ducking_gags_db": -3.7,
+   "ducking_mal_aime_db": -6.7
   },
   {
    "id": "ecurie_02",
@@ -1104,9 +997,9 @@
      15.41
     ]
    ],
-   "t_film_json": 24.17,
-   "attaque": 24.17,
-   "fin": 28.411,
+   "t_film_json": 17.44,
+   "attaque": 17.44,
+   "fin": 21.681,
    "retard_s": 0.0,
    "creneau_s": 4.17,
    "duree_prise_s": 4.395,
@@ -1117,8 +1010,9 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
-   "marge_db": 3.2,
-   "marge_bande_voix_db": 10.5,
+   "calage_attaque": null,
+   "marge_db": 3.6,
+   "marge_bande_voix_db": 10.8,
    "ducking_db": -9.0,
    "ducking_gags_db": -3.0,
    "ducking_mal_aime_db": -6.0
@@ -1139,9 +1033,9 @@
      19.565
     ]
    ],
-   "t_film_json": 28.44,
-   "attaque": 28.44,
-   "fin": 32.256,
+   "t_film_json": 21.71,
+   "attaque": 21.71,
+   "fin": 25.526,
    "retard_s": 0.0,
    "creneau_s": 3.8,
    "duree_prise_s": 3.925,
@@ -1152,11 +1046,12 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
-   "marge_db": 5.0,
+   "calage_attaque": null,
+   "marge_db": 5.1,
    "marge_bande_voix_db": 6.5,
    "ducking_db": -14.0,
-   "ducking_gags_db": -5.1,
-   "ducking_mal_aime_db": -8.1
+   "ducking_gags_db": -4.8,
+   "ducking_mal_aime_db": -7.8
   },
   {
    "id": "ecurie_04",
@@ -1174,9 +1069,9 @@
      23.97
     ]
    ],
-   "t_film_json": 32.34,
-   "attaque": 32.34,
-   "fin": 36.338,
+   "t_film_json": 25.61,
+   "attaque": 25.61,
+   "fin": 29.608,
    "retard_s": 0.0,
    "creneau_s": 3.98,
    "duree_prise_s": 4.15,
@@ -1187,11 +1082,12 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
+   "calage_attaque": null,
    "marge_db": 3.8,
-   "marge_bande_voix_db": 6.4,
+   "marge_bande_voix_db": 6.5,
    "ducking_db": -14.0,
-   "ducking_gags_db": -3.8,
-   "ducking_mal_aime_db": -6.8
+   "ducking_gags_db": -3.5,
+   "ducking_mal_aime_db": -6.5
   },
   {
    "id": "ecurie_05",
@@ -1209,9 +1105,9 @@
      27.815
     ]
    ],
-   "t_film_json": 36.42,
-   "attaque": 36.42,
-   "fin": 40.015,
+   "t_film_json": 29.69,
+   "attaque": 29.69,
+   "fin": 33.285,
    "retard_s": 0.0,
    "creneau_s": 3.8,
    "duree_prise_s": 3.595,
@@ -1222,8 +1118,9 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
-   "marge_db": 2.7,
-   "marge_bande_voix_db": 7.1,
+   "calage_attaque": null,
+   "marge_db": 3.0,
+   "marge_bande_voix_db": 7.4,
    "ducking_db": -14.0,
    "ducking_gags_db": -3.0,
    "ducking_mal_aime_db": -6.0
@@ -1244,9 +1141,9 @@
      33.325
     ]
    ],
-   "t_film_json": 40.32,
-   "attaque": 40.32,
-   "fin": 45.434,
+   "t_film_json": 33.59,
+   "attaque": 33.59,
+   "fin": 38.704,
    "retard_s": 0.0,
    "creneau_s": 5.06,
    "duree_prise_s": 5.31,
@@ -1257,8 +1154,9 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
-   "marge_db": 1.8,
-   "marge_bande_voix_db": 11.6,
+   "calage_attaque": null,
+   "marge_db": 2.1,
+   "marge_bande_voix_db": 11.8,
    "ducking_db": -9.0,
    "ducking_gags_db": -3.0,
    "ducking_mal_aime_db": -6.0
@@ -1288,9 +1186,9 @@
      37.945
     ]
    ],
-   "t_film_json": 45.48,
-   "attaque": 45.48,
-   "fin": 50.099,
+   "t_film_json": 38.75,
+   "attaque": 38.75,
+   "fin": 43.369,
    "retard_s": 0.0,
    "creneau_s": 4.52,
    "duree_prise_s": 4.79,
@@ -1301,8 +1199,9 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
-   "marge_db": 2.2,
-   "marge_bande_voix_db": 12.8,
+   "calage_attaque": null,
+   "marge_db": 2.5,
+   "marge_bande_voix_db": 13.0,
    "ducking_db": -9.0,
    "ducking_gags_db": -3.0,
    "ducking_mal_aime_db": -6.0
@@ -1323,9 +1222,9 @@
      42.89
     ]
    ],
-   "t_film_json": 50.1,
-   "attaque": 50.119,
-   "fin": 54.667,
+   "t_film_json": 43.37,
+   "attaque": 43.389,
+   "fin": 47.937,
    "retard_s": 0.019,
    "creneau_s": 4.481,
    "duree_prise_s": 4.715,
@@ -1336,8 +1235,9 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
-   "marge_db": 3.2,
-   "marge_bande_voix_db": 8.2,
+   "calage_attaque": null,
+   "marge_db": 3.6,
+   "marge_bande_voix_db": 8.6,
    "ducking_db": -9.0,
    "ducking_gags_db": -3.0,
    "ducking_mal_aime_db": -6.0
@@ -1358,9 +1258,9 @@
      49.875
     ]
    ],
-   "t_film_json": 54.7,
-   "attaque": 54.7,
-   "fin": 59.475,
+   "t_film_json": 47.97,
+   "attaque": 47.97,
+   "fin": 52.745,
    "retard_s": 0.0,
    "creneau_s": 4.76,
    "duree_prise_s": 4.925,
@@ -1371,8 +1271,9 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
-   "marge_db": 4.3,
-   "marge_bande_voix_db": 11.5,
+   "calage_attaque": null,
+   "marge_db": 4.6,
+   "marge_bande_voix_db": 11.7,
    "ducking_db": -9.0,
    "ducking_gags_db": -3.0,
    "ducking_mal_aime_db": -6.0
@@ -1393,9 +1294,9 @@
      54.375
     ]
    ],
-   "t_film_json": 59.56,
-   "attaque": 59.56,
-   "fin": 63.888,
+   "t_film_json": 52.83,
+   "attaque": 52.83,
+   "fin": 57.158,
    "retard_s": 0.0,
    "creneau_s": 4.11,
    "duree_prise_s": 4.5,
@@ -1406,8 +1307,9 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
-   "marge_db": 3.0,
-   "marge_bande_voix_db": 10.5,
+   "calage_attaque": null,
+   "marge_db": 3.3,
+   "marge_bande_voix_db": 10.8,
    "ducking_db": -9.0,
    "ducking_gags_db": -3.0,
    "ducking_mal_aime_db": -6.0
@@ -1428,9 +1330,9 @@
      58.99
     ]
    ],
-   "t_film_json": 63.77,
-   "attaque": 63.908,
-   "fin": 68.021,
+   "t_film_json": 57.04,
+   "attaque": 57.178,
+   "fin": 61.291,
    "retard_s": 0.138,
    "creneau_s": 3.892,
    "duree_prise_s": 4.43,
@@ -1441,8 +1343,9 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
-   "marge_db": 3.7,
-   "marge_bande_voix_db": 15.1,
+   "calage_attaque": null,
+   "marge_db": 4.0,
+   "marge_bande_voix_db": 15.3,
    "ducking_db": -9.0,
    "ducking_gags_db": -3.0,
    "ducking_mal_aime_db": -6.0
@@ -1463,9 +1366,9 @@
      63.39
     ]
    ],
-   "t_film_json": 67.9,
-   "attaque": 68.041,
-   "fin": 71.842,
+   "t_film_json": 61.17,
+   "attaque": 61.311,
+   "fin": 65.112,
    "retard_s": 0.141,
    "creneau_s": 3.599,
    "duree_prise_s": 4.11,
@@ -1476,11 +1379,12 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
-   "marge_db": 4.9,
+   "calage_attaque": null,
+   "marge_db": 5.0,
    "marge_bande_voix_db": 6.5,
    "ducking_db": -14.0,
-   "ducking_gags_db": -4.6,
-   "ducking_mal_aime_db": -7.6
+   "ducking_gags_db": -4.3,
+   "ducking_mal_aime_db": -7.3
   },
   {
    "id": "ecurie_13",
@@ -1498,9 +1402,9 @@
      67.9
     ]
    ],
-   "t_film_json": 71.74,
-   "attaque": 71.862,
-   "fin": 75.796,
+   "t_film_json": 65.01,
+   "attaque": 65.132,
+   "fin": 69.066,
    "retard_s": 0.122,
    "creneau_s": 3.728,
    "duree_prise_s": 4.24,
@@ -1511,11 +1415,12 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
+   "calage_attaque": null,
    "marge_db": 6.4,
-   "marge_bande_voix_db": 6.4,
+   "marge_bande_voix_db": 6.5,
    "ducking_db": -14.0,
-   "ducking_gags_db": -5.9,
-   "ducking_mal_aime_db": -8.9
+   "ducking_gags_db": -5.6,
+   "ducking_mal_aime_db": -8.6
   },
   {
    "id": "ecurie_14",
@@ -1533,9 +1438,9 @@
      72.91
     ]
    ],
-   "t_film_json": 75.69,
-   "attaque": 75.816,
-   "fin": 80.261,
+   "t_film_json": 68.96,
+   "attaque": 69.086,
+   "fin": 73.531,
    "retard_s": 0.126,
    "creneau_s": 4.184,
    "duree_prise_s": 4.8,
@@ -1546,11 +1451,12 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
+   "calage_attaque": null,
    "marge_db": 6.0,
    "marge_bande_voix_db": 6.5,
    "ducking_db": -14.0,
-   "ducking_gags_db": -5.4,
-   "ducking_mal_aime_db": -8.4
+   "ducking_gags_db": -5.1,
+   "ducking_mal_aime_db": -8.1
   },
   {
    "id": "ecurie_15",
@@ -1568,9 +1474,9 @@
      76.965
     ]
    ],
-   "t_film_json": 80.1,
-   "attaque": 80.281,
-   "fin": 84.106,
+   "t_film_json": 73.37,
+   "attaque": 73.551,
+   "fin": 77.376,
    "retard_s": 0.181,
    "creneau_s": 12.749,
    "duree_prise_s": 3.825,
@@ -1581,8 +1487,9 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
-   "marge_db": 2.5,
-   "marge_bande_voix_db": 12.3,
+   "calage_attaque": null,
+   "marge_db": 2.8,
+   "marge_bande_voix_db": 12.5,
    "ducking_db": -9.0,
    "ducking_gags_db": -3.0,
    "ducking_mal_aime_db": -6.0
@@ -1603,9 +1510,9 @@
      90.37
     ]
    ],
-   "t_film_json": 93.13,
-   "attaque": 93.13,
-   "fin": 95.14,
+   "t_film_json": 86.4,
+   "attaque": 86.4,
+   "fin": 88.41,
    "retard_s": 0.0,
    "creneau_s": 2.6,
    "duree_prise_s": 2.01,
@@ -1616,8 +1523,9 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
+   "calage_attaque": null,
    "marge_db": 13.4,
-   "marge_bande_voix_db": 20.1,
+   "marge_bande_voix_db": 20.0,
    "ducking_db": -9.0,
    "ducking_gags_db": -3.0,
    "ducking_mal_aime_db": -6.0
@@ -1638,9 +1546,9 @@
      92.43
     ]
    ],
-   "t_film_json": 95.83,
-   "attaque": 95.83,
-   "fin": 97.89,
+   "t_film_json": 89.1,
+   "attaque": 89.1,
+   "fin": 91.16,
    "retard_s": 0.0,
    "creneau_s": 2.5,
    "duree_prise_s": 2.06,
@@ -1651,6 +1559,7 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
+   "calage_attaque": null,
    "marge_db": 12.8,
    "marge_bande_voix_db": 14.9,
    "ducking_db": -9.0,
@@ -1673,9 +1582,9 @@
      94.1
     ]
    ],
-   "t_film_json": 98.43,
-   "attaque": 98.43,
-   "fin": 100.1,
+   "t_film_json": 91.7,
+   "attaque": 91.7,
+   "fin": 93.37,
    "retard_s": 0.0,
    "creneau_s": 3.2,
    "duree_prise_s": 1.67,
@@ -1686,6 +1595,7 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
+   "calage_attaque": null,
    "marge_db": 11.8,
    "marge_bande_voix_db": 16.4,
    "ducking_db": -9.0,
@@ -1708,9 +1618,9 @@
      88.4
     ]
    ],
-   "t_film_json": 101.73,
-   "attaque": 101.73,
-   "fin": 111.09,
+   "t_film_json": 95.0,
+   "attaque": 95.0,
+   "fin": 104.36,
    "retard_s": 0.0,
    "creneau_s": 10.0,
    "duree_prise_s": 9.36,
@@ -1721,9 +1631,10 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
-   "marge_db": 6.5,
-   "marge_bande_voix_db": 7.8,
-   "ducking_db": -14.0,
+   "calage_attaque": null,
+   "marge_db": 6.4,
+   "marge_bande_voix_db": 8.0,
+   "ducking_db": -10.8,
    "ducking_gags_db": -3.0,
    "ducking_mal_aime_db": -6.0
   },
@@ -1743,9 +1654,9 @@
      96.99
     ]
    ],
-   "t_film_json": 111.83,
-   "attaque": 111.83,
-   "fin": 114.705,
+   "t_film_json": 105.1,
+   "attaque": 105.1,
+   "fin": 107.975,
    "retard_s": 0.0,
    "creneau_s": 7.6,
    "duree_prise_s": 2.875,
@@ -1756,6 +1667,7 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
+   "calage_attaque": null,
    "marge_db": 10.6,
    "marge_bande_voix_db": 14.9,
    "ducking_db": -9.0,
@@ -1778,9 +1690,9 @@
      101.3
     ]
    ],
-   "t_film_json": 119.53,
-   "attaque": 119.53,
-   "fin": 123.635,
+   "t_film_json": 112.8,
+   "attaque": 112.8,
+   "fin": 116.905,
    "retard_s": 0.0,
    "creneau_s": 8.65,
    "duree_prise_s": 4.105,
@@ -1789,10 +1701,11 @@
    "duree_finale_s": 4.105,
    "debordement_s": 0.0,
    "emphase": true,
-   "emphase_depuis_s": 121.765,
+   "emphase_depuis_s": 115.035,
    "mots": null,
+   "calage_attaque": null,
    "marge_db": 1.4,
-   "marge_bande_voix_db": 11.4,
+   "marge_bande_voix_db": 11.5,
    "ducking_db": -9.0,
    "ducking_gags_db": -3.0,
    "ducking_mal_aime_db": -6.0
@@ -1813,9 +1726,9 @@
      102.725
     ]
    ],
-   "t_film_json": 128.28,
-   "attaque": 128.28,
-   "fin": 129.605,
+   "t_film_json": 121.55,
+   "attaque": 121.55,
+   "fin": 122.875,
    "retard_s": 0.0,
    "creneau_s": 3.02,
    "duree_prise_s": 1.325,
@@ -1826,6 +1739,7 @@
    "emphase": false,
    "emphase_depuis_s": null,
    "mots": null,
+   "calage_attaque": null,
    "marge_db": 8.4,
    "marge_bande_voix_db": 13.7,
    "ducking_db": -9.0,
@@ -1898,9 +1812,9 @@
      3.68
     ]
    ],
-   "t_film_json": 131.4,
-   "attaque": 131.4,
-   "fin": 136.175,
+   "t_film_json": 124.67,
+   "attaque": 124.67,
+   "fin": 129.445,
    "retard_s": 0.0,
    "creneau_s": 5.03,
    "duree_prise_s": 4.775,
@@ -1913,43 +1827,44 @@
    "mots": [
     {
      "mot": "Rendez-vous le 23 décembre… po",
-     "debut": 131.4,
-     "fin": 133.275,
+     "debut": 124.67,
+     "fin": 126.545,
      "emphase": false
     },
     {
      "mot": "pour (de « pour lui »)",
-     "debut": 133.425,
-     "fin": 133.545,
+     "debut": 126.695,
+     "fin": 126.815,
      "emphase": false
     },
     {
      "mot": "le (de « le salon »)",
-     "debut": 133.565,
-     "fin": 133.99,
+     "debut": 126.835,
+     "fin": 127.26,
      "emphase": false
     },
     {
      "mot": "GRAND",
-     "debut": 134.19,
-     "fin": 134.515,
+     "debut": 127.46,
+     "fin": 127.785,
      "emphase": true
     },
     {
      "mot": "PRIX DE",
-     "debut": 134.795,
-     "fin": 135.065,
+     "debut": 128.065,
+     "fin": 128.335,
      "emphase": true
     },
     {
      "mot": "NOËL",
-     "debut": 135.425,
-     "fin": 136.175,
+     "debut": 128.695,
+     "fin": 129.445,
      "emphase": true
     }
    ],
-   "marge_db": 1.3,
-   "marge_bande_voix_db": 11.8,
+   "calage_attaque": null,
+   "marge_db": 1.4,
+   "marge_bande_voix_db": 11.9,
    "ducking_db": -9.0,
    "ducking_gags_db": -3.0,
    "ducking_mal_aime_db": -6.0
@@ -1966,7 +1881,7 @@
     -73.7
    ],
    "fin": [
-    1.25,
+    1.21,
     1.21,
     "jonction revue : « bien(venue) » commence à 1,26 s (« messieurs » finit au creux de 1,21)",
     -27.3
@@ -2455,10 +2370,7 @@
  ],
  "controle_coupures_voix": {
   "mesdames": [],
-  "salon": [],
-  "transforme": [],
-  "en_tenu": [],
-  "arene_cri": [],
+  "salon_arene": [],
   "arene": [],
   "ecurie_01": [],
   "ecurie_02": [],
@@ -2486,695 +2398,683 @@
  },
  "intervalles_voix": [
   [
-   5.6,
-   6.805
+   5.4,
+   6.605
   ],
   [
-   8.0,
-   8.83
+   7.18,
+   10.26
   ],
   [
-   10.9,
-   11.875
+   10.3,
+   13.26
   ],
   [
-   11.9,
-   15.93
+   13.4,
+   17.386
   ],
   [
-   15.93,
-   17.01
+   17.44,
+   21.681
   ],
   [
-   17.03,
-   19.99
+   21.71,
+   25.526
   ],
   [
-   20.13,
-   24.116
+   25.61,
+   29.608
   ],
   [
-   24.17,
-   28.411
+   29.69,
+   33.285
   ],
   [
-   28.44,
-   32.256
+   33.59,
+   38.704
   ],
   [
-   32.34,
-   36.338
+   38.75,
+   43.369
   ],
   [
-   36.42,
-   40.015
+   43.389,
+   47.937
   ],
   [
-   40.32,
-   45.434
+   47.97,
+   52.745
   ],
   [
-   45.48,
-   50.099
+   52.83,
+   57.158
   ],
   [
-   50.119,
-   54.667
+   57.178,
+   61.291
   ],
   [
-   54.7,
-   59.475
+   61.311,
+   65.112
   ],
   [
-   59.56,
-   63.888
+   65.132,
+   69.066
   ],
   [
-   63.908,
-   68.021
+   69.086,
+   73.531
   ],
   [
-   68.041,
-   71.842
+   73.551,
+   77.376
   ],
   [
-   71.862,
-   75.796
+   86.4,
+   88.41
   ],
   [
-   75.816,
-   80.261
+   89.1,
+   91.16
   ],
   [
-   80.281,
-   84.106
+   91.7,
+   93.37
   ],
   [
-   93.13,
-   95.14
+   95.0,
+   104.36
   ],
   [
-   95.83,
-   97.89
+   105.1,
+   107.975
   ],
   [
-   98.43,
-   100.1
+   112.8,
+   116.905
   ],
   [
-   101.73,
-   111.09
+   121.55,
+   122.875
   ],
   [
-   111.83,
-   114.705
-  ],
-  [
-   119.53,
-   123.635
-  ],
-  [
-   128.28,
-   129.605
-  ],
-  [
-   131.4,
-   136.175
+   124.67,
+   129.445
   ]
  ],
- "niveau_voix_dbfs_avant_master": -17.8,
+ "niveau_voix_dbfs_avant_master": -18.1,
  "ecuries": [
   {
    "id": 1,
-   "debut": 20.08,
-   "sortie": 20.08,
-   "saut": 21.43,
-   "atterrissage": 22.13,
-   "place": 23.38,
-   "fin": 24.12,
+   "debut": 13.35,
+   "sortie": 13.35,
+   "saut": 14.7,
+   "atterrissage": 15.4,
+   "place": 16.65,
+   "fin": 17.39,
    "moteur": "turbine à réaction (enregistrement réel) — bandes multi-régimes (montée reconstituée) (CC0, sounds/moteurs_reels/01)",
    "mouvement_sous_musique_db_max": -14.5,
    "respirations_voix_s": [
     [
-     20.07,
-     20.16,
+     13.35,
+     13.43,
      "creux"
     ],
     [
-     21.21,
-     21.34,
+     14.48,
+     14.61,
      "creux"
     ],
     [
-     24.06,
-     24.2,
+     17.33,
+     17.47,
      "creux"
     ]
    ]
   },
   {
    "id": 2,
-   "debut": 24.12,
-   "sortie": 24.12,
-   "saut": 25.47,
-   "atterrissage": 26.17,
-   "place": 27.42,
-   "fin": 28.39,
+   "debut": 17.39,
+   "sortie": 17.39,
+   "saut": 18.74,
+   "atterrissage": 19.44,
+   "place": 20.69,
+   "fin": 21.66,
    "moteur": "4 cylindres à plat Subaru WRX (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/02)",
    "mouvement_sous_musique_db_max": -14.5,
    "respirations_voix_s": [
     [
-     24.12,
-     24.2,
+     17.39,
+     17.47,
      "creux"
     ],
     [
-     24.6,
-     24.66,
+     17.87,
+     17.93,
      "creux"
     ],
     [
-     24.99,
-     25.06,
+     18.26,
+     18.33,
      "creux"
     ],
     [
-     27.12,
-     27.19,
+     20.39,
+     20.46,
      "creux"
     ],
     [
-     27.32,
-     27.41,
+     20.59,
+     20.68,
      "creux"
     ],
     [
-     28.34,
-     28.45,
+     21.61,
+     21.72,
      "creux"
     ]
    ]
   },
   {
    "id": 3,
-   "debut": 28.39,
-   "sortie": 28.39,
-   "saut": 29.74,
-   "atterrissage": 30.44,
-   "place": 31.69,
-   "fin": 32.29,
+   "debut": 21.66,
+   "sortie": 21.66,
+   "saut": 23.01,
+   "atterrissage": 23.71,
+   "place": 24.96,
+   "fin": 25.56,
    "moteur": "moteur turbo de prototype (voiture réelle sur banc de puissance) — bandes multi-régimes (montée reconstituée) (CC0, sounds/moteurs_reels/03)",
    "mouvement_sous_musique_db_max": -14.5,
    "respirations_voix_s": [
     [
-     28.39,
-     28.45,
+     21.66,
+     21.72,
      "creux"
     ],
     [
-     29.06,
-     29.17,
+     22.33,
+     22.44,
      "creux"
     ],
     [
-     29.27,
-     29.35,
+     22.54,
+     22.62,
      "creux"
     ],
     [
-     29.74,
-     29.82,
+     23.01,
+     23.09,
      "creux"
     ],
     [
-     30.85,
-     30.97,
+     24.12,
+     24.24,
      "creux"
     ],
     [
-     31.0,
-     31.06,
+     24.27,
+     24.33,
      "creux"
     ],
     [
-     31.37,
-     31.44,
+     24.64,
+     24.71,
      "creux"
     ],
     [
-     32.18,
-     32.36,
+     25.45,
+     25.63,
      "creux"
     ]
    ]
   },
   {
    "id": 4,
-   "debut": 32.29,
-   "sortie": 32.29,
-   "saut": 33.64,
-   "atterrissage": 34.34,
-   "place": 35.59,
-   "fin": 36.37,
+   "debut": 25.56,
+   "sortie": 25.56,
+   "saut": 26.91,
+   "atterrissage": 27.61,
+   "place": 28.86,
+   "fin": 29.64,
    "moteur": "V12 Lamborghini (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/04)",
    "mouvement_sous_musique_db_max": -14.5,
    "respirations_voix_s": [
     [
-     32.29,
-     32.36,
+     25.56,
+     25.63,
      "creux"
     ],
     [
-     33.05,
-     33.11,
+     26.32,
+     26.38,
      "creux"
     ],
     [
-     33.26,
-     33.36,
+     26.53,
+     26.63,
      "creux"
     ],
     [
-     34.94,
-     35.03,
+     28.21,
+     28.3,
      "creux"
     ],
     [
-     35.1,
-     35.17,
+     28.37,
+     28.44,
      "creux"
     ],
     [
-     36.28,
-     36.45,
+     29.55,
+     29.72,
      "creux"
     ]
    ]
   },
   {
    "id": 5,
-   "debut": 36.37,
-   "sortie": 36.37,
-   "saut": 37.72,
-   "atterrissage": 38.42,
-   "place": 39.67,
-   "fin": 40.27,
+   "debut": 29.64,
+   "sortie": 29.64,
+   "saut": 30.99,
+   "atterrissage": 31.69,
+   "place": 32.94,
+   "fin": 33.54,
    "moteur": "V8 de hot-rod Chevrolet (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/05)",
    "mouvement_sous_musique_db_max": -14.5,
    "respirations_voix_s": [
     [
-     36.36,
-     36.45,
+     29.64,
+     29.72,
      "creux"
     ],
     [
-     37.37,
-     37.44,
+     30.64,
+     30.71,
      "creux"
     ],
     [
-     38.55,
-     38.7,
+     31.82,
+     31.97,
      "creux"
     ],
     [
-     38.99,
-     39.09,
+     32.26,
+     32.36,
      "creux"
     ],
     [
-     39.96,
-     40.35,
+     33.23,
+     33.62,
      "silence"
     ]
    ]
   },
   {
    "id": 6,
-   "debut": 40.27,
-   "sortie": 40.27,
-   "saut": 41.62,
-   "atterrissage": 42.32,
-   "place": 43.57,
-   "fin": 45.43,
+   "debut": 33.54,
+   "sortie": 33.54,
+   "saut": 34.89,
+   "atterrissage": 35.59,
+   "place": 36.84,
+   "fin": 38.7,
    "moteur": "moteur électrique (enregistrements réels) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/06)",
    "mouvement_sous_musique_db_max": -14.5,
    "respirations_voix_s": [
     [
-     40.27,
-     40.35,
+     33.54,
+     33.62,
      "creux"
     ],
     [
-     42.73,
-     42.79,
+     36.0,
+     36.06,
      "creux"
     ],
     [
-     42.95,
-     43.02,
+     36.22,
+     36.29,
      "creux"
     ],
     [
-     43.15,
-     43.44,
+     36.42,
+     36.71,
      "silence"
     ],
     [
-     44.29,
-     44.42,
+     37.56,
+     37.69,
      "creux"
     ],
     [
-     44.47,
-     44.56,
+     37.74,
+     37.83,
      "creux"
     ]
    ]
   },
   {
    "id": 7,
-   "debut": 45.43,
-   "sortie": 45.43,
-   "saut": 46.78,
-   "atterrissage": 47.48,
-   "place": 48.73,
-   "fin": 50.05,
+   "debut": 38.7,
+   "sortie": 38.7,
+   "saut": 40.05,
+   "atterrissage": 40.75,
+   "place": 42.0,
+   "fin": 43.32,
    "moteur": "4 cylindres de rallycross (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/07)",
    "mouvement_sous_musique_db_max": -14.5,
    "respirations_voix_s": [
     [
-     45.43,
-     45.5,
+     38.7,
+     38.77,
      "creux"
     ],
     [
-     46.34,
-     46.58,
+     39.61,
+     39.85,
      "silence"
     ],
     [
-     48.51,
-     48.63,
+     41.78,
+     41.9,
      "creux"
     ],
     [
-     48.92,
-     48.99,
+     42.19,
+     42.26,
      "creux"
     ]
    ]
   },
   {
    "id": 8,
-   "debut": 50.05,
-   "sortie": 50.05,
-   "saut": 51.4,
-   "atterrissage": 52.1,
-   "place": 53.35,
-   "fin": 54.65,
+   "debut": 43.32,
+   "sortie": 43.32,
+   "saut": 44.67,
+   "atterrissage": 45.37,
+   "place": 46.62,
+   "fin": 47.92,
    "moteur": "gros diesel de pick-up (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/08) + 3 bips Audi (audi_chime 0,80–3,20)",
    "mouvement_sous_musique_db_max": -14.5,
    "respirations_voix_s": [
     [
-     50.06,
-     50.13,
+     43.33,
+     43.4,
      "creux"
     ],
     [
-     50.75,
-     50.86,
+     44.02,
+     44.13,
      "creux"
     ],
     [
-     50.97,
-     51.06,
+     44.24,
+     44.33,
      "creux"
     ],
     [
-     51.55,
-     51.62,
+     44.82,
+     44.89,
      "creux"
     ],
     [
-     52.53,
-     52.6,
+     45.8,
+     45.87,
      "creux"
     ],
     [
-     53.64,
-     53.71,
+     46.91,
+     46.98,
      "creux"
     ],
     [
-     53.84,
-     53.92,
+     47.11,
+     47.19,
      "creux"
     ]
    ]
   },
   {
    "id": 9,
-   "debut": 54.65,
-   "sortie": 54.65,
-   "saut": 56.0,
-   "atterrissage": 56.7,
-   "place": 57.95,
-   "fin": 59.51,
+   "debut": 47.92,
+   "sortie": 47.92,
+   "saut": 49.27,
+   "atterrissage": 49.97,
+   "place": 51.22,
+   "fin": 52.78,
    "moteur": "6 cylindres en ligne BMW M3 (enregistrement réel) — ralenti + coups de gaz (CC BY, sounds/moteurs_reels/09)",
    "mouvement_sous_musique_db_max": -14.5,
    "respirations_voix_s": [
     [
-     54.65,
-     54.71,
+     47.92,
+     47.98,
      "creux"
     ],
     [
-     55.65,
-     55.71,
+     48.92,
+     48.98,
      "creux"
     ],
     [
-     55.84,
-     55.9,
+     49.11,
+     49.17,
      "creux"
     ],
     [
-     58.43,
-     58.53,
+     51.7,
+     51.8,
      "creux"
     ]
    ]
   },
   {
    "id": 10,
-   "debut": 59.51,
-   "sortie": 59.51,
-   "saut": 60.86,
-   "atterrissage": 61.56,
-   "place": 62.81,
-   "fin": 63.72,
+   "debut": 52.78,
+   "sortie": 52.78,
+   "saut": 54.13,
+   "atterrissage": 54.83,
+   "place": 56.08,
+   "fin": 56.99,
    "moteur": "V8 Corvette à arbre à cames méchant (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/10)",
    "mouvement_sous_musique_db_max": -14.5,
    "respirations_voix_s": [
     [
-     59.51,
-     59.59,
+     52.78,
+     52.86,
      "creux"
     ],
     [
-     59.74,
-     59.8,
+     53.01,
+     53.07,
      "creux"
     ],
     [
-     60.55,
-     60.65,
+     53.82,
+     53.92,
      "creux"
     ],
     [
-     62.39,
-     62.62,
+     55.66,
+     55.89,
      "creux"
     ],
     [
-     63.86,
-     63.92,
+     57.13,
+     57.19,
      "creux"
     ]
    ]
   },
   {
    "id": 11,
-   "debut": 63.72,
-   "sortie": 63.72,
-   "saut": 65.07,
-   "atterrissage": 65.77,
-   "place": 67.02,
-   "fin": 67.85,
+   "debut": 56.99,
+   "sortie": 56.99,
+   "saut": 58.34,
+   "atterrissage": 59.04,
+   "place": 60.29,
+   "fin": 61.12,
    "moteur": "petit moteur de Mini (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/11)",
    "mouvement_sous_musique_db_max": -14.5,
    "respirations_voix_s": [
     [
-     63.86,
-     63.92,
+     57.13,
+     57.19,
      "creux"
     ],
     [
-     66.7,
-     66.84,
+     59.97,
+     60.11,
      "creux"
     ],
     [
-     67.55,
-     67.63,
+     60.82,
+     60.9,
      "creux"
     ],
     [
-     67.97,
-     68.06,
+     61.24,
+     61.33,
      "creux"
     ]
    ]
   },
   {
    "id": 12,
-   "debut": 67.85,
-   "sortie": 67.85,
-   "saut": 69.2,
-   "atterrissage": 69.9,
-   "place": 71.15,
-   "fin": 71.69,
+   "debut": 61.12,
+   "sortie": 61.12,
+   "saut": 62.47,
+   "atterrissage": 63.17,
+   "place": 64.42,
+   "fin": 64.96,
    "moteur": "V8 Ferrari (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/12) (sous) + « Lero Lero » 3.00 → 6.43 s du fichier",
    "mouvement_sous_musique_db_max": -14.5,
    "respirations_voix_s": [
     [
-     67.96,
-     68.06,
+     61.23,
+     61.33,
      "creux"
     ],
     [
-     68.72,
-     68.83,
+     61.99,
+     62.1,
      "creux"
     ],
     [
-     69.32,
-     69.4,
+     62.59,
+     62.67,
      "creux"
     ],
     [
-     70.4,
-     70.55,
+     63.67,
+     63.82,
      "creux"
     ],
     [
-     71.79,
-     71.88,
+     65.06,
+     65.15,
      "creux"
     ]
    ]
   },
   {
    "id": 13,
-   "debut": 71.69,
-   "sortie": 71.69,
-   "saut": 73.04,
-   "atterrissage": 73.74,
-   "place": 74.99,
-   "fin": 75.64,
+   "debut": 64.96,
+   "sortie": 64.96,
+   "saut": 66.31,
+   "atterrissage": 67.01,
+   "place": 68.26,
+   "fin": 68.91,
    "moteur": "4 cylindres Honda Civic qui monte dans les tours (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/13)",
    "mouvement_sous_musique_db_max": -14.5,
    "respirations_voix_s": [
     [
-     71.8,
-     71.88,
+     65.07,
+     65.15,
      "creux"
     ],
     [
-     72.45,
-     72.51,
+     65.72,
+     65.78,
      "creux"
     ],
     [
-     74.25,
-     74.31,
+     67.52,
+     67.58,
      "creux"
     ],
     [
-     74.89,
-     74.96,
+     68.16,
+     68.23,
      "creux"
     ],
     [
-     75.75,
-     75.91,
+     69.02,
+     69.18,
      "creux"
     ]
    ]
   },
   {
    "id": 14,
-   "debut": 75.64,
-   "sortie": 75.64,
-   "saut": 76.99,
-   "atterrissage": 77.69,
-   "place": 78.94,
-   "fin": 80.05,
+   "debut": 68.91,
+   "sortie": 68.91,
+   "saut": 70.26,
+   "atterrissage": 70.96,
+   "place": 72.21,
+   "fin": 73.32,
    "moteur": "voiture de drift (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/14)",
    "mouvement_sous_musique_db_max": -14.5,
    "respirations_voix_s": [
     [
-     75.75,
-     75.91,
+     69.02,
+     69.18,
      "creux"
     ],
     [
-     76.28,
-     76.35,
+     69.55,
+     69.62,
      "creux"
     ],
     [
-     78.92,
-     79.06,
+     72.19,
+     72.33,
      "creux"
     ]
    ]
   },
   {
    "id": 15,
-   "debut": 80.05,
-   "sortie": 80.05,
-   "saut": 81.4,
-   "atterrissage": 82.1,
-   "place": 83.35,
-   "fin": 83.63,
+   "debut": 73.32,
+   "sortie": 73.32,
+   "saut": 74.67,
+   "atterrissage": 75.37,
+   "place": 76.62,
+   "fin": 76.9,
    "moteur": "vieux moteur (enregistrement réel) — ralenti + coups de gaz (CC0, sounds/moteurs_reels/15)",
    "mouvement_sous_musique_db_max": -14.5,
    "respirations_voix_s": [
     [
-     80.22,
-     80.3,
+     73.49,
+     73.57,
      "creux"
     ],
     [
-     81.06,
-     81.15,
+     74.33,
+     74.42,
      "creux"
     ],
     [
-     81.69,
-     81.75,
+     74.96,
+     75.02,
      "creux"
     ],
     [
-     82.61,
-     82.68,
+     75.88,
+     75.95,
      "creux"
     ],
     [
-     84.02,
-     84.49,
+     77.29,
+     77.77,
      "silence"
     ]
    ]
@@ -3228,7 +3128,7 @@
    "banque": "ralenti + coups de gaz",
    "licence": "CC0",
    "credit": "« Diesel idle 1.wav » de C-V (CC0) · « Truck-Diesel 07Dodge Rev.mp3 » de canucklovingbrit (CC0)",
-   "bips_audi_film_s": 50.06
+   "bips_audi_film_s": 43.33
   },
   "9": {
    "moteur": "6 cylindres en ligne BMW M3 (enregistrement réel)",
@@ -3259,7 +3159,7 @@
      6.43
     ],
     "coupe_sur_creux_db": -40.8,
-    "t_film": 67.96,
+    "t_film": 61.23,
     "duree_s": 3.43
    }
   },
@@ -3299,28 +3199,27 @@
   ],
   "temps_fort_mesure_dans_le_mix_s": 0.806
  },
- "continuite_eeennn": {
-  "fenetre_s": [
-   10.9,
-   15.93
-  ],
-  "seuil_db": -30.0,
-  "zones_sous_seuil": [
-   {
-    "s": [
-     11.86,
-     11.91
-    ],
-    "respiration_voulue": true
+ "arene_attaque": {
+  "attaque_arene_mesuree_s": 9.195,
+  "cible_s": 9.2,
+  "salon_arene": {
+   "attaque": 7.18,
+   "fin": 10.26,
+   "bornes": [
+    [
+     1.12,
+     4.2
+    ]
+   ],
+   "emphase_depuis_s": 9.185,
+   "calage_attaque": {
+    "attaque_source_s": 3.14,
+    "cible_film_s": 9.2,
+    "t_film_cale": 7.18,
+    "t_film_json": 7.2
    }
-  ],
-  "tenue_min_db": -18.1,
-  "tenue_debut_fin_db": [
-   -8.2,
-   -2.5
-  ],
-  "arene_cri_attaque_s": 15.93,
-  "musique_rms_dbfs_5_15_a_15_93": {
+  },
+  "musique_rms_dbfs_5_15_a_arene": {
    "le_mal_aime": -240.0,
    "ring": -240.0,
    "couches_musicales": -240.0
@@ -3333,13 +3232,13 @@
   "rush_genalpha",
   "rush_convies"
  ],
- "ring_entree_s": 15.93,
+ "ring_entree_s": 9.2,
  "bips_f1_film_s": [
-  95.73,
-  96.53,
-  97.33,
-  97.58,
-  97.83
+  89.0,
+  89.8,
+  90.6,
+  90.85,
+  91.1
  ],
  "familles_sous_musique_db": {
   "gotham": -4.0,
@@ -3361,19 +3260,19 @@
   "mesures_par_boucle": 12,
   "mesures_logo_a_logo": 44,
   "raccords_film_s": [
-   48.003,
-   80.075,
-   112.148
+   41.273,
+   73.345,
+   105.418
   ],
-  "debut_film_s": 15.93,
-  "temps_fort_final_film_s": 133.53,
+  "debut_film_s": 9.2,
+  "temps_fort_final_film_s": 126.8,
   "extinction_film_s": [
-   133.83,
-   134.08
+   127.1,
+   127.35
   ],
   "resonance_film_s": [
-   133.48,
-   136.53
+   126.75,
+   129.8
   ],
   "fin_jeu_echantillon": 5671200,
   "tonalite": {
@@ -3384,11 +3283,11 @@
  },
  "controle_ring": {
   "fenetre_s": [
-   15.93,
-   136.47
+   9.2,
+   129.74
   ],
-  "rms_min_dbfs": -58.1,
-  "rms_median_dbfs": -37.1,
+  "rms_min_dbfs": -57.8,
+  "rms_median_dbfs": -36.3,
   "plus_long_trou_s": 0.0,
   "debut_trou": null
  },
@@ -3399,242 +3298,242 @@
     0.0
    ],
    [
-    91.22999999999999,
+    84.5,
     0.0
    ],
    [
-    91.72999999999999,
+    85.0,
     -18.0
    ],
    [
-    93.03,
+    86.30000000000001,
     -18.0
    ],
    [
-    93.63,
+    86.9,
     0.0
    ],
    [
-    112.42999999999999,
+    105.69999999999999,
     0.0
    ],
    [
-    113.13,
+    106.39999999999999,
     -16.0
    ],
    [
-    119.1,
+    112.37,
     -16.0
    ],
    [
-    119.17999999999999,
+    112.45,
     2.0
    ],
    [
-    123.61500000000001,
+    116.885,
     2.0
    ],
    [
-    123.885,
+    117.155,
     5.0
    ],
    [
-    136.53,
+    129.8,
     5.0
    ]
   ]
  },
  "pics_audibles": [
   {
-   "element": "« ARÈNE ! » 15.93 (impact + foule + ring)",
+   "element": "« ARÈNE ! » 9.20 (impact + foule + ring)",
    "fenetre_s": [
-    15.93,
-    16.33
+    9.2,
+    9.6
    ],
-   "rms_element_dbfs": -14.8,
-   "rms_reste_dbfs": -15.3,
+   "rms_element_dbfs": -14.5,
+   "rms_reste_dbfs": -15.0,
    "emergence_db": 0.5,
-   "emergence_sur_fond_sans_voix_db": 5.8,
-   "saut_mix_db": 2.3
+   "emergence_sur_fond_sans_voix_db": 5.7,
+   "saut_mix_db": 8.7
   },
   {
    "element": "#01 moteur réel",
    "fenetre_s": [
-    20.08,
-    23.38
+    13.35,
+    16.65
    ],
-   "rms_element_dbfs": -26.6,
-   "rms_reste_dbfs": -21.8,
-   "emergence_db": -4.7,
-   "emergence_sur_fond_sans_voix_db": 15.0,
+   "rms_element_dbfs": -26.3,
+   "rms_reste_dbfs": -21.5,
+   "emergence_db": -4.8,
+   "emergence_sur_fond_sans_voix_db": 14.9,
    "saut_mix_db": 2.8,
    "objectif_8db_atteint": true
   },
   {
    "element": "#02 moteur réel",
    "fenetre_s": [
-    24.12,
-    27.42
+    17.39,
+    20.69
    ],
    "rms_element_dbfs": -25.0,
-   "rms_reste_dbfs": -22.3,
-   "emergence_db": -2.7,
-   "emergence_sur_fond_sans_voix_db": 10.7,
-   "saut_mix_db": 3.7,
+   "rms_reste_dbfs": -22.0,
+   "emergence_db": -3.0,
+   "emergence_sur_fond_sans_voix_db": 10.3,
+   "saut_mix_db": 3.6,
    "objectif_8db_atteint": true
   },
   {
    "element": "#03 moteur réel",
    "fenetre_s": [
-    28.39,
-    31.69
+    21.66,
+    24.96
    ],
-   "rms_element_dbfs": -26.8,
-   "rms_reste_dbfs": -22.1,
-   "emergence_db": -4.7,
-   "emergence_sur_fond_sans_voix_db": 14.4,
+   "rms_element_dbfs": -26.5,
+   "rms_reste_dbfs": -21.8,
+   "emergence_db": -4.8,
+   "emergence_sur_fond_sans_voix_db": 14.3,
    "saut_mix_db": 2.9,
    "objectif_8db_atteint": true
   },
   {
    "element": "#04 moteur réel",
    "fenetre_s": [
-    32.29,
-    35.59
+    25.56,
+    28.86
    ],
-   "rms_element_dbfs": -25.6,
-   "rms_reste_dbfs": -22.4,
+   "rms_element_dbfs": -25.3,
+   "rms_reste_dbfs": -22.1,
    "emergence_db": -3.2,
-   "emergence_sur_fond_sans_voix_db": 14.6,
+   "emergence_sur_fond_sans_voix_db": 14.5,
    "saut_mix_db": 1.8,
    "objectif_8db_atteint": true
   },
   {
    "element": "#05 moteur réel",
    "fenetre_s": [
-    36.37,
-    39.67
+    29.64,
+    32.94
    ],
    "rms_element_dbfs": -24.8,
-   "rms_reste_dbfs": -22.3,
-   "emergence_db": -2.5,
-   "emergence_sur_fond_sans_voix_db": 15.6,
-   "saut_mix_db": 4.4,
+   "rms_reste_dbfs": -22.0,
+   "emergence_db": -2.9,
+   "emergence_sur_fond_sans_voix_db": 15.3,
+   "saut_mix_db": 4.2,
    "objectif_8db_atteint": true
   },
   {
    "element": "#06 moteur réel",
    "fenetre_s": [
-    40.27,
-    43.57
+    33.54,
+    36.84
    ],
-   "rms_element_dbfs": -23.0,
-   "rms_reste_dbfs": -22.2,
-   "emergence_db": -0.9,
-   "emergence_sur_fond_sans_voix_db": 12.0,
+   "rms_element_dbfs": -23.1,
+   "rms_reste_dbfs": -21.9,
+   "emergence_db": -1.2,
+   "emergence_sur_fond_sans_voix_db": 11.6,
    "saut_mix_db": -0.1,
    "objectif_8db_atteint": true
   },
   {
    "element": "#07 moteur réel",
    "fenetre_s": [
-    45.43,
-    48.73
+    38.7,
+    42.0
    ],
-   "rms_element_dbfs": -23.6,
-   "rms_reste_dbfs": -22.1,
-   "emergence_db": -1.5,
-   "emergence_sur_fond_sans_voix_db": 11.5,
-   "saut_mix_db": 0.8,
+   "rms_element_dbfs": -23.7,
+   "rms_reste_dbfs": -21.8,
+   "emergence_db": -1.9,
+   "emergence_sur_fond_sans_voix_db": 11.1,
+   "saut_mix_db": 0.7,
    "objectif_8db_atteint": true
   },
   {
    "element": "#08 moteur réel",
    "fenetre_s": [
-    50.05,
-    53.35
+    43.32,
+    46.62
    ],
    "rms_element_dbfs": -24.7,
-   "rms_reste_dbfs": -22.1,
-   "emergence_db": -2.5,
-   "emergence_sur_fond_sans_voix_db": 12.2,
-   "saut_mix_db": 3.3,
+   "rms_reste_dbfs": -21.8,
+   "emergence_db": -2.9,
+   "emergence_sur_fond_sans_voix_db": 11.8,
+   "saut_mix_db": 3.2,
    "objectif_8db_atteint": true
   },
   {
    "element": "#09 moteur réel",
    "fenetre_s": [
-    54.65,
-    57.95
+    47.92,
+    51.22
    ],
    "rms_element_dbfs": -25.7,
-   "rms_reste_dbfs": -21.1,
-   "emergence_db": -4.6,
-   "emergence_sur_fond_sans_voix_db": 10.0,
-   "saut_mix_db": 1.4,
+   "rms_reste_dbfs": -20.8,
+   "emergence_db": -4.9,
+   "emergence_sur_fond_sans_voix_db": 9.6,
+   "saut_mix_db": 1.3,
    "objectif_8db_atteint": true
   },
   {
    "element": "#10 moteur réel",
    "fenetre_s": [
-    59.51,
-    62.81
+    52.78,
+    56.08
    ],
    "rms_element_dbfs": -24.8,
-   "rms_reste_dbfs": -21.9,
-   "emergence_db": -2.9,
-   "emergence_sur_fond_sans_voix_db": 11.9,
-   "saut_mix_db": -2.2,
+   "rms_reste_dbfs": -21.5,
+   "emergence_db": -3.2,
+   "emergence_sur_fond_sans_voix_db": 11.5,
+   "saut_mix_db": -2.3,
    "objectif_8db_atteint": true
   },
   {
    "element": "#11 moteur réel",
    "fenetre_s": [
-    63.72,
-    67.02
+    56.99,
+    60.29
    ],
    "rms_element_dbfs": -25.2,
-   "rms_reste_dbfs": -21.5,
-   "emergence_db": -3.7,
-   "emergence_sur_fond_sans_voix_db": 10.0,
-   "saut_mix_db": 2.3,
+   "rms_reste_dbfs": -21.1,
+   "emergence_db": -4.1,
+   "emergence_sur_fond_sans_voix_db": 9.6,
+   "saut_mix_db": 2.2,
    "objectif_8db_atteint": true
   },
   {
    "element": "#12 moteur réel + Lero Lero",
    "fenetre_s": [
-    67.85,
-    71.15
+    61.12,
+    64.42
    ],
-   "rms_element_dbfs": -26.7,
-   "rms_reste_dbfs": -22.0,
-   "emergence_db": -4.7,
+   "rms_element_dbfs": -26.5,
+   "rms_reste_dbfs": -21.7,
+   "emergence_db": -4.8,
    "emergence_sur_fond_sans_voix_db": 13.1,
-   "saut_mix_db": 2.3,
+   "saut_mix_db": 2.2,
    "objectif_8db_atteint": true
   },
   {
    "element": "#13 moteur réel",
    "fenetre_s": [
-    71.69,
-    74.99
+    64.96,
+    68.26
    ],
-   "rms_element_dbfs": -28.6,
-   "rms_reste_dbfs": -22.2,
+   "rms_element_dbfs": -28.4,
+   "rms_reste_dbfs": -21.9,
    "emergence_db": -6.4,
-   "emergence_sur_fond_sans_voix_db": 11.6,
+   "emergence_sur_fond_sans_voix_db": 11.5,
    "saut_mix_db": -0.3,
    "objectif_8db_atteint": true
   },
   {
    "element": "#14 moteur réel",
    "fenetre_s": [
-    75.64,
-    78.94
+    68.91,
+    72.21
    ],
-   "rms_element_dbfs": -26.8,
-   "rms_reste_dbfs": -22.4,
-   "emergence_db": -4.4,
+   "rms_element_dbfs": -26.6,
+   "rms_reste_dbfs": -22.1,
+   "emergence_db": -4.5,
    "emergence_sur_fond_sans_voix_db": 12.9,
    "saut_mix_db": 0.7,
    "objectif_8db_atteint": true
@@ -3642,27 +3541,27 @@
   {
    "element": "#15 moteur réel",
    "fenetre_s": [
-    80.05,
-    83.35
+    73.32,
+    76.62
    ],
    "rms_element_dbfs": -25.5,
-   "rms_reste_dbfs": -22.1,
-   "emergence_db": -3.4,
-   "emergence_sur_fond_sans_voix_db": 11.3,
-   "saut_mix_db": -2.2,
+   "rms_reste_dbfs": -21.8,
+   "emergence_db": -3.7,
+   "emergence_sur_fond_sans_voix_db": 11.0,
+   "saut_mix_db": -2.3,
    "objectif_8db_atteint": true
   },
   {
-   "element": "ka-ching 104.13",
+   "element": "ka-ching 97.40",
    "fenetre_s": [
-    104.13,
-    104.53
+    97.4,
+    97.8
    ],
-   "rms_element_dbfs": -21.2,
-   "rms_reste_dbfs": -19.6,
-   "emergence_db": -1.7,
-   "emergence_sur_fond_sans_voix_db": 20.5,
-   "saut_mix_db": 4.1
+   "rms_element_dbfs": -21.3,
+   "rms_reste_dbfs": -19.2,
+   "emergence_db": -2.0,
+   "emergence_sur_fond_sans_voix_db": 17.0,
+   "saut_mix_db": 3.9
   }
  ],
  "banque_bbc": {
@@ -3672,7 +3571,7 @@
  "mix": {
   "fichier": "audio/mix_v9.wav",
   "mp3": "audio/mix_v9.mp3",
-  "gain_master_db": -3.78,
+  "gain_master_db": -3.45,
   "lufs_integre": -16.0,
   "vrai_crete_dbtp": -1.3,
   "ducking": "voix : base -9 dB → -14 dB si la marge (bande 300 Hz–3,4 kHz, pendant la parole) < +8 dB ; gags -3 dB sous la PAROLE seulement (respirations libres, garde-fou +6 dB) ; Cloclo -6 dB ; jazz -5 dB ; impacts : moitié ; scratch et humide « stade » non duckés"
