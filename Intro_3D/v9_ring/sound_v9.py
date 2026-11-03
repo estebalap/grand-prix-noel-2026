@@ -89,16 +89,13 @@ LISSAGE_DUCK = 0.080           # enveloppe de ducking lissée sur 80 ms
 GAIN_VOIX = 1.0
 # L02 « Le salon… se transforme en… ARÈNE ! » : la borne 2,14 / 2,15 du JSON tombe dans le /s/ de « se » (fricative 1,98 → 2,15,
 # creux de −32 dB au milieu) ; « salon » finit à 1,96 (creux −28 dB) → la jonction est déplacée au creux 1,88–1,99.
-# Montage « Rendez-vous le 23 décembre… pour le… GRAND… PRIX DE… NOËL ! » (mots pris dans des prises existantes) :
-# pauses après chaque morceau (croissantes avant GRAND / PRIX DE / NOËL), morceaux en emphase stade, et bornes de mots
-# affinées au creux réel (fenêtres choisies d'après la transcription mot à mot et l'enveloppe 10 ms).
-MONTAGE = {'rendez_vous_final': {'pauses': [0.15, 0.02, 0.20, 0.28, 0.36], 'emphase': [3, 4, 5],
-                                 'bornes': {0: ((102.70, 102.76), None),            # « Rendez-vous le 23 décembre » d'une traite
-                                            1: ((98.65, 98.72), (98.79, 98.85)),    # « pour » (de « pour lui » : le /l/ suit sans creux)
-                                            2: ((1.13, 1.16), (1.54, 1.57)),       # « le » (de « le salon » : le /s/ commence à 1,58)
-                                            3: ((2.28, 2.35), (2.58, 2.67)),       # « GRAND »
-                                            4: ((2.58, 2.67), (2.90, 2.96)),       # « PRIX DE »
-                                            5: ((2.90, 2.96), (3.64, 3.70))}}}     # « NOËL ! » (jusqu'au creux avant « ce soir »)
+# Final « Rendez-vous le 23 décembre… pour le… GRAND… PRIX DE… NOËL ! » (V9.8) : UNE prise ElevenLabs d'une traite, découpée
+# aux silences réels (enveloppe 10 ms) en 4 morceaux contigus, sans pause ajoutée ; GRAND / PRIX DE / NOËL en emphase stade.
+MONTAGE = {'rendez_vous_final': {'pauses': [0.0, 0.0, 0.0], 'emphase': [1, 2, 3],   # V9.8 : prise ElevenLabs d'une traite
+                                 'bornes': {0: (None, (2.68, 2.95)),               # « Rendez-vous le 23 décembre… pour le… » (silence 2,68–2,95)
+                                            1: ((2.68, 2.95), (3.40, 3.68)),       # « GRAND » (silence 3,40–3,68)
+                                            2: ((3.40, 3.68), (4.33, 4.46)),       # « PRIX DE » (creux 4,33–4,46)
+                                            3: ((4.33, 4.46), (5.36, 5.47))}}}     # « NOËL ! »
 BORNES_FIXES = {'en_tenu': ('debut', 'fin'), 'arene_cri': ('debut',), 'salon_arene': ('debut',)}   # V9.7 : « Mais » retiré, coupe imposée juste avant le /s/ de « ce » (0,25 s)
 JONCTIONS_REVUES = {'mesdames': {'fin': (1.17, 1.25, '« bien(venue) » commence à 1,26 s (« messieurs » finit au creux de 1,21)')},
                     'salon': {'fin': (1.88, 1.99, '« se » commence à 1,98 s (fricative /s/)')},

@@ -285,15 +285,15 @@
    "morceaux": [
     [
      "voix_off/rush_ancetres.mp3",
-     null,
-     null
+     0.06,
+     1.32
     ]
    ],
-   "t_film": 77.02,
+   "t_film": 76.92,
    "emphase": false,
-   "atempo_max": 1.0,
+   "atempo_max": 1.1,
    "fondu": 0.025,
-   "a_generer": true
+   "source": "ElevenLabs eleven_v4, voix « Commentateur def », [shouting] (V9.8)"
   },
   {
    "id": "rush_dinosaures",
@@ -301,31 +301,31 @@
    "morceaux": [
     [
      "voix_off/rush_dinosaures.mp3",
-     null,
-     null
+     0.06,
+     1.55
     ]
    ],
-   "t_film": 78.42,
+   "t_film": 78.25,
    "emphase": false,
-   "atempo_max": 1.0,
+   "atempo_max": 1.1,
    "fondu": 0.025,
-   "a_generer": true
+   "source": "ElevenLabs eleven_v4, voix « Commentateur def », [shouting] (V9.8)"
   },
   {
    "id": "rush_genz",
-   "texte": "La Gen Z !",
+   "texte": "La Gen Z ! (« djène zi »)",
    "morceaux": [
     [
      "voix_off/rush_genz.mp3",
-     null,
-     null
+     0.05,
+     1.4
     ]
    ],
-   "t_film": 79.82,
+   "t_film": 79.78,
    "emphase": false,
-   "atempo_max": 1.0,
+   "atempo_max": 1.1,
    "fondu": 0.025,
-   "a_generer": true
+   "source": "ElevenLabs eleven_v4, voix « Commentateur def », [shouting] (V9.8)"
   },
   {
    "id": "rush_genalpha",
@@ -333,15 +333,15 @@
    "morceaux": [
     [
      "voix_off/rush_genalpha.mp3",
-     null,
-     null
+     0.04,
+     2.42
     ]
    ],
-   "t_film": 81.17,
+   "t_film": 81.15,
    "emphase": false,
-   "atempo_max": 1.0,
+   "atempo_max": 1.3,
    "fondu": 0.025,
-   "a_generer": true
+   "source": "ElevenLabs eleven_v4, voix « Commentateur def », [shouting] (V9.8)"
   },
   {
    "id": "rush_convies",
@@ -349,15 +349,15 @@
    "morceaux": [
     [
      "voix_off/rush_convies.mp3",
-     null,
-     null
+     0.03,
+     1.38
     ]
    ],
-   "t_film": 82.62,
+   "t_film": 83.05,
    "emphase": true,
-   "atempo_max": 1.0,
+   "atempo_max": 1.1,
    "fondu": 0.025,
-   "a_generer": true
+   "source": "ElevenLabs eleven_v4, voix « Commentateur def », [shouting] (V9.8)"
   },
   {
    "id": "famille_gotham",
@@ -459,7 +459,7 @@
      102.7
     ]
    ],
-   "t_film": 121.55,
+   "t_film": 121.05,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
@@ -469,46 +469,35 @@
    "texte": "Rendez-vous le 23 décembre… pour le… GRAND… PRIX DE… NOËL !",
    "morceaux": [
     [
-     "voix_off/VO_V9_tout.mp3",
-     102.73,
-     104.6
+     "voix_off/rendez_vous_final.mp3",
+     0.0,
+     2.8,
+     "Rendez-vous le 23 décembre… pour le…"
     ],
     [
-     "voix_off/VO_V9_tout.mp3",
-     98.7,
-     98.9,
-     "pour (de « pour lui »)"
-    ],
-    [
-     "voix_off/ouverture_L02.mp3",
-     1.12,
-     1.3,
-     "le (de « le salon »)"
-    ],
-    [
-     "voix_off/VO_V9_tout.mp3",
-     2.3,
-     2.64,
+     "voix_off/rendez_vous_final.mp3",
+     2.8,
+     3.55,
      "GRAND"
     ],
     [
-     "voix_off/VO_V9_tout.mp3",
-     2.64,
-     2.94,
+     "voix_off/rendez_vous_final.mp3",
+     3.55,
+     4.4,
      "PRIX DE"
     ],
     [
-     "voix_off/VO_V9_tout.mp3",
-     2.94,
-     3.45,
-     "NOËL"
+     "voix_off/rendez_vous_final.mp3",
+     4.4,
+     5.45,
+     "NOËL !"
     ]
    ],
-   "t_film": 124.67,
+   "t_film": 122.45,
    "emphase": true,
    "atempo_max": 1.0,
    "fondu": 0.025,
-   "montage": "mots séparés par des pauses dramatiques croissantes (0,25 / 0,35 / 0,45 s) ; « GRAND », « PRIX DE », « NOËL » en emphase stade ; doit finir avant 136,3 ; bornes de mots à affiner aux creux ; PROVISOIRE (à régénérer d'une traite avec ElevenLabs quand l'outil est disponible)"
+   "montage": "UNE prise ElevenLabs d'une traite (eleven_v4, « Commentateur def ») découpée aux silences en 4 mots pour l'emphase stade et les impacts ; aucune pause ajoutée ; « NOËL » ≈ 126,9 (logo 126,8)"
   }
  ]
 }
