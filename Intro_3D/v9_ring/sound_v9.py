@@ -81,7 +81,8 @@ PLAFOND_DBTP = -1.0            # vrai crête exigée ≤ −1 dBTP
 PLAFOND_LIMITEUR_DBTP = -1.3   # le limiteur vise 0,3 dB sous le plafond (marge de quantification / reconstruction)
 FONDU = 0.005                  # fondus de raccord des morceaux de voix (5 ms)
 ATEMPO_MAX = 1.25              # accélération maximale de la voix (sans changer la hauteur)
-DUCK_BASE_DB = -9.0            # ducking de base de tout le reste sous la voix
+GAIN_FOND_DB = 3.5             # V9.7 : musique de fond plus présente (demande d'Esteban)
+DUCK_BASE_DB = -7.0            # ducking de base de tout le reste sous la voix
 DUCK_MAX_DB = -14.0            # approfondissement maximal si la voix ne ressort pas assez
 MARGE_VOIX_DB = 8.0            # écart RMS voix / reste visé pendant chaque pièce
 LISSAGE_DUCK = 0.080           # enveloppe de ducking lissée sur 80 ms
@@ -98,7 +99,7 @@ MONTAGE = {'rendez_vous_final': {'pauses': [0.15, 0.02, 0.20, 0.28, 0.36], 'emph
                                             3: ((2.28, 2.35), (2.58, 2.67)),       # « GRAND »
                                             4: ((2.58, 2.67), (2.90, 2.96)),       # « PRIX DE »
                                             5: ((2.90, 2.96), (3.64, 3.70))}}}     # « NOËL ! » (jusqu'au creux avant « ce soir »)
-BORNES_FIXES = {'en_tenu': ('debut', 'fin'), 'arene_cri': ('debut',)}
+BORNES_FIXES = {'en_tenu': ('debut', 'fin'), 'arene_cri': ('debut',), 'salon_arene': ('debut',)}   # V9.7 : « Mais » retiré, coupe imposée juste avant le /s/ de « ce » (0,25 s)
 JONCTIONS_REVUES = {'mesdames': {'fin': (1.17, 1.25, '« bien(venue) » commence à 1,26 s (« messieurs » finit au creux de 1,21)')},
                     'salon': {'fin': (1.88, 1.99, '« se » commence à 1,98 s (fricative /s/)')},
                     'transforme': {'debut': (1.88, 1.99, '« se » commence à 1,98 s (fricative /s/)')}}
@@ -2637,9 +2638,10 @@ def main():
 
     # ================================ MIX : voix, ducking, mastering ================================
     bus_voix = np.stack([vo, vo], axis=1) * GAIN_VOIX
-    plein = sum(B[k] * G[k] for k in ('amb', 'mus', 'fx', 'mouv', 'fam', 'drop')) + niveau_ring
+    k_fond = 10 ** (GAIN_FOND_DB / 20.0)
+    plein = sum(B[k] * G[k] for k in ('amb', 'fx', 'mouv', 'fam', 'drop')) + (B['mus'] * G['mus'] + niveau_ring) * k_fond
     doux = B['gags'] * G['gags']
-    clo = B['cloclo'] * G['cloclo']
+    clo = B['cloclo'] * G['cloclo'] * k_fond
     lit = B['lit'] * G['lit']
     demi = B['emph'] * G['emph']
     libre = B['scratch'] * G['scratch']                      # le scratch n'est jamais baissé

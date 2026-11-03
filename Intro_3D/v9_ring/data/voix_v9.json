@@ -1,6 +1,6 @@
 {
  "voix": "Commentateur def (ElevenLabs, voice_id QLs7iK8pmd23CyW29R9f)",
- "version": "v9.6",
+ "version": "v9.7",
  "note": "UNE prise continue par pièce (bornes à vérifier à −48 dB, fondus 25 ms). Écurie 7 : deux morceaux (prise anglaise Yaris_A + fin). t_film = début de la pièce en temps FILM. atempo_max : accélération douce autorisée si la pièce dépasse son créneau (jamais de coupe). emphase : traitement stade. Bornes « familles/paris » corrigées par le Chef de régie d'après la transcription Scribe (le brief inversait les deux et débordait sur le silence entre prises). V9.3 : ouverture « Mais ce soir… le salon… se transforme… EN ARÈNE ! » (L02, bornes à revérifier aux creux), familles en 3 phrases entières (coupées aux respirations, jamais dans un mot). V9.4 : ouverture sur le refrain du Mal Aimé (« Mais ce soir… le salon… se transforme… EEENNN… ARÈNE ! », voyelle tenue sans blanc) ; rush des générations (5 répliques à générer voix_off/rush_*.mp3, bornes None = fichier entier rogné aux silences).",
  "pieces": [
   {
@@ -13,26 +13,26 @@
      1.21
     ]
    ],
-   "t_film": 5.4,
+   "t_film": 4.9,
    "emphase": false,
    "atempo_max": 1.0,
    "fondu": 0.025
   },
   {
    "id": "salon_arene",
-   "texte": "…le salon se transforme… en ARÈNE !",
+   "texte": "…ce soir… le salon se transforme… en ARÈNE !",
    "morceaux": [
     [
      "voix_off/ouverture_L02.mp3",
-     1.12,
+     0.25,
      4.2
     ]
    ],
-   "t_film": 7.2,
+   "t_film": 6.3,
    "emphase": true,
    "atempo_max": 1.0,
    "fondu": 0.025,
-   "note": "UNE prise d'une traite (L02 1,12 → 4,20) ; l'attaque de « ARÈNE » (3,12 dans L02) tombe à 9,2 = apparition de l'arène ; emphase stade sur ARÈNE seulement"
+   "note": "UNE prise d'une traite (L02 0,25 → 4,20, « Mais » retiré : coupe juste avant le /s/ de « ce ») ; attaque de « ARÈNE » à 9,2 ; emphase stade sur ARÈNE seulement"
   },
   {
    "id": "arene",
